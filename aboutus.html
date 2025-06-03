@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Canadian Fitness Repair</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --theme-color: #5D5DFF;
+            --accent-color: #FF6B6B;
+            --bg-color: #151719;
+            --card-bg: #1E2023;
+            --text-color: #fff;
+            --light-text: #E0E0E0;
+            --font-family: "Roboto", sans-serif;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid rgba(155, 169, 180, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #contactlist {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--theme-color);
+            padding: 10px 5%;
+        }
+
+        .links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            color: var(--bg-color);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .leftheaderlinks ul.links li a {
+            color: var(--text-color);
+        }
+
+        .leftheaderlinks ul.links li a:hover {
+            color: var(--bg-color);
+            transform: scale(1.05);
+        }
+
+        .rightheaderlinks ul.links li a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: var(--text-color);
+            color: var(--theme-color);
+        }
+
+        .rightheaderlinks ul.links li a:hover {
+            background-color: var(--theme-color);
+            color: var(--text-color);
+            transform: scale(1.15);
+        }
+
+        /* Main Navigation */
+        #navbottom {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            position: relative;
+            background-color: var(--bg-color);
+        }
+
+        #navlogo img {
+            height: 50px;
+            transition: var(--transition);
+        }
+
+        #navlogo img:hover {
+            transform: scale(1.05);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            transition: var(--transition);
+        }
+
+        .hamburger:hover {
+            color: var(--theme-color);
+        }
+
+        .navbar {
+            display: flex;
+        }
+
+        .navbarList {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .navbarList a {
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .navbarList a:hover {
+            background-color: rgba(93, 93, 255, 0.2);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle-icon i {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--theme-color);
+            min-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            z-index: 1000;
+            padding: 0;
+        }
+
+        .dropdown-content li {
+            padding: 0;
+        }
+
+        .dropdown-content li a {
+            padding: 12px 20px;
+            width: 100%;
+            display: block;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 0;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Desktop hover behavior */
+        .dropdown:hover .dropdown-content {
+            max-height: 500px;
+            padding: 10px 0;
+        }
+
+        .dropdown:hover .dropdown-toggle-icon i {
+            transform: rotate(180deg);
+        }
+
+        /* Quote button */
+        .c-button {
+            appearance: none;
+            cursor: pointer;
+            text-align: center;
+            letter-spacing: .057em;
+            text-transform: uppercase;
+            background-color: var(--theme-color);
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.8rem 1.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .c-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--accent-color);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .c-button:hover {
+            color: var(--text-color);
+            border: 1px solid var(--theme-color);
+        }
+
+        .c-button:hover::before {
+            width: 100%;
+        }
+
+        .c-button-nav {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* About Us Hero Section */
+        .about-hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+            color: #5D5DFF;
+            position: relative;
+        }
+
+        .about-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(transparent, var(--bg-color));
+        }
+
+        .about-hero h1 {
+            font-size: clamp(3rem, 5vw, 5rem);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.5;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .about-hero p {
+            font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+            max-width: 800px;
+            margin-bottom: 2rem;
+            color: var(--light-text);
+        }
+
+        /* About Content */
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--theme-color);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .about-story {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 5rem;
+            flex-wrap: wrap;
+        }
+
+        .about-story-img {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .about-story-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-story-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-story-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-story-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .about-story-text p {
+            margin-bottom: 1.5rem;
+            color: var(--light-text);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Why Choose Us */
+        .why-choose-us {
+            margin-bottom: 5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(93, 93, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2);
+        }
+
+        .feature-card:hover::before {
+            height: 100%;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--theme-color);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            color: var(--accent-color);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--light-text);
+        }
+
+        /* Team Section */
+        .team-section {
+            margin-bottom: 5rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(93, 93, 255, 0.2);
+        }
+
+        .team-img {
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .team-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-member:hover .team-img img {
+            transform: scale(1.1);
+        }
+
+        .team-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .team-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-info .position {
+            color: var(--theme-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .team-info p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .team-socials a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--theme-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .team-socials a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Service Area */
+        .service-area {
+            margin-bottom: 5rem;
+        }
+
+        .service-area-map {
+            height: 400px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(93, 93, 255, 0.2), rgba(255, 107, 107, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .map-overlay h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .map-overlay p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--light-text);
+        }
+
+        .cities-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .city-pill {
+            background: var(--theme-color);
+            color: var(--text-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 4rem 2rem;
+            background-color: var(--card-bg);
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--theme-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--light-text);
+        }
+
+        /* Call to Action */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 5rem;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+
+        .cta h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer Styles */
+        footer {
+            width: 100%;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 5%;
+            margin-top: auto;
+            border-top: 1px solid rgba(93, 93, 255, 0.1);
+        }
+
+        .footertop {
+            display: flex;
+            justify-content: center;
+            gap: 10rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .footertop-left, .footertop-right {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .footertop-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .footer-company-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--theme-color);
+        }
+
+        .footer-tagline {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footertop p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-contact h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+        }
+
+        .footer-contact i {
+            color: var(--theme-color);
+        }
+
+        .footerbottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .footerlinks ul.links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .footerlinks ul.links li a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 2.5em;
+            height: 2.5em;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .footerlinks ul.links li a:hover {
+            background-color: var(--theme-color);
+            color: var(--text-color);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Styles - Mobile Menu */
+        @media (max-width: 1024px) {
+            .footertop {
+                gap: 5rem;
+            }
+            
+            .navbarList {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-hero h1 {
+                font-size: 3rem;
+            }
+            
+            .about-hero p {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #contactlist {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 15px 5%;
+            }
+
+            .leftheaderlinks ul.links, .rightheaderlinks ul.links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            #navbottom {
+                flex-wrap: wrap;
+                padding: 15px;
+                min-height: 80px;
+            }
+
+            .hamburger {
+                display: block;
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .navbarList {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 300px;
+                height: 100vh;
+                background-color: var(--bg-color);
+                padding: 100px 20px 20px;
+                gap: 1rem;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+                z-index: 999;
+                overflow-y: auto;
+                transform: translateX(100%);
+                transition: transform 0.4s ease;
+            }
+
+            .navbarList.open {
+                display: flex;
+                transform: translateX(0);
+            }
+
+            .hamburger .close-icon {
+                display: none;
+            }
+
+            .hamburger .menu-icon {
+                display: block;
+            }
+
+            .navbarList.open ~ .hamburger .close-icon {
+                display: block;
+            }
+
+            .navbarList.open ~ .hamburger .menu-icon {
+                display: none;
+            }
+
+            .dropdown-content {
+                position: static;
+                min-width: 100%;
+                box-shadow: none;
+                background-color: rgba(93, 93, 255, 0.2);
+                margin-top: 5px;
+            }
+
+            #quote {
+                width: 100%;
+                margin-top: 20px;
+                order: 3;
+                text-align: center;
+            }
+
+            .c-button-nav {
+                width: auto;
+                padding: 0.8rem 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            .footertop {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footerbottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .about-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .about-content, .cta {
+                padding: 3rem 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-story {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-hero {
+                padding: 3rem 1rem;
+            }
+            
+            .about-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .feature-card, .team-member {
+                padding: 1.5rem;
+            }
+            
+            .hamburger {
+                top: 70px;
+            }
+            
+            .stat-item {
+                min-width: 140px;
+            }
+            
+            .navbarList {
+                width: 80%;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dropdown:hover .dropdown-toggle-icon i {
+                transform: rotate(180deg);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .dropdown.active .dropdown-toggle-icon i {
+                transform: rotate(180deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav">
+            <div id="contactlist">
+                <div id="leftcontactlist" class="leftheaderlinks">
+                    <ul class="links leftlinks">
+                        <li><a href="tel:+12899257239"><i class="ri-customer-service-line"></i>+1 289 925 7239</a></li>
+                        <li><a href="mailto:service@canadianfitnessrepair.com"><i class="ri-mail-line"></i>service@canadianfitnessrepair.com</a></li>
+                    </ul>
+                </div>
+                <div id="rightcontactlist" class="rightheaderlinks">
+                    <ul class="links rightlinks">
+                        <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                        <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                        <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                        <li><a href="#"><i class="ri-youtube-line"></i></a></li>
+                        <li><a href="#"><i class="ri-map-pin-line"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="navbottom">
+                <div id="navlogo">
+                    <a href="#"><img src="https://via.placeholder.com/150x50?text=CFR" alt="Canadian Fitness Repair Logo" style="cursor: pointer;"></a>
+                </div>
+                <div class="navbar">
+                    <ul class="navbarList" id="navbarList">
+                        <li><a href="#"><i class="ri-home-5-line"></i> HOME</a></li>
+                        <li class="dropdown active">
+                            <a href="#">
+                                <i class="ri-information-line"></i> ABOUT US
+                                <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
+                            </a>
+                            <ul class="dropdown-content">
+                                <li><a href="">About</a></li>
+                                <li><a href="">Pricing</a></li>
+                                <li><a href="">Privacy Policy</a></li>
+                                <li><a href="">Terms & Conditions</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <i class="ri-customer-service-line"></i> SERVICES
+                                <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
+                            </a>
+                            <ul class="dropdown-content">
+                                <li><a href="">Preventative Maintenance</a></li>
+                                <li><a href="">Inspection</a></li>
+                                <li><a href="">Repairs & Tune-ups</a></li>
+                                <li><a href="">Relocation & Assembly</a></li>
+                                <li><a href="">Commerical & Residential</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="ri-image-line"></i> GALLERY</a></li>
+                        <li><a href="#"><i class="ri-contacts-line"></i> CONTACT</a></li>
+                        <li><a href="#"><i class="ri-star-line"></i> REVIEWS</a></li>
+                    </ul>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <i class="ri-menu-line menu-icon"></i>
+                    <i class="ri-close-line close-icon"></i>
+                </button>
+                <div id="quote">
+                    <a class="c-button c-button-nav">Get Quote</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- About Us Hero -->
+        <section class="about-hero">
+            <h1>About Canadian Fitness Repair</h1>
+            <p>Your trusted partner for fitness equipment repair and maintenance</p>
+            <a class="c-button" style="margin-top: 20px;">
+                Schedule Service Today
+            </a>
+        </section>
+        
+        <!-- Our Story -->
+        <div class="about-content">
+            <section class="about-story">
+                <div class="about-story-img">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Fitness Equipment Repair">
+                </div>
+                <div class="about-story-text">
+                    <h3>Our Journey Since 2018</h3>
+                    <p>Founded in 2018, Canadian Fitness Repair was born out of a passion for fitness and a commitment to excellence. Our founder, a certified technician with over 15 years of experience in the fitness industry, recognized a gap in the market for reliable, expert repair services for both commercial and residential fitness equipment.</p>
+                    <p>What started as a one-man operation has grown into a team of highly skilled technicians serving the Greater Toronto Area and beyond. We've expanded our services while maintaining our core values of integrity, expertise, and customer-first service.</p>
+                    <p>Today, we're proud to be GTA's premier fitness equipment repair service, trusted by gym owners, fitness centers, and home users alike. Our journey continues as we innovate and expand our services to meet the evolving needs of the fitness community.</p>
+                </div>
+            </section>
+            
+            <!-- Why Choose Us -->
+            <section class="why-choose-us">
+                <h2 class="section-title">Why Choose Us</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-certificate-line"></i>
+                        </div>
+                        <h3>Certified Technicians</h3>
+                        <p>Our technicians are factory-certified by leading manufacturers and undergo continuous training to stay current with the latest technologies.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-tools-line"></i>
+                        </div>
+                        <h3>Quality Repairs</h3>
+                        <p>We use only OEM (Original Equipment Manufacturer) parts to ensure your equipment performs like new after every repair.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-24-hours-line"></i>
+                        </div>
+                        <h3>24/7 Emergency Service</h3>
+                        <p>When your equipment fails unexpectedly, we offer emergency repair services to minimize downtime for your business or workout routine.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-money-dollar-circle-line"></i>
+                        </div>
+                        <h3>Transparent Pricing</h3>
+                        <p>No hidden fees or surprise charges. We provide upfront quotes and stand by our pricing for all services.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-calendar-check-line"></i>
+                        </div>
+                        <h3>Same-Day Service</h3>
+                        <p>90% of our service calls are completed on the same day, minimizing disruption to your fitness routine or business operations.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-shield-check-line"></i>
+                        </div>
+                        <h3>Warranty Guaranteed</h3>
+                        <p>All repairs come with a comprehensive warranty covering both parts and labor for your peace of mind.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Our Team -->
+            <section class="team-section">
+                <h2 class="section-title">Meet Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-img">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80" alt="Michael Johnson">
+                        </div>
+                        <div class="team-info">
+                            <h3>Michael Johnson</h3>
+                            <span class="position">Founder & Lead Technician</span>
+                            <p>With over 15 years of experience, Michael specializes in complex commercial equipment repairs.</p>
+                            <div class="team-socials">
+                                <a href="#"><i class="ri-linkedin-line"></i></a>
+                                <a href="#"><i class="ri-twitter-x-line"></i></a>
+                                <a href="#"><i class="ri-mail-line"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-img">
+                            <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80" alt="Sarah Thompson">
+                        </div>
+                        <div class="team-info">
+                            <h3>Sarah Thompson</h3>
+                            <span class="position">Service Manager</span>
+                            <p>Sarah ensures every client receives exceptional service and coordinates our technician team.</p>
+                            <div class="team-socials">
+                                <a href="#"><i class="ri-linkedin-line"></i></a>
+                                <a href="#"><i class="ri-twitter-x-line"></i></a>
+                                <a href="#"><i class="ri-mail-line"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-img">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80" alt="David Chen">
+                        </div>
+                        <div class="team-info">
+                            <h3>David Chen</h3>
+                            <span class="position">Senior Technician</span>
+                            <p>David is certified in all major fitness equipment brands and specializes in preventative maintenance.</p>
+                            <div class="team-socials">
+                                <a href="#"><i class="ri-linkedin-line"></i></a>
+                                <a href="#"><i class="ri-twitter-x-line"></i></a>
+                                <a href="#"><i class="ri-mail-line"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-img">
+                            <img src="https://images.unsplash.com/photo-1590086782792-42dd2350140d?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80" alt="Alex Rodriguez">
+                        </div>
+                        <div class="team-info">
+                            <h3>Alex Rodriguez</h3>
+                            <span class="position">Relocation Specialist</span>
+                            <p>Alex leads our relocation team, ensuring safe transport and setup of fitness equipment.</p>
+                            <div class="team-socials">
+                                <a href="#"><i class="ri-linkedin-line"></i></a>
+                                <a href="#"><i class="ri-twitter-x-line"></i></a>
+                                <a href="#"><i class="ri-mail-line"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Service Area -->
+            <section class="service-area">
+                <h2 class="section-title">Our Service Area</h2>
+                <div class="service-area-map">
+                    <div class="map-overlay">
+                        <div>
+                            <h3>Serving Greater Toronto Area</h3>
+                            <p>We proudly serve residential and commercial clients throughout the GTA and surrounding areas with same-day service available in most locations.</p>
+                            <div class="cities-list">
+                                <span class="city-pill">Toronto</span>
+                                <span class="city-pill">Mississauga</span>
+                                <span class="city-pill">Brampton</span>
+                                <span class="city-pill">Oakville</span>
+                                <span class="city-pill">Burlington</span>
+                                <span class="city-pill">Hamilton</span>
+                                <span class="city-pill">Vaughan</span>
+                                <span class="city-pill">Markham</span>
+                                <span class="city-pill">Richmond Hill</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Stats Section -->
+            <section class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="1500">0</div>
+                    <div class="stat-label">Repairs Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="98">0</div>
+                    <div class="stat-label">Satisfaction Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="12">0</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Call to Action -->
+        <section class="cta">
+            <h2>Ready to Get Your Equipment Back in Shape?</h2>
+            <p>Contact us today for a free consultation and quote. Our expert technicians are ready to help!</p>
+            <a class="c-button" style="margin-top: 20px;">
+                <i class="ri-phone-line"></i> Call Now: +1 289 925 7239
+            </a>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footertop">
+            <div class="footertop-left">
+                <div class="footer-company-name">Canadian Fitness Repair</div>
+                <div class="footer-tagline">Your Safety, Our Commitment</div>
+                <p>
+                    At Canadian Fitness Repair, we are dedicated to delivering exceptional service with your safety as our top priority. Our team is committed to ensuring your fitness equipment operates safely and reliably, giving you peace of mind with every use. We proudly serve both residential and commercial clients throughout Greater Toronto Area, ON, Canada — providing dependable repairs, tune-ups, and ongoing support with a focus on customer satisfaction.
+                </p>
+            </div>
+            <div class="footertop-right">
+                <div class="footer-contact">
+                    <h2><i class="ri-map-pin-line"></i> Location</h2>
+                    <p>22 Canary grass blvd, Hannon, ON, L0R 1P0, Canada</p>
+                </div>
+                <div class="footer-contact">
+                    <h2><i class="ri-contacts-book-line"></i> Contact us</h2>
+                    <p>Phone: +1 289 925 7239</p>
+                    <p>Email: service@canadianfitnessrepair.com</p>
+                </div>
+                <div class="footer-contact">
+                    <h2><i class="ri-time-line"></i> Business Hours</h2>
+                    <p>Monday-Friday: 8:00 AM - 6:00 PM</p>
+                    <p>Saturday: 9:00 AM - 4:00 PM</p>
+                    <p>Sunday: Closed</p>
+                </div>
+            </div>
+        </div>
+        <div class="footerbottom">
+            <div class="copyright">
+                <p>Copyright © 2025. All rights reserved by Canadian Fitness Repair</p>
+            </div>
+            <div class="footerlinks">
+                <ul class="links rightlinks">
+                    <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                    <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                    <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                    <li><a href="#"><i class="ri-youtube-line"></i></a></li>
+                    <li><a href="#"><i class="ri-linkedin-line"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu functionality
+            const hamburger = document.getElementById('hamburger');
+            const navbarList = document.getElementById('navbarList');
+            const dropdowns = document.querySelectorAll('.dropdown');
+            const menuIcon = hamburger.querySelector('.menu-icon');
+            const closeIcon = hamburger.querySelector('.close-icon');
+
+            // Toggle mobile menu
+            hamburger.addEventListener('click', () => {
+                navbarList.classList.toggle('open');
+                
+                // Toggle visibility of icons
+                menuIcon.style.display = navbarList.classList.contains('open') ? 'none' : 'block';
+                closeIcon.style.display = navbarList.classList.contains('open') ? 'block' : 'none';
+            });
+
+            // Dropdown toggle for mobile
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', function (e) {
+                    // Only activate on small screens
+                    if (window.innerWidth <= 767) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Close other dropdowns
+                        dropdowns.forEach(d => {
+                            if (d !== dropdown) {
+                                d.classList.remove('active');
+                                const otherContent = d.querySelector('.dropdown-content');
+                                otherContent.style.maxHeight = null;
+                                otherContent.style.padding = '0';
+                            }
+                        });
+
+                        // Toggle the clicked dropdown
+                        dropdown.classList.toggle('active');
+
+                        const content = dropdown.querySelector('.dropdown-content');
+                        if (dropdown.classList.contains('active')) {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            content.style.padding = '10px 0';
+                        } else {
+                            content.style.maxHeight = null;
+                            content.style.padding = '0';
+                        }
+                    }
+                });
+            });
+
+            // Close menu when clicking outside (mobile)
+            document.addEventListener('click', function (e) {
+                if (!navbarList.contains(e.target) && !hamburger.contains(e.target)) {
+                    navbarList.classList.remove('open');
+                    dropdowns.forEach(d => {
+                        d.classList.remove('active');
+                        const content = d.querySelector('.dropdown-content');
+                        if (content) {
+                            content.style.maxHeight = null;
+                            content.style.padding = '0';
+                        }
+                    });
+                    
+                    // Reset hamburger icons
+                    menuIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                }
+            });
+
+            // Reset dropdown styles on resize (for responsiveness)
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 767) {
+                    dropdowns.forEach(d => {
+                        d.classList.remove('active');
+                        const content = d.querySelector('.dropdown-content');
+                        if (content) {
+                            content.style.maxHeight = null;
+                            content.style.padding = '';
+                        }
+                    });
+                    navbarList.classList.remove('open');
+                    
+                    // Reset hamburger icons
+                    menuIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                }
+            });
+            
+            // Stats counter animation
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const options = {
+                threshold: 0.5
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const count = parseInt(target.getAttribute('data-count'));
+                        const duration = 2000;
+                        const increment = count / (duration / 16);
+                        let current = 0;
+                        
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= count) {
+                                clearInterval(timer);
+                                target.textContent = count + (target.getAttribute('data-count') === '98' ? '%' : '+');
+                            } else {
+                                target.textContent = Math.floor(current) + (target.getAttribute('data-count') === '98' ? '%' : '+');
+                            }
+                        }, 16);
+                        
+                        observer.unobserve(target);
+                    }
+                });
+            }, options);
+            
+            statNumbers.forEach(number => {
+                observer.observe(number);
+            });
+        });
+    </script>
+        <script>
+        // ====== WhatsApp Widget ======
+        // This is the complete widget code that you can copy to all pages
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get widget elements
+            const widget = document.getElementById('whatsappWidget');
+            const floatingBtn = document.getElementById('floatingBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            const chatContent = document.getElementById('chatContent');
+            
+            // Configure your WhatsApp number
+            const phoneNumber = "14161234567"; // Format: country code + number
+            
+            // Auto-open widget on page load
+            setTimeout(() => {
+                widget.classList.add('open');
+            }, 2000);
+            
+            // Close widget
+            closeBtn.addEventListener('click', () => {
+                widget.classList.remove('open');
+                floatingBtn.style.display = 'flex';
+            });
+            
+            // Open widget from floating button
+            floatingBtn.addEventListener('click', () => {
+                widget.classList.add('open');
+                floatingBtn.style.display = 'none';
+            });
+            
+            // Open WhatsApp chat
+            whatsappBtn.addEventListener('click', () => {
+                const message = "Hi Canadian Fitness Repair! I visited your website and need assistance with my fitness equipment.";
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                // Add sent message to chat
+                const userMsgElement = document.createElement('div');
+                userMsgElement.classList.add('message', 'sent');
+                userMsgElement.textContent = message;
+                chatContent.appendChild(userMsgElement);
+                
+                // Add auto-reply
+                setTimeout(() => {
+                    const replyElement = document.createElement('div');
+                    replyElement.classList.add('message', 'received');
+                    replyElement.textContent = "Thanks for your message! We've opened WhatsApp for you to continue the conversation.";
+                    chatContent.appendChild(replyElement);
+                    chatContent.scrollTop = chatContent.scrollHeight;
+                }, 800);
+                
+                // Scroll to bottom
+                chatContent.scrollTop = chatContent.scrollHeight;
+            });
+        });
+        
+        // ====== End of WhatsApp Widget ======
+    </script>
+</body>
+</html>

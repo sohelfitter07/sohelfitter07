@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canadian Fitness Repair - FAQs</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --theme-color: #5D5DFF;
+            --accent-color: #FF6B6B;
+            --bg-color: #151719;
+            --card-bg: #1E2023;
+            --text-color: #fff;
+            --light-text: #E0E0E0;
+            --font-family: "Roboto", sans-serif;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid rgba(155, 169, 180, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #contactlist {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--theme-color);
+            padding: 10px 5%;
+        }
+
+        .links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            color: var(--bg-color);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .leftheaderlinks ul.links li a {
+            color: var(--text-color);
+        }
+
+        .leftheaderlinks ul.links li a:hover {
+            color: var(--bg-color);
+            transform: scale(1.05);
+        }
+
+        .rightheaderlinks ul.links li a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: var(--text-color);
+            color: var(--theme-color);
+        }
+
+        .rightheaderlinks ul.links li a:hover {
+            background-color: var(--theme-color);
+            color: var(--text-color);
+            transform: scale(1.15);
+        }
+
+        /* Main Navigation */
+        #navbottom {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            position: relative;
+            background-color: var(--bg-color);
+        }
+
+        #navlogo img {
+            height: 50px;
+            transition: var(--transition);
+        }
+
+        #navlogo img:hover {
+            transform: scale(1.05);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            transition: var(--transition);
+        }
+
+        .hamburger:hover {
+            color: var(--theme-color);
+        }
+
+        .navbar {
+            display: flex;
+        }
+
+        .navbarList {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .navbarList a {
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .navbarList a:hover {
+            background-color: rgba(93, 93, 255, 0.2);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle-icon i {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--theme-color);
+            min-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            z-index: 1000;
+            padding: 0;
+        }
+
+        .dropdown-content li {
+            padding: 0;
+        }
+
+        .dropdown-content li a {
+            padding: 12px 20px;
+            width: 100%;
+            display: block;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 0;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Desktop hover behavior */
+        .dropdown:hover .dropdown-content {
+            max-height: 500px;
+            padding: 10px 0;
+        }
+
+        .dropdown:hover .dropdown-toggle-icon i {
+            transform: rotate(180deg);
+        }
+
+        /* Quote button */
+        .c-button {
+            appearance: none;
+            cursor: pointer;
+            text-align: center;
+            letter-spacing: .057em;
+            text-transform: uppercase;
+            background-color: var(--theme-color);
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.8rem 1.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .c-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--accent-color);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .c-button:hover {
+            color: var(--text-color);
+            border: 1px solid var(--theme-color);
+        }
+
+        .c-button:hover::before {
+            width: 100%;
+        }
+
+        .c-button-nav {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 2rem;
+            background-color: var(--card-bg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--theme-color);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .faq-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--light-text);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg-color);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(93, 93, 255, 0.1);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: rgba(93, 93, 255, 0.3);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background-color: rgba(93, 93, 255, 0.1);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: rgba(93, 93, 255, 0.2);
+        }
+
+        .faq-question .icon {
+            transition: transform 0.3s ease;
+            color: var(--theme-color);
+        }
+
+        .faq-item.active .faq-question .icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--light-text);
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 1.5rem;
+        }
+
+        .faq-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+            justify-content: center;
+        }
+
+        .step-card {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            background: var(--bg-color);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(93, 93, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--theme-color);
+            box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--theme-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-card h3 {
+            margin-bottom: 1rem;
+            color: var(--theme-color);
+        }
+
+        .step-card p {
+            color: var(--light-text);
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--theme-color);
+        }
+
+        .cta-section p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: var(--light-text);
+            font-size: 1.1rem;
+        }
+
+        /* Footer Styles */
+        footer {
+            width: 100%;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 5%;
+            margin-top: auto;
+            border-top: 1px solid rgba(93, 93, 255, 0.1);
+        }
+
+        .footertop {
+            display: flex;
+            justify-content: center;
+            gap: 10rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .footertop-left, .footertop-right {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .footertop-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .footer-company-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--theme-color);
+        }
+
+        .footer-tagline {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footertop p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-contact h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+        }
+
+        .footer-contact i {
+            color: var(--theme-color);
+        }
+
+        .footerbottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .footerlinks ul.links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .footerlinks ul.links li a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 2.5em;
+            height: 2.5em;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .footerlinks ul.links li a:hover {
+            background-color: var(--theme-color);
+            color: var(--text-color);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .footertop {
+                gap: 5rem;
+            }
+            
+            .navbarList {
+                gap: 1rem;
+            }
+            
+            .faq-steps {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #contactlist {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 15px 5%;
+            }
+
+            .leftheaderlinks ul.links, .rightheaderlinks ul.links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            #navbottom {
+                flex-wrap: wrap;
+                padding: 15px;
+                min-height: 80px;
+            }
+
+            .hamburger {
+                display: block;
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .navbarList {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 300px;
+                height: 100vh;
+                background-color: var(--bg-color);
+                padding: 100px 20px 20px;
+                gap: 1rem;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+                z-index: 999;
+                overflow-y: auto;
+                transform: translateX(100%);
+                transition: transform 0.4s ease;
+            }
+
+            .navbarList.open {
+                display: flex;
+                transform: translateX(0);
+            }
+
+            .hamburger .close-icon {
+                display: none;
+            }
+
+            .hamburger .menu-icon {
+                display: block;
+            }
+
+            .navbarList.open ~ .hamburger .close-icon {
+                display: block;
+            }
+
+            .navbarList.open ~ .hamburger .menu-icon {
+                display: none;
+            }
+
+            .dropdown-content {
+                position: static;
+                min-width: 100%;
+                box-shadow: none;
+                background-color: rgba(93, 93, 255, 0.2);
+                margin-top: 5px;
+            }
+
+            #quote {
+                width: 100%;
+                margin-top: 20px;
+                order: 3;
+                text-align: center;
+            }
+
+            .c-button-nav {
+                width: auto;
+                padding: 0.8rem 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            .footertop {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footerbottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .faq-section {
+                padding: 3rem 1.5rem;
+            }
+            
+            .faq-question {
+                padding: 1.2rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hamburger {
+                top: 70px;
+            }
+            
+            .step-card {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav">
+            <div id="contactlist">
+                <div id="leftcontactlist" class="leftheaderlinks">
+                    <ul class="links leftlinks">
+                        <li><a href="tel:+12899257239"><i class="ri-customer-service-line"></i>+1 289 925 7239</a></li>
+                        <li><a href="mailto:service@canadianfitnessrepair.com"><i class="ri-mail-line"></i>service@canadianfitnessrepair.com</a></li>
+                    </ul>
+                </div>
+                <div id="rightcontactlist" class="rightheaderlinks">
+                    <ul class="links rightlinks">
+                        <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                        <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                        <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                        <li><a href="#"><i class="ri-youtube-line"></i></a></li>
+                        <li><a href="#"><i class="ri-map-pin-line"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="navbottom">
+                <div id="navlogo">
+                    <a href="#"><img src="https://via.placeholder.com/150x50?text=CFR" alt="Canadian Fitness Repair Logo" style="cursor: pointer;"></a>
+                </div>
+                <div class="navbar">
+                    <ul class="navbarList" id="navbarList">
+                        <li><a href="#"><i class="ri-home-5-line"></i> HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <i class="ri-information-line"></i> ABOUT US
+                                <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
+                            </a>
+                            <ul class="dropdown-content">
+                                <li><a href="">About</a></li>
+                                <li><a href="">Pricing</a></li>
+                                <li><a href="">Privacy Policy</a></li>
+                                <li><a href="">Terms & Conditions</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <i class="ri-customer-service-line"></i> SERVICES
+                                <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
+                            </a>
+                            <ul class="dropdown-content">
+                                <li><a href="">Preventative Maintenance</a></li>
+                                <li><a href="">Inspection</a></li>
+                                <li><a href="">Repairs & Tune-ups</a></li>
+                                <li><a href="">Relocation & Assembly</a></li>
+                                <li><a href="">Commerical & Residential</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="ri-image-line"></i> GALLERY</a></li>
+                        <li><a href="#"><i class="ri-contacts-line"></i> CONTACT</a></li>
+                        <li><a href="#"><i class="ri-question-line"></i> FAQ</a></li>
+                    </ul>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <i class="ri-menu-line menu-icon"></i>
+                    <i class="ri-close-line close-icon"></i>
+                </button>
+                <div id="quote">
+                    <a class="c-button c-button-nav">Get Quote</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- FAQ Section -->
+        <section class="faq-section">
+
+            <!-- Repair Process Steps -->
+            <h3 style="text-align: center; margin: 4rem 0 2rem; color: var(--theme-color);">Our Simple Repair Process</h3>
+            <div class="faq-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Contact Us</h3>
+                    <p>Reach out via phone, email, or our online form to describe your equipment issue.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Schedule Appointment</h3>
+                    <p>Choose a convenient time for our technician to visit your location.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Technician Visit</h3>
+                    <p>Our certified technician arrives, diagnoses the issue, and completes repairs.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Service Completion</h3>
+                    <p>Receive documentation and enjoy your fully functional equipment again.</p>
+                </div>
+            </div>
+            
+
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-intro">
+                <p>Find answers to common questions about our fitness equipment repair services. If you don't find what you're looking for, feel free to contact us directly.</p>
+            </div>
+            
+            <div class="faq-container">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does the repair service process work?</span>
+                        <i class="ri-arrow-down-s-line icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our repair process is simple and efficient:</p>
+                        <ol style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li>Contact us via phone, email, or our online form</li>
+                            <li>Describe your equipment issue</li>
+                            <li>Schedule an appointment at your convenience</li>
+                            <li>Our certified technician arrives at your location</li>
+                            <li>We diagnose and repair your equipment</li>
+                            <li>You receive a detailed service report</li>
+                        </ol>
+                        <p>Most repairs are completed in a single visit, with complex issues requiring follow-up clearly communicated.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What forms do I need to fill out before service?</span>
+                        <i class="ri-arrow-down-s-line icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>To streamline the process, we require:</p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>Service Request Form:</strong> Basic contact and equipment information</li>
+                            <li><strong>Equipment Details:</strong> Make, model, serial number, and issue description</li>
+                            <li><strong>Service Agreement:</strong> Outlining terms and conditions</li>
+                            <li><strong>Safety Waiver:</strong> For liability purposes during repair</li>
+                        </ul>
+                        <p>All forms can be completed online through our customer portal or in-person when the technician arrives.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I schedule an appointment?</span>
+                        <i class="ri-arrow-down-s-line icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can schedule an appointment through multiple channels:</p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>Online:</strong> Via our website's scheduling portal</li>
+                            <li><strong>Phone:</strong> Call us at +1 289 925 7239 during business hours</li>
+                            <li><strong>Email:</strong> Send your request to service@canadianfitnessrepair.com</li>
+                            <li><strong>Mobile App:</strong> Download our app for iOS or Android</li>
+                        </ul>
+                        <p>We offer same-day appointments for urgent repairs and next-day service for most requests.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What information do I need to provide when booking?</span>
+                        <i class="ri-arrow-down-s-line icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>To ensure efficient service, please have the following ready:</p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li>Equipment make and model</li>
+                            <li>Serial number (usually found on a label on the equipment)</li>
+                            <li>Detailed description of the issue</li>
+                            <li>Photos or videos of the problem (if possible)</li>
+                            <li>Your preferred appointment dates/times</li>
+                            <li>Service location (home, gym, or business address)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need to be present during the repair?</span>
+                        <i class="ri-arrow-down-s-line icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For residential services, we recommend that an adult be present during the technician's visit to:</p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li>Provide access to the equipment</li>
+                            <li>Answer any questions about the issue</li>
+                            <li>Approve any additional work needed</li>
+                            <li>Receive service documentation</li>
+                        </ul>
+                        <p>For commercial clients, we can work with your designated staff member or manager.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 6 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long do repairs typically take?</span>
+                        <i class="ri-arrow-down-s-line icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Repair times vary based on the issue:</p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>Minor repairs:</strong> 30-60 minutes (belt replacements, calibration)</li>
+                            <li><strong>Moderate repairs:</strong> 1-2 hours (motor issues, electronic components)</li>
+                            <li><strong>Major repairs:</strong> 2-4 hours (structural issues, complex electronic problems)</li>
+                            <li><strong>Preventative maintenance:</strong> 45-90 minutes per equipment piece</li>
+                        </ul>
+                        <p>Our technicians will provide an estimated timeframe after diagnosis.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 7 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What payment methods do you accept?</span>
+                        <i class="ri-arrow-down-s-line icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept various payment methods for your convenience:</p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li>Credit/Debit Cards (Visa, MasterCard, American Express)</li>
+                            <li>Electronic Transfer (e-Transfer)</li>
+                            <li>Cheque (for commercial accounts only)</li>
+                            <li>Cash</li>
+                        </ul>
+                        <p>Payment is due upon completion of service. Commercial clients may qualify for net-30 terms with approved credit.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 8 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer warranties on repairs?</span>
+                        <i class="ri-arrow-down-s-line icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we stand behind our work with comprehensive warranties:</p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>Labor Warranty:</strong> 90 days on all repairs</li>
+                            <li><strong>Parts Warranty:</strong> 1 year on manufacturer parts</li>
+                            <li><strong>Preventative Maintenance:</strong> 30-day service guarantee</li>
+                        </ul>
+                        <p>Warranty details are included in your service documentation and cover defects in parts or workmanship.</p>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h2>Ready to Schedule Your Repair?</h2>
+                <p>Contact us today to book an appointment with our certified fitness equipment technicians.</p>
+                <a href="#" class="c-button" style="margin: 0 10px;">
+                    <i class="ri-calendar-event-line"></i> Book Appointment
+                </a>
+                <a href="tel:+12899257239" class="c-button" style="background: var(--accent-color);">
+                    <i class="ri-phone-line"></i> Call Now
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footertop">
+            <div class="footertop-left">
+                <div class="footer-company-name">Canadian Fitness Repair</div>
+                <div class="footer-tagline">Your Safety, Our Commitment</div>
+                <p>
+                    At Canadian Fitness Repair, we are dedicated to delivering exceptional service with your safety as our top priority. Our team is committed to ensuring your fitness equipment operates safely and reliably, giving you peace of mind with every use. We proudly serve both residential and commercial clients throughout Greater Toronto Area, ON, Canada — providing dependable repairs, tune-ups, and ongoing support with a focus on customer satisfaction.
+                </p>
+            </div>
+            <div class="footertop-right">
+                <div class="footer-contact">
+                    <h2><i class="ri-map-pin-line"></i> Location</h2>
+                    <p>22 Canary grass blvd, Hannon, ON, L0R 1P0, Canada</p>
+                </div>
+                <div class="footer-contact">
+                    <h2><i class="ri-contacts-book-line"></i> Contact us</h2>
+                    <p>Phone: +1 289 925 7239</p>
+                    <p>Email: service@canadianfitnessrepair.com</p>
+                </div>
+                <div class="footer-contact">
+                    <h2><i class="ri-time-line"></i> Business Hours</h2>
+                    <p>Monday-Friday: 8:00 AM - 6:00 PM</p>
+                    <p>Saturday: 9:00 AM - 4:00 PM</p>
+                    <p>Sunday: Closed</p>
+                </div>
+            </div>
+        </div>
+        <div class="footerbottom">
+            <div class="copyright">
+                <p>Copyright © 2025. All rights reserved by Canadian Fitness Repair</p>
+            </div>
+            <div class="footerlinks">
+                <ul class="links rightlinks">
+                    <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                    <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                    <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                    <li><a href="#"><i class="ri-youtube-line"></i></a></li>
+                    <li><a href="#"><i class="ri-linkedin-line"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu functionality
+            const hamburger = document.getElementById('hamburger');
+            const navbarList = document.getElementById('navbarList');
+            const dropdowns = document.querySelectorAll('.dropdown');
+            const menuIcon = hamburger.querySelector('.menu-icon');
+            const closeIcon = hamburger.querySelector('.close-icon');
+
+            // Toggle mobile menu
+            hamburger.addEventListener('click', () => {
+                navbarList.classList.toggle('open');
+                
+                // Toggle visibility of icons
+                menuIcon.style.display = navbarList.classList.contains('open') ? 'none' : 'block';
+                closeIcon.style.display = navbarList.classList.contains('open') ? 'block' : 'none';
+            });
+
+            // Dropdown toggle for mobile
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', function (e) {
+                    // Only activate on small screens
+                    if (window.innerWidth <= 767) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Close other dropdowns
+                        dropdowns.forEach(d => {
+                            if (d !== dropdown) {
+                                d.classList.remove('active');
+                                const otherContent = d.querySelector('.dropdown-content');
+                                otherContent.style.maxHeight = null;
+                                otherContent.style.padding = '0';
+                            }
+                        });
+
+                        // Toggle the clicked dropdown
+                        dropdown.classList.toggle('active');
+
+                        const content = dropdown.querySelector('.dropdown-content');
+                        if (dropdown.classList.contains('active')) {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            content.style.padding = '10px 0';
+                        } else {
+                            content.style.maxHeight = null;
+                            content.style.padding = '0';
+                        }
+                    }
+                });
+            });
+
+            // Close menu when clicking outside (mobile)
+            document.addEventListener('click', function (e) {
+                if (!navbarList.contains(e.target) && !hamburger.contains(e.target)) {
+                    navbarList.classList.remove('open');
+                    dropdowns.forEach(d => {
+                        d.classList.remove('active');
+                        const content = d.querySelector('.dropdown-content');
+                        if (content) {
+                            content.style.maxHeight = null;
+                            content.style.padding = '0';
+                        }
+                    });
+                    
+                    // Reset hamburger icons
+                    menuIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                }
+            });
+
+            // Reset dropdown styles on resize (for responsiveness)
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 767) {
+                    dropdowns.forEach(d => {
+                        d.classList.remove('active');
+                        const content = d.querySelector('.dropdown-content');
+                        if (content) {
+                            content.style.maxHeight = null;
+                            content.style.padding = '';
+                        }
+                    });
+                    navbarList.classList.remove('open');
+                    
+                    // Reset hamburger icons
+                    menuIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                }
+            });
+            
+            // FAQ Accordion Functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all items
+                    faqItems.forEach(faq => {
+                        faq.classList.remove('active');
+                    });
+                    
+                    // Open clicked item if it wasn't active
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+        <script>
+        // ====== WhatsApp Widget ======
+        // This is the complete widget code that you can copy to all pages
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get widget elements
+            const widget = document.getElementById('whatsappWidget');
+            const floatingBtn = document.getElementById('floatingBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            const chatContent = document.getElementById('chatContent');
+            
+            // Configure your WhatsApp number
+            const phoneNumber = "14161234567"; // Format: country code + number
+            
+            // Auto-open widget on page load
+            setTimeout(() => {
+                widget.classList.add('open');
+            }, 2000);
+            
+            // Close widget
+            closeBtn.addEventListener('click', () => {
+                widget.classList.remove('open');
+                floatingBtn.style.display = 'flex';
+            });
+            
+            // Open widget from floating button
+            floatingBtn.addEventListener('click', () => {
+                widget.classList.add('open');
+                floatingBtn.style.display = 'none';
+            });
+            
+            // Open WhatsApp chat
+            whatsappBtn.addEventListener('click', () => {
+                const message = "Hi Canadian Fitness Repair! I visited your website and need assistance with my fitness equipment.";
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                // Add sent message to chat
+                const userMsgElement = document.createElement('div');
+                userMsgElement.classList.add('message', 'sent');
+                userMsgElement.textContent = message;
+                chatContent.appendChild(userMsgElement);
+                
+                // Add auto-reply
+                setTimeout(() => {
+                    const replyElement = document.createElement('div');
+                    replyElement.classList.add('message', 'received');
+                    replyElement.textContent = "Thanks for your message! We've opened WhatsApp for you to continue the conversation.";
+                    chatContent.appendChild(replyElement);
+                    chatContent.scrollTop = chatContent.scrollHeight;
+                }, 800);
+                
+                // Scroll to bottom
+                chatContent.scrollTop = chatContent.scrollHeight;
+            });
+        });
+        
+        // ====== End of WhatsApp Widget ======
+    </script>
+</body>
+</html>

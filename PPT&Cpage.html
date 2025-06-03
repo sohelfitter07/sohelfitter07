@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canadian Fitness Repair - Legal</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --theme-color: #5D5DFF;
+            --accent-color: #FF6B6B;
+            --bg-color: #151719;
+            --card-bg: #1E2023;
+            --text-color: #fff;
+            --light-text: #E0E0E0;
+            --font-family: "Roboto", sans-serif;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid rgba(155, 169, 180, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #contactlist {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--theme-color);
+            padding: 10px 5%;
+        }
+
+        .links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            color: var(--bg-color);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .leftheaderlinks ul.links li a {
+            color: var(--text-color);
+        }
+
+        .leftheaderlinks ul.links li a:hover {
+            color: var(--bg-color);
+            transform: scale(1.05);
+        }
+
+        .rightheaderlinks ul.links li a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: var(--text-color);
+            color: var(--theme-color);
+        }
+
+        .rightheaderlinks ul.links li a:hover {
+            background-color: var(--theme-color);
+            color: var(--text-color);
+            transform: scale(1.15);
+        }
+
+        /* Main Navigation */
+        #navbottom {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            position: relative;
+            background-color: var(--bg-color);
+        }
+
+        #navlogo img {
+            height: 50px;
+            transition: var(--transition);
+        }
+
+        #navlogo img:hover {
+            transform: scale(1.05);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            transition: var(--transition);
+        }
+
+        .hamburger:hover {
+            color: var(--theme-color);
+        }
+
+        .navbar {
+            display: flex;
+        }
+
+        .navbarList {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .navbarList a {
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .navbarList a:hover {
+            background-color: rgba(93, 93, 255, 0.2);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle-icon i {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--theme-color);
+            min-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            z-index: 1000;
+            padding: 0;
+        }
+
+        .dropdown-content li {
+            padding: 0;
+        }
+
+        .dropdown-content li a {
+            padding: 12px 20px;
+            width: 100%;
+            display: block;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 0;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Desktop hover behavior */
+        .dropdown:hover .dropdown-content {
+            max-height: 500px;
+            padding: 10px 0;
+        }
+
+        .dropdown:hover .dropdown-toggle-icon i {
+            transform: rotate(180deg);
+        }
+
+        /* Quote button */
+        .c-button {
+            appearance: none;
+            cursor: pointer;
+            text-align: center;
+            letter-spacing: .057em;
+            text-transform: uppercase;
+            background-color: var(--theme-color);
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.8rem 1.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .c-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--accent-color);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .c-button:hover {
+            color: var(--text-color);
+            border: 1px solid var(--theme-color);
+        }
+
+        .c-button:hover::before {
+            width: 100%;
+        }
+
+        .c-button-nav {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 80vh;
+            color: #5D5DFF;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(transparent, var(--bg-color));
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 5vw, 5rem);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.5;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+            max-width: 800px;
+            margin-bottom: 2rem;
+            color: var(--light-text);
+        }
+
+        .word-animation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            padding: 2rem 0;
+            height: 120px;
+            overflow: hidden;
+        }
+
+        #wordWrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 3s ease;
+            height: 120px;
+        }
+
+        .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            font-weight: bolder;
+            color: var(--accent-color);
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 4rem 2rem;
+            background-color: var(--card-bg);
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--theme-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--light-text);
+        }
+
+        /* Marquee Section */
+        .marquee-section {
+            background-color: var(--card-bg);
+            padding: 3rem 0;
+            overflow: hidden;
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: marquee 30s linear infinite;
+            min-width: 100%;
+        }
+
+        .marquee-track img {
+            height: 60px;
+            margin: 0 40px;
+            /* filter: grayscale(100%) brightness(200%); */
+            /* opacity: 0.7; */
+            transition: all 0.3s ease;
+        }
+
+        .marquee-track img:hover {
+            /* filter: grayscale(0) brightness(100%); */
+            /* opacity: 1; */
+            transform: scale(1.05);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .marquee-title {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--light-text);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Services Section */
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--theme-color);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .services {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(93, 93, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2);
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--theme-color);
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+            color: var(--accent-color);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--light-text);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 2rem;
+            background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.9)), url('https://images.unsplash.com/photo-1519505907962-0a6cb0167c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(21, 23, 25, 0.85);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(93, 93, 255, 0.1);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--theme-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-stars {
+            color: gold;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--light-text);
+        }
+
+        /* Call to Action */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+
+        .cta h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer Styles */
+        footer {
+            width: 100%;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 5%;
+            margin-top: auto;
+            border-top: 1px solid rgba(93, 93, 255, 0.1);
+        }
+
+        .footertop {
+            display: flex;
+            justify-content: center;
+            gap: 10rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .footertop-left, .footertop-right {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .footertop-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .footer-company-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--theme-color);
+        }
+
+        .footer-tagline {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footertop p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-contact h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+        }
+
+        .footer-contact i {
+            color: var(--theme-color);
+        }
+
+        .footerbottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .footerlinks ul.links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .footerlinks ul.links li a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 2.5em;
+            height: 2.5em;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .footerlinks ul.links li a:hover {
+            background-color: var(--theme-color);
+            color: var(--text-color);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Styles - Mobile Menu */
+        @media (max-width: 1024px) {
+            .footertop {
+                gap: 5rem;
+            }
+            
+            .navbarList {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            .word-item {
+                font-size: 4.5rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #contactlist {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 15px 5%;
+            }
+
+            .leftheaderlinks ul.links, .rightheaderlinks ul.links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            #navbottom {
+                flex-wrap: wrap;
+                padding: 15px;
+                min-height: 80px;
+            }
+
+            .hamburger {
+                display: block;
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .navbarList {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 300px;
+                height: 100vh;
+                background-color: var(--bg-color);
+                padding: 100px 20px 20px;
+                gap: 1rem;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+                z-index: 999;
+                overflow-y: auto;
+                transform: translateX(100%);
+                transition: transform 0.4s ease;
+            }
+
+            .navbarList.open {
+                display: flex;
+                transform: translateX(0);
+            }
+
+            .hamburger .close-icon {
+                display: none;
+            }
+
+            .hamburger .menu-icon {
+                display: block;
+            }
+
+            .navbarList.open ~ .hamburger .close-icon {
+                display: block;
+            }
+
+            .navbarList.open ~ .hamburger .menu-icon {
+                display: none;
+            }
+
+            .dropdown-content {
+                position: static;
+                min-width: 100%;
+                box-shadow: none;
+                background-color: rgba(93, 93, 255, 0.2);
+                margin-top: 5px;
+            }
+
+            #quote {
+                width: 100%;
+                margin-top: 20px;
+                order: 3;
+                text-align: center;
+            }
+
+            .c-button-nav {
+                width: auto;
+                padding: 0.8rem 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            .footertop {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footerbottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .services, .testimonials, .cta {
+                padding: 3rem 1.5rem;
+            }
+            
+            .services h2, .testimonials h2 {
+                font-size: 2rem;
+            }
+            
+            .marquee-track img {
+                height: 40px;
+                margin: 0 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .word-item {
+                font-size: 3rem;
+            }
+            
+            .service-card, .testimonial-card {
+                padding: 1.5rem;
+            }
+            
+            .hamburger {
+                top: 70px;
+            }
+            
+            .stat-item {
+                min-width: 140px;
+            }
+            
+            .marquee-track img {
+                height: 30px;
+                margin: 0 15px;
+            }
+            
+            .navbarList {
+                width: 80%;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dropdown:hover .dropdown-toggle-icon i {
+                transform: rotate(180deg);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .dropdown.active .dropdown-toggle-icon i {
+                transform: rotate(180deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (Same as provided) -->
+    <header>
+        <nav class="nav">
+            <div id="contactlist">
+                <div id="leftcontactlist" class="leftheaderlinks">
+                    <ul class="links leftlinks">
+                        <li><a href="tel:+12899257239"><i class="ri-customer-service-line"></i>+1 289 925 7239</a></li>
+                        <li><a href="mailto:service@canadianfitnessrepair.com"><i class="ri-mail-line"></i>service@canadianfitnessrepair.com</a></li>
+                    </ul>
+                </div>
+                <div id="rightcontactlist" class="rightheaderlinks">
+                    <ul class="links rightlinks">
+                        <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                        <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                        <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                        <li><a href="#"><i class="ri-youtube-line"></i></a></li>
+                        <li><a href="#"><i class="ri-map-pin-line"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="navbottom">
+                <div id="navlogo">
+                    <a href="#"><img src="https://via.placeholder.com/150x50?text=CFR" alt="Canadian Fitness Repair Logo" style="cursor: pointer;"></a>
+                </div>
+                <div class="navbar">
+                    <ul class="navbarList" id="navbarList">
+                        <li><a href="#"><i class="ri-home-5-line"></i> HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <i class="ri-information-line"></i> ABOUT US
+                                <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
+                            </a>
+                            <ul class="dropdown-content">
+                                <li><a href="">About</a></li>
+                                <li><a href="">Pricing</a></li>
+                                <li><a href="">Privacy Policy</a></li>
+                                <li><a href="">Terms & Conditions</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <i class="ri-customer-service-line"></i> SERVICES
+                                <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
+                            </a>
+                            <ul class="dropdown-content">
+                                <li><a href="">Preventative Maintenance</a></li>
+                                <li><a href="">Inspection</a></li>
+                                <li><a href="">Repairs & Tune-ups</a></li>
+                                <li><a href="">Relocation & Assembly</a></li>
+                                <li><a href="">Commerical & Residential</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="ri-image-line"></i> GALLERY</a></li>
+                        <li><a href="#"><i class="ri-contacts-line"></i> CONTACT</a></li>
+                        <li><a href="#"><i class="ri-star-line"></i> REVIEWS</a></li>
+                    </ul>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <i class="ri-menu-line menu-icon"></i>
+                    <i class="ri-close-line close-icon"></i>
+                </button>
+                <div id="quote">
+                    <a class="c-button c-button-nav">Get Quote</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- Legal Navigation -->
+        <section class="legal-nav">
+            <div class="container">
+                <h1>Legal Information</h1>
+                <div class="legal-tabs">
+                <button class="tab-btn active" data-tab="privacy-policy">Privacy Policy</button>
+                <button class="tab-btn" data-tab="terms-conditions">Terms & Conditions</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy Policy Section -->
+        <section id="privacy-policy" class="policy-section active">
+            <div class="container">
+                <div class="policy-header">
+                    <h2>Privacy Policy</h2>
+                    <p class="last-updated">Last Updated: June 3, 2025</p>
+                </div>
+                
+                <div class="policy-content">
+                    <div class="policy-section-card">
+                        <h3><i class="ri-shield-keyhole-line"></i> 1. Information We Collect</h3>
+                        <p>We collect personal information when you:</p>
+                        <ul>
+                            <li>Request services or schedule appointments</li>
+                            <li>Contact us via phone, email, or contact forms</li>
+                            <li>Make payments for services</li>
+                            <li>Subscribe to our newsletter</li>
+                        </ul>
+                        <p><strong>Types of data collected:</strong> Name, contact information, equipment details, payment information, service history.</p>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-database-line"></i> 2. How We Use Your Information</h3>
+                        <p>We use your personal information to:</p>
+                        <ul>
+                            <li>Provide repair and maintenance services</li>
+                            <li>Process payments and send invoices</li>
+                            <li>Communicate about appointments and service updates</li>
+                            <li>Improve our services and customer experience</li>
+                            <li>Send promotional offers (with your consent)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-share-line"></i> 3. Information Sharing</h3>
+                        <p>We do not sell your personal information. We may share data with:</p>
+                        <ul>
+                            <li>Payment processors to complete transactions</li>
+                            <li>Equipment manufacturers for warranty claims</li>
+                            <li>Service providers assisting our business operations</li>
+                            <li>Legal authorities when required by law</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-shield-check-line"></i> 4. Data Security</h3>
+                        <p>We implement security measures including:</p>
+                        <ul>
+                            <li>SSL encryption for all online transactions</li>
+                            <li>Secure storage of physical service records</li>
+                            <li>Limited employee access to sensitive data</li>
+                            <li>Regular security audits</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-user-settings-line"></i> 5. Your Rights</h3>
+                        <p>Under Canadian privacy laws (PIPEDA), you have the right to:</p>
+                        <ul>
+                            <li>Access your personal information we hold</li>
+                            <li>Request correction of inaccurate data</li>
+                            <li>Withdraw consent for marketing communications</li>
+                            <li>Request deletion of your data (subject to legal requirements)</li>
+                        </ul>
+                        <p>To exercise these rights, contact: privacy@canadianfitnessrepair.com</p>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-cookie-line"></i> 6. Cookies & Tracking</h3>
+                        <p>Our website uses cookies for:</p>
+                        <ul>
+                            <li>Essential site functionality</li>
+                            <li>Analytics to improve user experience</li>
+                            <li>Marketing campaigns (you can opt-out)</li>
+                        </ul>
+                        <p>You can manage cookie preferences through your browser settings.</p>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-question-line"></i> 7. Contact Us</h3>
+                        <p>For privacy concerns or questions:</p>
+                        <p>Email: privacy@canadianfitnessrepair.com<br>
+                        Phone: +1 289 925 7239<br>
+                        Mail: Privacy Officer, 22 Canary Grass Blvd, Hannon, ON L0R 1P0</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Terms & Conditions Section -->
+        <section id="terms-conditions" class="policy-section">
+            <div class="container">
+                <div class="policy-header">
+                    <h2>Terms & Conditions</h2>
+                    <p class="last-updated">Effective: June 3, 2025</p>
+                </div>
+                
+                <div class="policy-content">
+                    <div class="policy-section-card">
+                        <h3><i class="ri-file-list-2-line"></i> 1. Service Agreement</h3>
+                        <p>By scheduling services with Canadian Fitness Repair, you agree to:</p>
+                        <ul>
+                            <li>Provide accurate equipment information</li>
+                            <li>Grant safe access to equipment location</li>
+                            <li>Disclose any known safety hazards</li>
+                            <li>Make payment according to quoted terms</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-money-dollar-circle-line"></i> 2. Payment Terms</h3>
+                        <ul>
+                            <li>Payment due upon service completion unless otherwise agreed</li>
+                            <li>Commercial accounts: Net 30 terms available with credit approval</li>
+                            <li>Late payments subject to 1.5% monthly interest</li>
+                            <li>Returned checks: $50 fee plus bank charges</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-refund-2-line"></i> 3. Cancellation & Rescheduling</h3>
+                        <ul>
+                            <li>24-hour notice required for cancellations</li>
+                            <li>Same-day cancellations: 50% service fee applies</li>
+                            <li>No-shows: Full quoted service fee charged</li>
+                            <li>Rescheduling: Free with 24-hour notice</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-shield-flash-line"></i> 4. Warranty & Liability</h3>
+                        <ul>
+                            <li>Parts warranty: 90 days unless otherwise specified</li>
+                            <li>Labor warranty: 30 days on all repairs</li>
+                            <li>We are not liable for pre-existing conditions or unrelated failures</li>
+                            <li>Maximum liability limited to service fee paid</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-forbid-2-line"></i> 5. Prohibited Uses</h3>
+                        <p>You agree not to:</p>
+                        <ul>
+                            <li>Attempt repairs during service visits</li>
+                            <li>Use repaired equipment against manufacturer guidelines</li>
+                            <li>Resell our services without authorization</li>
+                            <li>Reverse engineer our repair processes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-scales-line"></i> 6. Governing Law</h3>
+                        <ul>
+                            <li>These terms governed by Ontario laws</li>
+                            <li>Disputes resolved in Hamilton, ON courts</li>
+                            <li>We comply with Ontario Consumer Protection Act</li>
+                            <li>Class action waivers apply</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-section-card">
+                        <h3><i class="ri-edit-line"></i> 7. Modifications</h3>
+                        <p>We may update these terms periodically. Continued use after changes constitutes acceptance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer (Same as provided) -->
+    <footer>
+        <div class="footertop">
+            <div class="footertop-left">
+                <div class="footer-company-name">Canadian Fitness Repair</div>
+                <div class="footer-tagline">Your Safety, Our Commitment</div>
+                <p>
+                    At Canadian Fitness Repair, we are dedicated to delivering exceptional service with your safety as our top priority. Our team is committed to ensuring your fitness equipment operates safely and reliably, giving you peace of mind with every use. We proudly serve both residential and commercial clients throughout Greater Toronto Area, ON, Canada — providing dependable repairs, tune-ups, and ongoing support with a focus on customer satisfaction.
+                </p>
+            </div>
+            <div class="footertop-right">
+                <div class="footer-contact">
+                    <h2><i class="ri-map-pin-line"></i> Location</h2>
+                    <p>22 Canary grass blvd, Hannon, ON, L0R 1P0, Canada</p>
+                </div>
+                <div class="footer-contact">
+                    <h2><i class="ri-contacts-book-line"></i> Contact us</h2>
+                    <p>Phone: +1 289 925 7239</p>
+                    <p>Email: service@canadianfitnessrepair.com</p>
+                </div>
+                <div class="footer-contact">
+                    <h2><i class="ri-time-line"></i> Business Hours</h2>
+                    <p>Monday-Friday: 8:00 AM - 6:00 PM</p>
+                    <p>Saturday: 9:00 AM - 4:00 PM</p>
+                    <p>Sunday: Closed</p>
+                </div>
+            </div>
+        </div>
+        <div class="footerbottom">
+            <div class="copyright">
+                <p>Copyright © 2025. All rights reserved by Canadian Fitness Repair</p>
+            </div>
+            <div class="footerlinks">
+                <ul class="links rightlinks">
+                    <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                    <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                    <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                    <li><a href="#"><i class="ri-youtube-line"></i></a></li>
+                    <li><a href="#"><i class="ri-linkedin-line"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    
+    <style>
+        /* Legal Page Specific Styles */
+        .legal-nav {
+            background: linear-gradient(135deg, #3a3aff, #5D5DFF);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: white;
+        }
+        
+        .legal-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+        
+        .tab-btn.active {
+            background: white;
+            color: #5D5DFF;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .policy-section {
+            display: none;
+            padding: 4rem 2rem;
+        }
+        
+        .policy-section.active {
+            display: block;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .policy-header h2 {
+            font-size: 2.5rem;
+            color: var(--theme-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .last-updated {
+            color: var(--light-text);
+            font-size: 1.1rem;
+        }
+        
+        .policy-content {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .policy-section-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border-left: 4px solid var(--theme-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .policy-section-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .policy-section-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+            font-size: 1.4rem;
+        }
+        
+        .policy-section-card p {
+            margin-bottom: 1rem;
+            color: var(--light-text);
+            line-height: 1.7;
+        }
+        
+        .policy-section-card ul {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .policy-section-card li {
+            margin-bottom: 0.8rem;
+            color: var(--light-text);
+            position: relative;
+        }
+        
+        .policy-section-card li:before {
+            content: "•";
+            color: var(--theme-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        @media (max-width: 767px) {
+            .policy-section {
+                padding: 2rem 1rem;
+            }
+            
+            .policy-header h2 {
+                font-size: 2rem;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const policySections = document.querySelectorAll('.policy-section');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons and sections
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    policySections.forEach(section => section.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    // Show corresponding section
+                    const tabName = btn.getAttribute('data-tab');
+                    document.getElementById(tabName).classList.add('active');
+                });
+            });
+            
+            // Automatically scroll to anchor if present in URL
+            const urlHash = window.location.hash;
+            if (urlHash) {
+                const targetSection = document.querySelector(urlHash);
+                if (targetSection) {
+                    setTimeout(() => {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }, 500);
+                }
+            }
+        });
+    </script>
+        <script>
+        // ====== WhatsApp Widget ======
+        // This is the complete widget code that you can copy to all pages
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get widget elements
+            const widget = document.getElementById('whatsappWidget');
+            const floatingBtn = document.getElementById('floatingBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            const chatContent = document.getElementById('chatContent');
+            
+            // Configure your WhatsApp number
+            const phoneNumber = "14161234567"; // Format: country code + number
+            
+            // Auto-open widget on page load
+            setTimeout(() => {
+                widget.classList.add('open');
+            }, 2000);
+            
+            // Close widget
+            closeBtn.addEventListener('click', () => {
+                widget.classList.remove('open');
+                floatingBtn.style.display = 'flex';
+            });
+            
+            // Open widget from floating button
+            floatingBtn.addEventListener('click', () => {
+                widget.classList.add('open');
+                floatingBtn.style.display = 'none';
+            });
+            
+            // Open WhatsApp chat
+            whatsappBtn.addEventListener('click', () => {
+                const message = "Hi Canadian Fitness Repair! I visited your website and need assistance with my fitness equipment.";
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                // Add sent message to chat
+                const userMsgElement = document.createElement('div');
+                userMsgElement.classList.add('message', 'sent');
+                userMsgElement.textContent = message;
+                chatContent.appendChild(userMsgElement);
+                
+                // Add auto-reply
+                setTimeout(() => {
+                    const replyElement = document.createElement('div');
+                    replyElement.classList.add('message', 'received');
+                    replyElement.textContent = "Thanks for your message! We've opened WhatsApp for you to continue the conversation.";
+                    chatContent.appendChild(replyElement);
+                    chatContent.scrollTop = chatContent.scrollHeight;
+                }, 800);
+                
+                // Scroll to bottom
+                chatContent.scrollTop = chatContent.scrollHeight;
+            });
+        });
+        
+        // ====== End of WhatsApp Widget ======
+    </script>
+</body>
+</html>

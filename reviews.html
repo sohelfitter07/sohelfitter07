@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canadian Fitness Repair - Customer Reviews</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --theme-color: #5D5DFF;
+            --accent-color: #FF6B6B;
+            --bg-color: #151719;
+            --card-bg: #1E2023;
+            --text-color: #fff;
+            --light-text: #E0E0E0;
+            --font-family: "Roboto", sans-serif;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header Styles - Same as before */
+        header {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid rgba(155, 169, 180, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #contactlist {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--theme-color);
+            padding: 10px 5%;
+        }
+
+        .links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            color: var(--bg-color);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .leftheaderlinks ul.links li a {
+            color: var(--text-color);
+        }
+
+        .leftheaderlinks ul.links li a:hover {
+            color: var(--bg-color);
+            transform: scale(1.05);
+        }
+
+        .rightheaderlinks ul.links li a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: var(--text-color);
+            color: var(--theme-color);
+        }
+
+        .rightheaderlinks ul.links li a:hover {
+            background-color: var(--theme-color);
+            color: var(--text-color);
+            transform: scale(1.15);
+        }
+
+        /* Main Navigation */
+        #navbottom {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            position: relative;
+            background-color: var(--bg-color);
+        }
+
+        #navlogo img {
+            height: 50px;
+            transition: var(--transition);
+        }
+
+        #navlogo img:hover {
+            transform: scale(1.05);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            transition: var(--transition);
+        }
+
+        .hamburger:hover {
+            color: var(--theme-color);
+        }
+
+        .navbar {
+            display: flex;
+        }
+
+        .navbarList {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .navbarList a {
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .navbarList a:hover {
+            background-color: rgba(93, 93, 255, 0.2);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle-icon i {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--theme-color);
+            min-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            z-index: 1000;
+            padding: 0;
+        }
+
+        .dropdown-content li {
+            padding: 0;
+        }
+
+        .dropdown-content li a {
+            padding: 12px 20px;
+            width: 100%;
+            display: block;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 0;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Desktop hover behavior */
+        .dropdown:hover .dropdown-content {
+            max-height: 500px;
+            padding: 10px 0;
+        }
+
+        .dropdown:hover .dropdown-toggle-icon i {
+            transform: rotate(180deg);
+        }
+
+        /* Quote button */
+        .c-button {
+            appearance: none;
+            cursor: pointer;
+            text-align: center;
+            letter-spacing: .057em;
+            text-transform: uppercase;
+            background-color: var(--theme-color);
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.8rem 1.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .c-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--accent-color);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .c-button:hover {
+            color: var(--text-color);
+            border: 1px solid var(--theme-color);
+        }
+
+        .c-button:hover::before {
+            width: 100%;
+        }
+
+        .c-button-nav {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            padding: 5rem 2rem;
+            background-color: var(--card-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--theme-color);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: var(--bg-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(93, 93, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2);
+        }
+
+        .review-card:hover::before {
+            height: 100%;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--theme-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .review-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .review-stars {
+            color: gold;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .review-service {
+            display: inline-block;
+            background: rgba(93, 93, 255, 0.2);
+            color: var(--theme-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .review-text {
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .review-date {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            opacity: 0.7;
+            text-align: right;
+        }
+
+        /* Footer Styles - Same as before */
+        footer {
+            width: 100%;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 5%;
+            margin-top: auto;
+            border-top: 1px solid rgba(93, 93, 255, 0.1);
+        }
+
+        .footertop {
+            display: flex;
+            justify-content: center;
+            gap: 10rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .footertop-left, .footertop-right {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .footertop-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .footer-company-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--theme-color);
+        }
+
+        .footer-tagline {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footertop p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-contact h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+        }
+
+        .footer-contact i {
+            color: var(--theme-color);
+        }
+
+        .footerbottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .footerlinks ul.links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .footerlinks ul.links li a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 2.5em;
+            height: 2.5em;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .footerlinks ul.links li a:hover {
+            background-color: var(--theme-color);
+            color: var(--text-color);
+            transform: translateY(-5px);
+        }
+/* New carousel styles */
+        .reviews-section {
+            padding: 5rem 2rem;
+            background-color: var(--card-bg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+    .reviews-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+        
+    .reviews-carousel {
+    display: flex;
+    gap: 2rem;
+    transition: transform 0.5s ease;
+    padding: 1rem;
+    scroll-behavior: smooth;
+}
+        
+      .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(93, 93, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+        
+.carousel-arrow:hover {
+    background: var(--accent-color);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow.left {
+    left: 10px;
+}
+
+.carousel-arrow.right {
+    right: 10px;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 10px;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(93, 93, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background: var(--theme-color);
+    transform: scale(1.2);
+}
+
+           
+      
+/* Card styling adjustments */
+.review-card {
+    flex: 0 0 calc(33.333% - 1.33rem); /* Three cards per view */
+    min-width: 300px;
+    transition: transform 0.3s ease;
+}
+        
+        /* Responsive adjustments */
+@media (max-width: 1024px) {
+    .review-card {
+        flex: 0 0 calc(50% - 1rem); /* Two cards per view */
+    }
+}
+
+@media (max-width: 767px) {
+    .review-card {
+        flex: 0 0 100%; /* One card per view */
+    }
+    
+    .carousel-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .carousel-arrow.left {
+        left: 5px;
+    }
+    
+    .carousel-arrow.right {
+        right: 5px;
+    }
+}
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .footertop {
+                gap: 5rem;
+            }
+            
+            .navbarList {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #contactlist {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 15px 5%;
+            }
+
+            .leftheaderlinks ul.links, .rightheaderlinks ul.links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            #navbottom {
+                flex-wrap: wrap;
+                padding: 15px;
+                min-height: 80px;
+            }
+
+            .hamburger {
+                display: block;
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .navbarList {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 300px;
+                height: 100vh;
+                background-color: var(--bg-color);
+                padding: 100px 20px 20px;
+                gap: 1rem;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+                z-index: 999;
+                overflow-y: auto;
+                transform: translateX(100%);
+                transition: transform 0.4s ease;
+            }
+
+            .navbarList.open {
+                display: flex;
+                transform: translateX(0);
+            }
+
+            .hamburger .close-icon {
+                display: none;
+            }
+
+            .hamburger .menu-icon {
+                display: block;
+            }
+
+            .navbarList.open ~ .hamburger .close-icon {
+                display: block;
+            }
+
+            .navbarList.open ~ .hamburger .menu-icon {
+                display: none;
+            }
+
+            .dropdown-content {
+                position: static;
+                min-width: 100%;
+                box-shadow: none;
+                background-color: rgba(93, 93, 255, 0.2);
+                margin-top: 5px;
+            }
+
+            #quote {
+                width: 100%;
+                margin-top: 20px;
+                order: 3;
+                text-align: center;
+            }
+
+            .c-button-nav {
+                width: auto;
+                padding: 0.8rem 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            .footertop {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footerbottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .reviews {
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .review-card {
+                padding: 1.5rem;
+            }
+            
+            .hamburger {
+                top: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav">
+            <div id="contactlist">
+                <div id="leftcontactlist" class="leftheaderlinks">
+                    <ul class="links leftlinks">
+                        <li><a href="tel:+12899257239"><i class="ri-customer-service-line"></i>+1 289 925 7239</a></li>
+                        <li><a href="mailto:service@canadianfitnessrepair.com"><i class="ri-mail-line"></i>service@canadianfitnessrepair.com</a></li>
+                    </ul>
+                </div>
+                <div id="rightcontactlist" class="rightheaderlinks">
+                    <ul class="links rightlinks">
+                        <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                        <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                        <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                        <li><a href="#"><i class="ri-youtube-line"></i></a></li>
+                        <li><a href="#"><i class="ri-map-pin-line"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="navbottom">
+                <div id="navlogo">
+                    <a href="#"><img src="https://via.placeholder.com/150x50?text=CFR" alt="Canadian Fitness Repair Logo" style="cursor: pointer;"></a>
+                </div>
+                <div class="navbar">
+                    <ul class="navbarList" id="navbarList">
+                        <li><a href="#"><i class="ri-home-5-line"></i> HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <i class="ri-information-line"></i> ABOUT US
+                                <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
+                            </a>
+                            <ul class="dropdown-content">
+                                <li><a href="">About</a></li>
+                                <li><a href="">Pricing</a></li>
+                                <li><a href="">Privacy Policy</a></li>
+                                <li><a href="">Terms & Conditions</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">
+                                <i class="ri-customer-service-line"></i> SERVICES
+                                <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
+                            </a>
+                            <ul class="dropdown-content">
+                                <li><a href="">Preventative Maintenance</a></li>
+                                <li><a href="">Inspection</a></li>
+                                <li><a href="">Repairs & Tune-ups</a></li>
+                                <li><a href="">Relocation & Assembly</a></li>
+                                <li><a href="">Commerical & Residential</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="ri-image-line"></i> GALLERY</a></li>
+                        <li><a href="#"><i class="ri-contacts-line"></i> CONTACT</a></li>
+                        <li><a href="#"><i class="ri-star-line"></i> REVIEWS</a></li>
+                    </ul>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <i class="ri-menu-line menu-icon"></i>
+                    <i class="ri-close-line close-icon"></i>
+                </button>
+                <div id="quote">
+                    <a class="c-button c-button-nav">Get Quote</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- Reviews Section -->
+        <section class="reviews-section">
+            <h2 class="section-title">Customer Reviews</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; color: var(--light-text);">
+                Hear what our satisfied customers have to say about our fitness equipment repair, relocation, and maintenance services
+            </p>
+            
+            <div class="reviews-container">
+                <button class="carousel-arrow left">
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+                
+                <div class="reviews-carousel" id="reviewsCarousel">
+                    <!-- Review Cards (same as before) -->
+                    <!-- Review Card 1 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Michael Johnson</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Treadmill Repair</div>
+                        <p class="review-text">"My treadmill stopped working just before my marathon training. Canadian Fitness Repair came within 24 hours and fixed it perfectly. The technician was knowledgeable and professional. Highly recommend!"</p>
+                        <div class="review-date">Jan 15, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 2 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Sarah Thompson</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Commercial Gym Maintenance</div>
+                        <p class="review-text">"Our commercial gym equipment was constantly breaking down until we hired CFR for regular maintenance. Now everything runs smoothly, and our members are much happier. Worth every penny!"</p>
+                        <div class="review-date">Feb 3, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 3 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>David Chen</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Equipment Relocation</div>
+                        <p class="review-text">"Moving our entire home gym was a daunting task, but CFR made it stress-free. They disassembled, transported, and reassembled everything perfectly. Professional and efficient service!"</p>
+                        <div class="review-date">Mar 10, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 4 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Emily Rodriguez</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Elliptical Repair</div>
+                        <p class="review-text">"My elliptical started making strange noises. CFR diagnosed and fixed the issue in under an hour! Their pricing is transparent and fair. Will definitely use them again for any fitness equipment issues."</p>
+                        <div class="review-date">Apr 5, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 5 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Robert Williams</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Residential Tune-up</div>
+                        <p class="review-text">"Annual maintenance for my home gym equipment was worth every dollar. My machines feel brand new again. The technician was thorough and even showed me some maintenance tips. Exceptional service!"</p>
+                        <div class="review-date">May 12, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 6 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Jennifer Kim</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Commercial Repair</div>
+                        <p class="review-text">"Our hotel gym had multiple broken machines. CFR fixed everything in one visit with genuine parts. Their commercial service package has saved us thousands in replacement costs. Highly professional!"</p>
+                        <div class="review-date">Jun 8, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 7 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Thomas Baker</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Weight Machine Repair</div>
+                        <p class="review-text">"The cable snapped on my weight machine. CFR had the exact replacement part and installed it perfectly. Quick response and fair pricing. Will be my go-to for all fitness equipment repairs."</p>
+                        <div class="review-date">Jul 19, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 8 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Lisa Anderson</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Residential Relocation</div>
+                        <p class="review-text">"Moving to a new house was stressful, but CFR handled my expensive fitness equipment with care. They disassembled and reassembled everything perfectly. Worth every penny for peace of mind."</p>
+                        <div class="review-date">Aug 3, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 9 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Mark Davis</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Commercial Maintenance</div>
+                        <p class="review-text">"As a gym owner, equipment downtime costs me money. CFR's preventative maintenance program keeps everything running smoothly. Their technicians are certified and always on time. Highly recommended!"</p>
+                        <div class="review-date">Sep 15, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 10 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Amanda Wilson</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Treadmill Repair</div>
+                        <p class="review-text">"My 5-year-old treadmill stopped working. CFR not only repaired it but upgraded some components. Now it runs better than when it was new! Excellent service and fair pricing."</p>
+                        <div class="review-date">Oct 2, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 11 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>James Taylor</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Residential Setup</div>
+                        <p class="review-text">"Bought a new elliptical online but couldn't assemble it. CFR came and set it up perfectly in under an hour. The technician even showed me how to maintain it. Fantastic service!"</p>
+                        <div class="review-date">Nov 7, 2024</div>
+                    </div>
+                    
+                    <!-- Review Card 12 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Patricia Moore</h4>
+                                <div class="review-stars">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-service">Commercial Repair & Relocation</div>
+                        <p class="review-text">"We moved our corporate fitness center to a new building. CFR handled everything - disassembly, transport, reassembly and calibration. Everything works perfectly. Amazing service!"</p>
+                        <div class="review-date">Dec 12, 2024</div>
+                    </div>
+                </div>
+                
+                <button class="carousel-arrow right">
+                    <i class="ri-arrow-right-s-line"></i>
+                </button>
+                
+                <div class="carousel-dots" id="carouselDots">
+                    <!-- Dots will be generated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footertop">
+            <div class="footertop-left">
+                <div class="footer-company-name">Canadian Fitness Repair</div>
+                <div class="footer-tagline">Your Safety, Our Commitment</div>
+                <p>
+                    At Canadian Fitness Repair, we are dedicated to delivering exceptional service with your safety as our top priority. Our team is committed to ensuring your fitness equipment operates safely and reliably, giving you peace of mind with every use. We proudly serve both residential and commercial clients throughout Greater Toronto Area, ON, Canada — providing dependable repairs, tune-ups, and ongoing support with a focus on customer satisfaction.
+                </p>
+            </div>
+            <div class="footertop-right">
+                <div class="footer-contact">
+                    <h2><i class="ri-map-pin-line"></i> Location</h2>
+                    <p>22 Canary grass blvd, Hannon, ON, L0R 1P0, Canada</p>
+                </div>
+                <div class="footer-contact">
+                    <h2><i class="ri-contacts-book-line"></i> Contact us</h2>
+                    <p>Phone: +1 289 925 7239</p>
+                    <p>Email: service@canadianfitnessrepair.com</p>
+                </div>
+                <div class="footer-contact">
+                    <h2><i class="ri-time-line"></i> Business Hours</h2>
+                    <p>Monday-Friday: 8:00 AM - 6:00 PM</p>
+                    <p>Saturday: 9:00 AM - 4:00 PM</p>
+                    <p>Sunday: Closed</p>
+                </div>
+            </div>
+        </div>
+        <div class="footerbottom">
+            <div class="copyright">
+                <p>Copyright © 2025. All rights reserved by Canadian Fitness Repair</p>
+            </div>
+            <div class="footerlinks">
+                <ul class="links rightlinks">
+                    <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                    <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                    <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                    <li><a href="#"><i class="ri-youtube-line"></i></a></li>
+                    <li><a href="#"><i class="ri-linkedin-line"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu functionality
+            const hamburger = document.getElementById('hamburger');
+            const navbarList = document.getElementById('navbarList');
+            const dropdowns = document.querySelectorAll('.dropdown');
+            const menuIcon = hamburger.querySelector('.menu-icon');
+            const closeIcon = hamburger.querySelector('.close-icon');
+
+            // Toggle mobile menu
+            hamburger.addEventListener('click', () => {
+                navbarList.classList.toggle('open');
+                
+                // Toggle visibility of icons
+                menuIcon.style.display = navbarList.classList.contains('open') ? 'none' : 'block';
+                closeIcon.style.display = navbarList.classList.contains('open') ? 'block' : 'none';
+            });
+
+            // Dropdown toggle for mobile
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', function (e) {
+                    // Only activate on small screens
+                    if (window.innerWidth <= 767) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Close other dropdowns
+                        dropdowns.forEach(d => {
+                            if (d !== dropdown) {
+                                d.classList.remove('active');
+                                const otherContent = d.querySelector('.dropdown-content');
+                                otherContent.style.maxHeight = null;
+                                otherContent.style.padding = '0';
+                            }
+                        });
+
+                        // Toggle the clicked dropdown
+                        dropdown.classList.toggle('active');
+
+                        const content = dropdown.querySelector('.dropdown-content');
+                        if (dropdown.classList.contains('active')) {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            content.style.padding = '10px 0';
+                        } else {
+                            content.style.maxHeight = null;
+                            content.style.padding = '0';
+                        }
+                    }
+                });
+            });
+
+            // Close menu when clicking outside (mobile)
+            document.addEventListener('click', function (e) {
+                if (!navbarList.contains(e.target) && !hamburger.contains(e.target)) {
+                    navbarList.classList.remove('open');
+                    dropdowns.forEach(d => {
+                        d.classList.remove('active');
+                        const content = d.querySelector('.dropdown-content');
+                        if (content) {
+                            content.style.maxHeight = null;
+                            content.style.padding = '0';
+                        }
+                    });
+                    
+                    // Reset hamburger icons
+                    menuIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                }
+            });
+
+            // Reset dropdown styles on resize (for responsiveness)
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 767) {
+                    dropdowns.forEach(d => {
+                        d.classList.remove('active');
+                        const content = d.querySelector('.dropdown-content');
+                        if (content) {
+                            content.style.maxHeight = null;
+                            content.style.padding = '';
+                        }
+                    });
+                    navbarList.classList.remove('open');
+                    
+                    // Reset hamburger icons
+                    menuIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                }
+            });
+        });
+    
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the carousel
+    const carousel = document.getElementById('reviewsCarousel');
+    const cards = carousel.querySelectorAll('.review-card');
+    const prevBtn = document.querySelector('.carousel-arrow.left');
+    const nextBtn = document.querySelector('.carousel-arrow.right');
+    const dotsContainer = document.getElementById('carouselDots');
+    
+    // Variables for carousel state
+    let currentIndex = 0;
+    let cardsPerView;
+    
+    function initCarousel() {
+        cardsPerView = getCardsPerView();
+        createDots();
+        updateCarousel();
+    }
+    
+    // Create navigation dots
+    function createDots() {
+        dotsContainer.innerHTML = '';
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+            if (i === currentIndex) dot.classList.add('active');
+            
+            dot.addEventListener('click', () => {
+                goToSlide(i);
+            });
+            
+            dotsContainer.appendChild(dot);
+        }
+    }
+    
+    // Determine how many cards to show based on screen size
+    function getCardsPerView() {
+        const containerWidth = document.querySelector('.reviews-container').offsetWidth;
+        const cardWidth = 300; // Minimum card width
+        const gap = 32; // Gap between cards
+        
+        if (containerWidth <= 767) return 1;
+        if (containerWidth <= 1024) return Math.floor(containerWidth / (cardWidth + gap));
+        return Math.floor(containerWidth / (cardWidth + gap));
+    }
+    
+    // Update carousel position
+    function updateCarousel() {
+        const cardWidth = cards[0].offsetWidth;
+        const gap = parseInt(window.getComputedStyle(carousel).gap) || 0;
+        const offset = currentIndex * (cardWidth + gap) * cardsPerView * -1;
+        
+        carousel.style.transform = `translateX(${offset}px)`;
+        carousel.style.transition = 'transform 0.5s ease';
+        
+        // Update active dot
+        const dots = dotsContainer.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+    
+    // Navigate to specific slide
+    function goToSlide(index) {
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        
+        if (index >= 0 && index < totalSlides) {
+            currentIndex = index;
+            updateCarousel();
+        }
+    }
+    
+    // Navigation functions
+    function goToPrev() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    }
+    
+    function goToNext() {
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        if (currentIndex < totalSlides - 1) {
+            currentIndex++;
+            updateCarousel();
+        }
+    }
+    
+    // Event listeners
+    prevBtn.addEventListener('click', goToPrev);
+    nextBtn.addEventListener('click', goToNext);
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        const prevCardsPerView = cardsPerView;
+        cardsPerView = getCardsPerView();
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        
+        // Adjust currentIndex if it goes beyond the new total slides
+        if (currentIndex >= totalSlides) {
+            currentIndex = Math.max(0, totalSlides - 1);
+        }
+        
+        createDots();
+        updateCarousel();
+    });
+    
+    // Initialize carousel
+    initCarousel();
+});
+
+ </script>
+     <script>
+        // ====== WhatsApp Widget ======
+        // This is the complete widget code that you can copy to all pages
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get widget elements
+            const widget = document.getElementById('whatsappWidget');
+            const floatingBtn = document.getElementById('floatingBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            const chatContent = document.getElementById('chatContent');
+            
+            // Configure your WhatsApp number
+            const phoneNumber = "14161234567"; // Format: country code + number
+            
+            // Auto-open widget on page load
+            setTimeout(() => {
+                widget.classList.add('open');
+            }, 2000);
+            
+            // Close widget
+            closeBtn.addEventListener('click', () => {
+                widget.classList.remove('open');
+                floatingBtn.style.display = 'flex';
+            });
+            
+            // Open widget from floating button
+            floatingBtn.addEventListener('click', () => {
+                widget.classList.add('open');
+                floatingBtn.style.display = 'none';
+            });
+            
+            // Open WhatsApp chat
+            whatsappBtn.addEventListener('click', () => {
+                const message = "Hi Canadian Fitness Repair! I visited your website and need assistance with my fitness equipment.";
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                // Add sent message to chat
+                const userMsgElement = document.createElement('div');
+                userMsgElement.classList.add('message', 'sent');
+                userMsgElement.textContent = message;
+                chatContent.appendChild(userMsgElement);
+                
+                // Add auto-reply
+                setTimeout(() => {
+                    const replyElement = document.createElement('div');
+                    replyElement.classList.add('message', 'received');
+                    replyElement.textContent = "Thanks for your message! We've opened WhatsApp for you to continue the conversation.";
+                    chatContent.appendChild(replyElement);
+                    chatContent.scrollTop = chatContent.scrollHeight;
+                }, 800);
+                
+                // Scroll to bottom
+                chatContent.scrollTop = chatContent.scrollHeight;
+            });
+        });
+        
+        // ====== End of WhatsApp Widget ======
+    </script>
+</body>
+</html>

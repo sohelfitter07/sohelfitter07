@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed WhatsApp Widget - Canadian Fitness Repair</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* WhatsApp Widget Styles */
+        .whatsapp-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 380px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            background: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            z-index: 10000;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        opacity 0.4s ease;
+            pointer-events: none; /* Fix: Prevent blocking when closed */
+        }
+        
+        .whatsapp-widget.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto; /* Fix: Enable interaction when open */
+        }
+        
+        .widget-header {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .whatsapp-icon {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .whatsapp-icon i {
+            font-size: 36px;
+            color: #25D366;
+        }
+        
+        .header-text h3 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        .header-text p {
+            margin: 8px 0 0;
+            font-size: 15px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .chat-content {
+            padding: 25px;
+            height: 280px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            padding: 16px 20px;
+            border-radius: 20px;
+            max-width: 85%;
+            position: relative;
+            animation: fadeIn 0.4s ease;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+        
+        .received {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-bottom-left-radius: 5px;
+            align-self: flex-start;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+        
+        .sent {
+            background: #5D5DFF;
+            color: white;
+            border-bottom-right-radius: 5px;
+            margin-left: auto;
+            animation-delay: 0.2s;
+            box-shadow: 0 2px 8px rgba(93, 93, 255, 0.3);
+        }
+        
+        .action-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 16px 40px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(18, 140, 126, 0.3);
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(18, 140, 126, 0.4);
+        }
+        
+        .whatsapp-btn i {
+            font-size: 24px;
+        }
+        
+        /* Floating button */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(18, 140, 126, 0.4);
+            z-index: 10001; /* Fix: Higher z-index to stay on top */
+            transition: all 0.3s;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(18, 140, 126, 0.5);
+        }
+        
+        .floating-btn i {
+            font-size: 36px;
+            color: white;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #5c6b7e;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: auto;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        @media (max-width: 768px) {
+            .whatsapp-widget {
+                width: 90%;
+                max-width: 350px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .problem-solution {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section>
+            <section>
+            <!-- WhatsApp Widget -->
+    <div class="whatsapp-widget" id="whatsappWidget">
+        <div class="widget-header">
+            <div class="whatsapp-icon">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+            <div class="header-text">
+                <h3>Canadian Fitness Repair</h3>
+                <p>Typically replies instantly</p>
+            </div>
+            <button class="close-btn" id="closeBtn">×</button>
+        </div>
+        
+        <div class="chat-content" id="chatContent">
+            <div class="message received">
+                Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
+            </div>
+            <div class="message received">
+                You can chat with us directly on WhatsApp to get immediate assistance with repairs, maintenance, or any questions you have about your fitness equipment.
+            </div>
+            <div class="message sent">
+                <strong>Fixed issue:</strong> You can now close and reopen this widget multiple times!
+            </div>
+        </div>
+        
+        <div class="action-area">
+            <button class="whatsapp-btn" id="whatsappBtn">
+                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </button>
+        </div>
+    </div>
+    
+    <!-- Floating Button -->
+    <div class="floating-btn" id="floatingBtn">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+    </section>
+    </section>
+ 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const widget = document.getElementById('whatsappWidget');
+            const floatingBtn = document.getElementById('floatingBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            
+            // Your WhatsApp business number (format: 1XXXXXXXXXX)
+            const phoneNumber = "12899257239";
+            
+            // Auto-open widget on page load
+            setTimeout(() => {
+                widget.classList.add('open');
+            }, 2000);
+            
+            // Close widget
+            closeBtn.addEventListener('click', () => {
+                widget.classList.remove('open');
+                floatingBtn.style.display = 'flex';
+            });
+            
+            // Open widget from floating button
+            floatingBtn.addEventListener('click', () => {
+                widget.classList.add('open');
+                floatingBtn.style.display = 'none';
+            });
+            
+            // Open WhatsApp chat
+            whatsappBtn.addEventListener('click', () => {
+                const message = "Hi Canadian Fitness Repair! I visited your website and need assistance with my fitness equipment.";
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                // Add sent message to chat
+                const chatContent = document.getElementById('chatContent');
+                const userMsgElement = document.createElement('div');
+                userMsgElement.classList.add('message', 'sent');
+                userMsgElement.textContent = message;
+                chatContent.appendChild(userMsgElement);
+                
+                // Add auto-reply
+                setTimeout(() => {
+                    const replyElement = document.createElement('div');
+                    replyElement.classList.add('message', 'received');
+                    replyElement.textContent = "Thanks for your message! We've opened WhatsApp for you to continue the conversation.";
+                    chatContent.appendChild(replyElement);
+                    chatContent.scrollTop = chatContent.scrollHeight;
+                }, 800);
+                
+                // Scroll to bottom
+                chatContent.scrollTop = chatContent.scrollHeight;
+            });
+        });
+    </script>
+</body>
+</html>
