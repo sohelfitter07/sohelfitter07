@@ -1,77 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- SEO Meta Tags -->
-    <title>Gym Equipment & Treadmill Repair | Canadian Fitness Repair - Serving GTA & 200km Radius</title>
-    <meta name="description" content="Expert gym equipment repair & treadmill service in Greater Toronto Area & 200km radius. Fast, reliable repairs & maintenance. Call +1 289 925 7239 today!">
-    <meta name="keywords" content="gym equipment repair, treadmill repair, fitness equipment service, GTA, Ontario, Canada, commercial gym repair, residential fitness repair, exercise machine maintenance">
-    <meta name="geo.region" content="CA-ON">
-    <meta name="geo.placename" content="Hannon">
-    <meta name="geo.position" content="43.225370;-79.823570">
-    <meta name="ICBM" content="43.225370, -79.823570">
-    <meta property="og:title" content="Gym Equipment Repair & Treadmill Service | Canadian Fitness Repair">
-    <meta property="og:description" content="Expert gym equipment repair, treadmill service & maintenance in Greater Toronto Area (GTA) and surrounding 200km.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.canadianfitnessrepair.com">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80">
-    <link rel="canonical" href="https://www.canadianfitnessrepair.com">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Canadian Fitness Repair",
-      "image": "https://www.canadianfitnessrepair.com/logo.png",
-      "@id": "https://www.canadianfitnessrepair.com",
-      "url": "https://www.canadianfitnessrepair.com",
-      "telephone": "+1 289 925 7239",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "22 Canary grass blvd",
-        "addressLocality": "Hannon",
-        "addressRegion": "ON",
-        "postalCode": "L0R 1P0",
-        "addressCountry": "CA"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 43.225370,
-        "longitude": -79.823570
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "opens": "08:00",
-        "closes": "18:00"
-      },
-      "areaServed": {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
-          "@type": "GeoCoordinates",
-          "latitude": 43.225370,
-          "longitude": -79.823570
-        },
-        "geoRadius": "200000"
-      },
-      "sameAs": [
-        "https://www.facebook.com/yourpage",
-        "https://twitter.com/yourhandle",
-        "https://www.instagram.com/yourprofile"
-      ]
-    }
-    </script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="24/7 Fitness Equipment Repair, Maintenance & Relocation in Hamilton, Greater Toronto Area + 200km radius. Expert treadmill, elliptical & commercial/residential repairs. Serving Hannon (L0R 1P0), Burlington, Oakville, Mississauga & Niagara.">
+    <meta name="keywords" content="
+    fitness equipment repair Hamilton,
+    treadmill repair GTA,
+    elliptical maintenance Toronto,
+    commercial fitness repair,
+    gym equipment relocation,
+    fitness technician near me,
+    Hannon fitness repair,
+    L0R 1P0 service area,
+    Burlington gym repair,
+    Oakville treadmill fix,
+    Mississauga elliptical service,
+    Niagara fitness maintenance,
+    residential fitness repair,
+    urgent equipment repair,
+    certified fitness technician
+    ">
+    <meta property="og:title" content="Fitness Equipment Repair | Hamilton & GTA Experts">
+    <meta property="og:description" content="Emergency repair & relocation for treadmills, ellipticals & commercial equipment. Serving Hamilton + 200km radius (L0R 1P0)">
+    <meta property="og:image" content="your-service-van-image.jpg">
+    <meta property="og:url" content="https://www.canadianfitnessrepair.com">
+    <meta property="og:type" content="website">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.canadianfitnessrepair.com">
+
+    <!-- Geo Tags -->
+    <meta name="geo.placename" content="Hamilton, Ontario, Greater Toronto Area, Hannon">
+    <meta name="geo.position" content="43.2250;-79.8660">
+    <meta name="geo.region" content="CA-ON">
+    <meta name="ICBM" content="43.2250, -79.8660">
+    <title>Canadian Fitness Equipment Repair & Maintenance | Hamilton & GTA Experts | Treadmill, Elliptical, Commercial/Residential Repair & Relocation</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="whatsapp.css">
     <style>
         :root {
             --theme-color: #5D5DFF;
@@ -97,25 +64,13 @@
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
-        }
-
-        /* Service Area Notice */
-        .service-area-notice {
-            background: var(--accent-color);
-            color: white;
-            text-align: center;
-            padding: 10px;
-            font-weight: 500;
-            font-size: 1.1rem;
-            position: sticky;
-            top: 0;
-            z-index: 2000;
+            padding-top: 80px; /* Added for fixed header */
         }
 
         /* Header Styles */
         header {
             width: 100%;
-            position: sticky;
+            position: fixed; /* Changed to fixed */
             top: 0;
             z-index: 1000;
             background-color: var(--bg-color);
@@ -135,7 +90,6 @@
             align-items: center;
             background-color: var(--theme-color);
             padding: 10px 5%;
-            transition: all 0.3s ease;
         }
 
         .links {
@@ -190,16 +144,24 @@
             padding: 15px 5%;
             position: relative;
             background-color: var(--bg-color);
-            transition: all 0.3s ease;
         }
 
-        #navlogo img {
-            height: 50px;
-            transition: var(--transition);
+        #navlogo {
+            display: flex;
+            flex-direction: column;
         }
 
-        #navlogo img:hover {
-            transform: scale(1.05);
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-style: italic;
         }
 
         .hamburger {
@@ -212,7 +174,8 @@
             z-index: 1001;
             position: absolute;
             right: 15px;
-            top: 15px;
+            top: 50%;
+            transform: translateY(-50%); /* Centered vertically */
             transition: var(--transition);
         }
 
@@ -796,164 +759,6 @@
             transform: translateY(-5px);
         }
 
-        /* WhatsApp Widget Styles */
-        .whatsapp-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 320px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            overflow: hidden;
-            transform: translateY(0);
-            transition: transform 0.3s ease;
-            font-family: Arial, sans-serif;
-            display: none;
-        }
-
-        .whatsapp-widget.active {
-            display: block;
-        }
-
-        .widget-header {
-            background-color: #128C7E;
-            color: white;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .whatsapp-icon {
-            font-size: 24px;
-            margin-right: 10px;
-        }
-
-        .header-text {
-            flex: 1;
-        }
-
-        .header-text h3 {
-            margin: 0;
-            font-size: 16px;
-        }
-
-        .header-text p {
-            margin: 0;
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .chat-content {
-            padding: 15px;
-            max-height: 300px;
-            overflow-y: auto;
-            background-color: #f0f0f0;
-        }
-
-        .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            max-width: 80%;
-            position: relative;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-
-        .message.received {
-            background-color: #fff;
-            border-top-left-radius: 0;
-            margin-right: auto;
-        }
-
-        .message.sent {
-            background-color: #dcf8c6;
-            border-top-right-radius: 0;
-            margin-left: auto;
-        }
-
-        .action-area {
-            padding: 15px;
-            background-color: #f0f0f0;
-            text-align: center;
-        }
-
-        .whatsapp-btn {
-            background-color: #25D366;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 12px 20px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.3s;
-        }
-
-        .whatsapp-btn:hover {
-            background-color: #128C7E;
-        }
-
-        .floating-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #25D366;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, background-color 0.3s;
-        }
-
-        .floating-btn:hover {
-            transform: scale(1.1);
-            background-color: #128C7E;
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-            }
-        }
-
         /* Responsive Styles - Mobile Menu */
         @media (max-width: 1024px) {
             .footertop {
@@ -980,13 +785,14 @@
         }
 
         @media (max-width: 767px) {
+            body {
+                padding-top: 60px; /* Adjusted for mobile */
+            }
+            
             #contactlist {
                 flex-direction: column;
                 gap: 0.5rem;
                 padding: 15px 5%;
-                position: sticky;
-                top: 0;
-                z-index: 1500;
             }
 
             .leftheaderlinks ul.links, .rightheaderlinks ul.links {
@@ -997,18 +803,13 @@
             #navbottom {
                 flex-wrap: wrap;
                 padding: 15px;
-                min-height: 80px;
-                position: sticky;
-                top: 0;
-                z-index: 1400;
+                min-height: 60px; /* Added min-height */
             }
 
             .hamburger {
                 display: block;
-                position: fixed;
-                top: 20px;
+                top: 50%; /* Centered vertically */
                 right: 15px;
-                z-index: 1600;
             }
 
             .navbarList {
@@ -1017,13 +818,13 @@
                 position: fixed;
                 top: 0;
                 right: 0;
-                width: 280px;
+                width: 300px;
                 height: 100vh;
                 background-color: var(--bg-color);
-                padding: 80px 20px 20px;
+                padding: 100px 20px 20px;
                 gap: 1rem;
                 box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
-                z-index: 1500;
+                z-index: 999;
                 overflow-y: auto;
                 transform: translateX(100%);
                 transition: transform 0.4s ease;
@@ -1056,13 +857,6 @@
                 box-shadow: none;
                 background-color: rgba(93, 93, 255, 0.2);
                 margin-top: 5px;
-                max-height: 0;
-                padding: 0;
-            }
-
-            .dropdown.active .dropdown-content {
-                max-height: 500px;
-                padding: 10px 0;
             }
 
             #quote {
@@ -1109,20 +903,6 @@
                 height: 40px;
                 margin: 0 25px;
             }
-
-            /* WhatsApp widget mobile styles */
-            .whatsapp-widget {
-                width: 95%;
-                right: 2.5%;
-                bottom: 10px;
-                max-width: 400px;
-            }
-
-            .floating-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1143,7 +923,7 @@
             }
             
             .hamburger {
-                top: 15px;
+                top: 50%;
             }
             
             .stat-item {
@@ -1156,7 +936,15 @@
             }
             
             .navbarList {
-                width: 85%;
+                width: 80%;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .tagline {
+                font-size: 0.7rem;
             }
         }
 
@@ -1165,14 +953,15 @@
                 transform: rotate(180deg);
             }
         }
+
+        @media (max-width: 767px) {
+            .dropdown.active .dropdown-toggle-icon i {
+                transform: rotate(180deg);
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Service Area Notice -->
-    <div class="service-area-notice">
-        Serving Greater Toronto Area and 200km radius from Hannon, ON
-    </div>
-    
     <header>
         <nav class="nav">
             <div id="contactlist">
@@ -1194,7 +983,10 @@
             </div>
             <div id="navbottom">
                 <div id="navlogo">
-                    <a href="https://www.canadianfitnessrepair.com"><img src="#" alt="Canadian Fitness Repair Logo" style="cursor: pointer;"></a>
+                    <a href="https://www.canadianfitnessrepair.com">
+                        <div class="logo-text">Canadian Fitness Repair</div>
+                        <div class="tagline">Serving GTA's since 2016</div>
+                    </a>
                 </div>
                 <div class="navbar">
                     <ul class="navbarList" id="navbarList">
@@ -1243,7 +1035,7 @@
     <main>
         <section class="hero">
             <h1>GTA's #1 Fitness Repair Service</h1>
-            <p>Expert repair, installation and maintenance for all fitness equipment throughout Greater Toronto Area and surrounding 200km radius</p>
+            <p>Expert repair, installation and maintenance for all fitness equipment</p>
             
             <div class="word-animation">
                 <div id="wordWrapper">
@@ -1393,7 +1185,7 @@
         
         <section class="cta">
             <h2>Ready to Get Your Equipment Back in Shape?</h2>
-            <p>Contact us today for a free consultation and quote. Our expert technicians are ready to help with all your fitness equipment needs throughout the Greater Toronto Area and surrounding 200km radius!</p>
+            <p>Contact us today for a free consultation and quote. Our expert technicians are ready to help!</p>
             <a class="c-button" style="margin-top: 20px;">
                 <i class="ri-phone-line"></i> Call Now: +1 289 925 7239
             </a>
@@ -1446,14 +1238,13 @@
                 <div class="footer-company-name">Canadian Fitness Repair</div>
                 <div class="footer-tagline">Your Safety, Our Commitment</div>
                 <p>
-                    At Canadian Fitness Repair, we are dedicated to delivering exceptional service with your safety as our top priority. Our team is committed to ensuring your fitness equipment operates safely and reliably, giving you peace of mind with every use. We proudly serve both residential and commercial clients throughout Greater Toronto Area and 200km radius — providing dependable repairs, tune-ups, and ongoing support with a focus on customer satisfaction.
+                    At Canadian Fitness Repair, we are dedicated to delivering exceptional service with your safety as our top priority. Our team is committed to ensuring your fitness equipment operates safely and reliably, giving you peace of mind with every use. We proudly serve both residential and commercial clients throughout Greater Toronto Area, ON, Canada — providing dependable repairs, tune-ups, and ongoing support with a focus on customer satisfaction.
                 </p>
             </div>
             <div class="footertop-right">
                 <div class="footer-contact">
                     <h2><i class="ri-map-pin-line"></i> Location</h2>
                     <p>22 Canary grass blvd, Hannon, ON, L0R 1P0, Canada</p>
-                    <p><strong>Service Area:</strong> Greater Toronto Area & 200km radius</p>
                 </div>
                 <div class="footer-contact">
                     <h2><i class="ri-contacts-book-line"></i> Contact us</h2>
@@ -1507,29 +1298,34 @@
                 dropdown.addEventListener('click', function (e) {
                     // Only activate on small screens
                     if (window.innerWidth <= 767) {
-                        e.preventDefault();
-                        e.stopPropagation();
+                        // Check if clicked on dropdown arrow
+                        const isArrowClick = e.target.closest('.dropdown-toggle-icon');
+                        
+                        if (isArrowClick) {
+                            e.preventDefault();
+                            e.stopPropagation();
 
-                        // Close other dropdowns
-                        dropdowns.forEach(d => {
-                            if (d !== dropdown) {
-                                d.classList.remove('active');
-                                const otherContent = d.querySelector('.dropdown-content');
-                                otherContent.style.maxHeight = null;
-                                otherContent.style.padding = '0';
+                            // Close other dropdowns
+                            dropdowns.forEach(d => {
+                                if (d !== dropdown) {
+                                    d.classList.remove('active');
+                                    const otherContent = d.querySelector('.dropdown-content');
+                                    otherContent.style.maxHeight = null;
+                                    otherContent.style.padding = '0';
+                                }
+                            });
+
+                            // Toggle the clicked dropdown
+                            dropdown.classList.toggle('active');
+
+                            const content = dropdown.querySelector('.dropdown-content');
+                            if (dropdown.classList.contains('active')) {
+                                content.style.maxHeight = content.scrollHeight + 'px';
+                                content.style.padding = '10px 0';
+                            } else {
+                                content.style.maxHeight = null;
+                                content.style.padding = '0';
                             }
-                        });
-
-                        // Toggle the clicked dropdown
-                        dropdown.classList.toggle('active');
-
-                        const content = dropdown.querySelector('.dropdown-content');
-                        if (dropdown.classList.contains('active')) {
-                            content.style.maxHeight = content.scrollHeight + 'px';
-                            content.style.padding = '10px 0';
-                        } else {
-                            content.style.maxHeight = null;
-                            content.style.padding = '0';
                         }
                     }
                 });
@@ -1624,54 +1420,72 @@
             statNumbers.forEach(number => {
                 observer.observe(number);
             });
-
-            // WhatsApp widget functionality
-            const whatsappWidget = document.getElementById('whatsappWidget');
-            const floatingBtn = document.getElementById('floatingBtn');
-            const closeBtn = document.getElementById('closeBtn');
-            const whatsappBtn = document.getElementById('whatsappBtn');
-
-            floatingBtn.addEventListener('click', () => {
-                whatsappWidget.classList.add('active');
-            });
-
-            closeBtn.addEventListener('click', () => {
-                whatsappWidget.classList.remove('active');
-            });
-
-            whatsappBtn.addEventListener('click', () => {
-                window.open('https://wa.me/12899257239', '_blank');
-            });
-
-            // Sticky header behavior on scroll
-            let lastScrollTop = 0;
-            const contactList = document.getElementById('contactlist');
-            const navBottom = document.getElementById('navbottom');
-            const rightContactList = document.querySelector('.rightheaderlinks');
-
-            window.addEventListener('scroll', function() {
-                if (window.innerWidth <= 767) {
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    
-                    // Hide social links on scroll down
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        // Scrolling down
-                        rightContactList.style.display = 'none';
-                        contactList.style.padding = '5px 5%';
-                        navBottom.style.padding = '10px 5%';
-                    } else {
-                        // Scrolling up
-                        rightContactList.style.display = 'flex';
-                        contactList.style.padding = '10px 5%';
-                        navBottom.style.padding = '15px 5%';
-                    }
-                    
-                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-                }
-            });
         });
 
     </script>
+
+    <!-- SEO script  -->
+    
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Canadian Fitness Repair",
+  "image": "your-logo-url.jpg",
+  "@id": "https://www.canadianfitnessrepair.com",
+  "url": "https://www.canadianfitnessrepair.com",
+  "telephone": "+1-289-925-7239",
+  "address": {
+    "@type": "L0R 1P0",
+    "streetAddress": "22 Canary Grass Blvd",
+    "addressLocality": "Hannon",
+    "postalCode": "L0R 1P0",
+    "addressRegion": "ON",
+    "addressCountry": "CA"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "43.2250",
+    "longitude": "-79.8660"
+  },
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "43.2250",
+      "longitude": "-79.8660"
+    },
+    "geoRadius": "200000"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "opens": "08:00",
+    "closes": "20:00"
+  }],
+  "serviceArea": ["Hamilton", "Toronto", "Burlington", "Oakville", "Mississauga", "Brantford", "Niagara", "Kitchener", "Guelph", "Cambridge"],
+  "sameAs": ["your-facebook-url", "your-instagram-url"]
+}
+"serviceArea": {
+  "@type": "AdministrativeArea",
+  "name": "Ontario, CA"
+},
+"makesOffer": [
+  {
+    "@type": "Offer",
+    "name": "Same-Day Treadmill Repair",
+    "areaServed": ["Hamilton", "Burlington"]
+  },
+  {
+    "@type": "Offer",
+    "name": "Commercial Equipment Relocation",
+    "areaServed": ["Greater Toronto Area"]
+  }
+]
+    </script>
+
+    <script src="whatsapp.js"></script>
+    
 
 </body>
 </html>
