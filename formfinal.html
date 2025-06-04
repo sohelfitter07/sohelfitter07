@@ -481,11 +481,31 @@
             font-style: italic;
         }
 
-        .submit-btn {
+        /* .submit-btn {
             grid-column: 1 / -1;
             text-align: center;
             margin-top: 1.5rem;
-        }
+        } */
+
+.submit-btn {
+  background-color: var(--header-bg); /* or your preferred color */
+  color: white;
+  font-size: 1rem;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  width: auto;
+  max-width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #4a4ae6; /* slightly darker on hover */
+}
+
 
         .submit-btn button {
             background-color: var(--theme-color);
@@ -862,13 +882,97 @@
         }
 
         @media (max-width: 480px) {
-            .quote-hero {
+
+/* Header contact bar */
+  .header-top {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 5px;
+    text-align: center;
+  }
+
+  .header-top a,
+  .header-top span {
+    font-size: 0.85rem;
+    margin: 2px 0;
+    display: block;
+  }
+
+  .header-top .social-icons {
+    gap: 10px;
+    justify-content: center;
+  }
+
+  /* Logo and Nav */
+  #navbottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+  }
+
+  #navlogo img {
+    max-width: 140px;
+    height: auto;
+  }
+
+  .hamburger {
+    font-size: 1.6rem;
+    width: 40px;
+    height: 40px;
+    top: 10px;
+    right: 15px;
+  }
+
+  /* Navbar menu */
+  .navbarList {
+    padding: 60px 20px;
+    gap: 1rem;
+  }
+  /* Ensure text doesn't overflow */
+  h1, p, .word-item {
+    word-wrap: break-word;
+  }
+
+  /* Prevent horizontal scrolling */
+  html, body {
+    overflow-x: hidden;
+  }
+
+
+  /* Hero Section */
+  .quote-hero {
+    padding: 2rem 1rem;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+  }
+
+  .quote-hero h1 {
+    font-size: 1.3rem;
+  }
+
+  .quote-hero p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .word-animation {
+    height: 60px;
+  }
+
+  .word-item {
+    font-size: 2rem;
+    height: 60px;
+  }
+
+            /* .quote-hero {
                 padding: 3rem 1rem;
-            }
+            } */
             
-            .quote-hero h1 {
+            /* .quote-hero h1 {
                 font-size: 1.8rem;
-            }
+            } */
             
             .form-header h2 {
                 font-size: 1.6rem;
@@ -892,6 +996,45 @@
             .dropdown-content {
                 background-color: rgba(93, 93, 255, 0.3);
             }
+
+ .submit-btn {
+    font-size: 0.75rem;
+    width: 100%;
+    max-width: 250px;
+    padding: 12px 10px;
+    margin: 0 auto;
+    display: block;
+  }
+  .contact-card {
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+  }
+
+  .contact-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+  }
+
+  .contact-item i {
+    font-size: 1.3rem;
+  }
+
+  .contact-item span {
+    font-size: 1rem;
+    word-wrap: break-word;
+    max-width: 90vw;
+  }
         }
 
         /* Form Dropdown Improvements */
