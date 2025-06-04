@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="24/7 Fitness Equipment Repair, Maintenance & Relocation in Hamilton, Greater Toronto Area + 200km radius. Expert treadmill, elliptical & commercial/residential repairs. Serving Hannon (L0R 1P0), Burlington, Oakville, Mississauga & Niagara.">
     <meta name="keywords" content="
-    fitness equipment repair Hamilton, fitness repair toronto, fitness repair hamilton, treadmill reapir, treadmill repair hamilton,
+    fitness equipment repair Hamilton,
     treadmill repair GTA,
     elliptical maintenance Toronto,
     commercial fitness repair,
@@ -38,9 +38,8 @@
     
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="whatsapp.css">
     <style>
-        :root { 
+        :root {
             --theme-color: #5D5DFF;
             --accent-color: #FF6B6B;
             --bg-color: #151719;
@@ -64,12 +63,49 @@
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
+            padding-top: 80px; /* Added for fixed header */
+        }
+
+        /* Mobile Header (visible only on mobile) */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-color);
+            padding: 15px;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .mobile-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-logo img {
+            height: 40px;
+        }
+
+        .mobile-logo .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .mobile-logo .tagline {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-style: italic;
         }
 
         /* Header Styles */
         header {
             width: 100%;
-            position: sticky;
+            position: fixed;
             top: 0;
             z-index: 1000;
             background-color: var(--bg-color);
@@ -145,13 +181,22 @@
             background-color: var(--bg-color);
         }
 
-        #navlogo img {
-            height: 50px;
-            transition: var(--transition);
+        #navlogo {
+            display: flex;
+            flex-direction: column;
         }
 
-        #navlogo img:hover {
-            transform: scale(1.05);
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-style: italic;
         }
 
         .hamburger {
@@ -164,13 +209,13 @@
             z-index: 1001;
             position: absolute;
             right: 15px;
-            top: 15px;
+            top: 50%;
+            transform: translateY(-50%); /* Centered vertically */
             transition: var(--transition);
         }
 
         .hamburger:hover {
             color: var(--theme-color);
-
         }
 
         .navbar {
@@ -268,7 +313,6 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
-            text-decoration: none;
         }
 
         .c-button::before {
@@ -295,6 +339,91 @@
         .c-button-nav {
             padding: 0.8rem 1.5rem;
             font-size: 1rem;
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--bg-color);
+            padding: 100px 20px 20px;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-contact-info {
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-contact-info .links {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mobile-contact-info .links li a {
+            justify-content: flex-start;
+            width: 100%;
+            padding: 10px 0;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .mobile-contact-info .rightlinks {
+            flex-direction: row;
+            margin-top: 15px;
+        }
+
+        .mobile-contact-info .rightlinks a {
+            width: auto;
+            padding: 0;
+            background: none;
+            color: var(--text-color);
+        }
+
+        .mobile-contact-info .rightlinks a:hover {
+            background: none;
+            color: var(--theme-color);
+        }
+
+        .mobile-navbarList {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-navbarList a {
+            padding: 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .mobile-quote {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-quote .c-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
         }
 
         /* Hero Section */
@@ -420,14 +549,10 @@
         .marquee-track img {
             height: 60px;
             margin: 0 40px;
-            /* filter: grayscale(100%) brightness(200%); */
-            /* opacity: 0.7; */
             transition: all 0.3s ease;
         }
 
         .marquee-track img:hover {
-            /* filter: grayscale(0) brightness(100%); */
-            /* opacity: 1; */
             transform: scale(1.05);
         }
 
@@ -754,7 +879,7 @@
             transform: translateY(-5px);
         }
 
-        /* Responsive Styles - Mobile Menu */
+        /* Responsive Styles */
         @media (max-width: 1024px) {
             .footertop {
                 gap: 5rem;
@@ -780,70 +905,44 @@
         }
 
         @media (max-width: 767px) {
-            #contactlist {
-                flex-direction: column;
-                gap: 0.25rem;
-                padding: 5px 5%;
+            body {
+                padding-top: 60px; /* Adjusted for mobile */
             }
-
-            .leftheaderlinks ul.links, .rightheaderlinks ul.links {
-                justify-content: center;
-                flex-wrap: wrap;
+            
+            /* Hide desktop header on mobile */
+            header {
+                display: none;
             }
-
-            .leftheaderlinks ul.links{
-                gap: 40%;
+            
+            /* Show mobile header */
+            .mobile-header {
+                display: block;
             }
-
-            #navbottom {
-                flex-wrap: nowrap;
-                padding: 5px;
-                min-height: 80px;
-            }
-
+            
+            /* Show hamburger button */
             .hamburger {
                 display: block;
                 position: fixed;
-                top: 120px;
-                right: 10px;
+                top: 25px;
+                right: 20px;
+                z-index: 1001;
             }
 
-            .navbarList {
-                display: none;
-                flex-direction: column;
-                position: fixed;
-                top: 0;
-                right: 0;
-                width: 300px;
-                height: 100vh;
-                background-color: var(--bg-color);
-                padding: 100px 20px 20px;
-                gap: 1rem;
-                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
-                z-index: 999;
-                overflow-y: auto;
-                transform: translateX(100%);
-                transition: transform 0.4s ease;
+            /* Mobile menu styles */
+            .mobile-menu {
+                display: block;
             }
 
-            .navbarList.open {
-                display: flex;
-                transform: translateX(0);
-            }
-
+            /* Adjust hamburger position */
             .hamburger .close-icon {
                 display: none;
             }
 
-            .hamburger .menu-icon {
+            .mobile-menu.open ~ .hamburger .close-icon {
                 display: block;
             }
 
-            .navbarList.open ~ .hamburger .close-icon {
-                display: block;
-            }
-
-            .navbarList.open ~ .hamburger .menu-icon {
+            .mobile-menu.open ~ .hamburger .menu-icon {
                 display: none;
             }
 
@@ -919,7 +1018,7 @@
             }
             
             .hamburger {
-                top: 120px;
+                top: 25px;
             }
             
             .stat-item {
@@ -933,6 +1032,14 @@
             
             .navbarList {
                 width: 80%;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .tagline {
+                font-size: 0.7rem;
             }
         }
 
@@ -948,8 +1055,25 @@
             }
         }
     </style>
-    </head>
+</head>
 <body>
+    <!-- Mobile Header (visible only on mobile) -->
+    <div class="mobile-header">
+        <div class="mobile-header-content">
+            <div class="mobile-logo">
+                <a href="https://www.canadianfitnessrepair.com">
+                    <div class="logo-text">Canadian Fitness Repair</div>
+                    <div class="tagline">Serving GTA's since 2016</div>
+                </a>
+            </div>
+            <button class="hamburger" id="hamburger">
+                <i class="ri-menu-line menu-icon"></i>
+                <i class="ri-close-line close-icon"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Desktop Header (hidden on mobile) -->
     <header>
         <nav class="nav">
             <div id="contactlist">
@@ -971,11 +1095,14 @@
             </div>
             <div id="navbottom">
                 <div id="navlogo">
-                    <a href="https://www.canadianfitnessrepair.com"><img src="#" alt="Canadian Fitness Repair Logo" style="cursor: pointer;"></a>
+                    <a href="https://www.canadianfitnessrepair.com">
+                        <div class="logo-text">Canadian Fitness Repair</div>
+                        <div class="tagline">Serving GTA's since 2016</div>
+                    </a>
                 </div>
                 <div class="navbar">
                     <ul class="navbarList" id="navbarList">
-                        <li><a href="https://www.canadianfitnessrepair.com" rel="home"><i class="ri-home-5-line"></i> HOME</a></li>
+                        <li><a href="https://www.canadianfitnessrepair.com"><i class="ri-home-5-line"></i> HOME</a></li>
                         <li class="dropdown">
                             <a href="#">
                                 <i class="ri-information-line"></i> ABOUT US
@@ -1006,10 +1133,6 @@
                         <li><a href="reviews.html"><i class="ri-star-line"></i> REVIEWS</a></li>
                     </ul>
                 </div>
-                <button class="hamburger" id="hamburger">
-                    <i class="ri-menu-line menu-icon"></i>
-                    <i class="ri-close-line close-icon"></i>
-                </button>
                 <div id="quote">
                     <a class="c-button c-button-nav" href="formfinal.html">Get Quote</a>
                 </div>
@@ -1017,6 +1140,61 @@
         </nav>
     </header>
     
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <div class="mobile-contact-info">
+                <ul class="links">
+                    <li><a href="tel:+12899257239"><i class="ri-customer-service-line"></i>+1 289 925 7239</a></li>
+                    <li><a href="mailto:service@canadianfitnessrepair.com"><i class="ri-mail-line"></i>service@canadianfitnessrepair.com</a></li>
+                </ul>
+                <ul class="links rightlinks">
+                    <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                    <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                    <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                    <li><a href="#"><i class="ri-youtube-line"></i></a></li>
+                    <li><a href="https://maps.app.goo.gl/o12xJ23UPUj7Zt386"><i class="ri-map-pin-line"></i></a></li>
+                </ul>
+            </div>
+            
+            <ul class="mobile-navbarList">
+                <li><a href="https://www.canadianfitnessrepair.com"><i class="ri-home-5-line"></i> HOME</a></li>
+                <li class="dropdown">
+                    <a href="#">
+                        <i class="ri-information-line"></i> ABOUT US
+                        <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
+                    </a>
+                    <ul class="dropdown-content">
+                        <li><a href="aboutus.html">About</a></li>
+                        <li><a href="pricingpackagespage.html">Pricing</a></li>
+                        <li><a href="PPT&Cpage.html">Privacy Policy</a></li>
+                        <li><a href="PPT&Cpage.html">Terms & Conditions</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="services.html">
+                        <i class="ri-customer-service-line"></i> SERVICES
+                        <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
+                    </a>
+                    <ul class="dropdown-content">
+                        <li><a href="services.html">Preventative Maintenance</a></li>
+                        <li><a href="services.html">Inspection</a></li>
+                        <li><a href="services.html">Repairs & Tune-ups</a></li>
+                        <li><a href="services.html">Relocation & Assembly</a></li>
+                        <li><a href="services.html">Commerical & Residential</a></li>
+                    </ul>
+                </li>
+                <li><a href="gallery.html"><i class="ri-image-line"></i> GALLERY</a></li>
+                <li><a href="contact.html"><i class="ri-contacts-line"></i> CONTACT</a></li>
+                <li><a href="reviews.html"><i class="ri-star-line"></i> REVIEWS</a></li>
+            </ul>
+            
+            <div class="mobile-quote">
+                <a class="c-button c-button-nav" href="formfinal.html">Get Quote</a>
+            </div>
+        </div>
+    </div>
+
     <main>
         <section class="hero">
             <h1>GTA's #1 Fitness Repair Service</h1>
@@ -1047,6 +1225,7 @@
                     <img src="equipementlogo/NordicTrack.jpg" alt="NordicTrack">
                     <img src="equipementlogo/proform.webp" alt="proform">
                     <img src="equipementlogo/sole.webp" alt="Sole Fitness">
+                </div>
             </div>
         </section>
         
@@ -1176,45 +1355,6 @@
             </a>
         </section>
 
-
-    <section>
-            <!-- WhatsApp Widget -->
-    <div class="whatsapp-widget" id="whatsappWidget">
-        <div class="widget-header">
-            <div class="whatsapp-icon">
-                <i class="fab fa-whatsapp"></i>
-            </div>
-            <div class="header-text">
-                <h3>Canadian Fitness Repair</h3>
-                <p>Typically replies instantly</p>
-            </div>
-            <button class="close-btn" id="closeBtn">×</button>
-        </div>
-        
-        <div class="chat-content" id="chatContent">
-            <div class="message received">
-                Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
-            </div>
-            <div class="message received">
-                We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with!
-            </div>
-            <div class="message sent">
-                Great!.
-            </div>
-        </div>
-        
-        <div class="action-area">
-            <button class="whatsapp-btn" id="whatsappBtn">
-                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-            </button>
-        </div>
-    </div>
-    
-    <!-- Floating Button -->
-    <div class="floating-btn pulse" id="floatingBtn">
-        <i class="fab fa-whatsapp"></i>
-    </div>
-    </section>
     </main>
     
     <footer>
@@ -1264,89 +1404,76 @@
         document.addEventListener('DOMContentLoaded', function () {
             // Mobile menu functionality
             const hamburger = document.getElementById('hamburger');
-            const navbarList = document.getElementById('navbarList');
-            const dropdowns = document.querySelectorAll('.dropdown');
+            const mobileMenu = document.getElementById('mobileMenu');
             const menuIcon = hamburger.querySelector('.menu-icon');
             const closeIcon = hamburger.querySelector('.close-icon');
 
             // Toggle mobile menu
             hamburger.addEventListener('click', () => {
-                navbarList.classList.toggle('open');
+                mobileMenu.classList.toggle('open');
                 
                 // Toggle visibility of icons
-                menuIcon.style.display = navbarList.classList.contains('open') ? 'none' : 'block';
-                closeIcon.style.display = navbarList.classList.contains('open') ? 'block' : 'none';
+                menuIcon.style.display = mobileMenu.classList.contains('open') ? 'none' : 'block';
+                closeIcon.style.display = mobileMenu.classList.contains('open') ? 'block' : 'none';
             });
 
-            // Dropdown toggle for mobile
-            dropdowns.forEach(dropdown => {
+            // Close menu when clicking outside (mobile)
+            document.addEventListener('click', function (e) {
+                if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                    mobileMenu.classList.remove('open');
+                    
+                    // Reset hamburger icons
+                    menuIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                }
+            });
+
+            // Mobile dropdown functionality
+            const mobileDropdowns = document.querySelectorAll('.mobile-menu .dropdown');
+            
+            mobileDropdowns.forEach(dropdown => {
                 dropdown.addEventListener('click', function (e) {
-                    // Only activate on small screens
                     if (window.innerWidth <= 767) {
-                        e.preventDefault();
-                        e.stopPropagation();
+                        // Check if clicked on dropdown arrow
+                        const isArrowClick = e.target.closest('.dropdown-toggle-icon');
+                        
+                        if (isArrowClick) {
+                            e.preventDefault();
+                            e.stopPropagation();
 
-                        // Close other dropdowns
-                        dropdowns.forEach(d => {
-                            if (d !== dropdown) {
-                                d.classList.remove('active');
-                                const otherContent = d.querySelector('.dropdown-content');
-                                otherContent.style.maxHeight = null;
-                                otherContent.style.padding = '0';
+                            // Close other dropdowns
+                            mobileDropdowns.forEach(d => {
+                                if (d !== dropdown) {
+                                    d.classList.remove('active');
+                                    const otherContent = d.querySelector('.dropdown-content');
+                                    otherContent.style.maxHeight = null;
+                                    otherContent.style.padding = '0';
+                                }
+                            });
+
+                            // Toggle the clicked dropdown
+                            dropdown.classList.toggle('active');
+
+                            const content = dropdown.querySelector('.dropdown-content');
+                            if (dropdown.classList.contains('active')) {
+                                content.style.maxHeight = content.scrollHeight + 'px';
+                                content.style.padding = '10px 0';
+                            } else {
+                                content.style.maxHeight = null;
+                                content.style.padding = '0';
                             }
-                        });
-
-                        // Toggle the clicked dropdown
-                        dropdown.classList.toggle('active');
-
-                        const content = dropdown.querySelector('.dropdown-content');
-                        if (dropdown.classList.contains('active')) {
-                            content.style.maxHeight = content.scrollHeight + 'px';
-                            content.style.padding = '10px 0';
-                        } else {
-                            content.style.maxHeight = null;
-                            content.style.padding = '0';
                         }
                     }
                 });
             });
 
-            // Close menu when clicking outside (mobile)
-            document.addEventListener('click', function (e) {
-                if (!navbarList.contains(e.target) && !hamburger.contains(e.target)) {
-                    navbarList.classList.remove('open');
-                    dropdowns.forEach(d => {
-                        d.classList.remove('active');
-                        const content = d.querySelector('.dropdown-content');
-                        if (content) {
-                            content.style.maxHeight = null;
-                            content.style.padding = '0';
-                        }
-                    });
-                    
-                    // Reset hamburger icons
+            // Close menu when clicking on a link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
                     menuIcon.style.display = 'block';
                     closeIcon.style.display = 'none';
-                }
-            });
-
-            // Reset dropdown styles on resize (for responsiveness)
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 767) {
-                    dropdowns.forEach(d => {
-                        d.classList.remove('active');
-                        const content = d.querySelector('.dropdown-content');
-                        if (content) {
-                            content.style.maxHeight = null;
-                            content.style.padding = '';
-                        }
-                    });
-                    navbarList.classList.remove('open');
-                    
-                    // Reset hamburger icons
-                    menuIcon.style.display = 'block';
-                    closeIcon.style.display = 'none';
-                }
+                });
             });
 
             // Word animation implementation
@@ -1463,9 +1590,5 @@
   }
 ]
     </script>
-
-    <script src="whatsapp.js"></script>
-    
-
 </body>
 </html>
