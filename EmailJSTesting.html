@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailJS Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: #5D5DFF;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .content {
+            display: flex;
+            padding: 0;
+        }
+        
+        .form-container, .info-panel {
+            padding: 30px;
+            flex: 1;
+        }
+        
+        .form-container {
+            background: white;
+        }
+        
+        .info-panel {
+            background: #f8f9ff;
+            color: #333;
+            border-left: 1px solid #eee;
+        }
+        
+        .info-panel h2 {
+            color: #5D5DFF;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .instructions {
+            margin-bottom: 30px;
+        }
+        
+        .instructions li {
+            margin-bottom: 15px;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .instructions i {
+            color: #5D5DFF;
+            margin-right: 10px;
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+        
+        .credentials {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .credential-item {
+            margin-bottom: 15px;
+        }
+        
+        .credential-item label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #5D5DFF;
+        }
+        
+        .credential-item input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .credential-item input:focus {
+            border-color: #5D5DFF;
+            outline: none;
+        }
+        
+        .test-form {
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-color: #5D5DFF;
+            box-shadow: 0 0 0 3px rgba(93, 93, 255, 0.2);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        button {
+            background: #5D5DFF;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 16px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(93, 93, 255, 0.4);
+        }
+        
+        button:hover {
+            background: #4a4aff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(93, 93, 255, 0.5);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        #statusMessage {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            display: none;
+        }
+        
+        .success {
+            background: #e6fffa;
+            color: #0d9488;
+            border: 2px solid #14b8a6;
+        }
+        
+        .error {
+            background: #fff5f5;
+            color: #e53e3e;
+            border: 2px solid #fc8181;
+        }
+        
+        .loading {
+            background: #f0f9ff;
+            color: #0c4a6e;
+            border: 2px solid #7dd3fc;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #5D5DFF;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .info-panel {
+                border-left: none;
+                border-top: 1px solid #eee;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-envelope"></i> EmailJS Test</h1>
+            <p>Test your EmailJS integration to ensure form submissions are delivered to your inbox</p>
+        </header>
+        
+        <div class="content">
+            <div class="form-container">
+                <div class="credentials">
+                    <h2>Your EmailJS Credentials</h2>
+                    <div class="credential-item">
+                        <label for="userID">User ID</label>
+                        <input type="text" id="userID" placeholder="Enter your EmailJS User ID">
+                    </div>
+                    <div class="credential-item">
+                        <label for="serviceID">Service ID</label>
+                        <input type="text" id="serviceID" value="service_15f1fcs">
+                    </div>
+                    <div class="credential-item">
+                        <label for="templateID">Template ID</label>
+                        <input type="text" id="templateID" value="template_pq3tpbe">
+                    </div>
+                </div>
+                
+                <div class="test-form">
+                    <h2>Test Message</h2>
+                    <div class="form-group">
+                        <label for="testName">Your Name</label>
+                        <input type="text" id="testName" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="testEmail">Your Email</label>
+                        <input type="email" id="testEmail" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="testMessage">Message</label>
+                        <textarea id="testMessage" placeholder="Enter your test message">This is a test message from the EmailJS testing tool. If you're reading this, your EmailJS setup is working correctly!</textarea>
+                    </div>
+                    <button id="sendTestBtn">
+                        <i class="fas fa-paper-plane"></i> Send Test Email
+                    </button>
+                    
+                    <div id="statusMessage"></div>
+                </div>
+            </div>
+            
+            <div class="info-panel">
+                <h2><i class="fas fa-info-circle"></i> How to Use This Tester</h2>
+                <ol class="instructions">
+                    <li>
+                        <i class="fas fa-key"></i>
+                        <div>Enter your EmailJS <strong>User ID</strong> in the input field (you can find this in your EmailJS account)</div>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <div>Verify the Service ID and Template ID match your EmailJS configuration</div>
+                    </li>
+                    <li>
+                        <i class="fas fa-user"></i>
+                        <div>Enter your name and email address (use the email where you want to receive test messages)</div>
+                    </li>
+                    <li>
+                        <i class="fas fa-edit"></i>
+                        <div>Customize the test message if needed</div>
+                    </li>
+                    <li>
+                        <i class="fas fa-paper-plane"></i>
+                        <div>Click the "Send Test Email" button</div>
+                    </li>
+                    <li>
+                        <i class="fas fa-inbox"></i>
+                        <div>Check your inbox (and spam folder) for the test message</div>
+                    </li>
+                </ol>
+                
+                <div class="troubleshooting">
+                    <h3><i class="fas fa-tools"></i> Troubleshooting Tips</h3>
+                    <ul class="instructions">
+                        <li>
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>If you don't receive the email, check your spam folder</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-redo"></i>
+                            <div>Verify your EmailJS credentials are correct</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-link"></i>
+                            <div>Ensure your template in EmailJS is properly configured</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-code"></i>
+                            <div>Check the browser console for any error messages (Ctrl+Shift+J)</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Canadian Fitness Repair | EmailJS Integration Test</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize EmailJS
+            const sendTestBtn = document.getElementById('sendTestBtn');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            sendTestBtn.addEventListener('click', function() {
+                const userID = document.getElementById('userID').value;
+                const serviceID = document.getElementById('serviceID').value;
+                const templateID = document.getElementById('templateID').value;
+                const name = document.getElementById('testName').value || 'Test User';
+                const email = document.getElementById('testEmail').value || 'test@example.com';
+                const message = document.getElementById('testMessage').value;
+                
+                // Validate credentials
+                if (!userID) {
+                    showStatus('Please enter your EmailJS User ID', 'error');
+                    return;
+                }
+                
+                // Initialize EmailJS with user ID
+                emailjs.init(userID);
+                
+                // Show loading state
+                showStatus('Sending test email...', 'loading');
+                
+                // Prepare email parameters
+                const templateParams = {
+                    from_name: name,
+                    from_email: email,
+                    to_name: 'Canadian Fitness Repair',
+                    message: message,
+                    timestamp: new Date().toLocaleString()
+                };
+                
+                // Send email
+                emailjs.send(serviceID, templateID, templateParams)
+                    .then(function(response) {
+                        console.log('Email sent successfully!', response);
+                        showStatus('Test email sent successfully! Please check your inbox.', 'success');
+                    })
+                    .catch(function(error) {
+                        console.error('Email sending failed:', error);
+                        showStatus(`Failed to send email: ${error.text || 'Please check your credentials'}`, 'error');
+                    });
+            });
+            
+            function showStatus(message, type) {
+                statusMessage.textContent = message;
+                statusMessage.className = type;
+                statusMessage.style.display = 'block';
+                
+                // Auto-hide success messages after 5 seconds
+                if (type === 'success') {
+                    setTimeout(() => {
+                        statusMessage.style.display = 'none';
+                    }, 5000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

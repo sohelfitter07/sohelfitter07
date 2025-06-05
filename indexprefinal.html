@@ -3,42 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="24/7 Fitness Equipment Repair, Maintenance & Relocation in Hamilton, Greater Toronto Area + 200km radius. Expert treadmill, elliptical & commercial/residential repairs. Serving Hannon (L0R 1P0), Burlington, Oakville, Mississauga & Niagara.">
-    <meta name="keywords" content="
-    fitness equipment repair Hamilton,
-    treadmill repair GTA,
-    elliptical maintenance Toronto,
-    commercial fitness repair,
-    gym equipment relocation,
-    fitness technician near me,
-    Hannon fitness repair,
-    L0R 1P0 service area,
-    Burlington gym repair,
-    Oakville treadmill fix,
-    Mississauga elliptical service,
-    Niagara fitness maintenance,
-    residential fitness repair,
-    urgent equipment repair,
-    certified fitness technician
-    ">
-    <meta property="og:title" content="Fitness Equipment Repair | Hamilton & GTA Experts">
-    <meta property="og:description" content="Emergency repair & relocation for treadmills, ellipticals & commercial equipment. Serving Hamilton + 200km radius (L0R 1P0)">
-    <meta property="og:image" content="your-service-van-image.jpg">
-    <meta property="og:url" content="https://www.canadianfitnessrepair.com">
-    <meta property="og:type" content="website">
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.canadianfitnessrepair.com">
-
-    <!-- Geo Tags -->
-    <meta name="geo.placename" content="Hamilton, Ontario, Greater Toronto Area, Hannon">
-    <meta name="geo.position" content="43.2250;-79.8660">
-    <meta name="geo.region" content="CA-ON">
-    <meta name="ICBM" content="43.2250, -79.8660">
-    <title>Canadian Fitness Equipment Repair & Maintenance | Hamilton & GTA Experts | Treadmill, Elliptical, Commercial/Residential Repair & Relocation</title>
-    
+    <title>Canadian Fitness Repair | Expert Equipment Service</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="whatsapp.css">
     <style>
         :root {
             --theme-color: #5D5DFF;
@@ -64,23 +30,49 @@
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
-            padding-top: 80px; /* Added for fixed header */
+            padding-top: 120px; /* Initial padding for header */
         }
 
         /* Header Styles */
         header {
             width: 100%;
-            position: fixed; /* Changed to fixed */
+            position: fixed;
             top: 0;
             z-index: 1000;
-            background-color: var(--bg-color);
-            border-bottom: 1px solid rgba(155, 169, 180, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
         }
 
-        .nav {
+        /* Promo Line */
+        .promo-line {
+            background: linear-gradient(90deg, var(--accent-color), #ff8e8e);
+            color: var(--bg-color);
+            padding: 10px 0;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .promo-content {
             display: flex;
-            flex-direction: column;
+            white-space: nowrap;
+            animation: promo-scroll 30s linear infinite;
+        }
+
+        .promo-item {
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .promo-item i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+
+        @keyframes promo-scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
         #contactlist {
@@ -90,6 +82,7 @@
             align-items: center;
             background-color: var(--theme-color);
             padding: 10px 5%;
+            transition: var(--transition);
         }
 
         .links {
@@ -144,11 +137,15 @@
             padding: 15px 5%;
             position: relative;
             background-color: var(--bg-color);
+            border-bottom: 1px solid rgba(155, 169, 180, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
 
         #navlogo {
             display: flex;
             flex-direction: column;
+            flex: 1;
+            min-width: 0;
         }
 
         .logo-text {
@@ -156,12 +153,18 @@
             font-weight: bold;
             color: var(--text-color);
             line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .tagline {
             font-size: 0.8rem;
             color: var(--accent-color);
             font-style: italic;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .hamburger {
@@ -172,11 +175,8 @@
             font-size: 2rem;
             cursor: pointer;
             z-index: 1001;
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%); /* Centered vertically */
             transition: var(--transition);
+            margin-left: 15px;
         }
 
         .hamburger:hover {
@@ -185,6 +185,7 @@
 
         .navbar {
             display: flex;
+            flex: 2;
         }
 
         .navbarList {
@@ -404,50 +405,79 @@
             color: var(--light-text);
         }
 
-        /* Marquee Section */
-        .marquee-section {
+        /* Brand Carousel */
+        .brand-section {
             background-color: var(--card-bg);
             padding: 3rem 0;
-            overflow: hidden;
             position: relative;
             border-top: 1px solid rgba(255,255,255,0.1);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .marquee-container {
-            display: flex;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .marquee-track {
-            display: flex;
-            animation: marquee 30s linear infinite;
-            min-width: 100%;
-        }
-
-        .marquee-track img {
-            height: 60px;
-            margin: 0 40px;
-            transition: all 0.3s ease;
-        }
-
-        .marquee-track img:hover {
-            transform: scale(1.05);
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .marquee-title {
+        .brand-title {
             text-align: center;
             font-size: 1.2rem;
             margin-bottom: 1.5rem;
             color: var(--light-text);
             text-transform: uppercase;
             letter-spacing: 2px;
+        }
+
+        .brand-carousel {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-track {
+            display: flex;
+            animation: brand-scroll 30s linear infinite;
+            gap: 20px;
+        }
+
+        .brand-card {
+            background: var(--bg-color);
+            border-radius: 12px;
+            padding: 15px;
+            min-width: 150px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            border: 1px solid rgba(93, 93, 255, 0.1);
+        }
+
+        .brand-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(93, 93, 255, 0.3);
+        }
+
+        .brand-logo {
+            height: 40px;
+            margin-bottom: 10px;
+            filter: grayscale(100%) brightness(150%);
+            transition: var(--transition);
+        }
+
+        .brand-card:hover .brand-logo {
+            filter: grayscale(0) brightness(100%);
+        }
+
+        .brand-name {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        @keyframes brand-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* Services Section */
@@ -786,7 +816,12 @@
 
         @media (max-width: 767px) {
             body {
-                padding-top: 60px; /* Adjusted for mobile */
+                padding-top: 100px; /* Adjusted for mobile */
+            }
+            
+            .promo-line {
+                font-size: 0.9rem;
+                padding: 8px 0;
             }
             
             #contactlist {
@@ -801,15 +836,42 @@
             }
 
             #navbottom {
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 padding: 15px;
-                min-height: 60px; /* Added min-height */
+                min-height: 60px;
+                gap: 15px;
+            }
+
+            #navlogo {
+                min-width: auto;
+                overflow: hidden;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .tagline {
+                font-size: 0.7rem;
             }
 
             .hamburger {
                 display: block;
-                top: 50%; /* Centered vertically */
-                right: 15px;
+                flex-shrink: 0;
+            }
+
+            .navbar {
+                display: none;
+            }
+
+            #quote {
+                flex-shrink: 0;
+                margin-left: auto;
+            }
+
+            .c-button-nav {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
             }
 
             .navbarList {
@@ -859,19 +921,6 @@
                 margin-top: 5px;
             }
 
-            #quote {
-                width: 100%;
-                margin-top: 20px;
-                order: 3;
-                text-align: center;
-            }
-
-            .c-button-nav {
-                width: auto;
-                padding: 0.8rem 1.5rem;
-                font-size: 1.1rem;
-            }
-
             .footertop {
                 flex-direction: column;
                 gap: 2rem;
@@ -899,9 +948,18 @@
                 font-size: 2rem;
             }
             
-            .marquee-track img {
-                height: 40px;
-                margin: 0 25px;
+            .brand-card {
+                min-width: 120px;
+                height: 90px;
+                padding: 10px;
+            }
+            
+            .brand-logo {
+                height: 30px;
+            }
+            
+            .brand-name {
+                font-size: 0.8rem;
             }
         }
 
@@ -923,28 +981,20 @@
             }
             
             .hamburger {
-                top: 50%;
+                font-size: 1.8rem;
             }
             
             .stat-item {
                 min-width: 140px;
             }
             
-            .marquee-track img {
-                height: 30px;
-                margin: 0 15px;
-            }
-            
             .navbarList {
                 width: 80%;
             }
             
-            .logo-text {
-                font-size: 1.2rem;
-            }
-            
-            .tagline {
-                font-size: 0.7rem;
+            .brand-card {
+                min-width: 100px;
+                height: 80px;
             }
         }
 
@@ -959,10 +1009,38 @@
                 transform: rotate(180deg);
             }
         }
+
+        /* Scroll behavior styles */
+        .scrolled #contactlist {
+            transform: translateY(-100%);
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .scrolled {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .scrolled ~ main {
+            padding-top: 70px; /* Adjust when contact list is hidden */
+        }
     </style>
 </head>
 <body>
     <header>
+        <div class="promo-line">
+            <div class="promo-content">
+                <div class="promo-item"><i class="ri-map-pin-fill"></i> Now serving in Hamilton, Burlington and surrounding neighborhoods</div>
+                <div class="promo-item"><i class="ri-tools-fill"></i> Onsite repair services available</div>
+                <div class="promo-item"><i class="ri-flashlight-fill"></i> Emergency rush services available</div>
+                <div class="promo-item"><i class="ri-calendar-check-fill"></i> Same-day appointments</div>
+                <div class="promo-item"><i class="ri-24-hours-fill"></i> 24/7 support available</div>
+                <div class="promo-item"><i class="ri-medal-fill"></i> Certified fitness equipment technicians</div>
+            </div>
+        </div>
+        
         <nav class="nav">
             <div id="contactlist">
                 <div id="leftcontactlist" class="leftheaderlinks">
@@ -985,7 +1063,7 @@
                 <div id="navlogo">
                     <a href="https://www.canadianfitnessrepair.com">
                         <div class="logo-text">Canadian Fitness Repair</div>
-                        <div class="tagline">Serving GTA's since 2016</div>
+                        <div class="tagline">Serving GTA since 2016</div>
                     </a>
                 </div>
                 <div class="navbar">
@@ -1052,16 +1130,133 @@
             </a>
         </section>
         
-        <section class="marquee-section">
-            <div class="marquee-title">Trusted by Leading Manufacturers</div>
-            <div class="marquee-container">
-                <div class="marquee-track">
-                    <img src="equipementlogo/bowflex.webp" alt="bowflex">
-                    <img src="equipementlogo/cybex.png" alt="cybex">
-                    <img src="equipementlogo/horizon.png" alt="horizon">
-                    <img src="equipementlogo/NordicTrack.jpg" alt="NordicTrack">
-                    <img src="equipementlogo/proform.webp" alt="proform">
-                    <img src="equipementlogo/sole.webp" alt="Sole Fitness">
+        <section class="brand-section">
+            <h2 class="brand-title">Trusted by Leading Manufacturers</h2>
+            <div class="brand-carousel">
+                <div class="brand-track">
+                    <!-- Brands will be duplicated in JavaScript for infinite effect -->
+                    <div class="brand-card">
+                        <div class="brand-logo">NordicTrack</div>
+                        <div class="brand-name">NordicTrack</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">ProForm</div>
+                        <div class="brand-name">ProForm</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Bowflex</div>
+                        <div class="brand-name">Bowflex</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Life Fitness</div>
+                        <div class="brand-name">Life Fitness</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Precor</div>
+                        <div class="brand-name">Precor</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Matrix</div>
+                        <div class="brand-name">Matrix</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Sole Fitness</div>
+                        <div class="brand-name">Sole Fitness</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Horizon</div>
+                        <div class="brand-name">Horizon</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Cybex</div>
+                        <div class="brand-name">Cybex</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Schwinn</div>
+                        <div class="brand-name">Schwinn</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Nautilus</div>
+                        <div class="brand-name">Nautilus</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Technogym</div>
+                        <div class="brand-name">Technogym</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">True Fitness</div>
+                        <div class="brand-name">True Fitness</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Spirit Fitness</div>
+                        <div class="brand-name">Spirit Fitness</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Octane Fitness</div>
+                        <div class="brand-name">Octane Fitness</div>
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="brand-card">
+                        <div class="brand-logo">NordicTrack</div>
+                        <div class="brand-name">NordicTrack</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">ProForm</div>
+                        <div class="brand-name">ProForm</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Bowflex</div>
+                        <div class="brand-name">Bowflex</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Life Fitness</div>
+                        <div class="brand-name">Life Fitness</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Precor</div>
+                        <div class="brand-name">Precor</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Matrix</div>
+                        <div class="brand-name">Matrix</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Sole Fitness</div>
+                        <div class="brand-name">Sole Fitness</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Horizon</div>
+                        <div class="brand-name">Horizon</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Cybex</div>
+                        <div class="brand-name">Cybex</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Schwinn</div>
+                        <div class="brand-name">Schwinn</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Nautilus</div>
+                        <div class="brand-name">Nautilus</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Technogym</div>
+                        <div class="brand-name">Technogym</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">True Fitness</div>
+                        <div class="brand-name">True Fitness</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Spirit Fitness</div>
+                        <div class="brand-name">Spirit Fitness</div>
+                    </div>
+                    <div class="brand-card">
+                        <div class="brand-logo">Octane Fitness</div>
+                        <div class="brand-name">Octane Fitness</div>
+                    </div>
+                </div>
             </div>
         </section>
         
@@ -1191,45 +1386,6 @@
             </a>
         </section>
 
-
-    <section>
-            <!-- WhatsApp Widget -->
-    <div class="whatsapp-widget" id="whatsappWidget">
-        <div class="widget-header">
-            <div class="whatsapp-icon">
-                <i class="fab fa-whatsapp"></i>
-            </div>
-            <div class="header-text">
-                <h3>Canadian Fitness Repair</h3>
-                <p>Typically replies instantly</p>
-            </div>
-            <button class="close-btn" id="closeBtn">×</button>
-        </div>
-        
-        <div class="chat-content" id="chatContent">
-            <div class="message received">
-                Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
-            </div>
-            <div class="message received">
-                We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with!
-            </div>
-            <div class="message sent">
-                Great!.
-            </div>
-        </div>
-        
-        <div class="action-area">
-            <button class="whatsapp-btn" id="whatsappBtn">
-                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-            </button>
-        </div>
-    </div>
-    
-    <!-- Floating Button -->
-    <div class="floating-btn pulse" id="floatingBtn">
-        <i class="fab fa-whatsapp"></i>
-    </div>
-    </section>
     </main>
     
     <footer>
@@ -1283,6 +1439,26 @@
             const dropdowns = document.querySelectorAll('.dropdown');
             const menuIcon = hamburger.querySelector('.menu-icon');
             const closeIcon = hamburger.querySelector('.close-icon');
+            const header = document.querySelector('header');
+            const contactList = document.getElementById('contactlist');
+
+            // Scroll behavior for mobile
+            let lastScrollTop = 0;
+            const scrollThreshold = 50; // How much to scroll before hiding contact list
+
+            window.addEventListener('scroll', function() {
+                if (window.innerWidth <= 767) {
+                    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    if (currentScroll > scrollThreshold) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                    
+                    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+                }
+            });
 
             // Toggle mobile menu
             hamburger.addEventListener('click', () => {
@@ -1366,6 +1542,9 @@
                     // Reset hamburger icons
                     menuIcon.style.display = 'block';
                     closeIcon.style.display = 'none';
+                    
+                    // Reset scroll behavior
+                    header.classList.remove('scrolled');
                 }
             });
 
@@ -1423,69 +1602,5 @@
         });
 
     </script>
-
-    <!-- SEO script  -->
-    
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Canadian Fitness Repair",
-  "image": "your-logo-url.jpg",
-  "@id": "https://www.canadianfitnessrepair.com",
-  "url": "https://www.canadianfitnessrepair.com",
-  "telephone": "+1-289-925-7239",
-  "address": {
-    "@type": "L0R 1P0",
-    "streetAddress": "22 Canary Grass Blvd",
-    "addressLocality": "Hannon",
-    "postalCode": "L0R 1P0",
-    "addressRegion": "ON",
-    "addressCountry": "CA"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "43.2250",
-    "longitude": "-79.8660"
-  },
-  "areaServed": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": "43.2250",
-      "longitude": "-79.8660"
-    },
-    "geoRadius": "200000"
-  },
-  "openingHoursSpecification": [{
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    "opens": "08:00",
-    "closes": "20:00"
-  }],
-  "serviceArea": ["Hamilton", "Toronto", "Burlington", "Oakville", "Mississauga", "Brantford", "Niagara", "Kitchener", "Guelph", "Cambridge"],
-  "sameAs": ["your-facebook-url", "your-instagram-url"]
-}
-"serviceArea": {
-  "@type": "AdministrativeArea",
-  "name": "Ontario, CA"
-},
-"makesOffer": [
-  {
-    "@type": "Offer",
-    "name": "Same-Day Treadmill Repair",
-    "areaServed": ["Hamilton", "Burlington"]
-  },
-  {
-    "@type": "Offer",
-    "name": "Commercial Equipment Relocation",
-    "areaServed": ["Greater Toronto Area"]
-  }
-]
-    </script>
-
-    <script src="whatsapp.js"></script>
-    
-
 </body>
 </html>
