@@ -481,6 +481,46 @@
             font-style: italic;
         }
 
+        /* Additional styles for form validation */
+        .form-group.invalid input,
+        .form-group.invalid select,
+        .form-group.invalid textarea {
+            border-color: var(--accent-color) !important;
+        }
+        
+        .form-group.invalid .error-message {
+            display: block;
+        }
+        
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(21, 23, 25, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--theme-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+
         .submit-btn {
             grid-column: 1 / -1;
             text-align: center;
@@ -1247,6 +1287,7 @@
                     <div class="form-group">
                         <label for="firstName" class="required">First Name</label>
                         <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                        <div class="error-message">Please enter your first name</div>
                     </div>
                     
                     <div class="form-group">
@@ -1257,11 +1298,13 @@
                     <div class="form-group">
                         <label for="contactNumber" class="required">Contact Number</label>
                         <input type="tel" id="contactNumber" name="contactNumber" placeholder="(123) 456-7890" required>
+                        <div class="error-message">Please enter a valid phone number</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="email" class="required">Email Address</label>
                         <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                        <div class="error-message">Please enter a valid email address</div>
                     </div>
                     
                     <div class="form-group">
@@ -1271,11 +1314,13 @@
                             <option value="email">Email</option>
                             <option value="phone">Contact Number</option>
                         </select>
+                        <div class="error-message">Please select a contact method</div>
                     </div>
                     
                     <div class="form-group full-width">
                         <label for="address" class="required">Street Address</label>
                         <input type="text" id="address" name="address" placeholder="123 Example Street" required>
+                        <div class="error-message">Please enter your address</div>
                     </div>
                     
                     <div class="form-group">
@@ -1293,11 +1338,13 @@
                             <option value="Ajax">Ajax</option>
                             <option value="Pickering">Pickering</option>
                         </select>
+                        <div class="error-message">Please select your city</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="postal" class="required">Postal Code</label>
                         <input type="text" id="postal" name="postal" placeholder="A1A 1A1" required>
+                        <div class="error-message">Please enter a valid postal code</div>
                     </div>
                     
                     <div class="form-group">
@@ -1323,6 +1370,7 @@
                             <option value="Repairs & Tune-Ups">Repairs & Tune-Ups</option>
                             <option value="Relocation & Assembly">Relocation & Assembly</option>
                         </select>
+                        <div class="error-message">Please select a service</div>
                     </div>
                     
                     <div class="form-group">
@@ -1337,16 +1385,19 @@
                                 <label for="business">Business</label>
                             </div>
                         </div>
+                        <div class="error-message">Please select client type</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="brand" class="required">Equipment Manufacturer</label>
                         <input type="text" id="brand" name="brand" required placeholder="e.g. NordicTrack, LifeFitness">
+                        <div class="error-message">Please enter the manufacturer</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="model" class="required">Model Number</label>
                         <input type="text" id="model" name="model" required placeholder="e.g. NTL19125 or NTL17125">
+                        <div class="error-message">Please enter the model number</div>
                     </div>
                     
                     <div class="form-group">
@@ -1357,11 +1408,13 @@
                     <div class="form-group">
                         <label for="bookingDateTime" class="required">Preferred Booking Date & Time</label>
                         <input type="datetime-local" id="bookingDateTime" name="bookingDateTime" required>
+                        <div class="error-message">Please select a date and time</div>
                     </div>
                     
                     <div class="form-group full-width">
                         <label for="description" class="required">Description of Issue</label>
                         <textarea id="description" name="description" rows="5" required placeholder="Example: Treadmill belt slipping, Elliptical making noise, Console not powering on, Motor overheating, Resistance not adjusting..."></textarea>
+                        <div class="error-message">Please describe the issue</div>
                     </div>
                     
                     <div class="form-group full-width">
@@ -1376,6 +1429,12 @@
                         </button>
                     </div>
                 </form>
+
+                <!-- Loading overlay for form submission -->
+                <div id="loadingOverlay" class="loading-overlay">
+                    <div class="loading-spinner"></div>
+                    <p>Submitting your request...</p>
+                </div>
                 
                 <div class="contact-card">
                     <h3>Need Immediate Assistance?</h3>
@@ -1441,8 +1500,15 @@
         </div>
     </footer>
     
+    <!-- Add EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Initialize EmailJS with your User ID
+            // Replace "YOUR_USER_ID_HERE" with your actual EmailJS User ID
+            emailjs.init("mQC3ZNXVbXV2obzlp");
+            
             // Mobile menu functionality
             const hamburger = document.getElementById('hamburger');
             const navbarList = document.getElementById('navbarList');
@@ -1555,24 +1621,16 @@
             // Form submission handling
             const quoteForm = document.getElementById('quoteForm');
             const successMessage = document.getElementById('successMessage');
+            const loadingOverlay = document.getElementById('loadingOverlay');
             
             quoteForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 // Form validation
-                let isValid = true;
-                const requiredFields = quoteForm.querySelectorAll('[required]');
-                
-                requiredFields.forEach(field => {
-                    if (!field.value.trim()) {
-                        isValid = false;
-                        field.style.borderColor = 'var(--accent-color)';
-                    } else {
-                        field.style.borderColor = '';
-                    }
-                });
-                
-                if (isValid) {
+                if (validateForm()) {
+                    // Show loading overlay
+                    loadingOverlay.style.display = 'flex';
+                    
                     // Prepare form data
                     const formData = {
                         firstName: document.getElementById('firstName').value,
@@ -1592,38 +1650,119 @@
                         description: document.getElementById('description').value
                     };
                     
-                    // Display the form data (in a real scenario, this would be sent to your server)
-                    console.log("Form Data:", formData);
-                    
-                    // Show success message
-                    successMessage.classList.add('show');
-                    
-                    // Hide form
-                    quoteForm.style.display = 'none';
-                    
-                    // Scroll to success message
-                    successMessage.scrollIntoView({behavior: 'smooth'});
-                    
-                    // Reset form after 5 seconds
-                    setTimeout(() => {
-                        quoteForm.reset();
-                        quoteForm.style.display = 'grid';
-                        successMessage.classList.remove('show');
-                    }, 5000);
+                    // Send email using EmailJS
+                    emailjs.send("service_15f1fcs", "template_pq3tpbe", formData)
+                        .then(function(response) {
+                            console.log("Email sent successfully!", response);
+                            
+                            // Hide loading overlay
+                            loadingOverlay.style.display = 'none';
+                            
+                            // Show success message
+                            successMessage.classList.add('show');
+                            
+                            // Hide form
+                            quoteForm.style.display = 'none';
+                            
+                            // Scroll to success message
+                            successMessage.scrollIntoView({behavior: 'smooth'});
+                            
+                            // Reset form after 5 seconds
+                            setTimeout(() => {
+                                quoteForm.reset();
+                                quoteForm.style.display = 'grid';
+                                successMessage.classList.remove('show');
+                            }, 5000);
+                        }, function(error) {
+                            console.log("Email failed to send:", error);
+                            
+                            // Hide loading overlay
+                            loadingOverlay.style.display = 'none';
+                            
+                            alert('Failed to send your request. Please try again or contact us directly.');
+                        });
                 } else {
-                    alert('Please fill in all required fields.');
+                    alert('Please fill in all required fields correctly.');
                 }
             });
-
-            // In the form submission handler
-emailjs.send("service_3b1qepm", "template_pq3tpbe", formData)
-    .then(function(response) {
-        console.log("Email sent successfully!", response);
-        // Show success message
-    }, function(error) {
-        console.log("Email failed to send:", error);
-        // Show error message
-    });
+            
+            // Form validation function
+            function validateForm() {
+                let isValid = true;
+                const requiredFields = quoteForm.querySelectorAll('[required]');
+                
+                // Reset all invalid states
+                document.querySelectorAll('.form-group').forEach(group => {
+                    group.classList.remove('invalid');
+                });
+                
+                // Validate each required field
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.closest('.form-group').classList.add('invalid');
+                        isValid = false;
+                    }
+                });
+                
+                // Validate email format
+                const emailField = document.getElementById('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailField.value && !emailRegex.test(emailField.value)) {
+                    emailField.closest('.form-group').classList.add('invalid');
+                    isValid = false;
+                }
+                
+                // Validate phone format
+                const phoneField = document.getElementById('contactNumber');
+                const phoneRegex = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+                if (phoneField.value && !phoneRegex.test(phoneField.value)) {
+                    phoneField.closest('.form-group').classList.add('invalid');
+                    isValid = false;
+                }
+                
+                // Validate postal code
+                const postalField = document.getElementById('postal');
+                const postalRegex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+                if (postalField.value && !postalRegex.test(postalField.value)) {
+                    postalField.closest('.form-group').classList.add('invalid');
+                    isValid = false;
+                }
+                
+                return isValid;
+            }
+            
+            // Add real-time validation
+            document.querySelectorAll('input, select, textarea').forEach(field => {
+                field.addEventListener('blur', function() {
+                    if (this.hasAttribute('required') && !this.value.trim()) {
+                        this.closest('.form-group').classList.add('invalid');
+                    } else {
+                        this.closest('.form-group').classList.remove('invalid');
+                    }
+                    
+                    // Specific field validations
+                    if (this.id === 'email' && this.value) {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(this.value)) {
+                            this.closest('.form-group').classList.add('invalid');
+                        }
+                    }
+                    
+                    if (this.id === 'contactNumber' && this.value) {
+                        const phoneRegex = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+                        if (!phoneRegex.test(this.value)) {
+                            this.closest('.form-group').classList.add('invalid');
+                        }
+                    }
+                    
+                    if (this.id === 'postal' && this.value) {
+                        const postalRegex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+                        if (!postalRegex.test(this.value)) {
+                            this.closest('.form-group').classList.add('invalid');
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>
