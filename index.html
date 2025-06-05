@@ -73,7 +73,7 @@
         .promo-content {
             display: flex;
             white-space: nowrap;
-            animation: promo-scroll 30s linear infinite;
+            animation: promo-scroll 30s ease-out infinite;
         }
         
         .promo-item {
@@ -88,7 +88,7 @@
         }
         
         @keyframes promo-scroll {
-            0% { transform: translateX(100%); }
+            0% { transform: translateX(50%); }
             100% { transform: translateX(-100%); }
         }
         
@@ -430,6 +430,7 @@
         
         /* Responsive Styles - Header & Footer */
         @media (max-width: 767px) {
+
             body {
                 padding-top: 100px;
             }
@@ -438,7 +439,9 @@
                 font-size: 0.9rem;
                 padding: 8px 0;
             }
-            
+        #navlogo {
+            flex: 19;
+        }
             #contactlist {
                 flex-direction: column;
                 gap: 0.5rem;
@@ -476,7 +479,7 @@
             }
         
             .navbar {
-                display: none;
+                display: flex;
             }
         
             #quote {
@@ -514,14 +517,22 @@
         
             .hamburger .close-icon {
                 display: none;
+                position: absolute;
+                top: -45px;
+                right: 7%;
             }
         
             .hamburger .menu-icon {
                 display: block;
+                right: 100px;
             }
         
             .navbarList.open ~ .hamburger .close-icon {
                 display: block;
+                position: fixed;
+                top: 0;
+                right: 0;
+                z-index: 1002;
             }
         
             .navbarList.open ~ .hamburger .menu-icon {
@@ -549,6 +560,14 @@
         }
         
         @media (max-width: 480px) {
+            .logo-text {
+                font-size: 0.75rem;
+            }
+        
+            .tagline {
+                font-size: 0.6rem;
+            }
+
             .leftheaderlinks ul.links{
                 gap: 50%;
                 padding-top: 0;
@@ -556,6 +575,9 @@
             }
             .navbarList {
                 width: 80%;
+            }
+            .hamburger .close-icon {
+                top: -65px;
             }
         }
         
@@ -1055,7 +1077,7 @@
                 <div id="navlogo">
                     <a href="https://www.canadianfitnessrepair.com">
                         <div class="logo-text">Canadian Fitness Repair</div>
-                        <div class="tagline">Serving GTA since 2016</div>
+                        <div class="tagline">Serving GTA since 2013</div>
                     </a>
                 </div>
                 <div class="navbar">
