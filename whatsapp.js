@@ -12,7 +12,7 @@
             setTimeout(() => {
                 widget.classList.add('open');
                 floatingBtn.classList.add('hidden');
-            }, 2000);
+            }, 20000);
             
             // Close widget
             closeBtn.addEventListener('click', () => {
