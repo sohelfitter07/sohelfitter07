@@ -208,7 +208,7 @@
         .navbarList {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
+            gap: 0.5rem;
         }
         
         .navbarList a {
@@ -429,6 +429,20 @@
         }
         
         /* Responsive Styles - Header & Footer */
+        @media (max-width: 1024px) {
+            .navbar {
+      
+        }
+        
+        .navbarList {
+            font-size: 85%;
+            gap: 0.3rem;
+        }
+        
+        .navbarList a {
+           
+        }
+        }
         @media (max-width: 767px) {
 
             body {
@@ -437,7 +451,7 @@
             
             .promo-line {
                 font-size: 0.9rem;
-                padding: 8px 0;
+                padding: 4px 0;
             }
         #navlogo {
             flex: 19;
@@ -445,7 +459,7 @@
             #contactlist {
                 flex-direction: column;
                 gap: 0.5rem;
-                padding: 15px 5%;
+                padding: 6px 5%;
             }
         
             .leftheaderlinks ul.links, .rightheaderlinks ul.links {
@@ -673,7 +687,7 @@
             justify-content: center;
             margin: 2rem 0;
             padding: 2rem 0;
-            height: 120px;
+            height: 80px;
             overflow: hidden;
         }
 
@@ -681,7 +695,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: transform 3s ease;
+            transition: transform 2s ease;
             height: 120px;
         }
 
@@ -1659,7 +1673,7 @@
             
             function animateWords() {
                 currentIndex = (currentIndex + 1) % totalWords;
-                wordWrapper.style.transform = `translateY(${-currentIndex * 100}%)`;
+                wordWrapper.style.transform = `translateY(${-currentIndex * 60}%)`;
             }
             
             setInterval(animateWords, 4500);
