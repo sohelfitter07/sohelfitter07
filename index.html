@@ -416,14 +416,55 @@
         }
         
         /* Responsive Styles - Header & Footer */
-        @media (max-width: 1024px) {
-
-        .navbarList {
-            font-size: 85%;
-            gap: 0.3rem;
-        }
+        @media (min-width: 1025px) and (max-width: 1280px) {
+        .logo-text {
+                font-size: 1.3rem;
+            }
         
+            .tagline {
+                font-size: 0.9rem;
+            }
+        .navbarList {
+            font-size: 80%;
+            gap: 0rem;
+        }
 
+        #navlogo {
+            min-width: auto;
+            }
+        #quote {
+            margin-left: auto;
+            }
+        
+        .c-button-nav {
+                padding: 0.6rem 0.6rem;
+                font-size: 0.9rem;
+            }
+        }
+        @media (max-width: 1024px) {
+            .logo-text {
+                font-size: 1rem;
+            }
+        
+            .tagline {
+                font-size: 0.7rem;
+            }
+        .navbarList {
+            font-size: 65%;
+            gap: 0rem;
+        }
+
+        #navlogo {
+            min-width: auto;
+            }
+        #quote {
+            margin-left: auto;
+            }
+        
+        .c-button-nav {
+                padding: 0.6rem 0.5rem;
+                font-size: 0.75rem;
+            }
         }
         @media (max-width: 767px) {
 
