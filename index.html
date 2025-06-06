@@ -1055,6 +1055,162 @@
             }
         }
     </style>
+
+     <!-- /* Repair Process Section Styles */ -->
+    <style>
+   
+    .repair-process {
+        padding: 5rem 2rem;
+        background-color: var(--card-bg);
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .process-intro {
+        max-width: 800px;
+        margin: 0 auto 3rem;
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--light-text);
+        line-height: 1.7;
+    }
+
+    .process-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .step-card {
+        background: var(--bg-color);
+        border-radius: 12px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(93, 93, 255, 0.1);
+        transition: var(--transition);
+    }
+
+    .step-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2);
+    }
+
+    .step-number {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 3rem;
+        font-weight: 700;
+        color: rgba(93, 93, 255, 0.1);
+        z-index: 1;
+    }
+
+    .step-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .step-content h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        color: var(--theme-color);
+    }
+
+    .step-content p {
+        color: var(--light-text);
+        line-height: 1.6;
+    }
+
+    .step-icon {
+        margin-top: 1.5rem;
+        font-size: 2.5rem;
+        color: var(--theme-color);
+        transition: var(--transition);
+    }
+
+    .step-card:hover .step-icon {
+        color: var(--accent-color);
+        transform: scale(1.1);
+    }
+
+    .process-cta {
+        text-align: center;
+        margin-top: 4rem;
+        padding: 2rem;
+        background: rgba(93, 93, 255, 0.05);
+        border-radius: 12px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .process-cta p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: var(--light-text);
+    }
+
+    .process-cta .c-button {
+        margin: 0 auto;
+        display: inline-block;
+    }
+
+    .note {
+        font-size: 0.8rem;
+        margin-top: 1rem;
+        color: rgba(255,255,255,0.5);
+        font-style: italic;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .process-steps {
+            grid-template-columns: 1fr;
+        }
+        
+        .step-card {
+            padding: 1.5rem;
+        }
+    }
+
+    /* NEW STYLES FOR THE FORM LINK BUTTON */
+    .form-link {
+        display: inline-flex;
+        align-items: center;
+        background: var(--theme-color);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin-top: 15px;
+        box-shadow: 0 4px 10px rgba(93, 93, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .form-link:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(93, 93, 255, 0.4);
+    }
+
+    .form-link i {
+        margin-left: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .form-link:hover i {
+        transform: translateX(5px);
+    }
+    </style>
+
+
 </head>
 <body>
     <header>
@@ -1288,6 +1444,94 @@
             </div>
         </section>
         
+        <!-- Add this section after the Brand Carousel section and before the Stats section -->
+        <section class="repair-process">
+        <div class="container">
+        <h2 class="section-title">How Our Repair Process Works</h2>
+        <p class="process-intro">At Canadian Fitness Repair, we've streamlined our repair process to ensure maximum convenience and efficiency for our customers. Here's what you can expect when you choose our expert service:</p>
+        
+        <div class="process-steps">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Schedule Your Service</h3>
+                    <p>Contact us by phone, email, or through our online form to schedule a convenient appointment time. We offer same-day and next-day appointments for urgent repairs.</p>
+                    <!-- Added form link button -->
+                    <a href="formfinal.html" class="form-link">
+                        Click here to fill online form
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+                <div class="step-icon">
+                    <i class="ri-calendar-event-line"></i>
+                </div>
+            </div>
+            
+            <!-- Other step cards remain unchanged -->
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>On-Site Diagnosis</h3>
+                    <p>Our certified technician arrives at your location at the scheduled time. We'll perform a comprehensive diagnostic assessment to identify all issues with your equipment.</p>
+                </div>
+                <div class="step-icon">
+                    <i class="ri-search-line"></i>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Transparent Quote</h3>
+                    <p>After diagnosis, we'll provide you with a detailed, transparent quote for parts and labor. No hidden fees or surprises - you approve all work before we proceed.</p>
+                </div>
+                <div class="step-icon">
+                    <i class="ri-file-list-line"></i>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Expert Repair</h3>
+                    <p>Using genuine parts and manufacturer-approved techniques, our technician will repair your equipment while you watch. Most repairs are completed in a single visit.</p>
+                </div>
+                <div class="step-icon">
+                    <i class="ri-tools-line"></i>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Quality Testing</h3>
+                    <p>We thoroughly test all repaired components to ensure they meet our high standards. You'll have a chance to test the equipment yourself before we leave.</p>
+                </div>
+                <div class="step-icon">
+                    <i class="ri-checkbox-circle-line"></i>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h3>Warranty & Support</h3>
+                    <p>All repairs come with our satisfaction guarantee and 90-day warranty. We provide after-service support to answer any questions you might have.</p>
+                </div>
+                <div class="step-icon">
+                    <i class="ri-shield-check-line"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="process-cta">
+            <p>Ready to get started with our streamlined repair process?</p>
+            <a href="#" class="c-button">Learn More About Our Services</a>
+            <p class="note">*You'll add the actual href later when you have the page URL</p>
+        </div>
+    </div>
+        </section>
+
         <section class="stats">
             <div class="stat-item">
                 <div class="stat-number" data-count="1500">0</div>
