@@ -6,6 +6,13 @@
     <title>Contact Us - Canadian Fitness Repair</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            // Initialize EmailJS with your user ID
+            emailjs.init("mQC3ZNXVbXV2obzlp"); // Replace with your actual EmailJS user ID
+        })();
+    </script>
     <style>
         :root {
             --theme-color: #5D5DFF;
@@ -643,6 +650,62 @@
             transform: translateY(-5px);
         }
 
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 2000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: #4CAF50;
+        }
+
+        .notification.error {
+            background-color: #f44336;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid var(--theme-color);
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .submit-btn.loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .submit-btn.loading .spinner {
+            display: inline-block;
+        }
+
         /* Responsive Styles - Mobile Menu */
         @media (max-width: 1024px) {
             .footertop {
@@ -805,13 +868,15 @@
     </style>
 </head>
 <body>
+    <div id="notification" class="notification"></div>
+    
     <header>
         <nav class="nav">
             <div id="contactlist">
                 <div id="leftcontactlist" class="leftheaderlinks">
                     <ul class="links leftlinks">
                         <li><a href="tel:+12899257239"><i class="ri-customer-service-line"></i>+1 289 925 7239</a></li>
-                        <li><a href="mailto:service@canadianfitnessrepair.com"><i class="ri-mail-line"></i>service@canadianfitnessrepair.com</a></li>
+                        <li><a href="mailto:canadianfitnessrepair@gmail.com"><i class="ri-mail-line"></i>canadianfitnessrepair@gmail.com</a></li>
                     </ul>
                 </div>
                 <div id="rightcontactlist" class="rightheaderlinks">
@@ -892,7 +957,7 @@
                     </div>
                     <div class="contact-text">
                         <h3>Our Location</h3>
-                        <p>22 Canary grass blvd, Hannon, ON, L0R 1P0, Canada</p>
+                        <p>2200 Rymal Rd E, Hamilton, ON L0R 1P0</p>
                     </div>
                 </div>
                 
@@ -912,7 +977,7 @@
                     </div>
                     <div class="contact-text">
                         <h3>Email Address</h3>
-                        <p><a href="mailto:service@canadianfitnessrepair.com">service@canadianfitnessrepair.com</a></p>
+                        <p><a href="mailto:canadianfitnessrepair@gmail.com">canadianfitnessrepair@gmail.com</a></p>
                     </div>
                 </div>
             </div>
@@ -941,78 +1006,69 @@
             <form id="contactForm">
                 <div class="form-group">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="subject">Subject</label>
-                    <input type="text" id="subject" class="form-control" placeholder="What is this regarding?" required>
+                    <input type="text" id="subject" name="subject" class="form-control" placeholder="What is this regarding?" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea id="message" class="form-control" placeholder="How can we help you?" required></textarea>
+                    <textarea id="message" name="message" class="form-control" placeholder="How can we help you?" required></textarea>
                 </div>
                 
-                <button type="submit" class="submit-btn">Send Message</button>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="spinner"></span>
+                    Send Message
+                </button>
             </form>
         </div>
     </section>
     
-<!-- Map Section -->
-<section class="map-section">
-    <!-- <div class="map-container">
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2909.7156447610946!2d-79.78365628788467!3d43.17349267100852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882c9783a2b68e41%3A0x17532f4b629fa1a9!2s2200%20Rymal%20Rd%20E%2C%20Hamilton%2C%20ON%20L0R%201P0!5e0!3m2!1sen!2sca!4v1748918319637!5m2!1sen!2sca" width="1400" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-            width="100%" 
-            height="450" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
-</section> -->
-
-<div class="map-container">
-    <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2909.7156447610946!2d-79.78365628788467!3d43.17349267100852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882c9783a2b68e41%3A0x17532f4b629fa1a9!2s2200%20Rymal%20Rd%20E%2C%20Hamilton%2C%20ON%20L0R%201P0!5e0!3m2!1sen!2sca!4v1748918319637!5m2!1sen!2sca" width="1400" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"> 
-        width="100%" 
-        height="450" 
-        style="border:0;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade"
-        title="Canadian Fitness Repair Location">
-    </iframe>
-    <noscript>
-        <div class="map-placeholder">
-            <i class="ri-map-pin-line"></i>
-            <h3>Our Location</h3>
-            <p>22 Canary grass blvd, Hannon, ON, L0R 1P0, Canada</p>
-            <p><a href="https://maps.google.com/maps?q=22+Canary+grass+blvd,+Hannon,+ON" target="_blank">View on Google Maps</a></p>
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2909.7156447610946!2d-79.78365628788467!3d43.17349267100852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882c9783a2b68e41%3A0x17532f4b629fa1a9!2s2200%20Rymal%20Rd%20E%2C%20Hamilton%2C%20ON%20L0R%201P0!5e0!3m2!1sen!2sca!4v1748918319637!5m2!1sen!2sca" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Canadian Fitness Repair Location">
+            </iframe>
+            <noscript>
+                <div class="map-placeholder">
+                    <i class="ri-map-pin-line"></i>
+                    <h3>Our Location</h3>
+                    <p>22 Canary grass blvd, Hannon, ON, L0R 1P0, Canada</p>
+                    <p><a href="https://maps.google.com/maps?q=22+Canary+grass+blvd,+Hannon,+ON" target="_blank">View on Google Maps</a></p>
+                </div>
+            </noscript>
         </div>
-    </noscript>
-</div>
-
-<div class="directions-btn">
-    <a href="https://www.google.com/maps/dir//2200+Rymal+Rd+E+Hamilton,+ON+L0R+1P0/@43.1734927,-79.781076,1599m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x882c9783a2b68e41:0x17532f4b629fa1a9!2m2!1d-79.781076!2d43.1734927?entry=ttu&g_ep=EgoyMDI1MDUyOC4wIKXMDSoASAFQAw%3D%3D" 
-       target="_blank" 
-       class="c-button"
-       style="text-decoration: none; margin-top: 1rem; text-align: center;">
-       <i class="ri-navigation-line"></i> Get Directions
-    </a>
-</div>
+        
+        <div class="directions-btn">
+            <a href="https://www.google.com/maps/dir//2200+Rymal+Rd+E+Hamilton,+ON+L0R+1P0/@43.1734927,-79.781076,1599m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x882c9783a2b68e41:0x17532f4b629fa1a9!2m2!1d-79.781076!2d43.1734927?entry=ttu&g_ep=EgoyMDI1MDUyOC4wIKXMDSoASAFQAw%3D%3D" 
+               target="_blank" 
+               class="c-button"
+               style="text-decoration: none; margin-top: 1rem; text-align: center;">
+               <i class="ri-navigation-line"></i> Get Directions
+            </a>
+        </div>
+    </section>
     
     <footer>
         <div class="footertop">
@@ -1065,6 +1121,18 @@
             const dropdowns = document.querySelectorAll('.dropdown');
             const menuIcon = hamburger.querySelector('.menu-icon');
             const closeIcon = hamburger.querySelector('.close-icon');
+            const submitBtn = document.getElementById('submitBtn');
+            const notification = document.getElementById('notification');
+
+            // Function to show notification
+            function showNotification(message, isSuccess) {
+                notification.textContent = message;
+                notification.className = `notification ${isSuccess ? 'success' : 'error'} show`;
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 5000);
+            }
 
             // Toggle mobile menu
             hamburger.addEventListener('click', () => {
@@ -1146,23 +1214,39 @@
                 }
             });
 
-            // Contact form submission
+            // Contact form submission with EmailJS
             const contactForm = document.getElementById('contactForm');
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
+                // Show loading state
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+                
                 // Get form values
                 const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
-                const subject = document.getElementById('subject').value;
-                const message = document.getElementById('message').value;
                 
-                // Show success message
-                alert(`Thank you, ${name}! Your message has been sent successfully.\nWe'll contact you at ${email} or ${phone} shortly.`);
-                
-                // Reset form
-                contactForm.reset();
+                // Send email using EmailJS
+                emailjs.sendForm(
+                    'service_15f1fcs', // Replace with your EmailJS service ID
+                    'template_nuvc324', // Replace with your EmailJS template ID
+                    this
+                )
+                .then(() => {
+                    // Success message
+                    showNotification(`Thank you, ${name}! Your message has been sent successfully. We'll contact you shortly.`, true);
+                    
+                    // Reset form
+                    contactForm.reset();
+                }, (error) => {
+                    // Error message
+                    showNotification(`Failed to send message. Please try again. Error: ${error.text}`, false);
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                });
             });
         });
     </script>
