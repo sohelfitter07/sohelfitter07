@@ -1738,12 +1738,12 @@
     </footer>
     
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
+ <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Canadian Fitness Repair",
-  "image": "your-logo-url.jpg",
+  "image": "https://www.canadianfitnessrepair.com/images/logo.png",
   "url": "https://www.canadianfitnessrepair.com",
   "telephone": "+1-289-925-7239",
   "address": {
@@ -1753,47 +1753,46 @@
     "postalCode": "L0R 1P0",
     "addressRegion": "ON",
     "addressCountry": "CA"
-  }
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "43.2250",
-        "longitude": "-79.8660"
-      },
-      "areaServed": {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
-          "@type": "GeoCoordinates",
-          "latitude": "43.2250",
-          "longitude": "-79.8660"
-        },
-        "geoRadius": "200000"
-      },
-      "openingHoursSpecification": [{
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        "opens": "08:00",
-        "closes": "20:00"
-      }],
-      "serviceArea": ["Hamilton", "Toronto", "Burlington", "Oakville", "Mississauga", "Brantford", "Niagara", "Kitchener", "Guelph", "Cambridge"],
-      "sameAs": ["your-facebook-url", "your-instagram-url"],
-      "serviceArea": {
-        "@type": "AdministrativeArea",
-        "name": "Ontario, CA"
-      },
-      "makesOffer": [
-        {
-          "@type": "Offer",
-          "name": "Same-Day Treadmill Repair",
-          "areaServed": ["Hamilton", "Burlington"]
-        },
-        {
-          "@type": "Offer",
-          "name": "Commercial Equipment Relocation",
-          "areaServed": ["Greater Toronto Area"]
-        }
-      ]
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "43.2250",
+    "longitude": "-79.8660"
+  },
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "43.2250",
+      "longitude": "-79.8660"
+    },
+    "geoRadius": "200000"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "opens": "08:00",
+    "closes": "20:00"
+  }],
+  "sameAs": [
+    "https://www.facebook.com/yourpage",
+    "https://www.instagram.com/yourprofile"
+  ],
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "name": "Same-Day Treadmill Repair",
+      "areaServed": ["Hamilton", "Burlington"]
+    },
+    {
+      "@type": "Offer",
+      "name": "Commercial Equipment Relocation",
+      "areaServed": ["Greater Toronto Area"]
     }
-    </script>
+  ]
+}
+</script>
+
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
