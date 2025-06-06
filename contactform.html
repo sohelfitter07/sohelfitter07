@@ -13,6 +13,64 @@
             emailjs.init("mQC3ZNXVbXV2obzlp"); // Replace with your actual EmailJS user ID
         })();
     </script>
+
+    <!-- Logo Style -->
+
+    <style>
+        #navlogo {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .tagline {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-style: italic;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 767px) {
+
+            #navlogo {
+                flex: 25;
+                min-width: auto;
+                overflow: hidden;
+            }
+        
+            .logo-text {
+                font-size: 1.2rem;
+            }
+        
+            .tagline {
+                font-size: 0.7rem;
+            }
+            }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 0.7rem;
+            }
+        
+            .tagline {
+                font-size: 0.5rem;
+            }
+        }
+    </style>
+
     <style>
         :root {
             --theme-color: #5D5DFF;
@@ -871,7 +929,8 @@
     
     <div id="notification" class="notification"></div>
     
-    <header>
+        <header>
+        
         <nav class="nav">
             <div id="contactlist">
                 <div id="leftcontactlist" class="leftheaderlinks">
@@ -886,31 +945,35 @@
                         <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
                         <li><a href="#"><i class="ri-instagram-line"></i></a></li>
                         <li><a href="#"><i class="ri-youtube-line"></i></a></li>
-                        <li><a href="#"><i class="ri-map-pin-line"></i></a></li>
+                        <li><a href="https://maps.app.goo.gl/o12xJ23UPUj7Zt386"><i class="ri-map-pin-line"></i></a></li>
                     </ul>
                 </div>
             </div>
             <div id="navbottom">
                 <div id="navlogo">
-                    <a href="#"><img src="https://via.placeholder.com/150x50?text=CFR" alt="Canadian Fitness Repair Logo" style="cursor: pointer;"></a>
+                    <a href="https://www.canadianfitnessrepair.com">
+                        <div class="logo-text">Canadian Fitness <br> Repair</div>
+                        <div class="tagline">Serving GTA since 2013</div>
+                    </a>
                 </div>
                 <div class="navbar">
                     <ul class="navbarList" id="navbarList">
-                        <li><a href="#"><i class="ri-home-5-line"></i> HOME</a></li>
+                        <li><a href="https://www.canadianfitnessrepair.com"><i class="ri-home-5-line"></i> HOME</a></li>
                         <li class="dropdown">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <i class="ri-information-line"></i> ABOUT US
                                 <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
                             </a>
                             <ul class="dropdown-content">
                                 <li><a href="aboutus.html">About</a></li>
                                 <li><a href="pricingpackagespage.html">Pricing</a></li>
+                                <li><a href="FAQ.html">FAQ</a></li>
                                 <li><a href="PPT&Cpage.html">Privacy Policy</a></li>
                                 <li><a href="PPT&Cpage.html">Terms & Conditions</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <i class="ri-customer-service-line"></i> SERVICES
                                 <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
                             </a>
@@ -923,7 +986,7 @@
                             </ul>
                         </li>
                         <li><a href="gallery.html"><i class="ri-image-line"></i> GALLERY</a></li>
-                        <li><a href="contactform.html" style="color: var(--accent-color);"><i class="ri-contacts-line"></i> CONTACT</a></li>
+                        <li><a href="contactform.html"><i class="ri-contacts-line"></i> CONTACT</a></li>
                         <li><a href="reviews.html"><i class="ri-star-line"></i> REVIEWS</a></li>
                     </ul>
                 </div>
@@ -932,11 +995,11 @@
                     <i class="ri-close-line close-icon"></i>
                 </button>
                 <div id="quote">
-                    <a class="c-button c-button-nav" href="/formfinal.html">Get Quote</a>
+                    <a class="c-button c-button-nav" href="formfinal.html"  style="text-decoration: none;">Get Quote</a>
                 </div>
             </div>
         </nav>
-    </header>
+         </header>
     
     <!-- Hero Section -->
     <section class="contact-hero">
@@ -1085,12 +1148,12 @@
             <div class="footertop-right">
                 <div class="footer-contact">
                     <h2><i class="ri-map-pin-line"></i> Location</h2>
-                    <p>22 Canary grass blvd, Hannon, ON, L0R 1P0, Canada</p>
+                    <a href="https://maps.app.goo.gl/o12xJ23UPUj7Zt386" style="text-decoration: none;"><p>2200 Rymal Rd E, Hamilton, ON L0R 1P0</p></a>
                 </div>
                 <div class="footer-contact">
                     <h2><i class="ri-contacts-book-line"></i> Contact us</h2>
-                    <p>Phone: +1 289 925 7239</p>
-                    <p>Email: service@canadianfitnessrepair.com</p>
+                    <a href="tel:+12899257239" style="text-decoration: none;"><p>Phone: +1 289 925 7239</p></a>
+                    <a href="mailto:canadianfitnessrepair@gmail.com" style="text-decoration: none;"><p>Email: canadianfitnessrepair@gmail.com</p></a>
                 </div>
                 <div class="footer-contact">
                     <h2><i class="ri-time-line"></i> Business Hours</h2>
