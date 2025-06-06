@@ -147,7 +147,7 @@
             color: var(--text-color);
             line-height: 1.2;
             white-space: nowrap;
-            overflow: hidden;
+            /* overflow: hidden; */
             text-overflow: ellipsis;
         }
         
@@ -156,7 +156,7 @@
             color: var(--accent-color);
             font-style: italic;
             white-space: nowrap;
-            overflow: hidden;
+            /* overflow: hidden; */
             text-overflow: ellipsis;
         }
         
@@ -591,13 +591,28 @@
             }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 410px) {
             .logo-text {
                 font-size: 0.7rem;
             }
         
             .tagline {
                 font-size: 0.5rem;
+            }
+            #navbottom{
+                padding-left: 2%;
+                padding-right: 2%;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .logo-text {
+            font-size: 1rem;
+            }
+        
+            .tagline {
+                font-size: 0.7rem;
             }
 
             .leftheaderlinks ul.links{
@@ -610,6 +625,10 @@
             }
             .hamburger .close-icon {
                 top: -25px;
+            }
+            .c-button-nav {
+                padding: 0.6rem 0.6rem;
+                font-size: 0.75rem;
             }
         }
         
