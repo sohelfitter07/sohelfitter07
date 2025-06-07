@@ -727,8 +727,8 @@
 
         .quote-hero h1 {
             font-size: clamp(2rem, 5vw + 1rem, 3.5rem);
-            margin-top: 4rem;
-            margin-bottom: 1.5rem;
+            margin-top: 8rem;
+            /* margin-bottom: 1.5rem; */
             text-transform: uppercase;
             letter-spacing: 2px;
             line-height: 1.2;
@@ -747,7 +747,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 2rem 0;
+            /* margin: 2rem 0; */
+            margin-top: 2rem;
             height: 120px;
             overflow: hidden;
         }
@@ -1061,6 +1062,20 @@
 
 
         @media (max-width: 992px) {
+                 .word-animation {
+            /* margin-top: 2rem; */
+            height:80px;
+        }
+
+        #wordWrapper {
+            height: 80px;
+        }
+
+        .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            height: 80px;
+        }
+
             .quote-hero h1 {
                 font-size: 3rem;
             }
@@ -1079,9 +1094,24 @@
         }
 
         @media (max-width: 767px) {
+                 .word-animation {
+            /* margin-top: 2rem; */
+            height:80px;
+        }
+
+        #wordWrapper {
+            height: 80px;
+        }
+
+        .word-item {
+            font-size: clamp(4rem, 5vw, 6rem);
+            height: 80px;
+        }
+
            
             .quote-hero h1 {
-                font-size: 2.2rem;
+            font-size: 2.2rem;
+            margin-top: 4rem;
             }
 
             .quote-hero p {
@@ -1112,6 +1142,20 @@
         }
 
         @media (max-width: 480px) {
+            .word-animation {
+            /* margin-top: 2rem; */
+            height:80px;
+        }
+
+        #wordWrapper {
+            height: 80px;
+        }
+
+        .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            height: 80px;
+        }
+
             .quote-hero {
                 padding: 3rem 1rem;
             }
@@ -1215,6 +1259,20 @@
         /* EXTRA SMALL SCREEN FIXES (under 380px) */
         @media (max-width: 380px) {
             /* Reduce padding on all containers */
+            .word-animation {
+            /* margin-top: 2rem; */
+            height:80px;
+        }
+
+        #wordWrapper {
+            height: 80px;
+        }
+
+        .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            height: 80px;
+        }
+
             .quote-hero {
                 padding: 2.5rem 0.8rem;
             }
