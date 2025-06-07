@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="whatsapp.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-     <!-- Header & Footer Styles -->
+     
+    <!-- Header & Footer Styles -->
     <style id="header-footer-styles">
         :root { 
             --theme-color: #5D5DFF;
@@ -32,6 +33,10 @@
             --light-text: #E0E0E0;
             --font-family: "Roboto", sans-serif;
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        html {
+        scroll-behavior: smooth;
         }
         
         /* Header Styles */
@@ -664,8 +669,9 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
     </style>  
-   <!-- Main Styles -->
-   <style>
+   
+    <!-- Main Styles -->
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -710,6 +716,7 @@
         .about-hero h1 {
             font-size: clamp(3rem, 5vw, 5rem);
             margin-bottom: 1.5rem;
+            padding-top: 6rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             line-height: 1.5;
@@ -1104,10 +1111,6 @@
         }
 
         @media (max-width: 480px) {
-            .about-hero {
-                padding: 3rem 1rem;
-            }
-            
             .about-hero h1 {
                 font-size: 1.8rem;
             }
@@ -1115,8 +1118,6 @@
             .feature-card, .team-member {
                 padding: 1.5rem;
             }
-            
-            
             
             .stat-item {
                 min-width: 140px;
@@ -1128,7 +1129,6 @@
 </head>
 <body>
     <header>
-        
         <nav class="nav">
             <div id="contactlist">
                 <div id="leftcontactlist" class="leftheaderlinks">
@@ -1204,7 +1204,7 @@
         <section class="about-hero">
             <h1>About Canadian Fitness Repair</h1>
             <p>Your trusted partner for fitness equipment repair and maintenance</p>
-            <a class="c-button" style="margin-top: 20px;">
+            <a class="c-button" style="margin-top: 20px;" href="formfinal.html">
                 Schedule Service Today
             </a>
         </section>
