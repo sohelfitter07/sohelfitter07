@@ -1276,82 +1276,109 @@
             margin-bottom: 1rem;
             color: var(--light-text);
             line-height: 1.7;
-            }
-            
-            .marquee-track img {
-                height: 30px;
-                margin: 0 15px;
-            }
-            
-            .navbarList {
-                width: 80%;
-            }
         }
-
-        @media (min-width: 768px) {
-            .dropdown:hover .dropdown-toggle-icon i {
-                transform: rotate(180deg);
-            }
+        
+        .policy-section-card ul {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
         }
-
+        
+        .policy-section-card li {
+            margin-bottom: 0.8rem;
+            color: var(--light-text);
+            position: relative;
+        }
+        
+        .policy-section-card li:before {
+            content: "•";
+            color: var(--theme-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
         @media (max-width: 767px) {
-            .dropdown.active .dropdown-toggle-icon i {
-                transform: rotate(180deg);
+            .policy-section {
+                padding: 2rem 1rem;
+            }
+            
+            .policy-header h2 {
+                font-size: 2rem;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header (Same as provided) -->
     <header>
+        <div class="promo-line">
+            <div class="promo-content">
+                <div class="promo-item"><i class="ri-map-pin-fill"></i> Now serving in Hamilton, Burlington and surrounding neighborhoods</div>
+                <div class="promo-item"><i class="ri-tools-fill"></i> Onsite repair services available</div>
+                <div class="promo-item"><i class="ri-flashlight-fill"></i> Emergency rush services available</div>
+                <div class="promo-item"><i class="ri-calendar-check-fill"></i> Same-day appointments</div>
+                <div class="promo-item"><i class="ri-24-hours-fill"></i> 24/7 support available</div>
+                <div class="promo-item"><i class="ri-medal-fill"></i> Certified fitness equipment technicians</div>
+            </div>
+        </div>
+        
         <nav class="nav">
             <div id="contactlist">
                 <div id="leftcontactlist" class="leftheaderlinks">
                     <ul class="links leftlinks">
                         <li><a href="tel:+12899257239"><i class="ri-customer-service-line"></i>+1 289 925 7239</a></li>
-                        <li><a href="mailto:service@canadianfitnessrepair.com"><i class="ri-mail-line"></i>service@canadianfitnessrepair.com</a></li>
+                        <li><a href="mailto:canadianfitnessrepair@gmail.com"><i class="ri-mail-line"></i>canadianfitnessrepair@gmail.com</a></li>
                     </ul>
                 </div>
                 <div id="rightcontactlist" class="rightheaderlinks">
                     <ul class="links rightlinks">
-                        <li><a href="#"><i class="ri-facebook-line"></i></a></li>
-                        <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
-                        <li><a href="#"><i class="ri-instagram-line"></i></a></li>
-                        <li><a href="#"><i class="ri-youtube-line"></i></a></li>
-                        <li><a href="#"><i class="ri-map-pin-line"></i></a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=61577294183492"><i class="ri-facebook-line"></i></a></li>
+                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-twitter-x-line"></i></a></li>
+                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-instagram-line"></i></a></li>
+                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-youtube-line"></i></a></li>
+                        <li><a href="https://maps.app.goo.gl/o12xJ23UPUj7Zt386"><i class="ri-map-pin-line"></i></a></li>
                     </ul>
                 </div>
             </div>
             <div id="navbottom">
                 <div id="navlogo">
-                    <a href="#"><img src="https://via.placeholder.com/150x50?text=CFR" alt="Canadian Fitness Repair Logo" style="cursor: pointer;"></a>
+                    <a href="https://www.canadianfitnessrepair.com">
+                        <div class="logo-text">Canadian Fitness <br> Repair</div>
+                        <div class="tagline">Serving GTA since 2013</div>
+                    </a>
                 </div>
                 <div class="navbar">
                     <ul class="navbarList" id="navbarList">
-                        <li><a href="#"><i class="ri-home-5-line"></i> HOME</a></li>
+                        <li><a href="https://www.canadianfitnessrepair.com"><i class="ri-home-5-line"></i> HOME</a></li>
                         <li class="dropdown">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <i class="ri-information-line"></i> ABOUT US
                                 <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
                             </a>
                             <ul class="dropdown-content">
-                                <li><a href="">About</a></li>
-                                <li><a href="">Pricing</a></li>
-                                <li><a href="">Privacy Policy</a></li>
-                                <li><a href="">Terms & Conditions</a></li>
+                                <li><a href="aboutus.html">About</a></li>
+                                <li><a href="pricingpackagespage.html">Pricing</a></li>
+                                <li><a href="FAQ.html">FAQ</a></li>
+                                <li><a href="PPT&Cpage.html">Privacy Policy</a></li>
+                                <li><a href="PPT&Cpage.html">Terms & Conditions</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <i class="ri-customer-service-line"></i> SERVICES
                                 <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
                             </a>
                             <ul class="dropdown-content">
-                                <li><a href="">Preventative Maintenance</a></li>
-                                <li><a href="">Inspection</a></li>
-                                <li><a href="">Repairs & Tune-ups</a></li>
-                                <li><a href="">Relocation & Assembly</a></li>
-                                <li><a href="">Commerical & Residential</a></li>
+                                <li><a href="services.html">Preventative Maintenance</a></li>
+                                <li><a href="services.html">Inspection</a></li>
+                                <li><a href="services.html">Repairs & Tune-ups</a></li>
+                                <li><a href="services.html">Relocation & Assembly</a></li>
+                                <li><a href="services.html">Commerical & Residential</a></li>
                             </ul>
                         </li>
                         <li><a href="gallery.html"><i class="ri-image-line"></i> GALLERY</a></li>
