@@ -704,7 +704,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 5rem 2rem;
+            padding: 8rem 2rem 1rem 2rem;
             background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)), 
                         url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
             background-size: cover;
@@ -727,6 +727,7 @@
         .quote-hero h1 {
             font-size: clamp(2rem, 5vw + 1rem, 3.5rem);
             margin-top: 8rem;
+            margin-bottom: 2rem;
             /* margin-bottom: 1.5rem; */
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -738,7 +739,7 @@
         .quote-hero p {
             font-size: clamp(1.2rem, 2.5vw, 1.8rem);
             max-width: 800px;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             color: var(--light-text);
         }
 
@@ -1061,7 +1062,7 @@
 
 
         @media (max-width: 992px) {
-                 .word-animation {
+         .word-animation {
             /* margin-top: 2rem; */
             height:80px;
         }
@@ -1093,7 +1094,7 @@
         }
 
         @media (max-width: 767px) {
-                 .word-animation {
+        .word-animation {
             /* margin-top: 2rem; */
             height:80px;
         }
@@ -1106,15 +1107,14 @@
             font-size: clamp(4rem, 5vw, 6rem);
             height: 80px;
         }
-
-           
             .quote-hero h1 {
             font-size: 2.2rem;
-            margin-top: 4rem;
+            margin-top: 0;
             }
 
             .quote-hero p {
                 font-size: 1.1rem;
+                margin-bottom: 0;
             }
             
             .form-container {
@@ -1142,7 +1142,6 @@
 
         @media (max-width: 480px) {
             .word-animation {
-            /* margin-top: 2rem; */
             height:80px;
         }
 
@@ -1156,17 +1155,19 @@
         }
 
             .quote-hero {
-                padding: 3rem 1rem;
+                padding: 3rem 1rem 0rem 1rem;
             }
             
             .quote-hero h1 {
                 font-size: 1.8rem;
             }
+            .quote-section{
+                padding-top: 0;
+            }
             
             .form-header h2 {
                 font-size: 1.6rem;
             }
-            
             
             /* MOBILE-SPECIFIC FIXES */
             .form-container {
@@ -1273,11 +1274,12 @@
         }
 
             .quote-hero {
-                padding: 2.5rem 0.8rem;
+                padding: 2.5rem 0.8rem 0 0.8rem;
+                min-height: 60vh;
             }
             
             .quote-section {
-                padding: 2rem 0.8rem;
+                padding: 0 0.8rem 2rem 0.8rem;
             }
             
             .form-container {
@@ -1601,7 +1603,7 @@
             <h1>Request a Quote</h1>
             <p>Expert repair, installation and maintenance for all fitness equipment.</p>
             
-            <div class="word-animation">
+            <!-- <div class="word-animation">
                 <div id="wordWrapper">
                     <div class="word-item">Repair</div>
                     <div class="word-item">Installation</div>
@@ -1609,13 +1611,13 @@
                     <div class="word-item">Relocation</div>
                     <div class="word-item">Project</div>
                 </div>
-            </div>
+            </div> -->
         </section>
         
         <!-- Quote Form Section -->
 
         <section class="quote-section" itemscope itemtype="https://schema.org/Service">
-    <div class="form-container">
+        <div class="form-container">
         <div class="form-header">
             <h2 itemprop="name">WE'LL GET YOU BACK UP AND RUNNING</h2>
             <p itemprop="description">To serve you better, please describe the problem you are having with your machine and provide as much detail as possible. Include photos and videos with your request to help us troubleshoot your problem better.</p>
