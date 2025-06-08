@@ -890,7 +890,7 @@ fitness machine repair Mississauga,
             justify-content: center;
             margin: 1rem 0;
             padding: 1rem 0;
-            height: 80px;
+            height: 120px;
             overflow: hidden;
         }
 
@@ -1248,6 +1248,10 @@ fitness machine repair Mississauga,
             
             .word-item {
                 font-size: 3rem;
+            }
+
+            .word-animation {
+                height: 80px;
             }
             
             .service-card, .testimonial-card {
@@ -2060,14 +2064,14 @@ fitness machine repair Mississauga,
             const wordWrapper = document.getElementById('wordWrapper');
             const words = document.querySelectorAll('.word-item');
             const totalWords = words.length;
-            let currentIndex = -1;
+            let currentIndex = -0.9;
             
             function animateWords() {
                 currentIndex = (currentIndex + 1) % totalWords;
-                wordWrapper.style.transform = `translateY(${-currentIndex * 60}%)`;
+                wordWrapper.style.transform = `translateY(${-currentIndex * 100}%)`;
             }
             
-            setInterval(animateWords, 4000);
+            setInterval(animateWords, 1500);
             animateWords();
             
             // Stats counter animation
