@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         widget.classList.remove('open');
         setTimeout(() => {
             floatingBtn.classList.remove('hidden');
-        }, 200);
+        }, 125);
     });
     
     // Open widget from floating button
