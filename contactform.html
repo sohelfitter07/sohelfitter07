@@ -680,7 +680,6 @@
 
         /* Contact Page Specific Styles */
         .contact-hero {
-            
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -1029,6 +1028,7 @@
             
             .contact-section {
                 flex-direction: column;
+                /* padding-top: 0; */
             }
             
             .contact-info, .contact-form {
@@ -1038,7 +1038,7 @@
 
         @media (max-width: 480px) {
             .contact-hero {
-                padding: 3rem 1rem;
+                padding: 3rem 1rem 0.5rem 1rem;
             }
             
             .contact-hero h1 {
@@ -1347,7 +1347,7 @@
                     notification.classList.remove('show');
                 }, 5000);
             }
-            
+
             // Mobile menu functionality
             const hamburger = document.getElementById('hamburger');
             const navbarList = document.getElementById('navbarList');
