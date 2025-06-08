@@ -2064,14 +2064,14 @@ fitness machine repair Mississauga,
             const wordWrapper = document.getElementById('wordWrapper');
             const words = document.querySelectorAll('.word-item');
             const totalWords = words.length;
-            let currentIndex = -0.9;
+            let currentIndex = -1;
             
             function animateWords() {
                 currentIndex = (currentIndex + 1) % totalWords;
                 wordWrapper.style.transform = `translateY(${-currentIndex * 100}%)`;
             }
             
-            setInterval(animateWords, 1500);
+            setInterval(animateWords, 2000);
             animateWords();
             
             // Stats counter animation
