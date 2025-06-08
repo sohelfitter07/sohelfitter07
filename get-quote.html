@@ -1613,195 +1613,210 @@
         </section>
         
         <!-- Quote Form Section -->
-        <section class="quote-section">
-            <div class="form-container">
-                <div class="form-header">
-                    <h2>WE'LL GET YOU BACK UP AND RUNNING</h2>
-                    <p>To serve you better, please describe the problem you are having with your machine and provide as much detail as possible. Include photos and videos with your request to help us troubleshoot your problem better.</p>
-                </div>
-                
-                <!-- Success Message -->
-                <div id="successMessage" class="success-message">
-                    <i class="ri-checkbox-circle-line" style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem;"></i>
-                    <h3>Thank You for Your Request!</h3>
-                    <p>We've received your quote request and will contact you shortly to confirm your appointment.</p>
-                </div>
-                
-                <form class="quote-form" id="quoteForm">
-                    <h3 class="form-section-title">Personal Information</h3>
-                    
-                    <div class="form-group">
-                        <label for="firstName" class="required">First Name</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
-                        <div class="error-message">Please enter your first name</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" placeholder="Last Name">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="contactNumber" class="required">Contact Number</label>
-                        <input type="tel" id="contactNumber" name="contactNumber" placeholder="(123) 456-7890" required>
-                        <div class="error-message">Please enter a valid phone number</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email" class="required">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="example@email.com" required>
-                        <div class="error-message">Please enter a valid email address</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="preferredContact" class="required">Preferred Contact Method</label>
-                        <select id="preferredContact" name="preferredContact" required>
-                            <option value="">-- Select Contact Method --</option>
-                            <option value="email">Email</option>
-                            <option value="phone">Contact Number</option>
-                        </select>
-                        <div class="error-message">Please select a contact method</div>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="address" class="required">Street Address</label>
-                        <input type="text" id="address" name="address" placeholder="123 Example Street" required>
-                        <div class="error-message">Please enter your address</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="city" class="required">City/Town</label>
-                        <select id="city" name="city" required>
-                            <option value="">-- Select City/Town --</option>
-                            <option value="Toronto">Toronto</option>
-                            <option value="Mississauga">Mississauga</option>
-                            <option value="Brampton">Brampton</option>
-                            <option value="Hamilton">Hamilton</option>
-                            <option value="Oakville">Oakville</option>
-                            <option value="Burlington">Burlington</option>
-                            <option value="Oshawa">Oshawa</option>
-                            <option value="Whitby">Whitby</option>
-                            <option value="Ajax">Ajax</option>
-                            <option value="Pickering">Pickering</option>
-                        </select>
-                        <div class="error-message">Please select your city</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="postal" class="required">Postal Code</label>
-                        <input type="text" id="postal" name="postal" placeholder="A1A 1A1" required>
-                        <div class="error-message">Please enter a valid postal code</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="province">Province</label>
-                        <select id="province" name="province" disabled>
-                            <option value="ON" selected>Ontario</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="country">Country</label>
-                        <input type="text" id="country" name="country" value="Canada" disabled>
-                    </div>
-                    
-                    <h3 class="form-section-title">Equipment Information</h3>
-                    
-                    <div class="form-group">
-                        <label for="serviceRequest" class="required">Service Request</label>
-                        <select id="serviceRequest" name="serviceRequest" required>
-                            <option value="">-- Select Service --</option>
-                            <option value="Preventative Maintenance">Preventative Maintenance</option>
-                            <option value="Inspection">Inspection</option>
-                            <option value="Repairs & Tune-Ups">Repairs & Tune-Ups</option>
-                            <option value="Relocation & Assembly">Relocation & Assembly</option>
-                        </select>
-                        <div class="error-message">Please select a service</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="required">I am a(n)</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="individual" name="clientType" value="Individual" required>
-                                <label for="individual">Individual</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="business" name="clientType" value="Business">
-                                <label for="business">Business</label>
-                            </div>
-                        </div>
-                        <div class="error-message">Please select client type</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="brand" class="required">Equipment Manufacturer</label>
-                        <input type="text" id="brand" name="brand" required placeholder="e.g. NordicTrack, LifeFitness">
-                        <div class="error-message">Please enter the manufacturer</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="model" class="required">Model Number</label>
-                        <input type="text" id="model" name="model" required placeholder="e.g. NTL19125 or NTL17125">
-                        <div class="error-message">Please enter the model number</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="serial">Serial Number</label>
-                        <input type="text" id="serial" name="serial">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="bookingDateTime" class="required">Preferred Booking Date & Time</label>
-                        <input type="datetime-local" id="bookingDateTime" name="bookingDateTime" required>
-                        <div class="error-message">Please select a date and time</div>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="description" class="required">Description of Issue</label>
-                        <textarea id="description" name="description" rows="5" required placeholder="Example: Treadmill belt slipping, Elliptical making noise, Console not powering on, Motor overheating, Resistance not adjusting..."></textarea>
-                        <div class="error-message">Please describe the issue</div>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="equipmentFile">Upload Equipment Image/Video</label>
-                        <input type="file" id="equipmentFile" name="equipmentFile" accept="image/*,video/*">
-                        <div class="form-note">Upload images or short videos showing the issue (optional)</div>
-                    </div>
-                    
-                    <div class="submit-btn">
-                        <button type="submit">
-                            <i class="ri-service-line"></i> Book Your Service Now
-                        </button>
-                    </div>
-                </form>
 
-                <!-- Loading overlay for form submission -->
-                <div id="loadingOverlay" class="loading-overlay">
-                    <div class="loading-spinner"></div>
-                    <p>Submitting your request...</p>
-                </div>
-                
-                <div class="contact-card">
-                    <h3>Need Immediate Assistance?</h3>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="ri-phone-line"></i>
-                            <span>+1 289 925 7239</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="ri-mail-line"></i>
-                            <span id="contactcardemail">canadianfitnessrepair@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="ri-map-pin-line"></i>
-                            <span>Hannon, ON</span>
-                        </div>
-                    </div>
+        <section class="quote-section" itemscope itemtype="https://schema.org/Service">
+    <div class="form-container">
+        <div class="form-header">
+            <h2 itemprop="name">WE'LL GET YOU BACK UP AND RUNNING</h2>
+            <p itemprop="description">To serve you better, please describe the problem you are having with your machine and provide as much detail as possible. Include photos and videos with your request to help us troubleshoot your problem better.</p>
+        </div>
+        
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message">
+            <i class="ri-checkbox-circle-line" style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem;"></i>
+            <h3>Thank You for Your Request!</h3>
+            <p>We've received your quote request and will contact you shortly to confirm your appointment.</p>
+        </div>
+        
+        <form class="quote-form" id="quoteForm" itemscope itemtype="https://schema.org/ServiceRequest">
+            <h3 class="form-section-title">Personal Information</h3>
+            
+            <div class="form-group" itemprop="customer" itemscope itemtype="https://schema.org/Person">
+                <label for="firstName" class="required">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="First Name" required itemprop="givenName">
+                <div class="error-message">Please enter your first name</div>
+            </div>
+            
+            <div class="form-group" itemprop="customer">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Last Name" itemprop="familyName">
+            </div>
+            
+            <div class="form-group" itemprop="customer">
+                <label for="contactNumber" class="required">Contact Number</label>
+                <input type="tel" id="contactNumber" name="contactNumber" placeholder="(123) 456-7890" required itemprop="telephone">
+                <div class="error-message">Please enter a valid phone number</div>
+            </div>
+            
+            <div class="form-group" itemprop="customer">
+                <label for="email" class="required">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="example@email.com" required itemprop="email">
+                <div class="error-message">Please enter a valid email address</div>
+            </div>
+            
+            <div class="form-group" itemprop="customer">
+                <label for="preferredContact" class="required">Preferred Contact Method</label>
+                <select id="preferredContact" name="preferredContact" required>
+                    <option value="">-- Select Contact Method --</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Contact Number</option>
+                </select>
+                <div class="error-message">Please select a contact method</div>
+            </div>
+            
+            <div class="form-group full-width" itemprop="serviceLocation" itemscope itemtype="https://schema.org/Place">
+                <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                    <label for="address" class="required">Street Address</label>
+                    <input type="text" id="address" name="address" placeholder="123 Example Street" required itemprop="streetAddress">
+                    <div class="error-message">Please enter your address</div>
                 </div>
             </div>
+            
+            <div class="form-group" itemprop="serviceLocation" itemscope itemtype="https://schema.org/Place">
+                <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                    <label for="city" class="required">City/Town</label>
+                    <select id="city" name="city" required itemprop="addressLocality">
+                        <option value="">-- Select City/Town --</option>
+                        <option value="Toronto">Toronto</option>
+                        <option value="Mississauga">Mississauga</option>
+                        <option value="Brampton">Brampton</option>
+                        <option value="Hamilton">Hamilton</option>
+                        <option value="Oakville">Oakville</option>
+                        <option value="Burlington">Burlington</option>
+                        <option value="Oshawa">Oshawa</option>
+                        <option value="Whitby">Whitby</option>
+                        <option value="Ajax">Ajax</option>
+                        <option value="Pickering">Pickering</option>
+                    </select>
+                    <div class="error-message">Please select your city</div>
+                </div>
+            </div>
+            
+            <div class="form-group" itemprop="serviceLocation" itemscope itemtype="https://schema.org/Place">
+                <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                    <label for="postal" class="required">Postal Code</label>
+                    <input type="text" id="postal" name="postal" placeholder="A1A 1A1" required itemprop="postalCode">
+                    <div class="error-message">Please enter a valid postal code</div>
+                </div>
+            </div>
+            
+            <div class="form-group" itemprop="serviceLocation" itemscope itemtype="https://schema.org/Place">
+                <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                    <label for="province">Province</label>
+                    <select id="province" name="province" disabled>
+                        <option value="ON" selected>Ontario</option>
+                    </select>
+                    <meta itemprop="addressRegion" content="ON">
+                </div>
+            </div>
+            
+            <div class="form-group" itemprop="serviceLocation" itemscope itemtype="https://schema.org/Place">
+                <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" name="country" value="Canada" disabled>
+                    <meta itemprop="addressCountry" content="CA">
+                </div>
+            </div>
+            
+            <h3 class="form-section-title">Equipment Information</h3>
+            
+            <div class="form-group">
+                <label for="serviceRequest" class="required">Service Request</label>
+                <select id="serviceRequest" name="serviceRequest" required itemprop="serviceType">
+                    <option value="">-- Select Service --</option>
+                    <option value="Preventative Maintenance">Preventative Maintenance</option>
+                    <option value="Inspection">Inspection</option>
+                    <option value="Repairs & Tune-Ups">Repairs & Tune-Ups</option>
+                    <option value="Relocation & Assembly">Relocation & Assembly</option>
+                </select>
+                <div class="error-message">Please select a service</div>
+            </div>
+            
+            <div class="form-group">
+                <label class="required">I am a(n)</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="individual" name="clientType" value="Individual" required>
+                        <label for="individual">Individual</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="business" name="clientType" value="Business">
+                        <label for="business">Business</label>
+                    </div>
+                </div>
+                <div class="error-message">Please select client type</div>
+            </div>
+            
+            <div class="form-group" itemprop="item" itemscope itemtype="https://schema.org/Product">
+                <label for="brand" class="required">Equipment Manufacturer</label>
+                <input type="text" id="brand" name="brand" required placeholder="e.g. NordicTrack, LifeFitness" itemprop="brand">
+                <div class="error-message">Please enter the manufacturer</div>
+            </div>
+            
+            <div class="form-group" itemprop="item" itemscope itemtype="https://schema.org/Product">
+                <label for="model" class="required">Model Number</label>
+                <input type="text" id="model" name="model" required placeholder="e.g. NTL19125 or NTL17125" itemprop="model">
+                <div class="error-message">Please enter the model number</div>
+            </div>
+            
+            <div class="form-group" itemprop="item" itemscope itemtype="https://schema.org/Product">
+                <label for="serial">Serial Number</label>
+                <input type="text" id="serial" name="serial" itemprop="serialNumber">
+            </div>
+            
+            <div class="form-group">
+                <label for="bookingDateTime" class="required">Preferred Booking Date & Time</label>
+                <input type="datetime-local" id="bookingDateTime" name="bookingDateTime" required itemprop="startTime">
+                <div class="error-message">Please select a date and time</div>
+            </div>
+            
+            <div class="form-group full-width">
+                <label for="description" class="required">Description of Issue</label>
+                <textarea id="description" name="description" rows="5" required placeholder="Example: Treadmill belt slipping, Elliptical making noise, Console not powering on, Motor overheating, Resistance not adjusting..." itemprop="description"></textarea>
+                <div class="error-message">Please describe the issue</div>
+            </div>
+            
+            <div class="form-group full-width">
+                <label for="equipmentFile">Upload Equipment Image/Video</label>
+                <input type="file" id="equipmentFile" name="equipmentFile" accept="image/*,video/*">
+                <div class="form-note">Upload images or short videos showing the issue (optional)</div>
+            </div>
+            
+            <div class="submit-btn">
+                <button type="submit">
+                    <i class="ri-service-line"></i> Book Your Service Now
+                </button>
+            </div>
+        </form>
+
+        <!-- Loading overlay for form submission -->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="loading-spinner"></div>
+            <p>Submitting your request...</p>
+        </div>
+        
+        <div class="contact-card" itemscope itemtype="https://schema.org/LocalBusiness">
+            <h3>Need Immediate Assistance?</h3>
+            <div class="contact-info">
+                <div class="contact-item" itemprop="telephone">
+                    <i class="ri-phone-line"></i>
+                    <span>+1 289 925 7239</span>
+                </div>
+                <div class="contact-item" itemprop="email">
+                    <i class="ri-mail-line"></i>
+                    <span id="contactcardemail">canadianfitnessrepair@gmail.com</span>
+                </div>
+                <div class="contact-item" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                    <i class="ri-map-pin-line"></i>
+                    <span itemprop="addressLocality">Hamilton</span>, 
+                    <span itemprop="addressRegion">ON</span>
+                </div>
+            </div>
+        </div>
+    </div>
         </section>
 
+        
     <!-- Whatsapp Code -->
     <section>
             <!-- WhatsApp Widget -->
