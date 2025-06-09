@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 widget.classList.remove('open');
                 floatingBtn.classList.remove('hidden');
             }
-        }, 3000);
+        }, 1500);
     }, 10000);
     
     // Close widget
