@@ -12,10 +12,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="whatsapp.css">
     <script>
-        (function() {
-            // Initialize EmailJS with your user ID
-            emailjs.init("Y3qHd9eGkrVsfM-Fs"); // Replace with your actual EmailJS user ID
-        })();
+        
     </script>
 
     <!-- Header & Footer Styles -->
@@ -1377,6 +1374,18 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
+        (function() {
+            // Initialize EmailJS with your user ID
+            emailjs.init("Y3qHd9eGkrVsfM-Fs"); // Replace with your actual EmailJS user ID
+        })();
+
+        try {
+            emailjs.init("Y3qHd9eGkrVsfM-Fs");
+        } catch (error) {
+            console.error("EmailJS init error:", error);
+            showNotification("Email service unavailable. Please contact us directly.", false);
+        }
             
             const submitBtn = document.getElementById('submitBtn');
             const notification = document.getElementById('notification');
@@ -1518,6 +1527,8 @@
             });
         });
     </script>
+
+    
     <script src="whatsapp.js"></script>
 </body>
 </html>
