@@ -1903,275 +1903,201 @@
         </div>
     </footer>
     
-    <!-- Add EmailJS SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Initialize EmailJS with your User ID
-            // Replace "YOUR_USER_ID_HERE" with your actual EmailJS User ID
-            emailjs.init("Y3qHd9eGkrVsfM-Fs");
+<!-- Add EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize EmailJS with correct User ID
+        emailjs.init("Y3qHd9eGkrVsfM-Fs");
+        
+        // ... (your existing menu code remains the same) ...
+
+        // Form submission handling
+        const quoteForm = document.getElementById('quoteForm');
+        const successMessage = document.getElementById('successMessage');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        // Initially hide success message
+        successMessage.style.display = 'none';
+
+        quoteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            // Mobile menu functionality
-            const hamburger = document.getElementById('hamburger');
-            const navbarList = document.getElementById('navbarList');
-            const dropdowns = document.querySelectorAll('.dropdown');
-            const menuIcon = hamburger.querySelector('.menu-icon');
-            const closeIcon = hamburger.querySelector('.close-icon');
-
-            // Toggle mobile menu
-            hamburger.addEventListener('click', () => {
-                navbarList.classList.toggle('open');
+            // Clear previous errors
+            clearErrors();
+            
+            // Form validation
+            if (validateForm()) {
+                // Show loading overlay
+                loadingOverlay.style.display = 'flex';
                 
-                // Toggle visibility of icons
-                menuIcon.style.display = navbarList.classList.contains('open') ? 'none' : 'block';
-                closeIcon.style.display = navbarList.classList.contains('open') ? 'block' : 'none';
-            });
-
-            // Dropdown toggle for mobile
-            dropdowns.forEach(dropdown => {
-                const toggle = dropdown.querySelector('a');
-                
-                toggle.addEventListener('click', function (e) {
-                    // Only activate on small screens
-                    if (window.innerWidth <= 767) {
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        // Close other dropdowns
-                        dropdowns.forEach(d => {
-                            if (d !== dropdown && d.classList.contains('active')) {
-                                d.classList.remove('active');
-                                const otherContent = d.querySelector('.dropdown-content');
-                                otherContent.style.maxHeight = null;
-                                otherContent.style.padding = '0';
-                            }
-                        });
-
-                        // Toggle the clicked dropdown
-                        dropdown.classList.toggle('active');
-
-                        const content = dropdown.querySelector('.dropdown-content');
-                        if (dropdown.classList.contains('active')) {
-                            content.style.maxHeight = content.scrollHeight + 'px';
-                            content.style.padding = '10px 0';
-                        } else {
-                            content.style.maxHeight = null;
-                            content.style.padding = '0';
-                        }
-                    }
-                });
-            });
-
-            // Close menu when clicking outside (mobile)
-            document.addEventListener('click', function (e) {
-                const isClickInsideNav = navbarList.contains(e.target) || hamburger.contains(e.target);
-                
-                if (!isClickInsideNav) {
-                    navbarList.classList.remove('open');
-                    dropdowns.forEach(d => {
-                        d.classList.remove('active');
-                        const content = d.querySelector('.dropdown-content');
-                        if (content) {
-                            content.style.maxHeight = null;
-                            content.style.padding = '0';
-                        }
+                // Send email using EmailJS with FORM DATA
+                emailjs.sendForm("service_15f1fcs", "template_pq3tpbe", quoteForm)
+                    .then(function(response) {
+                        console.log("Email sent successfully!", response);
+                        
+                        // Hide loading overlay
+                        loadingOverlay.style.display = 'none';
+                        
+                        // Show success message
+                        successMessage.style.display = 'block';
+                        
+                        // Hide form
+                        quoteForm.style.display = 'none';
+                        
+                        // Reset form after 5 seconds
+                        setTimeout(() => {
+                            quoteForm.reset();
+                            quoteForm.style.display = 'grid';
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    }, function(error) {
+                        console.log("Email failed to send:", error);
+                        
+                        // Hide loading overlay
+                        loadingOverlay.style.display = 'none';
+                        
+                        alert('Failed to send your request. Please try again or contact us directly.');
                     });
-                    
-                    // Reset hamburger icons
-                    menuIcon.style.display = 'block';
-                    closeIcon.style.display = 'none';
+            } else {
+                alert('Please fill in all required fields correctly.');
+            }
+        });
+        
+        // Form validation function
+        function validateForm() {
+            let isValid = true;
+            
+            // Required fields validation
+            const requiredFields = [
+                'firstName', 'contactNumber', 'email', 'preferredContact',
+                'address', 'city', 'postal', 'serviceRequest', 'brand',
+                'model', 'bookingDateTime', 'description'
+            ];
+            
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                if (!element.value.trim()) {
+                    isValid = false;
+                    showError(element, field + 'Error', 'This field is required');
                 }
             });
-
-            // Reset dropdown styles on resize (for responsiveness)
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 767) {
-                    dropdowns.forEach(d => {
-                        d.classList.remove('active');
-                        const content = d.querySelector('.dropdown-content');
-                        if (content) {
-                            content.style.maxHeight = null;
-                            content.style.padding = '';
-                        }
-                    });
-                    navbarList.classList.remove('open');
-                    
-                    // Reset hamburger icons
-                    menuIcon.style.display = 'block';
-                    closeIcon.style.display = 'none';
-                }
-            });
-
-            // Word animation implementation
-            const wordWrapper = document.getElementById('wordWrapper');
-            const words = document.querySelectorAll('.word-item');
-            const totalWords = words.length;
-            let currentIndex = 0;
             
-            // Function to animate words
-            function animateWords() {
-                currentIndex = (currentIndex + 1) % totalWords;
-                wordWrapper.style.transform = `translateY(${-currentIndex * 100}%)`;
+            // Client type validation
+            const clientTypeSelected = document.querySelector('input[name="clientType"]:checked');
+            if (!clientTypeSelected) {
+                isValid = false;
+                showError(null, 'clientTypeError', 'Please select client type');
             }
             
-            // Start the animation
-            setInterval(animateWords, 2500);
+            // Email validation
+            const email = document.getElementById('email');
+            if (email.value && !validateEmail(email.value)) {
+                isValid = false;
+                showError(email, 'emailError', 'Please enter a valid email address');
+            }
             
-            // Initialize the animation
-            animateWords();
+            // Phone validation
+            const phone = document.getElementById('contactNumber');
+            if (phone.value && !validatePhone(phone.value)) {
+                isValid = false;
+                showError(phone, 'contactNumberError', 'Please enter a valid phone number');
+            }
             
-            // Form submission handling
-            const quoteForm = document.getElementById('quoteForm');
-            const successMessage = document.getElementById('successMessage');
-            const loadingOverlay = document.getElementById('loadingOverlay');
+            // Postal code validation
+            const postal = document.getElementById('postal');
+            if (postal.value && !validatePostalCode(postal.value)) {
+                isValid = false;
+                showError(postal, 'postalError', 'Please enter a valid postal code');
+            }
             
-            quoteForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Form validation
-                if (validateForm()) {
-                    // Show loading overlay
-                    loadingOverlay.style.display = 'flex';
-                    
-                const formData = {
-                    firstName: document.getElementById('firstName').value,
-                    lastName: document.getElementById('lastName').value,
-                    contactNumber: document.getElementById('contactNumber').value,
-                    email: document.getElementById('email').value,
-                    preferredContact: document.getElementById('preferredContact').value,
-                    address: document.getElementById('address').value,
-                    city: document.getElementById('city').value,
-                    postal: document.getElementById('postal').value,
-                    serviceRequest: document.getElementById('serviceRequest').value,
-                    // FIXED RADIO BUTTON SELECTOR AND ADDED COMMA
-                    clientType: document.querySelector('input[name="clientType"]:checked')?.value || "Not specified",
-                    brand: document.getElementById('brand').value,
-                    model: document.getElementById('model').value,
-                    serial: document.getElementById('serial').value,
-                    bookingDateTime: document.getElementById('bookingDateTime').value,
-                    // ADDED COMMA HERE
-                    description: document.getElementById('description').value,
-                    // ADDED COMMA ABOVE AND FIXED PROPERTY SYNTAX
-                    province: document.getElementById('province').value,
-                    country: document.getElementById('country').value
-                };  // DON'T FORGET CLOSING BRACE AND SEMICOLON
-                    
-                    // Send email using EmailJS
-                    emailjs.send("service_15f1fcs", "template_pq3tpbe", formData)
-                        .then(function(response) {
-                            console.log("Email sent successfully!", response);
-                            
-                            // Hide loading overlay
-                            loadingOverlay.style.display = 'none';
-                            
-                            // Show success message
-                            successMessage.classList.add('show');
-                            
-                            // Hide form
-                            quoteForm.style.display = 'none';
-                            
-                            // Scroll to success message
-                            successMessage.scrollIntoView({behavior: 'smooth'});
-                            
-                            // Reset form after 5 seconds
-                            setTimeout(() => {
-                                quoteForm.reset();
-                                quoteForm.style.display = 'grid';
-                                successMessage.classList.remove('show');
-                            }, 5000);
-                        }, function(error) {
-                            console.log("Email failed to send:", error);
-                            
-                            // Hide loading overlay
-                            loadingOverlay.style.display = 'none';
-                            
-                            alert('Failed to send your request. Please try again or contact us directly.');
-                        });
+            return isValid;
+        }
+        
+        // Helper functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        function validatePhone(phone) {
+            const re = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+            return re.test(phone);
+        }
+        
+        function validatePostalCode(postal) {
+            const re = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+            return re.test(postal);
+        }
+        
+        function showError(element, errorId, message) {
+            const errorElement = document.getElementById(errorId);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+            
+            if (element) {
+                element.classList.add('error');
+            }
+        }
+        
+        function clearErrors() {
+            // Hide all error messages
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Remove error classes from inputs
+            document.querySelectorAll('.error').forEach(el => {
+                el.classList.remove('error');
+            });
+        }
+        
+        // Add real-time validation
+        document.querySelectorAll('input, select, textarea').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    const errorId = this.id + 'Error';
+                    showError(this, errorId, 'This field is required');
                 } else {
-                    alert('Please fill in all required fields correctly.');
-                }
-            });
-            
-            // Form validation function
-            function validateForm() {
-                let isValid = true;
-                const requiredFields = quoteForm.querySelectorAll('[required]');
-                
-                // Reset all invalid states
-                document.querySelectorAll('.form-group').forEach(group => {
-                    group.classList.remove('invalid');
-                });
-                
-                // Validate each required field
-                requiredFields.forEach(field => {
-                    if (!field.value.trim()) {
-                        field.closest('.form-group').classList.add('invalid');
-                        isValid = false;
+                    const errorElement = document.getElementById(this.id + 'Error');
+                    if (errorElement) {
+                        errorElement.style.display = 'none';
                     }
-                });
-                
-                // Validate email format
-                const emailField = document.getElementById('email');
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (emailField.value && !emailRegex.test(emailField.value)) {
-                    emailField.closest('.form-group').classList.add('invalid');
-                    isValid = false;
+                    this.classList.remove('error');
                 }
                 
-                // Validate phone format
-                const phoneField = document.getElementById('contactNumber');
-                const phoneRegex = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
-                if (phoneField.value && !phoneRegex.test(phoneField.value)) {
-                    phoneField.closest('.form-group').classList.add('invalid');
-                    isValid = false;
+                // Specific field validations
+                if (this.id === 'email' && this.value) {
+                    if (!validateEmail(this.value)) {
+                        showError(this, 'emailError', 'Please enter a valid email address');
+                    }
                 }
                 
-                // Validate postal code
-                const postalField = document.getElementById('postal');
-                const postalRegex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
-                if (postalField.value && !postalRegex.test(postalField.value)) {
-                    postalField.closest('.form-group').classList.add('invalid');
-                    isValid = false;
+                if (this.id === 'contactNumber' && this.value) {
+                    if (!validatePhone(this.value)) {
+                        showError(this, 'contactNumberError', 'Please enter a valid phone number');
+                    }
                 }
                 
-                return isValid;
-            }
-            
-            // Add real-time validation
-            document.querySelectorAll('input, select, textarea').forEach(field => {
-                field.addEventListener('blur', function() {
-                    if (this.hasAttribute('required') && !this.value.trim()) {
-                        this.closest('.form-group').classList.add('invalid');
-                    } else {
-                        this.closest('.form-group').classList.remove('invalid');
+                if (this.id === 'postal' && this.value) {
+                    if (!validatePostalCode(this.value)) {
+                        showError(this, 'postalError', 'Please enter a valid postal code');
                     }
-                    
-                    // Specific field validations
-                    if (this.id === 'email' && this.value) {
-                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailRegex.test(this.value)) {
-                            this.closest('.form-group').classList.add('invalid');
-                        }
-                    }
-                    
-                    if (this.id === 'contactNumber' && this.value) {
-                        const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
-                        if (!phoneRegex.test(this.value)) {
-                            this.closest('.form-group').classList.add('invalid');
-                        }
-                    }
-                    
-                    if (this.id === 'postal' && this.value) {
-                        const postalRegex = /^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/;
-                        if (!postalRegex.test(this.value)) {
-                            this.closest('.form-group').classList.add('invalid');
-                        }
-                    }
-                });
+                }
             });
         });
-    </script>
+        
+        // Radio button validation
+        document.querySelectorAll('input[name="clientType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('clientTypeError').style.display = 'none';
+            });
+        });
+    });
+</script>
 
     <script src="whatsapp.js"></script>
 </body>
