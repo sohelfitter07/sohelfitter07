@@ -2045,12 +2045,16 @@
                         city: document.getElementById('city').value,
                         postal: document.getElementById('postal').value,
                         serviceRequest: document.getElementById('serviceRequest').value,
-                        clientType: document.querySelector('input[name="clientType"]:checked').value,
+                        clientType: document.querySelector('input[name="clientType"]:checked')?.value || "Not specified"
                         brand: document.getElementById('brand').value,
                         model: document.getElementById('model').value,
                         serial: document.getElementById('serial').value,
                         bookingDateTime: document.getElementById('bookingDateTime').value,
                         description: document.getElementById('description').value
+                        // Add to formData object:
+                        province: document.getElementById('province').value,
+                        country: document.getElementById('country').value,
+                        
                     };
                     
                     // Send email using EmailJS
