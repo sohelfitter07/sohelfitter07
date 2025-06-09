@@ -1426,13 +1426,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Mobile menu functionality
+
+  // Mobile menu functionality
             const hamburger = document.getElementById('hamburger');
             const navbarList = document.getElementById('navbarList');
             const dropdowns = document.querySelectorAll('.dropdown');
             const menuIcon = hamburger.querySelector('.menu-icon');
             const closeIcon = hamburger.querySelector('.close-icon');
-
             // Toggle mobile menu
             hamburger.addEventListener('click', () => {
                 navbarList.classList.toggle('open');
@@ -1444,7 +1444,9 @@
 
             // Dropdown toggle for mobile
             dropdowns.forEach(dropdown => {
-                dropdown.addEventListener('click', function (e) {
+                const toggle = dropdown.querySelector('a');
+                
+                toggle.addEventListener('click', function (e) {
                     // Only activate on small screens
                     if (window.innerWidth <= 767) {
                         e.preventDefault();
@@ -1452,7 +1454,7 @@
 
                         // Close other dropdowns
                         dropdowns.forEach(d => {
-                            if (d !== dropdown) {
+                            if (d !== dropdown && d.classList.contains('active')) {
                                 d.classList.remove('active');
                                 const otherContent = d.querySelector('.dropdown-content');
                                 otherContent.style.maxHeight = null;
@@ -1477,7 +1479,9 @@
 
             // Close menu when clicking outside (mobile)
             document.addEventListener('click', function (e) {
-                if (!navbarList.contains(e.target) && !hamburger.contains(e.target)) {
+                const isClickInsideNav = navbarList.contains(e.target) || hamburger.contains(e.target);
+                
+                if (!isClickInsideNav) {
                     navbarList.classList.remove('open');
                     dropdowns.forEach(d => {
                         d.classList.remove('active');
@@ -1512,6 +1516,7 @@
                     closeIcon.style.display = 'none';
                 }
             });
+
 
             // Pricing tabs functionality
             const pricingTabs = document.querySelectorAll('.pricing-tab');
