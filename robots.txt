@@ -1,3 +1,9 @@
 User-agent: *
 Allow: /
-Sitemap: https://canadianfitnessrepair.com/sitemap.xml
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /cgi-bin/
+
+Crawl-delay: 10
+
+Sitemap: https://www.canadianfitnessrepair.com/sitemap.xml
