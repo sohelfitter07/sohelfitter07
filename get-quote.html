@@ -2034,28 +2034,28 @@
                     // Show loading overlay
                     loadingOverlay.style.display = 'flex';
                     
-                    // Prepare form data
-                    const formData = {
-                        firstName: document.getElementById('firstName').value,
-                        lastName: document.getElementById('lastName').value,
-                        contactNumber: document.getElementById('contactNumber').value,
-                        email: document.getElementById('email').value,
-                        preferredContact: document.getElementById('preferredContact').value,
-                        address: document.getElementById('address').value,
-                        city: document.getElementById('city').value,
-                        postal: document.getElementById('postal').value,
-                        serviceRequest: document.getElementById('serviceRequest').value,
-                        clientType: document.querySelector('input[name="clientType"]:checked')?.value || "Not specified"
-                        brand: document.getElementById('brand').value,
-                        model: document.getElementById('model').value,
-                        serial: document.getElementById('serial').value,
-                        bookingDateTime: document.getElementById('bookingDateTime').value,
-                        description: document.getElementById('description').value
-                        // Add to formData object:
-                        province: document.getElementById('province').value,
-                        country: document.getElementById('country').value,
-                        
-                    };
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    contactNumber: document.getElementById('contactNumber').value,
+                    email: document.getElementById('email').value,
+                    preferredContact: document.getElementById('preferredContact').value,
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    postal: document.getElementById('postal').value,
+                    serviceRequest: document.getElementById('serviceRequest').value,
+                    // FIXED RADIO BUTTON SELECTOR AND ADDED COMMA
+                    clientType: document.querySelector('input[name="clientType"]:checked')?.value || "Not specified",
+                    brand: document.getElementById('brand').value,
+                    model: document.getElementById('model').value,
+                    serial: document.getElementById('serial').value,
+                    bookingDateTime: document.getElementById('bookingDateTime').value,
+                    // ADDED COMMA HERE
+                    description: document.getElementById('description').value,
+                    // ADDED COMMA ABOVE AND FIXED PROPERTY SYNTAX
+                    province: document.getElementById('province').value,
+                    country: document.getElementById('country').value
+                };  // DON'T FORGET CLOSING BRACE AND SEMICOLON
                     
                     // Send email using EmailJS
                     emailjs.send("service_15f1fcs", "template_pq3tpbe", formData)
