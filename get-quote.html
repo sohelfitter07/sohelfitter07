@@ -1057,6 +1057,23 @@
         .contact-item span {
             font-size: 1.1rem;
         }
+                /* Add to your existing CSS */
+        .success-message .c-button {
+            margin-top: 20px;
+            background: var(--theme-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .success-message .c-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
 
         /* Responsive Styles - Mobile Menu Fixes */
 
@@ -1623,11 +1640,15 @@
             <p itemprop="description">To serve you better, please describe the problem you are having with your machine and provide as much detail as possible. Include photos and videos with your request to help us troubleshoot your problem better.</p>
         </div>
         
-        <!-- Success Message -->
         <div id="successMessage" class="success-message">
             <i class="ri-checkbox-circle-line" style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem;"></i>
             <h3>Thank You for Your Request!</h3>
             <p>We've received your quote request and will contact you shortly to confirm your appointment.</p>
+            
+            <!-- Add this button -->
+            <button id="newRequestBtn" class="c-button" style="margin-top: 20px;" onclick="window.location.href='https://canadianfitnessrepair.com/get-quote.html';">
+                Submit Another Request
+            </button>
         </div>
         
         <form class="quote-form" id="quoteForm" itemscope itemtype="https://schema.org/ServiceRequest">
@@ -1921,6 +1942,7 @@
         // Initially hide success message
         successMessage.style.display = 'none';
 
+        // Replace your existing form submission handler with this:
         quoteForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -1945,13 +1967,6 @@
                         
                         // Hide form
                         quoteForm.style.display = 'none';
-                        
-                        // Reset form after 5 seconds
-                        setTimeout(() => {
-                            quoteForm.reset();
-                            quoteForm.style.display = 'grid';
-                            successMessage.style.display = 'none';
-                        }, 5000);
                     }, function(error) {
                         console.log("Email failed to send:", error);
                         
@@ -1964,7 +1979,21 @@
                 alert('Please fill in all required fields correctly.');
             }
         });
-        
+
+        // Add this new event listener after the form submission code:
+        document.getElementById('newRequestBtn').addEventListener('click', function() {
+            // Reset the form
+            quoteForm.reset();
+            
+            // Clear any errors
+            clearErrors();
+            
+            // Show the form again
+            quoteForm.style.display = 'grid';
+            
+            // Hide the success message
+            successMessage.style.display = 'none';
+        });
         // Form validation function
         function validateForm() {
             let isValid = true;
