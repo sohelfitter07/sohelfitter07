@@ -2152,14 +2152,14 @@
                     }
                     
                     if (this.id === 'contactNumber' && this.value) {
-                        const phoneRegex = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+                        const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
                         if (!phoneRegex.test(this.value)) {
                             this.closest('.form-group').classList.add('invalid');
                         }
                     }
                     
                     if (this.id === 'postal' && this.value) {
-                        const postalRegex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+                        const postalRegex = /^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/;
                         if (!postalRegex.test(this.value)) {
                             this.closest('.form-group').classList.add('invalid');
                         }
