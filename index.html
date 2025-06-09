@@ -58,30 +58,42 @@ fitness machine repair Mississauga,
     "longitude": "-79.8660"
   },
   "areaServed": [
-    {
-      "@type": "City",
-      "name": "Hamilton"
-    },
-    {
-      "@type": "City",
-      "name": "Burlington"
-    },
-    {
-      "@type": "City",
-      "name": "Oakville"
-    },
-    {
-      "@type": "City",
-      "name": "Mississauga"
-    },
-    {
-      "@type": "City",
-      "name": "Niagara Region"
-    },
-    {
-      "@type": "City",
-      "name": "Greater Toronto Area"
-    }
+    {"@type": "City", "name": "Hamilton"},
+    {"@type": "City", "name": "Burlington"},
+    {"@type": "City", "name": "Oakville"},
+    {"@type": "City", "name": "Mississauga"},
+    {"@type": "City", "name": "Brampton"},
+    {"@type": "City", "name": "Toronto"},
+    {"@type": "City", "name": "Guelph"},
+    {"@type": "City", "name": "Kitchener"},
+    {"@type": "City", "name": "Waterloo"},
+    {"@type": "City", "name": "Cambridge"},
+    {"@type": "City", "name": "Brantford"},
+    {"@type": "City", "name": "St. Catharines"},
+    {"@type": "City", "name": "Niagara Falls"},
+    {"@type": "City", "name": "Welland"},
+    {"@type": "City", "name": "Grimsby"},
+    {"@type": "City", "name": "London"},
+    {"@type": "City", "name": "Woodstock"},
+    {"@type": "City", "name": "Stratford"},
+    {"@type": "City", "name": "Oshawa"},
+    {"@type": "City", "name": "Pickering"},
+    {"@type": "City", "name": "Ajax"},
+    {"@type": "City", "name": "Whitby"},
+    {"@type": "City", "name": "Newmarket"},
+    {"@type": "City", "name": "Aurora"},
+    {"@type": "City", "name": "Vaughan"},
+    {"@type": "City", "name": "Markham"},
+    {"@type": "City", "name": "Richmond Hill"},
+    {"@type": "City", "name": "Milton"},
+    {"@type": "City", "name": "Georgetown"},
+    {"@type": "Region", "name": "Greater Toronto Area"},
+    {"@type": "Region", "name": "Niagara Region"},
+    {"@type": "Region", "name": "Waterloo Region"},
+    {"@type": "Region", "name": "Brant County"},
+    {"@type": "Region", "name": "Halton Region"},
+    {"@type": "Region", "name": "Peel Region"},
+    {"@type": "Region", "name": "Durham Region"}
   ],
   "serviceArea": {
     "@type": "GeoCircle",
@@ -90,7 +102,7 @@ fitness machine repair Mississauga,
       "latitude": "43.2250",
       "longitude": "-79.8660"
     },
-    "geoRadius": "200000"
+    "geoRadius": "150000"
   },
   "openingHoursSpecification": [{
     "@type": "OpeningHoursSpecification",
@@ -99,7 +111,7 @@ fitness machine repair Mississauga,
     "closes": "23:59"
   }],
   "sameAs": [
-    https://www.facebook.com/canadianfitnessrepair,
+    "https://www.facebook.com/canadianfitnessrepair",
     "https://www.instagram.com/yourprofile",
     "https://ca.linkedin.com/company/yourprofile"
   ],
@@ -109,33 +121,36 @@ fitness machine repair Mississauga,
       "serviceType": "TreadmillRepair",
       "name": "Emergency Treadmill Repair",
       "description": "24/7 same-day repair service for residential and commercial treadmills",
-      "offeredIn": ["Hamilton", "Burlington", "Oakville", "Mississauga", "Niagara", "GTA"],
-      "availability": "https://schema.org/InStock"
+      "offeredIn": "All locations within 150km of Hamilton"
     },
     {
       "@type": "Service",
       "serviceType": "EllipticalRepair",
       "name": "Elliptical Machine Maintenance",
       "description": "Preventative maintenance and emergency repairs for all elliptical models",
-      "offeredIn": ["Hamilton", "Burlington", "Oakville", "Mississauga", "GTA"]
+      "offeredIn": "All locations within 150km of Hamilton"
     },
     {
       "@type": "Service",
       "serviceType": "CommercialGymRepair",
       "name": "Commercial Fitness Equipment Service",
       "description": "On-site repair for gyms and fitness centers with certified technicians",
-      "offeredIn": ["Hamilton", "Burlington", "Oakville", "Mississauga", "Niagara", "GTA"]
+      "offeredIn": "All locations within 150km of Hamilton"
     },
     {
       "@type": "Service",
       "serviceType": "EquipmentRelocation",
       "name": "Fitness Machine Moving & Installation",
       "description": "Professional relocation services for commercial and home gym equipment",
-      "offeredIn": ["Hamilton", "Burlington", "Oakville", "Mississauga", "GTA"]
+      "offeredIn": "All locations within 150km of Hamilton"
     }
   ],
   "review": {
     "@type": "Review",
+    "itemReviewed": {
+      "@type": "LocalBusiness",
+      "name": "Canadian Fitness Repair"
+    },
     "reviewRating": {
       "@type": "Rating",
       "ratingValue": "4.9",
@@ -150,7 +165,7 @@ fitness machine repair Mississauga,
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
-    "reviewCount": "142",
+    "reviewCount": 142,
     "bestRating": "5"
   }
 }
