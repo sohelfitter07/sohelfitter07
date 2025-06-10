@@ -26,6 +26,47 @@
 
     <link rel="canonical" href="https://www.canadianfitnessrepair.com/repairprocess">
 
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Canadian Fitness Repair",
+      "image": "https://www.canadianfitnessrepair.com/images/logo.jpg",
+      "@id": "",
+      "url": "https://www.canadianfitnessrepair.com/",
+      "telephone": "+12899257239",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2200 Rymal Rd E",
+        "addressLocality": "Hamilton",
+        "addressRegion": "ON",
+        "postalCode": "L0R 1P0",
+        "addressCountry": "CA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 43.2250,
+        "longitude": -79.8660
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/canadianfitnessrepair",
+        "https://www.instagram.com/canadianfitnessrepair"
+      ] 
+    }
+    </script>
 
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -425,6 +466,68 @@
             color: var(--text-color);
             transform: translateY(-5px);
         }
+
+        /* City Pages Grid */
+        .city-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .city-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid rgba(93, 93, 255, 0.1);
+        }
+        
+        .city-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(93, 93, 255, 0.2);
+        }
+        
+        .city-card h3 {
+            color: var(--theme-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .city-neighborhoods {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .city-usp {
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(93, 93, 255, 0.1);
+        }
+        
+        .city-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .city-links a {
+            background: rgba(93, 93, 255, 0.1);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .city-links a:hover {
+            background: var(--theme-color);
+        }
         
         /* Responsive Styles - Header & Footer */
         @media (min-width: 768px) and (max-width: 1023px) {
@@ -610,6 +713,10 @@
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
+            }
+
+            .city-grid {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -967,6 +1074,15 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
+        /* City Pages Section */
+        .city-pages-section {
+            background-color: var(--card-bg);
+            max-width: 1200px;
+            margin: 3rem auto;
+            border-radius: 16px;
+            padding: 4rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
 
         /* Animation Keyframes */
         @keyframes fadeInSlide {
@@ -1010,6 +1126,10 @@
             
             .tabs-content-container {
                 min-height: 600px;
+            }
+
+            .city-pages-section {
+                padding: 2rem 1.5rem;
             }
         }
 
@@ -1105,6 +1225,8 @@
                                 <li><a href="services.html">Commerical & Residential</a></li>
                             </ul>
                         </li>
+                        <!-- ADDED REPAIR PROCESS LINK -->
+                        <li><a href="repairprocess.html"><i class="ri-settings-5-line"></i> REPAIR PROCESS</a></li>
                         <li><a href="gallery.html"><i class="ri-image-line"></i> GALLERY</a></li>
                         <li><a href="contactform.html"><i class="ri-contacts-line"></i> CONTACT</a></li>
                         <li><a href="reviews.html"><i class="ri-star-line"></i> REVIEWS</a></li>
@@ -1240,45 +1362,151 @@
             </div>
         </section>
 
-            <!-- Whatsapp Code -->
-    <section>
+        <!-- City Pages Section -->
+        <section class="city-pages-section">
+            <h2 class="section-title animated">Local Treadmill Repair Services</h2>
+            <div class="section-intro animated">
+                <p>We provide specialized fitness equipment repair services across the Greater Toronto Area. Select your city to learn about our local offerings:</p>
+            </div>
+            
+            <div class="city-grid">
+                <!-- Toronto -->
+                <div class="city-card animated">
+                    <h3>Toronto Treadmill Repair</h3>
+                    <p>Professional treadmill repair services throughout Toronto with same-day service in the Financial District.</p>
+                    <div class="city-neighborhoods">
+                        <strong>Serving:</strong> Etobicoke, North York, Scarborough, Downtown, The Annex
+                    </div>
+                    <div class="city-usp">
+                        <i class="ri-flashlight-line"></i> Same-day service in financial district
+                    </div>
+                    <div class="city-links">
+                        <a href="treadmill-repair-hamilton.html">Hamilton Services</a>
+                        <a href="treadmill-repair-mississauga.html">Mississauga Services</a>
+                    </div>
+                </div>
+                
+                <!-- Hamilton -->
+                <div class="city-card animated" style="animation-delay: 0.1s;">
+                    <h3>Hamilton Treadmill Repair</h3>
+                    <p>Expert treadmill service in Hamilton with specialized industrial equipment knowledge.</p>
+                    <div class="city-neighborhoods">
+                        <strong>Serving:</strong> Dundas, Ancaster, Stoney Creek, Westdale, East Hamilton
+                    </div>
+                    <div class="city-usp">
+                        <i class="ri-tools-line"></i> Industrial equipment specialists
+                    </div>
+                    <div class="city-links">
+                        <a href="treadmill-repair-burlington.html">Burlington Services</a>
+                        <a href="treadmill-repair-oakville.html">Oakville Services</a>
+                    </div>
+                </div>
+                
+                <!-- Burlington -->
+                <div class="city-card animated" style="animation-delay: 0.2s;">
+                    <h3>Burlington Treadmill Repair</h3>
+                    <p>Reliable treadmill repair in Burlington with expertise in senior fitness equipment.</p>
+                    <div class="city-neighborhoods">
+                        <strong>Serving:</strong> Aldershot, Alton, Tyandaga, Mountainside, Roseland
+                    </div>
+                    <div class="city-usp">
+                        <i class="ri-user-heart-line"></i> Senior fitness equipment experts
+                    </div>
+                    <div class="city-links">
+                        <a href="treadmill-repair-hamilton.html">Hamilton Services</a>
+                        <a href="treadmill-repair-oakville.html">Oakville Services</a>
+                    </div>
+                </div>
+                
+                <!-- Oakville -->
+                <div class="city-card animated" style="animation-delay: 0.3s;">
+                    <h3>Oakville Treadmill Repair</h3>
+                    <p>Premium treadmill service in Oakville specializing in luxury home gym equipment.</p>
+                    <div class="city-neighborhoods">
+                        <strong>Serving:</strong> Bronte, Glen Abbey, River Oaks, Eastlake, Old Oakville
+                    </div>
+                    <div class="city-usp">
+                        <i class="ri-home-gear-line"></i> Luxury home gym specialists
+                    </div>
+                    <div class="city-links">
+                        <a href="treadmill-repair-mississauga.html">Mississauga Services</a>
+                        <a href="treadmill-repair-burlington.html">Burlington Services</a>
+                    </div>
+                </div>
+                
+                <!-- Mississauga -->
+                <div class="city-card animated" style="animation-delay: 0.4s;">
+                    <h3>Mississauga Treadmill Repair</h3>
+                    <p>Commercial-focused treadmill technicians serving Mississauga's fitness centers.</p>
+                    <div class="city-neighborhoods">
+                        <strong>Serving:</strong> Streetsville, Port Credit, Erin Mills, Meadowvale, Clarkson
+                    </div>
+                    <div class="city-usp">
+                        <i class="ri-building-line"></i> Commercial gym focus
+                    </div>
+                    <div class="city-links">
+                        <a href="treadmill-repair-brampton.html">Brampton Services</a>
+                        <a href="treadmill-repair-oakville.html">Oakville Services</a>
+                    </div>
+                </div>
+                
+                <!-- Brampton -->
+                <div class="city-card animated" style="animation-delay: 0.5s;">
+                    <h3>Brampton Treadmill Repair</h3>
+                    <p>Fast-response treadmill service in Brampton with 24/7 emergency availability.</p>
+                    <div class="city-neighborhoods">
+                        <strong>Serving:</strong> Heart Lake, Bramalea, Fletcher's, Springdale, Brampton West
+                    </div>
+                    <div class="city-usp">
+                        <i class="ri-alarm-warning-line"></i> 24/7 emergency service
+                    </div>
+                    <div class="city-links">
+                        <a href="treadmill-repair-mississauga.html">Mississauga Services</a>
+                        <a href="treadmill-repair-toronto.html">Toronto Services</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Whatsapp Code -->
+        <section>
             <!-- WhatsApp Widget -->
-    <div class="whatsapp-widget" id="whatsappWidget">
-        <div class="widget-header">
-            <div class="whatsapp-icon">
+            <div class="whatsapp-widget" id="whatsappWidget">
+                <div class="widget-header">
+                    <div class="whatsapp-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="header-text">
+                        <h3>Canadian Fitness Repair</h3>
+                        <p>Typically replies instantly</p>
+                    </div>
+                    <button class="close-btn" id="closeBtn">×</button>
+                </div>
+                
+                <div class="chat-content" id="chatContent">
+                    <div class="message received">
+                        Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
+                    </div>
+                    <div class="message received">
+                        We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with!
+                    </div>
+                    <div class="message sent">
+                        Great!.
+                    </div>
+                </div>
+                
+                <div class="action-area">
+                    <button class="whatsapp-btn" id="whatsappBtn">
+                        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Floating Button -->
+            <div class="floating-btn pulse" id="floatingBtn">
                 <i class="fab fa-whatsapp"></i>
             </div>
-            <div class="header-text">
-                <h3>Canadian Fitness Repair</h3>
-                <p>Typically replies instantly</p>
-            </div>
-            <button class="close-btn" id="closeBtn">×</button>
-        </div>
-        
-        <div class="chat-content" id="chatContent">
-            <div class="message received">
-                Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
-            </div>
-            <div class="message received">
-                We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with!
-            </div>
-            <div class="message sent">
-                Great!.
-            </div>
-        </div>
-        
-        <div class="action-area">
-            <button class="whatsapp-btn" id="whatsappBtn">
-                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-            </button>
-        </div>
-    </div>
-    
-    <!-- Floating Button -->
-    <div class="floating-btn pulse" id="floatingBtn">
-        <i class="fab fa-whatsapp"></i>
-    </div>
-    </section>
+        </section>
     </main>
     
     <!-- FOOTER SECTION -->
@@ -1462,6 +1690,14 @@
             // Add delay for staggered animations
             element.style.animationDelay = `${0.1 * index}s`;
         });
+
+        // Lazy loading for images
+        if ('loading' in HTMLImageElement.prototype) {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                img.loading = 'lazy';
+            });
+        }
     });
 </script>
 
