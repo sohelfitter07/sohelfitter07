@@ -590,6 +590,30 @@ fitness machine repair Mississauga,
             color: var(--text-color);
             transform: translateY(-5px);
         }
+        /* Footer Service Areas Styles */
+.footertop-middle {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-cities {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.8rem;
+}
+
+.footer-cities a {
+    color: var(--light-text);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    padding: 4px 0;
+}
+
+.footer-cities a:hover {
+    color: var(--theme-color);
+    padding-left: 5px;
+}
         
         /* Responsive Styles - Header & Footer */
         @media (min-width: 768px) and (max-width: 1023px) {
@@ -2028,6 +2052,22 @@ fitness machine repair Mississauga,
                     At Canadian Fitness Repair, we are dedicated to delivering exceptional service with your safety as our top priority. Our team is committed to ensuring your fitness equipment operates safely and reliably, giving you peace of mind with every use. We proudly serve both residential and commercial clients throughout Greater Toronto Area, ON, Canada — providing dependable repairs, tune-ups, and ongoing support with a focus on customer satisfaction.
                 </p>
             </div>
+            <!-- New Service Areas Column -->
+            <div class="footertop-middle">
+                <h2><i class="ri-map-pin-line"></i> Service Areas</h2>
+                <div class="footer-cities">
+                    <a href="hamilton.html">Hamilton</a>
+                    <a href="burlington.html">Burlington</a>
+                    <a href="oakville.html">Oakville</a>
+                    <a href="mississauga.html">Mississauga</a>
+                    <a href="toronto.html">Toronto</a>
+                    <a href="niagara.html">Niagara Region</a>
+                    <a href="brampton.html">Brampton</a>
+                    <a href="kitchener.html">Kitchener</a>
+                    <a href="cambridge.html">Cambridge</a>
+                    <a href="london.html">London</a>
+                </div>
+            </div>
             <div class="footertop-right">
                 <div class="footer-contact">
                     <h2><i class="ri-map-pin-line"></i> Location</h2>
@@ -2046,6 +2086,7 @@ fitness machine repair Mississauga,
                 </div>
             </div>
         </div>
+        
         <div class="footerbottom">
             <div class="copyright">
                 <p>Copyright © 2025. All rights reserved by Canadian Fitness Repair</p>
