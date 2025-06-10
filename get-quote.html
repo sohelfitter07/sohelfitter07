@@ -1158,6 +1158,12 @@
         }
 
         @media (max-width: 480px) {
+            .promo-line{
+                display: none;
+            }
+            #contactlist{
+                display: none;
+            }
             .word-animation {
             height:80px;
         }
@@ -1172,11 +1178,13 @@
         }
 
             .quote-hero {
-                padding: 3rem 1rem 0rem 1rem;
+                min-height: 30vh;
+                padding: 0rem 1rem 0.25rem 1rem;
             }
             
             .quote-hero h1 {
                 font-size: 1.8rem;
+                padding-top: 0;
             }
             .quote-section{
                 padding-top: 0;
@@ -1291,7 +1299,7 @@
         }
 
             .quote-hero {
-                padding: 2.5rem 0.8rem 0 0.8rem;
+                padding: 2.5rem 0.8rem 0 0rem;
                 min-height: 60vh;
             }
             
@@ -1316,6 +1324,7 @@
             
             .quote-hero p {
                 font-size: 1rem;
+                padding-bottom: 0rem;
             }
             
             .form-header h2 {
@@ -1678,7 +1687,7 @@
             </div>
             
             <div class="form-group" itemprop="customer">
-                <label for="preferredContact" class="required">Preferred Contact Method</label>
+                <label for="preferredContact">Preferred Contact Method</label>
                 <select id="preferredContact" name="preferredContact" required>
                     <option value="">-- Select Contact Method --</option>
                     <option value="email">Email</option>
@@ -1756,7 +1765,7 @@
             </div>
             
             <div class="form-group">
-                <label class="required">I am a(n)</label>
+                <label>I am a(n)</label>
                 <div class="radio-group">
                     <div class="radio-option">
                         <input type="radio" id="individual" name="clientType" value="Individual" required>
@@ -1771,13 +1780,13 @@
             </div>
             
             <div class="form-group" itemprop="item" itemscope itemtype="https://schema.org/Product">
-                <label for="brand" class="required">Equipment Manufacturer</label>
+                <label for="brand">Equipment Manufacturer</label>
                 <input type="text" id="brand" name="brand" required placeholder="e.g. NordicTrack, LifeFitness" itemprop="brand">
                 <div class="error-message">Please enter the manufacturer</div>
             </div>
             
             <div class="form-group" itemprop="item" itemscope itemtype="https://schema.org/Product">
-                <label for="model" class="required">Model Number</label>
+                <label for="model">Model Number</label>
                 <input type="text" id="model" name="model" required placeholder="e.g. NTL19125 or NTL17125" itemprop="model">
                 <div class="error-message">Please enter the model number</div>
             </div>
@@ -1788,7 +1797,7 @@
             </div>
             
             <div class="form-group">
-                <label for="bookingDateTime" class="required">Preferred Booking Date & Time</label>
+                <label for="bookingDateTime">Preferred Booking Date & Time</label>
                 <input type="datetime-local" id="bookingDateTime" name="bookingDateTime" required itemprop="startTime">
                 <div class="error-message">Please select a date and time</div>
             </div>
