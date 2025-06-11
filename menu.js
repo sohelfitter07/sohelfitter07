@@ -1,6 +1,6 @@
 // menu.js
 
-document.addEventListener('DOMContentLoaded', function () {
+function initMenu() {
     const hamburger = document.getElementById('hamburger');
     const navbarList = document.getElementById('navbarList');
     const dropdowns = document.querySelectorAll('.dropdown');
@@ -15,23 +15,19 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', function () {
         if (window.innerWidth <= 767) {
             const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            if (currentScroll > scrollThreshold) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+            header.classList.toggle('scrolled', currentScroll > scrollThreshold);
+            lastScrollTop = Math.max(currentScroll, 0);
         }
     });
 
-    // Hamburger toggle
+    // Toggle hamburger menu
     hamburger.addEventListener('click', () => {
         navbarList.classList.toggle('open');
         menuIcon.style.display = navbarList.classList.contains('open') ? 'none' : 'block';
         closeIcon.style.display = navbarList.classList.contains('open') ? 'block' : 'none';
     });
 
-    // Mobile dropdown toggle
+    // Dropdowns
     dropdowns.forEach(dropdown => {
         dropdown.addEventListener('click', function (e) {
             if (window.innerWidth <= 767) {
@@ -44,26 +40,24 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (d !== dropdown) {
                             d.classList.remove('active');
                             const otherContent = d.querySelector('.dropdown-content');
-                            otherContent.style.maxHeight = null;
-                            otherContent.style.padding = '0';
+                            if (otherContent) {
+                                otherContent.style.maxHeight = null;
+                                otherContent.style.padding = '0';
+                            }
                         }
                     });
 
                     dropdown.classList.toggle('active');
                     const content = dropdown.querySelector('.dropdown-content');
-                    if (dropdown.classList.contains('active')) {
-                        content.style.maxHeight = content.scrollHeight + 'px';
-                        content.style.padding = '10px 0';
-                    } else {
-                        content.style.maxHeight = null;
-                        content.style.padding = '0';
+                    if (content) {
+                        content.style.maxHeight = dropdown.classList.contains('active') ? content.scrollHeight + 'px' : null;
+                        content.style.padding = dropdown.classList.contains('active') ? '10px 0' : '0';
                     }
                 }
             }
         });
     });
 
-    // Close menu on outside click
     document.addEventListener('click', function (e) {
         if (!navbarList.contains(e.target) && !hamburger.contains(e.target)) {
             navbarList.classList.remove('open');
@@ -80,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Reset on resize
     window.addEventListener('resize', () => {
         if (window.innerWidth > 767) {
             dropdowns.forEach(d => {
@@ -97,4 +90,20 @@ document.addEventListener('DOMContentLoaded', function () {
             header.classList.remove('scrolled');
         }
     });
+}
+
+// Wait until header is loaded before running menu script
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('header.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById('header').innerHTML = data;
+            initMenu(); // 🔥 init menu after header is loaded
+        });
+
+    fetch('footer.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        });
 });
