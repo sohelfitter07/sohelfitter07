@@ -83,99 +83,390 @@
     <link rel="stylesheet" href="whatsapp.css">
     <link rel="stylesheet" href="headerfooter.css">
     <!-- Responsive Styles -->
- <style>
-    .service-hero {
-    padding: clamp(6rem, 15vw, 15rem) 1rem 2rem 1rem;
-}
+    <style>
+        /* Service Page Specific Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.service-hero h1 {
-    font-size: clamp(1.5rem, 5vw, 3rem);
-}
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .service-hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 15rem 2rem 2rem 2rem;
+            background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)), url('https://images.unsplash.com/photo-1596357395217-80de13130e92?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+            position: relative;
+        }
 
-.service-hero p {
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-}
+        .service-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(transparent, var(--bg-color));
+        }
 
-.brand-header {
-    display: flex; /* added */
+        .service-hero h1 {
+            font-size: clamp(3rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.5;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            color: var(--accent-color);
+        }
+
+        .service-hero p {
+            font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+            max-width: 800px;
+            margin-bottom: 2rem;
+            color: var(--light-text);
+        }
+        
+        .brand-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .brand-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            gap: 2rem;
+        }
+        
+        .brand-logo {
+            width: 150px;
+            height: 150px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--accent-color);
+            flex-shrink: 0;
+        }
+        
+        .brand-info h2 {
+            font-size: 2.5rem;
+            color: var(--theme-color);
+            margin-bottom: 1rem;
+        }
+        
+        .brand-info p {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            line-height: 1.7;
+        }
+        
+        .common-problems {
+            margin: 4rem 0;
+        }
+        
+        .common-problems h3 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--theme-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .problem-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border-left: 4px solid var(--accent-color);
+            transition: var(--transition);
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2);
+        }
+        
+        .problem-card h4 {
+            font-size: 1.4rem;
+            color: var(--theme-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .problem-card ul {
+            padding-left: 1.5rem;
+            margin-top: 1rem;
+            list-style: none;
+        }
+        
+        .problem-card li {
+            margin-bottom: 0.75rem;
+            color: var(--light-text);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .problem-card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5em;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-color);
+        }
+        
+        .blog-section {
+            background: linear-gradient(135deg, rgba(93, 93, 255, 0.1), rgba(30, 32, 35, 0.8));
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            margin: 4rem 0;
+            border: 1px solid var(--theme-color);
+        }
+        
+        .blog-section h3 {
+            color: var(--theme-color);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .blog-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2);
+        }
+        
+        .blog-image {
+            height: 200px;
+            background: var(--theme-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .blog-content {
+            padding: 1.5rem;
+        }
+        
+        .blog-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--theme-color);
+        }
+        
+        .blog-content p {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+        
+        .blog-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            gap: 5px;
+        }
+        
+        .service-cta {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: var(--card-bg);
+            border-radius: 12px;
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+        }
+        
+        .service-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--theme-color);
+        }
+        
+        .service-cta p {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--light-text);
+            font-size: 1.1rem;
+        }
+        
+        .c-button {
+            appearance: none;
+            cursor: pointer;
+            text-align: center;
+            letter-spacing: .057em;
+            text-transform: uppercase;
+            background-color: var(--theme-color);
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.8rem 1.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-decoration: none;
+        }
+        
+        .c-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--accent-color);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .c-button:hover {
+            color: var(--text-color);
+            border: 1px solid var(--theme-color);
+        }
+        
+        .c-button:hover::before {
+            width: 100%;
+        }
+        /* Tablets and small desktops */
+@media (max-width: 900px) {
+  .service-hero {
+    padding: 10rem 1.5rem 1.5rem 1.5rem;
+  }
+  .service-hero h1 {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+  }
+  .service-hero p {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    max-width: 90%;
+  }
+  .brand-section {
+    padding: 3rem 1.5rem;
+  }
+  .brand-header {
     flex-direction: column;
-    text-align: center;
+    align-items: center;
     gap: 1rem;
-}
-
-.brand-logo {
+  }
+  .brand-logo {
     width: 120px;
     height: 120px;
-    margin: 0 auto;
-}
-
-.problem-grid,
-.blog-posts {
-    display: grid; /* added */
-    grid-template-columns: 1fr;
-    gap: 1.5rem; /* added gap */
-}
-
-.problem-card,
-.blog-card {
-    background: #f0f4ff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-}
-
-.service-cta {
-    padding: 2rem 1rem;
+    font-size: 3rem;
+  }
+  .brand-info h2 {
+    font-size: 2rem;
     text-align: center;
+  }
+  .brand-info p {
+    font-size: 1rem;
+    text-align: center;
+  }
+  .common-problems {
+    margin: 2rem 0;
+  }
+  .problem-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  .blog-section {
+    padding: 3rem 1.5rem;
+  }
+  .blog-posts {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .service-cta {
+    padding: 3rem 1.5rem;
+  }
 }
 
-.service-cta a.c-button {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    font-weight: 600;
-    border-radius: 6px;
-    background-color: #007acc;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+/* Mobile phones */
+@media (max-width: 480px) {
+  .service-hero {
+    padding: 8rem 1rem 1rem 1rem;
+  }
+  .service-hero h1 {
+    font-size: clamp(1.25rem, 7vw, 2.5rem);
+  }
+  .service-hero p {
+    font-size: clamp(0.9rem, 4vw, 1.25rem);
+    max-width: 100%;
+  }
+  .brand-logo {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+  }
+  .brand-info h2 {
+    font-size: 1.6rem;
+  }
+  .brand-info p {
+    font-size: 0.9rem;
+  }
+  .problem-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .blog-posts {
+    grid-template-columns: 1fr;
+  }
+  .service-cta {
+    padding: 2rem 1rem;
+  }
+  .c-button {
+    width: 100%;
+    padding: 1rem 0;
+    font-size: 1.2rem;
+  }
 }
-
-.service-cta a.c-button:hover {
-    background-color: #005fa3;
-}
-
-@media (min-width: 768px) {
-    .service-hero {
-        padding: 15rem 2rem 2rem 2rem;
-    }
-    
-    .brand-header {
-        flex-direction: row;
-        text-align: left;
-        gap: 2rem;
-    }
-    
-    .problem-grid,
-    .blog-posts {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 1024px) {
-    .problem-grid,
-    .blog-posts {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (min-width: 1200px) {
-    .brand-section {
-        padding: 5rem 2rem;
-    }
-}
-
- </style>
+    </style>
     
 
     <style>
