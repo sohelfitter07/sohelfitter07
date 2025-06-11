@@ -3,15 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Canadian Fitness Repair">
+    <meta name="geo.region" content="CA-ON">
+    <meta name="geo.placename" content="Hamilton">
+    
+    <!-- Primary Meta Tags -->
     <title>NordicTrack Repair Services | Expert Fitness Equipment Repair in Hamilton & GTA</title>
     <meta name="description" content="24/7 NordicTrack treadmill, elliptical & bike repair services. Certified technicians for NordicTrack Commercial 1750, X22i, Vault. Same-day service in Hamilton, Burlington, Oakville.">
     <meta name="keywords" content="nordictrack repair, nordictrack treadmill repair, nordictrack elliptical service, nordictrack bike repair, nordictrack commercial 1750 repair, nordictrack x22i service, nordictrack vault repair">
     
-    <!-- Styles -->
-<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="whatsapp.css">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.canadianfitnessrepair.com/nordictrack-repair.html">
+    <meta property="og:title" content="NordicTrack Repair Services | Expert Fitness Equipment Repair">
+    <meta property="og:description" content="Certified NordicTrack repair technicians serving Hamilton, Burlington & GTA. Same-day service for treadmills, ellipticals & bikes.">
+    <meta property="og:image" content="https://www.canadianfitnessrepair.com/images/nordictrack-repair-og.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.canadianfitnessrepair.com/nordictrack-repair.html">
+    <meta property="twitter:title" content="NordicTrack Repair Services | Expert Fitness Equipment Repair">
+    <meta property="twitter:description" content="Same-day NordicTrack repair in Hamilton & GTA. Certified technicians for treadmills, ellipticals & bikes.">
+    <meta property="twitter:image" content="https://www.canadianfitnessrepair.com/images/nordictrack-repair-twitter.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.canadianfitnessrepair.com/nordictrack-repair.html">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Canadian Fitness Repair",
+      "image": "https://www.canadianfitnessrepair.com/images/logo.jpg",
+      "@id": "",
+      "url": "https://www.canadianfitnessrepair.com/",
+      "telephone": "+1-289-925-7239",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2200 Rymal Rd E",
+        "addressLocality": "Hamilton",
+        "addressRegion": "ON",
+        "postalCode": "L0R 1P0",
+        "addressCountry": "CA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 43.2141,
+        "longitude": -79.8271
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 43.2557,
+          "longitude": -79.8711
+        },
+        "geoRadius": "50000"
+      }
+    }
+    </script>
 
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="whatsapp.css">
+    
+    <!-- Responsive Styles -->
+    <style>
+        /* Mobile-first approach */
+        .service-hero {
+            padding: 12rem 1rem 2rem 1rem;
+        }
+        
+        .service-hero h1 {
+            font-size: 2.2rem;
+        }
+        
+        .service-hero p {
+            font-size: 1.1rem;
+        }
+        
+        .brand-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+        
+        .brand-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+        
+        .problem-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .blog-posts {
+            grid-template-columns: 1fr;
+        }
+        
+        .service-cta {
+            padding: 2rem 1rem;
+        }
+        
+        /* Tablet styles */
+        @media (min-width: 768px) {
+            .service-hero {
+                padding: 15rem 2rem 2rem 2rem;
+            }
+            
+            .service-hero h1 {
+                font-size: 3rem;
+            }
+            
+            .service-hero p {
+                font-size: 1.4rem;
+            }
+            
+            .brand-header {
+                flex-direction: row;
+                text-align: left;
+                gap: 2rem;
+            }
+            
+            .problem-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .blog-posts {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 1024px) {
+            .problem-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .blog-posts {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Large screens */
+        @media (min-width: 1200px) {
+            .brand-section {
+                padding: 5rem 2rem;
+            }
+        }
+    </style>
     
     <!-- Header & Footer Styles -->
     <style id="header-footer-styles">
@@ -405,6 +561,30 @@
             color: var(--text-color);
             transform: translateY(-5px);
         }
+        /* Footer Service Areas Styles */
+.footertop-middle {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-cities {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.8rem;
+}
+
+.footer-cities a {
+    color: var(--light-text);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    padding: 4px 0;
+}
+
+.footer-cities a:hover {
+    color: var(--theme-color);
+    padding-left: 5px;
+}
         
         /* Responsive Styles - Header & Footer */
         @media (min-width: 768px) and (max-width: 1023px) {
@@ -954,7 +1134,8 @@
         .c-button:hover::before {
             width: 100%;
         }
-    </style>
+    </style> 
+
 </head>
 <body>
     <!-- Header from index.html would go here -->
@@ -1185,5 +1366,49 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Mobile Navigation Script -->
+    <script>
+        // Mobile hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navbarList = document.getElementById('navbarList');
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        hamburger.addEventListener('click', () => {
+            navbarList.classList.toggle('open');
+            document.body.classList.toggle('no-scroll');
+        });
+        
+        // Mobile dropdown functionality
+        dropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('a');
+            
+            toggle.addEventListener('click', (e) => {
+                if (window.innerWidth < 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                    
+                    const content = dropdown.querySelector('.dropdown-content');
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        content.style.padding = '0';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        content.style.padding = '10px 0';
+                    }
+                }
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LifeFitness Repair Services | Expert Fitness Equipment Repair in Hamilton & GTA</title>
+    
+    <!-- SEO Meta Tags -->
     <meta name="description" content="24/7 LifeFitness treadmill, elliptical & bike repair services. Certified technicians for LifeFitness Integrity, Platinum Club, Elevation Series. Same-day service in Hamilton, Burlington, Oakville.">
     <meta name="keywords" content="lifefitness repair, lifefitness treadmill repair, lifefitness elliptical service, lifefitness bike repair, lifefitness integrity repair, lifefitness platinum club service">
+    <meta name="author" content="Canadian Fitness Repair">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="LifeFitness Repair Services | Expert Fitness Equipment Repair">
+    <meta property="og:description" content="Certified LifeFitness repair services for treadmills, ellipticals & bikes in Hamilton & GTA. Same-day service available.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.canadianfitnessrepair.com/lifefitness-repair.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:site_name" content="Canadian Fitness Repair">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LifeFitness Repair Services | Expert Fitness Equipment Repair">
+    <meta name="twitter:description" content="Certified LifeFitness repair services for treadmills, ellipticals & bikes in Hamilton & GTA. Same-day service available.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.canadianfitnessrepair.com/lifefitness-repair.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
     
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -901,6 +925,91 @@
             color: var(--light-text);
             font-size: 1.1rem;
         }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .service-hero {
+                padding: 12rem 1rem 1rem;
+                min-height: 50vh;
+            }
+            
+            .brand-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-posts {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-cta {
+                padding: 2rem 1rem;
+            }
+            
+            .footertop {
+                gap: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .service-hero {
+                padding: 10rem 1rem 1rem;
+            }
+            
+            .service-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .service-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .brand-info h2 {
+                font-size: 2rem;
+            }
+            
+            .brand-info p {
+                font-size: 1rem;
+            }
+            
+            .common-problems h3 {
+                font-size: 1.5rem;
+            }
+            
+            .problem-card {
+                padding: 1.5rem;
+            }
+            
+            .problem-card h4 {
+                font-size: 1.2rem;
+            }
+            
+            .service-cta h2 {
+                font-size: 1.7rem;
+            }
+        }
+        
+        /* Accessibility improvements */
+        a:focus, button:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
     </style>
 </head>
 <body>
@@ -926,11 +1035,11 @@
                 </div>
                 <div id="rightcontactlist" class="rightheaderlinks">
                     <ul class="links rightlinks">
-                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-facebook-line"></i></a></li>
-                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-twitter-x-line"></i></a></li>
-                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-instagram-line"></i></a></li>
-                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-youtube-line"></i></a></li>
-                        <li><a href="https://maps.app.goo.gl/o12xJ23UPUj7Zt386"><i class="ri-map-pin-line"></i></a></li>
+                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-facebook-line"></i><span class="sr-only">Facebook</span></a></li>
+                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-twitter-x-line"></i><span class="sr-only">Twitter</span></a></li>
+                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-instagram-line"></i><span class="sr-only">Instagram</span></a></li>
+                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-youtube-line"></i><span class="sr-only">YouTube</span></a></li>
+                        <li><a href="https://maps.app.goo.gl/o12xJ23UPUj7Zt386"><i class="ri-map-pin-line"></i><span class="sr-only">Map</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -945,11 +1054,11 @@
                     <ul class="navbarList" id="navbarList">
                         <li><a href="https://www.canadianfitnessrepair.com"><i class="ri-home-5-line"></i> HOME</a></li>
                         <li class="dropdown">
-                            <a href="javascript:void(0)">
+                            <a href="javascript:void(0)" aria-haspopup="true" aria-expanded="false">
                                 <i class="ri-information-line"></i> ABOUT US
                                 <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
                             </a>
-                            <ul class="dropdown-content">
+                            <ul class="dropdown-content" role="menu">
                                 <li><a href="aboutus.html">About</a></li>
                                 <li><a href="pricingpackagespage.html">Pricing</a></li>
                                 <li><a href="FAQ.html">FAQ</a></li>
@@ -958,11 +1067,11 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="javascript:void(0)">
+                            <a href="javascript:void(0)" aria-haspopup="true" aria-expanded="false">
                                 <i class="ri-customer-service-line"></i> SERVICES
                                 <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
                             </a>
-                            <ul class="dropdown-content">
+                            <ul class="dropdown-content" role="menu">
                                 <li><a href="services.html">Preventative Maintenance</a></li>
                                 <li><a href="services.html">Inspection</a></li>
                                 <li><a href="services.html">Repairs & Tune-ups</a></li>
@@ -976,7 +1085,7 @@
                         <li><a href="reviews.html"><i class="ri-star-line"></i> REVIEWS</a></li>
                     </ul>
                 </div>
-                <button class="hamburger" id="hamburger">
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
                     <i class="ri-menu-line menu-icon"></i>
                     <i class="ri-close-line close-icon"></i>
                 </button>
@@ -998,7 +1107,7 @@
         <!-- LifeFitness Content Section -->
         <section class="brand-section">
             <div class="brand-header">
-                <div class="brand-logo">LF</div>
+                <div class="brand-logo" aria-hidden="true">LF</div>
                 <div class="brand-info">
                     <h2>Professional LifeFitness Equipment Repair</h2>
                     <p>Canadian Fitness Repair specializes in LifeFitness treadmill repair, elliptical service, and bike maintenance for both residential and commercial equipment. As certified LifeFitness technicians, we service all models including Integrity Series, Platinum Club Series, Elevation Series, and LifeFitness Go consoles. Serving Hamilton, Burlington, Oakville, and throughout the GTA with same-day service options.</p>
@@ -1050,7 +1159,7 @@
                 <h3>LifeFitness Repair Resources</h3>
                 <div class="blog-posts">
                     <div class="blog-card">
-                        <div class="blog-image">LF</div>
+                        <div class="blog-image" aria-hidden="true">LF</div>
                         <div class="blog-content">
                             <h4>Understanding LifeFitness Error Codes</h4>
                             <p>Learn how to diagnose and troubleshoot common LifeFitness error messages before calling a technician.</p>
@@ -1059,7 +1168,7 @@
                     </div>
                     
                     <div class="blog-card">
-                        <div class="blog-image">⚙️</div>
+                        <div class="blog-image" aria-hidden="true">⚙️</div>
                         <div class="blog-content">
                             <h4>Maintaining Your LifeFitness Equipment</h4>
                             <p>Essential maintenance tips to extend the life of your LifeFitness Platinum Club equipment.</p>
@@ -1068,7 +1177,7 @@
                     </div>
                     
                     <div class="blog-card">
-                        <div class="blog-image">🔄</div>
+                        <div class="blog-image" aria-hidden="true">🔄</div>
                         <div class="blog-content">
                             <h4>Repair vs Replace LifeFitness Equipment</h4>
                             <p>Making the decision between repairing your LifeFitness machine or investing in new equipment.</p>
@@ -1121,11 +1230,11 @@
             </div>
             <div class="footerlinks">
                 <ul class="links rightlinks">
-                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-facebook-line"></i></a></li>
-                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-twitter-x-line"></i></a></li>
-                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-instagram-line"></i></a></li>
-                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-youtube-line"></i></a></li>
-                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-linkedin-line"></i></a></li>
+                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-facebook-line"></i><span class="sr-only">Facebook</span></a></li>
+                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-twitter-x-line"></i><span class="sr-only">Twitter</span></a></li>
+                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-instagram-line"></i><span class="sr-only">Instagram</span></a></li>
+                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-youtube-line"></i><span class="sr-only">YouTube</span></a></li>
+                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-linkedin-line"></i><span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </div>
