@@ -390,15 +390,21 @@
             transform: translateY(-5px);
         }
         /* Footer Service Areas Styles */
+
 .footertop-middle {
     flex: 1;
     min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
 }
 
 .footer-cities {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.6rem 1.5rem;
+    width: 100%;
 }
 
 .footer-cities a {
@@ -599,6 +605,25 @@
                 gap: 1rem;
                 text-align: center;
             }
+  .footertop-middle {
+    width: 100%;
+    text-align: left; /* Change from center */
+    margin-bottom: 2rem;
+  }
+
+  .footer-cities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    justify-items: start; /* Align items to left */
+    padding: 0; /* Remove extra padding */
+  }
+
+  .footer-cities li {
+    list-style: none;
+    font-size: 1rem;
+    text-align: left; /* Align text left */
+  }
         }
         
         @media (max-width: 410px) {
