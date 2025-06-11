@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Treadmill and Fitness Equipment Blog | Canadian Fitness Repair</title>
+  <link rel="stylesheet" href="blog.css" />
+</head>
+<body>
+  <main class="blog-container">
+
+    <!-- Blog Post 1 -->
+    <article class="blog-post">
+      <h1>How to Choose Between a Treadmill and an Elliptical</h1>
+      <p>If you're setting up a home gym, you might wonder: Should I buy a treadmill or an elliptical? Both offer great cardio, but here are key differences:</p>
+
+      <h2>1. Impact on Joints</h2>
+      <p>Ellipticals are lower-impact, making them ideal for users with knee or hip concerns.</p>
+
+      <h2>2. Calorie Burn</h2>
+      <p>Treadmills typically burn more calories per hour, especially when used at higher inclines or speeds.</p>
+
+      <h2>3. Muscle Engagement</h2>
+      <p>Ellipticals engage upper and lower body muscles simultaneously, while treadmills focus more on legs and core.</p>
+
+      <p>Still undecided? <a href="get-quote.html" class="btn">Get a Quote</a> — we service both types of equipment across the GTA.</p>
+    </article>
+
+    <!-- Blog Post 2 -->
+    <article class="blog-post">
+      <h1>5 Signs Your Gym Equipment Needs a Repair</h1>
+      <p>Prevent costly breakdowns with early detection. Here are five warning signs:</p>
+
+      <ul>
+        <li>✅ Strange noises or grinding sounds</li>
+        <li>✅ Inconsistent speeds or resistance levels</li>
+        <li>✅ Unresponsive touch panels or consoles</li>
+        <li>✅ Burning smells or overheating</li>
+        <li>✅ Visible damage or loose parts</li>
+      </ul>
+
+      <p>If you notice any of these, don’t delay. <a href="get-quote.html" class="btn">Request Service Now</a>.</p>
+    </article>
+
+    <!-- Blog Post 3 -->
+    <article class="blog-post">
+      <h1>NordicTrack, Sole, Horizon & Precor Treadmill Error Codes</h1>
+      <p>Treadmills can display a range of error codes. Here are the most common ones we fix:</p>
+
+      <h2><a href="nordictrack-repair.html">NordicTrack</a></h2>
+      <p><strong>LS1 / LS2:</strong> Speed sensor issue — clean or replace the sensor.</p>
+
+      <h2><a href="sole-repair.html">Sole</a></h2>
+      <p><strong>E7:</strong> Motor error — check wiring and consult a technician.</p>
+
+      <h2><a href="horizon-repair.html">Horizon</a></h2>
+      <p><strong>H1:</strong> Incline calibration failed — recalibrate or service incline motor.</p>
+
+      <h2><a href="precor-repair.html">Precor</a></h2>
+      <p><strong>31:</strong> Drive motor failure — often needs a technician’s visit.</p>
+
+      <h2><a href="lifefitness-repair.html">Life Fitness</a></h2>
+      <p><strong>E1:</strong> Communication error — inspect cables and contact service.</p>
+
+      <p><a href="get-quote.html" class="btn">Book Diagnostic Now</a></p>
+    </article>
+
+  </main>
+</body>
+</html>
