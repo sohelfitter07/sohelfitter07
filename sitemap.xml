@@ -44,21 +44,105 @@
     <loc>https://www.canadianfitnessrepair.com/FAQ.html</loc>
     <priority>0.5</priority>
   </url>
+  
+  <!-- Repair Process & Brand Repair Pages -->
   <url>
-    <loc>https://www.canadianfitnessrepair.com/PPT&amp;Cpage.html</loc>
+    <loc>https://www.canadianfitnessrepair.com/repairprocess.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/nordictrack-repair.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/sole-repair.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/lifefitness-repair.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/horizon-repair.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/precor-repair.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Service Area Pages -->
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/treadmill-repair-hamilton.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/treadmill-repair-burlington.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/treadmill-repair-oakville.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/treadmill-repair-mississauga.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/treadmill-repair-toronto.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/treadmill-repair-niagara.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/treadmill-repair-brampton.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/treadmill-repair-kitchener.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/treadmill-repair-cambridge.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/treadmill-repair-london.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/PPT&amp;C.html</loc>
     <priority>0.2</priority>
     <changefreq>yearly</changefreq>
   </url>
-
-  <!-- Added Missing Pages -->
+  <!-- <url>
+    <loc>https://www.canadianfitnessrepair.com/terms.html</loc> 
+    <priority>0.2</priority>
+    <changefreq>yearly</changefreq>
+  </url> -->
   <url>
     <loc>https://www.canadianfitnessrepair.com/sitemap.html</loc>
     <priority>0.3</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.canadianfitnessrepair.com/privacy.html</loc>
-    <priority>0.2</priority>
     <changefreq>yearly</changefreq>
   </url>
 </urlset>
