@@ -81,95 +81,103 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="whatsapp.css">
-    
+    <link rel="stylesheet" href="headerfooter.css">
     <!-- Responsive Styles -->
-    <style>
-        /* Mobile-first approach */
-        .service-hero {
-            padding: 12rem 1rem 2rem 1rem;
-        }
-        
-        .service-hero h1 {
-            font-size: 2.2rem;
-        }
-        
-        .service-hero p {
-            font-size: 1.1rem;
-        }
-        
-        .brand-header {
-            flex-direction: column;
-            text-align: center;
-            gap: 1rem;
-        }
-        
-        .brand-logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto;
-        }
-        
-        .problem-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .blog-posts {
-            grid-template-columns: 1fr;
-        }
-        
-        .service-cta {
-            padding: 2rem 1rem;
-        }
-        
-        /* Tablet styles */
-        @media (min-width: 768px) {
-            .service-hero {
-                padding: 15rem 2rem 2rem 2rem;
-            }
-            
-            .service-hero h1 {
-                font-size: 3rem;
-            }
-            
-            .service-hero p {
-                font-size: 1.4rem;
-            }
-            
-            .brand-header {
-                flex-direction: row;
-                text-align: left;
-                gap: 2rem;
-            }
-            
-            .problem-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .blog-posts {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        /* Desktop styles */
-        @media (min-width: 1024px) {
-            .problem-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .blog-posts {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        /* Large screens */
-        @media (min-width: 1200px) {
-            .brand-section {
-                padding: 5rem 2rem;
-            }
-        }
-    </style>
+ <style>
+    .service-hero {
+    padding: clamp(6rem, 15vw, 15rem) 1rem 2rem 1rem;
+}
+
+.service-hero h1 {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+.service-hero p {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+}
+
+.brand-header {
+    display: flex; /* added */
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+}
+
+.brand-logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+}
+
+.problem-grid,
+.blog-posts {
+    display: grid; /* added */
+    grid-template-columns: 1fr;
+    gap: 1.5rem; /* added gap */
+}
+
+.problem-card,
+.blog-card {
+    background: #f0f4ff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+.service-cta {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.service-cta a.c-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 6px;
+    background-color: #007acc;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.service-cta a.c-button:hover {
+    background-color: #005fa3;
+}
+
+@media (min-width: 768px) {
+    .service-hero {
+        padding: 15rem 2rem 2rem 2rem;
+    }
     
-<link rel="stylesheet" href="headerfooter.css">
+    .brand-header {
+        flex-direction: row;
+        text-align: left;
+        gap: 2rem;
+    }
+    
+    .problem-grid,
+    .blog-posts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .problem-grid,
+    .blog-posts {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .brand-section {
+        padding: 5rem 2rem;
+    }
+}
+
+ </style>
+    
+
     <style>
         /* Header/Footer Styles from your site */
         
