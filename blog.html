@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog | Canadian Fitness Repair</title>
+  <meta
+    name="description"
+    content="Fitness equipment repair tips, treadmill troubleshooting, and gym maintenance advice across Hamilton & the GTA. Learn from our certified technicians."
+  />
+  <meta
+    name="keywords"
+    content="treadmill repair Hamilton, elliptical maintenance GTA, gym equipment troubleshooting, NordicTrack error codes, Sole treadmill fixes, Horizon fitness repair, Precor diagnostics, commercial fitness tips, fitness equipment blog"
+  />
+  <meta property="og:title" content="Fitness Repair Blog | Tips & Guides | Canadian Fitness Repair" />
+  <meta
+    property="og:description"
+    content="Expert insights on treadmill repair, elliptical servicing, and fitness machine troubleshooting for Hamilton, GTA & beyond."
+  />
+  <meta property="og:image" content="https://www.canadianfitnessrepair.com/images/blog-cover.jpg" />
+  <meta property="og:url" content="https://www.canadianfitnessrepair.com/blog.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="en_CA" />
+  <link rel="canonical" href="https://www.canadianfitnessrepair.com/blog.html" />
+  <link rel="stylesheet" href="headerfooter.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    :root {
+      --theme-color: #5d5dff;
+      --accent-color: #ff6b6b;
+      --bg-color: #151719;
+      --card-bg: #1f2126;
+      --text-color: #e0e0e0;
+      --light-text: #a0a0a0;
+      --font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --transition: all 0.3s ease;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 15px rgba(93, 93, 255, 0.2);
+    }
+
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 30px 20px;
+      transition: var(--transition);
+    }
+
+    .main-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Page Title */
+    .blog-section > h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--theme-color);
+      margin-bottom: 40px;
+      text-align: center;
+      text-shadow: 1px 1px 4px rgba(93, 93, 255, 0.6);
+    }
+
+    /* Each blog post card */
+    .blog-post {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      box-shadow: var(--box-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .blog-post:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(93, 93, 255, 0.35);
+    }
+
+    /* Blog post headings */
+    .blog-post h2 {
+      color: var(--theme-color);
+      margin-bottom: 18px;
+      font-weight: 800;
+      font-size: 1.9rem;
+    }
+
+    /* Paragraph styling */
+    .blog-post p {
+      color: var(--text-color);
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* Lists inside blog posts */
+    .blog-post ul {
+      list-style: inside disc;
+      color: var(--light-text);
+      margin-left: 0;
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+    }
+
+    .blog-post ul li a {
+      color: var(--theme-color);
+      font-weight: 600;
+    }
+
+    /* Links */
+    a {
+      color: var(--theme-color);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    a:hover,
+    a:focus {
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    /* CTA Buttons Container */
+    .cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #2a2c33;
+    }
+
+    /* CTA Buttons Styling */
+    .cta-buttons a {
+      background: linear-gradient(135deg, var(--theme-color), var(--accent-color));
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.6);
+      transition: background 0.4s ease, box-shadow 0.3s ease;
+      min-width: 160px;
+      text-align: center;
+      user-select: none;
+      display: inline-block;
+    }
+    .cta-buttons a:hover,
+    .cta-buttons a:focus {
+      background: linear-gradient(135deg, var(--accent-color), var(--theme-color));
+      box-shadow: 0 6px 25px rgba(255, 107, 107, 0.85);
+      outline: none;
+    }
+    header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 9999;
+  background-color: var(--bg-color);
+}
+
+.main-container {
+  padding-top: 80px; /* Push content below fixed header */
+}
+
+    /* Responsive text sizes */
+    @media (max-width: 900px) {
+      body {
+        padding: 25px 15px;
+      }
+      .blog-section > h1 {
+        font-size: 2.4rem;
+      }
+      .blog-post h2 {
+        font-size: 1.7rem;
+      }
+      .blog-post p,
+      .blog-post ul {
+        font-size: 1rem;
+      }
+      .cta-buttons a {
+        font-size: 1rem;
+        min-width: 140px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 20px 12px;
+      }
+      .blog-section > h1 {
+        font-size: 2rem;
+      }
+      .blog-post h2 {
+        font-size: 1.5rem;
+      }
+      .cta-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .cta-buttons a {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+
+  <div class="main-container">
+    <section class="blog-section" aria-label="Fitness Equipment Blog and Repair Guides">
+      <h1>Fitness Equipment Blog &amp; Repair Guides</h1>
+
+      <article class="blog-post">
+        <h2>How to Choose Between a Treadmill and an Elliptical</h2>
+        <p>
+          Not sure whether a treadmill or elliptical is right for your home gym? Treadmills are great
+          for runners, while ellipticals offer low-impact motion for joint-friendly workouts.
+          <a href="get-quote.html">Request a consultation</a> to learn what suits your fitness needs.
+        </p>
+      </article>
+
+      <article class="blog-post">
+        <h2>Signs Your Gym Equipment Needs a Repair</h2>
+        <p>
+          Notice unusual noise, belt slipping, or inconsistent resistance on your machine? These are
+          early signs your equipment needs service.
+          <a href="get-quote.html">Schedule a diagnostic</a> to prevent major breakdowns.
+        </p>
+      </article>
+
+      <article class="blog-post">
+        <h2>Top Error Codes for NordicTrack, Sole, Horizon, and Precor Treadmills</h2>
+        <ul>
+          <li><a href="nordictrack-repair.html">NordicTrack</a>: E1, LS1, Incline Jam</li>
+          <li><a href="sole-repair.html">Sole</a>: E7 Motor Overload, E1 Sensor</li>
+          <li><a href="horizon-repair.html">Horizon</a>: E03, Incline stuck</li>
+          <li><a href="precor-repair.html">Precor</a>: 21 SAF, 05 Error</li>
+          <li><a href="lifefitness-repair.html">Life Fitness</a>: Error 6, Belt Sensor, Speed Drift</li>
+        </ul>
+      </article>
+
+      <article class="blog-post">
+        <h2>Why Regular Fitness Equipment Maintenance Saves You Money</h2>
+        <p>
+          Preventative maintenance avoids costly replacements. Annual tune-ups increase equipment
+          life and performance.
+          <a href="lifefitness-repair.html">Life Fitness service</a> or
+          <a href="get-quote.html">book maintenance now</a>.
+        </p>
+      </article>
+
+      <div class="cta-buttons" role="navigation" aria-label="Repair and Quote Links">
+        <a href="get-quote.html">Get a Quote</a>
+        <a href="nordictrack-repair.html">NordicTrack Repair</a>
+        <a href="precor-repair.html">Precor Repair</a>
+        <a href="horizon-repair.html">Horizon Repair</a>
+        <a href="sole-repair.html">Sole Repair</a>
+        <a href="lifefitness-repair.html">Life Fitness Repair</a>
+      </div>
+    </section>
+  </div>
+
+  <div id="footer"></div>
+  <script src="menu.js"></script>
+</body>
+</html>
