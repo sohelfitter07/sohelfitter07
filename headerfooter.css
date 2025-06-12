@@ -25,17 +25,17 @@
         .promo-line {
             background: linear-gradient(90deg, var(--accent-color), #ff8e8e);
             color: var(--bg-color);
-            padding: 10px 0;
+            padding: 5px 0;
             overflow: hidden;
             position: relative;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         
         .promo-content {
             display: flex;
             white-space: nowrap;
-            animation: promo-scroll 30s linear infinite;
+            animation: promo-scroll 25s linear infinite;
         }
         
         .promo-item {
