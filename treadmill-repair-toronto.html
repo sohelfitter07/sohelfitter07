@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toronto Treadmill Repair | Professional Fitness Equipment Service | Canadian Fitness Repair</title>
+    <title>Toronto Treadmill Repair | Certified Fitness Equipment Service | Canadian Fitness Repair</title>
     <meta name="description" content="Expert treadmill repair in Toronto. Same-day service in financial district. Serving Etobicoke, North York, Scarborough, Downtown and The Annex. Residential & commercial fitness equipment repair.">
-    <meta name="keywords" content="treadmill repair toronto, fitness equipment repair toronto, gym equipment service toronto, elliptical repair toronto, exercise bike repair toronto, commercial treadmill service toronto">
+    <meta name="keywords" content="treadmill repair toronto, fitness equipment repair toronto, gym equipment service toronto, elliptical repair toronto, exercise bike repair toronto, commercial treadmill service toronto, treadmill motor replacement toronto, treadmill belt repair toronto, nordictrack repair toronto, sole fitness repair toronto, proform treadmill service toronto, life fitness repair toronto">
     
     <!-- Open Graph -->
     <meta property="og:title" content="Toronto Treadmill Repair | Canadian Fitness Repair">
@@ -31,19 +31,10 @@
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="headerfooter.css">
     <style>
         /* Core Variables */
-        :root { 
-            --theme-color: #5D5DFF;
-            --accent-color: #FF6B6B;
-            --bg-color: #151719;
-            --card-bg: #1E2023;
-            --text-color: #fff;
-            --light-text: #E0E0E0;
-            --font-family: "Roboto", sans-serif;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+
         
         /* Reset & Base Styles */
         * {
@@ -93,381 +84,7 @@
             }
         }
         
-        /* Header Styles */
-        header {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition);
-        }
-        
-        .promo-line {
-            background: linear-gradient(90deg, var(--accent-color), #ff8e8e);
-            color: var(--bg-color);
-            padding: 10px 0;
-            overflow: hidden;
-            position: relative;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .promo-content {
-            display: flex;
-            white-space: nowrap;
-            animation: promo-scroll 30s linear infinite;
-        }
-        
-        .promo-item {
-            display: flex;
-            align-items: center;
-            padding: 0 30px;
-        }
-        
-        .promo-item i {
-            margin-right: 10px;
-            font-size: 1.3rem;
-        }
-        
-        @keyframes promo-scroll {
-            0% { transform: translateX(50%); }
-            100% { transform: translateX(-100%); }
-        }
-        
-        #contactlist {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--theme-color);
-            padding: 10px 5%;
-            transition: var(--transition);
-        }
-        
-        .links {
-            display: flex;
-            list-style: none;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .links a {
-            color: var(--bg-color);
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-        }
-        
-        .leftheaderlinks ul.links li a {
-            color: var(--text-color);
-        }
-        
-        .leftheaderlinks ul.links li a:hover {
-            color: var(--bg-color);
-            transform: scale(1.05);
-        }
-        
-        .rightheaderlinks ul.links li a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 1.75rem;
-            height: 1.75rem;
-            border-radius: 50%;
-            background-color: var(--text-color);
-            color: var(--theme-color);
-        }
-        
-        .rightheaderlinks ul.links li a:hover {
-            background-color: var(--theme-color);
-            color: var(--text-color);
-            transform: scale(1.15);
-        }
-        
-        /* Main Navigation */
-        #navbottom {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            position: relative;
-            background-color: var(--bg-color);
-            border-bottom: 1px solid rgba(155, 169, 180, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        #navlogo {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-color);
-            line-height: 1.2;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-        
-        .tagline {
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            font-style: italic;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-        
-        .hamburger {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 1001;
-            transition: var(--transition);
-            margin-left: 15px;
-        }
-        
-        .hamburger:hover {
-            color: var(--theme-color);
-        }
-        
-        .navbar {
-            display: flex;
-            flex: 2;
-        }
-        
-        .navbarList {
-            display: flex;
-            list-style: none;
-            gap: 0.5rem;
-        }
-        
-        .navbarList a {
-            text-decoration: none;
-            color: var(--text-color);
-            padding: 10px 15px;
-            border-radius: 6px;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 500;
-        }
-        
-        .navbarList a:hover {
-            background-color: rgba(93, 93, 255, 0.2);
-        }
-        
-        .dropdown {
-            position: relative;
-        }
-        
-        .dropdown-toggle-icon i {
-            transition: transform 0.3s ease;
-        }
-        
-        .dropdown-content {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: var(--theme-color);
-            min-width: 220px;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            max-height: 0;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-            z-index: 1000;
-            padding: 0;
-        }
-        
-        .dropdown-content li {
-            padding: 0;
-        }
-        
-        .dropdown-content li a {
-            padding: 12px 20px;
-            width: 100%;
-            display: block;
-            color: var(--text-color);
-            text-decoration: none;
-            border-radius: 0;
-        }
-        
-        .dropdown-content li a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Desktop hover behavior */
-        .dropdown:hover .dropdown-content {
-            max-height: 500px;
-            padding: 10px 0;
-        }
-        
-        .dropdown:hover .dropdown-toggle-icon i {
-            transform: rotate(180deg);
-        }
-        
-        /* Quote button */
-        .c-button {
-            appearance: none;
-            cursor: pointer;
-            text-align: center;
-            letter-spacing: .057em;
-            text-transform: uppercase;
-            background-color: var(--theme-color);
-            border: none;
-            border-radius: 0.25rem;
-            padding: 0.8rem 1.75rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-color);
-            transition: var(--transition);
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .c-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: var(--accent-color);
-            transition: var(--transition);
-            z-index: -1;
-        }
-        
-        .c-button:hover {
-            color: var(--text-color);
-            border: 1px solid var(--theme-color);
-        }
-        
-        .c-button:hover::before {
-            width: 100%;
-        }
-        
-        .c-button-nav {
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-        }
-        
-        /* Footer Styles */
-        footer {
-            width: 100%;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            display: flex;
-            flex-direction: column;
-            padding: 2rem 5%;
-            margin-top: auto;
-            border-top: 1px solid rgba(93, 93, 255, 0.1);
-        }
-        
-        .footertop {
-            display: flex;
-            justify-content: center;
-            gap: 10rem;
-            padding: 2rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            flex-wrap: wrap;
-        }
-        
-        .footertop-left, .footertop-right {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .footertop-right {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .footer-company-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--theme-color);
-        }
-        
-        .footer-tagline {
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footertop p {
-            color: var(--light-text);
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-contact h2 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .footer-contact p {
-            margin-bottom: 0.5rem;
-            color: var(--light-text);
-        }
-        
-        .footer-contact i {
-            color: var(--theme-color);
-        }
-        
-        .footerbottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 0;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .copyright {
-            font-size: 0.9rem;
-            color: var(--light-text);
-        }
-        
-        .footerlinks ul.links {
-            display: flex;
-            gap: 0.75rem;
-        }
-        
-        .footerlinks ul.links li a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 2.5em;
-            height: 2.5em;
-            border-radius: 50%;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            transition: var(--transition);
-        }
-        
-        .footerlinks ul.links li a:hover {
-            background-color: var(--theme-color);
-            color: var(--text-color);
-            transform: translateY(-5px);
-        }
-        
+    
         /* Page Content Styles */
         /* City Hero Section */
         .city-hero {
@@ -720,190 +337,73 @@
             margin-bottom: 1rem;
         }
         
+        /* FAQ Section */
+        .faq-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 4rem 0;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            background: rgba(93, 93, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            background: rgba(93, 93, 255, 0.2);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .faq-answer p {
+            padding: 1rem 0;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-toggle i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-toggle i {
+            transition: transform 0.4s ease;
+        }
+        
         /* Responsive Adjustments */
         /* Header & Footer Responsive */
-        @media (min-width: 768px) and (max-width: 1023px) {
-            .navbarList{
-                font-size: 65%;
-            }
-        }
+       
         
-        @media (min-width: 1025px) and (max-width: 1280px) {
-            .logo-text {
-                font-size: 1.3rem;
-            }
-        
-            .tagline {
-                font-size: 0.9rem;
-            }
-            .navbarList {
-                font-size: 80%;
-                gap: 0rem;
-            }
+ 
 
-            #navlogo {
-                min-width: auto;
-            }
-            #quote {
-                margin-left: auto;
-            }
-        
-            .c-button-nav {
-                padding: 0.6rem 0.6rem;
-                font-size: 0.9rem;
-            }
-        }
-        
-        @media (max-width: 1024px) {
-            .logo-text {
-                font-size: 1rem;
-            }
-        
-            .tagline {
-                font-size: 0.7rem;
-            }
-            .navbarList {
-                gap: 0rem;
-            }
-
-            #navlogo {
-                min-width: auto;
-            }
-            #quote {
-                margin-left: auto;
-            }
-        
-            .c-button-nav {
-                padding: 0.6rem 0.5rem;
-                font-size: 0.75rem;
-            }
-        }
         
         @media (max-width: 767px) {
-            .promo-line {
-                font-size: 0.9rem;
-                padding: 4px 0;
-            }
-            
-            #navlogo {
-                flex: 25;
-            }
-            
-            #contactlist {
-                flex-direction: column;
-                gap: 0.5rem;
-                padding: 6px 5%;
-            }
-        
-            .leftheaderlinks ul.links, .rightheaderlinks ul.links {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-        
-            #navbottom {
-                flex-wrap: nowrap;
-                padding: 15px;
-                min-height: 60px;
-                gap: 15px;
-            }
-        
-            #navlogo {
-                min-width: auto;
-                overflow: hidden;
-            }
-        
-            .logo-text {
-                font-size: 1.2rem;
-            }
-        
-            .tagline {
-                font-size: 0.7rem;
-            }
-        
-            .hamburger {
-                display: block;
-                flex-shrink: 0;
-            }
-        
-            .navbar {
-                display: flex;
-            }
-        
-            #quote {
-                flex-shrink: 0;
-                margin-left: auto;
-            }
-        
-            .c-button-nav {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
-        
-            .navbarList {
-                display: none;
-                flex-direction: column;
-                position: fixed;
-                top: 0;
-                right: 0;
-                width: 300px;
-                height: 100vh;
-                background-color: var(--bg-color);
-                padding: 100px 20px 20px;
-                gap: 1rem;
-                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
-                z-index: 999;
-                overflow-y: auto;
-                transform: translateX(100%);
-                transition: transform 0.4s ease;
-            }
-        
-            .navbarList.open {
-                display: flex;
-                transform: translateX(0);
-            }
-        
-            .hamburger .close-icon {
-                display: none;
-                position: absolute;
-                top: -45px;
-                right: 7%;
-            }
-        
-            .hamburger .menu-icon {
-                display: block;
-                right: 100px;
-            }
-        
-            .navbarList.open ~ .hamburger .close-icon {
-                display: block;
-                position: fixed;
-                top: 0;
-                right: 0;
-                z-index: 1002;
-            }
-        
-            .navbarList.open ~ .hamburger .menu-icon {
-                display: none;
-            }
-        
-            .dropdown-content {
-                position: static;
-                min-width: 100%;
-                box-shadow: none;
-                background-color: rgba(93, 93, 255, 0.2);
-                margin-top: 5px;
-            }
-        
-            .footertop {
-                flex-direction: column;
-                gap: 2rem;
-            }
-        
-            .footerbottom {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
             
             /* Page Content Responsive */
             .city-hero {
@@ -962,75 +462,13 @@
             .cities-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .faq-section {
+                padding: 2rem 1rem;
+            }
         }
-        
-        @media (max-width: 480px) {
-            .logo-text {
-                font-size: 1rem;
-            }
-        
-            .tagline {
-                font-size: 0.7rem;
-            }
+ 
 
-            .leftheaderlinks ul.links{
-                gap: 50%;
-                padding-top: 0;
-                padding-bottom: 0;
-            }
-            
-            .navbarList {
-                width: 80%;
-            }
-            
-            .hamburger .close-icon {
-                top: -25px;
-            }
-            
-            .c-button-nav {
-                padding: 0.6rem 0.6rem;
-                font-size: 0.75rem;
-            }
-            
-            .neighborhood-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .promo-item {
-                padding: 0 15px;
-            }
-        }
-        
-        @media (max-width: 410px) {
-            .logo-text {
-                font-size: 0.7rem;
-            }
-        
-            .tagline {
-                font-size: 0.5rem;
-            }
-            
-            #navbottom {
-                padding-left: 2%;
-                padding-right: 2%;
-            }
-            
-            .promo-line {
-                font-size: 0.8rem;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .dropdown:hover .dropdown-toggle-icon i {
-                transform: rotate(180deg);
-            }
-        }
-        
-        @media (max-width: 767px) {
-            .dropdown.active .dropdown-toggle-icon i {
-                transform: rotate(180deg);
-            }
-        }
         
         /* Scroll behavior styles */
         .scrolled #contactlist {
@@ -1059,146 +497,62 @@
                 padding: 4rem 2rem;
             }
             
-            .footertop {
-                gap: 5rem;
-            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="promo-line">
-            <div class="promo-content">
-                <div class="promo-item"><i class="ri-map-pin-fill"></i> Now serving in Hamilton, Burlington and surrounding neighborhoods</div>
-                <div class="promo-item"><i class="ri-tools-fill"></i> Onsite repair services available</div>
-                <div class="promo-item"><i class="ri-flashlight-fill"></i> Emergency rush services available</div>
-                <div class="promo-item"><i class="ri-calendar-check-fill"></i> Same-day appointments</div>
-                <div class="promo-item"><i class="ri-24-hours-fill"></i> 24/7 support available</div>
-                <div class="promo-item"><i class="ri-medal-fill"></i> Certified fitness equipment technicians</div>
-            </div>
-        </div>
-        
-        <nav class="nav">
-            <div id="contactlist">
-                <div id="leftcontactlist" class="leftheaderlinks">
-                    <ul class="links leftlinks">
-                        <li><a href="tel:+12899257239"><i class="ri-customer-service-line"></i>+1 289 925 7239</a></li>
-                        <li><a href="mailto:canadianfitnessrepair@gmail.com"><i class="ri-mail-line"></i>canadianfitnessrepair@gmail.com</a></li>
-                    </ul>
-                </div>
-                <div id="rightcontactlist" class="rightheaderlinks">
-                    <ul class="links rightlinks">
-                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-facebook-line"></i></a></li>
-                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-twitter-x-line"></i></a></li>
-                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-instagram-line"></i></a></li>
-                        <li><a href="https://canadianfitnessrepair.com/"><i class="ri-youtube-line"></i></a></li>
-                        <li><a href="https://maps.app.goo.gl/o12xJ23UPUj7Zt386"><i class="ri-map-pin-line"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div id="navbottom">
-                <div id="navlogo">
-                    <a href="https://www.canadianfitnessrepair.com">
-                        <div class="logo-text">Canadian Fitness <br> Repair</div>
-                        <div class="tagline">Serving GTA since 2013</div>
-                    </a>
-                </div>
-                <div class="navbar">
-                    <ul class="navbarList" id="navbarList">
-                        <li><a href="https://www.canadianfitnessrepair.com"><i class="ri-home-5-line"></i> HOME</a></li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0)">
-                                <i class="ri-information-line"></i> ABOUT US
-                                <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
-                            </a>
-                            <ul class="dropdown-content">
-                                <li><a href="aboutus.html">About</a></li>
-                                <li><a href="pricingpackagespage.html">Pricing</a></li>
-                                <li><a href="FAQ.html">FAQ</a></li>
-                                <li><a href="PPT&Cpage.html">Privacy Policy</a></li>
-                                <li><a href="PPT&Cpage.html">Terms & Conditions</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0)">
-                                <i class="ri-customer-service-line"></i> SERVICES
-                                <span class="dropdown-toggle-icon"><i class="ri-arrow-drop-down-line"></i></span>
-                            </a>
-                            <ul class="dropdown-content">
-                                <li><a href="services.html">Preventative Maintenance</a></li>
-                                <li><a href="services.html">Inspection</a></li>
-                                <li><a href="services.html">Repairs & Tune-ups</a></li>
-                                <li><a href="services.html">Relocation & Assembly</a></li>
-                                <li><a href="services.html">Commerical & Residential</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="repairprocess.html"><i class="ri-settings-5-line"></i> REPAIR PROCESS</a></li>
-                        <li><a href="gallery.html"><i class="ri-image-line"></i> GALLERY</a></li>
-                        <li><a href="contactform.html"><i class="ri-contacts-line"></i> CONTACT</a></li>
-                        <li><a href="reviews.html"><i class="ri-star-line"></i> REVIEWS</a></li>
-                    </ul>
-                </div>
-                <button class="hamburger" id="hamburger">
-                    <i class="ri-menu-line menu-icon"></i>
-                    <i class="ri-close-line close-icon"></i>
-                </button>
-                <div id="quote">
-                    <a class="c-button c-button-nav" href="get-quote.html"  style="text-decoration: none;">Get Quote</a>
-                </div>
-            </div>
-        </nav>
-    </header>
+  <div id="header"></div>
     
     <main>
         <!-- Hero Section -->
         <section class="city-hero">
-            <h1 class="city-title">Toronto Treadmill Repair</h1>
-            <p class="city-tagline">Professional treadmill repair services throughout Toronto with same-day service in the Financial District</p>
+            <h1 class="city-title">Toronto Treadmill Repair Experts</h1>
+            <p class="city-tagline">Same-Day Service for All Fitness Equipment Repairs in Toronto & GTA</p>
             <a href="tel:+12899257239" class="c-button">Call Now: (289) 925-7239</a>
         </section>
         
         <!-- Services Section -->
         <section class="city-content">
-            <h2 class="section-title">Our Toronto Fitness Repair Services</h2>
+            <h2 class="section-title">Professional Toronto Treadmill Repair Services</h2>
             <p class="intro-text">
-                Canadian Fitness Repair has been serving Toronto residents and businesses since 2013. Our certified technicians specialize in all major brands and models of fitness equipment.
+                Since 2013, Canadian Fitness Repair has been the trusted choice for professional treadmill repair in Toronto. Our certified technicians specialize in diagnosing and repairing all major brands including NordicTrack, Sole Fitness, ProForm, and Life Fitness. We provide comprehensive service for both residential and commercial fitness equipment throughout the Greater Toronto Area.
             </p>
             
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon"><i class="ri-run-line"></i></div>
-                    <h3>Treadmill Repairs</h3>
-                    <p>Motor replacements, belt adjustments, deck repairs, and electronic diagnostics for all treadmill models.</p>
+                    <h3>Complete Treadmill Repairs</h3>
+                    <p>Motor replacements, belt adjustments, deck repairs, controller replacements, and electronic diagnostics for all treadmill models. Specializing in incline motor repairs and safety key issues.</p>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon"><i class="ri-bike-line"></i></div>
                     <h3>Elliptical & Bike Service</h3>
-                    <p>Complete maintenance and repair for elliptical trainers, exercise bikes, and spin cycles.</p>
+                    <p>Professional maintenance and repair for elliptical trainers, exercise bikes, spin cycles, and rowing machines. We fix drive train issues, resistance problems, and electronic failures.</p>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon"><i class="ri-building-line"></i></div>
-                    <h3>Commercial Gym Service</h3>
-                    <p>Maintenance contracts for fitness centers, hotels, corporate gyms, and apartment complexes.</p>
+                    <h3>Commercial Gym Equipment</h3>
+                    <p>Maintenance contracts for fitness centers, hotels, corporate gyms, and apartment complexes. We service all commercial-grade equipment with minimal downtime.</p>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon"><i class="ri-home-gear-line"></i></div>
-                    <h3>Residential Equipment</h3>
-                    <p>In-home repairs for all types of home fitness equipment with convenient scheduling.</p>
+                    <h3>Residential Equipment Repair</h3>
+                    <p>In-home repairs for all types of home fitness equipment with flexible scheduling. We bring all necessary parts and tools to complete repairs on the first visit.</p>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon"><i class="ri-tools-line"></i></div>
                     <h3>Preventative Maintenance</h3>
-                    <p>Regular tune-ups to extend equipment life and prevent costly repairs.</p>
+                    <p>Regular tune-ups to extend equipment life and prevent costly repairs. Includes belt lubrication, alignment checks, and electronic diagnostics.</p>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon"><i class="ri-flashlight-line"></i></div>
                     <h3>Emergency Repairs</h3>
-                    <p>24/7 emergency service for commercial clients with critical equipment failures.</p>
+                    <p>24/7 emergency service for commercial clients with critical equipment failures. Same-day response for downtown Toronto businesses.</p>
                 </div>
             </div>
         </section>
@@ -1207,7 +561,7 @@
         <section class="neighborhoods-section">
             <h2 class="section-title">Toronto Neighborhoods We Serve</h2>
             <p class="intro-text">
-                We provide fitness equipment repair services throughout the Greater Toronto Area, including these neighborhoods:
+                We provide comprehensive fitness equipment repair services throughout the Greater Toronto Area, including these neighborhoods:
             </p>
             
             <div class="neighborhood-grid">
@@ -1223,6 +577,10 @@
                 <div class="neighborhood-item">Forest Hill</div>
                 <div class="neighborhood-item">High Park</div>
                 <div class="neighborhood-item">The Beaches</div>
+                <div class="neighborhood-item">Mississauga</div>
+                <div class="neighborhood-item">Brampton</div>
+                <div class="neighborhood-item">Oakville</div>
+                <div class="neighborhood-item">Markham</div>
             </div>
             
             <p style="text-align: center; margin-top: 2rem; color: var(--accent-color);">
@@ -1232,14 +590,14 @@
         
         <!-- Why Choose Us -->
         <section class="city-content">
-            <h2 class="section-title">Why Choose Our Toronto Repair Service</h2>
+            <h2 class="section-title">Why Toronto Chooses Our Repair Service</h2>
             
             <div style="max-width: 800px; margin: 0 auto;">
                 <div class="benefit-item">
                     <div class="benefit-number">1</div>
                     <div class="benefit-content">
-                        <h3>Local Toronto Technicians</h3>
-                        <p>Our repair team lives and works in Toronto, providing fast response times and understanding of local needs. No long wait times for service calls.</p>
+                        <h3>Certified Toronto Technicians</h3>
+                        <p>Our repair team consists of Toronto-based technicians certified by leading fitness equipment manufacturers. We provide fast response times with an average on-site arrival within 24 hours for residential clients.</p>
                     </div>
                 </div>
                 
@@ -1247,15 +605,88 @@
                     <div class="benefit-number">2</div>
                     <div class="benefit-content">
                         <h3>Same-Day Financial District Service</h3>
-                        <p>We prioritize downtown businesses with same-day service options to minimize downtime for your fitness facilities.</p>
+                        <p>Downtown businesses receive priority service with same-day appointments available to minimize operational downtime in your fitness facilities. We understand the critical importance of functioning equipment in commercial settings.</p>
                     </div>
                 </div>
                 
                 <div class="benefit-item">
                     <div class="benefit-number">3</div>
                     <div class="benefit-content">
-                        <h3>Toronto-Area Parts Inventory</h3>
-                        <p>We maintain an extensive local parts inventory to reduce repair time and get your equipment operational faster.</p>
+                        <h3>Extensive Toronto Parts Inventory</h3>
+                        <p>We maintain one of the largest local parts inventories in the GTA, including treadmill belts, motors, controllers, and power supplies. This reduces repair time by 70% compared to competitors.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-number">4</div>
+                    <div class="benefit-content">
+                        <h3>Brand-Specific Expertise</h3>
+                        <p>With over a decade of experience, our technicians have specialized knowledge in all major brands including NordicTrack, ProForm, Sole Fitness, Life Fitness, Precor, and Bowflex.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-number">5</div>
+                    <div class="benefit-content">
+                        <h3>Transparent Pricing</h3>
+                        <p>No hidden fees or surprise charges. We provide upfront pricing with a detailed breakdown before any work begins. All repairs come with a 90-day parts and labor warranty.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2 class="section-title">Toronto Treadmill Repair FAQs</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How much does treadmill repair cost in Toronto?
+                        <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Repair costs vary based on the issue, but our standard service call fee is $89 which includes diagnosis. Common repairs range from $150 for belt adjustments to $500+ for motor replacements. We provide exact quotes before any work begins.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you repair NordicTrack and ProForm treadmills?
+                        <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we specialize in NordicTrack and ProForm treadmill repairs. Our technicians are factory-trained on these brands and carry specialized diagnostic tools to quickly identify and resolve common issues with these models.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How quickly can you service my treadmill?
+                        <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For residential clients in Toronto, we typically schedule appointments within 24-48 hours. Downtown Toronto businesses receive same-day service for critical repairs. Emergency service is available 24/7 for commercial clients.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you offer maintenance plans for commercial gyms?
+                        <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer comprehensive maintenance contracts for Toronto fitness centers, corporate gyms, and apartment complexes. Our plans include quarterly inspections, preventative maintenance, and priority service at discounted rates.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What areas of Toronto do you serve?
+                        <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We serve all areas of Toronto including Etobicoke, North York, Scarborough, Downtown, The Annex, and surrounding GTA regions. Our service area extends approximately 50km from downtown Toronto.</p>
                     </div>
                 </div>
             </div>
@@ -1263,9 +694,9 @@
         
         <!-- CTA Section -->
         <section class="cta-section">
-            <h2 class="cta-title">Need Treadmill Repair in Toronto?</h2>
+            <h2 class="cta-title">Need Treadmill Repair in Toronto Today?</h2>
             <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto; position: relative; z-index: 1;">
-                Contact us today for fast, professional service throughout the Greater Toronto Area
+                Call now for same-day service in downtown Toronto or schedule an appointment for tomorrow
             </p>
             
             <div class="cta-buttons">
@@ -1286,27 +717,27 @@
             </p>
             
             <div class="cities-grid">
-                <a href="hamilton-treadmill-repair.html" class="city-card">
+                <a href="treadmill-repair-hamilton.html" class="city-card">
                     <h3>Hamilton</h3>
                     <p>Industrial equipment specialists</p>
                 </a>
                 
-                <a href="burlington-treadmill-repair.html" class="city-card">
+                <a href="treadmill-repair-burlington.html" class="city-card">
                     <h3>Burlington</h3>
                     <p>Senior fitness equipment experts</p>
                 </a>
                 
-                <a href="oakville-treadmill-repair.html" class="city-card">
+                <a href="treadmill-repair-oakville.html" class="city-card">
                     <h3>Oakville</h3>
                     <p>Luxury home gym specialists</p>
                 </a>
                 
-                <a href="mississauga-treadmill-repair.html" class="city-card">
+                <a href="treadmill-repair-mississauga.html" class="city-card">
                     <h3>Mississauga</h3>
                     <p>Commercial gym focus</p>
                 </a>
                 
-                <a href="brampton-treadmill-repair.html" class="city-card">
+                <a href="treadmill-repair-brampton.html" class="city-card">
                     <h3>Brampton</h3>
                     <p>24/7 emergency service</p>
                 </a>
@@ -1314,48 +745,7 @@
         </section>
     </main>
     
-    <footer>
-        <div class="footertop">
-            <div class="footertop-left">
-                <div class="footer-company-name">Canadian Fitness Repair</div>
-                <div class="footer-tagline">Your Safety, Our Commitment</div>
-                <p>
-                    At Canadian Fitness Repair, we are dedicated to delivering exceptional service with your safety as our top priority. Our team is committed to ensuring your fitness equipment operates safely and reliably, giving you peace of mind with every use. We proudly serve both residential and commercial clients throughout Greater Toronto Area, ON, Canada — providing dependable repairs, tune-ups, and ongoing support with a focus on customer satisfaction.
-                </p>
-            </div>
-            <div class="footertop-right">
-                <div class="footer-contact">
-                    <h2><i class="ri-map-pin-line"></i> Location</h2>
-                    <a href="https://maps.app.goo.gl/o12xJ23UPUj7Zt386" style="text-decoration: none;"><p>2200 Rymal Rd E, Hamilton, ON L0R 1P0</p></a>
-                </div>
-                <div class="footer-contact">
-                    <h2><i class="ri-contacts-book-line"></i> Contact us</h2>
-                    <a href="tel:+12899257239" style="text-decoration: none;"><p>Phone: +1 289 925 7239</p></a>
-                    <a href="mailto:canadianfitnessrepair@gmail.com" style="text-decoration: none;"><p>Email: canadianfitnessrepair@gmail.com</p></a>
-                </div>
-                <div class="footer-contact">
-                    <h2><i class="ri-time-line"></i> Business Hours</h2>
-                    <p>Monday-Friday: 8:00 AM - 6:00 PM</p>
-                    <p>Saturday: 9:00 AM - 4:00 PM</p>
-                    <p>Sunday: Closed</p>
-                </div>
-            </div>
-        </div>
-        <div class="footerbottom">
-            <div class="copyright">
-                <p>Copyright © 2025. All rights reserved by Canadian Fitness Repair</p>
-            </div>
-            <div class="footerlinks">
-                <ul class="links rightlinks">
-                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-facebook-line"></i></a></li>
-                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-twitter-x-line"></i></a></li>
-                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-instagram-line"></i></a></li>
-                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-youtube-line"></i></a></li>
-                    <li><a href="https://canadianfitnessrepair.com/"><i class="ri-linkedin-line"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+  <div id="footer"></div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -1367,6 +757,7 @@
             const closeIcon = hamburger.querySelector('.close-icon');
             const header = document.querySelector('header');
             const contactList = document.getElementById('contactlist');
+            const faqItems = document.querySelectorAll('.faq-item');
 
             // Scroll behavior for mobile
             let lastScrollTop = 0;
@@ -1429,6 +820,24 @@
                 });
             });
 
+            // FAQ toggle functionality
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all other FAQ items
+                    faqItems.forEach(faq => {
+                        if (faq !== item) {
+                            faq.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active', !isActive);
+                });
+            });
+
             document.addEventListener('click', function (e) {
                 if (!navbarList.contains(e.target) && !hamburger.contains(e.target)) {
                     navbarList.classList.remove('open');
@@ -1465,6 +874,61 @@
                 }
             });
         });
+    </script>
+    <script src="menu.js"></script>
+    <!-- Schema Markup for Local SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Canadian Fitness Repair",
+      "image": "https://www.canadianfitnessrepair.com/images/logo.png",
+      "@id": "https://www.canadianfitnessrepair.com",
+      "url": "https://www.canadianfitnessrepair.com/toronto-treadmill-repair",
+      "telephone": "+12899257239",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2200 Rymal Rd E",
+        "addressLocality": "Hamilton",
+        "addressRegion": "ON",
+        "postalCode": "L0R 1P0",
+        "addressCountry": "CA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 43.6532,
+        "longitude": -79.3832
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/canadianfitnessrepair",
+        "https://twitter.com/canadianfitnessrepair",
+        "https://www.instagram.com/canadianfitnessrepair",
+        "https://www.youtube.com/canadianfitnessrepair"
+      ],
+      "priceRange": "$$",
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 43.6532,
+          "longitude": -79.3832
+        },
+        "geoRadius": 50000
+      }
+    }
     </script>
 </body>
 </html>

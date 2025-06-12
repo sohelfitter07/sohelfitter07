@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog | Canadian Fitness Repair</title>
+  <title>Fitness Equipment Repair Blog | Expert Tips & Guides | Canadian Fitness Repair</title>
   <meta
     name="description"
-    content="Fitness equipment repair tips, treadmill troubleshooting, and gym maintenance advice across Hamilton & the GTA. Learn from our certified technicians."
+    content="Get expert fitness equipment repair advice, treadmill troubleshooting tips, and maintenance guides for Hamilton & GTA. Learn how to fix common issues with NordicTrack, Sole, Precor & more."
   />
   <meta
     name="keywords"
-    content="treadmill repair Hamilton, elliptical maintenance GTA, gym equipment troubleshooting, NordicTrack error codes, Sole treadmill fixes, Horizon fitness repair, Precor diagnostics, commercial fitness tips, fitness equipment blog"
+    content="treadmill repair Hamilton, elliptical maintenance GTA, gym equipment troubleshooting, NordicTrack error codes, Sole treadmill fixes, Horizon fitness repair, Precor diagnostics, commercial fitness tips, fitness equipment blog, treadmill belt replacement, elliptical maintenance, fitness machine repair"
   />
-  <meta property="og:title" content="Fitness Repair Blog | Tips & Guides | Canadian Fitness Repair" />
+  <meta property="og:title" content="Fitness Repair Blog | Expert Tips & Guides | Canadian Fitness Repair" />
   <meta
     property="og:description"
     content="Expert insights on treadmill repair, elliptical servicing, and fitness machine troubleshooting for Hamilton, GTA & beyond."
@@ -73,11 +73,21 @@
       text-shadow: 1px 1px 4px rgba(93, 93, 255, 0.6);
     }
 
+    /* Blog intro */
+    .blog-intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 50px;
+      font-size: 1.2rem;
+      color: var(--light-text);
+      line-height: 1.8;
+    }
+
     /* Each blog post card */
     .blog-post {
       background-color: var(--card-bg);
       border-radius: var(--border-radius);
-      padding: 25px 30px;
+      padding: 30px;
       margin-bottom: 40px;
       box-shadow: var(--box-shadow);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -95,6 +105,24 @@
       font-size: 1.9rem;
     }
 
+    /* Blog post meta */
+    .post-meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      color: var(--light-text);
+      font-size: 0.95rem;
+    }
+    .post-meta i {
+      margin-right: 8px;
+      color: var(--accent-color);
+    }
+    .post-meta span {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+    }
+
     /* Paragraph styling */
     .blog-post p {
       color: var(--text-color);
@@ -104,17 +132,53 @@
     }
 
     /* Lists inside blog posts */
-    .blog-post ul {
-      list-style: inside disc;
+    .blog-post ul, .blog-post ol {
+      padding-left: 25px;
       color: var(--light-text);
-      margin-left: 0;
       margin-bottom: 20px;
       font-size: 1.05rem;
     }
 
-    .blog-post ul li a {
+    .blog-post ul li, .blog-post ol li {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .blog-post ul li a, .blog-post ol li a {
       color: var(--theme-color);
       font-weight: 600;
+    }
+
+    .post-image {
+      width: 100%;
+      border-radius: var(--border-radius);
+      margin: 25px 0;
+      height: 300px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #2a2c33, #3d4049);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-text);
+      font-style: italic;
+    }
+
+    .tip-box {
+      background: rgba(93, 93, 255, 0.1);
+      border-left: 4px solid var(--theme-color);
+      padding: 20px;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      margin: 25px 0;
+    }
+
+    .tip-box h3 {
+      color: var(--theme-color);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .tip-box h3 i {
+      margin-right: 10px;
     }
 
     /* Links */
@@ -130,6 +194,30 @@
       color: var(--accent-color);
       border-color: var(--accent-color);
       text-decoration: none;
+    }
+
+    .blog-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+      justify-content: center;
+    }
+
+    .category-btn {
+      background: rgba(93, 93, 255, 0.1);
+      color: var(--theme-color);
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .category-btn:hover, .category-btn.active {
+      background: var(--theme-color);
+      color: white;
+      border-color: var(--theme-color);
     }
 
     /* CTA Buttons Container */
@@ -164,19 +252,20 @@
       box-shadow: 0 6px 25px rgba(255, 107, 107, 0.85);
       outline: none;
     }
+    
     header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  z-index: 9999;
-  background-color: var(--bg-color);
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      z-index: 9999;
+      background-color: var(--bg-color);
+    }
 
-.main-container {
-  padding-top: 80px; /* Push content below fixed header */
-}
+    .main-container {
+      padding-top: 80px; /* Push content below fixed header */
+    }
 
     /* Responsive text sizes */
     @media (max-width: 900px) {
@@ -185,17 +274,37 @@
       }
       .blog-section > h1 {
         font-size: 2.4rem;
+        padding-top: 8rem;
+      }
+      .blog-intro {
+        font-size: 1.1rem;
       }
       .blog-post h2 {
         font-size: 1.7rem;
       }
       .blog-post p,
-      .blog-post ul {
+      .blog-post ul, .blog-post ol {
         font-size: 1rem;
       }
       .cta-buttons a {
         font-size: 1rem;
         min-width: 140px;
+      }
+      .post-image {
+        height: 250px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .blog-section > h1 {
+        font-size: 2.2rem;
+        padding-top: 7rem;
+      }
+      .blog-post {
+        padding: 20px;
+      }
+      .post-image {
+        height: 200px;
       }
     }
 
@@ -205,6 +314,10 @@
       }
       .blog-section > h1 {
         font-size: 2rem;
+        padding-top: 6rem;
+      }
+      .blog-intro {
+        margin-bottom: 30px;
       }
       .blog-post h2 {
         font-size: 1.5rem;
@@ -216,6 +329,16 @@
       .cta-buttons a {
         min-width: 100%;
       }
+      .post-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .post-meta span {
+        margin-bottom: 8px;
+      }
+      .post-image {
+        height: 180px;
+      }
     }
   </style>
 </head>
@@ -224,54 +347,212 @@
 
   <div class="main-container">
     <section class="blog-section" aria-label="Fitness Equipment Blog and Repair Guides">
-      <h1>Fitness Equipment Blog &amp; Repair Guides</h1>
+      <h1>Fitness Equipment Repair Blog & Guides</h1>
+      
+      <div class="blog-intro">
+        <p>Welcome to the Canadian Fitness Repair blog - your ultimate resource for fitness equipment maintenance, troubleshooting, and repair tips. Our certified technicians share expert advice to help you extend the life of your treadmills, ellipticals, and gym equipment in Hamilton, GTA, and beyond.</p>
+      </div>
+      
+      <div class="blog-categories">
+        <button class="category-btn active">All Topics</button>
+        <button class="category-btn">Treadmill Repair</button>
+        <button class="category-btn">Elliptical Maintenance</button>
+        <button class="category-btn">Error Codes</button>
+        <button class="category-btn">Preventive Care</button>
+        <button class="category-btn">Commercial Equipment</button>
+      </div>
+
+      <article class="blog-post">
+        <h2>Top 5 Treadmill Problems & How to Fix Them</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> June 10, 2025</span>
+          <span><i class="ri-time-line"></i> 5 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Treadmill Repair, Maintenance</span>
+        </div>
+        <div class="post-image">Treadmill Repair Technician at Work</div>
+        <p>As a fitness equipment repair specialist serving Hamilton and the GTA, I see the same treadmill issues repeatedly. Here are the top 5 problems and how to address them:</p>
+        <ol>
+          <li><strong>Belt Slipping or Misalignment:</strong> Caused by improper tension or worn belts. Tighten or replace the belt.</li>
+          <li><strong>Motor Overheating:</strong> Clean ventilation ports and reduce usage duration.</li>
+          <li><strong>Inconsistent Speed:</strong> Often indicates a failing motor controller or speed sensor issues.</li>
+          <li><strong>Console Display Problems:</strong> Check power connections and console wiring.</li>
+          <li><strong>Unusual Noises:</strong> Usually indicates worn bearings or loose components.</li>
+        </ol>
+        <p>For complex issues like motor controller replacement, contact our <a href="get-quote.html">certified technicians</a> for professional repair service.</p>
+      </article>
 
       <article class="blog-post">
         <h2>How to Choose Between a Treadmill and an Elliptical</h2>
-        <p>
-          Not sure whether a treadmill or elliptical is right for your home gym? Treadmills are great
-          for runners, while ellipticals offer low-impact motion for joint-friendly workouts.
-          <a href="get-quote.html">Request a consultation</a> to learn what suits your fitness needs.
-        </p>
-      </article>
-
-      <article class="blog-post">
-        <h2>Signs Your Gym Equipment Needs a Repair</h2>
-        <p>
-          Notice unusual noise, belt slipping, or inconsistent resistance on your machine? These are
-          early signs your equipment needs service.
-          <a href="get-quote.html">Schedule a diagnostic</a> to prevent major breakdowns.
-        </p>
-      </article>
-
-      <article class="blog-post">
-        <h2>Top Error Codes for NordicTrack, Sole, Horizon, and Precor Treadmills</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> May 28, 2025</span>
+          <span><i class="ri-time-line"></i> 4 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Equipment Selection, Home Gym</span>
+        </div>
+        <p>Selecting the right cardio equipment is crucial for your fitness journey. Here's a comparison to help you decide:</p>
+        <div class="tip-box">
+          <h3><i class="ri-lightbulb-flash-line"></i> Expert Tip</h3>
+          <p>Consider your primary fitness goals: Treadmills are ideal for runners training for races, while ellipticals provide excellent low-impact workouts for joint health.</p>
+        </div>
+        <p><strong>Treadmill Advantages:</strong></p>
         <ul>
-          <li><a href="nordictrack-repair.html">NordicTrack</a>: E1, LS1, Incline Jam</li>
-          <li><a href="sole-repair.html">Sole</a>: E7 Motor Overload, E1 Sensor</li>
-          <li><a href="horizon-repair.html">Horizon</a>: E03, Incline stuck</li>
-          <li><a href="precor-repair.html">Precor</a>: 21 SAF, 05 Error</li>
-          <li><a href="lifefitness-repair.html">Life Fitness</a>: Error 6, Belt Sensor, Speed Drift</li>
+          <li>Simulates natural running/walking motion</li>
+          <li>Higher calorie burn potential</li>
+          <li>Better for training specific running speeds</li>
         </ul>
+        <p><strong>Elliptical Advantages:</strong></p>
+        <ul>
+          <li>Low impact on joints</li>
+          <li>Engages both upper and lower body</li>
+          <li>Compact designs save space</li>
+        </ul>
+        <p>Still undecided? <a href="get-quote.html">Request a consultation</a> with our fitness equipment specialists to find the perfect match for your needs.</p>
       </article>
 
       <article class="blog-post">
-        <h2>Why Regular Fitness Equipment Maintenance Saves You Money</h2>
-        <p>
-          Preventative maintenance avoids costly replacements. Annual tune-ups increase equipment
-          life and performance.
-          <a href="lifefitness-repair.html">Life Fitness service</a> or
-          <a href="get-quote.html">book maintenance now</a>.
-        </p>
+        <h2>Understanding Fitness Equipment Error Codes</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> May 15, 2025</span>
+          <span><i class="ri-time-line"></i> 6 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Error Codes, Troubleshooting</span>
+        </div>
+        <div class="post-image">Fitness Equipment Console Showing Error Code</div>
+        <p>Error codes are your equipment's way of communicating problems. Here are common codes across major brands:</p>
+        <ul>
+          <li><a href="nordictrack-repair.html">NordicTrack</a>: 
+            <ul>
+              <li><strong>E1</strong> - Speed sensor issue</li>
+              <li><strong>LS1</strong> - Lower stop switch failure</li>
+              <li><strong>Incline Jam</strong> - Obstruction in incline mechanism</li>
+            </ul>
+          </li>
+          <li><a href="sole-repair.html">Sole</a>: 
+            <ul>
+              <li><strong>E7</strong> - Motor overload (reduce speed/incline)</li>
+              <li><strong>E1</strong> - Safety key or sensor malfunction</li>
+            </ul>
+          </li>
+          <li><a href="horizon-repair.html">Horizon</a>: 
+            <ul>
+              <li><strong>E03</strong> - Communication error with console</li>
+              <li><strong>Incline stuck</strong> - Motor or controller issue</li>
+            </ul>
+          </li>
+          <li><a href="precor-repair.html">Precor</a>: 
+            <ul>
+              <li><strong>21 SAF</strong> - Safety stop activated</li>
+              <li><strong>05 Error</strong> - Drive motor communication failure</li>
+            </ul>
+          </li>
+          <li><a href="lifefitness-repair.html">Life Fitness</a>: 
+            <ul>
+              <li><strong>Error 6</strong> - Elevation motor fault</li>
+              <li><strong>Speed Drift</strong> - Speed sensor calibration needed</li>
+            </ul>
+          </li>
+        </ul>
+        <p>For persistent error codes, our <a href="get-quote.html">technicians offer same-day service</a> across Hamilton and the GTA.</p>
+      </article>
+
+      <article class="blog-post">
+        <h2>When to Replace Your Treadmill Belt</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> May 5, 2025</span>
+          <span><i class="ri-time-line"></i> 4 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Treadmill Maintenance, Parts Replacement</span>
+        </div>
+        <div class="post-image">Worn vs. New Treadmill Belt Comparison</div>
+        <p>A worn treadmill belt is the #1 cause of performance issues and premature motor failure. Here's how to assess your belt:</p>
+        <ul>
+          <li><strong>Visual Inspection:</strong> Look for fraying edges, cracks, or shiny spots</li>
+          <li><strong>Thickness Test:</strong> Should be at least 1.8mm thick (use a caliper)</li>
+          <li><strong>Performance Issues:</strong> Slipping, jerking, or unusual noises during operation</li>
+          <li><strong>Lifespan:</strong> Most belts last 5-7 years with regular use</li>
+        </ul>
+        <p>For professional belt replacement in Hamilton and the GTA, <a href="get-quote.html">schedule service</a> with our certified technicians. We carry OEM belts for all major brands.</p>
+      </article>
+
+      <article class="blog-post">
+        <h2>Why Regular Maintenance Saves You Money</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> April 22, 2025</span>
+          <span><i class="ri-time-line"></i> 5 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Preventive Maintenance, Cost Savings</span>
+        </div>
+        <p>Preventative maintenance is the smartest investment for fitness equipment owners. Here's why:</p>
+        <ul>
+          <li><strong>Extends Equipment Life:</strong> Properly maintained treadmills last 3-5 years longer</li>
+          <li><strong>Prevents Costly Repairs:</strong> Catching issues early avoids motor/controller replacements</li>
+          <li><strong>Maintains Performance:</strong> Consistent belt speed and incline accuracy</li>
+          <li><strong>Safety Assurance:</strong> Prevents sudden failures during use</li>
+        </ul>
+        <p>Our <a href="get-quote.html">annual maintenance plans</a> include comprehensive inspections, lubrication, calibration, and priority service for Hamilton and GTA residents.</p>
+      </article>
+
+      <article class="blog-post">
+        <h2>Elliptical Maintenance Checklist</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> April 10, 2025</span>
+          <span><i class="ri-time-line"></i> 4 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Elliptical Repair, Maintenance</span>
+        </div>
+        <div class="post-image">Technician Performing Elliptical Maintenance</div>
+        <p>Keep your elliptical in peak condition with this monthly maintenance checklist:</p>
+        <ol>
+          <li>Wipe down rails and handles with disinfectant</li>
+          <li>Inspect drive belt tension and condition</li>
+          <li>Check pedal arm bolts for proper tightness</li>
+          <li>Lubricate pivot points with silicone-based lubricant</li>
+          <li>Test all electronic functions and resistance levels</li>
+          <li>Examine wheels for wear and replace if grooved</li>
+        </ol>
+        <p>For professional <a href="get-quote.html">elliptical service in Hamilton</a>, our technicians offer same-day diagnostics and repair.</p>
+      </article>
+
+      <article class="blog-post">
+        <h2>Commercial Gym Equipment Maintenance Guide</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> March 28, 2025</span>
+          <span><i class="ri-time-line"></i> 7 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Commercial Equipment, Gym Maintenance</span>
+        </div>
+        <p>Commercial fitness facilities in the GTA require specialized maintenance approaches. Implement this protocol:</p>
+        <ul>
+          <li><strong>Daily:</strong> Wipe down equipment, inspect for loose bolts</li>
+          <li><strong>Weekly:</strong> Check belt alignment on treadmills, test safety features</li>
+          <li><strong>Monthly:</strong> Lubricate moving parts, calibrate electronic consoles</li>
+          <li><strong>Quarterly:</strong> Professional inspection of motors, controllers, and structural components</li>
+        </ul>
+        <div class="tip-box">
+          <h3><i class="ri-alert-line"></i> Critical for GTA Gyms</h3>
+          <p>High-usage facilities should implement a rotation schedule to distribute wear evenly across equipment. Our <a href="get-quote.html">commercial maintenance packages</a> include priority service and discounted parts.</p>
+        </div>
+      </article>
+
+      <article class="blog-post">
+        <h2>How to Troubleshoot Treadmill Electrical Issues</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> March 15, 2025</span>
+          <span><i class="ri-time-line"></i> 6 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Treadmill Repair, Electrical Issues</span>
+        </div>
+        <p>Electrical problems are among the most common treadmill issues. Follow this troubleshooting guide:</p>
+        <ol>
+          <li><strong>Check Power Source:</strong> Test outlet with another device</li>
+          <li><strong>Inspect Safety Key:</strong> Ensure proper connection and conductivity</li>
+          <li><strong>Examine Power Cord:</strong> Look for fraying or damage</li>
+          <li><strong>Test Console:</strong> Listen for internal fan or indicator lights</li>
+          <li><strong>Reset Circuit Breaker:</strong> Locate and reset the treadmill's internal breaker</li>
+        </ol>
+        <p>For complex electrical repairs in Hamilton and the GTA, trust our certified technicians. We carry replacement controllers, wiring harnesses, and power supplies for all major brands.</p>
       </article>
 
       <div class="cta-buttons" role="navigation" aria-label="Repair and Quote Links">
-        <a href="get-quote.html">Get a Quote</a>
-        <a href="nordictrack-repair.html">NordicTrack Repair</a>
-        <a href="precor-repair.html">Precor Repair</a>
-        <a href="horizon-repair.html">Horizon Repair</a>
-        <a href="sole-repair.html">Sole Repair</a>
-        <a href="lifefitness-repair.html">Life Fitness Repair</a>
+        <a href="get-quote.html">Get a Repair Quote</a>
+        <a href="treadmill-repair.html">Treadmill Repair</a>
+        <a href="elliptical-repair.html">Elliptical Repair</a>
+        <a href="commercial-residential.html">Commercial Service</a>
+        <a href="pricingpackagespage.html">Maintenance Plans</a>
+        <a href="contactform.html">Contact Us</a>
       </div>
     </section>
   </div>
