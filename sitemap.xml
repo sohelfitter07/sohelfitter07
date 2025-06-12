@@ -148,17 +148,7 @@
     <changefreq>monthly</changefreq>
   </url>
 
-  <!-- Legal Pages -->
-  <url>
-    <loc>https://www.canadianfitnessrepair.com/privacy-terms.html</loc>
-    <priority>0.2</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.canadianfitnessrepair.com/gallery.html</loc> 
-    <priority>0.2</priority>
-    <changefreq>yearly</changefreq>
-  </url>
+
   <url>
     <loc>https://www.canadianfitnessrepair.com/sitemap.html</loc>
     <priority>0.3</priority>
