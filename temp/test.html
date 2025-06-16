@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canadian Fitness Repair - Summer Special</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Fitness Brand Carousel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500;700&family=Oswald:wght@600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,414 +12,587 @@
             box-sizing: border-box;
         }
         
-        :root {
-            --theme-color: #5D5DFF;
-            --accent-color: #FF6B6B;
-            --bg-color: #151719;
-            --card-bg: #1E2023;
-            --text-color: #fff;
-            --light-text: #E0E0E0;
-            --font-family: "Roboto", sans-serif;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
         }
         
-        body {
-            font-family: var(--font-family);
-            background: linear-gradient(135deg, var(--bg-color), #0f1113);
-            color: var(--text-color);
-            min-height: 100vh;
-            overflow-x: hidden;
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: #a0a0c0;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            max-width: 700px;
+            margin: 0 auto;
             line-height: 1.6;
+        }
+        
+        /* Brand Carousel */
+        .brand-section {
+            background: rgba(30, 30, 46, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 3rem 0;
+            position: relative;
+            border-radius: 20px;
+            border: 1px solid rgba(93, 93, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .brand-title {
+            text-align: center;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            font-weight: 500;
+            padding: 0 20px;
+        }
+        
+        .brand-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            margin: 12px auto 0;
+            border-radius: 3px;
+        }
+
+        .brand-carousel-container {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .brand-track-wrapper {
+            overflow: hidden;
+            padding: 15px 0;
+        }
+
+        .brand-track {
+            display: flex;
+            animation: brand-scroll 40s linear infinite;
+            gap: clamp(15px, 2.5vw, 25px);
+            padding: 10px 0;
+            width: max-content;
+        }
+        
+        .brand-track:hover {
+            animation-play-state: paused;
+        }
+
+        .brand-card {
+            background: rgba(25, 25, 40, 0.9);
+            border-radius: 16px;
+            padding: clamp(15px, 2vw, 25px) clamp(15px, 1.5vw, 20px);
+            width: clamp(140px, 18vw, 200px);
+            height: clamp(100px, 15vw, 140px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-        }
-        
-        /* Summer Discount Banner */
-        .summer-banner {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            border-radius: 16px;
-            padding: 30px;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 126, 95, 0.2);
             position: relative;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
             overflow: hidden;
-            z-index: 10;
-            animation: float 6s ease-in-out infinite;
-            border: 3px solid rgba(255, 255, 255, 0.15);
         }
         
-        .summer-banner::before {
+        .brand-card::before {
             content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            transform: rotate(30deg);
-            z-index: -1;
-        }
-        
-        .banner-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-        
-        .banner-badge {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            color: #fff;
-            padding: 8px 25px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 1.3rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: inline-block;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-        
-        .banner-title {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .discount-highlight {
-            font-size: 4.5rem;
-            font-weight: 900;
-            color: white;
-            margin: 20px 0;
-            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-            line-height: 1.1;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .discount-highlight::after {
-            content: '';
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
-            border-radius: 4px;
-        }
-        
-        .offer-details {
-            font-size: 1.7rem;
-            font-weight: 600;
-            color: white;
-            margin-top: 20px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.4;
-        }
-        
-        .offer-dates {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #ffeb3b;
-            margin-top: 25px;
-            font-style: italic;
-            background: rgba(0,0,0,0.2);
-            padding: 10px 20px;
-            border-radius: 30px;
-            display: inline-block;
-        }
-        
-        .floating-icons {
             position: absolute;
             top: 0;
             left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(255, 126, 95, 0.3);
+            background: rgba(35, 35, 55, 0.95);
+            border-color: rgba(255, 126, 95, 0.4);
+        }
+        
+        .brand-card:hover::before {
+            opacity: 1;
+        }
+
+        .brand-logo {
+            height: clamp(35px, 6vw, 50px);
+            margin-bottom: clamp(8px, 1.5vw, 15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
             width: 100%;
-            height: 100%;
-            pointer-events: none;
+        }
+
+        .brand-name {
+            font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+            color: #b0b0d0;
+            text-align: center;
+            font-weight: 500;
+            opacity: 0.8;
+            transition: all 0.3s ease;
         }
         
-        .floating-icon {
-            position: absolute;
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.6);
-            animation: float-icon 15s infinite linear;
+        .brand-card:hover .brand-name {
+            opacity: 1;
+            color: #ffffff;
+        }
+
+        @keyframes brand-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         
-        /* Animation */
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0); }
+        /* Brand-specific styles with perfect fitting */
+        .nordictrack {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(0, 200, 255, 0.8);
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
         
-        @keyframes float-icon {
-            0% { 
-                transform: translateY(0) translateX(0) rotate(0deg); 
-                opacity: 0;
-            }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { 
-                transform: translateY(-100px) translateX(50px) rotate(360deg); 
-                opacity: 0;
-            }
+        .proform {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+            color: #ff5252;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+        
+        .bowflex {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #ffb74d;
+            letter-spacing: -0.5px;
+        }
+        
+        .lifefitness {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1rem, 2.2vw, 1.4rem);
+            color: #4caf50;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .precor {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #2196f3;
+            letter-spacing: -1px;
+        }
+        
+        .matrix {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+            color: #f44336;
+            letter-spacing: -1px;
+        }
+        
+        .solefitness {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
+            color: #9c27b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .horizon {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #ff9800;
+            letter-spacing: -0.5px;
+        }
+        
+        .cybex {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+            color: #00bcd4;
+            letter-spacing: -1px;
+        }
+        
+        .schwinn {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #e91e63;
+            letter-spacing: -1px;
+        }
+        
+        .nautilus {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+            color: #3f51b5;
+            letter-spacing: -0.5px;
+        }
+        
+        .technogym {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.1rem, 2.3vw, 1.45rem);
+            color: #ff5722;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .truefitness {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1rem, 2.1vw, 1.35rem);
+            color: #8bc34a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .spiritfitness {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
+            color: #c5a17d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .octanefitness {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1rem, 2.1vw, 1.35rem);
+            color: #ff4081;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #888;
+            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            padding: 0 20px;
         }
         
         /* Decorative elements */
-        .decoration {
-            position: absolute;
-            width: 150px;
-            height: 150px;
+        .decorative-circle {
+            position: fixed;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(79,172,254,0.3) 0%, rgba(0,242,254,0) 70%);
             z-index: -1;
+            pointer-events: none;
         }
         
-        .decoration-1 {
-            top: -50px;
-            left: -50px;
-            width: 200px;
-            height: 200px;
+        .circle-1 {
+            width: min(80vw, 400px);
+            height: min(80vw, 400px);
+            background: radial-gradient(circle, rgba(255,126,95,0.1) 0%, transparent 70%);
+            top: 10%;
+            left: -10%;
         }
         
-        .decoration-2 {
-            bottom: -70px;
-            right: -40px;
-            width: 180px;
-            height: 180px;
+        .circle-2 {
+            width: min(60vw, 300px);
+            height: min(60vw, 300px);
+            background: radial-gradient(circle, rgba(94, 95, 255, 0.1) 0%, transparent 70%);
+            bottom: 10%;
+            right: -10%;
         }
         
-        /* Buttons */
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            color: white;
-            font-size: 1.3rem;
-            font-weight: 700;
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 35px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-        }
-        
-        .cta-button:active {
-            transform: translateY(2px);
-        }
-        
-        .cta-button i {
-            margin-left: 10px;
-            transition: transform 0.3s ease;
-        }
-        
-        .cta-button:hover i {
-            transform: translateX(5px);
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 992px) {
-            .summer-banner {
-                padding: 25px 20px;
-                margin-bottom: 40px;
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .brand-section {
+                padding: 2rem 0;
             }
             
-            .discount-highlight {
-                font-size: 3.5rem;
-            }
-            
-            .offer-details {
-                font-size: 1.4rem;
-            }
-            
-            .banner-title {
-                font-size: 2rem;
-            }
-            
-            .offer-dates {
-                font-size: 1.1rem;
-            }
-        }
-        
-        @media (max-width: 767px) {
-            .summer-banner {
-                padding: 20px 15px;
-                margin-bottom: 30px;
-            }
-            
-            .discount-highlight {
-                font-size: 2.8rem;
-            }
-            
-            .offer-details {
-                font-size: 1.1rem;
-            }
-            
-            .banner-title {
-                font-size: 1.7rem;
-            }
-            
-            .banner-badge {
-                font-size: 1.1rem;
-                padding: 6px 20px;
-            }
-            
-            .offer-dates {
-                font-size: 1rem;
-                padding: 8px 15px;
-            }
-            
-            .cta-button {
-                font-size: 1.1rem;
-                padding: 14px 30px;
+            .brand-title {
+                margin-bottom: 1.5rem;
             }
         }
         
         @media (max-width: 480px) {
-            .discount-highlight {
-                font-size: 2.2rem;
+            .brand-track {
+                animation-duration: 30s;
             }
             
-            .offer-details {
-                font-size: 1rem;
-            }
-            
-            .banner-title {
-                font-size: 1.4rem;
-            }
-            
-            .banner-badge {
-                font-size: 0.9rem;
-            }
-            
-            .offer-dates {
-                font-size: 0.9rem;
+            .brand-card {
+                width: 140px;
+                height: 100px;
             }
         }
         
-        /* Demo content */
-        .demo-content {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 40px;
-            width: 100%;
-            max-width: 800px;
-            margin-top: 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .demo-content h2 {
-            color: var(--theme-color);
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-        }
-        
-        .demo-content p {
-            color: var(--light-text);
-            font-size: 1.1rem;
-            line-height: 1.7;
-            max-width: 600px;
-            margin: 0 auto 25px;
+        /* Touch support for mobile */
+        .brand-track {
+            touch-action: manipulation;
         }
     </style>
 </head>
 <body>
+    <div class="decorative-circle circle-1"></div>
+    <div class="decorative-circle circle-2"></div>
+    
     <div class="container">
-        <!-- Summer Discount Banner -->
-        <div class="summer-banner">
-            <div class="decoration decoration-1"></div>
-            <div class="decoration decoration-2"></div>
-            
-            <div class="floating-icons">
-                <div class="floating-icon" style="top: 10%; left: 15%; animation-delay: 0s;"><i class="ri-sun-fill"></i></div>
-                <div class="floating-icon" style="top: 30%; left: 80%; animation-delay: 2s;"><i class="ri-star-smile-fill"></i></div>
-                <div class="floating-icon" style="top: 70%; left: 10%; animation-delay: 4s;"><i class="ri-water-flash-fill"></i></div>
-                <div class="floating-icon" style="top: 50%; left: 65%; animation-delay: 6s;"><i class="ri-sailboat-fill"></i></div>
-                <div class="floating-icon" style="top: 20%; left: 40%; animation-delay: 8s;"><i class="ri-palm-tree-fill"></i></div>
-            </div>
-            
-            <div class="banner-content">
-                <div class="banner-badge">Summer Special</div>
-                <h1 class="banner-title">Multi-Equipment Discount!</h1>
-                
-                <div class="discount-highlight">20% OFF</div>
-                
-                <div class="offer-details">on additional equipment repair/service</div>
-                
-                <div class="offer-dates">Valid: June 16 - July 30, 2025</div>
-                
-                <a href="#" class="cta-button">
-                    Claim Your Discount Now <i class="ri-arrow-right-line"></i>
-                </a>
-            </div>
-        </div>
+        <header>
+            <h1>Premium Fitness Equipment Brands</h1>
+            <p class="subtitle">Discover the world's leading fitness manufacturers with authentic logo styling</p>
+        </header>
         
-        <!-- Demo content -->
-        <div class="demo-content">
-            <h2>Canadian Fitness Repair</h2>
-            <p>GTA's #1 Fitness Repair Service - Expert repair, installation and maintenance for all fitness equipment.</p>
-            <p>Proudly serving Hamilton, Ancaster, Stoney Creek, Burlington, Oakville, Mississauga, Brampton & Toronto</p>
+        <section class="brand-section">
+            <h2 class="brand-title">Trusted by Professionals Worldwide</h2>
+            <div class="brand-carousel-container">
+                <div class="brand-track-wrapper">
+                    <div class="brand-track">
+                        <!-- Brands -->
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nordictrack">NORDICTRACK</div>
+                            </div>
+                            <div class="brand-name">NordicTrack</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="proform">PROFORM</div>
+                            </div>
+                            <div class="brand-name">ProForm</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="bowflex">BOWFLEX</div>
+                            </div>
+                            <div class="brand-name">Bowflex</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="lifefitness">LIFE FITNESS</div>
+                            </div>
+                            <div class="brand-name">Life Fitness</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="precor">PRECOR</div>
+                            </div>
+                            <div class="brand-name">Precor</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="matrix">MATRIX</div>
+                            </div>
+                            <div class="brand-name">Matrix</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="solefitness">SOLE FITNESS</div>
+                            </div>
+                            <div class="brand-name">Sole Fitness</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="horizon">HORIZON</div>
+                            </div>
+                            <div class="brand-name">Horizon</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="cybex">CYBEX</div>
+                            </div>
+                            <div class="brand-name">Cybex</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="schwinn">SCHWINN</div>
+                            </div>
+                            <div class="brand-name">Schwinn</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nautilus">NAUTILUS</div>
+                            </div>
+                            <div class="brand-name">Nautilus</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="technogym">TECHNOGYM</div>
+                            </div>
+                            <div class="brand-name">Technogym</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="truefitness">TRUE FITNESS</div>
+                            </div>
+                            <div class="brand-name">True Fitness</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="spiritfitness">SPIRIT FITNESS</div>
+                            </div>
+                            <div class="brand-name">Spirit Fitness</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="octanefitness">OCTANE FITNESS</div>
+                            </div>
+                            <div class="brand-name">Octane Fitness</div>
+                        </div>
+                        
+                        <!-- Duplicate for seamless loop -->
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nordictrack">NORDICTRACK</div>
+                            </div>
+                            <div class="brand-name">NordicTrack</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="proform">PROFORM</div>
+                            </div>
+                            <div class="brand-name">ProForm</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="bowflex">BOWFLEX</div>
+                            </div>
+                            <div class="brand-name">Bowflex</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="lifefitness">LIFE FITNESS</div>
+                            </div>
+                            <div class="brand-name">Life Fitness</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="precor">PRECOR</div>
+                            </div>
+                            <div class="brand-name">Precor</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="matrix">MATRIX</div>
+                            </div>
+                            <div class="brand-name">Matrix</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="solefitness">SOLE FITNESS</div>
+                            </div>
+                            <div class="brand-name">Sole Fitness</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="horizon">HORIZON</div>
+                            </div>
+                            <div class="brand-name">Horizon</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="cybex">CYBEX</div>
+                            </div>
+                            <div class="brand-name">Cybex</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="schwinn">SCHWINN</div>
+                            </div>
+                            <div class="brand-name">Schwinn</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nautilus">NAUTILUS</div>
+                            </div>
+                            <div class="brand-name">Nautilus</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="technogym">TECHNOGYM</div>
+                            </div>
+                            <div class="brand-name">Technogym</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="truefitness">TRUE FITNESS</div>
+                            </div>
+                            <div class="brand-name">True Fitness</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="spiritfitness">SPIRIT FITNESS</div>
+                            </div>
+                            <div class="brand-name">Spirit Fitness</div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="octanefitness">OCTANE FITNESS</div>
+                            </div>
+                            <div class="brand-name">Octane Fitness</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="footer">
+            <p>Hover over any brand to pause the animation | Fully responsive design</p>
         </div>
     </div>
     
     <script>
-        // Add more floating icons dynamically
-        document.addEventListener('DOMContentLoaded', function() {
-            const floatingIcons = document.querySelector('.floating-icons');
-            const icons = [
-                'ri-sun-fill', 'ri-water-flash-fill', 'ri-palm-tree-fill', 
-                'ri-star-smile-fill', 'ri-sailboat-fill', 'ri-umbrella-fill',
-                'ri-flashlight-fill', 'ri-fire-fill', 'ri-water-percent-fill'
-            ];
-            
-            // Add 10 more floating icons
-            for (let i = 0; i < 10; i++) {
-                const icon = document.createElement('div');
-                icon.className = 'floating-icon';
-                icon.style.top = `${Math.random() * 100}%`;
-                icon.style.left = `${Math.random() * 100}%`;
-                icon.style.animationDelay = `${Math.random() * 10}s`;
-                icon.innerHTML = `<i class="${icons[Math.floor(Math.random() * icons.length)]}"></i>`;
-                floatingIcons.appendChild(icon);
-            }
-            
-            // Enhance the floating animation of the banner
-            const banner = document.querySelector('.summer-banner');
-            banner.addEventListener('mouseover', function() {
-                this.style.animationDuration = '4s';
-            });
-            
-            banner.addEventListener('mouseout', function() {
-                this.style.animationDuration = '6s';
-            });
+        // Touch support for mobile
+        const track = document.querySelector('.brand-track');
+        
+        track.addEventListener('touchstart', function() {
+            this.style.animationPlayState = 'paused';
+        });
+        
+        track.addEventListener('touchend', function() {
+            this.style.animationPlayState = 'running';
         });
     </script>
 </body>
