@@ -182,15 +182,15 @@
     }
 
     /* Links */
-    a {
+    main a {
       color: var(--theme-color);
       text-decoration: none;
       border-bottom: 1.5px solid transparent;
       transition: all 0.25s ease;
       cursor: pointer;
     }
-    a:hover,
-    a:focus {
+    main a:hover,
+    main a:focus {
       color: var(--accent-color);
       border-color: var(--accent-color);
       text-decoration: none;
@@ -369,7 +369,8 @@
 <body>
   <div id="header"></div>
 
-  <div class="main-container">
+<main>
+    <div class="main-container">
     <section class="blog-section" aria-label="Fitness Equipment Blog and Repair Guides">
       <h1>Fitness Equipment Repair Blog & Guides</h1>
       
@@ -728,6 +729,7 @@
       </div>
     </section>
   </div>
+</main>
 
   <div id="footer"></div>
   <script src="menu.js"></script>
