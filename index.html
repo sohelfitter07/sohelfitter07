@@ -413,7 +413,265 @@ fitness machine repair Mississauga,
         font-size: 2.5rem;
     }
 }
+/* Summer Discount Styles */
+.summer-discount-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    animation: pulse 2s infinite;
+}
 
+.discount-ribbon {
+    background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: rotate(3deg);
+    border: 2px dashed rgba(255, 255, 255, 0.4);
+}
+
+.discount-ribbon span {
+    display: block;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.discount-ribbon .dates {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 5px;
+    opacity: 0.9;
+}
+
+.discount-note {
+    background: rgba(93, 93, 255, 0.2);
+    padding: 12px 25px;
+    border-radius: 30px;
+    margin: 10px auto 20px;
+    max-width: 500px;
+    font-weight: 600;
+    animation: glow 3s infinite;
+    border: 1px solid var(--theme-color);
+}
+
+@keyframes pulse {
+    0% { transform: rotate(3deg) scale(1); }
+    50% { transform: rotate(3deg) scale(1.05); }
+    100% { transform: rotate(3deg) scale(1); }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(93, 93, 255, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(93, 93, 255, 0.6); }
+    100% { box-shadow: 0 0 5px rgba(93, 93, 255, 0.3); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .discount-ribbon span {
+        font-size: 1rem;
+    }
+    
+    .discount-ribbon .dates {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .summer-discount-badge {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        text-align: center;
+    }
+    
+    .discount-ribbon {
+        padding: 10px 15px;
+        transform: none;
+    }
+    
+    .discount-ribbon span {
+        font-size: 0.9rem;
+        letter-spacing: 0;
+    }
+    
+    .discount-ribbon .dates {
+        font-size: 0.75rem;
+    }
+    
+    .discount-note {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .discount-ribbon span {
+        font-size: 0.8rem;
+    }
+    
+    .discount-note {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+}
+/* Summer Offer Styles */
+.summer-offer-container {
+    position: absolute;
+    top: 120px;
+    right: 20px;
+    z-index: 10;
+    perspective: 1000px;
+}
+
+.summer-offer {
+    background: linear-gradient(135deg, #FF6B6B, #FF8E8E, #FF6B6B);
+    border-radius: 12px;
+    padding: 15px 20px 15px 60px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    transform: rotate(2deg);
+    animation: float 6s ease-in-out infinite;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.summer-offer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.offer-badge {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    background: var(--theme-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: rotate(-5deg);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.badge-dates {
+    font-size: 0.8rem;
+    margin-top: 2px;
+    opacity: 0.9;
+}
+
+.offer-content {
+    position: relative;
+    z-index: 1;
+}
+
+.offer-highlight {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: white;
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.offer-details {
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    max-width: 200px;
+    line-height: 1.3;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.offer-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    animation: spin 8s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(2deg); }
+    50% { transform: translateY(-10px) rotate(1deg); }
+    100% { transform: translateY(0) rotate(2deg); }
+}
+
+@keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .summer-offer-container {
+        position: static;
+        margin: 0 auto 20px;
+        max-width: 400px;
+    }
+    
+    .summer-offer {
+        transform: none;
+        padding: 15px 20px 15px 60px;
+    }
+    
+    .offer-highlight {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .summer-offer {
+        padding: 15px 15px 15px 50px;
+    }
+    
+    .offer-highlight {
+        font-size: 1.8rem;
+    }
+    
+    .offer-details {
+        font-size: 0.9rem;
+    }
+    
+    .offer-icon {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .summer-offer-container {
+        max-width: 300px;
+    }
+    
+    .offer-highlight {
+        font-size: 1.5rem;
+    }
+    
+    .offer-details {
+        font-size: 0.85rem;
+    }
+    
+    .offer-badge {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+}
         /* Brand Carousel */
         .brand-section {
             background-color: var(--card-bg);
@@ -913,24 +1171,41 @@ fitness machine repair Mississauga,
 <div id="header"></div>
     
     <main>
-        <section class="hero">
-            <h1>GTA's #1 Fitness Repair Service</h1>
-            <p>Expert repair, installation and maintenance for all fitness equipment</p>
-            
-            <div class="word-animation">
-                <div id="wordWrapper">
-                    <div class="word-item">Repair</div>
-                    <div class="word-item">Installation</div>
-                    <div class="word-item">Maintenance</div>
-                    <div class="word-item">Relocation</div>
-                    <div class="word-item">Project</div>
-                </div>
+<!-- Add this to your hero section in index.html -->
+<section class="hero">
+    <div class="summer-offer-container">
+        <div class="summer-offer">
+            <div class="offer-badge">
+                <div class="badge-text">SUMMER SAVINGS</div>
+                <div class="badge-dates">June 16 - July 30</div>
             </div>
-            
-            <a class="c-button" style="margin-top: 20px; text-decoration: none;" href="https://canadianfitnessrepair.com/get-quote.html">
-                Schedule Service Today
-            </a>
-        </section>
+            <div class="offer-content">
+                <div class="offer-highlight">20% OFF</div>
+                <div class="offer-details">On additional equipment repair/service!</div>
+            </div>
+            <div class="offer-icon">
+                <i class="ri-sun-fill"></i>
+            </div>
+        </div>
+    </div>
+    
+    <h1>GTA's #1 Fitness Repair Service</h1>
+    <p>Expert repair, installation and maintenance for all fitness equipment</p>
+    
+    <div class="word-animation">
+        <div id="wordWrapper">
+            <div class="word-item">Repair</div>
+            <div class="word-item">Installation</div>
+            <div class="word-item">Maintenance</div>
+            <div class="word-item">Relocation</div>
+            <div class="word-item">Project</div>
+        </div>
+    </div>
+    
+    <a class="c-button" style="margin-top: 20px; text-decoration: none;" href="https://canadianfitnessrepair.com/get-quote.html">
+        Schedule Service Today
+    </a>
+</section>
         
         <section class="brand-section">
             <h2 class="brand-title">Trusted by Leading Manufacturers</h2>
@@ -1169,7 +1444,7 @@ fitness machine repair Mississauga,
             </div>
         </section>
         <!-- Summer Discount Section -->
-<section class="discount-section">
+<!-- <section class="discount-section">
     <div class="discount-card">
         <div class="discount-badge">SUMMER SPECIAL</div>
         <h2>Multi-Equipment Discount</h2>
@@ -1182,7 +1457,7 @@ fitness machine repair Mississauga,
             Claim Your Discount Now
         </a>
     </div>
-</section>
+</section> -->
         <section class="services">
             <h2 class="section-title">Our Premium Services</h2>
             <div class="services-grid">
@@ -1397,5 +1672,6 @@ fitness machine repair Mississauga,
 <script src="animations.js"></script>
 
 <script src="whatsapp.js"></script>
+<script src="headerfooter.js"></script>
 </body>
 </html>
