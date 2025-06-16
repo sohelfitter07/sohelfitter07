@@ -84,17 +84,7 @@
         <priority>0.7</priority>
     </url>
         <!-- Example Blog Post Pages -->
-    <url>
-        <loc>https://www.canadianfitnessrepair.com/blog/treadmill-vs-elliptical.html</loc>
-        <lastmod>2025-06-12</lastmod>
-        <priority>0.6</priority>
-    </url>
 
-    <url>
-        <loc>https://www.canadianfitnessrepair.com/blog/equipment-repair-signs.html</loc>
-        <lastmod>2025-06-12</lastmod>
-        <priority>0.6</priority>
-    </url>
   
   <!-- Service Area Pages -->
   <url>
