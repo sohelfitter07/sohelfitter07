@@ -19,7 +19,80 @@
 <link rel="stylesheet" href="headerfooter.css">
 
     <!-- Main Body Style -->
+<style>
+/* Add this at the top of your CSS to create responsive variables */
+:root {
+    --mobile-padding: 1rem;
+    --tablet-padding: 1.5rem;
+}
 
+/* Update existing media queries */
+@media (max-width: 992px) {
+    .contact-hero {
+        padding: 4rem var(--tablet-padding);
+    }
+    .contact-section {
+        padding: 4rem var(--tablet-padding);
+    }
+    .map-section {
+        padding: 0 var(--tablet-padding) 4rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .contact-hero {
+        padding: 3rem var(--mobile-padding) 1rem;
+    }
+    .contact-section {
+        padding: 3rem var(--mobile-padding);
+        gap: 1.5rem;
+    }
+    .map-section {
+        padding: 0 var(--mobile-padding) 3rem;
+    }
+    .contact-info, 
+    .contact-form {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 80px; /* Reduce top padding for mobile */
+    }
+    .contact-hero {
+        padding: 2rem var(--mobile-padding) 0.5rem;
+    }
+    .contact-section {
+        padding: 2rem var(--mobile-padding);
+    }
+    .contact-info, 
+    .contact-form {
+        padding: 1.25rem;
+    }
+    .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .contact-icon {
+        margin-right: 0;
+        margin-bottom: 0.75rem;
+    }
+}
+
+/* Add this new rule to constrain content width */
+.container,
+.contact-section,
+.map-section {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* Ensure form elements don't overflow */
+.form-control {
+    max-width: 100%;
+}
+</style>
     <style>
 
         * {
