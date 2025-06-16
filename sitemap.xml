@@ -76,6 +76,25 @@
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
+
+      <!-- Blog Main Page -->
+    <url>
+        <loc>https://www.canadianfitnessrepair.com/blog.html</loc>
+        <lastmod>2025-06-12</lastmod>
+        <priority>0.7</priority>
+    </url>
+        <!-- Example Blog Post Pages -->
+    <url>
+        <loc>https://www.canadianfitnessrepair.com/blog/treadmill-vs-elliptical.html</loc>
+        <lastmod>2025-06-12</lastmod>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://www.canadianfitnessrepair.com/blog/equipment-repair-signs.html</loc>
+        <lastmod>2025-06-12</lastmod>
+        <priority>0.6</priority>
+    </url>
   
   <!-- Service Area Pages -->
   <url>
@@ -129,17 +148,7 @@
     <changefreq>monthly</changefreq>
   </url>
 
-  <!-- Legal Pages -->
-  <url>
-    <loc>https://www.canadianfitnessrepair.com/PPT&amp;C.html</loc>
-    <priority>0.2</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-  <!-- <url>
-    <loc>https://www.canadianfitnessrepair.com/terms.html</loc> 
-    <priority>0.2</priority>
-    <changefreq>yearly</changefreq>
-  </url> -->
+
   <url>
     <loc>https://www.canadianfitnessrepair.com/sitemap.html</loc>
     <priority>0.3</priority>
