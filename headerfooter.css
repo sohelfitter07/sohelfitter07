@@ -724,6 +724,8 @@ body.has-banner {
                 padding: 0.6rem 0.6rem;
                 font-size: 0.75rem;
             }
+               .promo-line {
+                font-size: 0.7rem;
         }
         
         @media (min-width: 768px) {
