@@ -92,6 +92,12 @@
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
   </url>
+
+  <url>
+    <loc>https://www.canadianfitnessrepair.com/hamilton-mountain-ancaster.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
   <url>
     <loc>https://www.canadianfitnessrepair.com/treadmill-repair-burlington.html</loc>
     <priority>0.6</priority>
