@@ -726,6 +726,7 @@ body.has-banner {
             }
                .promo-line {
                 font-size: 0.7rem;
+               }
         }
         
         @media (min-width: 768px) {
