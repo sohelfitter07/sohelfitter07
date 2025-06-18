@@ -758,4 +758,130 @@ body.has-banner {
                 font-size: 0.6rem;
             }
         }
-   
+   /* Add to existing CSS */
+/* Footer Service Areas Styles */
+.footertop-middle {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.footer-cities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.6rem 1.5rem;
+    width: 100%;
+}
+
+.footer-cities a {
+    color: var(--light-text);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    padding: 4px 0;
+}
+
+.footer-cities a:hover {
+    color: var(--theme-color);
+    padding-left: 5px;
+}
+
+.blog-link {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    grid-column: 1 / -1;
+}
+
+/* Neighborhood links styling */
+.footer-neighborhoods {
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.footer-neighborhoods h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--light-text);
+}
+
+.neighborhood-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.6rem 1.5rem;
+}
+
+.neighborhood-links a {
+    color: var(--light-text);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    padding: 4px 0;
+}
+
+.neighborhood-links a:hover {
+    color: var(--theme-color);
+    padding-left: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .footertop {
+        gap: 5rem;
+    }
+    
+    .footer-cities,
+    .neighborhood-links {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 0.5rem 1rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .footertop {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .footertop-middle {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+    
+    .footer-cities,
+    .neighborhood-links {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.8rem;
+    }
+    
+    .footer-neighborhoods {
+        margin-top: 2rem;
+    }
+    
+    .blog-link {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-cities,
+    .neighborhood-links {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 0.6rem;
+    }
+    
+    .footer-cities a,
+    .neighborhood-links a {
+        font-size: 0.9rem;
+    }
+    
+    .footer-neighborhoods h3 {
+        font-size: 1.1rem;
+    }
+}
