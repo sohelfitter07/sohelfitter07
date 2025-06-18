@@ -1,32 +1,28 @@
-from PIL import Image
+from PIL import Image, ImageOps
 import os
-from pathlib import Path
-import shutil
 
-# Define folders
-image_dir = Path("images")
-backup_dir = Path("backup_images")
-backup_dir.mkdir(exist_ok=True)
+# Define input and output directories
+input_folder = "backup_images"
+output_folder = "images"
 
-# File types to compress/convert
-extensions = [".jpg", ".jpeg", ".png"]
+# Create output folder if it doesn't exist
+os.makedirs(output_folder, exist_ok=True)
 
-def optimize_image(image_path):
-    try:
-        # Create backup
-        shutil.copy(image_path, backup_dir / image_path.name)
+# Allowed image extensions
+image_extensions = ('.jpg', '.jpeg', '.png')
 
-        # Open and convert image
-        with Image.open(image_path) as img:
-            img = img.convert("RGB")
-            webp_path = image_path.with_suffix(".webp")
-            img.save(webp_path, "webp", quality=80, optimize=True)
+# Loop through all files in the input folder
+for filename in os.listdir(input_folder):
+    if filename.lower().endswith(image_extensions):
+        source_path = os.path.join(input_folder, filename)
 
-        print(f"🗜️ Optimized and converted: {image_path.name}")
-    except Exception as e:
-        print(f"❌ Failed: {image_path.name} — {e}")
+        # Open and auto-orient the image
+        with Image.open(source_path) as img:
+            img = ImageOps.exif_transpose(img)  # Fix orientation
 
-# Process all images
-for file in image_dir.iterdir():
-    if file.suffix.lower() in extensions:
-        optimize_image(file)
+            # Convert and save as .webp
+            output_filename = os.path.splitext(filename)[0] + ".webp"
+            output_path = os.path.join(output_folder, output_filename)
+            img.save(output_path, "WEBP", quality=85)
+
+            print(f"Optimized and saved: {output_filename}")
