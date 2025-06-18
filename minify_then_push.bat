@@ -1,19 +1,13 @@
 @echo off
-echo 🔧 Running minification before push...
+echo ⚙️ Running minification before push...
 python minify_assets.py
-
-IF %ERRORLEVEL% NEQ 0 (
-    echo ❌ Minification failed. Push aborted.
+if %errorlevel% neq 0 (
+    echo ❌ Minification failed. Aborting push.
+    pause
     exit /b 1
 )
 
 echo ✅ Minification successful. Now pushing to Git...
 git push
-
-IF %ERRORLEVEL% NEQ 0 (
-    echo ❌ Git push failed.
-    exit /b 1
-) ELSE (
-    echo 🎉 Push completed successfully.
-)
+echo ✅ Push completed successfully.
 pause
