@@ -1,34 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    
-<!-- Improved SEO & Social Sharing Tags -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>24/7 Treadmill Repair Hamilton | Fitness Equipment Repair GTA | Canadian Fitness Repair</title>
-
-<!-- Primary Description (Enhanced for CTR & Keywords) -->
-<meta name="description" content="EMERGENCY 24/7 treadmill repair & fitness equipment maintenance in Hamilton, Burlington, Oakville, Mississauga, Niagara & GTA. Same-day commercial/residential service +200km radius. Certified technicians.">
-
-<!-- Keywords (Optimized for Local Intent) -->
-<meta name="keywords" content="
-treadmill repair Hamilton, 
-emergency fitness equipment repair, 
-commercial gym repair service, 
-elliptical repair GTA, 
-urgent treadmill service Burlington, 
-gym equipment maintenance Oakville, 
-fitness machine repair Mississauga, 
-24/7 exercise equipment technician Niagara
-">
-
-<!-- Open Graph (Social Optimization) -->
-<meta property="og:title" content="🚨 24/7 Emergency Treadmill Repair | Hamilton & GTA Fitness Equipment Service">
-<meta property="og:description" content="Need URGENT fitness equipment repair? Same-day service for treadmills, ellipticals & commercial gyms. Serving Hamilton, Burlington, Oakville, Mississauga, Niagara 24/7!">
-<meta property="og:image" content="https://www.canadianfitnessrepair.com/images/technician-repairing-treadmill.jpg"><!-- Changed to action shot -->
-<meta property="og:url" content="https://www.canadianfitnessrepair.com">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="en_CA">
+<head>       
 
 <!-- Local Business Schema (Critical for Local SEO) -->
 <script type="application/ld+json">
@@ -58,48 +30,23 @@ fitness machine repair Mississauga,
     "longitude": "-79.8660"
   },
   "areaServed": [
-    // PRIORITIZE HAMILTON AREA FIRST
-    {"@type": "City", "name": "Hamilton"},
+    // HAMILTON NEIGHBORHOODS FIRST (MOST IMPORTANT)
+    {"@type": "AdministrativeArea", "name": "Hamilton Mountain"},
+    {"@type": "AdministrativeArea", "name": "Hamilton East"},
+    {"@type": "Neighborhood", "name": "Ancaster"},
+    {"@type": "Neighborhood", "name": "Dundas"},
+    {"@type": "Neighborhood", "name": "Stoney Creek"},
+    {"@type": "Neighborhood", "name": "Waterdown"},
+    
+    // IMMEDIATE SURROUNDING AREAS (SECOND PRIORITY)
     {"@type": "City", "name": "Burlington"},
-    {"@type": "City", "name": "Oakville"},
-    {"@type": "City", "name": "Stoney Creek"},
-    {"@type": "City", "name": "Ancaster"},
-    {"@type": "City", "name": "Dundas"},
-    {"@type": "City", "name": "Waterdown"},
     {"@type": "City", "name": "Grimsby"},
-    // THEN SURROUNDING AREAS
+    {"@type": "City", "name": "Oakville"},
+    
+    // EXTENDED SERVICE AREA (LESS EMPHASIS)
     {"@type": "City", "name": "Mississauga"},
-    {"@type": "City", "name": "Brampton"},
-    {"@type": "City", "name": "Toronto"},
-    {"@type": "City", "name": "Guelph"},
-    {"@type": "City", "name": "Kitchener"},
-    {"@type": "City", "name": "Waterloo"},
-    {"@type": "City", "name": "Cambridge"},
     {"@type": "City", "name": "Brantford"},
-    {"@type": "City", "name": "St. Catharines"},
-    {"@type": "City", "name": "Niagara Falls"},
-    {"@type": "City", "name": "Welland"},
-    {"@type": "City", "name": "London"},
-    {"@type": "City", "name": "Woodstock"},
-    {"@type": "City", "name": "Stratford"},
-    {"@type": "City", "name": "Oshawa"},
-    {"@type": "City", "name": "Pickering"},
-    {"@type": "City", "name": "Ajax"},
-    {"@type": "City", "name": "Whitby"},
-    {"@type": "City", "name": "Newmarket"},
-    {"@type": "City", "name": "Aurora"},
-    {"@type": "City", "name": "Vaughan"},
-    {"@type": "City", "name": "Markham"},
-    {"@type": "City", "name": "Richmond Hill"},
-    {"@type": "City", "name": "Milton"},
-    {"@type": "City", "name": "Georgetown"},
-    {"@type": "Region", "name": "Greater Toronto Area"},
-    {"@type": "Region", "name": "Niagara Region"},
-    {"@type": "Region", "name": "Waterloo Region"},
-    {"@type": "Region", "name": "Brant County"},
-    {"@type": "Region", "name": "Halton Region"},
-    {"@type": "Region", "name": "Peel Region"},
-    {"@type": "Region", "name": "Durham Region"}
+    {"@type": "City", "name": "Niagara Falls"}
   ],
   "serviceArea": {
     "@type": "GeoCircle",
@@ -108,7 +55,7 @@ fitness machine repair Mississauga,
       "latitude": "43.2250",
       "longitude": "-79.8660"
     },
-    "geoRadius": "150000"
+    "geoRadius": "50000" // Reduced from 150km to 50km
   },
   "openingHoursSpecification": [{
     "@type": "OpeningHoursSpecification",
@@ -126,56 +73,102 @@ fitness machine repair Mississauga,
       "@type": "Service",
       "serviceType": "TreadmillRepair",
       "name": "Emergency Treadmill Repair",
-      "description": "24/7 same-day repair service for residential and commercial treadmills",
-      "offeredIn": "All locations within 150km of Hamilton"
+      "description": "24/7 same-day treadmill repair service in Hamilton",
+      "offeredIn": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {"@type": "GeoCoordinates", "latitude": 43.2250, "longitude": -79.8660},
+        "geoRadius": 50000
+      }
     },
     {
       "@type": "Service",
       "serviceType": "EllipticalRepair",
       "name": "Elliptical Machine Maintenance",
-      "description": "Preventative maintenance and emergency repairs for all elliptical models",
-      "offeredIn": "All locations within 150km of Hamilton"
+      "description": "Emergency elliptical repairs serving Hamilton Mountain and surrounding areas",
+      "offeredIn": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {"@type": "GeoCoordinates", "latitude": 43.2250, "longitude": -79.8660},
+        "geoRadius": 50000
+      }
     },
     {
       "@type": "Service",
       "serviceType": "CommercialGymRepair",
       "name": "Commercial Fitness Equipment Service",
-      "description": "On-site repair for gyms and fitness centers with certified technicians",
-      "offeredIn": "All locations within 150km of Hamilton"
-    },
-    {
-      "@type": "Service",
-      "serviceType": "EquipmentRelocation",
-      "name": "Fitness Machine Moving & Installation",
-      "description": "Professional relocation services for commercial and home gym equipment",
-      "offeredIn": "All locations within 150km of Hamilton"
+      "description": "On-site gym repair for fitness centers in Hamilton and GTA",
+      "offeredIn": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {"@type": "GeoCoordinates", "latitude": 43.2250, "longitude": -79.8660},
+        "geoRadius": 50000
+      }
     }
   ],
-  "review": {
-    "@type": "Review",
-    "itemReviewed": {
-      "@type": "LocalBusiness",
-      "name": "Canadian Fitness Repair"
+  "review": [ // Changed to array for multiple reviews
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {"@type": "Person", "name": "Mike T."},
+      "reviewBody": "Emergency treadmill repair in Hamilton completed same-day! Technician arrived within 2 hours."
     },
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": "4.9",
-      "bestRating": "5"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "Sarah Johnson"
-    },
-    "reviewBody": "Saved our gym during a critical breakdown! Same-day service in Hamilton with professional technicians who fixed our commercial treadmill."
-  },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {"@type": "Person", "name": "Sarah K."},
+      "reviewBody": "Fixed our commercial treadmill at Ancaster gym when nobody else could. Highly recommend!"
+    }
+  ],
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
-    "reviewCount": 142,
+    "reviewCount": "142",
     "bestRating": "5"
   }
 }
 </script>
+    
+<!-- Improved SEO & Social Sharing Tags -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treadmill Repair Hamilton | 24/7 Emergency Service | Canadian Fitness Repair</title>
+
+<!-- Primary Description (Enhanced for CTR & Keywords) -->
+<meta name="description" content="24/7 Treadmill Repair Hamilton ➤ Emergency Same-Day Service ✅ Certified Technicians ❌ No Extra Fees ⭐ 4.9/5 Rated. Serving Ancaster, Dundas, Burlington">
+<!-- Keywords (Optimized for Local Intent) -->
+<meta name="keywords" content="
+treadmill repair Hamilton, 
+emergency fitness equipment repair, 
+commercial gym repair service, 
+elliptical repair GTA, 
+urgent treadmill service Burlington, 
+gym equipment maintenance Oakville, 
+fitness machine repair Mississauga, 
+24/7 exercise equipment technician Niagara, 
+treadmill repair Hamilton Mountain,
+treadmill repair Downtown Hamilton,
+fitness equipment repair Ancaster,
+gym repair service Dundas,
+elliptical repair Burlington,
+urgent treadmill service Stoney Creek,
+commercial gym repair Hamilton
+">
+
+<!-- Open Graph (Social Optimization) -->
+<meta property="og:title" content="🚨 24/7 Emergency Treadmill Repair | Hamilton & GTA Fitness Equipment Service">
+<meta property="og:description" content="Need URGENT fitness equipment repair? Same-day service for treadmills, ellipticals & commercial gyms. Serving Hamilton, Burlington, Oakville, Mississauga, Niagara 24/7!">
+<meta property="og:image" content="https://www.canadianfitnessrepair.com/images/technician-repairing-treadmill.jpg"><!-- Changed to action shot -->
+<meta property="og:url" content="https://www.canadianfitnessrepair.com">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_CA">
+
+
 
 <!-- Local SEO Tags (Enhanced) -->
 <meta name="geo.placename" content="Hamilton, Burlington, Oakville, Mississauga, Niagara, Greater Toronto Area, Southern Ontario">
@@ -226,7 +219,7 @@ fitness machine repair Mississauga,
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 5rem 2rem 3rem 1rem;
+            padding: 10rem 2rem 3rem 1rem;
             background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
             background-size: cover;
             background-position: center;
@@ -317,81 +310,452 @@ fitness machine repair Mississauga,
             color: var(--light-text);
         }
 
+
+/* Summer Discount Banner */
+.summer-discount-banner {
+    background: linear-gradient(135deg, #ff9d00, #ff6b00, #ff9d00);
+    border-radius: 12px;
+    padding: 20px 15px;
+    max-width: 95%;
+    margin: 0 auto 30px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    animation: float 6s ease-in-out infinite;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.summer-discount-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+    transform: rotate(30deg);
+    z-index: -1;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.banner-badge {
+    background: linear-gradient(135deg, #ff5500, #ff8c00);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.banner-content h2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: 10px;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.discount-highlight {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    font-weight: 900;
+    color: white;
+    margin: 8px 0;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    line-height: 1.1;
+    position: relative;
+    display: inline-block;
+}
+
+.discount-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+    border-radius: 3px;
+}
+
+.banner-content p {
+    font-size: clamp(1rem, 3.5vw, 1.3rem);
+    font-weight: 600;
+    color: white;
+    margin-top: 8px;
+    line-height: 1.3;
+}
+
+.valid-dates {
+    font-size: clamp(0.85rem, 3vw, 1.1rem);
+    font-weight: 600;
+    color: #ffff00;
+    margin-top: 12px;
+    font-style: italic;
+    background: rgba(0,0,0,0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
+
+/* Decorative elements */
+.palm-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: rgba(255, 255, 255, 0.7);
+    transform: rotate(-15deg);
+    z-index: 1;
+}
+
+.sun-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: rgba(255, 255, 255, 0.7);
+    animation: spin 8s linear infinite;
+    z-index: 1;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
         /* Brand Carousel */
         .brand-section {
-            background-color: var(--card-bg);
+            background: rgba(30, 30, 46, 0.7);
+            backdrop-filter: blur(10px);
             padding: 3rem 0;
             position: relative;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(93, 93, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            margin-top: 20px;
+            width: 100%;
         }
 
         .brand-title {
             text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--light-text);
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+            color: #ffffff;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            position: relative;
+            font-weight: 500;
+            padding: 0 20px;
+        }
+        
+        .brand-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            margin: 12px auto 0;
+            border-radius: 3px;
         }
 
-        .brand-carousel {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .brand-carousel-container {
+            width: 100%;
             position: relative;
             overflow: hidden;
+        }
+        
+        .brand-track-wrapper {
+            overflow: hidden;
+            padding: 15px 0;
         }
 
         .brand-track {
             display: flex;
-            animation: brand-scroll 30s linear infinite;
-            gap: 20px;
+            animation: brand-scroll 40s linear infinite;
+            gap: clamp(15px, 2.5vw, 25px);
+            padding: 10px 0;
+            width: max-content;
+        }
+        
+        .brand-track:hover {
+            animation-play-state: paused;
         }
 
         .brand-card {
-            background: var(--bg-color);
-            border-radius: 12px;
-            padding: 15px;
-            min-width: 150px;
-            height: 100px;
+            background: rgba(25, 25, 40, 0.9);
+            border-radius: 16px;
+            padding: clamp(15px, 2vw, 25px) clamp(15px, 1.5vw, 20px);
+            width: clamp(140px, 18vw, 200px);
+            height: clamp(100px, 15vw, 140px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: var(--transition);
-            border: 1px solid rgba(93, 93, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 126, 95, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .brand-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .brand-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(93, 93, 255, 0.3);
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(255, 126, 95, 0.3);
+            background: rgba(35, 35, 55, 0.95);
+            border-color: rgba(255, 126, 95, 0.4);
+        }
+        
+        .brand-card:hover::before {
+            opacity: 1;
         }
 
         .brand-logo {
-            height: 40px;
-            margin-bottom: 10px;
-            filter: grayscale(100%) brightness(150%);
-            transition: var(--transition);
-        }
-
-        .brand-card:hover .brand-logo {
-            filter: grayscale(0) brightness(100%);
+            height: clamp(35px, 6vw, 50px);
+            margin-bottom: clamp(8px, 1.5vw, 15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            width: 100%;
         }
 
         .brand-name {
-            font-size: 0.9rem;
-            color: var(--light-text);
+            font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+            color: #b0b0d0;
             text-align: center;
             font-weight: 500;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .brand-card:hover .brand-name {
+            opacity: 1;
+            color: #ffffff;
         }
 
         @keyframes brand-scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-
+        
+        /* Brand-specific styles with perfect fitting */
+        .nordictrack {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(0, 200, 255, 0.8);
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+        
+        .proform {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+            color: #ff5252;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+        
+        .bowflex {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #ffb74d;
+            letter-spacing: -0.5px;
+        }
+        
+        .lifefitness {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1rem, 2.2vw, 1.4rem);
+            color: #4caf50;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .precor {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #2196f3;
+            letter-spacing: -1px;
+        }
+        
+        .matrix {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+            color: #f44336;
+            letter-spacing: -1px;
+        }
+        
+        .solefitness {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
+            color: #9c27b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .horizon {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #ff9800;
+            letter-spacing: -0.5px;
+        }
+        
+        .cybex {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+            color: #00bcd4;
+            letter-spacing: -1px;
+        }
+        
+        .schwinn {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #e91e63;
+            letter-spacing: -1px;
+        }
+        
+        .nautilus {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+            color: #3f51b5;
+            letter-spacing: -0.5px;
+        }
+        
+        .technogym {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.1rem, 2.3vw, 1.45rem);
+            color: #ff5722;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .truefitness {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1rem, 2.1vw, 1.35rem);
+            color: #8bc34a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .spiritfitness {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
+            color: #c5a17d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .octanefitness {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1rem, 2.1vw, 1.35rem);
+            color: #ff4081;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #888;
+            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            padding: 0 20px;
+        }
+        
+        /* Decorative elements */
+        .decorative-circle {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .circle-1 {
+            width: min(80vw, 400px);
+            height: min(80vw, 400px);
+            background: radial-gradient(circle, rgba(255,126,95,0.1) 0%, transparent 70%);
+            top: 10%;
+            left: -10%;
+        }
+        
+        .circle-2 {
+            width: min(60vw, 300px);
+            height: min(60vw, 300px);
+            background: radial-gradient(circle, rgba(94, 95, 255, 0.1) 0%, transparent 70%);
+            bottom: 10%;
+            right: -10%;
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .brand-section {
+                padding: 2rem 0;
+            }
+            
+            .brand-title {
+                margin-bottom: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .brand-track {
+                animation-duration: 30s;
+            }
+            
+            .brand-card {
+                width: 140px;
+                height: 100px;
+            }
+        }
+        
+        /* Touch support for mobile */
+        .brand-track {
+            touch-action: manipulation;
+        }
         /* Services Section */
         .section-title {
             text-align: center;
@@ -600,7 +964,7 @@ fitness machine repair Mississauga,
         /* Responsive Styles - Main Content */
         @media (max-width: 992px) {
             .hero h1 {
-                padding-top: 3rem;
+                padding-top: 1rem;
                 font-size: 3rem;
             }
             
@@ -615,11 +979,11 @@ fitness machine repair Mississauga,
         
         @media (max-width: 480px) {
             .hero {
-                padding: 3rem 1rem;
+                padding: 9rem 1rem 1rem 1rem;
             }
             
             .hero h1 {
-                padding-top: 5rem;
+                padding-top: 1rem;
                 font-size: 1.8rem;
             }
             
@@ -816,7 +1180,25 @@ fitness machine repair Mississauga,
 <div id="header"></div>
     
     <main>
+        <div itemscope itemtype="https://schema.org/LocalBusiness">
+  <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+    Rated <span itemprop="ratingValue">4.9</span>/5 based on 
+    <span itemprop="reviewCount">142</span> reviews
+  </div>
+        </div>
+        <!-- Add this to your hero section in index.html -->
         <section class="hero">
+            <!-- Summer Discount Banner -->
+            <div class="summer-discount-banner">
+                <div class="banner-content">
+                    <div class="banner-badge">SUMMER SPECIAL</div>
+                    <h2>Multi-Equipment Discount!</h2>
+                    <div class="discount-highlight">20% OFF</div>
+                    <p>on additional equipment repair/service</p>
+                    <div class="valid-dates">Valid: June 16 - July 16, 2025</div>
+                </div>
+            </div>
+            
             <h1>GTA's #1 Fitness Repair Service</h1>
             <p>Expert repair, installation and maintenance for all fitness equipment</p>
             
@@ -836,135 +1218,197 @@ fitness machine repair Mississauga,
         </section>
         
         <section class="brand-section">
-            <h2 class="brand-title">Trusted by Leading Manufacturers</h2>
-            <div class="brand-carousel">
-                <div class="brand-track">
-                    <!-- Brands will be duplicated in JavaScript for infinite effect -->
-                    <div class="brand-card">
-                        <div class="brand-logo">NordicTrack</div>
-                        <div class="brand-name">NordicTrack</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">ProForm</div>
-                        <div class="brand-name">ProForm</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Bowflex</div>
-                        <div class="brand-name">Bowflex</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Life Fitness</div>
-                        <div class="brand-name">Life Fitness</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Precor</div>
-                        <div class="brand-name">Precor</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Matrix</div>
-                        <div class="brand-name">Matrix</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Sole Fitness</div>
-                        <div class="brand-name">Sole Fitness</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Horizon</div>
-                        <div class="brand-name">Horizon</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Cybex</div>
-                        <div class="brand-name">Cybex</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Schwinn</div>
-                        <div class="brand-name">Schwinn</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Nautilus</div>
-                        <div class="brand-name">Nautilus</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Technogym</div>
-                        <div class="brand-name">Technogym</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">True Fitness</div>
-                        <div class="brand-name">True Fitness</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Spirit Fitness</div>
-                        <div class="brand-name">Spirit Fitness</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Octane Fitness</div>
-                        <div class="brand-name">Octane Fitness</div>
-                    </div>
-                    <!-- Duplicate for seamless loop -->
-                    <div class="brand-card">
-                        <div class="brand-logo">NordicTrack</div>
-                        <div class="brand-name">NordicTrack</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">ProForm</div>
-                        <div class="brand-name">ProForm</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Bowflex</div>
-                        <div class="brand-name">Bowflex</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Life Fitness</div>
-                        <div class="brand-name">Life Fitness</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Precor</div>
-                        <div class="brand-name">Precor</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Matrix</div>
-                        <div class="brand-name">Matrix</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Sole Fitness</div>
-                        <div class="brand-name">Sole Fitness</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Horizon</div>
-                        <div class="brand-name">Horizon</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Cybex</div>
-                        <div class="brand-name">Cybex</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Schwinn</div>
-                        <div class="brand-name">Schwinn</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Nautilus</div>
-                        <div class="brand-name">Nautilus</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Technogym</div>
-                        <div class="brand-name">Technogym</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">True Fitness</div>
-                        <div class="brand-name">True Fitness</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Spirit Fitness</div>
-                        <div class="brand-name">Spirit Fitness</div>
-                    </div>
-                    <div class="brand-card">
-                        <div class="brand-logo">Octane Fitness</div>
-                        <div class="brand-name">Octane Fitness</div>
+            <h2 class="brand-title">Trusted by Professionals Worldwide</h2>
+            <div class="brand-carousel-container">
+                <div class="brand-track-wrapper">
+                    <div class="brand-track">
+                        <!-- Brands -->
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nordictrack">NORDICTRACK</div>
+                            </div>
+                            <!-- <div class="brand-name">NordicTrack</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="proform">PROFORM</div>
+                            </div>
+                            <!-- <div class="brand-name">ProForm</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="bowflex">BOWFLEX</div>
+                            </div>
+                            <!-- <div class="brand-name">Bowflex</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="lifefitness">LIFE FITNESS</div>
+                            </div>
+                            <!-- <div class="brand-name">Life Fitness</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="precor">PRECOR</div>
+                            </div>
+                            <!-- <div class="brand-name">Precor</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="matrix">MATRIX</div>
+                            </div>
+                            <!-- <div class="brand-name">Matrix</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="solefitness">SOLE FITNESS</div>
+                            </div>
+                            <!-- <div class="brand-name">Sole Fitness</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="horizon">HORIZON</div>
+                            </div>
+                            <!-- <div class="brand-name">Horizon</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="cybex">CYBEX</div>
+                            </div>
+                            <!-- <div class="brand-name">Cybex</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="schwinn">SCHWINN</div>
+                            </div>
+                            <!-- <div class="brand-name">Schwinn</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nautilus">NAUTILUS</div>
+                            </div>
+                            <!-- <div class="brand-name">Nautilus</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="technogym">TECHNOGYM</div>
+                            </div>
+                            <!-- <div class="brand-name">Technogym</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="truefitness">TRUE FITNESS</div>
+                            </div>
+                            <!-- <div class="brand-name">True Fitness</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="spiritfitness">SPIRIT FITNESS</div>
+                            </div>
+                            <!-- <div class="brand-name">Spirit Fitness</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="octanefitness">OCTANE FITNESS</div>
+                            </div>
+                            <!-- <div class="brand-name">Octane Fitness</div> -->
+                        </div>
+                        
+                        <!-- Duplicate for seamless loop -->
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nordictrack">NORDICTRACK</div>
+                            </div>
+                            <!-- <div class="brand-name">NordicTrack</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="proform">PROFORM</div>
+                            </div>
+                            <!-- <div class="brand-name">ProForm</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="bowflex">BOWFLEX</div>
+                            </div>
+                            <!-- <div class="brand-name">Bowflex</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="lifefitness">LIFE FITNESS</div>
+                            </div>
+                            <!-- <div class="brand-name">Life Fitness</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="precor">PRECOR</div>
+                            </div>
+                            <!-- <div class="brand-name">Precor</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="matrix">MATRIX</div>
+                            </div>
+                            <!-- <div class="brand-name">Matrix</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="solefitness">SOLE FITNESS</div>
+                            </div>
+                            <!-- <div class="brand-name">Sole Fitness</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="horizon">HORIZON</div>
+                            </div>
+                            <!-- <div class="brand-name">Horizon</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="cybex">CYBEX</div>
+                            </div>
+                            <!-- <div class="brand-name">Cybex</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="schwinn">SCHWINN</div>
+                            </div>
+                            <!-- <div class="brand-name">Schwinn</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nautilus">NAUTILUS</div>
+                            </div>
+                            <!-- <div class="brand-name">Nautilus</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="technogym">TECHNOGYM</div>
+                            </div>
+                            <!-- <div class="brand-name">Technogym</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="truefitness">TRUE FITNESS</div>
+                            </div>
+                            <!-- <div class="brand-name">True Fitness</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="spiritfitness">SPIRIT FITNESS</div>
+                            </div>
+                            <!-- <div class="brand-name">Spirit Fitness</div> -->
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="octanefitness">OCTANE FITNESS</div>
+                            </div>
+                            <!-- <div class="brand-name">Octane Fitness</div> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        
         <!-- Add this section after the Brand Carousel section and before the Stats section -->
         <section class="repair-process">
         <div class="container">
@@ -1069,43 +1513,6 @@ fitness machine repair Mississauga,
             <div class="stat-item">
                 <div class="stat-number" data-count="500">0</div>
                 <div class="stat-label">Happy Clients</div>
-            </div>
-        </section>
-        
-        <section class="services">
-            <h2 class="section-title">Our Premium Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="ri-tools-line"></i>
-                    </div>
-                    <h3>Equipment Repair</h3>
-                    <p>Expert diagnostics and repair for all fitness equipment, from treadmills to weight machines.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="ri-calendar-check-line"></i>
-                    </div>
-                    <h3>Preventative Maintenance</h3>
-                    <p>Regular maintenance plans to keep your equipment running smoothly and prevent breakdowns.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="ri-building-2-line"></i>
-                    </div>
-                    <h3>Commercial Solutions</h3>
-                    <p>Comprehensive service packages for gyms, hotels, and corporate fitness centers.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="ri-truck-line"></i>
-                    </div>
-                    <h3>Relocation Services</h3>
-                    <p>Professional moving, disassembly and reassembly of all fitness equipment.</p>
-                </div>
             </div>
         </section>
         
@@ -1286,5 +1693,6 @@ fitness machine repair Mississauga,
 <script src="animations.js"></script>
 
 <script src="whatsapp.js"></script>
+<script src="headerfooter.js"></script>
 </body>
 </html>

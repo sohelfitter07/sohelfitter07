@@ -1,5 +1,19 @@
 // menu.js
 
+// Inject favicons into head
+function injectFavicons() {
+    const faviconCode = `
+        <!-- Favicon Code -->
+        <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%235D5DFF'/%3E%3Ctext x='50' y='65' font-family='Arial' font-size='30' text-anchor='middle' fill='white'%3ECFR%3C/text%3E%3C/svg%3E">
+        <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%235D5DFF'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='10' text-anchor='middle' fill='white'%3ECFR%3C/text%3E%3C/svg%3E">
+        <link rel="icon" type="image/png" sizes="16x16" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%235D5DFF'/%3E%3Ctext x='8' y='11' font-family='Arial' font-size='5' text-anchor='middle' fill='white'%3ECFR%3C/text%3E%3C/svg%3E">
+        <meta name="theme-color" content="#5D5DFF">
+    `;
+    
+    // Inject into head
+    document.head.insertAdjacentHTML('afterbegin', faviconCode);
+}
+
 function initMenu() {
     const hamburger = document.getElementById('hamburger');
     const navbarList = document.getElementById('navbarList');
@@ -91,6 +105,9 @@ function initMenu() {
         }
     });
 }
+
+// Inject favicons as soon as script loads
+injectFavicons();
 
 // Wait until header is loaded before running menu script
 document.addEventListener('DOMContentLoaded', () => {

@@ -6,7 +6,7 @@
   <title>Fitness Equipment Repair Blog | Expert Tips & Guides | Canadian Fitness Repair</title>
   <meta
     name="description"
-    content="Get expert fitness equipment repair advice, treadmill troubleshooting tips, and maintenance guides for Hamilton & GTA. Learn how to fix common issues with NordicTrack, Sole, Precor & more."
+    content="Get expert fitness equipment maintenance, troubleshooting, and repair tips. Learn how to fix common issues with NordicTrack, Sole, Precor & more in Hamilton & GTA."
   />
   <meta
     name="keywords"
@@ -182,52 +182,76 @@
     }
 
     /* Links */
-    a {
+    main a {
       color: var(--theme-color);
       text-decoration: none;
       border-bottom: 1.5px solid transparent;
       transition: all 0.25s ease;
       cursor: pointer;
     }
-    a:hover,
-    a:focus {
+    main a:hover,
+    main a:focus {
       color: var(--accent-color);
       border-color: var(--accent-color);
       text-decoration: none;
     }
 
-    .blog-categories {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 40px;
-      justify-content: center;
-    }
+.blog-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
+  justify-content: center;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  background: rgba(93, 93, 255, 0.05);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
 
-    .category-btn {
-      background: rgba(93, 93, 255, 0.1);
-      color: var(--theme-color);
-      padding: 8px 20px;
-      border-radius: 30px;
-      font-weight: 600;
-      transition: var(--transition);
-      border: 1px solid transparent;
-    }
+.category-btn {
+  background: rgba(93, 93, 255, 0.15);
+  color: var(--theme-color);
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(93, 93, 255, 0.3);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-    .category-btn:hover, .category-btn.active {
-      background: var(--theme-color);
-      color: white;
-      border-color: var(--theme-color);
-    }
+.category-btn i {
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+.category-btn:hover {
+  background: var(--theme-color);
+  color: white;
+  border-color: var(--theme-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(93, 93, 255, 0.3);
+}
+
+.category-btn.active {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+  transform: translateY(-2px);
+}
 
     /* CTA Buttons Container */
     .cta-buttons {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
       gap: 18px;
       margin-top: 50px;
-      padding-top: 20px;
+      padding: 20px 0;
       border-top: 1px solid #2a2c33;
     }
 
@@ -298,7 +322,7 @@
     @media (max-width: 768px) {
       .blog-section > h1 {
         font-size: 2.2rem;
-        padding-top: 7rem;
+        padding-top: 9rem;
       }
       .blog-post {
         padding: 20px;
@@ -314,7 +338,7 @@
       }
       .blog-section > h1 {
         font-size: 2rem;
-        padding-top: 6rem;
+        padding-top: 9rem;
       }
       .blog-intro {
         margin-bottom: 30px;
@@ -345,7 +369,8 @@
 <body>
   <div id="header"></div>
 
-  <div class="main-container">
+<main>
+    <div class="main-container">
     <section class="blog-section" aria-label="Fitness Equipment Blog and Repair Guides">
       <h1>Fitness Equipment Repair Blog & Guides</h1>
       
@@ -354,15 +379,220 @@
       </div>
       
       <div class="blog-categories">
-        <button class="category-btn active">All Topics</button>
-        <button class="category-btn">Treadmill Repair</button>
-        <button class="category-btn">Elliptical Maintenance</button>
-        <button class="category-btn">Error Codes</button>
-        <button class="category-btn">Preventive Care</button>
-        <button class="category-btn">Commercial Equipment</button>
+  <button class="category-btn active" data-category="all">
+    <i class="ri-stack-line"></i> All Topics
+  </button>
+  <button class="category-btn" data-category="Treadmill Repair">
+    <i class="ri-run-line"></i> Treadmill Repair
+  </button>
+  <button class="category-btn" data-category="Elliptical Maintenance">
+    <i class="ri-loop-left-line"></i> Elliptical Maintenance
+  </button>
+  <button class="category-btn" data-category="Error Codes">
+    <i class="ri-bug-line"></i> Error Codes
+  </button>
+  <button class="category-btn" data-category="Preventive Care">
+    <i class="ri-shield-check-line"></i> Preventive Care
+  </button>
+  <button class="category-btn" data-category="Commercial Equipment">
+    <i class="ri-building-line"></i> Commercial Equipment
+  </button>
+      </div>
+      
+      <div class="no-results" id="noResults">
+        <p>No articles found in this category. Please try another filter.</p>
       </div>
 
-      <article class="blog-post">
+      <!-- New Blog Post 1: Cold Weather Maintenance -->
+      <article class="blog-post" data-categories="Treadmill Maintenance, Preventive Care">
+        <h2>Ultimate Guide to Maintaining Treadmills in Canadian Winters</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> June 12, 2025</span>
+          <span><i class="ri-time-line"></i> 6 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Treadmill Maintenance, Preventive Care</span>
+        </div>
+        <div class="post-image">Treadmill in a cold garage setting</div>
+        <p>Canadian winters present unique challenges for fitness equipment. Cold temperatures can affect lubrication, electronics, and mechanical components. Follow these essential tips to protect your treadmill during Hamilton's harsh winters:</p>
+        
+        <h3>Winter Maintenance Checklist</h3>
+        <ol>
+          <li><strong>Temperature Control:</strong> Maintain garage/basement temperatures above 10°C (50°F)</li>
+          <li><strong>Specialized Lubrication:</strong> Use cold-weather silicone lubricant (apply monthly)</li>
+          <li><strong>Warm-up Protocol:</strong> Run treadmill at 2 mph for 5 minutes before workouts</li>
+          <li><strong>Humidity Management:</strong> Use dehumidifiers in damp basements</li>
+          <li><strong>Electronic Protection:</strong> Install surge protectors for power fluctuations</li>
+          <li><strong>Belt Tension Adjustment:</strong> Cold causes contraction - loosen slightly in winter</li>
+        </ol>
+        
+        <div class="tip-box">
+          <h3><i class="ri-snowy-line"></i> GTA Winter Tip</h3>
+          <p>For unheated spaces, cover your treadmill with a thermal blanket when not in use. This prevents condensation buildup that leads to rust and electronic corrosion.</p>
+        </div>
+        
+        <p><strong>Common Cold Weather Issues:</strong></p>
+        <table style="width:100%; border-collapse: collapse; margin:20px 0;">
+          <tr style="background-color: rgba(93, 93, 255, 0.1);">
+            <th style="padding:10px; text-align:left; border-bottom:2px solid var(--theme-color);">Problem</th>
+            <th style="padding:10px; text-align:left; border-bottom:2px solid var(--theme-color);">Solution</th>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #2a2c33;">Stiff belt movement</td>
+            <td style="padding:10px; border-bottom:1px solid #2a2c33;">Apply cold-weather lubricant</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #2a2c33;">Error codes after startup</td>
+            <td style="padding:10px; border-bottom:1px solid #2a2c33;">Allow 30-minute warm-up period</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #2a2c33;">Unusual squeaking noises</td>
+            <td style="padding:10px; border-bottom:1px solid #2a2c33;">Check and lubricate roller bearings</td>
+          </tr>
+          <tr>
+            <td style="padding:10px;">Console display flickering</td>
+            <td style="padding:10px;">Check power stability with voltmeter</td>
+          </tr>
+        </table>
+        
+        <p>Our <a href="pricingpackagespage.html">Winter Maintenance Package</a> includes specialized cold-weather lubrication, electronic diagnostics, and belt tension adjustment specifically for Hamilton's climate.</p>
+      </article>
+
+      <!-- New Blog Post 2: Repair vs Replace -->
+      <article class="blog-post" data-categories="Commercial Equipment, Cost Savings">
+        <h2>Cost Breakdown: Repair vs. Replace Commercial Gym Equipment</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> June 7, 2025</span>
+          <span><i class="ri-time-line"></i> 7 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Commercial Equipment, Cost Savings</span>
+        </div>
+        <div class="post-image">Commercial gym equipment repair cost analysis</div>
+        <p>Fitness facilities in the GTA often face the dilemma: repair aging equipment or invest in replacements? We analyzed 5 years of service data to create this decision framework:</p>
+        
+        <h3>Repair vs. Replace Decision Matrix</h3>
+        <div class="tip-box">
+          <h3><i class="ri-calculator-line"></i> Rule of 50%</h3>
+          <p>If repair costs exceed 50% of replacement value AND equipment is over 5 years old, replacement is usually more cost-effective.</p>
+        </div>
+        
+        <p><strong>Commercial Treadmill Cost Analysis (Avg. GTA Facility)</strong></p>
+        <ul>
+          <li><strong>Repair Costs:</strong> $300-$800 (motor), $150-$400 (controller), $200-$500 (deck)</li>
+          <li><strong>New Equipment Cost:</strong> $3,500-$8,000 (commercial grade)</li>
+          <li><strong>Expected Lifespan Extension:</strong> 2-3 years per major repair</li>
+          <li><strong>Downtime Cost:</strong> $50-$200/day per out-of-service machine</li>
+        </ul>
+        
+        <p><strong>When to Repair:</strong></p>
+        <ul>
+          <li>Equipment under 5 years old</li>
+          <li>Repair cost < 40% of replacement value</li>
+          <li>Maintain consistent equipment lineup</li>
+          <li>OEM parts readily available</li>
+        </ul>
+        
+        <p><strong>When to Replace:</strong></p>
+        <ul>
+          <li>Same component fails twice in 12 months</li>
+          <li>Obsolete electronics (no replacement parts)</li>
+          <li>Structural frame damage</li>
+          <li>Energy efficiency gains > 30% with new model</li>
+        </ul>
+        
+        <p><a href="contactform.html">Request a cost-benefit analysis</a> for your specific equipment. Our Hamilton-based team provides unbiased recommendations for GTA fitness facilities.</p>
+      </article>
+
+      <!-- New Blog Post 3: Equipment Lifespans -->
+      <article class="blog-post" data-categories="Preventive Care, Equipment Selection">
+        <h2>Infographic: Expected Lifespans of Fitness Equipment</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> June 3, 2025</span>
+          <span><i class="ri-time-line"></i> 4 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Preventive Care, Equipment Selection</span>
+        </div>
+        <div class="post-image">Infographic showing fitness equipment lifespans</div>
+        <p>Based on service records from hundreds of Hamilton and GTA clients, we've compiled realistic lifespan expectations for common fitness equipment with proper maintenance:</p>
+        
+        <h3>Residential Equipment Lifespans</h3>
+        <ul>
+          <li><strong>Treadmills:</strong> 7-12 years (belt replacement at 5-7 years)</li>
+          <li><strong>Ellipticals:</strong> 8-15 years (bearing replacement at 6-8 years)</li>
+          <li><strong>Exercise Bikes:</strong> 10-15 years (minimal moving parts)</li>
+          <li><strong>Rowers:</strong> 12-18 years (cable replacement every 3-5 years)</li>
+          <li><strong>Multi-Gyms:</strong> 15-20+ years (cable/pulley replacements)</li>
+        </ul>
+        
+        <h3>Commercial Equipment Lifespans (Gym Setting)</h3>
+        <ul>
+          <li><strong>Treadmills:</strong> 5-8 years with daily maintenance</li>
+          <li><strong>Ellipticals:</strong> 6-10 years (higher bearing wear)</li>
+          <li><strong>Stair Climbers:</strong> 7-12 years</li>
+          <li><strong>Weight Machines:</strong> 10-15+ years</li>
+          <li><strong>Spin Bikes:</strong> 8-12 years</li>
+        </ul>
+        
+        <div class="tip-box">
+          <h3><i class="ri-line-chart-line"></i> Lifespan Extension Tips</h3>
+          <p>Facilities that implement our <a href="pricingpackagespage.html">preventive maintenance program</a> extend equipment lifespan by 30-40% on average, saving Hamilton gyms $15k-$50k annually.</p>
+        </div>
+        
+        <p><strong>Key Factors Affecting Longevity:</strong></p>
+        <ol>
+          <li>Usage hours per week</li>
+          <li>Preventive maintenance schedule</li>
+          <li>Proper lubrication regimen</li>
+          <li>Environmental conditions (humidity/temperature control)</li>
+          <li>User weight limits adherence</li>
+        </ol>
+      </article>
+
+      <!-- New Blog Post 4: Local Success Story -->
+      <article class="blog-post" data-categories="Commercial Equipment, Cost Savings">
+        <h2>Local Success: How We Saved Hamilton Gym $12,450 in Equipment Costs</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> May 30, 2025</span>
+          <span><i class="ri-time-line"></i> 5 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Commercial Equipment, Cost Savings</span>
+        </div>
+        <div class="post-image">Hamilton gym equipment repair success story</div>
+        <p>When Downtown Hamilton Fitness approached us with 8 malfunctioning treadmills and rising member complaints, we implemented a strategic repair program that saved them over $12,450 versus replacement costs.</p>
+        
+        <h3>The Challenge</h3>
+        <ul>
+          <li>6 Precor treadmills (4-7 years old) with motor issues</li>
+          <li>2 Life Fitness ellipticals with console failures</li>
+          <li>Quotes for full replacement: $38,000+</li>
+          <li>Limited downtime tolerance</li>
+        </ul>
+        
+        <h3>Our Solution</h3>
+        <div class="tip-box">
+          <h3><i class="ri-tools-line"></i> Strategic Repair Approach</h3>
+          <p>We prioritized components based on failure likelihood and implemented a phased repair schedule to minimize downtime during off-peak hours.</p>
+        </div>
+        
+        <p><strong>Repair Strategy:</strong></p>
+        <ol>
+          <li>Diagnosed root causes (motor brushes, controller boards)</li>
+          <li>Rebuilt 4 motors instead of replacing ($380 vs $1,200 each)</li>
+          <li>Refurbished consoles using OEM components</li>
+          <li>Implemented preventive maintenance schedule</li>
+          <li>Trained staff on daily equipment checks</li>
+        </ol>
+        
+        <h3>The Results</h3>
+        <ul>
+          <li>Total repair cost: $8,150 (vs $38,000 replacement)</li>
+          <li>Downtime reduced to 12 hours per machine</li>
+          <li>Extended equipment lifespan by 3-4 years</li>
+          <li>Implemented maintenance plan saving $4k/year</li>
+          <li>Member satisfaction increased 32%</li>
+        </ul>
+        
+        <p>"Canadian Fitness Repair's strategic approach saved our gym thousands while maintaining our member experience. Their knowledge of commercial equipment specific to Hamilton's climate was invaluable." - Mark T., Facility Manager</p>
+        
+        <p><a href="contactform.html">Contact us</a> for a customized cost-savings analysis for your fitness facility in Hamilton or the GTA.</p>
+      </article>
+
+      <article class="blog-post" data-categories="Treadmill Repair, Maintenance">
         <h2>Top 5 Treadmill Problems & How to Fix Them</h2>
         <div class="post-meta">
           <span><i class="ri-calendar-line"></i> June 10, 2025</span>
@@ -380,8 +610,8 @@
         </ol>
         <p>For complex issues like motor controller replacement, contact our <a href="get-quote.html">certified technicians</a> for professional repair service.</p>
       </article>
-
-      <article class="blog-post">
+      
+           <article class="blog-post" data-categories="Equipment Selection, Home Gym">
         <h2>How to Choose Between a Treadmill and an Elliptical</h2>
         <div class="post-meta">
           <span><i class="ri-calendar-line"></i> May 28, 2025</span>
@@ -408,7 +638,7 @@
         <p>Still undecided? <a href="get-quote.html">Request a consultation</a> with our fitness equipment specialists to find the perfect match for your needs.</p>
       </article>
 
-      <article class="blog-post">
+      <article class="blog-post" data-categories="Error Codes, Troubleshooting">
         <h2>Understanding Fitness Equipment Error Codes</h2>
         <div class="post-meta">
           <span><i class="ri-calendar-line"></i> May 15, 2025</span>
@@ -452,8 +682,39 @@
         </ul>
         <p>For persistent error codes, our <a href="get-quote.html">technicians offer same-day service</a> across Hamilton and the GTA.</p>
       </article>
+      
+      <!-- NEW BLOG POST 1 -->
+      <article class="blog-post" data-categories="Error Codes, Treadmill Repair">
+        <h2>NordicTrack Treadmill Error Codes Explained</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> June 5, 2025</span>
+          <span><i class="ri-time-line"></i> 7 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Error Codes, Treadmill Repair</span>
+        </div>
+        <div class="post-image">NordicTrack Treadmill Console Showing Error Codes</div>
+        <p>NordicTrack is one of North America's most popular treadmill brands. Understanding their error codes can save you time and money. Here's a comprehensive guide:</p>
+        
+        <h3>Common NordicTrack Treadmill Error Codes</h3>
+        <ul>
+          <li><strong>E1</strong>: Speed Sensor Issue - Clean or replace the speed sensor</li>
+          <li><strong>E2</strong>: Elevation Motor Failure - Check wiring and motor connections</li>
+          <li><strong>E3</strong>: Motor Control Communication Failure - Reset console, check connections</li>
+          <li><strong>E4</strong>: Drive Motor Overheating - Allow to cool, clean vents</li>
+          <li><strong>E5</strong>: Drive Motor Circuit Fault - Check motor controller</li>
+          <li><strong>E6</strong>: Drive Motor Power Fault - Test power supply and connections</li>
+          <li><strong>E7</strong>: Speed Signal Loss - Clean or replace speed sensor</li>
+          <li><strong>E8</strong>: Safety Key Missing - Ensure safety key is properly inserted</li>
+        </ul>
+        
+        <div class="tip-box">
+          <h3><i class="ri-alert-line"></i> Critical Note</h3>
+          <p>If you see the <strong>ER01</strong> error, this indicates a critical motor controller failure that requires professional replacement. Continuing to use the treadmill may cause permanent damage.</p>
+        </div>
+        
+        <p>For complex NordicTrack repairs in Hamilton and the GTA, our technicians are factory-trained and carry OEM replacement parts.</p>
+      </article>
 
-      <article class="blog-post">
+      <article class="blog-post" data-categories="Treadmill Maintenance, Parts Replacement">
         <h2>When to Replace Your Treadmill Belt</h2>
         <div class="post-meta">
           <span><i class="ri-calendar-line"></i> May 5, 2025</span>
@@ -471,7 +732,7 @@
         <p>For professional belt replacement in Hamilton and the GTA, <a href="get-quote.html">schedule service</a> with our certified technicians. We carry OEM belts for all major brands.</p>
       </article>
 
-      <article class="blog-post">
+      <article class="blog-post" data-categories="Preventive Maintenance, Cost Savings">
         <h2>Why Regular Maintenance Saves You Money</h2>
         <div class="post-meta">
           <span><i class="ri-calendar-line"></i> April 22, 2025</span>
@@ -485,10 +746,41 @@
           <li><strong>Maintains Performance:</strong> Consistent belt speed and incline accuracy</li>
           <li><strong>Safety Assurance:</strong> Prevents sudden failures during use</li>
         </ul>
-        <p>Our <a href="get-quote.html">annual maintenance plans</a> include comprehensive inspections, lubrication, calibration, and priority service for Hamilton and GTA residents.</p>
+        <p>Our <a href="pricingpackagespage.html">annual maintenance plans</a> include comprehensive inspections, lubrication, calibration, and priority service for Hamilton and GTA residents.</p>
+      </article>
+      
+      <!-- NEW BLOG POST 2 -->
+      <article class="blog-post" data-categories="Error Codes, Elliptical Maintenance">
+        <h2>Sole Fitness Elliptical Error Codes Guide</h2>
+        <div class="post-meta">
+          <span><i class="ri-calendar-line"></i> May 25, 2025</span>
+          <span><i class="ri-time-line"></i> 6 min read</span>
+          <span><i class="ri-price-tag-3-line"></i> Error Codes, Elliptical Maintenance</span>
+        </div>
+        <div class="post-image">Sole Elliptical Console with Error Code Display</div>
+        <p>Sole Fitness elliptical machines are known for their durability, but like all equipment, they can display error codes. Here's how to interpret and resolve them:</p>
+        
+        <h3>Common Sole Elliptical Error Codes</h3>
+        <ul>
+          <li><strong>E1</strong>: Safety Stop - Check safety key and sensors</li>
+          <li><strong>E2</strong>: Drive Motor Fault - Inspect motor wiring and connections</li>
+          <li><strong>E3</strong>: Elevation Motor Fault - Check incline mechanism</li>
+          <li><strong>E4</strong>: Speed Sensor Fault - Clean or replace speed sensor</li>
+          <li><strong>E5</strong>: Console Communication Error - Reset console, check connections</li>
+          <li><strong>E6</strong>: Resistance Control Fault - Test resistance motor</li>
+          <li><strong>E7</strong>: Power Supply Issue - Verify power connection and outlet</li>
+          <li><strong>E8</strong>: Calibration Required - Perform factory reset</li>
+        </ul>
+        
+        <div class="tip-box">
+          <h3><i class="ri-lightbulb-flash-line"></i> Expert Tip</h3>
+          <p>For <strong>E5</strong> errors, a simple console reset often resolves the issue. Unplug the elliptical for 5 minutes, then restart. If the error persists, contact our technicians.</p>
+        </div>
+        
+        <p>Most Sole elliptical errors can be resolved with basic troubleshooting. For persistent issues, our <a href="get-quote.html">Hamilton service team</a> offers same-day diagnostics.</p>
       </article>
 
-      <article class="blog-post">
+      <article class="blog-post" data-categories="Elliptical Repair, Maintenance">
         <h2>Elliptical Maintenance Checklist</h2>
         <div class="post-meta">
           <span><i class="ri-calendar-line"></i> April 10, 2025</span>
@@ -508,7 +800,7 @@
         <p>For professional <a href="get-quote.html">elliptical service in Hamilton</a>, our technicians offer same-day diagnostics and repair.</p>
       </article>
 
-      <article class="blog-post">
+      <article class="blog-post" data-categories="Commercial Equipment, Gym Maintenance">
         <h2>Commercial Gym Equipment Maintenance Guide</h2>
         <div class="post-meta">
           <span><i class="ri-calendar-line"></i> March 28, 2025</span>
@@ -524,11 +816,11 @@
         </ul>
         <div class="tip-box">
           <h3><i class="ri-alert-line"></i> Critical for GTA Gyms</h3>
-          <p>High-usage facilities should implement a rotation schedule to distribute wear evenly across equipment. Our <a href="get-quote.html">commercial maintenance packages</a> include priority service and discounted parts.</p>
+          <p>High-usage facilities should implement a rotation schedule to distribute wear evenly across equipment. Our <a href="pricingpackagespage.html">commercial maintenance packages</a> include priority service and discounted parts.</p>
         </div>
       </article>
 
-      <article class="blog-post">
+      <article class="blog-post" data-categories="Treadmill Repair, Electrical Issues">
         <h2>How to Troubleshoot Treadmill Electrical Issues</h2>
         <div class="post-meta">
           <span><i class="ri-calendar-line"></i> March 15, 2025</span>
@@ -546,6 +838,75 @@
         <p>For complex electrical repairs in Hamilton and the GTA, trust our certified technicians. We carry replacement controllers, wiring harnesses, and power supplies for all major brands.</p>
       </article>
 
+    <article class="blog-post" data-categories="Preventive Care, Treadmill Repair">
+  <h2>Monthly Preventative Maintenance for Treadmills</h2>
+  <div class="post-meta">
+    <span><i class="ri-calendar-line"></i> June 8, 2025</span>
+    <span><i class="ri-time-line"></i> 4 min read</span>
+    <span><i class="ri-price-tag-3-line"></i> Preventive Care, Treadmill Repair</span>
+  </div>
+  <div class="post-image">Technician Performing Treadmill Maintenance</div>
+  <p>Regular preventative maintenance can extend your treadmill's lifespan by 3-5 years. Here's a simple monthly routine for Hamilton treadmill owners:</p>
+  
+  <h3>Essential Monthly Tasks</h3>
+  <ol>
+    <li><strong>Belt Alignment Check:</strong> Ensure the belt runs centered on the deck</li>
+    <li><strong>Lubrication:</strong> Apply silicone-based lubricant every 3 months</li>
+    <li><strong>Deck Inspection:</strong> Check for wear patterns and flip if reversible</li>
+    <li><strong>Bolt Tightening:</strong> Secure all frame and console bolts</li>
+    <li><strong>Vacuum Ventilation:</strong> Clean motor compartment vents</li>
+    <li><strong>Electronic Test:</strong> Verify all console functions work properly</li>
+  </ol>
+  
+  <div class="tip-box">
+    <h3><i class="ri-lightbulb-flash-line"></i> GTA Climate Tip</h3>
+    <p>During humid Hamilton summers, increase lubrication frequency to monthly to prevent belt friction and premature wear.</p>
+  </div>
+  
+  <p>Our <a href="pricingpackagespage.html">preventative maintenance plans</a> include all these services plus professional calibration for optimal performance.</p>
+    </article>
+
+    
+    <article class="blog-post" data-categories="Preventive Care, Elliptical Maintenance">
+  <h2>Preventative Care Checklist for Ellipticals</h2>
+  <div class="post-meta">
+    <span><i class="ri-calendar-line"></i> May 20, 2025</span>
+    <span><i class="ri-time-line"></i> 5 min read</span>
+    <span><i class="ri-price-tag-3-line"></i> Preventive Care, Elliptical Maintenance</span>
+  </div>
+  <div class="post-image">Elliptical Preventative Maintenance</div>
+  <p>Ellipticals require specific preventative care to maintain smooth operation. Follow this quarterly checklist:</p>
+  
+  <h3>Quarterly Maintenance Tasks</h3>
+  <ul>
+    <li><strong>Rail Cleaning:</strong> Wipe down rails with silicone-based cleaner</li>
+    <li><strong>Pivot Lubrication:</strong> Apply lubricant to all moving joints</li>
+    <li><strong>Drive Belt Inspection:</strong> Check tension and condition</li>
+    <li><strong>Wheel Examination:</strong> Look for flat spots or grooves</li>
+    <li><strong>Electronics Check:</strong> Test resistance levels and console functions</li>
+    <li><strong>Stride Calibration:</strong> Ensure smooth motion without catching</li>
+  </ul>
+  
+  <h3>Annual Professional Service</h3>
+  <p>For optimal performance, schedule professional service including:</p>
+  <ul>
+    <li>Bearing replacement in pedal arms</li>
+    <li>Drive motor inspection</li>
+    <li>Internal component cleaning</li>
+    <li>Full electronic diagnostics</li>
+  </ul>
+  
+  <div class="tip-box">
+    <h3><i class="ri-history-line"></i> Usage-Based Maintenance</h3>
+    <p>For ellipticals used more than 5 hours/week:
+      <br>• Lubricate monthly
+      <br>• Inspect wheels bi-monthly
+      <br>• Professional service every 6 months</p>
+  </div>
+  
+  <p><a href="pricingpackagespage.html">Download our complete preventative care guide</a> for brand-specific maintenance schedules.</p>
+    </article>
+      
       <div class="cta-buttons" role="navigation" aria-label="Repair and Quote Links">
         <a href="get-quote.html">Get a Repair Quote</a>
         <a href="treadmill-repair.html">Treadmill Repair</a>
@@ -556,8 +917,59 @@
       </div>
     </section>
   </div>
+</main>
 
   <div id="footer"></div>
   <script src="menu.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Category filtering functionality
+      const categoryBtns = document.querySelectorAll('.category-btn');
+      const blogPosts = document.querySelectorAll('.blog-post');
+      const noResults = document.getElementById('noResults');
+      
+      // Function to filter blog posts
+      function filterPosts(category) {
+        let visibleCount = 0;
+        
+        blogPosts.forEach(post => {
+          const postCategories = post.getAttribute('data-categories');
+          
+          if (category === 'all' || postCategories.includes(category)) {
+            post.style.display = 'block';
+            visibleCount++;
+          } else {
+            post.style.display = 'none';
+          }
+        });
+        
+        // Show/hide no results message
+        if (visibleCount === 0) {
+          noResults.style.display = 'block';
+        } else {
+          noResults.style.display = 'none';
+        }
+      }
+      
+      // Add event listeners to category buttons
+      categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remove active class from all buttons
+          categoryBtns.forEach(b => b.classList.remove('active'));
+          
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          // Filter posts
+          const category = this.getAttribute('data-category');
+          filterPosts(category);
+        });
+      });
+      
+      // Initialize with all posts visible
+      filterPosts('all');
+    });
+  </script>
 </body>
 </html>
