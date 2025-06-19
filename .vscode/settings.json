@@ -17,8 +17,8 @@
   "editor.formatOnType": true,
 
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.fixAll.format": true
+    "source.fixAll": "explicit",
+    "source.fixAll.format": "explicit"
   },
 
   // 📄 HTML-specific

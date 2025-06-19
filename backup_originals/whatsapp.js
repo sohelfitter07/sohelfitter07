@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
   whatsappBtn.addEventListener("click", function () {
     const message =
       "Hi Canadian Fitness Repair! I visited your website and need assistance with my fitness equipment.";
-    const whatsappUrl = `https:
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
       message
     )}`;
     window.open(whatsappUrl, "_blank");
