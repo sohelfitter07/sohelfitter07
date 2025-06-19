@@ -6,24 +6,25 @@ backup_folder = 'backup_originals'
 os.makedirs(backup_folder, exist_ok=True)
 
 def minify_html(content):
-    # Remove comments
-    content = re.sub(r'<!--.*?-->', '', content, flags=re.DOTALL)
-    # Minify HTML outside <script>...</script> blocks
+    # Split HTML into segments, preserving <script> blocks
     parts = re.split(r'(<script.*?>.*?</script>)', content, flags=re.DOTALL | re.IGNORECASE)
+
     for i in range(len(parts)):
-        if not parts[i].strip().lower().startswith('<script'):
-            parts[i] = re.sub(r'>\s+<', '><', parts[i])  # remove space between tags
-            parts[i] = re.sub(r'\s+', ' ', parts[i])     # collapse whitespace
+        # Only modify non-script parts
+        if not re.match(r'<script.*?>.*?</script>', parts[i], flags=re.DOTALL | re.IGNORECASE):
+            parts[i] = re.sub(r'<!--.*?-->', '', parts[i], flags=re.DOTALL)  # remove HTML comments
+            parts[i] = re.sub(r'>\s+<', '><', parts[i])                      # remove space between tags
+            parts[i] = re.sub(r'\s{2,}', ' ', parts[i])                     # collapse excessive spaces
+
     return ''.join(parts).strip()
 
 def minify_css(content):
-    content = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)
-    content = re.sub(r'\s+', ' ', content)
+    content = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)  # remove comments
+    content = re.sub(r'\s+', ' ', content)                        # collapse whitespace
     return content.strip()
 
 def minify_js(content):
-    # Remove single-line and multi-line comments
-    content = re.sub(r'//.*?$|/\*.*?\*/', '', content, flags=re.MULTILINE | re.DOTALL)
+    content = re.sub(r'//.*?$|/\*.*?\*/', '', content, flags=re.MULTILINE | re.DOTALL)  # remove comments
     return content.strip()
 
 for root, _, files in os.walk('.'):
