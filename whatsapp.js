@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const floatingBtn = document.getElementById("floatingBtn");
   const closeBtn = document.getElementById("closeBtn");
   const whatsappBtn = document.getElementById("whatsappBtn");
-  const phoneNumber = "13653662162"; 
+  const phoneNumber = "13653662162";
 
   floatingBtn.addEventListener("click", function () {
     widget.classList.add("open");
