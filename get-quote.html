@@ -143,6 +143,14 @@
                   loadingOverlay.style.display = "none";
                   successMessage.style.display = "block";
                   quoteForm.style.display = "none";
+
+                  // ✅ Scroll to success message
+                  setTimeout(() => {
+                    successMessage.scrollIntoView({
+                      behavior: "smooth",
+                      block: "center",
+                    });
+                  }, 200);
                 },
                 function (error) {
                   console.error("Email failed to send:", error);
