@@ -1,3 +1,29 @@
 {
-    "workbench.settings.openDefaultSettings": false
+  "workbench.settings.openDefaultSettings": false,
+  "workbench.iconTheme": "vscode-icons",
+  "explorer.confirmDragAndDrop": false,
+  "git.autofetch": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "editor.minimap.enabled": false,
+  "liveServer.settings.donotVerifyTags": true,
+  "files.exclude": {
+    "**/.git": false
+  },
+
+  // 🔧 Format settings
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.fixAll.format": true
+  },
+
+  // 📄 HTML-specific
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
 }
