@@ -1,9 +1,21 @@
-<!DOCTYPE html><html lang="en"><head> <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01"></script>
-<script>
+<!DOCTYPE html><html lang="en"><head> <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-E1WR6TZG01');
+  window.addEventListener('load', function() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadGTag);
+    } else {
+      setTimeout(loadGTag, 500);
+    }
+  });
+  function loadGTag() {
+    var script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01';
+    script.async = true;
+    document.head.appendChild(script);
+    gtag('js', new Date());
+    gtag('config', 'G-E1WR6TZG01');
+  }
 </script> <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Terms & Conditions | Canadian Fitness Repair Legal</title><meta name="description" content="Canadian Fitness Repair legal documents: Privacy policy for customer data and Terms & Conditions for treadmill repair services in Hamilton, GTA, and Niagara region." /><meta name="robots" content="noindex, nofollow" /><meta property="og:title" content="📑 Legal Terms | Canadian Fitness Repair Policies" /><meta property="og:description" content="Read our combined Privacy Policy and Service Terms for emergency fitness equipment repairs in Hamilton, Burlington, Oakville, and Greater Toronto Area." /><meta property="og:image" content="https://www.canadianfitnessrepair.com/images/legal-docs-icon.jpg" /><meta property="og:url" content="https://www.canadianfitnessrepair.com/legal" /><meta property="og:type" content="website" /><meta property="og:locale" content="en_CA" /><link rel="canonical" href="https://www.canadianfitnessrepair.com/legal" /> <script type="application/ld+json">
       {
         "@context": "https://schema.org",

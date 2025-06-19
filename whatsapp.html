@@ -1,9 +1,21 @@
-<!DOCTYPE html><html lang="en"><head> <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01"></script>
-<script>
+<!DOCTYPE html><html lang="en"><head> <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-E1WR6TZG01');
+  window.addEventListener('load', function() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadGTag);
+    } else {
+      setTimeout(loadGTag, 500);
+    }
+  });
+  function loadGTag() {
+    var script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01';
+    script.async = true;
+    document.head.appendChild(script);
+    gtag('js', new Date());
+    gtag('config', 'G-E1WR6TZG01');
+  }
 </script> <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>WhatsApp Widget - Canadian Fitness Repair</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /><link rel="stylesheet" href="whatsapp.css" /><link rel="canonical" href="https://www.canadianfitnessrepair.com/whatsapp.html" /><link rel="canonical" href="https://www.canadianfitnessrepair.com/whatsapp.html" /><link rel="canonical" href="https://www.canadianfitnessrepair.com/whatsapp.html"></head><body><div class="whatsapp-widget" id="whatsappWidget"><div class="widget-header"><div class="whatsapp-icon"><i class="fab fa-whatsapp"></i></div><div class="header-text"><h3>Canadian Fitness Repair</h3><p>Typically replies instantly</p></div><button class="close-btn" id="closeBtn">×</button></div><div class="chat-content" id="chatContent"><div class="message received"> Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today? </div><div class="message received"> We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with! </div><div class="message sent">Great!.</div></div><div class="action-area"><button class="whatsapp-btn" id="whatsappBtn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp </button></div></div><button class="whatsapp-btn" id="whatsappBtn" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i> Chat on WhatsApp </button> <script>
       (function () {
         const loadWidget = () => {

@@ -1,9 +1,21 @@
-<!DOCTYPE html><html lang="en"><head> <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01"></script>
-<script>
+<!DOCTYPE html><html lang="en"><head> <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-E1WR6TZG01');
+  window.addEventListener('load', function() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadGTag);
+    } else {
+      setTimeout(loadGTag, 500);
+    }
+  });
+  function loadGTag() {
+    var script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01';
+    script.async = true;
+    document.head.appendChild(script);
+    gtag('js', new Date());
+    gtag('config', 'G-E1WR6TZG01');
+  }
 </script> <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title> ★★★★★ Fitness Equipment Repair Reviews | Canadian Fitness Repair | Hamilton & GTA </title><meta name="description" content="142+ verified reviews ★★★★★ (4.9/5) - See why Hamilton, Burlington, Oakville & GTA trust our 24/7 treadmill repair service. Real customer testimonials." /><meta name="keywords" content=" treadmill repair reviews Hamilton, fitness equipment repair testimonials, Canadian Fitness Repair reviews, gym equipment repair feedback GTA, emergency treadmill service ratings, elliptical repair customer reviews, commercial gym repair testimonials " /><meta property="og:title" content="★★★★★ 4.9/5 | Canadian Fitness Repair Customer Reviews" /><meta property="og:description" content="Real customer experiences with 24/7 treadmill repair in Hamilton, Burlington, Oakville & GTA. 142+ verified reviews." /><meta property="og:image" content="https://www.canadianfitnessrepair.com/images/review-collage.jpg" /><meta property="og:url" content="https://www.canadianfitnessrepair.com/reviews" /><meta property="og:type" content="website" /><meta property="og:locale" content="en_CA" /> <script type="application/ld+json">
       {
         "@context": "https://schema.org",

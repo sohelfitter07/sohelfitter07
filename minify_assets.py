@@ -6,17 +6,29 @@ backup_folder = 'backup_originals'
 exclude_files = ['whatsapp.js']
 os.makedirs(backup_folder, exist_ok=True)
 
-# Optimized Google Analytics
+# Lazy-loaded Google Analytics (using requestIdleCallback)
 optimized_ga_script = """
-<!-- Google Tag Manager (optimized) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01"></script>
+<!-- Google Tag Manager (lazy-loaded) -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-E1WR6TZG01');
+  window.addEventListener('load', function() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadGTag);
+    } else {
+      setTimeout(loadGTag, 500);
+    }
+  });
+  function loadGTag() {
+    var script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01';
+    script.async = true;
+    document.head.appendChild(script);
+    gtag('js', new Date());
+    gtag('config', 'G-E1WR6TZG01');
+  }
 </script>
-"""
+""".strip()
 
 # Pages where robots noindex should be added
 noindex_keywords = ['privacy', 'terms', 'policy', 'disclaimer']
@@ -82,29 +94,29 @@ def inject_canonical(html, filename):
     return html
 
 def minify_html(content, filename):
-    # Replace GA script
+    # Replace GA script with lazy-loaded version
     content = re.sub(
-        r'<script[^>]*?gtag/js\?id=G-E1WR6TZG01.*?</script>\s*<script>.*?gtag\(.*?\).*?</script>',
-        optimized_ga_script.strip(),
+        r'<script[^>]*?gtag/js\?id=G-E1WR6TZG01.*?</script>\s*<script>.*?gtag\(.*?</script>',
+        optimized_ga_script,
         content,
         flags=re.DOTALL
     )
 
-    # Preserve JSON-LD
+    # Preserve JSON-LD blocks
     jsonld_pattern = re.compile(r'<script[^>]*type="application/ld\+json"[^>]*>.*?</script>', re.DOTALL | re.IGNORECASE)
     jsonld_blocks = jsonld_pattern.findall(content)
     for i, block in enumerate(jsonld_blocks):
         content = content.replace(block, f"__JSONLD_BLOCK_{i}__")
 
-    # Image alt fix
+    # Fix missing alt tags on images
     content = ensure_alt_tags(content)
 
-    # Schema, canonical, robots meta
+    # SEO injection
     content = inject_schema(filename, content)
     content = inject_canonical(content, filename)
     content = inject_robots_meta(content, filename)
 
-    # Minify HTML outside script blocks
+    # Minify HTML outside of script blocks
     parts = re.split(r'(<script.*?>.*?</script>)', content, flags=re.DOTALL | re.IGNORECASE)
     for i in range(len(parts)):
         if not parts[i].startswith('<script'):
@@ -114,7 +126,7 @@ def minify_html(content, filename):
 
     content = ''.join(parts).strip()
 
-    # Restore JSON-LD
+    # Restore JSON-LD blocks
     for i, block in enumerate(jsonld_blocks):
         content = content.replace(f"__JSONLD_BLOCK_{i}__", block)
 
@@ -137,7 +149,7 @@ for root, _, files in os.walk('.'):
         ext = os.path.splitext(fn)[1]
         if ext in file_exts:
             if fn in exclude_files:
-                print(f'⏭️ Skipping: {fn}')
+                print(f'Skipping: {fn}')
                 continue
 
             path = os.path.join(root, fn)
@@ -162,4 +174,4 @@ for root, _, files in os.walk('.'):
                         f.write(original)
                 with open(path, 'w', encoding='utf-8') as f:
                     f.write(minified)
-                print(f'🛠️ Minified & SEO-enhanced: {rel_path}')
+                print(f'Minified & SEO-enhanced: {rel_path}')
