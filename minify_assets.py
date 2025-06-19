@@ -40,46 +40,6 @@ def ensure_alt_tags(html):
         html
     )
 
-def inject_schema(filename, html):
-    schema = ''
-    if 'about' in filename:
-        schema = {
-            "@context": "https://schema.org",
-            "@type": "AboutPage",
-            "name": "About Canadian Fitness Repair",
-            "url": f"https://www.canadianfitnessrepair.com/{filename}"
-        }
-    elif 'contact' in filename:
-        schema = {
-            "@context": "https://schema.org",
-            "@type": "ContactPage",
-            "name": "Contact Canadian Fitness Repair",
-            "url": f"https://www.canadianfitnessrepair.com/{filename}"
-        }
-    elif 'faq' in filename:
-        schema = {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "name": "Fitness Repair FAQ",
-            "url": f"https://www.canadianfitnessrepair.com/{filename}"
-        }
-    elif '<img' in html:
-        matches = re.findall(r'<img[^>]+src="([^"]+)"[^>]*>', html)
-        if matches:
-            schema = {
-                "@context": "https://schema.org",
-                "@type": "WebPage",
-                "name": "Canadian Fitness Repair",
-                "image": [f"https://www.canadianfitnessrepair.com/{src.lstrip('/')}" for src in matches[:5]],
-                "url": f"https://www.canadianfitnessrepair.com/{filename}"
-            }
-
-    if schema:
-        jsonld = f'<script type="application/ld+json">{str(schema).replace("'", '"')}</script>'
-        if '</head>' in html:
-            html = html.replace('</head>', f'{jsonld}\n</head>')
-    return html
-
 def inject_robots_meta(html, filename):
     if any(k in filename.lower() for k in noindex_keywords):
         if 'name="robots"' not in html:
@@ -93,16 +53,6 @@ def inject_canonical(html, filename):
         html = html.replace('</head>', f'{canonical}\n</head>')
     return html
 
-def deduplicate_jsonld_blocks(blocks):
-    seen = set()
-    deduped = []
-    for block in blocks:
-        compact = re.sub(r'\s+', '', block)
-        if compact not in seen:
-            seen.add(compact)
-            deduped.append(block)
-    return deduped
-
 def minify_html(content, filename):
     # Replace GA script with lazy-loaded version
     content = re.sub(
@@ -112,18 +62,16 @@ def minify_html(content, filename):
         flags=re.DOTALL
     )
 
-    # Preserve JSON-LD blocks
+    # Preserve JSON-LD blocks for manual handling
     jsonld_pattern = re.compile(r'<script[^>]*type="application/ld\+json"[^>]*>.*?</script>', re.DOTALL | re.IGNORECASE)
     jsonld_blocks = jsonld_pattern.findall(content)
-    jsonld_blocks = deduplicate_jsonld_blocks(jsonld_blocks)
     for i, block in enumerate(jsonld_blocks):
-        content = re.sub(re.escape(block), f"__JSONLD_BLOCK_{i}__", content, count=1)
+        content = content.replace(block, f"__JSONLD_BLOCK_{i}__")
 
     # Fix missing alt tags on images
     content = ensure_alt_tags(content)
 
-    # SEO injection
-    content = inject_schema(filename, content)
+    # SEO injection (minus schema)
     content = inject_canonical(content, filename)
     content = inject_robots_meta(content, filename)
 
@@ -137,7 +85,7 @@ def minify_html(content, filename):
 
     content = ''.join(parts).strip()
 
-    # Restore deduplicated JSON-LD blocks
+    # Restore JSON-LD blocks
     for i, block in enumerate(jsonld_blocks):
         content = content.replace(f"__JSONLD_BLOCK_{i}__", block)
 
