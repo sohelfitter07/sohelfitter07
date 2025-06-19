@@ -89,9 +89,19 @@ def inject_robots_meta(html, filename):
 
 def inject_canonical(html, filename):
     if '<link rel="canonical"' not in html:
-        canonical = f'<link rel="canonical" href="https://www.canadianfitnessrepair.com/{filename}">'
+        canonical = f'<link rel="canonical" href="https://www.canadianfitnessrepair.com/{filename}">' 
         html = html.replace('</head>', f'{canonical}\n</head>')
     return html
+
+def deduplicate_jsonld_blocks(blocks):
+    seen = set()
+    deduped = []
+    for block in blocks:
+        compact = re.sub(r'\s+', '', block)
+        if compact not in seen:
+            seen.add(compact)
+            deduped.append(block)
+    return deduped
 
 def minify_html(content, filename):
     # Replace GA script with lazy-loaded version
@@ -105,8 +115,9 @@ def minify_html(content, filename):
     # Preserve JSON-LD blocks
     jsonld_pattern = re.compile(r'<script[^>]*type="application/ld\+json"[^>]*>.*?</script>', re.DOTALL | re.IGNORECASE)
     jsonld_blocks = jsonld_pattern.findall(content)
+    jsonld_blocks = deduplicate_jsonld_blocks(jsonld_blocks)
     for i, block in enumerate(jsonld_blocks):
-        content = content.replace(block, f"__JSONLD_BLOCK_{i}__")
+        content = re.sub(re.escape(block), f"__JSONLD_BLOCK_{i}__", content, count=1)
 
     # Fix missing alt tags on images
     content = ensure_alt_tags(content)
@@ -126,7 +137,7 @@ def minify_html(content, filename):
 
     content = ''.join(parts).strip()
 
-    # Restore JSON-LD blocks
+    # Restore deduplicated JSON-LD blocks
     for i, block in enumerate(jsonld_blocks):
         content = content.replace(f"__JSONLD_BLOCK_{i}__", block)
 
