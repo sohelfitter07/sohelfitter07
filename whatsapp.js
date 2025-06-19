@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     )}`;
     window.open(whatsappUrl, "_blank");
 
+    
     const chatContent = document.getElementById("chatContent");
     const userMsgElement = document.createElement("div");
     userMsgElement.classList.add("message", "sent");
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const replyElement = document.createElement("div");
       replyElement.classList.add("message", "received");
       replyElement.textContent =
-        "Thanks for your message! We've opened WhatsApp for you to continue the conversation. We'll respond shortly.";
+        "Thanks for your message! We've opened WhatsApp for you. We'll respond shortly.";
       chatContent.appendChild(replyElement);
       chatContent.scrollTop = chatContent.scrollHeight;
     }, 800);
