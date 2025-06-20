@@ -1,205 +1,668 @@
-<!DOCTYPE html><html lang="en"><head> <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  window.addEventListener('load', function() {
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+
+function gtag() {
+    dataLayer.push(arguments);
+}
+window.addEventListener('load', function() {
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadGTag);
+        requestIdleCallback(loadGTag);
     } else {
-      setTimeout(loadGTag, 500);
+        setTimeout(loadGTag, 500);
     }
-  });
-  function loadGTag() {
+});
+
+function loadGTag() {
     var script = document.createElement('script');
     script.src = 'https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01';
     script.async = true;
     document.head.appendChild(script);
     gtag('js', new Date());
     gtag('config', 'G-E1WR6TZG01');
-  }
-</script> <meta content="❓ Treadmill Repair FAQs | Emergency Service Answers | Hamilton &amp; GTA" property="og:title"/><meta content="Get urgent answers: Same-day service costs, repair warranties, troubleshooting tips &amp; 24/7 coverage details. Trusted by Hamilton, Burlington, Oakville, Mississauga." property="og:description"/><meta content="https://www.canadianfitnessrepair.com/images/technician-explaining-repair.jpg" property="og:image"/><meta content="https://www.canadianfitnessrepair.com/FAQ" property="og:url"/><meta content="website" property="og:type"/><meta content="en_CA" property="og:locale"/> <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Do you offer 24/7 emergency treadmill repair?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes! We provide 24/7 emergency service for treadmills and fitness equipment across Hamilton, Burlington, Oakville, Mississauga, and Niagara region. Call (289) 925-7239 anytime - day or night."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What's included in your same-day service?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Our same-day service includes: diagnostic assessment, parts replacement, full calibration, and safety testing. We carry common treadmill parts in our service vehicles for immediate repairs."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How much does treadmill belt replacement cost?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Residential treadmill belt replacements start at $199 CAD (parts + labor). Commercial units range from $299-$499. Exact pricing depends on model and belt quality - contact us for a precise quote."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do you repair commercial gym equipment?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Absolutely. We're certified technicians for Life Fitness, Precor, Technogym, Matrix and other commercial brands. Serving gyms throughout Hamilton, GTA, and Niagara region 24/7."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What areas do you cover for emergency repairs?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Immediate service areas: Hamilton, Burlington, Oakville, Mississauga, St. Catharines, Niagara Falls. Extended GTA coverage: Toronto, Brampton, Vaughan, Markham within 90-minute response."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is there extra charge for after-hours service?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Standard hours (8am-8pm): No surcharge. True emergency service (12am-6am): $79 after-hours fee. Weekend rates same as weekday."
-            }
-          }
-        ]
-      }
-    </script> <meta content="Emergency treadmill repair FAQs: Same-day costs, warranty coverage, 24/7 service areas &amp; commercial gym support answers for Hamilton, Burlington, Oakville." name="description"/><meta content="treadmill repair faq, emergency fitness service questions, gym equipment troubleshooting, same-day repair cost, 24/7 service coverage" name="keywords"/><meta content="Hamilton, Burlington, Oakville, Mississauga, Niagara Region, Greater Toronto Area" name="geo.placename"/><meta content="43.2250;-79.8660" name="geo.position"/><meta content="CA-ON" name="geo.region"/><meta content="43.2250, -79.8660" name="ICBM"/><link href="https://www.canadianfitnessrepair.com/faq" rel="canonical"/><title> Treadmill Repair FAQs | 24/7 Emergency Service Answers | Hamilton &amp; GTA </title><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/> <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.canadianfitnessrepair.com"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "FAQ",
-            "item": "https://www.canadianfitnessrepair.com/faq"
-          }
-        ]
-      }
-    </script> <meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/><link href="whatsapp.css" rel="stylesheet"/><link href="headerfooter.css" rel="stylesheet"/><style> * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; overflow-x: hidden; line-height: 1.6; } /* FAQ Section */ .faq-section { padding: 5rem 2rem; background-color: var(--card-bg); max-width: 1200px; margin: 0 auto; } .faq-section h2 { margin-top: 9rem; } .section-title { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 3rem; text-transform: uppercase; letter-spacing: 1px; color: var(--theme-color); position: relative; padding-bottom: 1rem; } .section-title::after { content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: var(--accent-color); border-radius: 2px; } .faq-intro { text-align: center; max-width: 800px; margin: 0 auto 3rem; color: var(--light-text); font-size: 1.1rem; line-height: 1.8; } .faq-container { max-width: 900px; margin: 0 auto; } .faq-item { background: var(--bg-color); border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid rgba(93, 93, 255, 0.1); overflow: hidden; transition: var(--transition); } .faq-item:hover { border-color: rgba(93, 93, 255, 0.3); } .faq-question { padding: 1.5rem; background-color: rgba(93, 93, 255, 0.1); font-size: 1.2rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); } .faq-question:hover { background-color: rgba(93, 93, 255, 0.2); } .faq-question .icon { transition: transform 0.3s ease; color: var(--theme-color); } .faq-item.active .faq-question .icon { transform: rotate(180deg); } .faq-answer { padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; color: var(--light-text); line-height: 1.8; } .faq-item.active .faq-answer { max-height: 500px; padding: 1.5rem; } .faq-steps { display: flex; flex-wrap: wrap; gap: 2rem; margin: 3rem 0; justify-content: center; } .step-card { flex: 1; min-width: 250px; max-width: 350px; background: var(--bg-color); border-radius: 12px; padding: 2rem; text-align: center; border: 1px solid rgba(93, 93, 255, 0.1); transition: var(--transition); } .step-card:hover { transform: translateY(-10px); border-color: var(--theme-color); box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2); } .step-number { width: 50px; height: 50px; border-radius: 50%; background: var(--theme-color); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem; } .step-card h3 { margin-bottom: 1rem; color: var(--theme-color); } .step-card p { color: var(--light-text); } .cta-section { text-align: center; margin: 4rem 0; } .cta-section h2 { font-size: 2rem; margin-bottom: 1.5rem; color: var(--theme-color); } .cta-section p { max-width: 600px; margin: 0 auto 2rem; color: var(--light-text); font-size: 1.1rem; } .cta-section a { text-decoration: none; } /* Responsive Styles */ @media (max-width: 1024px) { .faq-steps { gap: 1.5rem; } } @media (max-width: 767px) { .faq-section { padding: 3rem 1.5rem; } .faq-question { padding: 1.2rem; font-size: 1.1rem; } } @media (max-width: 480px) { .step-card { min-width: 100%; } } </style><link href="whatsapp.css" rel="stylesheet"/><link rel="canonical" href="https://www.canadianfitnessrepair.com/FAQ.html"></head><body><div id="header"></div><main><section class="faq-section"><h2 class="section-title">Frequently Asked Questions</h2><div class="faq-intro"><p> Find answers to common questions about our fitness equipment repair services. If you don't find what you're looking for, feel free to contact us directly. </p></div><div class="faq-container"><div class="faq-item"><div class="faq-question"><span>How does the repair service process work?</span><i class="ri-arrow-down-s-line icon"></i></div><div class="faq-answer"><p>Our repair process is simple and efficient:</p><ol><li>Contact us via phone, email, or our online form</li><li>Describe your equipment issue</li><li>Schedule an appointment at your convenience</li><li>Our certified technician arrives at your location</li><li>We diagnose and repair your equipment</li><li>You receive a detailed service report</li></ol><p> Most repairs are completed in a single visit, with complex issues requiring follow-up clearly communicated. </p></div></div><div class="faq-item"><div class="faq-question"><span>What forms do I need to fill out before service?</span><i class="ri-arrow-down-s-line icon"></i></div><div class="faq-answer"><p>To streamline the process, we require:</p><ul><li><strong>Service Request Form:</strong> Basic contact and equipment information </li><li><strong>Equipment Details:</strong> Make, model, serial number, and issue description </li><li><strong>Service Agreement:</strong> Outlining terms and conditions </li><li><strong>Safety Waiver:</strong> For liability purposes during repair </li></ul><p> All forms can be completed online through our customer portal or in-person when the technician arrives. </p></div></div><div class="faq-item"><div class="faq-question"><span>How do I schedule an appointment?</span><i class="ri-arrow-down-s-line icon"></i></div><div class="faq-answer"><p>You can schedule an appointment through multiple channels:</p><ul><li><strong>Online:</strong> Via our website's scheduling portal </li><li><strong>Phone:</strong> Call us at +1 289 925 7239 during business hours </li><li><strong>Email:</strong> Send your request to service@canadianfitnessrepair.com </li><li><strong>Mobile App:</strong> Download our app for iOS or Android </li></ul><p> We offer same-day appointments for urgent repairs and next-day service for most requests. </p></div></div><div class="faq-item"><div class="faq-question"><span>What information do I need to provide when booking?</span><i class="ri-arrow-down-s-line icon"></i></div><div class="faq-answer"><p> To ensure efficient service, please have the following ready: </p><ul><li>Equipment make and model</li><li> Serial number (usually found on a label on the equipment) </li><li>Detailed description of the issue</li><li>Photos or videos of the problem (if possible)</li><li>Your preferred appointment dates/times</li><li>Service location (home, gym, or business address)</li></ul></div></div><div class="faq-item"><div class="faq-question"><span>Do I need to be present during the repair?</span><i class="ri-arrow-down-s-line icon"></i></div><div class="faq-answer"><p> For residential services, we recommend that an adult be present during the technician's visit to: </p><ul><li>Provide access to the equipment</li><li>Answer any questions about the issue</li><li>Approve any additional work needed</li><li>Receive service documentation</li></ul><p> For commercial clients, we can work with your designated staff member or manager. </p></div></div><div class="faq-item"><div class="faq-question"><span>How long do repairs typically take?</span><i class="ri-arrow-down-s-line icon"></i></div><div class="faq-answer"><p>Repair times vary based on the issue:</p><ul><li><strong>Minor repairs:</strong> 30-60 minutes (belt replacements, calibration) </li><li><strong>Moderate repairs:</strong> 1-2 hours (motor issues, electronic components) </li><li><strong>Major repairs:</strong> 2-4 hours (structural issues, complex electronic problems) </li><li><strong>Preventative maintenance:</strong> 45-90 minutes per equipment piece </li></ul><p> Our technicians will provide an estimated timeframe after diagnosis. </p></div></div><div class="faq-item"><div class="faq-question"><span>What payment methods do you accept?</span><i class="ri-arrow-down-s-line icon"></i></div><div class="faq-answer"><p>We accept various payment methods for your convenience:</p><ul><li>Credit/Debit Cards (Visa, MasterCard, American Express)</li><li>Electronic Transfer (e-Transfer)</li><li>Cheque (for commercial accounts only)</li><li>Cash</li></ul><p> Payment is due upon completion of service. Commercial clients may qualify for net-30 terms with approved credit. </p></div></div><div class="faq-item"><div class="faq-question"><span>Do you offer warranties on repairs?</span><i class="ri-arrow-down-s-line icon"></i></div><div class="faq-answer"><p> Yes, we stand behind our work with comprehensive warranties: </p><ul><li><strong>Labor Warranty:</strong> 90 days on all repairs</li><li><strong>Parts Warranty:</strong> 1 year on manufacturer parts </li><li><strong>Preventative Maintenance:</strong> 30-day service guarantee </li></ul><p> Warranty details are included in your service documentation and cover defects in parts or workmanship. </p></div></div></div><h3> Our Simple Repair Process </h3><div class="faq-steps"><div class="step-card"><div class="step-number">1</div><h3>Contact Us</h3><p> Reach out via phone, email, or our online form to describe your equipment issue. </p></div><div class="step-card"><div class="step-number">2</div><h3>Schedule Appointment</h3><p> Choose a convenient time for our technician to visit your location. </p></div><div class="step-card"><div class="step-number">3</div><h3>Technician Visit</h3><p> Our certified technician arrives, diagnoses the issue, and completes repairs. </p></div><div class="step-card"><div class="step-number">4</div><h3>Service Completion</h3><p> Receive documentation and enjoy your fully functional equipment again. </p></div></div><div class="cta-section"><h2>Ready to Schedule Your Repair?</h2><p> Contact us today to book an appointment with our certified fitness equipment technicians. </p><a class="c-button" href="get-quote.html"><i class="ri-calendar-event-line"></i> Book Appointment </a><a class="c-button" href="tel:+12899257239"><i class="ri-phone-line"></i> Call Now </a></div></section><section><div class="whatsapp-widget" id="whatsappWidget"><div class="widget-header"><div class="whatsapp-icon"><i class="fab fa-whatsapp"></i></div><div class="header-text"><h3>Canadian Fitness Repair</h3><p>Typically replies instantly</p></div><button class="close-btn" id="closeBtn">×</button></div><div class="chat-content" id="chatContent"><div class="message received"> Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today? </div><div class="message received"> We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with! </div><div class="message sent">Great!.</div></div><div class="action-area"><button class="whatsapp-btn" id="whatsappBtn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp </button></div></div><div class="floating-btn pulse" id="floatingBtn"><i class="fab fa-whatsapp"></i></div></section></main><div id="footer"></div> <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Mobile menu functionality
-        const hamburger = document.getElementById("hamburger");
-        const navbarList = document.getElementById("navbarList");
-        const dropdowns = document.querySelectorAll(".dropdown");
+}
+  </script>
+  <meta content="❓ Treadmill Repair FAQs | Emergency Service Answers | Hamilton &amp; GTA" property="og:title"/>
+  <meta content="Get urgent answers: Same-day service costs, repair warranties, troubleshooting tips &amp; 24/7 coverage details. Trusted by Hamilton, Burlington, Oakville, Mississauga." property="og:description"/>
+  <meta content="https://www.canadianfitnessrepair.com/images/technician-explaining-repair.jpg" property="og:image"/>
+  <meta content="https://www.canadianfitnessrepair.com/FAQ" property="og:url"/>
+  <meta content="website" property="og:type"/>
+  <meta content="en_CA" property="og:locale"/>
+  <script type="application/ld+json">
+   {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+        "@type": "Question",
+        "name": "Do you offer 24/7 emergency treadmill repair?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! We provide 24/7 emergency service for treadmills and fitness equipment across Hamilton, Burlington, Oakville, Mississauga, and Niagara region. Call (289) 925-7239 anytime - day or night."
+        }
+    }, {
+        "@type": "Question",
+        "name": "What's included in your same-day service?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our same-day service includes: diagnostic assessment, parts replacement, full calibration, and safety testing. We carry common treadmill parts in our service vehicles for immediate repairs."
+        }
+    }, {
+        "@type": "Question",
+        "name": "How much does treadmill belt replacement cost?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Residential treadmill belt replacements start at $199 CAD (parts + labor). Commercial units range from $299-$499. Exact pricing depends on model and belt quality - contact us for a precise quote."
+        }
+    }, {
+        "@type": "Question",
+        "name": "Do you repair commercial gym equipment?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. We're certified technicians for Life Fitness, Precor, Technogym, Matrix and other commercial brands. Serving gyms throughout Hamilton, GTA, and Niagara region 24/7."
+        }
+    }, {
+        "@type": "Question",
+        "name": "What areas do you cover for emergency repairs?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immediate service areas: Hamilton, Burlington, Oakville, Mississauga, St. Catharines, Niagara Falls. Extended GTA coverage: Toronto, Brampton, Vaughan, Markham within 90-minute response."
+        }
+    }, {
+        "@type": "Question",
+        "name": "Is there extra charge for after-hours service?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Standard hours (8am-8pm): No surcharge. True emergency service (12am-6am): $79 after-hours fee. Weekend rates same as weekday."
+        }
+    }]
+}
+  </script>
+  <meta content="Emergency treadmill repair FAQs: Same-day costs, warranty coverage, 24/7 service areas &amp; commercial gym support answers for Hamilton, Burlington, Oakville." name="description"/>
+  <meta content="treadmill repair faq, emergency fitness service questions, gym equipment troubleshooting, same-day repair cost, 24/7 service coverage" name="keywords"/>
+  <meta content="Hamilton, Burlington, Oakville, Mississauga, Niagara Region, Greater Toronto Area" name="geo.placename"/>
+  <meta content="43.2250;-79.8660" name="geo.position"/>
+  <meta content="CA-ON" name="geo.region"/>
+  <meta content="43.2250, -79.8660" name="ICBM"/>
+  <link href="https://www.canadianfitnessrepair.com/faq" rel="canonical"/>
+  <title>
+   Treadmill Repair FAQs | 24/7 Emergency Service Answers | Hamilton &amp; GTA
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <script type="application/ld+json">
+   {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.canadianfitnessrepair.com"
+    }, {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "FAQ",
+        "item": "https://www.canadianfitnessrepair.com/faq"
+    }]
+}
+  </script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+  <link href="whatsapp.css" rel="stylesheet"/>
+  <link href="headerfooter.css" rel="stylesheet"/>
+  <style>
+   * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; overflow-x: hidden; line-height: 1.6; } /* FAQ Section */ .faq-section { padding: 5rem 2rem; background-color: var(--card-bg); max-width: 1200px; margin: 0 auto; } .faq-section h2 { margin-top: 9rem; } .section-title { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 3rem; text-transform: uppercase; letter-spacing: 1px; color: var(--theme-color); position: relative; padding-bottom: 1rem; } .section-title::after { content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: var(--accent-color); border-radius: 2px; } .faq-intro { text-align: center; max-width: 800px; margin: 0 auto 3rem; color: var(--light-text); font-size: 1.1rem; line-height: 1.8; } .faq-container { max-width: 900px; margin: 0 auto; } .faq-item { background: var(--bg-color); border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid rgba(93, 93, 255, 0.1); overflow: hidden; transition: var(--transition); } .faq-item:hover { border-color: rgba(93, 93, 255, 0.3); } .faq-question { padding: 1.5rem; background-color: rgba(93, 93, 255, 0.1); font-size: 1.2rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); } .faq-question:hover { background-color: rgba(93, 93, 255, 0.2); } .faq-question .icon { transition: transform 0.3s ease; color: var(--theme-color); } .faq-item.active .faq-question .icon { transform: rotate(180deg); } .faq-answer { padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; color: var(--light-text); line-height: 1.8; } .faq-item.active .faq-answer { max-height: 500px; padding: 1.5rem; } .faq-steps { display: flex; flex-wrap: wrap; gap: 2rem; margin: 3rem 0; justify-content: center; } .step-card { flex: 1; min-width: 250px; max-width: 350px; background: var(--bg-color); border-radius: 12px; padding: 2rem; text-align: center; border: 1px solid rgba(93, 93, 255, 0.1); transition: var(--transition); } .step-card:hover { transform: translateY(-10px); border-color: var(--theme-color); box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2); } .step-number { width: 50px; height: 50px; border-radius: 50%; background: var(--theme-color); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem; } .step-card h3 { margin-bottom: 1rem; color: var(--theme-color); } .step-card p { color: var(--light-text); } .cta-section { text-align: center; margin: 4rem 0; } .cta-section h2 { font-size: 2rem; margin-bottom: 1.5rem; color: var(--theme-color); } .cta-section p { max-width: 600px; margin: 0 auto 2rem; color: var(--light-text); font-size: 1.1rem; } .cta-section a { text-decoration: none; } /* Responsive Styles */ @media (max-width: 1024px) { .faq-steps { gap: 1.5rem; } } @media (max-width: 767px) { .faq-section { padding: 3rem 1.5rem; } .faq-question { padding: 1.2rem; font-size: 1.1rem; } } @media (max-width: 480px) { .step-card { min-width: 100%; } }
+  </style>
+  <link href="whatsapp.css" rel="stylesheet"/>
+  <link href="https://www.canadianfitnessrepair.com/FAQ.html" rel="canonical"/>
+ </head>
+ <body>
+  <div id="header">
+  </div>
+  <main>
+   <section class="faq-section">
+    <h2 class="section-title">
+     Frequently Asked Questions
+    </h2>
+    <div class="faq-intro">
+     <p>
+      Find answers to common questions about our fitness equipment repair services. If you don't find what you're looking for, feel free to contact us directly.
+     </p>
+    </div>
+    <div class="faq-container">
+     <div class="faq-item">
+      <div class="faq-question">
+       <span>
+        How does the repair service process work?
+       </span>
+       <i class="ri-arrow-down-s-line icon">
+       </i>
+      </div>
+      <div class="faq-answer">
+       <p>
+        Our repair process is simple and efficient:
+       </p>
+       <ol>
+        <li>
+         Contact us via phone, email, or our online form
+        </li>
+        <li>
+         Describe your equipment issue
+        </li>
+        <li>
+         Schedule an appointment at your convenience
+        </li>
+        <li>
+         Our certified technician arrives at your location
+        </li>
+        <li>
+         We diagnose and repair your equipment
+        </li>
+        <li>
+         You receive a detailed service report
+        </li>
+       </ol>
+       <p>
+        Most repairs are completed in a single visit, with complex issues requiring follow-up clearly communicated.
+       </p>
+      </div>
+     </div>
+     <div class="faq-item">
+      <div class="faq-question">
+       <span>
+        What forms do I need to fill out before service?
+       </span>
+       <i class="ri-arrow-down-s-line icon">
+       </i>
+      </div>
+      <div class="faq-answer">
+       <p>
+        To streamline the process, we require:
+       </p>
+       <ul>
+        <li>
+         <strong>
+          Service Request Form:
+         </strong>
+         Basic contact and equipment information
+        </li>
+        <li>
+         <strong>
+          Equipment Details:
+         </strong>
+         Make, model, serial number, and issue description
+        </li>
+        <li>
+         <strong>
+          Service Agreement:
+         </strong>
+         Outlining terms and conditions
+        </li>
+        <li>
+         <strong>
+          Safety Waiver:
+         </strong>
+         For liability purposes during repair
+        </li>
+       </ul>
+       <p>
+        All forms can be completed online through our customer portal or in-person when the technician arrives.
+       </p>
+      </div>
+     </div>
+     <div class="faq-item">
+      <div class="faq-question">
+       <span>
+        How do I schedule an appointment?
+       </span>
+       <i class="ri-arrow-down-s-line icon">
+       </i>
+      </div>
+      <div class="faq-answer">
+       <p>
+        You can schedule an appointment through multiple channels:
+       </p>
+       <ul>
+        <li>
+         <strong>
+          Online:
+         </strong>
+         Via our website's scheduling portal
+        </li>
+        <li>
+         <strong>
+          Phone:
+         </strong>
+         Call us at +1 289 925 7239 during business hours
+        </li>
+        <li>
+         <strong>
+          Email:
+         </strong>
+         Send your request to service@canadianfitnessrepair.com
+        </li>
+        <li>
+         <strong>
+          Mobile App:
+         </strong>
+         Download our app for iOS or Android
+        </li>
+       </ul>
+       <p>
+        We offer same-day appointments for urgent repairs and next-day service for most requests.
+       </p>
+      </div>
+     </div>
+     <div class="faq-item">
+      <div class="faq-question">
+       <span>
+        What information do I need to provide when booking?
+       </span>
+       <i class="ri-arrow-down-s-line icon">
+       </i>
+      </div>
+      <div class="faq-answer">
+       <p>
+        To ensure efficient service, please have the following ready:
+       </p>
+       <ul>
+        <li>
+         Equipment make and model
+        </li>
+        <li>
+         Serial number (usually found on a label on the equipment)
+        </li>
+        <li>
+         Detailed description of the issue
+        </li>
+        <li>
+         Photos or videos of the problem (if possible)
+        </li>
+        <li>
+         Your preferred appointment dates/times
+        </li>
+        <li>
+         Service location (home, gym, or business address)
+        </li>
+       </ul>
+      </div>
+     </div>
+     <div class="faq-item">
+      <div class="faq-question">
+       <span>
+        Do I need to be present during the repair?
+       </span>
+       <i class="ri-arrow-down-s-line icon">
+       </i>
+      </div>
+      <div class="faq-answer">
+       <p>
+        For residential services, we recommend that an adult be present during the technician's visit to:
+       </p>
+       <ul>
+        <li>
+         Provide access to the equipment
+        </li>
+        <li>
+         Answer any questions about the issue
+        </li>
+        <li>
+         Approve any additional work needed
+        </li>
+        <li>
+         Receive service documentation
+        </li>
+       </ul>
+       <p>
+        For commercial clients, we can work with your designated staff member or manager.
+       </p>
+      </div>
+     </div>
+     <div class="faq-item">
+      <div class="faq-question">
+       <span>
+        How long do repairs typically take?
+       </span>
+       <i class="ri-arrow-down-s-line icon">
+       </i>
+      </div>
+      <div class="faq-answer">
+       <p>
+        Repair times vary based on the issue:
+       </p>
+       <ul>
+        <li>
+         <strong>
+          Minor repairs:
+         </strong>
+         30-60 minutes (belt replacements, calibration)
+        </li>
+        <li>
+         <strong>
+          Moderate repairs:
+         </strong>
+         1-2 hours (motor issues, electronic components)
+        </li>
+        <li>
+         <strong>
+          Major repairs:
+         </strong>
+         2-4 hours (structural issues, complex electronic problems)
+        </li>
+        <li>
+         <strong>
+          Preventative maintenance:
+         </strong>
+         45-90 minutes per equipment piece
+        </li>
+       </ul>
+       <p>
+        Our technicians will provide an estimated timeframe after diagnosis.
+       </p>
+      </div>
+     </div>
+     <div class="faq-item">
+      <div class="faq-question">
+       <span>
+        What payment methods do you accept?
+       </span>
+       <i class="ri-arrow-down-s-line icon">
+       </i>
+      </div>
+      <div class="faq-answer">
+       <p>
+        We accept various payment methods for your convenience:
+       </p>
+       <ul>
+        <li>
+         Credit/Debit Cards (Visa, MasterCard, American Express)
+        </li>
+        <li>
+         Electronic Transfer (e-Transfer)
+        </li>
+        <li>
+         Cheque (for commercial accounts only)
+        </li>
+        <li>
+         Cash
+        </li>
+       </ul>
+       <p>
+        Payment is due upon completion of service. Commercial clients may qualify for net-30 terms with approved credit.
+       </p>
+      </div>
+     </div>
+     <div class="faq-item">
+      <div class="faq-question">
+       <span>
+        Do you offer warranties on repairs?
+       </span>
+       <i class="ri-arrow-down-s-line icon">
+       </i>
+      </div>
+      <div class="faq-answer">
+       <p>
+        Yes, we stand behind our work with comprehensive warranties:
+       </p>
+       <ul>
+        <li>
+         <strong>
+          Labor Warranty:
+         </strong>
+         90 days on all repairs
+        </li>
+        <li>
+         <strong>
+          Parts Warranty:
+         </strong>
+         1 year on manufacturer parts
+        </li>
+        <li>
+         <strong>
+          Preventative Maintenance:
+         </strong>
+         30-day service guarantee
+        </li>
+       </ul>
+       <p>
+        Warranty details are included in your service documentation and cover defects in parts or workmanship.
+       </p>
+      </div>
+     </div>
+    </div>
+    <h3>
+     Our Simple Repair Process
+    </h3>
+    <div class="faq-steps">
+     <div class="step-card">
+      <div class="step-number">
+       1
+      </div>
+      <h3>
+       Contact Us
+      </h3>
+      <p>
+       Reach out via phone, email, or our online form to describe your equipment issue.
+      </p>
+     </div>
+     <div class="step-card">
+      <div class="step-number">
+       2
+      </div>
+      <h3>
+       Schedule Appointment
+      </h3>
+      <p>
+       Choose a convenient time for our technician to visit your location.
+      </p>
+     </div>
+     <div class="step-card">
+      <div class="step-number">
+       3
+      </div>
+      <h3>
+       Technician Visit
+      </h3>
+      <p>
+       Our certified technician arrives, diagnoses the issue, and completes repairs.
+      </p>
+     </div>
+     <div class="step-card">
+      <div class="step-number">
+       4
+      </div>
+      <h3>
+       Service Completion
+      </h3>
+      <p>
+       Receive documentation and enjoy your fully functional equipment again.
+      </p>
+     </div>
+    </div>
+    <div class="cta-section">
+     <h2>
+      Ready to Schedule Your Repair?
+     </h2>
+     <p>
+      Contact us today to book an appointment with our certified fitness equipment technicians.
+     </p>
+     <a class="c-button" href="get-quote.html">
+      <i class="ri-calendar-event-line">
+      </i>
+      Book Appointment
+     </a>
+     <a class="c-button" href="tel:+12899257239">
+      <i class="ri-phone-line">
+      </i>
+      Call Now
+     </a>
+    </div>
+   </section>
+   <section>
+    <div class="whatsapp-widget" id="whatsappWidget">
+     <div class="widget-header">
+      <div class="whatsapp-icon">
+       <i class="fab fa-whatsapp">
+       </i>
+      </div>
+      <div class="header-text">
+       <h3>
+        Canadian Fitness Repair
+       </h3>
+       <p>
+        Typically replies instantly
+       </p>
+      </div>
+      <button class="close-btn" id="closeBtn">
+       &times;
+      </button>
+     </div>
+     <div class="chat-content" id="chatContent">
+      <div class="message received">
+       Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
+      </div>
+      <div class="message received">
+       We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with!
+      </div>
+      <div class="message sent">
+       Great!.
+      </div>
+     </div>
+     <div class="action-area">
+      <button class="whatsapp-btn" id="whatsappBtn">
+       <i class="fab fa-whatsapp">
+       </i>
+       Chat on WhatsApp
+      </button>
+     </div>
+    </div>
+    <div class="floating-btn pulse" id="floatingBtn">
+     <i class="fab fa-whatsapp">
+     </i>
+    </div>
+   </section>
+  </main>
+  <div id="footer">
+  </div>
+  <script>
+   document.addEventListener("DOMContentLoaded", function() {
+    // Mobile menu functionality
+    const hamburger = document.getElementById("hamburger");
+    const navbarList = document.getElementById("navbarList");
+    const dropdowns = document.querySelectorAll(".dropdown");
 
-        const menuIcon = hamburger?.querySelector(".menu-icon");
-        const closeIcon = hamburger?.querySelector(".close-icon");
+    const menuIcon = hamburger?.querySelector(".menu-icon");
+    const closeIcon = hamburger?.querySelector(".close-icon");
 
-        if (hamburger && navbarList && menuIcon && closeIcon) {
-          hamburger.addEventListener("click", () => {
+    if (hamburger && navbarList && menuIcon && closeIcon) {
+        hamburger.addEventListener("click", () => {
             navbarList.classList.toggle("open");
 
             const isOpen = navbarList.classList.contains("open");
             menuIcon.style.display = isOpen ? "none" : "block";
             closeIcon.style.display = isOpen ? "block" : "none";
-          });
+        });
 
-          // Dropdown toggle (mobile)
-          dropdowns.forEach((dropdown) => {
+        // Dropdown toggle (mobile)
+        dropdowns.forEach((dropdown) => {
             const toggle = dropdown.querySelector("a");
             if (!toggle) return;
 
-            toggle.addEventListener("click", function (e) {
-              if (window.innerWidth <= 767) {
-                e.preventDefault();
-                e.stopPropagation();
+            toggle.addEventListener("click", function(e) {
+                if (window.innerWidth <= 767) {
+                    e.preventDefault();
+                    e.stopPropagation();
 
-                dropdowns.forEach((d) => {
-                  if (d !== dropdown && d.classList.contains("active")) {
-                    d.classList.remove("active");
-                    const otherContent = d.querySelector(".dropdown-content");
-                    if (otherContent) {
-                      otherContent.style.maxHeight = null;
-                      otherContent.style.padding = "0";
+                    dropdowns.forEach((d) => {
+                        if (d !== dropdown && d.classList.contains("active")) {
+                            d.classList.remove("active");
+                            const otherContent = d.querySelector(".dropdown-content");
+                            if (otherContent) {
+                                otherContent.style.maxHeight = null;
+                                otherContent.style.padding = "0";
+                            }
+                        }
+                    });
+
+                    dropdown.classList.toggle("active");
+                    const content = dropdown.querySelector(".dropdown-content");
+                    if (content) {
+                        if (dropdown.classList.contains("active")) {
+                            content.style.maxHeight = content.scrollHeight + "px";
+                            content.style.padding = "10px 0";
+                        } else {
+                            content.style.maxHeight = null;
+                            content.style.padding = "0";
+                        }
                     }
-                  }
-                });
-
-                dropdown.classList.toggle("active");
-                const content = dropdown.querySelector(".dropdown-content");
-                if (content) {
-                  if (dropdown.classList.contains("active")) {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                    content.style.padding = "10px 0";
-                  } else {
-                    content.style.maxHeight = null;
-                    content.style.padding = "0";
-                  }
                 }
-              }
             });
-          });
+        });
 
-          // Click outside to close mobile nav
-          document.addEventListener("click", function (e) {
+        // Click outside to close mobile nav
+        document.addEventListener("click", function(e) {
             const isClickInside =
-              navbarList.contains(e.target) || hamburger.contains(e.target);
+                navbarList.contains(e.target) || hamburger.contains(e.target);
             if (!isClickInside) {
-              navbarList.classList.remove("open");
-              dropdowns.forEach((d) => {
-                d.classList.remove("active");
-                const content = d.querySelector(".dropdown-content");
-                if (content) {
-                  content.style.maxHeight = null;
-                  content.style.padding = "0";
-                }
-              });
-              menuIcon.style.display = "block";
-              closeIcon.style.display = "none";
+                navbarList.classList.remove("open");
+                dropdowns.forEach((d) => {
+                    d.classList.remove("active");
+                    const content = d.querySelector(".dropdown-content");
+                    if (content) {
+                        content.style.maxHeight = null;
+                        content.style.padding = "0";
+                    }
+                });
+                menuIcon.style.display = "block";
+                closeIcon.style.display = "none";
             }
-          });
+        });
 
-          // Responsive reset
-          window.addEventListener("resize", () => {
+        // Responsive reset
+        window.addEventListener("resize", () => {
             if (window.innerWidth > 767) {
-              dropdowns.forEach((d) => {
-                d.classList.remove("active");
-                const content = d.querySelector(".dropdown-content");
-                if (content) {
-                  content.style.maxHeight = null;
-                  content.style.padding = "";
-                }
-              });
-              navbarList.classList.remove("open");
-              menuIcon.style.display = "block";
-              closeIcon.style.display = "none";
+                dropdowns.forEach((d) => {
+                    d.classList.remove("active");
+                    const content = d.querySelector(".dropdown-content");
+                    if (content) {
+                        content.style.maxHeight = null;
+                        content.style.padding = "";
+                    }
+                });
+                navbarList.classList.remove("open");
+                menuIcon.style.display = "block";
+                closeIcon.style.display = "none";
             }
-          });
-        }
+        });
+    }
 
-        // FAQ Accordion
-        const faqItems = document.querySelectorAll(".faq-item");
-        faqItems.forEach((item) => {
-          const question = item.querySelector(".faq-question");
-          if (!question) return;
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach((item) => {
+        const question = item.querySelector(".faq-question");
+        if (!question) return;
 
-          question.addEventListener("click", () => {
+        question.addEventListener("click", () => {
             const isActive = item.classList.contains("active");
 
             faqItems.forEach((faq) => {
-              faq.classList.remove("active");
+                faq.classList.remove("active");
             });
 
             if (!isActive) {
-              item.classList.add("active");
+                item.classList.add("active");
             }
-          });
         });
-      });
-    </script> <script src="menu.js"></script> <script src="whatsapp.js"></script> <script src="whatsapp.js"></script>
-</body></html>
+    });
+});
+  </script>
+  <script src="menu.js">
+  </script>
+  <script src="whatsapp.js">
+  </script>
+  <script src="whatsapp.js">
+  </script>
+ </body>
+</html>
