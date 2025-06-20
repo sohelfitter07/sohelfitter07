@@ -33,7 +33,7 @@
 <div class="footertop-right">
 <div class="footer-contact">
 <h2><i class="ri-map-pin-line"></i> Location</h2>
-<a href="https://maps.app.goo.gl/o12xJ23UPUj7Zt386"><p>2200 Rymal Rd E, Hamilton, ON L0R 1P0</p></a>
+<a href="https://maps.app.goo.gl/o12xJ23UPUj7Zt386"><p>Hamilton, ON E, Hamilton, ON</p></a>
 </div>
 <div class="footer-contact">
 <h2><i class="ri-contacts-book-line"></i> Contact us</h2>
@@ -97,14 +97,17 @@
       "@id": "",
       "url": "https://www.canadianfitnessrepair.com",
       "telephone": "+1-289-925-7239",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "2200 Rymal Rd E",
-        "addressLocality": "Hamilton",
-        "addressRegion": "ON",
-        "postalCode": "L0R 1P0",
-        "addressCountry": "CA"
-      },
+      
+"areaServed": {
+  "@type": "Place",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Hamilton",
+    "addressRegion": "ON",
+    "addressCountry": "CA"
+  }
+}
+,
       "geo": {
         "@type": "GeoCoordinates",
         "latitude": 43.225,
