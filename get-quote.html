@@ -398,18 +398,37 @@
         height: 100px;
         background: linear-gradient(transparent, var(--bg-color));
       }
-      .error-message {
-        color: #ff6b6b;
-        font-size: 0.9rem;
-        margin-top: 5px;
-        display: none;
-      }
       input.error,
       select.error,
       textarea.error {
-        border: 1px solid #ff6b6b;
-        background-color: #fff0f0;
+        border: 1.5px solid #ff4d4d; /* subtle red border */
+        background-color: #1f1f1f; /* dark background */
+        color: #ffffff; /* readable text */
+        caret-color: #ffffff;
       }
+
+      input.error::placeholder,
+      textarea.error::placeholder {
+        color: #bbbbbb; /* lighter placeholder for contrast */
+      }
+      input.error:focus,
+      select.error:focus,
+      textarea.error:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.4);
+      }
+      .error-message {
+        display: none;
+        color: #ff4d4d;
+        font-size: 0.85rem;
+        margin-top: 4px;
+        font-weight: 500;
+      }
+
+      .form-group {
+        position: relative;
+      }
+
       .quote-hero h1 {
         font-size: clamp(2rem, 5vw + 1rem, 3.5rem);
         margin-top: 8rem;
@@ -1091,7 +1110,9 @@
                 required
                 type="text"
               />
-              <div class="error-message">Please enter your first name</div>
+              <div class="error-message" id="firstNameError">
+                Please enter your first name
+              </div>
             </div>
 
             <div class="form-group" itemprop="customer">
@@ -1115,7 +1136,9 @@
                 required
                 type="tel"
               />
-              <div class="error-message">Please enter a valid phone number</div>
+              <div class="error-message" id="contactNumberError">
+                Please enter a valid phone number
+              </div>
             </div>
 
             <div class="form-group" itemprop="customer">
@@ -1128,7 +1151,7 @@
                 required
                 type="email"
               />
-              <div class="error-message">
+              <div class="error-message" id="emailError">
                 Please enter a valid email address
               </div>
             </div>
@@ -1142,7 +1165,9 @@
                 <option value="email">Email</option>
                 <option value="phone">Contact Number</option>
               </select>
-              <div class="error-message">Please select a contact method</div>
+              <div class="error-message" id="preferredContactError">
+                Please select a contact method
+              </div>
             </div>
 
             <div
@@ -1165,7 +1190,9 @@
                   required
                   type="text"
                 />
-                <div class="error-message">Please enter your address</div>
+                <div class="error-message" id="addressError">
+                  Please enter your address
+                </div>
               </div>
             </div>
 
@@ -1199,7 +1226,9 @@
                   <option value="Ajax">Ajax</option>
                   <option value="Pickering">Pickering</option>
                 </select>
-                <div class="error-message">Please select your city</div>
+                <div class="error-message" id="cityError">
+                  Please select your city
+                </div>
               </div>
             </div>
 
@@ -1223,7 +1252,7 @@
                   required
                   type="text"
                 />
-                <div class="error-message">
+                <div class="error-message" id="postalError">
                   Please enter a valid postal code
                 </div>
               </div>
@@ -1295,7 +1324,9 @@
                   Relocation &amp; Assembly
                 </option>
               </select>
-              <div class="error-message">Please select a service</div>
+              <div class="error-message" id="serviceRequestError">
+                Please select a service
+              </div>
             </div>
 
             <div class="form-group">
@@ -1321,19 +1352,43 @@
                   <label for="business">Business</label>
                 </div>
               </div>
-              <div class="error-message">Please select client type</div>
+              <div class="error-message" id="clientTypeError">
+                Please select client type
+              </div>
             </div>
 
             <div class="form-group">
               <label for="brand" class="required">Equipment Manufacturer</label>
-              <input
-                id="brand"
-                name="brand"
-                placeholder="e.g. NordicTrack, LifeFitness"
-                required
-                type="text"
-              />
-              <div class="error-message">Please enter the manufacturer</div>
+              <select id="brand" name="brand" required>
+                <option value="">-- Select Manufacturer --</option>
+                <option value="NordicTrack">NordicTrack</option>
+                <option value="ProForm">ProForm</option>
+                <option value="Life Fitness">Life Fitness</option>
+                <option value="Precor">Precor</option>
+                <option value="Matrix Fitness">Matrix Fitness</option>
+                <option value="Sole Fitness">Sole Fitness</option>
+                <option value="Bowflex">Bowflex</option>
+                <option value="Horizon Fitness">Horizon Fitness</option>
+                <option value="Technogym">Technogym</option>
+                <option value="True Fitness">True Fitness</option>
+                <option value="Spirit Fitness">Spirit Fitness</option>
+                <option value="Cybex">Cybex</option>
+                <option value="Freemotion">Freemotion</option>
+                <option value="Star Trac">Star Trac</option>
+                <option value="Peloton">Peloton</option>
+                <option value="Nautilus">Nautilus</option>
+                <option value="BH Fitness">BH Fitness</option>
+                <option value="Octane Fitness">Octane Fitness</option>
+                <option value="Woodway">Woodway</option>
+                <option value="Reebok">Reebok</option>
+                <option value="Schwinn">Schwinn</option>
+                <option value="Kettler">Kettler</option>
+                <option value="JTX Fitness">JTX Fitness</option>
+                <option value="York Fitness">York Fitness</option>
+              </select>
+              <div class="error-message" id="brandError">
+                Please select a manufacturer
+              </div>
             </div>
 
             <div class="form-group">
@@ -1345,7 +1400,9 @@
                 required
                 type="text"
               />
-              <div class="error-message">Please enter the model number</div>
+              <div class="error-message" id="modelError">
+                Please enter the model number
+              </div>
             </div>
 
             <div class="form-group">
@@ -1364,7 +1421,9 @@
                 required
                 type="datetime-local"
               />
-              <div class="error-message">Please select a date and time</div>
+              <div class="error-message" id="bookingDateTimeError">
+                Please select a date and time
+              </div>
             </div>
 
             <div class="form-group full-width">
@@ -1379,7 +1438,9 @@
                 required
                 rows="5"
               ></textarea>
-              <div class="error-message">Please describe the issue</div>
+              <div class="error-message" id="descriptionError">
+                Please describe the issue
+              </div>
             </div>
 
             <div class="form-group full-width">
@@ -1406,12 +1467,12 @@
             <div class="loading-spinner"></div>
             <p>Submitting your request...</p>
           </div>
+
           <div
             class="contact-card"
             itemscope
             itemtype="https://schema.org/LocalBusiness"
           >
-            <!-- ✅ Required Fields -->
             <meta itemprop="name" content="Canadian Fitness Repair" />
             <meta
               itemprop="image"
