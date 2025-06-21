@@ -398,6 +398,18 @@
         height: 100px;
         background: linear-gradient(transparent, var(--bg-color));
       }
+      .error-message {
+        color: #ff6b6b;
+        font-size: 0.9rem;
+        margin-top: 5px;
+        display: none;
+      }
+      input.error,
+      select.error,
+      textarea.error {
+        border: 1px solid #ff6b6b;
+        background-color: #fff0f0;
+      }
       .quote-hero h1 {
         font-size: clamp(2rem, 5vw + 1rem, 3.5rem);
         margin-top: 8rem;
@@ -1706,7 +1718,6 @@
           });
       });
     </script>
-    <script src="whatsapp.js"></script>
     <script src="whatsapp.js"></script>
   </body>
 </html>
