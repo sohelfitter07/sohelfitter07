@@ -12,7 +12,7 @@ function initMenu() {
   let lastScrollTop = 0;
   const scrollThreshold = 50;
   window.addEventListener("scroll", function () {
-    if (window.innerWidth <= 767) {
+    if (window.innerWidth <= 1024) {
       const currentScroll =
         window.pageYOffset || document.documentElement.scrollTop;
       header.classList.toggle("scrolled", currentScroll > scrollThreshold);
@@ -30,7 +30,7 @@ function initMenu() {
   });
   dropdowns.forEach((dropdown) => {
     dropdown.addEventListener("click", function (e) {
-      if (window.innerWidth <= 767) {
+      if (window.innerWidth <= 1024) {
         const isArrowClick = e.target.closest(".dropdown-toggle-icon");
         if (isArrowClick) {
           e.preventDefault();
@@ -75,7 +75,7 @@ function initMenu() {
     }
   });
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 767) {
+    if (window.innerWidth > 1024) {
       dropdowns.forEach((d) => {
         d.classList.remove("active");
         const content = d.querySelector(".dropdown-content");
