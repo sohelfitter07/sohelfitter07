@@ -1088,8 +1088,12 @@
           </div>
 
           <form
-            class="quote-form"
             id="quoteForm"
+            class="quote-form"
+            onsubmit="return false;"
+            method="POST"
+            novalidate
+            autocomplete="off"
             itemscope
             itemtype="https://schema.org/ServiceRequest"
           >
@@ -1491,7 +1495,7 @@
             </div>
 
             <div class="submit-btn">
-              <button type="submit">
+              <button type="button" id="submitButton">
                 <i class="ri-service-line"></i> Book Your Service Now
               </button>
             </div>
@@ -1584,6 +1588,13 @@
         const successMessage = document.getElementById("successMessage");
         const loadingOverlay = document.getElementById("loadingOverlay");
         const newRequestBtn = document.getElementById("newRequestBtn");
+        const submitButton = document.getElementById("submitButton");
+
+        submitButton.addEventListener("click", function () {
+          quoteForm.dispatchEvent(
+            new Event("submit", { bubbles: true, cancelable: true })
+          );
+        });
 
         const typeSelect = document.getElementById("equipmentType");
         const brandSelect = document.getElementById("brand");
@@ -1748,6 +1759,7 @@
         // Form submission
         quoteForm.addEventListener("submit", function (e) {
           e.preventDefault();
+          e.stopImmediatePropagation(); // ✅ Ensure native behavior is fully suppressed
           clearErrors();
 
           if (!validateForm()) {
@@ -1760,6 +1772,7 @@
           }
 
           loadingOverlay.style.display = "flex";
+
           emailjs
             .sendForm("service_15f1fcs", "template_pq3tpbe", quoteForm)
             .then(() => {
