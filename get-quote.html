@@ -24,76 +24,251 @@
     </script>
     <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "name": "Fitness Equipment Service Quote",
-        "serviceType": "Repair and Maintenance Quote",
-        "provider": {
-          "@type": "LocalBusiness",
-          "name": "Canadian Fitness Repair",
-          "url": "https://www.canadianfitnessrepair.com/",
-          "image": "https://www.canadianfitnessrepair.com/images/service-van.jpg",
-          "telephone": "+1-289-925-7239",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Hamilton",
-            "addressRegion": "ON",
-            "addressCountry": "CA"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 43.225,
-            "longitude": -79.866
-          },
-          "areaServed": {
-            "@type": "GeoCircle",
-            "geoMidpoint": {
-              "@type": "GeoCoordinates",
-              "latitude": 43.225,
-              "longitude": -79.866
-            },
-            "geoRadius": 100000
-          }
-        },
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Fitness Equipment Service Packages",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Basic Repair",
-                "description": "Diagnostic assessment, minor repairs, single equipment focus. $99 per visit."
-              },
-              "price": "99.00",
-              "priceCurrency": "CAD"
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Premium Maintenance",
-                "description": "4 scheduled visits per year with lubrication and adjustments. $299/year."
-              },
-              "price": "299.00",
-              "priceCurrency": "CAD"
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Elite Package",
-                "description": "Unlimited service calls, priority scheduling, 24/7 support. $499/year."
-              },
-              "price": "499.00",
-              "priceCurrency": "CAD"
-            }
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Fitness Equipment Service Quote",
+  "serviceType": [
+    "Fitness Equipment Repair & Assembly",
+    "General Maintenance",
+    "Gym repair service",
+    "Preventative Maintenance",
+    "Repair Company",
+    "Treadmill Repair",
+    "Gym Equipment Assembly",
+    "Bike Assembly",
+    "Home Gym Installation",
+    "Elliptical Assembly",
+    "Gym Equipment Installation",
+    "Home Gym Repair",
+    "Routine Maintenance",
+    "Fitness Equipment Installation",
+    "Repair Service",
+    "Parts Installation",
+    "Repair & Maintenance",
+    "Gym Equipment Maintenance",
+    "Treadmill Assembly",
+    "Fitness Equipment Repaired",
+    "Full Installation",
+    "Bike Installation",
+    "Elliptical repair",
+    "Gym Equipment",
+    "Commerical Fitness",
+    "Drive Belt",
+    "Parts Supplier",
+    "Installation",
+    "Assembly Repair",
+    "Gym Assembly",
+    "Gym Equipment Repairs",
+    "Parts Assembly",
+    "Installation and Repairs",
+    "Gym Machine",
+    "Exercise Equipment Service",
+    "Diagnostics & Repairs",
+    "Equipment Movers",
+    "treadmill repair near me",
+    "Parts Replacements",
+    "Tune up",
+    "Bike Repair",
+    "Maintenance Plans"
+  ],
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Canadian Fitness Repair",
+    "url": "https://www.canadianfitnessrepair.com/",
+    "image": "https://www.canadianfitnessrepair.com/images/service-van.jpg",
+    "telephone": "+1-289-925-7239",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hamilton",
+      "addressRegion": "ON",
+      "addressCountry": "CA"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 43.225,
+      "longitude": -79.866
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": 43.225,
+        "longitude": -79.866
+      },
+      "geoRadius": 100000
+    }
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Fitness Equipment Service Packages",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Basic Repair",
+          "description": "Diagnostic assessment, minor repairs, single equipment focus. $99 per visit.",
+          "serviceType": [
+            "Fitness Equipment Repair & Assembly",
+            "General Maintenance",
+            "Gym repair service",
+            "Preventative Maintenance",
+            "Repair Company",
+            "Treadmill Repair",
+            "Gym Equipment Assembly",
+            "Bike Assembly",
+            "Home Gym Installation",
+            "Elliptical Assembly",
+            "Gym Equipment Installation",
+            "Home Gym Repair",
+            "Routine Maintenance",
+            "Fitness Equipment Installation",
+            "Repair Service",
+            "Parts Installation",
+            "Repair & Maintenance",
+            "Gym Equipment Maintenance",
+            "Treadmill Assembly",
+            "Fitness Equipment Repaired",
+            "Full Installation",
+            "Bike Installation",
+            "Elliptical repair",
+            "Gym Equipment",
+            "Commerical Fitness",
+            "Drive Belt",
+            "Parts Supplier",
+            "Installation",
+            "Assembly Repair",
+            "Gym Assembly",
+            "Gym Equipment Repairs",
+            "Parts Assembly",
+            "Installation and Repairs",
+            "Gym Machine",
+            "Exercise Equipment Service",
+            "Diagnostics & Repairs",
+            "Equipment Movers",
+            "treadmill repair near me",
+            "Parts Replacements",
+            "Tune up",
+            "Bike Repair",
+            "Maintenance Plans"
           ]
         },
-        "url": "https://www.canadianfitnessrepair.com/get-quote.html",
-        "description": "Get transparent quotes for treadmill repair, elliptical maintenance, gym equipment service and more in Hamilton & GTA. Choose from repair, maintenance, or elite plans."
+        "price": "99.00",
+        "priceCurrency": "CAD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Premium Maintenance",
+          "description": "4 scheduled visits per year with lubrication and adjustments. $299/year.",
+          "serviceType": [
+            "Fitness Equipment Repair & Assembly",
+            "General Maintenance",
+            "Gym repair service",
+            "Preventative Maintenance",
+            "Repair Company",
+            "Treadmill Repair",
+            "Gym Equipment Assembly",
+            "Bike Assembly",
+            "Home Gym Installation",
+            "Elliptical Assembly",
+            "Gym Equipment Installation",
+            "Home Gym Repair",
+            "Routine Maintenance",
+            "Fitness Equipment Installation",
+            "Repair Service",
+            "Parts Installation",
+            "Repair & Maintenance",
+            "Gym Equipment Maintenance",
+            "Treadmill Assembly",
+            "Fitness Equipment Repaired",
+            "Full Installation",
+            "Bike Installation",
+            "Elliptical repair",
+            "Gym Equipment",
+            "Commerical Fitness",
+            "Drive Belt",
+            "Parts Supplier",
+            "Installation",
+            "Assembly Repair",
+            "Gym Assembly",
+            "Gym Equipment Repairs",
+            "Parts Assembly",
+            "Installation and Repairs",
+            "Gym Machine",
+            "Exercise Equipment Service",
+            "Diagnostics & Repairs",
+            "Equipment Movers",
+            "treadmill repair near me",
+            "Parts Replacements",
+            "Tune up",
+            "Bike Repair",
+            "Maintenance Plans"
+          ]
+        },
+        "price": "299.00",
+        "priceCurrency": "CAD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Elite Package",
+          "description": "Unlimited service calls, priority scheduling, 24/7 support. $499/year.",
+          "serviceType": [
+            "Fitness Equipment Repair & Assembly",
+            "General Maintenance",
+            "Gym repair service",
+            "Preventative Maintenance",
+            "Repair Company",
+            "Treadmill Repair",
+            "Gym Equipment Assembly",
+            "Bike Assembly",
+            "Home Gym Installation",
+            "Elliptical Assembly",
+            "Gym Equipment Installation",
+            "Home Gym Repair",
+            "Routine Maintenance",
+            "Fitness Equipment Installation",
+            "Repair Service",
+            "Parts Installation",
+            "Repair & Maintenance",
+            "Gym Equipment Maintenance",
+            "Treadmill Assembly",
+            "Fitness Equipment Repaired",
+            "Full Installation",
+            "Bike Installation",
+            "Elliptical repair",
+            "Gym Equipment",
+            "Commerical Fitness",
+            "Drive Belt",
+            "Parts Supplier",
+            "Installation",
+            "Assembly Repair",
+            "Gym Assembly",
+            "Gym Equipment Repairs",
+            "Parts Assembly",
+            "Installation and Repairs",
+            "Gym Machine",
+            "Exercise Equipment Service",
+            "Diagnostics & Repairs",
+            "Equipment Movers",
+            "treadmill repair near me",
+            "Parts Replacements",
+            "Tune up",
+            "Bike Repair",
+            "Maintenance Plans"
+          ]
+        },
+        "price": "499.00",
+        "priceCurrency": "CAD"
       }
+    ]
+  },
+  "url": "https://www.canadianfitnessrepair.com/get-quote.html",
+  "description": "Get transparent quotes for treadmill repair, elliptical maintenance, gym equipment service and more in Hamilton & GTA. Choose from repair, maintenance, or elite plans."
+}
     </script>
     <script type="application/ld+json">
       {

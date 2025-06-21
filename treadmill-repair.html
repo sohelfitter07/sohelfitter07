@@ -424,66 +424,130 @@
     <!-- JSON-LD: place inside <head> or before closing </body> -->
     <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "serviceType": "Treadmill Repair",
-        "name": "24/7 Emergency Treadmill Repair in Hamilton & GTA",
-        "description": "Certified technicians offering residential and commercial treadmill repair, motor diagnostics, belt replacement, incline repair, and console troubleshooting in Hamilton, Burlington, Oakville, Mississauga, and the GTA.",
-        "provider": {
-          "@type": "LocalBusiness",
-          "name": "Canadian Fitness Repair",
-          "url": "https://www.canadianfitnessrepair.com",
-          "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
-          "image": [
-            "https://www.canadianfitnessrepair.com/images/service-van.jpg",
-            "https://www.canadianfitnessrepair.com/images/technician-working.jpg"
-          ],
-          "description": "Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "22 Canary Grass Blvd",
-            "addressLocality": "Hamilton",
-            "addressRegion": "Ontario",
-            "postalCode": "L0R 1P0",
-            "addressCountry": "CA"
-          },
-          "telephone": "+1-289-925-7239",
-          "priceRange": "$$",
-          "areaServed": [
-            "Hamilton",
-            "Toronto",
-            "Oakville",
-            "Burlington",
-            "Mississauga"
-          ],
-          "sameAs": [
-            "https://www.facebook.com/CanadianFitnessRepair",
-            "https://www.instagram.com/canadianfitnessrepair"
-          ]
-        },
-        "areaServed": [
-          { "@type": "Place", "name": "Hamilton" },
-          { "@type": "Place", "name": "Burlington" },
-          { "@type": "Place", "name": "Oakville" },
-          { "@type": "Place", "name": "Mississauga" },
-          { "@type": "Place", "name": "Toronto" },
-          { "@type": "Place", "name": "Brampton" },
-          { "@type": "Place", "name": "Niagara" }
-        ],
-        "offers": {
-          "@type": "Offer",
-          "priceCurrency": "CAD",
-          "price": "99.00",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "price": 99.0,
-            "priceCurrency": "CAD",
-            "description": "Flat rate treadmill diagnostic and minor repair. Parts and labor extra."
-          },
-          "availability": "https://schema.org/InStock",
-          "url": "https://www.canadianfitnessrepair.com/treadmill-repair.html"
-        }
-      }
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": [
+    "Fitness Equipment Repair & Assembly",
+    "General Maintenance",
+    "Gym repair service",
+    "Preventative Maintenance",
+    "Repair Company",
+    "Treadmill Repair",
+    "Gym Equipment Assembly",
+    "Bike Assembly",
+    "Home Gym Installation",
+    "Elliptical Assembly",
+    "Gym Equipment Installation",
+    "Home Gym Repair",
+    "Routine Maintenance",
+    "Fitness Equipment Installation",
+    "Repair Service",
+    "Parts Installation",
+    "Repair & Maintenance",
+    "Gym Equipment Maintenance",
+    "Treadmill Assembly",
+    "Fitness Equipment Repaired",
+    "Full Installation",
+    "Bike Installation",
+    "Elliptical repair",
+    "Gym Equipment",
+    "Commerical Fitness",
+    "Drive Belt",
+    "Parts Supplier",
+    "Installation",
+    "Assembly Repair",
+    "Gym Assembly",
+    "Gym Equipment Repairs",
+    "Parts Assembly",
+    "Installation and Repairs",
+    "Gym Machine",
+    "Exercise Equipment Service",
+    "Diagnostics & Repairs",
+    "Equipment Movers",
+    "treadmill repair near me",
+    "Parts Replacements",
+    "Tune up",
+    "Bike Repair",
+    "Maintenance Plans"
+  ],
+  "name": "24/7 Emergency Treadmill Repair in Hamilton & GTA",
+  "description": "Certified technicians offering residential and commercial treadmill repair, motor diagnostics, belt replacement, incline repair, and console troubleshooting in Hamilton, Burlington, Oakville, Mississauga, and the GTA.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Canadian Fitness Repair",
+    "url": "https://www.canadianfitnessrepair.com",
+    "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
+    "image": [
+      "https://www.canadianfitnessrepair.com/images/service-van.jpg",
+      "https://www.canadianfitnessrepair.com/images/technician-working.jpg"
+    ],
+    "description": "Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "22 Canary Grass Blvd",
+      "addressLocality": "Hamilton",
+      "addressRegion": "Ontario",
+      "postalCode": "L0R 1P0",
+      "addressCountry": "CA"
+    },
+    "telephone": "+1-289-925-7239",
+    "priceRange": "$$",
+    "areaServed": [
+      "Hamilton",
+      "Toronto",
+      "Oakville",
+      "Burlington",
+      "Mississauga"
+    ],
+    "sameAs": [
+      "https://www.facebook.com/CanadianFitnessRepair",
+      "https://www.instagram.com/canadianfitnessrepair"
+    ]
+  },
+  "areaServed": [
+    {
+      "@type": "Place",
+      "name": "Hamilton"
+    },
+    {
+      "@type": "Place",
+      "name": "Burlington"
+    },
+    {
+      "@type": "Place",
+      "name": "Oakville"
+    },
+    {
+      "@type": "Place",
+      "name": "Mississauga"
+    },
+    {
+      "@type": "Place",
+      "name": "Toronto"
+    },
+    {
+      "@type": "Place",
+      "name": "Brampton"
+    },
+    {
+      "@type": "Place",
+      "name": "Niagara"
+    }
+  ],
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "CAD",
+    "price": "99.00",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": 99.0,
+      "priceCurrency": "CAD",
+      "description": "Flat rate treadmill diagnostic and minor repair. Parts and labor extra."
+    },
+    "availability": "https://schema.org/InStock",
+    "url": "https://www.canadianfitnessrepair.com/treadmill-repair.html"
+  }
+}
     </script>
   </head>
   <body>

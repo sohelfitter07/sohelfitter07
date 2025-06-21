@@ -646,93 +646,386 @@
     </script>
     <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "serviceType": "Emergency Elliptical Repair & Maintenance",
-        "name": "Elliptical Repair Services in Hamilton & Surrounding Areas",
-        "provider": {
-          "@type": "LocalBusiness",
-          "name": "Canadian Fitness Repair",
-          "url": "https://www.canadianfitnessrepair.com",
-          "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
-          "telephone": "+1-289-925-7239",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "22 Canary Grass Blvd",
-            "addressLocality": "Hamilton",
-            "addressRegion": "Ontario",
-            "postalCode": "L0R 1P0",
-            "addressCountry": "CA"
-          }
-        },
-        "areaServed": [
-          { "@type": "Place", "name": "Hamilton" },
-          { "@type": "Place", "name": "Burlington" },
-          { "@type": "Place", "name": "Ancaster" },
-          { "@type": "Place", "name": "Dundas" },
-          { "@type": "Place", "name": "Stoney Creek" },
-          { "@type": "Place", "name": "Waterdown" },
-          { "@type": "Place", "name": "Brantford" },
-          { "@type": "Place", "name": "Oakville" },
-          { "@type": "Place", "name": "Mississauga" },
-          { "@type": "Place", "name": "Niagara" }
-        ],
-        "description": "24/7 elliptical repair service for homes and gyms. We fix pedal issues, resistance problems, console failures, strange noises, and more. Certified technicians, same-day response within 45km of Hamilton.",
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Elliptical Repair Services",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Sticking Pedals & Drive Alignment"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Console Troubleshooting & Repair"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Resistance System Diagnostics"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Motor, Belt, and Bearing Repairs"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Elliptical Maintenance Programs"
-              }
-            }
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": [
+    "Fitness Equipment Repair & Assembly",
+    "General Maintenance",
+    "Gym repair service",
+    "Preventative Maintenance",
+    "Repair Company",
+    "Treadmill Repair",
+    "Gym Equipment Assembly",
+    "Bike Assembly",
+    "Home Gym Installation",
+    "Elliptical Assembly",
+    "Gym Equipment Installation",
+    "Home Gym Repair",
+    "Routine Maintenance",
+    "Fitness Equipment Installation",
+    "Repair Service",
+    "Parts Installation",
+    "Repair & Maintenance",
+    "Gym Equipment Maintenance",
+    "Treadmill Assembly",
+    "Fitness Equipment Repaired",
+    "Full Installation",
+    "Bike Installation",
+    "Elliptical repair",
+    "Gym Equipment",
+    "Commerical Fitness",
+    "Drive Belt",
+    "Parts Supplier",
+    "Installation",
+    "Assembly Repair",
+    "Gym Assembly",
+    "Gym Equipment Repairs",
+    "Parts Assembly",
+    "Installation and Repairs",
+    "Gym Machine",
+    "Exercise Equipment Service",
+    "Diagnostics & Repairs",
+    "Equipment Movers",
+    "treadmill repair near me",
+    "Parts Replacements",
+    "Tune up",
+    "Bike Repair",
+    "Maintenance Plans"
+  ],
+  "name": "Elliptical Repair Services in Hamilton & Surrounding Areas",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Canadian Fitness Repair",
+    "url": "https://www.canadianfitnessrepair.com",
+    "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
+    "telephone": "+1-289-925-7239",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "22 Canary Grass Blvd",
+      "addressLocality": "Hamilton",
+      "addressRegion": "Ontario",
+      "postalCode": "L0R 1P0",
+      "addressCountry": "CA"
+    }
+  },
+  "areaServed": [
+    {
+      "@type": "Place",
+      "name": "Hamilton"
+    },
+    {
+      "@type": "Place",
+      "name": "Burlington"
+    },
+    {
+      "@type": "Place",
+      "name": "Ancaster"
+    },
+    {
+      "@type": "Place",
+      "name": "Dundas"
+    },
+    {
+      "@type": "Place",
+      "name": "Stoney Creek"
+    },
+    {
+      "@type": "Place",
+      "name": "Waterdown"
+    },
+    {
+      "@type": "Place",
+      "name": "Brantford"
+    },
+    {
+      "@type": "Place",
+      "name": "Oakville"
+    },
+    {
+      "@type": "Place",
+      "name": "Mississauga"
+    },
+    {
+      "@type": "Place",
+      "name": "Niagara"
+    }
+  ],
+  "description": "24/7 elliptical repair service for homes and gyms. We fix pedal issues, resistance problems, console failures, strange noises, and more. Certified technicians, same-day response within 45km of Hamilton.",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Elliptical Repair Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Sticking Pedals & Drive Alignment",
+          "serviceType": [
+            "Fitness Equipment Repair & Assembly",
+            "General Maintenance",
+            "Gym repair service",
+            "Preventative Maintenance",
+            "Repair Company",
+            "Treadmill Repair",
+            "Gym Equipment Assembly",
+            "Bike Assembly",
+            "Home Gym Installation",
+            "Elliptical Assembly",
+            "Gym Equipment Installation",
+            "Home Gym Repair",
+            "Routine Maintenance",
+            "Fitness Equipment Installation",
+            "Repair Service",
+            "Parts Installation",
+            "Repair & Maintenance",
+            "Gym Equipment Maintenance",
+            "Treadmill Assembly",
+            "Fitness Equipment Repaired",
+            "Full Installation",
+            "Bike Installation",
+            "Elliptical repair",
+            "Gym Equipment",
+            "Commerical Fitness",
+            "Drive Belt",
+            "Parts Supplier",
+            "Installation",
+            "Assembly Repair",
+            "Gym Assembly",
+            "Gym Equipment Repairs",
+            "Parts Assembly",
+            "Installation and Repairs",
+            "Gym Machine",
+            "Exercise Equipment Service",
+            "Diagnostics & Repairs",
+            "Equipment Movers",
+            "treadmill repair near me",
+            "Parts Replacements",
+            "Tune up",
+            "Bike Repair",
+            "Maintenance Plans"
           ]
-        },
-        "offers": {
-          "@type": "Offer",
-          "priceCurrency": "CAD",
-          "price": "99.00",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "price": 99.0,
-            "priceCurrency": "CAD",
-            "description": "Flat-rate on-site elliptical diagnosis. Parts and labor extra."
-          },
-          "availability": "https://schema.org/InStock",
-          "url": "https://www.canadianfitnessrepair.com/elliptical-repair.html"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Console Troubleshooting & Repair",
+          "serviceType": [
+            "Fitness Equipment Repair & Assembly",
+            "General Maintenance",
+            "Gym repair service",
+            "Preventative Maintenance",
+            "Repair Company",
+            "Treadmill Repair",
+            "Gym Equipment Assembly",
+            "Bike Assembly",
+            "Home Gym Installation",
+            "Elliptical Assembly",
+            "Gym Equipment Installation",
+            "Home Gym Repair",
+            "Routine Maintenance",
+            "Fitness Equipment Installation",
+            "Repair Service",
+            "Parts Installation",
+            "Repair & Maintenance",
+            "Gym Equipment Maintenance",
+            "Treadmill Assembly",
+            "Fitness Equipment Repaired",
+            "Full Installation",
+            "Bike Installation",
+            "Elliptical repair",
+            "Gym Equipment",
+            "Commerical Fitness",
+            "Drive Belt",
+            "Parts Supplier",
+            "Installation",
+            "Assembly Repair",
+            "Gym Assembly",
+            "Gym Equipment Repairs",
+            "Parts Assembly",
+            "Installation and Repairs",
+            "Gym Machine",
+            "Exercise Equipment Service",
+            "Diagnostics & Repairs",
+            "Equipment Movers",
+            "treadmill repair near me",
+            "Parts Replacements",
+            "Tune up",
+            "Bike Repair",
+            "Maintenance Plans"
+          ]
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Resistance System Diagnostics",
+          "serviceType": [
+            "Fitness Equipment Repair & Assembly",
+            "General Maintenance",
+            "Gym repair service",
+            "Preventative Maintenance",
+            "Repair Company",
+            "Treadmill Repair",
+            "Gym Equipment Assembly",
+            "Bike Assembly",
+            "Home Gym Installation",
+            "Elliptical Assembly",
+            "Gym Equipment Installation",
+            "Home Gym Repair",
+            "Routine Maintenance",
+            "Fitness Equipment Installation",
+            "Repair Service",
+            "Parts Installation",
+            "Repair & Maintenance",
+            "Gym Equipment Maintenance",
+            "Treadmill Assembly",
+            "Fitness Equipment Repaired",
+            "Full Installation",
+            "Bike Installation",
+            "Elliptical repair",
+            "Gym Equipment",
+            "Commerical Fitness",
+            "Drive Belt",
+            "Parts Supplier",
+            "Installation",
+            "Assembly Repair",
+            "Gym Assembly",
+            "Gym Equipment Repairs",
+            "Parts Assembly",
+            "Installation and Repairs",
+            "Gym Machine",
+            "Exercise Equipment Service",
+            "Diagnostics & Repairs",
+            "Equipment Movers",
+            "treadmill repair near me",
+            "Parts Replacements",
+            "Tune up",
+            "Bike Repair",
+            "Maintenance Plans"
+          ]
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Motor, Belt, and Bearing Repairs",
+          "serviceType": [
+            "Fitness Equipment Repair & Assembly",
+            "General Maintenance",
+            "Gym repair service",
+            "Preventative Maintenance",
+            "Repair Company",
+            "Treadmill Repair",
+            "Gym Equipment Assembly",
+            "Bike Assembly",
+            "Home Gym Installation",
+            "Elliptical Assembly",
+            "Gym Equipment Installation",
+            "Home Gym Repair",
+            "Routine Maintenance",
+            "Fitness Equipment Installation",
+            "Repair Service",
+            "Parts Installation",
+            "Repair & Maintenance",
+            "Gym Equipment Maintenance",
+            "Treadmill Assembly",
+            "Fitness Equipment Repaired",
+            "Full Installation",
+            "Bike Installation",
+            "Elliptical repair",
+            "Gym Equipment",
+            "Commerical Fitness",
+            "Drive Belt",
+            "Parts Supplier",
+            "Installation",
+            "Assembly Repair",
+            "Gym Assembly",
+            "Gym Equipment Repairs",
+            "Parts Assembly",
+            "Installation and Repairs",
+            "Gym Machine",
+            "Exercise Equipment Service",
+            "Diagnostics & Repairs",
+            "Equipment Movers",
+            "treadmill repair near me",
+            "Parts Replacements",
+            "Tune up",
+            "Bike Repair",
+            "Maintenance Plans"
+          ]
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Elliptical Maintenance Programs",
+          "serviceType": [
+            "Fitness Equipment Repair & Assembly",
+            "General Maintenance",
+            "Gym repair service",
+            "Preventative Maintenance",
+            "Repair Company",
+            "Treadmill Repair",
+            "Gym Equipment Assembly",
+            "Bike Assembly",
+            "Home Gym Installation",
+            "Elliptical Assembly",
+            "Gym Equipment Installation",
+            "Home Gym Repair",
+            "Routine Maintenance",
+            "Fitness Equipment Installation",
+            "Repair Service",
+            "Parts Installation",
+            "Repair & Maintenance",
+            "Gym Equipment Maintenance",
+            "Treadmill Assembly",
+            "Fitness Equipment Repaired",
+            "Full Installation",
+            "Bike Installation",
+            "Elliptical repair",
+            "Gym Equipment",
+            "Commerical Fitness",
+            "Drive Belt",
+            "Parts Supplier",
+            "Installation",
+            "Assembly Repair",
+            "Gym Assembly",
+            "Gym Equipment Repairs",
+            "Parts Assembly",
+            "Installation and Repairs",
+            "Gym Machine",
+            "Exercise Equipment Service",
+            "Diagnostics & Repairs",
+            "Equipment Movers",
+            "treadmill repair near me",
+            "Parts Replacements",
+            "Tune up",
+            "Bike Repair",
+            "Maintenance Plans"
+          ]
         }
       }
+    ]
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "CAD",
+    "price": "99.00",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": 99.0,
+      "priceCurrency": "CAD",
+      "description": "Flat-rate on-site elliptical diagnosis. Parts and labor extra."
+    },
+    "availability": "https://schema.org/InStock",
+    "url": "https://www.canadianfitnessrepair.com/elliptical-repair.html"
+  }
+}
     </script>
   </head>
   <body>
