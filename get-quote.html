@@ -1385,23 +1385,27 @@
                 <option value="Kettler">Kettler</option>
                 <option value="JTX Fitness">JTX Fitness</option>
                 <option value="York Fitness">York Fitness</option>
+                <option value="Other">Other</option>
               </select>
               <div class="error-message" id="brandError">
                 Please select a manufacturer
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="modelGroup">
               <label for="model" class="required">Model Number</label>
+              <select id="model" name="model" required>
+                <option value="">-- Select Model --</option>
+              </select>
               <input
-                id="model"
-                name="model"
-                placeholder="e.g. NTL19125 or NTL17125"
-                required
                 type="text"
+                id="manualModel"
+                name="manualModel"
+                placeholder="Enter your model number"
+                style="display: none"
               />
               <div class="error-message" id="modelError">
-                Please enter the model number
+                Please select or enter a model
               </div>
             </div>
 
@@ -1544,7 +1548,6 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Initialize EmailJS
         emailjs.init("Y3qHd9eGkrVsfM-Fs");
 
         const quoteForm = document.getElementById("quoteForm");
@@ -1552,63 +1555,170 @@
         const loadingOverlay = document.getElementById("loadingOverlay");
         const newRequestBtn = document.getElementById("newRequestBtn");
 
-        // If essential elements not found, don't proceed
-        if (!quoteForm || !successMessage || !loadingOverlay) return;
+        const brandSelect = document.getElementById("brand");
+        const modelSelect = document.getElementById("model");
+        const manualModelInput = document.getElementById("manualModel");
 
-        // Hide success message initially
+        const modelMap = {
+          NordicTrack: [
+            "Commercial 1750",
+            "Commercial 2950",
+            "EXP 10i",
+            "T Series 6.5S",
+            "Elite 900",
+            "C 990",
+          ],
+          ProForm: [
+            "Pro 2000",
+            "Carbon T7",
+            "City L6",
+            "Trainer 12.0",
+            "Power 995i",
+          ],
+          "Life Fitness": [
+            "F3 Folding",
+            "T3",
+            "95T Inspire",
+            "Club Series+",
+            "Platinum Club Treadmill",
+          ],
+          Precor: ["TRM 211", "TRM 425", "TRM 445", "TRM 885", "TRM 243"],
+          "Matrix Fitness": ["TF50 XR", "TF30 XIR", "T75 XUR", "T30 XR"],
+          "Sole Fitness": ["F63", "F65", "F80", "F85", "TT8", "S77"],
+          Bowflex: ["T10", "T22", "BXT216", "BXT326"],
+          "Horizon Fitness": ["T101", "7.0 AT", "Elite T9", "Adventure 3"],
+          Technogym: ["MyRun", "Excite Run 1000", "Run Personal"],
+          "True Fitness": ["M30", "M50", "Z5.0", "Performance 300"],
+          "Spirit Fitness": ["XT385", "XT485", "XT685"],
+          Cybex: ["770T", "625T", "R Series"],
+          Freemotion: ["t22.9 REFLEX", "i22.9 Incline Trainer", "t10.9b"],
+          "Star Trac": ["8TR", "10TRX FreeRunner", "S-TRx"],
+          Peloton: ["Tread", "Tread+"],
+          Nautilus: ["T616", "T618", "T614"],
+          "BH Fitness": ["S5Ti", "F2W", "G6414V"],
+          "Octane Fitness": ["Zr8", "Zr7", "Zr10"],
+          Woodway: ["4Front", "Curve", "Path", "Desmo Elite"],
+          Reebok: ["Jet 100", "GT40s", "SL8.0"],
+          Schwinn: ["870 Treadmill", "830", "810"],
+          Kettler: ["Alpha Run 800", "Sprinter 2.0"],
+          "JTX Fitness": ["Sprint-9", "Sprint-7", "Slim-Line", "Club-Pro"],
+          "York Fitness": ["T700", "T600", "Active 110"],
+        };
+
+        if (!quoteForm || !successMessage || !loadingOverlay) return;
         successMessage.style.display = "none";
 
-        // Handle form submission
+        // Brand change → show model dropdown
+        brandSelect.addEventListener("change", function () {
+          const brand = this.value;
+
+          modelSelect.innerHTML =
+            '<option value="">-- Select Model --</option>';
+          modelSelect.style.display = "none";
+          manualModelInput.style.display = "none";
+          modelSelect.required = false;
+          manualModelInput.required = false;
+
+          if (brand === "Other") {
+            manualModelInput.style.display = "block";
+            manualModelInput.required = true;
+          } else if (brand && modelMap[brand]) {
+            modelMap[brand].forEach((model) => {
+              const opt = document.createElement("option");
+              opt.value = model;
+              opt.textContent = model;
+              modelSelect.appendChild(opt);
+            });
+            const otherOpt = document.createElement("option");
+            otherOpt.value = "Other";
+            otherOpt.textContent = "🔧 My model is not listed";
+            modelSelect.appendChild(otherOpt);
+            modelSelect.style.display = "block";
+            modelSelect.required = true;
+          }
+        });
+
+        modelSelect.addEventListener("change", function () {
+          if (this.value === "Other") {
+            manualModelInput.style.display = "block";
+            manualModelInput.required = true;
+          } else {
+            manualModelInput.style.display = "none";
+            manualModelInput.required = false;
+          }
+        });
+
+        // Real-time validation (on input)
+        document
+          .querySelectorAll("input, select, textarea")
+          .forEach((field) => {
+            field.addEventListener("input", () => validateField(field));
+            field.addEventListener("blur", () => validateField(field));
+          });
+
+        // Clear client type error on change
+        document
+          .querySelectorAll('input[name="clientType"]')
+          .forEach((radio) => {
+            radio.addEventListener("change", function () {
+              const error = document.getElementById("clientTypeError");
+              if (error) error.style.display = "none";
+            });
+          });
+
+        // Form submit
         quoteForm.addEventListener("submit", function (e) {
           e.preventDefault();
           clearErrors();
 
           if (validateForm()) {
             loadingOverlay.style.display = "flex";
-
             emailjs
               .sendForm("service_15f1fcs", "template_pq3tpbe", quoteForm)
-              .then(
-                function (response) {
-                  console.log("Email sent successfully!", response);
-                  loadingOverlay.style.display = "none";
-                  successMessage.style.display = "block";
-                  quoteForm.style.display = "none";
-
-                  // ✅ Scroll to success message
-                  setTimeout(() => {
-                    successMessage.scrollIntoView({
-                      behavior: "smooth",
-                      block: "center",
-                    });
-                  }, 200);
-                },
-                function (error) {
-                  console.error("Email failed to send:", error);
-                  loadingOverlay.style.display = "none";
-                  alert(
-                    "Failed to send your request. Please try again or contact us directly."
-                  );
-                }
-              );
+              .then(() => {
+                loadingOverlay.style.display = "none";
+                successMessage.style.display = "block";
+                quoteForm.style.display = "none";
+                setTimeout(() => {
+                  successMessage.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  });
+                }, 200);
+              })
+              .catch(() => {
+                loadingOverlay.style.display = "none";
+                alert("Failed to send. Try again.");
+              });
           } else {
-            alert("Please fill in all required fields correctly.");
+            const firstError = document.querySelector(".error");
+            if (firstError) {
+              firstError.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
+            }
+            alert("Please fill all required fields correctly.");
           }
         });
 
-        // Handle "New Request" button click to reset form
+        // New request reset
         if (newRequestBtn) {
           newRequestBtn.addEventListener("click", function () {
             quoteForm.reset();
             clearErrors();
             quoteForm.style.display = "grid";
             successMessage.style.display = "none";
+            modelSelect.innerHTML =
+              '<option value="">-- Select Model --</option>';
+            modelSelect.style.display = "none";
+            manualModelInput.style.display = "none";
           });
         }
 
-        // === Validation Logic ===
         function validateForm() {
           let isValid = true;
+
           const requiredFields = [
             "firstName",
             "contactNumber",
@@ -1619,29 +1729,56 @@
             "postal",
             "serviceRequest",
             "brand",
-            "model",
             "bookingDateTime",
             "description",
           ];
 
-          requiredFields.forEach((fieldId) => {
-            const field = document.getElementById(fieldId);
-            if (!field || !field.value.trim()) {
+          requiredFields.forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el || !el.value.trim()) {
               isValid = false;
-              showError(field, fieldId + "Error", "This field is required");
+              showError(el, id + "Error", "This field is required");
             }
           });
 
-          // Radio: Client Type
-          const clientTypeSelected = document.querySelector(
+          // Client type radio
+          const clientType = document.querySelector(
             'input[name="clientType"]:checked'
           );
-          if (!clientTypeSelected) {
+          if (!clientType) {
             isValid = false;
             showError(null, "clientTypeError", "Please select client type");
           }
 
-          // Email format check
+          // Model logic
+          if (brandSelect.value === "Other") {
+            if (!manualModelInput.value.trim()) {
+              isValid = false;
+              showError(
+                manualModelInput,
+                "modelError",
+                "Please enter your model"
+              );
+            }
+          } else if (
+            modelSelect.style.display !== "none" &&
+            !modelSelect.value
+          ) {
+            isValid = false;
+            showError(modelSelect, "modelError", "Please select a model");
+          } else if (
+            modelSelect.value === "Other" &&
+            !manualModelInput.value.trim()
+          ) {
+            isValid = false;
+            showError(
+              manualModelInput,
+              "modelError",
+              "Please enter your model"
+            );
+          }
+
+          // Email format
           const email = document.getElementById("email");
           if (email && email.value && !validateEmail(email.value)) {
             isValid = false;
@@ -1652,7 +1789,7 @@
             );
           }
 
-          // Phone format check
+          // Phone format
           const phone = document.getElementById("contactNumber");
           if (phone && phone.value && !validatePhone(phone.value)) {
             isValid = false;
@@ -1663,7 +1800,7 @@
             );
           }
 
-          // Postal format check
+          // Postal format
           const postal = document.getElementById("postal");
           if (postal && postal.value && !validatePostalCode(postal.value)) {
             isValid = false;
@@ -1677,108 +1814,72 @@
           return isValid;
         }
 
-        function showError(element, errorId, message) {
-          const errorEl = document.getElementById(errorId);
-          if (errorEl) {
-            errorEl.textContent = message;
-            errorEl.style.display = "block";
+        function validateField(field) {
+          const errorId = field.id + "Error";
+          const value = field.value.trim();
+
+          if (field.hasAttribute("required") && !value) {
+            showError(field, errorId, "This field is required");
+            return;
           }
-          if (element) {
-            element.classList.add("error");
+
+          if (field.id === "email" && !validateEmail(value)) {
+            showError(field, errorId, "Please enter a valid email address");
+            return;
           }
+
+          if (field.id === "contactNumber" && !validatePhone(value)) {
+            showError(field, errorId, "Please enter a valid phone number");
+            return;
+          }
+
+          if (field.id === "postal" && !validatePostalCode(value)) {
+            showError(field, errorId, "Please enter a valid postal code");
+            return;
+          }
+
+          // Clear error if valid
+          hideError(field, errorId);
+        }
+
+        function showError(el, errorId, message) {
+          const err = document.getElementById(errorId);
+          if (err) {
+            err.textContent = message;
+            err.style.display = "block";
+          }
+          if (el) el.classList.add("error");
+        }
+
+        function hideError(el, errorId) {
+          const err = document.getElementById(errorId);
+          if (err) err.style.display = "none";
+          if (el) el.classList.remove("error");
         }
 
         function clearErrors() {
-          document.querySelectorAll(".error-message").forEach((el) => {
-            el.style.display = "none";
-          });
-          document.querySelectorAll(".error").forEach((el) => {
-            el.classList.remove("error");
-          });
+          document
+            .querySelectorAll(".error-message")
+            .forEach((el) => (el.style.display = "none"));
+          document
+            .querySelectorAll(".error")
+            .forEach((el) => el.classList.remove("error"));
         }
 
         function validateEmail(email) {
-          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          return re.test(email);
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
 
         function validatePhone(phone) {
-          const re = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
-          return re.test(phone);
+          return /^\d{10}$/.test(phone); // Simple 10-digit North American
         }
 
         function validatePostalCode(postal) {
-          const re = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
-          return re.test(postal);
+          return /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(postal);
         }
-
-        // Realtime Validation
-        document
-          .querySelectorAll("input, select, textarea")
-          .forEach((field) => {
-            field.addEventListener("blur", function () {
-              const errorId = this.id + "Error";
-
-              if (this.hasAttribute("required") && !this.value.trim()) {
-                showError(this, errorId, "This field is required");
-              } else {
-                const errorElement = document.getElementById(errorId);
-                if (errorElement) {
-                  errorElement.style.display = "none";
-                }
-                this.classList.remove("error");
-              }
-
-              // Specific format validation
-              if (
-                this.id === "email" &&
-                this.value &&
-                !validateEmail(this.value)
-              ) {
-                showError(
-                  this,
-                  "emailError",
-                  "Please enter a valid email address"
-                );
-              }
-
-              if (
-                this.id === "contactNumber" &&
-                this.value &&
-                !validatePhone(this.value)
-              ) {
-                showError(
-                  this,
-                  "contactNumberError",
-                  "Please enter a valid phone number"
-                );
-              }
-
-              if (
-                this.id === "postal" &&
-                this.value &&
-                !validatePostalCode(this.value)
-              ) {
-                showError(
-                  this,
-                  "postalError",
-                  "Please enter a valid postal code"
-                );
-              }
-            });
-          });
-
-        // Remove client type error on change
-        document
-          .querySelectorAll('input[name="clientType"]')
-          .forEach((radio) => {
-            radio.addEventListener("change", function () {
-              const error = document.getElementById("clientTypeError");
-              if (error) error.style.display = "none";
-            });
-          });
       });
     </script>
+
     <script src="whatsapp.js"></script>
   </body>
 </html>
