@@ -3,31 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Areas | Canadian Fitness Repair | Hamilton & Surrounding Regions</title>
+    <title>Service Area Map | Canadian Fitness Repair</title>
     <meta name="description" content="Canadian Fitness Repair services Hamilton, Burlington, Oakville, Mississauga, Niagara and all cities within 60km radius. View our full service area map and coverage.">
-    
-    <!-- Schema Markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Service Areas",
-      "description": "Service coverage map for Canadian Fitness Repair showing all cities within 60km of Hamilton",
-      "url": "https://www.canadianfitnessrepair.com/service-areas.html",
-      "primaryImageOfPage": {
-        "@type": "ImageObject",
-        "url": "https://www.canadianfitnessrepair.com/images/service-area-map.webp",
-        "width": "1200",
-        "height": "800"
-      },
-      "relatedLink": [
-        "https://www.canadianfitnessrepair.com/treadmill-repair-hamilton.html",
-        "https://www.canadianfitnessrepair.com/treadmill-repair-burlington.html",
-        "https://www.canadianfitnessrepair.com/treadmill-repair-oakville.html"
-      ]
-    }
-    </script>
-    
     <style>
         * {
             margin: 0;
@@ -121,25 +98,30 @@
             font-weight: 700;
         }
         
-        /* Main Content */
-        .service-area-content {
-            padding: 60px 0;
+        /* Map Container */
+        .map-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin: 50px 0;
+            text-align: center;
         }
         
-        .section-title {
+        .map-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin: 40px 0 30px;
+            color: #1a2a6c;
             position: relative;
         }
         
-        .section-title h2 {
+        .map-title h2 {
             font-size: 36px;
-            color: #1a2a6c;
             display: inline-block;
             padding-bottom: 15px;
         }
         
-        .section-title h2:after {
+        .map-title h2:after {
             content: "";
             position: absolute;
             width: 80px;
@@ -150,26 +132,105 @@
             transform: translateX(-50%);
         }
         
-        .map-container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            padding: 30px;
-            margin-bottom: 50px;
-            text-align: center;
+        .service-area-map {
+            position: relative;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 900px;
+            height: 600px;
+            background: #e9f0f7;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
-        .map-container img {
-            max-width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin: 20px 0;
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(58, 123, 213, 0.3) 0%, transparent 30%),
+                radial-gradient(circle at 50% 50%, rgba(26, 42, 108, 0.4) 0%, transparent 20%);
+        }
+        
+        .map-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: #ff0000;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 4px #ff0000;
+            z-index: 10;
+        }
+        
+        .map-center:after {
+            content: "Hamilton";
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1a2a6c;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            white-space: nowrap;
+        }
+        
+        .map-radius {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 70%;
+            border: 2px dashed #1a2a6c;
+            border-radius: 50%;
+        }
+        
+        .map-radius-label {
+            position: absolute;
+            top: 50%;
+            right: 15%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1a2a6c;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .city-marker {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #1a2a6c;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #1a2a6c;
+        }
+        
+        .city-label {
+            position: absolute;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1a2a6c;
+            text-shadow: 0 0 2px white;
+            white-space: nowrap;
         }
         
         .map-key {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            margin: 30px 0 20px;
             flex-wrap: wrap;
         }
         
@@ -194,11 +255,12 @@
             background: #3a7bd5;
         }
         
+        /* Cities List */
         .cities-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
-            margin-bottom: 50px;
+            margin: 50px 0;
         }
         
         .city-group {
@@ -247,12 +309,13 @@
             text-decoration: underline;
         }
         
+        /* Service Information */
         .service-info {
             background: white;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             padding: 30px;
-            margin-bottom: 50px;
+            margin: 50px 0;
         }
         
         .service-info h3 {
@@ -284,6 +347,7 @@
             color: white;
             padding: 60px 0;
             text-align: center;
+            margin-top: 50px;
         }
         
         .cta-section h2 {
@@ -387,6 +451,10 @@
                 font-size: 18px;
             }
             
+            .service-area-map {
+                height: 400px;
+            }
+            
             .city-list {
                 columns: 1;
                 -webkit-columns: 1;
@@ -420,16 +488,46 @@
     </section>
     
     <!-- Main Content -->
-    <main class="service-area-content container">
+    <main class="container">
         <!-- Service Area Map -->
-        <div class="section-title">
+        <div class="map-title">
             <h2>Service Area Map</h2>
         </div>
         
         <div class="map-container">
             <p>Our technicians service all locations within the shaded region on the map below. This covers Hamilton and surrounding cities within approximately 60km.</p>
             
-            <img src="https://www.canadianfitnessrepair.com/images/service-area-map.webp" alt="Canadian Fitness Repair service area map showing 60km radius from Hamilton, Ontario">
+            <div class="service-area-map">
+                <div class="map-overlay"></div>
+                <div class="map-center"></div>
+                <div class="map-radius"></div>
+                <div class="map-radius-label">60km Radius</div>
+                
+                <!-- City Markers -->
+                <div class="city-marker" style="top: 45%; left: 55%;"></div>
+                <div class="city-label" style="top: 44%; left: 56%;">Burlington</div>
+                
+                <div class="city-marker" style="top: 40%; left: 60%;"></div>
+                <div class="city-label" style="top: 39%; left: 61%;">Oakville</div>
+                
+                <div class="city-marker" style="top: 35%; left: 65%;"></div>
+                <div class="city-label" style="top: 34%; left: 66%;">Mississauga</div>
+                
+                <div class="city-marker" style="top: 55%; left: 45%;"></div>
+                <div class="city-label" style="top: 54%; left: 46%;">Stoney Creek</div>
+                
+                <div class="city-marker" style="top: 60%; left: 40%;"></div>
+                <div class="city-label" style="top: 59%; left: 41%;">Grimsby</div>
+                
+                <div class="city-marker" style="top: 65%; left: 50%;"></div>
+                <div class="city-label" style="top: 64%; left: 51%;">Niagara</div>
+                
+                <div class="city-marker" style="top: 35%; left: 45%;"></div>
+                <div class="city-label" style="top: 34%; left: 46%;">Cambridge</div>
+                
+                <div class="city-marker" style="top: 30%; left: 50%;"></div>
+                <div class="city-label" style="top: 29%; left: 51%;">Guelph</div>
+            </div>
             
             <div class="map-key">
                 <div class="key-item">
@@ -446,7 +544,7 @@
         </div>
         
         <!-- Cities List -->
-        <div class="section-title">
+        <div class="map-title">
             <h2>Cities We Serve</h2>
         </div>
         
