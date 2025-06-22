@@ -45,9 +45,6 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
   <link href="headerfooter.css" rel="stylesheet"/>
-  <style>
-   * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; } body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; overflow-x: hidden; line-height: 1.6; padding-top: 120px; /* For desktop */ } a { text-decoration: none; color: inherit; } ul { list-style: none; } img { max-width: 100%; height: auto; } .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; } /* Responsive body padding for header */ @media (max-width: 767px) { body { padding-top: 100px; } } /* Page Content Styles */ /* City Hero Section */ .city-hero { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 12rem 2rem 3rem 1rem; background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)), url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80'); background-size: cover; background-position: center; min-height: 60vh; position: relative; } .city-hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(transparent, var(--bg-color)); } .city-title { font-size: clamp(3rem, 5vw, 5rem); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; line-height: 1.5; text-shadow: 0 2px 10px rgba(0,0,0,0.5); color: var(--text-color); } .city-tagline { font-size: clamp(1.25rem, 3.5vw, 1.75rem); max-width: 800px; margin-bottom: 1rem; color: var(--accent-color); } /* Content Section */ .city-content { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; } .section-title { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 3rem; text-transform: uppercase; letter-spacing: 1px; color: var(--theme-color); position: relative; padding-bottom: 1rem; } .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: var(--accent-color); border-radius: 2px; } .intro-text { text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.2rem; color: var(--light-text); line-height: 1.7; } /* Services Grid */ .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0; } .service-card { background: var(--card-bg); border-radius: 12px; padding: 2rem; text-align: center; transition: var(--transition); border: 1px solid rgba(93, 93, 255, 0.1); } .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(93, 93, 255, 0.2); } .service-icon { font-size: 3.5rem; color: var(--theme-color); margin-bottom: 1.5rem; transition: var(--transition); } .service-card:hover .service-icon { transform: scale(1.1); color: var(--accent-color); } /* Neighborhoods Section */ .neighborhoods-section { background: var(--card-bg); border-radius: 16px; padding: 3rem; margin: 4rem 0; } .neighborhood-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; } .neighborhood-item { background: rgba(93, 93, 255, 0.1); padding: 1rem; border-radius: 8px; text-align: center; transition: var(--transition); font-weight: 500; } .neighborhood-item:hover { background: var(--theme-color); transform: translateY(-5px); } /* Why Choose Us Section */ .benefit-item { display: flex; align-items: flex-start; margin-bottom: 2rem; background: var(--card-bg); padding: 1.5rem; border-radius: 12px; transition: var(--transition); } .benefit-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(93, 93, 255, 0.2); } .benefit-number { font-size: 2rem; color: var(--theme-color); margin-right: 1.5rem; font-weight: 700; min-width: 40px; } .benefit-content h3 { color: var(--theme-color); margin-bottom: 0.5rem; } /* CTA Section */ .cta-section { text-align: center; padding: 4rem 2rem; background: linear-gradient(135deg, var(--theme-color), #7a7aff); border-radius: 16px; margin: 4rem 0; position: relative; overflow: hidden; } .cta-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%); transform: rotate(30deg); } .cta-title { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 1.5rem; position: relative; z-index: 1; } .cta-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; position: relative; z-index: 1; } .c-button-secondary { background-color: var(--accent-color); } .c-button-secondary:hover { background-color: #ff5252; } /* Related Cities */ .related-cities { margin: 4rem auto; } .cities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; } .city-card { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; transition: var(--transition); border: 1px solid rgba(93, 93, 255, 0.1); text-align: center; } .city-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(93, 93, 255, 0.2); } .city-card h3 { color: var(--theme-color); margin-bottom: 1rem; } /* FAQ Section */ .faq-section { background: var(--card-bg); border-radius: 16px; padding: 3rem; margin: 4rem 0; } .faq-container { max-width: 800px; margin: 0 auto; } .faq-item { margin-bottom: 1.5rem; background: rgba(93, 93, 255, 0.1); border-radius: 8px; overflow: hidden; transition: var(--transition); } .faq-question { padding: 1.5rem; font-size: 1.2rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); } .faq-question:hover { background: rgba(93, 93, 255, 0.2); } .faq-answer { padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .faq-answer p { padding: 1rem 0; } .faq-item.active .faq-answer { max-height: 500px; } .faq-item.active .faq-toggle i { transform: rotate(180deg); } .faq-toggle i { transition: transform 0.4s ease; } /* Responsive Adjustments */ /* Header & Footer Responsive */ @media (max-width: 767px) { /* Page Content Responsive */ .city-hero { padding: 8rem 1rem; min-height: 50vh; } .city-content { padding: 2rem 1rem; } .neighborhoods-section { padding: 2rem 1rem; margin: 2rem 0; } .section-title { margin-bottom: 2rem; } .services-grid { grid-template-columns: 1fr; gap: 1.5rem; } .service-card { padding: 1.5rem; } .neighborhood-grid { grid-template-columns: repeat(2, 1fr); } .benefit-item { padding: 1rem; flex-direction: column; align-items: center; text-align: center; } .benefit-number { margin-right: 0; margin-bottom: 1rem; } .cta-section { padding: 2rem 1rem; margin: 2rem 0; } .cta-buttons { flex-direction: column; gap: 1rem; } .cities-grid { grid-template-columns: 1fr; } .faq-section { padding: 2rem 1rem; } } /* Scroll behavior styles */ .scrolled #contactlist { transform: translateY(-100%); opacity: 0; height: 0; padding: 0; overflow: hidden; } .scrolled { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); } /* Tablet Layout */ @media (min-width: 768px) and (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } .neighborhood-grid { grid-template-columns: repeat(3, 1fr); } .city-hero { padding: 8rem 2rem; } } @media (max-width: 767px) { /* Page Content Responsive */ .city-hero { padding: 10rem 1rem; } }
-  </style>
   <link href="whatsapp.css" rel="stylesheet"/>
   <link href="https://www.canadianfitnessrepair.com/treadmill-repair-hamilton.html" rel="canonical"/>
  <script type="application/ld+json">
@@ -84,11 +81,702 @@
   ]
 }
 </script>
+<style>
+  /* ===== Base Styles ===== */
+  /* :root {
+      --bg-color: #f8f9fa;
+      --text-color: #333;
+      --theme-color: #2c3e50;
+      --accent-color: #e74c3c;
+      --card-bg: #ffffff;
+      --light-text: #6c757d;
+      --transition: all 0.3s ease;
+      --shadow: 0 5px 15px rgba(0,0,0,0.1);
+  } */
+  
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  
+  html {
+      scroll-behavior: smooth;
+  }
+  
+  body {
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      padding-top: 120px;
+  }
+  
+  a {
+      text-decoration: none;
+      color: inherit;
+  }
+  
+  ul {
+      list-style: none;
+  }
+  
+  img {
+      max-width: 100%;
+      height: auto;
+  }
+  
+  .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+  }
+  
+  /* ===== Hero Section ===== */
+  .city-hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      background: linear-gradient(rgba(21, 23, 25, 0.85), rgba(21, 23, 25, 0.8)), 
+                  url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 80vh;
+      position: relative;
+  }
+  
+  .city-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(transparent, var(--bg-color));
+      z-index: 1;
+  }
+  
+  .city-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      color: #fff;
+      position: relative;
+      z-index: 2;
+  }
+  
+  .city-tagline {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      max-width: 800px;
+      margin-bottom: 2rem;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+  }
+  
+  .c-button {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      margin: 10px 0;
+      position: relative;
+      z-index: 2;
+  }
+  
+  .c-button:hover {
+      background-color: #c0392b;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
+  
+  .hero-features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      position: relative;
+      z-index: 2;
+  }
+  
+  .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+      font-weight: 500;
+      background: rgba(255,255,255,0.15);
+      padding: 8px 16px;
+      border-radius: 50px;
+  }
+  
+  /* ===== Content Sections ===== */
+  .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+  }
+  
+  .section-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.5px;
+      color: var(--theme-color);
+      position: relative;
+      padding-bottom: 1rem;
+  }
+  
+  .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: var(--accent-color);
+      border-radius: 2px;
+  }
+  
+  .intro-text {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      font-size: 1.1rem;
+      color: var(--light-text);
+      line-height: 1.7;
+  }
+  
+  /* ===== Services Grid ===== */
+  .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+  }
+  
+  .service-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+  
+  .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(93, 93, 255, 0.15);
+  }
+  
+  .service-icon {
+      font-size: 3.5rem;
+      color: var(--theme-color);
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+  }
+  
+  .service-card:hover .service-icon {
+      transform: scale(1.1);
+      color: var(--accent-color);
+  }
+  
+  .service-card h3 {
+      margin-bottom: 1rem;
+      color: var(--theme-color);
+  }
+  
+  /* ===== Manufacturer Logos ===== */
+  .manufacturer-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 3rem 0;
+  }
+  
+  .manufacturer-logo {
+      width: 140px;
+      height: 80px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      transition: var(--transition);
+      background-color: white;
+      box-shadow: var(--shadow);
+  }
+  
+  .manufacturer-logo:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  
+  /* ===== Emergency Banner ===== */
+  .emergency-banner {
+      background: linear-gradient(90deg, #ff6b6b, #e74c3c);
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 3rem 0;
+      text-align: center;
+      animation: pulse 2s infinite;
+      color: white;
+      box-shadow: var(--shadow);
+  }
+  
+  @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+  }
+  
+  /* ===== Neighborhoods Section ===== */
+  .neighborhoods-section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 3rem;
+      margin: 4rem 0;
+      box-shadow: var(--shadow);
+  }
+  
+  .neighborhood-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+  }
+  
+  .neighborhood-item {
+      background: rgba(93, 93, 255, 0.08);
+      padding: 1.2rem;
+      border-radius: 8px;
+      text-align: center;
+      transition: var(--transition);
+      font-weight: 500;
+      border: 1px solid rgba(93, 93, 255, 0.1);
+  }
+  
+  .neighborhood-item:hover {
+      background: var(--theme-color);
+      color: white;
+      transform: translateY(-5px);
+  }
+  
+  .service-map {
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 2rem;
+      box-shadow: var(--shadow);
+      height: 400px;
+  }
+  
+  /* ===== Benefits Section ===== */
+  .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+  }
+  
+  .benefit-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(93, 93, 255, 0.1);
+  }
+  
+  .benefit-number {
+      font-size: 2rem;
+      color: var(--theme-color);
+      margin-right: 1.5rem;
+      font-weight: 700;
+      min-width: 50px;
+      background: rgba(93, 93, 255, 0.1);
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  .benefit-content h3 {
+      color: var(--theme-color);
+      margin-bottom: 0.8rem;
+  }
+  
+  /* ===== Testimonials ===== */
+  .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+  }
+  
+  .testimonial-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      box-shadow: var(--shadow);
+  }
+  
+  .testimonial-card::before {
+      content: "\""; 
+      position: absolute;
+      top: -15px;
+      left: 15px;
+      font-size: 5rem;
+      color: var(--accent-color);
+      opacity: 0.15;
+      font-family: Georgia, serif;
+      line-height: 1;
+  }
+  
+  .rating {
+      color: #FFD700;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+  }
+  
+  .testimonial-card p {
+      margin-bottom: 1rem;
+      font-style: italic;
+  }
+  
+  .testimonial-author {
+      font-weight: 600;
+      color: var(--theme-color);
+  }
+  
+  /* ===== Problem Cards ===== */
+  .repair-problems {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+  }
+  
+  .problem-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.8rem;
+      border-left: 4px solid var(--accent-color);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+  }
+  
+  .problem-card:hover {
+      transform: translateY(-5px);
+  }
+  
+  .problem-card h3 {
+      margin-bottom: 1rem;
+      color: var(--theme-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+  }
+  
+  .problem-card ul {
+      padding-left: 1.5rem;
+  }
+  
+  .problem-card li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.5rem;
+  }
+  
+  .problem-card li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+      font-size: 1.2rem;
+  }
+  
+  /* ===== FAQ Section ===== */
+  .faq-section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 3rem;
+      margin: 4rem 0;
+      box-shadow: var(--shadow);
+  }
+  
+  .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+  }
+  
+  .faq-item {
+      margin-bottom: 1.5rem;
+      background: rgba(93, 93, 255, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid rgba(93, 93, 255, 0.1);
+  }
+  
+  .faq-question {
+      padding: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+  }
+  
+  .faq-question:hover {
+      background: rgba(93, 93, 255, 0.1);
+  }
+  
+  .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+  }
+  
+  .faq-answer p {
+      padding: 1rem 0;
+  }
+  
+  .faq-item.active .faq-answer {
+      max-height: 500px;
+  }
+  
+  .faq-toggle i {
+      transition: transform 0.4s ease;
+  }
+  
+  .faq-item.active .faq-toggle i {
+      transform: rotate(180deg);
+  }
+  
+  /* ===== CTA Section ===== */
+  .cta-section {
+      text-align: center;
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, var(--theme-color), #2a4365);
+      border-radius: 16px;
+      margin: 4rem 0;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+  }
+  
+  .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      transform: rotate(30deg);
+  }
+  
+  .cta-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+      color: white;
+  }
+  
+  .cta-section p {
+      color: rgba(255,255,255,0.9);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      position: relative;
+      z-index: 1;
+  }
+  
+  .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      position: relative;
+      z-index: 1;
+  }
+  
+  .c-button-secondary {
+      background-color: var(--accent-color);
+      color: white;
+  }
+  
+  .c-button-secondary:hover {
+      background-color: #c0392b;
+  }
+  
+  /* ===== Related Cities ===== */
+  .related-cities {
+      margin: 4rem auto;
+  }
+  
+  .cities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+  }
+  
+  .city-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: var(--transition);
+      border: 1px solid rgba(93, 93, 255, 0.1);
+      text-align: center;
+      box-shadow: var(--shadow);
+      display: block;
+  }
+  
+  .city-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(93, 93, 255, 0.15);
+      border-color: var(--accent-color);
+  }
+  
+  .city-card h3 {
+      color: var(--theme-color);
+      margin-bottom: 1rem;
+      transition: color 0.3s ease;
+  }
+  
+  .city-card:hover h3 {
+      color: var(--accent-color);
+  }
+  
+  .city-card p {
+      color: var(--light-text);
+  }
+  
+  /* ===== Responsive Adjustments ===== */
+  @media (max-width: 767px) {
+      body {
+          padding-top: 90px;
+      }
+      
+      .city-hero {
+          padding: 6rem 1.5rem 3rem;
+          min-height: 70vh;
+      }
+      
+      .content-section {
+          padding: 3rem 1.5rem;
+      }
+      
+      .neighborhoods-section {
+          padding: 2rem 1.5rem;
+          margin: 2rem 0;
+      }
+      
+      .section-title {
+          margin-bottom: 2rem;
+      }
+      
+      .services-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+      }
+      
+      .service-card {
+          padding: 1.8rem;
+      }
+      
+      .neighborhood-grid {
+          grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .benefit-item {
+          padding: 1.5rem;
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
+      }
+      
+      .benefit-number {
+          margin-right: 0;
+          margin-bottom: 1rem;
+      }
+      
+      .cta-section {
+          padding: 3rem 1.5rem;
+          margin: 2rem 0;
+      }
+      
+      .cta-buttons {
+          flex-direction: column;
+          gap: 1rem;
+      }
+      
+      .cities-grid {
+          grid-template-columns: 1fr;
+      }
+      
+      .faq-section {
+          padding: 2rem 1.5rem;
+      }
+      
+      .testimonial-grid,
+      .repair-problems {
+          grid-template-columns: 1fr;
+      }
+      
+      .manufacturer-logo {
+          width: 110px;
+          height: 70px;
+      }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1024px) {
+      .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .neighborhood-grid {
+          grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .city-hero {
+          padding: 7rem 2rem;
+      }
+  }
+  </style>
 </head>
  <body>
   <div id="header">
   </div>
-  <main>
+  <!-- <main>
    <section class="city-hero">
     <h1 class="city-title">
      Hamilton Treadmill Repair Experts
@@ -516,24 +1204,294 @@
      </a>
     </div>
    </section>
+  </main> -->
+  <main>
+        <section class="city-hero">
+            <h1 class="city-title">Emergency Treadmill Repair Hamilton | Same-Day Fix Guarantee</h1>
+            <p class="city-tagline">Certified Technicians Repairing All Major Fitness Equipment Brands in Hamilton Homes & Gyms</p>
+            <a class="c-button" href="tel:+12899257239">Call Now: (289) 925-7239</a>
+            <div>
+                <div><i class="ri-check-line"></i> 24/7 Emergency Service</div>
+                <div><i class="ri-check-line"></i> No Travel Fees in Hamilton</div>
+                <div><i class="ri-check-line"></i> 90-Day Repair Warranty</div>
+            </div>
+        </section>
+
+        <section class="city-content">
+            <h2 class="section-title">Hamilton's #1 Fitness Equipment Repair Specialists</h2>
+            <p class="intro-text">Since 2013, Canadian Fitness Repair has been Hamilton's trusted solution for professional treadmill, elliptical, and exercise bike repairs. Our factory-trained technicians specialize in restoring all major brands to optimal performance.</p>
+            
+            <div class="emergency-banner">
+                <h3><i class="ri-alarm-warning-line"></i> EMERGENCY SERVICE AVAILABLE</h3>
+                <p>Commercial gym equipment down? Home treadmill stopped working? Call now for same-day repair service throughout Hamilton: <strong>(289) 925-7239</strong></p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="ri-treadmill-line"></i></div>
+                    <h3>Treadmill Repairs</h3>
+                    <p>Motor replacements, belt repairs, deck restoration, and electronic diagnostics for all treadmill brands. Specializing in NordicTrack, ProForm, and Life Fitness models.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="ri-bike-line"></i></div>
+                    <h3>Elliptical & Bike Service</h3>
+                    <p>Drive system repairs, pedal replacements, console diagnostics, and resistance system fixes for Precor, Schwinn, and Sole Fitness equipment.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="ri-building-line"></i></div>
+                    <h3>Commercial Gym Repairs</h3>
+                    <p>Maintenance contracts for Hamilton fitness centers, hotels, and corporate gyms. Serving GoodLife, YMCA, and McMaster University facilities.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="ri-home-gear-line"></i></div>
+                    <h3>Residential Equipment</h3>
+                    <p>In-home repairs across Hamilton neighborhoods with flexible scheduling. We bring all parts to complete repairs in one visit.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="ri-shield-check-line"></i></div>
+                    <h3>Preventative Maintenance</h3>
+                    <p>Seasonal tune-ups to protect against Hamilton's humid summers and cold winters. Extends equipment life 2-3 years.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="ri-flashlight-line"></i></div>
+                    <h3>Emergency Repairs</h3>
+                    <p>24/7 emergency service for Hamilton businesses. Same-day response for critical failures in downtown gyms.</p>
+                </div>
+            </div>
+
+            <h3 style="text-align:center;margin:2rem 0 1rem;">We Repair All Major Fitness Equipment Brands</h3>
+            <div class="manufacturer-logos">
+                <div class="manufacturer-logo">NordicTrack</div>
+                <div class="manufacturer-logo">ProForm</div>
+                <div class="manufacturer-logo">Life Fitness</div>
+                <div class="manufacturer-logo">Sole Fitness</div>
+                <div class="manufacturer-logo">Precor</div>
+                <div class="manufacturer-logo">Bowflex</div>
+                <div class="manufacturer-logo">Technogym</div>
+                <div class="manufacturer-logo">Matrix</div>
+            </div>
+        </section>
+
+        <section class="neighborhoods-section">
+            <h2 class="section-title">Hamilton Areas We Serve</h2>
+            <p class="intro-text">We provide comprehensive fitness equipment repair services throughout Hamilton and surrounding regions:</p>
+            <div class="neighborhood-grid">
+                <div class="neighborhood-item">Downtown Hamilton</div>
+                <div class="neighborhood-item">Hamilton Mountain</div>
+                <div class="neighborhood-item">Ancaster</div>
+                <div class="neighborhood-item">Dundas</div>
+                <div class="neighborhood-item">Stoney Creek</div>
+                <div class="neighborhood-item">Waterdown</div>
+                <div class="neighborhood-item">Binbrook</div>
+                <div class="neighborhood-item">Westdale</div>
+                <div class="neighborhood-item">East Hamilton</div>
+                <div class="neighborhood-item">West Hamilton</div>
+                <div class="neighborhood-item">Grimsby</div>
+                <div class="neighborhood-item">Burlington</div>
+            </div>
+            <!-- Map remains unchanged -->
+            <p><i class="ri-flashlight-line"></i> Same-day service available in Central Hamilton & Hamilton Mountain</p>
+        </section>
+
+        <section class="city-content">
+            <h2 class="section-title">Common Fitness Equipment Problems We Fix</h2>
+            <div class="repair-problems">
+                <div class="problem-card">
+                    <h3><i class="ri-error-warning-line"></i> Treadmill Issues</h3>
+                    <ul>
+                        <li>Belt slipping or fraying</li>
+                        <li>Motor failure or overheating</li>
+                        <li>Incline mechanism failure</li>
+                        <li>Console error messages</li>
+                        <li>Deck damage or warping</li>
+                    </ul>
+                </div>
+                <div class="problem-card">
+                    <h3><i class="ri-error-warning-line"></i> Elliptical Problems</h3>
+                    <ul>
+                        <li>Resistance system failure</li>
+                        <li>Drive train grinding noise</li>
+                        <li>Pedal bearing wear</li>
+                        <li>Console power issues</li>
+                        <li>Uneven stride motion</li>
+                    </ul>
+                </div>
+                <div class="problem-card">
+                    <h3><i class="ri-error-warning-line"></i> Exercise Bike Faults</h3>
+                    <ul>
+                        <li>Pedal crank failure</li>
+                        <li>Magnetic resistance issues</li>
+                        <li>Seat adjustment problems</li>
+                        <li>Console display failure</li>
+                        <li>Flywheel noise</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 class="section-title">Why Hamilton Chooses Our Repair Service</h2>
+            <div>
+                <div class="benefit-item">
+                    <div class="benefit-number">1</div>
+                    <div class="benefit-content">
+                        <h3>Factory-Trained Technicians</h3>
+                        <p>Our team holds certifications from NordicTrack, Life Fitness, and Precor with specialized training in Hamilton's unique climate challenges.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">2</div>
+                    <div class="benefit-content">
+                        <h3>Same-Day Parts Replacement</h3>
+                        <p>We maintain Canada's largest inventory of fitness equipment parts in Hamilton, including hard-to-find NordicTrack motors and ProForm controllers.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">3</div>
+                    <div class="benefit-content">
+                        <h3>Brand-Specific Diagnostics</h3>
+                        <p>Specialized diagnostic tools for all major brands including Life Fitness, Technogym, and Sole Fitness with proprietary software access.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">4</div>
+                    <div class="benefit-content">
+                        <h3>Commercial Gym Expertise</h3>
+                        <p>Preferred service provider for 12+ Hamilton fitness centers with specialized knowledge of high-use equipment maintenance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="text-align:center;margin:2rem 0 1rem;">Hamilton Homeowners & Gym Owners Say</h3>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="rating">★★★★★</div>
+                    <p>"Our NordicTrack treadmill on Hamilton Mountain stopped working in -20°C weather. Canadian Fitness Repair came same-day and fixed it! True local heroes."</p>
+                    <p><strong>Mike J.</strong> | Hamilton Mountain</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">★★★★★</div>
+                    <p>"As a downtown gym owner near Jackson Square, I rely on their expertise. They understand Hamilton's unique challenges with humidity and power surges."</p>
+                    <p><strong>Sarah T.</strong> | Downtown Fitness Center</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">★★★★★</div>
+                    <p>"Fixed my ProForm elliptical when three other companies couldn't diagnose the problem. Their knowledge of fitness electronics is unmatched in Hamilton."</p>
+                    <p><strong>Robert K.</strong> | Ancaster Resident</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section (Updated Questions) -->
+        <section class="faq-section">
+            <h2 class="section-title">Hamilton Treadmill Repair FAQs</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can you repair NordicTrack treadmills in Hamilton?
+                        <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We're certified NordicTrack repair specialists serving all Hamilton neighborhoods. We stock common NordicTrack parts including motors, controllers, and belts for quick repairs.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How much does treadmill repair cost in Hamilton?
+                        <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Typical service costs range from $150-$400 depending on parts needed. Diagnostic fee is $89 (credited toward repair). We offer upfront pricing with no hidden fees.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you service commercial Life Fitness equipment?
+                        <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. We're Hamilton's preferred Life Fitness service provider with specialized training on commercial treadmills, ellipticals, and strength equipment. Emergency service available 24/7.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        My ProForm treadmill display is blank - can you fix it?
+                        <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, this is a common issue we fix daily in Hamilton homes. Usually caused by power board failure or console issues - both repairable with same-day service in most cases.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="cta-title">Need Treadmill Repair in Hamilton Today?</h2>
+            <p>Serving Hamilton Mountain, Downtown, Ancaster, Dundas & all neighborhoods</p>
+            <div class="cta-buttons">
+                <a class="c-button" href="tel:+12899257239">
+                    <i class="ri-phone-line"></i> Call Now: (289) 925-7239
+                </a>
+                <a class="c-button c-button-secondary" href="get-quote.html?location=hamilton">
+                    <i class="ri-calendar-event-line"></i> Schedule Online
+                </a>
+            </div>
+            <p style="margin-top:1rem;font-size:0.9rem;"><i class="ri-time-line"></i> Same-day appointments available for urgent repairs</p>
+        </section>
+
+        <!-- Related Cities Section -->
+        <section class="city-content related-cities">
+            <h2 class="section-title">Serving All GTA Areas</h2>
+            <p class="intro-text">We provide fitness equipment repair throughout the Greater Toronto Area:</p>
+            <div class="cities-grid">
+                <a class="city-card" href="treadmill-repair-burlington.html">
+                    <h3>Burlington Treadmill Repair</h3>
+                    <p>Serving Appleby, Aldershot & downtown</p>
+                </a>
+                <a class="city-card" href="treadmill-repair-oakville.html">
+                    <h3>Oakville Treadmill Repair</h3>
+                    <p>Luxury home gym specialists</p>
+                </a>
+                <a class="city-card" href="treadmill-repair-mississauga.html">
+                    <h3>Mississauga Treadmill Repair</h3>
+                    <p>Commercial gym focus</p>
+                </a>
+                <a class="city-card" href="treadmill-repair-guelph.html">
+                    <h3>Guelph Treadmill Repair</h3>
+                    <p>University & residential specialists</p>
+                </a>
+            </div>
+        </section>
   </main>
+
   <div id="footer">
   </div>
   <script>
-   document.addEventListener('DOMContentLoaded', function() {
-             const faqItems = document.querySelectorAll('.faq-item');
-             faqItems.forEach(item => {
-                 const question = item.querySelector('.faq-question');
-                 question.addEventListener('click', () => {
-                     const isActive = item.classList.contains('active');
-                     faqItems.forEach(faq => {
-                         if (faq !== item) {
-                             faq.classList.remove('active');
-                         }
-                     });
-                     item.classList.toggle('active', !isActive);
-                 });
-             }); // Add location to form links const formLinks = document.querySelectorAll('a[href="get-quote.html"]'); formLinks.forEach(link => { link.href = "get-quote.html?location=hamilton"; }); });
+    document.addEventListener('DOMContentLoaded', function() {
+        // FAQ toggle functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other FAQ items
+                faqItems.forEach(faq => {
+                    if (faq !== item) {
+                        faq.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active', !isActive);
+            });
+        });
+    
+        // Add location parameter to form links
+        const formLinks = document.querySelectorAll('a[href="get-quote.html"]');
+        formLinks.forEach(link => {
+            link.href = "get-quote.html?location=hamilton";
+        });
+    });
   </script>
   <script src="menu.js">
   </script>

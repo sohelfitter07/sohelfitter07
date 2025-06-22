@@ -1265,7 +1265,7 @@
                 <a id="smsLink" class="c-button sms-btn" target="_blank"
                   >💬 Send via SMS</a
                 >
-                <a id="emailLink" class="c-button email-btn" target="_blank"
+                <a id="emailLink" class="c-button email-btn" target="#"
                   >✉️ Send via Email</a
                 >
               </div>
@@ -1349,10 +1349,10 @@
             </div>
 
             <div class="form-group" itemprop="customer">
-              <label for="preferredContact" class="required"
+              <label for="preferredContact"
                 >Preferred Contact Method</label
               >
-              <select id="preferredContact" name="preferredContact" required>
+              <select id="preferredContact" name="preferredContact">
                 <option value="">-- Select Contact Method --</option>
                 <option value="email">Email</option>
                 <option value="phone">Contact Number</option>
@@ -1494,13 +1494,12 @@
 
             <h3 class="form-section-title">Equipment Information</h3>
             <div class="form-group">
-              <label class="required">I am a(n)</label>
+              <label>I am a(n)</label>
               <div class="radio-group">
                 <div class="radio-option">
                   <input
                     id="individual"
                     name="clientType"
-                    required
                     type="radio"
                     value="Individual"
                   />
@@ -1757,319 +1756,689 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        // Initialize EmailJS
         emailjs.init("Y3qHd9eGkrVsfM-Fs");
-
+        
+        // Constants
+        const yourPhone = "12899257239";
+        const yourEmail = "canadianfitnessrepair@gmail.com";
+        let lastSubmission = null; // Store form data
+    
+        // Form elements
         const quoteForm = document.getElementById("quoteForm");
         const successMessage = document.getElementById("successMessage");
         const loadingOverlay = document.getElementById("loadingOverlay");
         const newRequestBtn = document.getElementById("newRequestBtn");
         const submitButton = document.getElementById("submitButton");
-
-        submitButton.addEventListener("click", function () {
-          quoteForm.dispatchEvent(
-            new Event("submit", { bubbles: true, cancelable: true })
-          );
-        });
-
         const typeSelect = document.getElementById("equipmentType");
         const brandSelect = document.getElementById("brand");
         const modelSelect = document.getElementById("model");
         const manualBrandInput = document.getElementById("manualBrand");
         const manualModelInput = document.getElementById("manualModel");
-
+    
+        // Save original button HTML for reset
+        const originalButtonHTML = submitButton.innerHTML;
+    
+        // ========== RECOMMENDATION #1: PHONE NUMBER FORMATTING ==========
+        const phoneInput = document.getElementById("contactNumber");
+        phoneInput.addEventListener("input", function(e) {
+          const value = e.target.value.replace(/\D/g, '');
+          let formatted = '';
+          
+          if (value.length > 0) formatted = `(${value.substring(0,3)}`;
+          if (value.length > 3) formatted += `) ${value.substring(3,6)}`;
+          if (value.length > 6) formatted += `-${value.substring(6,10)}`;
+          
+          e.target.value = formatted;
+        });
+    
+        // ========== RECOMMENDATION #2: POSTAL CODE VALIDATION ==========
+        const postalInput = document.getElementById("postal");
+        postalInput.addEventListener("input", function() {
+          const errorElement = document.getElementById("postalError");
+          if (this.value.trim() && !/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(this.value)) {
+            errorElement.textContent = "Format: A1A 1A1";
+            errorElement.style.display = "block";
+          } else {
+            errorElement.style.display = "none";
+          }
+        });
+    
+        // ========== RECOMMENDATION #3: BOOKING DATE VALIDATION ==========
+        const bookingInput = document.getElementById("bookingDateTime");
+        // Set default to next hour
+        const now = new Date();
+        const nextHour = new Date(now.setHours(now.getHours() + 1, 0, 0, 0));
+        bookingInput.value = nextHour.toISOString().slice(0, 16);
+        
+        bookingInput.addEventListener("change", function() {
+          const selectedDate = new Date(this.value);
+          const now = new Date();
+          const errorElement = document.getElementById("bookingDateTimeError");
+          
+          if (selectedDate < now) {
+            errorElement.textContent = "Cannot book past dates";
+            errorElement.style.display = "block";
+          } else {
+            errorElement.style.display = "none";
+          }
+        });
+    
+        // ========== RECOMMENDATION #4: ENHANCED LOADING STATE ==========
+        // Add spinner CSS dynamically
+        const spinnerCSS = `
+          <style>
+            .submit-spinner {
+              display: inline-block;
+              width: 16px;
+              height: 16px;
+              border: 2px solid rgba(255,255,255,0.3);
+              border-radius: 50%;
+              border-top-color: white;
+              animation: spin 1s ease-in-out infinite;
+              margin-right: 8px;
+            }
+            @keyframes spin {
+              to { transform: rotate(360deg); }
+            }
+          </style>
+        `;
+        document.head.insertAdjacentHTML("beforeend", spinnerCSS);
+    
+        // ========== RECOMMENDATION #5: SAVE FORM PROGRESS ==========
+        function saveFormState() {
+          const formData = new FormData(quoteForm);
+          const data = Object.fromEntries(formData);
+          localStorage.setItem('repairFormData', JSON.stringify(data));
+        }
+    
+        function loadFormState() {
+          const data = JSON.parse(localStorage.getItem('repairFormData'));
+          if (data) {
+            Object.keys(data).forEach(key => {
+              const el = quoteForm.elements[key];
+              if (el && data[key] !== null && data[key] !== undefined) {
+                el.value = data[key];
+              }
+            });
+          }
+        }
+    
+        // ========== RECOMMENDATION #6: ACCESSIBILITY IMPROVEMENTS ==========
+        document.querySelectorAll('.error-message').forEach(el => {
+          el.setAttribute('role', 'alert');
+          el.setAttribute('aria-live', 'polite');
+        });
+    
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+          const errorId = input.id + 'Error';
+          const errorElement = document.getElementById(errorId);
+          if (errorElement) {
+            input.setAttribute('aria-describedby', errorId);
+          }
+        });
+    
+        // ========== RECOMMENDATION #7: SUCCESS CONFETTI ==========
+        const confettiCanvas = document.createElement('canvas');
+        confettiCanvas.id = 'confettiCanvas';
+        confettiCanvas.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:1000;display:none;';
+        document.body.appendChild(confettiCanvas);
+    
+        function triggerConfetti() {
+          const canvas = document.getElementById('confettiCanvas');
+          canvas.style.display = 'block';
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          
+          const ctx = canvas.getContext('2d');
+          const pieces = [];
+          const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+          
+          // Create confetti pieces
+          for (let i = 0; i < 150; i++) {
+            pieces.push({
+              x: Math.random() * canvas.width,
+              y: -20,
+              size: Math.random() * 10 + 5,
+              speed: Math.random() * 3 + 2,
+              color: colors[Math.floor(Math.random() * colors.length)],
+              rotation: Math.random() * 360,
+              spin: Math.random() * 10 - 5
+            });
+          }
+          
+          // Animation function
+          function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            let activePieces = 0;
+            
+            pieces.forEach(p => {
+              p.y += p.speed;
+              p.x += Math.sin(p.y * 0.05);
+              p.rotation += p.spin;
+              
+              if (p.y < canvas.height) {
+                activePieces++;
+                
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                ctx.restore();
+              }
+            });
+            
+            if (activePieces > 0) {
+              requestAnimationFrame(animate);
+            } else {
+              canvas.style.display = 'none';
+            }
+          }
+          
+          animate();
+        }
+    
+        // ========== EMAIL LINK HANDLER ==========
+        document.getElementById("emailLink").addEventListener("click", function(e) {
+          e.preventDefault();
+          
+          if (!lastSubmission) {
+            alert("Please submit the form before sending media");
+            return;
+          }
+    
+          const { name, phone, city, service, brand, model } = lastSubmission;
+          
+          const message = `Hi! I just submitted a repair request. Here are my details:
+    Name: ${name}
+    Phone: ${phone}
+    City: ${city}
+    Service: ${service}
+    Brand: ${brand}
+    Model: ${model}
+    
+    Please attach photos/videos below this line:
+    -------------------------------------------`;
+    
+          const encodedMessage = encodeURIComponent(message);
+          
+          if (confirm("This will open your email client to send photos/videos. Continue?")) {
+            window.location.href = `mailto:${yourEmail}?subject=Repair%20Media%20From%20${encodeURIComponent(name)}&body=${encodedMessage}`;
+          }
+        });
+    
+        // Equipment mappings
         const equipmentBrandMap = {
           Treadmill: [
-            "NordicTrack",
-            "ProForm",
-            "Life Fitness",
-            "Precor",
-            "Matrix Fitness",
-            "Sole Fitness",
-            "Horizon Fitness",
-            "Bowflex",
-            "Technogym",
-            "Woodway",
-            "True Fitness",
-            "Reebok",
-            "Spirit Fitness",
-            "Cybex",
-            "Star Trac",
-            "Octane Fitness",
-            "Freemotion",
-            "Peloton",
-            "BH Fitness",
-            "Schwinn",
-            "Kettler",
-            "JTX Fitness",
-            "York Fitness",
-            "Nautilus",
+            "NordicTrack", "ProForm", "Life Fitness", "Precor", "Matrix Fitness", 
+            "Sole Fitness", "Horizon Fitness", "Bowflex", "Technogym", "Woodway",
+            "True Fitness", "Reebok", "Spirit Fitness", "Cybex", "Star Trac",
+            "Octane Fitness", "Freemotion", "Peloton", "BH Fitness", "Schwinn",
+            "Kettler", "JTX Fitness", "York Fitness", "Nautilus"
           ],
           Elliptical: [
-            "NordicTrack",
-            "ProForm",
-            "Life Fitness",
-            "Precor",
-            "Matrix Fitness",
-            "Sole Fitness",
-            "Spirit Fitness",
-            "Technogym",
-            "Horizon Fitness",
-            "Octane Fitness",
-            "Freemotion",
-            "Bowflex",
-            "Nautilus",
+            "NordicTrack", "ProForm", "Life Fitness", "Precor", "Matrix Fitness",
+            "Sole Fitness", "Spirit Fitness", "Technogym", "Horizon Fitness",
+            "Octane Fitness", "Freemotion", "Bowflex", "Nautilus"
           ],
           "Exercise Bike": [
-            "Peloton",
-            "Schwinn",
-            "NordicTrack",
-            "ProForm",
-            "Life Fitness",
-            "Spirit Fitness",
-            "Cybex",
-            "Matrix Fitness",
-            "BH Fitness",
+            "Peloton", "Schwinn", "NordicTrack", "ProForm", "Life Fitness",
+            "Spirit Fitness", "Cybex", "Matrix Fitness", "BH Fitness", "Bowflex",
+            "Nautilus", "Horizon Fitness", "Technogym"
           ],
-          Rower: ["Concept2", "Hydrow", "Sunny Health", "WaterRower"],
+          "Rowing Machine": [
+            "Concept2", "Hydrow", "WaterRower", "NordicTrack", "Life Fitness",
+            "ProForm", "Sole Fitness"
+          ],
           "Strength Equipment": [
-            "Hoist",
-            "Hammer Strength",
-            "Body-Solid",
-            "Life Fitness",
-            "Precor",
-            "Bowflex",
+            "Hoist", "Hammer Strength", "Body-Solid", "Life Fitness", "Precor",
+            "Bowflex", "Technogym", "Cybex", "Matrix Fitness", "Freemotion"
           ],
-          "Stair Climber": ["StairMaster", "Jacobs Ladder", "Technogym"],
-          "Spin Bike": ["Peloton", "Keiser", "NordicTrack", "ProForm"],
-          "Recumbent Bike": ["Nautilus", "Schwinn", "ProForm"],
-          "Upright Bike": ["Schwinn", "Life Fitness", "Precor"],
-          "Arc Trainer": ["Cybex"],
-          Other: [],
+          "Stair Climber": [
+            "StairMaster", "Jacobs Ladder", "Technogym", "Life Fitness", "Precor"
+          ],
+          "Spin Bike": [
+            "Peloton", "Keiser", "NordicTrack", "ProForm", "Schwinn", "Bowflex"
+          ],
+          "Recumbent Bike": [
+            "Nautilus", "Schwinn", "ProForm", "Life Fitness", "Matrix Fitness",
+            "Bowflex", "Horizon Fitness"
+          ],
+          "Upright Bike": [
+            "Schwinn", "Life Fitness", "Precor", "Matrix Fitness", "ProForm",
+            "Bowflex", "Technogym"
+          ],
+          "Arc Trainer": ["Cybex", "Octane Fitness"],
+          Other: []
         };
+    
+        const modelData = {
+    // NordicTrack Models
+    "NordicTrack": {
+      "Treadmill": [
+        "Commercial 1750", "Commercial 2450", "Commercial 2950", "X22i", 
+        "X32i", "T 6.5 S", "T 8.5 S", "C 990", "C 700", "Incline Trainer X11i",
+        "VR25", "EXP 10i", "Elite 900"
+      ],
+      "Elliptical": [
+        "FS14i", "FS10i", "FS7i", "AudioStrider 990", "E11.5", "Commercial 14.9",
+        "SpaceSaver SE7i", "E7.0", "Elliptical 7.0", "Elliptical 11.5"
+      ],
+      "Exercise Bike": [
+        "S22i Studio Cycle", "S27i Studio Cycle", "VU 19", "R35 Recumbent Bike",
+        "U35 Upright Bike", "GX 4.7", "VR25", "Grand Tour Pro"
+      ],
+      "Rowing Machine": ["RW900", "RW500", "RW200"],
+      "Spin Bike": ["S15i", "S22i", "GX 4.5"]
+    },
 
-        const modelMap = {
-          NordicTrack: [
-            "Commercial 1750",
-            "Commercial 2950",
-            "EXP 10i",
-            "T Series 6.5S",
-            "Elite 900",
-            "C 990",
-          ],
-          ProForm: [
-            "Pro 2000",
-            "Carbon T7",
-            "City L6",
-            "Trainer 12.0",
-            "Power 995i",
-          ],
-          "Life Fitness": ["T3", "Club Series+", "F3 Folding", "95T Inspire"],
-          Precor: ["TRM 211", "TRM 445", "EFX 447", "EFX 885"],
-          "Matrix Fitness": ["TF50 XR", "TF30 XIR", "T75 XUR", "U50 XIR"],
-          "Sole Fitness": ["F63", "F65", "F80", "F85", "S77"],
-          Bowflex: ["T10", "T22", "BXT216"],
-          Peloton: ["Tread", "Tread+", "Bike", "Bike+"],
-          Schwinn: ["870 Treadmill", "810", "IC4", "270 Recumbent"],
-          Nautilus: ["T614", "T616", "U618"],
-        };
+    // Life Fitness Models
+    "Life Fitness": {
+      "Treadmill": [
+        "T5", "T7", "T9", "Run CX", "Elevation Series T7", "Integrity Series T5",
+        "Club Series Plus", "95T", "F3 Folding", "95T Inspire"
+      ],
+      "Elliptical": [
+        "E5", "E7", "E9", "CrossTrainer CX", "Elevation Series E7", "Integrity Series E5",
+        "95E", "X3", "Elliptical X3", "95E Inspire"
+      ],
+      "Exercise Bike": [
+        "C5", "C7", "C9", "Lifecycle Exercise Bike", "Elevation Series C7",
+        "Integrity Series C5", "95Ci", "R3 Recumbent", "U3 Upright"
+      ],
+      "Strength Equipment": [
+        "Signature Series", "Optima Series", "Circuit Series", "G7", "Hammer Strength"
+      ],
+      "Stair Climber": ["Stepmill 5", "Stepmill 7", "Stepmill 9"]
+    },
 
+    // Precor Models
+    "Precor": {
+      "Treadmill": [
+        "TRM 835", "TRM 885", "Experience Series", "EFX 5.23", "9.35", "9.31",
+        "Commercial Series 932", "TRM 211", "TRM 445"
+      ],
+      "Elliptical": [
+        "EFX 833", "EFX 885", "EFX 5.23", "Experience Series", "AMT 885", "AMT 835",
+        "CrossRater 546", "EFX 447", "EFX 885"
+      ],
+      "Exercise Bike": [
+        "RBK 835", "UBK 885", "Spinner® Chrono Power", "9.35", "Recumbent Series 546",
+        "Upright Series 532"
+      ],
+      "Stair Climber": ["StairMaster 8G", "StairMaster 7G", "StairMaster 5G"]
+    },
+
+    // Peloton Models
+    "Peloton": {
+      "Exercise Bike": ["Bike", "Bike+"],
+      "Treadmill": ["Tread", "Tread+"],
+      "Rowing Machine": ["Row"],
+      "Spin Bike": ["Bike", "Bike+"]
+    },
+
+    // Bowflex Models
+    "Bowflex": {
+      "Treadmill": [
+        "Treadmill 10", "Treadmill 7", "TreadClimber TC200", "TreadClimber TC100",
+        "Max Trainer M9", "Max Trainer M6", "BXT216", "T10", "T22"
+      ],
+      "Strength Equipment": [
+        "Bowflex Xtreme 2 SE", "Bowflex Blaze", "Bowflex Revolution", "Bowflex PR3000",
+        "Bowflex SelectTech 552", "Bowflex Max Trainer", "Bowflex Home Gym"
+      ],
+      "Exercise Bike": ["C6", "Velocore", "C7"],
+      "Recumbent Bike": ["C6", "C7"]
+    },
+
+    // Sole Fitness Models
+    "Sole Fitness": {
+      "Treadmill": ["F85", "F80", "F63", "TT8", "ST90", "S77", "F65"],
+      "Elliptical": ["E98", "E95", "E35", "E25", "E55"],
+      "Exercise Bike": [
+        "R92 Recumbent", "R93 Recumbent", "U77 Upright", "LCR Light Commercial Rower",
+        "SB700 Spin Bike"
+      ],
+      "Rowing Machine": ["LCR", "SR500", "SR800"]
+    },
+
+    // Technogym Models
+    "Technogym": {
+      "Treadmill": [
+        "Run Excite", "Run Personal", "Run Performance", "Skillrun", "Skillmill"
+      ],
+      "Elliptical": [
+        "Elliptical Excite", "Elliptical Personal", "Skillbike", "Skillup"
+      ],
+      "Exercise Bike": [
+        "Bike Excite", "Bike Personal", "Bike Performance", "Cycle Excite", "Skillbike"
+      ],
+      "Strength Equipment": ["Selection", "Pure Strength", "Personal Line"],
+      "Stair Climber": ["Climber", "Skillclimber"]
+    },
+
+    // Matrix Fitness Models
+    "Matrix Fitness": {
+      "Treadmill": ["T75", "T7X", "T5X", "T3X"],
+      "Elliptical": ["E7X", "E5X", "E3X", "A7X"],
+      "Exercise Bike": ["C7X", "C5X", "U7X", "R7X"],
+      "Strength Equipment": ["ClimbMill", "Chest Press", "Leg Press"],
+      "Upright Bike": ["U7X", "U5X"],
+      "Recumbent Bike": ["R7X", "R5X"]
+    },
+
+    // Schwinn Models
+    "Schwinn": {
+      "Treadmill": ["870", "810", "830"],
+      "Exercise Bike": ["IC8", "IC4", "270 Recumbent", "170 Upright"],
+      "Spin Bike": ["IC4", "IC8"],
+      "Recumbent Bike": ["270", "230"],
+      "Upright Bike": ["170", "130"]
+    },
+
+    // Nautilus Models
+    "Nautilus": {
+      "Treadmill": ["T618", "T616", "T614"],
+      "Exercise Bike": ["U618", "R618"],
+      "Recumbent Bike": ["R618", "R616"],
+      "Upright Bike": ["U618", "U616"]
+    },
+
+    // Other Manufacturers (flat list)
+    "ProForm": [
+      "Carbon TL", "Pro 2000", "Smart Pro 2000", "Studio Bike Pro", "ProForm 440",
+      "ProForm 680", "Power 995i", "Performance 600i", "Carbon T7", "City L6"
+    ],
+    "Horizon Fitness": [
+      "7.0 AT", "7.8 T", "Paragon X", "Adventure 5", "Studio 7.8", "T101"
+    ],
+    "True Fitness": [
+      "PS800", "M30", "CS9.0", "HRC", "Z5.0", "T800"
+    ],
+    "Spirit Fitness": [
+      "XT685", "XT385", "CS800", "CRW800", "BUF800", "XT485"
+    ],
+    "Cybex": [
+      "750T", "770T", "625A", "VR3", "Eagle", "Arc Trainer 770A"
+    ],
+    "Star Trac": [
+      "4TR", "E-TR", "E-SPX", "UB", "RB", "4ST"
+    ],
+    "BH Fitness": [
+      "G6545", "G6418", "G6436", "H917", "H915", "G6480"
+    ],
+    "Octane Fitness": [
+      "LateralX", "Zero Runner", "Q47", "Q37", "Q65"
+    ],
+    "Woodway": [
+      "4Front", "Desmo", "Curve", "Elite", "Pro"
+    ],
+    "York Fitness": [
+      "C510", "C410", "T520", "E520", "S520"
+    ],
+    "Freemotion": [
+      "Reflex Treadmill", "Incline Trainer", "Dual Cable Cross", "22.7 Treadmill"
+    ],
+    "Concept2": [
+      "Model D", "Model E", "RowErg", "SkiErg", "BikeErg"
+    ],
+    "StairMaster": [
+      "StepMill 7000 PT", "Gauntlet", "StepMill 4400 PT", "StepMill 4600 PT"
+    ],
+    "Keiser": [
+      "M3i", "M3", "M5i", "M5", "Rower"
+    ]
+  };
+    
+        // Initialize form
         resetModel();
         resetManualBrand();
-
+        populateBrands();
+        
+        // Load saved form state
+        loadFormState();
+    
+        // Save form state on changes
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+          el.addEventListener('change', saveFormState);
+          el.addEventListener('input', saveFormState);
+        });
+    
         // Equipment Type → Brand
-        typeSelect.addEventListener("change", () => {
+        typeSelect.addEventListener("change", populateBrands);
+    
+        function populateBrands() {
           const type = typeSelect.value;
-          brandSelect.innerHTML =
-            '<option value="">-- Select Manufacturer --</option>';
+          brandSelect.innerHTML = '<option value="">-- Select Manufacturer --</option>';
+          
           (equipmentBrandMap[type] || []).forEach((brand) => {
             const opt = document.createElement("option");
             opt.value = brand;
             opt.textContent = brand;
             brandSelect.appendChild(opt);
           });
+          
           const otherOpt = document.createElement("option");
           otherOpt.value = "Other";
           otherOpt.textContent = "🔧 My manufacturer is not listed";
           brandSelect.appendChild(otherOpt);
+          
           resetModel();
           resetManualBrand();
-        });
-
+          saveFormState();
+        }
+    
         // Brand → Model
-        brandSelect.addEventListener("change", () => {
+        brandSelect.addEventListener("change", populateModels);
+    
+        function populateModels() {
           const brand = brandSelect.value;
           resetModel();
-
+    
           if (brand === "Other") {
             showManualBrandInput();
             showManualModelInput();
-          } else {
-            hideManualBrandInput();
-            if (modelMap[brand]) {
-              modelMap[brand].forEach((model) => {
-                const opt = document.createElement("option");
-                opt.value = model;
-                opt.textContent = model;
+            return;
+          }
+    
+          hideManualBrandInput();
+          const equipmentType = typeSelect.value;
+          const brandModels = modelData[brand];
+          
+          if (!brandModels) {
+            modelSelect.style.display = "block";
+            modelSelect.required = true;
+            return;
+          }
+    
+          if (typeof brandModels === 'object' && !Array.isArray(brandModels)) {
+            const equipmentModels = brandModels[equipmentType];
+            
+            if (equipmentModels && equipmentModels.length > 0) {
+              equipmentModels.forEach(model => {
+                const opt = new Option(model, model);
                 modelSelect.appendChild(opt);
               });
-              const otherOpt = document.createElement("option");
-              otherOpt.value = "Other";
-              otherOpt.textContent = "🔧 My model is not listed";
-              modelSelect.appendChild(otherOpt);
-              modelSelect.style.display = "block";
-              modelSelect.required = true;
+            } else {
+              Object.values(brandModels).flat().forEach(model => {
+                const opt = new Option(model, model);
+                modelSelect.appendChild(opt);
+              });
             }
+          } 
+          else if (Array.isArray(brandModels)) {
+            brandModels.forEach(model => {
+              const opt = new Option(model, model);
+              modelSelect.appendChild(opt);
+            });
           }
-        });
-
-        // Model → Manual
-        modelSelect.addEventListener("change", () => {
+    
+          const otherOpt = new Option("🔧 My model is not listed", "Other");
+          modelSelect.appendChild(otherOpt);
+          
+          modelSelect.style.display = "block";
+          modelSelect.required = true;
+          saveFormState();
+        }
+    
+        // Model → Manual input toggle
+        modelSelect.addEventListener("change", function() {
           if (modelSelect.value === "Other") {
             showManualModelInput();
           } else {
             hideManualModelInput();
           }
+          saveFormState();
         });
-
+    
         // Form submission
         quoteForm.addEventListener("submit", function (e) {
           e.preventDefault();
-          e.stopImmediatePropagation(); // ✅ Ensure native behavior is fully suppressed
+          e.stopImmediatePropagation();
           clearErrors();
-
+    
           if (!validateForm()) {
             const error = document.querySelector(".error");
             if (error) {
               error.scrollIntoView({ behavior: "smooth", block: "center" });
             }
-            alert("Please fix the errors before submitting.");
             return;
           }
-
+    
+          // Enhanced loading state
+          submitButton.innerHTML = '<div class="submit-spinner"></div> Processing...';
+          submitButton.disabled = true;
           loadingOverlay.style.display = "flex";
-
+    
           emailjs
             .sendForm("service_15f1fcs", "template_pq3tpbe", quoteForm)
             .then(() => {
               loadingOverlay.style.display = "none";
               successMessage.style.display = "block";
+              submitButton.innerHTML = originalButtonHTML;
+              submitButton.disabled = false;
+              
+              // Confetti celebration
+              triggerConfetti();
+              
               const name = document.getElementById("firstName").value.trim();
-              const phone = document
-                .getElementById("contactNumber")
-                .value.trim();
+              const phone = document.getElementById("contactNumber").value.trim();
               const city = document.getElementById("city").value;
               const service = document.getElementById("serviceRequest").value;
-              const brand =
-                document.getElementById("brand").value ||
-                document.getElementById("manualBrand").value;
-              const model =
-                document.getElementById("model").value ||
-                document.getElementById("manualModel").value;
-
+              const brand = brandSelect.value === "Other" 
+                ? manualBrandInput.value 
+                : brandSelect.value;
+              const model = modelSelect.value === "Other" || modelSelect.style.display === "none"
+                ? manualModelInput.value 
+                : modelSelect.value;
+    
               const message = `Hi! I just submitted a repair request. Here are my details:
-Name: ${name}
-Phone: ${phone}
-City: ${city}
-Service: ${service}
-Brand: ${brand}
-Model: ${model}
-
-I'd like to send a photo/video to help with the repair.`;
-
+    Name: ${name}
+    Phone: ${phone}
+    City: ${city}
+    Service: ${service}
+    Brand: ${brand}
+    Model: ${model}
+    
+    I'd like to send a photo/video to help with the repair.`;
+    
               const encodedMessage = encodeURIComponent(message);
-              const yourPhone = "12899257239";
-              const yourEmail = "canadianfitnessrepair@gmail.com";
-
-              document.getElementById(
-                "whatsappLink"
-              ).href = `https://wa.me/${yourPhone}?text=${encodedMessage}`;
-              document.getElementById(
-                "smsLink"
-              ).href = `sms:${yourPhone}?&body=${encodedMessage}`;
-              document.getElementById(
-                "emailLink"
-              ).href = `mailto:${yourEmail}?subject=Repair%20Media%20From%20${encodeURIComponent(
-                name
-              )}&body=${encodedMessage}`;
-
+              
+              // Store for email link
+              lastSubmission = { 
+                name, 
+                phone, 
+                city, 
+                service, 
+                brand, 
+                model 
+              };
+    
+              // Set up contact links
+              document.getElementById("whatsappLink").href = `https://wa.me/${yourPhone}?text=${encodedMessage}`;
+              document.getElementById("smsLink").href = `sms:${yourPhone}?&body=${encodedMessage}`;
+              
+              // Show contact options
               document.getElementById("contactOptions").style.display = "block";
-
               quoteForm.style.display = "none";
+              localStorage.removeItem('repairFormData');
+              
               setTimeout(() => {
-                successMessage.scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                });
+                successMessage.scrollIntoView({ behavior: "smooth", block: "center" });
               }, 200);
             })
             .catch(() => {
               loadingOverlay.style.display = "none";
+              submitButton.innerHTML = originalButtonHTML;
+              submitButton.disabled = false;
               alert("Submission failed. Please try again.");
             });
         });
-
+    
+        // New request button
         if (newRequestBtn) {
           newRequestBtn.addEventListener("click", () => {
             quoteForm.reset();
             clearErrors();
             quoteForm.style.display = "grid";
             successMessage.style.display = "none";
-            brandSelect.innerHTML =
-              '<option value="">-- Select Manufacturer --</option>';
-            resetModel();
-            resetManualBrand();
+            populateBrands();
+            lastSubmission = null;
+            localStorage.removeItem('repairFormData');
+            
+            // Reset booking time to next hour
+            const now = new Date();
+            const nextHour = new Date(now.setHours(now.getHours() + 1, 0, 0, 0));
+            document.getElementById('bookingDateTime').value = nextHour.toISOString().slice(0, 16);
           });
         }
-
+    
+        // ========== FORM HELPER FUNCTIONS ==========
         function showManualBrandInput() {
           manualBrandInput.style.display = "block";
           manualBrandInput.required = true;
         }
-
+    
         function hideManualBrandInput() {
           manualBrandInput.style.display = "none";
           manualBrandInput.required = false;
         }
-
+    
         function resetManualBrand() {
           hideManualBrandInput();
           manualBrandInput.value = "";
         }
-
+    
         function showManualModelInput() {
           manualModelInput.style.display = "block";
           manualModelInput.required = true;
+          modelSelect.required = false;
         }
-
+    
         function hideManualModelInput() {
           manualModelInput.style.display = "none";
           manualModelInput.required = false;
+          modelSelect.required = true;
         }
-
+    
         function resetModel() {
-          modelSelect.innerHTML =
-            '<option value="">-- Select Model --</option>';
+          modelSelect.innerHTML = '<option value="">-- Select Model --</option>';
           modelSelect.style.display = "none";
           modelSelect.required = false;
           hideManualModelInput();
         }
-
+    
+        // Validation
         function validateForm() {
           let valid = true;
           const required = [
-            "firstName",
-            "contactNumber",
-            "email",
-            "preferredContact",
-            "address",
-            "city",
-            "postal",
-            "serviceRequest",
-            "equipmentType",
-            "bookingDateTime",
-            "description",
+            "firstName", "contactNumber", "email", 
+            "address", "city", "postal", "serviceRequest", "equipmentType",
+            "bookingDateTime", "description"
           ];
-
+    
           required.forEach((id) => {
             const el = document.getElementById(id);
             if (!el || !el.value.trim()) {
@@ -2077,121 +2446,133 @@ I'd like to send a photo/video to help with the repair.`;
               valid = false;
             }
           });
-
-          const clientType = document.querySelector(
-            'input[name="clientType"]:checked'
-          );
-          if (!clientType) {
-            showError(null, "clientTypeError", "Please select client type");
-            valid = false;
-          }
-
+    
+    
           const brand = brandSelect.value;
           if (brand === "Other" && !manualBrandInput.value.trim()) {
-            showError(
-              manualBrandInput,
-              "brandError",
-              "Please enter manufacturer"
-            );
+            showError(manualBrandInput, "brandError", "Please enter manufacturer");
             valid = false;
           }
-
-          if (
-            brand === "Other" ||
-            (modelSelect.style.display !== "none" &&
-              modelSelect.value === "Other")
-          ) {
+    
+          const modelValue = modelSelect.value;
+          if (modelValue === "Other" || brand === "Other") {
             if (!manualModelInput.value.trim()) {
               showError(manualModelInput, "modelError", "Please enter model");
               valid = false;
             }
-          } else if (
-            modelSelect.style.display !== "none" &&
-            !modelSelect.value
-          ) {
+          } else if (modelSelect.style.display !== "none" && !modelValue) {
             showError(modelSelect, "modelError", "Please select a model");
             valid = false;
           }
-
+    
           const email = document.getElementById("email");
           if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
             showError(email, "emailError", "Invalid email address");
             valid = false;
           }
-
+    
           const phone = document.getElementById("contactNumber");
-          if (phone.value && !/^\d{10}$/.test(phone.value)) {
+          const phoneNum = phone.value.replace(/\D/g, '');
+          if (phoneNum && phoneNum.length !== 10) {
             showError(phone, "contactNumberError", "Invalid phone number");
             valid = false;
           }
-
+    
           const postal = document.getElementById("postal");
-          if (
-            postal.value &&
-            !/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(postal.value)
-          ) {
-            showError(postal, "postalError", "Invalid postal code");
+          if (postal.value && !/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(postal.value)) {
+            showError(postal, "postalError", "Format: A1A 1A1");
             valid = false;
           }
-
+    
+          // Booking date validation
+          const bookingDate = new Date(bookingInput.value);
+          const now = new Date();
+          if (bookingDate < now) {
+            showError(bookingInput, "bookingDateTimeError", "Cannot book past dates");
+            valid = false;
+          }
+    
           return valid;
         }
-
+    
         function showError(el, id, msg) {
           const err = document.getElementById(id);
           if (err) {
             err.textContent = msg;
             err.style.display = "block";
+            err.setAttribute('aria-live', 'assertive');
           }
-          if (el) el.classList.add("error");
+          if (el) {
+            el.classList.add("error");
+            el.setAttribute('aria-invalid', 'true');
+          }
         }
-
+    
         function hideError(el, id) {
           const err = document.getElementById(id);
-          if (err) err.style.display = "none";
-          if (el) el.classList.remove("error");
+          if (err) {
+            err.style.display = "none";
+            err.removeAttribute('aria-live');
+          }
+          if (el) {
+            el.classList.remove("error");
+            el.removeAttribute('aria-invalid');
+          }
         }
-
+    
         function clearErrors() {
-          document
-            .querySelectorAll(".error-message")
-            .forEach((el) => (el.style.display = "none"));
-          document
-            .querySelectorAll(".error")
-            .forEach((el) => el.classList.remove("error"));
+          document.querySelectorAll(".error-message").forEach(el => {
+            el.style.display = "none";
+            el.removeAttribute('aria-live');
+          });
+          document.querySelectorAll(".error").forEach(el => {
+            el.classList.remove("error");
+            el.removeAttribute('aria-invalid');
+          });
         }
-
+    
+        // Field validation
         document.querySelectorAll("input, select, textarea").forEach((f) => {
           f.addEventListener("input", () => validateField(f));
           f.addEventListener("blur", () => validateField(f));
         });
-
+    
         function validateField(f) {
           hideError(f, f.id + "Error");
           const val = f.value.trim();
-
-          if (f.required && !val) showError(f, f.id + "Error", "Required");
-
-          if (
-            f.id === "email" &&
-            val &&
-            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)
-          ) {
+    
+          if (f.required && !val) {
+            showError(f, f.id + "Error", "Required");
+          }
+    
+          if (f.id === "email" && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
             showError(f, "emailError", "Invalid email");
           }
-
-          if (f.id === "contactNumber" && val && !/^\d{10}$/.test(val)) {
-            showError(f, "contactNumberError", "Invalid phone");
+    
+          if (f.id === "contactNumber" && val) {
+            const phoneNum = val.replace(/\D/g, '');
+            if (phoneNum.length !== 10) {
+              showError(f, "contactNumberError", "Invalid phone");
+            }
           }
-
-          if (
-            f.id === "postal" &&
-            val &&
-            !/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(val)
-          ) {
-            showError(f, "postalError", "Invalid postal code");
+    
+          if (f.id === "postal" && val && !/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(val)) {
+            showError(f, "postalError", "Format: A1A 1A1");
+          }
+          
+          if (f.id === "bookingDateTime" && val) {
+            const selectedDate = new Date(val);
+            const now = new Date();
+            if (selectedDate < now) {
+              showError(f, "bookingDateTimeError", "Cannot book past dates");
+            }
           }
         }
+    
+        // Initialize submit button
+        submitButton.addEventListener("click", function () {
+          quoteForm.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+        });
       });
     </script>
 
