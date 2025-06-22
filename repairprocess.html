@@ -40,7 +40,6 @@
   <meta content="43.2250;-79.8660" name="geo.position"/>
   <meta content="CA-ON" name="geo.region"/>
   <meta content="43.2250, -79.8660" name="ICBM"/>
-  <link href="https://www.canadianfitnessrepair.com/repairprocess.html" rel="canonical"/>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
   <link href="whatsapp.css" rel="stylesheet"/>
@@ -498,11 +497,150 @@
   <div id="footer">
   </div>
   <script>
-   document.addEventListener("DOMContentLoaded", function() { // ===== Mobile menu functionality ===== const hamburger = document.getElementById("hamburger"); const navbarList = document.getElementById("navbarList"); const dropdowns = document.querySelectorAll(".dropdown"); const menuIcon = hamburger?.querySelector(".menu-icon"); const closeIcon = hamburger?.querySelector(".close-icon"); if (hamburger) { hamburger.addEventListener("click", () => { navbarList.classList.toggle("open"); if (menuIcon && closeIcon) { menuIcon.style.display = navbarList.classList.contains("open") ? "none" : "block"; closeIcon.style.display = navbarList.classList.contains("open") ? "block" : "none"; } }); } // ===== Dropdown toggle for mobile ===== dropdowns.forEach((dropdown) => { const toggle = dropdown.querySelector("a"); toggle?.addEventListener("click", function (e) { if (window.innerWidth <= 767) { e.preventDefault(); e.stopPropagation(); dropdowns.forEach((d) => { if (d !== dropdown && d.classList.contains("active")) { d.classList.remove("active"); const otherContent = d.querySelector(".dropdown-content"); if (otherContent) { otherContent.style.maxHeight = null; otherContent.style.padding = "0"; } } }); dropdown.classList.toggle("active"); const content = dropdown.querySelector(".dropdown-content"); if (dropdown.classList.contains("active") && content) { content.style.maxHeight = content.scrollHeight + "px"; content.style.padding = "10px 0"; } else if (content) { content.style.maxHeight = null; content.style.padding = "0"; } } }); }); // ===== Close menu when clicking outside ===== document.addEventListener("click", function (e) { const isClickInsideNav = navbarList.contains(e.target) || hamburger?.contains(e.target); if (!isClickInsideNav) { navbarList.classList.remove("open"); dropdowns.forEach((d) => { d.classList.remove("active"); const content = d.querySelector(".dropdown-content"); if (content) { content.style.maxHeight = null; content.style.padding = "0"; } }); if (menuIcon && closeIcon) { menuIcon.style.display = "block"; closeIcon.style.display = "none"; } } }); // ===== Reset dropdown styles on resize ===== window.addEventListener("resize", () => { if (window.innerWidth > 767) { dropdowns.forEach((d) => { d.classList.remove("active"); const content = d.querySelector(".dropdown-content"); if (content) { content.style.maxHeight = null; content.style.padding = ""; } }); navbarList.classList.remove("open"); if (menuIcon && closeIcon) { menuIcon.style.display = "block"; closeIcon.style.display = "none"; } } }); // ===== Tab functionality with animations ===== const tabBtns = document.querySelectorAll(".tab-btn"); const tabContents = document.querySelectorAll(".tab-content"); tabBtns.forEach((btn) => { btn.addEventListener("click", () => { // Remove active from all buttons and tabs tabBtns.forEach((b) => b.classList.remove("active")); tabContents.forEach((tab) => tab.classList.remove("active")); // Activate clicked button btn.classList.add("active"); // Show corresponding tab const tabId = btn.getAttribute("data-tab"); const targetTab = document.getElementById(`${tabId}-tab`); if (!targetTab) { console.error(`No tab found with ID: ${tabId}-tab`); return; } targetTab.classList.add("active"); // Re-trigger animations on cards const stepCards = targetTab.querySelectorAll(".step-card"); stepCards.forEach((card, index) => { card.classList.remove("animated"); void card.offsetWidth; card.classList.add("animated"); card.style.animationDelay = `${0.1 * (index + 1)}s`; }); }); }); // ===== Add animation delays to all .animated elements initially ===== const animatedElements = document.querySelectorAll(".animated"); animatedElements.forEach((element, index) => { element.style.animationDelay = `${0.1 * index}s`; }); // ===== Lazy loading for images ===== if ("loading" in HTMLImageElement.prototype) { const images = document.querySelectorAll('img[loading="lazy"]'); images.forEach((img) => { img.loading = "lazy"; }); } });
+    document.addEventListener("DOMContentLoaded", function () {
+      // ===== Mobile menu functionality =====
+      const hamburger = document.getElementById("hamburger");
+      const navbarList = document.getElementById("navbarList");
+      const dropdowns = document.querySelectorAll(".dropdown");
+      const menuIcon = hamburger?.querySelector(".menu-icon");
+      const closeIcon = hamburger?.querySelector(".close-icon");
+  
+      if (hamburger) {
+        hamburger.addEventListener("click", () => {
+          navbarList.classList.toggle("open");
+  
+          if (menuIcon && closeIcon) {
+            const isOpen = navbarList.classList.contains("open");
+            menuIcon.style.display = isOpen ? "none" : "block";
+            closeIcon.style.display = isOpen ? "block" : "none";
+          }
+        });
+      }
+  
+      // ===== Dropdown toggle for mobile =====
+      dropdowns.forEach((dropdown) => {
+        const toggle = dropdown.querySelector("a");
+        toggle?.addEventListener("click", function (e) {
+          if (window.innerWidth <= 767) {
+            e.preventDefault();
+            e.stopPropagation();
+  
+            dropdowns.forEach((d) => {
+              if (d !== dropdown && d.classList.contains("active")) {
+                d.classList.remove("active");
+                const otherContent = d.querySelector(".dropdown-content");
+                if (otherContent) {
+                  otherContent.style.maxHeight = null;
+                  otherContent.style.padding = "0";
+                }
+              }
+            });
+  
+            dropdown.classList.toggle("active");
+            const content = dropdown.querySelector(".dropdown-content");
+  
+            if (dropdown.classList.contains("active") && content) {
+              content.style.maxHeight = content.scrollHeight + "px";
+              content.style.padding = "10px 0";
+            } else if (content) {
+              content.style.maxHeight = null;
+              content.style.padding = "0";
+            }
+          }
+        });
+      });
+  
+      // ===== Close menu when clicking outside =====
+      document.addEventListener("click", function (e) {
+        const isClickInsideNav =
+          navbarList.contains(e.target) || hamburger?.contains(e.target);
+        if (!isClickInsideNav) {
+          navbarList.classList.remove("open");
+  
+          dropdowns.forEach((d) => {
+            d.classList.remove("active");
+            const content = d.querySelector(".dropdown-content");
+            if (content) {
+              content.style.maxHeight = null;
+              content.style.padding = "0";
+            }
+          });
+  
+          if (menuIcon && closeIcon) {
+            menuIcon.style.display = "block";
+            closeIcon.style.display = "none";
+          }
+        }
+      });
+  
+      // ===== Reset dropdown styles on resize =====
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 767) {
+          dropdowns.forEach((d) => {
+            d.classList.remove("active");
+            const content = d.querySelector(".dropdown-content");
+            if (content) {
+              content.style.maxHeight = null;
+              content.style.padding = "";
+            }
+          });
+  
+          navbarList.classList.remove("open");
+  
+          if (menuIcon && closeIcon) {
+            menuIcon.style.display = "block";
+            closeIcon.style.display = "none";
+          }
+        }
+      });
+  
+      // ===== Tab functionality with animations =====
+      const tabBtns = document.querySelectorAll(".tab-btn");
+      const tabContents = document.querySelectorAll(".tab-content");
+  
+      tabBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          tabBtns.forEach((b) => b.classList.remove("active"));
+          tabContents.forEach((tab) => tab.classList.remove("active"));
+  
+          btn.classList.add("active");
+          const tabId = btn.getAttribute("data-tab");
+          const targetTab = document.getElementById(`${tabId}-tab`);
+  
+          if (!targetTab) {
+            console.error(`No tab found with ID: ${tabId}-tab`);
+            return;
+          }
+  
+          targetTab.classList.add("active");
+  
+          const stepCards = targetTab.querySelectorAll(".step-card");
+          stepCards.forEach((card, index) => {
+            card.classList.remove("animated");
+            void card.offsetWidth; // force reflow
+            card.classList.add("animated");
+            card.style.animationDelay = `${0.1 * (index + 1)}s`;
+          });
+        });
+      });
+  
+      // ===== Add animation delays to all .animated elements initially =====
+      const animatedElements = document.querySelectorAll(".animated");
+      animatedElements.forEach((element, index) => {
+        element.style.animationDelay = `${0.1 * index}s`;
+      });
+  
+      // ===== Lazy loading for images =====
+      if ("loading" in HTMLImageElement.prototype) {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach((img) => {
+          img.loading = "lazy";
+        });
+      }
+    });
   </script>
+  
   <script src="menu.js">
-  </script>
-  <script src="whatsapp.js">
   </script>
   <script src="whatsapp.js">
   </script>
