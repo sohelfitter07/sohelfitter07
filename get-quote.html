@@ -1,1218 +1,996 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      window.addEventListener("load", function () {
-        if ("requestIdleCallback" in window) {
-          requestIdleCallback(loadGTag);
-        } else {
-          setTimeout(loadGTag, 500);
-        }
-      });
-      function loadGTag() {
-        var script = document.createElement("script");
-        script.src = "https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01";
-        script.async = true;
-        document.head.appendChild(script);
-        gtag("js", new Date());
-        gtag("config", "G-E1WR6TZG01");
-      }
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-E1WR6TZG01");
     </script>
+  
+    <!-- Structured Data: Service -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "name": "Fitness Equipment Service Quote",
-        "serviceType": [
-          "Fitness Equipment Repair & Assembly",
-          "General Maintenance",
-          "Gym repair service",
-          "Preventative Maintenance",
-          "Repair Company",
-          "Treadmill Repair",
-          "Gym Equipment Assembly",
-          "Bike Assembly",
-          "Home Gym Installation",
-          "Elliptical Assembly",
-          "Gym Equipment Installation",
-          "Home Gym Repair",
-          "Routine Maintenance",
-          "Fitness Equipment Installation",
-          "Repair Service",
-          "Parts Installation",
-          "Repair & Maintenance",
-          "Gym Equipment Maintenance",
-          "Treadmill Assembly",
-          "Fitness Equipment Repaired",
-          "Full Installation",
-          "Bike Installation",
-          "Elliptical repair",
-          "Gym Equipment",
-          "Commerical Fitness",
-          "Drive Belt",
-          "Parts Supplier",
-          "Installation",
-          "Assembly Repair",
-          "Gym Assembly",
-          "Gym Equipment Repairs",
-          "Parts Assembly",
-          "Installation and Repairs",
-          "Gym Machine",
-          "Exercise Equipment Service",
-          "Diagnostics & Repairs",
-          "Equipment Movers",
-          "treadmill repair near me",
-          "Parts Replacements",
-          "Tune up",
-          "Bike Repair",
-          "Maintenance Plans"
-        ],
-        "provider": {
-          "@type": "LocalBusiness",
-          "name": "Canadian Fitness Repair",
-          "url": "https://www.canadianfitnessrepair.com/",
-          "image": "https://www.canadianfitnessrepair.com/images/service-van.jpg",
-          "telephone": "+1-289-925-7239",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Hamilton",
-            "addressRegion": "ON",
-            "addressCountry": "CA"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 43.225,
-            "longitude": -79.866
-          },
-          "areaServed": {
-            "@type": "GeoCircle",
-            "geoMidpoint": {
-              "@type": "GeoCoordinates",
-              "latitude": 43.225,
-              "longitude": -79.866
-            },
-            "geoRadius": 100000
-          }
-        },
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Fitness Equipment Service Packages",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Basic Repair",
-                "description": "Diagnostic assessment, minor repairs, single equipment focus. $99 per visit.",
-                "serviceType": [
-                  "Fitness Equipment Repair & Assembly",
-                  "General Maintenance",
-                  "Gym repair service",
-                  "Preventative Maintenance",
-                  "Repair Company",
-                  "Treadmill Repair",
-                  "Gym Equipment Assembly",
-                  "Bike Assembly",
-                  "Home Gym Installation",
-                  "Elliptical Assembly",
-                  "Gym Equipment Installation",
-                  "Home Gym Repair",
-                  "Routine Maintenance",
-                  "Fitness Equipment Installation",
-                  "Repair Service",
-                  "Parts Installation",
-                  "Repair & Maintenance",
-                  "Gym Equipment Maintenance",
-                  "Treadmill Assembly",
-                  "Fitness Equipment Repaired",
-                  "Full Installation",
-                  "Bike Installation",
-                  "Elliptical repair",
-                  "Gym Equipment",
-                  "Commerical Fitness",
-                  "Drive Belt",
-                  "Parts Supplier",
-                  "Installation",
-                  "Assembly Repair",
-                  "Gym Assembly",
-                  "Gym Equipment Repairs",
-                  "Parts Assembly",
-                  "Installation and Repairs",
-                  "Gym Machine",
-                  "Exercise Equipment Service",
-                  "Diagnostics & Repairs",
-                  "Equipment Movers",
-                  "treadmill repair near me",
-                  "Parts Replacements",
-                  "Tune up",
-                  "Bike Repair",
-                  "Maintenance Plans"
-                ]
-              },
-              "price": "99.00",
-              "priceCurrency": "CAD"
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Premium Maintenance",
-                "description": "4 scheduled visits per year with lubrication and adjustments. $299/year.",
-                "serviceType": [
-                  "Fitness Equipment Repair & Assembly",
-                  "General Maintenance",
-                  "Gym repair service",
-                  "Preventative Maintenance",
-                  "Repair Company",
-                  "Treadmill Repair",
-                  "Gym Equipment Assembly",
-                  "Bike Assembly",
-                  "Home Gym Installation",
-                  "Elliptical Assembly",
-                  "Gym Equipment Installation",
-                  "Home Gym Repair",
-                  "Routine Maintenance",
-                  "Fitness Equipment Installation",
-                  "Repair Service",
-                  "Parts Installation",
-                  "Repair & Maintenance",
-                  "Gym Equipment Maintenance",
-                  "Treadmill Assembly",
-                  "Fitness Equipment Repaired",
-                  "Full Installation",
-                  "Bike Installation",
-                  "Elliptical repair",
-                  "Gym Equipment",
-                  "Commerical Fitness",
-                  "Drive Belt",
-                  "Parts Supplier",
-                  "Installation",
-                  "Assembly Repair",
-                  "Gym Assembly",
-                  "Gym Equipment Repairs",
-                  "Parts Assembly",
-                  "Installation and Repairs",
-                  "Gym Machine",
-                  "Exercise Equipment Service",
-                  "Diagnostics & Repairs",
-                  "Equipment Movers",
-                  "treadmill repair near me",
-                  "Parts Replacements",
-                  "Tune up",
-                  "Bike Repair",
-                  "Maintenance Plans"
-                ]
-              },
-              "price": "299.00",
-              "priceCurrency": "CAD"
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Elite Package",
-                "description": "Unlimited service calls, priority scheduling, 24/7 support. $499/year.",
-                "serviceType": [
-                  "Fitness Equipment Repair & Assembly",
-                  "General Maintenance",
-                  "Gym repair service",
-                  "Preventative Maintenance",
-                  "Repair Company",
-                  "Treadmill Repair",
-                  "Gym Equipment Assembly",
-                  "Bike Assembly",
-                  "Home Gym Installation",
-                  "Elliptical Assembly",
-                  "Gym Equipment Installation",
-                  "Home Gym Repair",
-                  "Routine Maintenance",
-                  "Fitness Equipment Installation",
-                  "Repair Service",
-                  "Parts Installation",
-                  "Repair & Maintenance",
-                  "Gym Equipment Maintenance",
-                  "Treadmill Assembly",
-                  "Fitness Equipment Repaired",
-                  "Full Installation",
-                  "Bike Installation",
-                  "Elliptical repair",
-                  "Gym Equipment",
-                  "Commerical Fitness",
-                  "Drive Belt",
-                  "Parts Supplier",
-                  "Installation",
-                  "Assembly Repair",
-                  "Gym Assembly",
-                  "Gym Equipment Repairs",
-                  "Parts Assembly",
-                  "Installation and Repairs",
-                  "Gym Machine",
-                  "Exercise Equipment Service",
-                  "Diagnostics & Repairs",
-                  "Equipment Movers",
-                  "treadmill repair near me",
-                  "Parts Replacements",
-                  "Tune up",
-                  "Bike Repair",
-                  "Maintenance Plans"
-                ]
-              },
-              "price": "499.00",
-              "priceCurrency": "CAD"
-            }
-          ]
-        },
-        "url": "https://www.canadianfitnessrepair.com/get-quote.html",
-        "description": "Get transparent quotes for treadmill repair, elliptical maintenance, gym equipment service and more in Hamilton & GTA. Choose from repair, maintenance, or elite plans."
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Fitness Equipment Service Quote",
+      "serviceType": [
+        "Fitness Equipment Repair & Assembly", "General Maintenance", "Gym repair service", "Preventative Maintenance",
+        "Repair Company", "Treadmill Repair", "Gym Equipment Assembly", "Bike Assembly", "Home Gym Installation",
+        "Elliptical Assembly", "Gym Equipment Installation", "Home Gym Repair", "Routine Maintenance",
+        "Fitness Equipment Installation", "Repair Service", "Parts Installation", "Repair & Maintenance",
+        "Gym Equipment Maintenance", "Treadmill Assembly", "Fitness Equipment Repaired", "Full Installation",
+        "Bike Installation", "Elliptical repair", "Gym Equipment", "Commerical Fitness", "Drive Belt",
+        "Parts Supplier", "Installation", "Assembly Repair", "Gym Assembly", "Gym Equipment Repairs", "Parts Assembly",
+        "Installation and Repairs", "Gym Machine", "Exercise Equipment Service", "Diagnostics & Repairs",
+        "Equipment Movers", "treadmill repair near me", "Parts Replacements", "Tune up", "Bike Repair", "Maintenance Plans"
+      ],
+      "provider": {
         "@type": "LocalBusiness",
         "name": "Canadian Fitness Repair",
-        "url": "https://www.canadianfitnessrepair.com",
-        "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
-        "image": [
-          "https://www.canadianfitnessrepair.com/images/service-van.jpg",
-          "https://www.canadianfitnessrepair.com/images/technician-working.jpg"
-        ],
-        "description": "Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
+        "url": "https://www.canadianfitnessrepair.com/",
+        "image": "https://www.canadianfitnessrepair.com/images/service-van.jpg",
+        "telephone": "+1-289-925-7239",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "22 Canary Grass Blvd",
           "addressLocality": "Hamilton",
-          "addressRegion": "Ontario",
-          "postalCode": "L0R 1P0",
+          "addressRegion": "ON",
           "addressCountry": "CA"
         },
-        "telephone": "+1-289-925-7239",
-        "areaServed": [
-          "Hamilton",
-          "Toronto",
-          "Oakville",
-          "Burlington",
-          "Mississauga"
-        ],
-        "sameAs": [
-          "https://www.facebook.com/CanadianFitnessRepair",
-          "https://www.instagram.com/canadianfitnessrepair"
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 43.225,
+          "longitude": -79.866
+        },
+        "areaServed": {
+          "@type": "GeoCircle",
+          "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 43.225, "longitude": -79.866 },
+          "geoRadius": 100000
+        }
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Fitness Equipment Service Packages",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Basic Repair",
+              "description": "Diagnostic assessment, minor repairs, single equipment focus. $99 per visit.",
+              "serviceType": [ "Fitness Equipment Repair & Assembly", "General Maintenance", "Repair Service" ]
+            },
+            "price": "99.00",
+            "priceCurrency": "CAD"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Premium Maintenance",
+              "description": "4 scheduled visits per year with lubrication and adjustments. $299/year.",
+              "serviceType": [ "Preventative Maintenance", "Routine Maintenance", "Fitness Equipment Installation" ]
+            },
+            "price": "299.00",
+            "priceCurrency": "CAD"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Elite Package",
+              "description": "Unlimited service calls, priority scheduling, 24/7 support. $499/year.",
+              "serviceType": [ "Gym Equipment Maintenance", "24/7 Support", "Emergency Repairs" ]
+            },
+            "price": "499.00",
+            "priceCurrency": "CAD"
+          }
         ]
-      }
+      },
+      "url": "https://www.canadianfitnessrepair.com/get-quote.html",
+      "description": "Get transparent quotes for treadmill repair, elliptical maintenance, gym equipment service and more in Hamilton & GTA. Choose from repair, maintenance, or elite plans."
+    }
     </script>
-
+  
+    <!-- Structured Data: Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Canadian Fitness Repair",
+      "url": "https://www.canadianfitnessrepair.com",
+      "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
+      "image": [
+        "https://www.canadianfitnessrepair.com/images/service-van.jpg",
+        "https://www.canadianfitnessrepair.com/images/technician-working.jpg"
+      ],
+      "description": "Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "22 Canary Grass Blvd",
+        "addressLocality": "Hamilton",
+        "addressRegion": "Ontario",
+        "postalCode": "L0R 1P0",
+        "addressCountry": "CA"
+      },
+      "telephone": "+1-289-925-7239",
+      "areaServed": ["Hamilton", "Toronto", "Oakville", "Burlington", "Mississauga"],
+      "sameAs": [
+        "https://www.facebook.com/CanadianFitnessRepair",
+        "https://www.instagram.com/canadianfitnessrepair"
+      ]
+    }
+    </script>
+  
+    <!-- Meta & SEO -->
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>
-      Instant Fitness Repair Quote | Hamilton &amp; GTA | Canadian Fitness
-      Repair
-    </title>
-    <meta
-      content="Get a fast, accurate quote for treadmill repairs, elliptical maintenance &amp; gym equipment service in Hamilton &amp; GTA. 5-minute request form. No hidden fees. Serving Burlington, Oakville, Mississauga, Niagara."
-      name="description"
-    />
-    <meta
-      content="treadmill repair quote, fitness equipment estimate, gym service pricing, elliptical repair cost, Hamilton fitness quote, GTA repair estimate, commercial gym quote, urgent repair pricing, Canadian Fitness Repair quote"
-      name="keywords"
-    />
-    <meta
-      content="Instant Fitness Repair Quote | Hamilton &amp; GTA"
-      property="og:title"
-    />
-    <meta
-      content="Get a personalized quote in minutes for fitness equipment repair &amp; relocation. Serving Hamilton, Burlington, Oakville &amp; surrounding areas."
-      property="og:description"
-    />
-    <meta
-      content="https://www.canadianfitnessrepair.com/images/quote-banner.jpg"
-      property="og:image"
-    />
-    <meta
-      content="https://www.canadianfitnessrepair.com/get-quote"
-      property="og:url"
-    />
-    <meta content="website" property="og:type" />
-    <meta
-      content="Hamilton, Burlington, Oakville, Mississauga, Niagara, Greater Toronto Area"
-      name="geo.placename"
-    />
-    <meta content="43.2250;-79.8660" name="geo.position" />
-    <meta content="CA-ON" name="geo.region" />
-    <meta content="43.2250, -79.8660" name="ICBM" />
-    <link
-      href="https://www.canadianfitnessrepair.com/get-quote"
-      rel="canonical"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link href="whatsapp.css" rel="stylesheet" />
-    <link href="headerfooter.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instant Fitness Repair Quote | Hamilton & GTA | Canadian Fitness Repair</title>
+    <meta name="description" content="Get a fast, accurate quote for treadmill repairs, elliptical maintenance & gym equipment service in Hamilton & GTA. 5-minute request form. No hidden fees." />
+    <meta name="keywords" content="treadmill repair quote, fitness equipment estimate, gym service pricing, elliptical repair cost, Hamilton fitness quote, GTA repair estimate, commercial gym quote, urgent repair pricing" />
+  
+    <!-- Open Graph -->
+    <meta property="og:title" content="Instant Fitness Repair Quote | Hamilton & GTA" />
+    <meta property="og:description" content="Get a personalized quote in minutes for fitness equipment repair & relocation. Serving Hamilton, Burlington, Oakville & surrounding areas." />
+    <meta property="og:image" content="https://www.canadianfitnessrepair.com/images/quote-banner.jpg" />
+    <meta property="og:url" content="https://www.canadianfitnessrepair.com/get-quote.html" />
+    <meta property="og:type" content="website" />
+  
+    <!-- Location Meta -->
+    <meta name="geo.placename" content="Hamilton, Burlington, Oakville, Mississauga, Niagara, Greater Toronto Area" />
+    <meta name="geo.position" content="43.2250;-79.8660" />
+    <meta name="geo.region" content="CA-ON" />
+    <meta name="ICBM" content="43.2250, -79.8660" />
+  
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.canadianfitnessrepair.com/get-quote.html" />
+  
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="whatsapp.css" />
+    <link rel="stylesheet" href="headerfooter.css" />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: "Segoe UI", Roboto, sans-serif;
-        background-color: var(--bg-color);
-        color: var(--text-color);
-        min-height: 100vh;
-        overflow-x: hidden;
-        line-height: 1.6;
-      } /* Quote Page Hero Section */
-      .quote-hero {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 8rem 2rem 1rem 2rem;
-        background: linear-gradient(
-            rgba(21, 23, 25, 0.9),
-            rgba(21, 23, 25, 0.7)
-          ),
-          url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80");
-        background-size: cover;
-        background-position: center;
-        min-height: 60vh;
-        color: white;
-        position: relative;
-      }
-      .quote-hero::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100px;
-        background: linear-gradient(transparent, var(--bg-color));
-      }
-      input.error,
-      select.error,
-      textarea.error {
-        border: 1.5px solid #ff4d4d; /* subtle red border */
-        background-color: #1f1f1f; /* dark background */
-        color: #ffffff; /* readable text */
-        caret-color: #ffffff;
-      }
-
-      input.error::placeholder,
-      textarea.error::placeholder {
-        color: #bbbbbb; /* lighter placeholder for contrast */
-      }
-      input.error:focus,
-      select.error:focus,
-      textarea.error:focus {
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.4);
-      }
-      .error-message {
-        display: none;
-        color: #ff4d4d;
-        font-size: 0.85rem;
-        margin-top: 4px;
-        font-weight: 500;
-      }
-
-      .form-group {
-        position: relative;
-      }
-
-      .quote-hero h1 {
-        font-size: clamp(2rem, 5vw + 1rem, 3.5rem);
-        margin-top: 8rem;
-        margin-bottom: 2rem; /* margin-bottom: 1.5rem; */
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        line-height: 1.2;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        color: var(--theme-color);
-      }
-      .quote-hero p {
-        font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-        max-width: 800px;
-        margin-bottom: 2.5rem;
-        color: var(--light-text);
-      }
-      .word-animation {
-        display: flex;
-        align-items: center;
-        justify-content: center; /* margin: 2rem 0; */
-        margin-top: 2rem;
-        height: 120px;
-        overflow: hidden;
-      }
-      #wordWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transition: transform 0.6s ease;
-        height: 120px;
-      }
-      .word-item {
-        font-size: clamp(3rem, 5vw, 6rem);
-        font-weight: bold;
-        color: var(--accent-color);
-        height: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
-      } /* Quote Form Section */
-      .quote-section {
-        padding: 18rem 2rem 2rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      .form-container {
-        background-color: var(--card-bg);
-        border-radius: 16px;
-        padding: 3rem;
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(93, 93, 255, 0.1);
-        position: relative;
-        overflow: hidden;
-      }
-      .form-container::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 5px;
-        height: 0;
-        background: var(--accent-color);
-        transition: var(--transition);
-      }
-      .form-container:hover::before {
-        height: 100%;
-      }
-      .form-header {
-        text-align: center;
-        margin-bottom: 3rem;
-      }
-      .form-header h2 {
-        font-size: clamp(2rem, 4vw, 3rem);
-        margin-bottom: 1rem;
-        color: var(--theme-color);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      .form-header p {
-        font-size: 1.2rem;
-        color: var(--light-text);
-        max-width: 800px;
-        margin: 0 auto;
-      } /* Form Styles */
-      .quote-form {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-      }
-      .form-group {
-        margin-bottom: 1.5rem;
-      }
-      .form-group.full-width {
-        grid-column: 1 / -1;
-      }
-      label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-        color: var(--text-color);
-      }
-      .required::after {
-        content: "*";
-        color: var(--accent-color);
-        margin-left: 4px;
-      }
-      input,
-      select,
-      textarea {
-        width: 100%;
-        padding: 12px 16px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background-color: rgba(255, 255, 255, 0.05);
-        border-radius: 8px;
-        color: var(--text-color);
-        font-family: "Segoe UI", Roboto, sans-serif;
-        font-size: 1rem;
-        transition: var(--transition);
-      }
-      option {
-        background-color: #151719;
-      }
-      input:focus,
-      select:focus,
-      textarea:focus {
-        outline: none;
-        border-color: var(--theme-color);
-        box-shadow: 0 0 0 3px rgba(93, 93, 255, 0.3);
-      }
-      input[type="radio"] {
-        width: auto;
-        margin-right: 8px;
-      }
-      .radio-group {
-        display: flex;
-        gap: 1.5rem;
-        align-items: center;
-      }
-      .radio-option {
-        display: flex;
-        align-items: center;
-      }
-      .radio-option label {
-        margin-bottom: 0;
-        font-weight: normal;
-      }
-      .row {
-        display: flex;
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
-      }
-      .row > div {
-        flex: 1;
-      }
-      .form-section-title {
-        font-size: 1.4rem;
-        margin: 2.5rem 0 1.5rem;
-        padding-bottom: 10px;
-        border-bottom: 2px solid var(--theme-color);
-        color: var(--theme-color);
-        grid-column: 1 / -1;
-      }
-      .form-note {
-        font-size: 0.9rem;
-        color: var(--light-text);
-        margin-top: 4px;
-        font-style: italic;
-      } /* Additional styles for form validation */
-      .form-group.invalid input,
-      .form-group.invalid select,
-      .form-group.invalid textarea {
-        border-color: var(--accent-color) !important;
-      }
-      .form-group.invalid .error-message {
-        display: block;
-      }
-      .loading-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(21, 23, 25, 0.85);
-        z-index: 2000;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-      }
-      .loading-spinner {
-        width: 60px;
-        height: 60px;
-        border: 5px solid rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        border-top-color: var(--theme-color);
-        animation: spin 1s ease-in-out infinite;
-        margin-bottom: 20px;
-      }
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      .contact-followup {
-        margin-top: 30px;
-        padding: 20px;
-        text-align: center;
-        background: #1e1e3f;
-        border-radius: 10px;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .followup-msg {
-        font-size: 1rem;
-        margin-bottom: 15px;
-        color: #fff;
-      }
-
-      .contact-buttons {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-bottom: 10px;
-      }
-
-      .c-button {
-        padding: 12px 18px;
-        border-radius: 6px;
-        text-decoration: none;
-        color: white;
-        font-weight: bold;
-        display: inline-block;
-        background-color: #5d5dff;
-        transition: background 0.3s ease;
-      }
-
-      .c-button:hover {
-        background-color: #4a4ae0;
-      }
-
-      .optional-note {
-        font-size: 0.85rem;
-        color: #aaa;
-      }
-
-      /* By default, hide all */
-      .sms-btn,
-      .email-btn {
-        display: none;
-      }
-
-      /* Show SMS only on mobile */
-      @media (max-width: 767px) {
-        .sms-btn {
-          display: inline-block;
-        }
-      }
-
-      /* Show Email only on desktop */
-      @media (min-width: 768px) {
-        .email-btn {
-          display: inline-block;
-        }
-      }
-
-      .submit-btn {
-        grid-column: 1 / -1;
-        text-align: center;
-        margin-top: 1.5rem;
-      }
-      .submit-btn button {
-        background-color: var(--theme-color);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 16px 40px;
-        font-size: 1.2rem;
-        font-weight: 700;
-        cursor: pointer;
-        transition: var(--transition);
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        width: 100%;
-        max-width: 400px;
-      }
-      .submit-btn button::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 100%;
-        background: var(--accent-color);
-        transition: var(--transition);
-        z-index: -1;
-      }
-      .submit-btn button:hover::before {
-        width: 100%;
-      }
-      .submit-btn button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(93, 93, 255, 0.3);
-      } /* Contact Info Card */
-      .contact-card {
-        background: linear-gradient(135deg, var(--theme-color), #3a3aff);
-        border-radius: 16px;
-        padding: 2.5rem;
-        margin-top: 3rem;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-      }
-      .contact-card::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.1) 0%,
-          rgba(255, 255, 255, 0) 70%
-        );
-        transform: rotate(30deg);
-      }
-      .contact-card h3 {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-        position: relative;
-        z-index: 1;
-      }
-      .contact-info {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        flex-wrap: wrap;
-        position: relative;
-        z-index: 1;
-      }
-      .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .contact-item i {
-        font-size: 1.5rem;
-        color: var(--text-color);
-      }
-      .contact-item span {
-        font-size: 1.1rem;
-      } /* Add to your existing CSS */
-      .success-message .c-button {
-        margin-top: 20px;
-        background: var(--theme-color);
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.3s ease;
-      }
-      .success-message .c-button:hover {
-        background: var(--accent-color);
-        transform: translateY(-2px);
-      } /* Responsive Styles - Mobile Menu Fixes */
-      @media (max-width: 992px) {
-        .word-animation {
-          /* margin-top: 2rem; */
-          height: 80px;
-        }
-        #wordWrapper {
-          height: 80px;
-        }
-        .word-item {
-          font-size: clamp(3rem, 5vw, 6rem);
-          height: 80px;
-        }
-        .quote-hero h1 {
-          font-size: 3rem;
-        }
-        .quote-hero p {
-          font-size: 1.3rem;
-        }
-        .word-item {
-          font-size: 4.5rem;
-        }
-        .form-container {
-          padding: 2rem;
-        }
-      }
-      @media (max-width: 767px) {
-        .word-animation {
-          /* margin-top: 2rem; */
-          height: 80px;
-        }
-        #wordWrapper {
-          height: 80px;
-        }
-        .word-item {
-          font-size: clamp(4rem, 5vw, 6rem);
-          height: 80px;
-        }
-        .quote-hero h1 {
-          font-size: 2.2rem;
-          margin-top: 0;
-        }
-        .quote-section {
-          padding-top: 12rem;
-        }
-        .quote-hero p {
-          font-size: 1.1rem;
-          margin-bottom: 0;
-        }
-        .form-container {
-          padding: 1.5rem;
-        }
-        .form-header h2 {
-          font-size: 1.8rem;
-        }
-        .form-header p {
-          font-size: 1rem;
-        }
-        .row {
-          flex-direction: column;
-          gap: 1rem;
-        }
-        .contact-info {
-          flex-direction: column;
-          align-items: center;
-        }
-      }
-      @media (max-width: 480px) {
-        .promo-line {
-          display: none;
-        }
-        #contactlist {
-          display: none;
-        }
-        .word-animation {
-          height: 80px;
-        }
-        #wordWrapper {
-          height: 80px;
-        }
-        .word-item {
-          font-size: clamp(3rem, 5vw, 6rem);
-          height: 80px;
-        }
-        .quote-hero {
-          min-height: 30vh;
-          padding: 0rem 1rem 0rem 1rem;
-        }
-        .quote-hero h1 {
-          font-size: 1.8rem;
-          padding-top: 0;
-        }
-        .quote-section {
-          padding-top: 2.5rem;
-        }
-        .form-header h2 {
-          font-size: 1.6rem;
-        } /* MOBILE-SPECIFIC FIXES */
-        .form-container {
-          padding: 1.2rem;
-        }
-        .form-group {
-          margin-bottom: 1.2rem;
-        }
-        input,
-        select,
-        textarea {
-          padding: 10px 14px;
-          font-size: 0.95rem;
-        }
-        .submit-btn button {
-          width: 60%;
-          padding: 14px 10px;
-          font-size: 1rem;
-          font-weight: 600;
-          max-width: 100%;
-        }
-        .contact-card {
-          padding: 1.5rem 1rem;
-          border-radius: 12px;
-        }
-        .contact-card h3 {
-          font-size: 1.4rem;
-          line-height: 1.3;
-        }
-        .contact-item {
-          flex-direction: column;
-          text-align: center;
-          gap: 5px;
-          margin-bottom: 1rem;
-          width: 100%;
-        }
-        .contact-info {
-          gap: 0.5rem;
-        }
-        .contact-item span {
-          font-size: 1rem;
-          word-break: break-word;
-          max-width: 90%;
-        }
-        .radio-group {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 10px;
-        }
-        .radio-option {
-          width: 100%;
-          padding: 8px;
-          border-radius: 6px;
-          background: rgba(255, 255, 255, 0.05);
-        } /* Fix for date input on mobile */
-        input[type="datetime-local"] {
-          font-size: 0.9rem;
-          padding: 10px;
-        } /* Ensure text doesn't overflow */
-        input,
-        select,
-        textarea,
-        .form-note,
-        .contact-item span {
-          word-wrap: break-word;
-          max-width: 100%;
-        } /* Prevent horizontal scrolling */
-        html,
-        body {
-          overflow-x: hidden;
-        } /* Adjust form section titles */
-        .form-section-title {
-          font-size: 1.3rem;
-          margin: 2rem 0 1.2rem;
-        }
-      } /* EXTRA SMALL SCREEN FIXES (under 380px) */
-      @media (max-width: 380px) {
-        /* Reduce padding on all containers */
-        .word-animation {
-          /* margin-top: 2rem; */
-          height: 80px;
-        }
-        #wordWrapper {
-          height: 80px;
-        }
-        .word-item {
-          font-size: clamp(3rem, 5vw, 6rem);
-          height: 80px;
-        }
-        .quote-hero {
-          padding: 0rem 0.8rem 0 0.8rem;
-          min-height: 30vh;
-        }
-        .quote-section {
-          padding: 1.6rem 0.8rem 2rem 0.8rem;
-        }
-        .form-container {
-          padding: 1rem;
-        } /* Adjust form input padding */
-        input,
-        select,
-        textarea {
-          padding: 9px 12px;
-          font-size: 0.92rem;
-        } /* Reduce font sizes slightly */
-        .quote-hero h1 {
-          font-size: 1.7rem;
-        }
-        .quote-hero p {
-          font-size: 1rem;
-          padding-bottom: 0rem;
-        }
-        .form-header h2 {
-          font-size: 1.5rem;
-        }
-        .form-header p {
-          font-size: 0.95rem;
-        }
-        .form-section-title {
-          font-size: 1.25rem;
-        } /* Adjust contact card */
-        .contact-card {
-          padding: 1.2rem 0.8rem;
-        }
-        .contact-card h3 {
-          font-size: 1.3rem;
-        } /* Make radio options stack vertically */
-        .radio-group {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 8px;
-        }
-        .radio-option {
-          width: 100%;
-        } /* Adjust success message */
-        .success-message {
-          padding: 15px;
-        } /* Ensure inputs don't overflow */
-        input,
-        select,
-        textarea {
-          width: 100%;
+        * {
+          margin: 0;
+          padding: 0;
           box-sizing: border-box;
         }
-      } /* Form Dropdown Improvements */
-      select {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 12px center;
-        background-size: 16px;
-        padding-right: 40px;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-      }
-      .radio-option {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 10px 15px;
-        border-radius: 8px;
-        transition: var(--transition);
-      }
-      .radio-option:hover {
-        background: rgba(93, 93, 255, 0.1);
-      }
-      .form-group:focus-within label {
-        color: var(--theme-color);
-      } /* Animation Improvements */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
+        body {
+          font-family: "Segoe UI", Roboto, sans-serif;
+          background-color: var(--bg-color);
+          color: var(--text-color);
+          min-height: 100vh;
+          overflow-x: hidden;
+          line-height: 1.6;
+        } /* Quote Page Hero Section */
+        .quote-hero {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          padding: 8rem 2rem 1rem 2rem;
+          background: linear-gradient(
+              rgba(21, 23, 25, 0.9),
+              rgba(21, 23, 25, 0.7)
+            ),
+            url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80");
+          background-size: cover;
+          background-position: center;
+          min-height: 60vh;
+          color: white;
+          position: relative;
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+        .quote-hero::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100px;
+          background: linear-gradient(transparent, var(--bg-color));
         }
-      }
-      .form-container {
-        animation: fadeIn 0.6s ease-out;
-      } /* Success Message */
-      .success-message {
-        display: none;
-        background: rgba(93, 93, 255, 0.15);
-        border: 1px solid var(--theme-color);
-        border-radius: 8px;
-        padding: 20px;
-        margin: 20px 0;
-        text-align: center;
-      }
-      .success-message.show {
-        display: block;
-        animation: fadeIn 0.5s;
-      } /* Form Group Enhancements */
-      .form-group {
-        position: relative;
-      }
-      .error-message {
-        color: var(--accent-color);
-        font-size: 0.85rem;
-        display: none;
-        margin-top: 4px;
-      }
-      .success-wrapper {
-        max-width: 700px;
-        margin: 40px auto;
-        text-align: center;
-      }
-
-      .success-box {
-        background: #1e1e3f;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 0 1px #5d5dff;
-        margin-bottom: 30px;
-      }
-
-      .success-icon {
-        font-size: 2.5rem;
-        color: #5dff96;
-        margin-bottom: 10px;
-      }
-
-      .success-title {
-        font-size: 1.4rem;
-        color: white;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-
-      .success-text {
-        font-size: 1rem;
-        color: #ddd;
-        margin-bottom: 20px;
-      }
-
-      .contact-followup {
-        background: #15151f;
-        padding: 25px;
-        border-radius: 10px;
-      }
-
-      .followup-msg {
-        font-size: 1rem;
-        color: #fff;
-        margin-bottom: 15px;
-      }
-
-      .contact-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 12px;
-      }
-
-      .c-button {
-        background: #5d5dff;
-        color: white;
-        padding: 12px 18px;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: bold;
-        transition: background 0.3s ease;
-      }
-
-      .c-button:hover {
-        background-color: #4a4ae0;
-      }
-
-      .optional-note {
-        font-size: 0.85rem;
-        color: #aaa;
-      }
-
-      .asterisk {
-        color: #ff6b6b;
-        margin-right: 4px;
-        font-weight: bold;
-      }
-
-      /* Show SMS only on mobile */
-      .sms-btn {
-        display: none;
-      }
-      @media (max-width: 767px) {
-        .sms-btn {
+        input.error,
+        select.error,
+        textarea.error {
+          border: 1.5px solid #ff4d4d; /* subtle red border */
+          background-color: #1f1f1f; /* dark background */
+          color: #ffffff; /* readable text */
+          caret-color: #ffffff;
+        }
+  
+        input.error::placeholder,
+        textarea.error::placeholder {
+          color: #bbbbbb; /* lighter placeholder for contrast */
+        }
+        input.error:focus,
+        select.error:focus,
+        textarea.error:focus {
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.4);
+        }
+        .error-message {
+          display: none;
+          color: #ff4d4d;
+          font-size: 0.85rem;
+          margin-top: 4px;
+          font-weight: 500;
+        }
+  
+        .form-group {
+          position: relative;
+        }
+  
+        .quote-hero h1 {
+          font-size: clamp(2rem, 5vw + 1rem, 3.5rem);
+          margin-top: 8rem;
+          margin-bottom: 2rem; /* margin-bottom: 1.5rem; */
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          line-height: 1.2;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+          color: var(--theme-color);
+        }
+        .quote-hero p {
+          font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+          max-width: 800px;
+          margin-bottom: 2.5rem;
+          color: var(--light-text);
+        }
+        .word-animation {
+          display: flex;
+          align-items: center;
+          justify-content: center; /* margin: 2rem 0; */
+          margin-top: 2rem;
+          height: 120px;
+          overflow: hidden;
+        }
+        #wordWrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          transition: transform 0.6s ease;
+          height: 120px;
+        }
+        .word-item {
+          font-size: clamp(3rem, 5vw, 6rem);
+          font-weight: bold;
+          color: var(--accent-color);
+          height: 120px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+        } /* Quote Form Section */
+        .quote-section {
+          padding: 18rem 2rem 2rem 2rem;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .form-container {
+          background-color: var(--card-bg);
+          border-radius: 16px;
+          padding: 3rem;
+          box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+          border: 1px solid rgba(93, 93, 255, 0.1);
+          position: relative;
+          overflow: hidden;
+        }
+        .form-container::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5px;
+          height: 0;
+          background: var(--accent-color);
+          transition: var(--transition);
+        }
+        .form-container:hover::before {
+          height: 100%;
+        }
+        .form-header {
+          text-align: center;
+          margin-bottom: 3rem;
+        }
+        .form-header h2 {
+          font-size: clamp(2rem, 4vw, 3rem);
+          margin-bottom: 1rem;
+          color: var(--theme-color);
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+        .form-header p {
+          font-size: 1.2rem;
+          color: var(--light-text);
+          max-width: 800px;
+          margin: 0 auto;
+        } /* Form Styles */
+        .quote-form {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+        }
+        .form-group {
+          margin-bottom: 1.5rem;
+        }
+        .form-group.full-width {
+          grid-column: 1 / -1;
+        }
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          color: var(--text-color);
+        }
+        .required::after {
+          content: "*";
+          color: var(--accent-color);
+          margin-left: 4px;
+        }
+        input,
+        select,
+        textarea {
+          width: 100%;
+          padding: 12px 16px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background-color: rgba(255, 255, 255, 0.05);
+          border-radius: 8px;
+          color: var(--text-color);
+          font-family: "Segoe UI", Roboto, sans-serif;
+          font-size: 1rem;
+          transition: var(--transition);
+        }
+        option {
+          background-color: #151719;
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+          outline: none;
+          border-color: var(--theme-color);
+          box-shadow: 0 0 0 3px rgba(93, 93, 255, 0.3);
+        }
+        input[type="radio"] {
+          width: auto;
+          margin-right: 8px;
+        }
+        .radio-group {
+          display: flex;
+          gap: 1.5rem;
+          align-items: center;
+        }
+        .radio-option {
+          display: flex;
+          align-items: center;
+        }
+        .radio-option label {
+          margin-bottom: 0;
+          font-weight: normal;
+        }
+        .row {
+          display: flex;
+          gap: 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+        .row > div {
+          flex: 1;
+        }
+        .form-section-title {
+          font-size: 1.4rem;
+          margin: 2.5rem 0 1.5rem;
+          padding-bottom: 10px;
+          border-bottom: 2px solid var(--theme-color);
+          color: var(--theme-color);
+          grid-column: 1 / -1;
+        }
+        .form-note {
+          font-size: 0.9rem;
+          color: var(--light-text);
+          margin-top: 4px;
+          font-style: italic;
+        } /* Additional styles for form validation */
+        .form-group.invalid input,
+        .form-group.invalid select,
+        .form-group.invalid textarea {
+          border-color: var(--accent-color) !important;
+        }
+        .form-group.invalid .error-message {
+          display: block;
+        }
+        .loading-overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(21, 23, 25, 0.85);
+          z-index: 2000;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+        .loading-spinner {
+          width: 60px;
+          height: 60px;
+          border: 5px solid rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          border-top-color: var(--theme-color);
+          animation: spin 1s ease-in-out infinite;
+          margin-bottom: 20px;
+        }
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        .contact-followup {
+          margin-top: 30px;
+          padding: 20px;
+          text-align: center;
+          background: #1e1e3f;
+          border-radius: 10px;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+  
+        .followup-msg {
+          font-size: 1rem;
+          margin-bottom: 15px;
+          color: #fff;
+        }
+  
+        .contact-buttons {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 15px;
+          margin-bottom: 10px;
+        }
+  
+        .c-button {
+          padding: 12px 18px;
+          border-radius: 6px;
+          text-decoration: none;
+          color: white;
+          font-weight: bold;
           display: inline-block;
+          background-color: #5d5dff;
+          transition: background 0.3s ease;
         }
-      }
-
-      /* Show Email only on desktop */
-      .email-btn {
-        display: none;
-      }
-      @media (min-width: 768px) {
+  
+        .c-button:hover {
+          background-color: #4a4ae0;
+        }
+  
+        .optional-note {
+          font-size: 0.85rem;
+          color: #aaa;
+        }
+  
+        /* By default, hide all */
+        .sms-btn,
         .email-btn {
-          display: inline-block;
+          display: none;
         }
-      }
-    </style>
-    <link href="whatsapp.css" rel="stylesheet" />
-    <link
-      rel="canonical"
-      href="https://www.canadianfitnessrepair.com/get-quote.html"
-    />
-    <link
-      rel="canonical"
-      href="https://www.canadianfitnessrepair.com/get-quote.html"
-    />
-    <link
-      rel="canonical"
-      href="https://www.canadianfitnessrepair.com/get-quote.html"
-    />
-    <link
-      rel="canonical"
-      href="https://www.canadianfitnessrepair.com/get-quote.html"
-    />
+  
+        /* Show SMS only on mobile */
+        @media (max-width: 767px) {
+          .sms-btn {
+            display: inline-block;
+          }
+        }
+  
+        /* Show Email only on desktop */
+        @media (min-width: 768px) {
+          .email-btn {
+            display: inline-block;
+          }
+        }
+  
+        .submit-btn {
+          grid-column: 1 / -1;
+          text-align: center;
+          margin-top: 1.5rem;
+        }
+        .submit-btn button {
+          background-color: var(--theme-color);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          padding: 16px 40px;
+          font-size: 1.2rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: var(--transition);
+          position: relative;
+          overflow: hidden;
+          z-index: 1;
+          width: 100%;
+          max-width: 400px;
+        }
+        .submit-btn button::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 0%;
+          height: 100%;
+          background: var(--accent-color);
+          transition: var(--transition);
+          z-index: -1;
+        }
+        .submit-btn button:hover::before {
+          width: 100%;
+        }
+        .submit-btn button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 25px rgba(93, 93, 255, 0.3);
+        } /* Contact Info Card */
+        .contact-card {
+          background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+          border-radius: 16px;
+          padding: 2.5rem;
+          margin-top: 3rem;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+        .contact-card::before {
+          content: "";
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0) 70%
+          );
+          transform: rotate(30deg);
+        }
+        .contact-card h3 {
+          font-size: 1.8rem;
+          margin-bottom: 1.5rem;
+          position: relative;
+          z-index: 1;
+        }
+        .contact-info {
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          flex-wrap: wrap;
+          position: relative;
+          z-index: 1;
+        }
+        .contact-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .contact-item i {
+          font-size: 1.5rem;
+          color: var(--text-color);
+        }
+        .contact-item span {
+          font-size: 1.1rem;
+        } /* Add to your existing CSS */
+        .success-message .c-button {
+          margin-top: 20px;
+          background: var(--theme-color);
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+        .success-message .c-button:hover {
+          background: var(--accent-color);
+          transform: translateY(-2px);
+        } /* Responsive Styles - Mobile Menu Fixes */
+        @media (max-width: 992px) {
+          .word-animation {
+            /* margin-top: 2rem; */
+            height: 80px;
+          }
+          #wordWrapper {
+            height: 80px;
+          }
+          .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            height: 80px;
+          }
+          .quote-hero h1 {
+            font-size: 3rem;
+          }
+          .quote-hero p {
+            font-size: 1.3rem;
+          }
+          .word-item {
+            font-size: 4.5rem;
+          }
+          .form-container {
+            padding: 2rem;
+          }
+        }
+        @media (max-width: 767px) {
+          .word-animation {
+            /* margin-top: 2rem; */
+            height: 80px;
+          }
+          #wordWrapper {
+            height: 80px;
+          }
+          .word-item {
+            font-size: clamp(4rem, 5vw, 6rem);
+            height: 80px;
+          }
+          .quote-hero h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+          }
+          .quote-section {
+            padding-top: 12rem;
+          }
+          .quote-hero p {
+            font-size: 1.1rem;
+            margin-bottom: 0;
+          }
+          .form-container {
+            padding: 1.5rem;
+          }
+          .form-header h2 {
+            font-size: 1.8rem;
+          }
+          .form-header p {
+            font-size: 1rem;
+          }
+          .row {
+            flex-direction: column;
+            gap: 1rem;
+          }
+          .contact-info {
+            flex-direction: column;
+            align-items: center;
+          }
+        }
+        @media (max-width: 480px) {
+          .promo-line {
+            display: none;
+          }
+          #contactlist {
+            display: none;
+          }
+          .word-animation {
+            height: 80px;
+          }
+          #wordWrapper {
+            height: 80px;
+          }
+          .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            height: 80px;
+          }
+          .quote-hero {
+            min-height: 30vh;
+            padding: 0rem 1rem 0rem 1rem;
+          }
+          .quote-hero h1 {
+            font-size: 1.8rem;
+            padding-top: 0;
+          }
+          .quote-section {
+            padding-top: 2.5rem;
+          }
+          .form-header h2 {
+            font-size: 1.6rem;
+          } /* MOBILE-SPECIFIC FIXES */
+          .form-container {
+            padding: 1.2rem;
+          }
+          .form-group {
+            margin-bottom: 1.2rem;
+          }
+          input,
+          select,
+          textarea {
+            padding: 10px 14px;
+            font-size: 0.95rem;
+          }
+          .submit-btn button {
+            width: 60%;
+            padding: 14px 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            max-width: 100%;
+          }
+          .contact-card {
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+          }
+          .contact-card h3 {
+            font-size: 1.4rem;
+            line-height: 1.3;
+          }
+          .contact-item {
+            flex-direction: column;
+            text-align: center;
+            gap: 5px;
+            margin-bottom: 1rem;
+            width: 100%;
+          }
+          .contact-info {
+            gap: 0.5rem;
+          }
+          .contact-item span {
+            font-size: 1rem;
+            word-break: break-word;
+            max-width: 90%;
+          }
+          .radio-group {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+          }
+          .radio-option {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+          } /* Fix for date input on mobile */
+          input[type="datetime-local"] {
+            font-size: 0.9rem;
+            padding: 10px;
+          } /* Ensure text doesn't overflow */
+          input,
+          select,
+          textarea,
+          .form-note,
+          .contact-item span {
+            word-wrap: break-word;
+            max-width: 100%;
+          } /* Prevent horizontal scrolling */
+          html,
+          body {
+            overflow-x: hidden;
+          } /* Adjust form section titles */
+          .form-section-title {
+            font-size: 1.3rem;
+            margin: 2rem 0 1.2rem;
+          }
+        } /* EXTRA SMALL SCREEN FIXES (under 380px) */
+        @media (max-width: 380px) {
+          /* Reduce padding on all containers */
+          .word-animation {
+            /* margin-top: 2rem; */
+            height: 80px;
+          }
+          #wordWrapper {
+            height: 80px;
+          }
+          .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            height: 80px;
+          }
+          .quote-hero {
+            padding: 0rem 0.8rem 0 0.8rem;
+            min-height: 30vh;
+          }
+          .quote-section {
+            padding: 1.6rem 0.8rem 2rem 0.8rem;
+          }
+          .form-container {
+            padding: 1rem;
+          } /* Adjust form input padding */
+          input,
+          select,
+          textarea {
+            padding: 9px 12px;
+            font-size: 0.92rem;
+          } /* Reduce font sizes slightly */
+          .quote-hero h1 {
+            font-size: 1.7rem;
+          }
+          .quote-hero p {
+            font-size: 1rem;
+            padding-bottom: 0rem;
+          }
+          .form-header h2 {
+            font-size: 1.5rem;
+          }
+          .form-header p {
+            font-size: 0.95rem;
+          }
+          .form-section-title {
+            font-size: 1.25rem;
+          } /* Adjust contact card */
+          .contact-card {
+            padding: 1.2rem 0.8rem;
+          }
+          .contact-card h3 {
+            font-size: 1.3rem;
+          } /* Make radio options stack vertically */
+          .radio-group {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+          }
+          .radio-option {
+            width: 100%;
+          } /* Adjust success message */
+          .success-message {
+            padding: 15px;
+          } /* Ensure inputs don't overflow */
+          input,
+          select,
+          textarea {
+            width: 100%;
+            box-sizing: border-box;
+          }
+        } /* Form Dropdown Improvements */
+        select {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 12px center;
+          background-size: 16px;
+          padding-right: 40px;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+        }
+        .radio-option {
+          background: rgba(255, 255, 255, 0.05);
+          padding: 10px 15px;
+          border-radius: 8px;
+          transition: var(--transition);
+        }
+        .radio-option:hover {
+          background: rgba(93, 93, 255, 0.1);
+        }
+        .form-group:focus-within label {
+          color: var(--theme-color);
+        } /* Animation Improvements */
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .form-container {
+          animation: fadeIn 0.6s ease-out;
+        } /* Success Message */
+        .success-message {
+          display: none;
+          background: rgba(93, 93, 255, 0.15);
+          border: 1px solid var(--theme-color);
+          border-radius: 8px;
+          padding: 20px;
+          margin: 20px 0;
+          text-align: center;
+        }
+        .success-message.show {
+          display: block;
+          animation: fadeIn 0.5s;
+        } /* Form Group Enhancements */
+        .form-group {
+          position: relative;
+        }
+        .error-message {
+          color: var(--accent-color);
+          font-size: 0.85rem;
+          display: none;
+          margin-top: 4px;
+        }
+        .success-wrapper {
+          max-width: 700px;
+          margin: 40px auto;
+          text-align: center;
+        }
+  
+        .success-box {
+          background: #1e1e3f;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 0 0 1px #5d5dff;
+          margin-bottom: 30px;
+        }
+  
+        .success-icon {
+          font-size: 2.5rem;
+          color: #5dff96;
+          margin-bottom: 10px;
+        }
+  
+        .success-title {
+          font-size: 1.4rem;
+          color: white;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+  
+        .success-text {
+          font-size: 1rem;
+          color: #ddd;
+          margin-bottom: 20px;
+        }
+  
+        .contact-followup {
+          background: #15151f;
+          padding: 25px;
+          border-radius: 10px;
+        }
+  
+        .followup-msg {
+          font-size: 1rem;
+          color: #fff;
+          margin-bottom: 15px;
+        }
+  
+        .contact-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 12px;
+        }
+  
+        .c-button {
+          background: #5d5dff;
+          color: white;
+          padding: 12px 18px;
+          text-decoration: none;
+          border-radius: 6px;
+          font-weight: bold;
+          transition: background 0.3s ease;
+        }
+  
+        .c-button:hover {
+          background-color: #4a4ae0;
+        }
+  
+        .optional-note {
+          font-size: 0.85rem;
+          color: #aaa;
+        }
+  
+        .asterisk {
+          color: #ff6b6b;
+          margin-right: 4px;
+          font-weight: bold;
+        }
+  
+        /* Show SMS only on mobile */
+        .sms-btn {
+          display: none;
+        }
+        @media (max-width: 767px) {
+          .sms-btn {
+            display: inline-block;
+          }
+        }
+  
+        /* Show Email only on desktop */
+        .email-btn {
+          display: none;
+        }
+        @media (min-width: 768px) {
+          .email-btn {
+            display: inline-block;
+          }
+        }
+      </style>
   </head>
   <body>
     <div id="header"></div>
