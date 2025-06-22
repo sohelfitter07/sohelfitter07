@@ -633,6 +633,71 @@
           transform: rotate(360deg);
         }
       }
+      .contact-followup {
+        margin-top: 30px;
+        padding: 20px;
+        text-align: center;
+        background: #1e1e3f;
+        border-radius: 10px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .followup-msg {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        color: #fff;
+      }
+
+      .contact-buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 10px;
+      }
+
+      .c-button {
+        padding: 12px 18px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        display: inline-block;
+        background-color: #5d5dff;
+        transition: background 0.3s ease;
+      }
+
+      .c-button:hover {
+        background-color: #4a4ae0;
+      }
+
+      .optional-note {
+        font-size: 0.85rem;
+        color: #aaa;
+      }
+
+      /* By default, hide all */
+      .sms-btn,
+      .email-btn {
+        display: none;
+      }
+
+      /* Show SMS only on mobile */
+      @media (max-width: 767px) {
+        .sms-btn {
+          display: inline-block;
+        }
+      }
+
+      /* Show Email only on desktop */
+      @media (min-width: 768px) {
+        .email-btn {
+          display: inline-block;
+        }
+      }
+
       .submit-btn {
         grid-column: 1 / -1;
         text-align: center;
@@ -1033,6 +1098,103 @@
         display: none;
         margin-top: 4px;
       }
+      .success-wrapper {
+        max-width: 700px;
+        margin: 40px auto;
+        text-align: center;
+      }
+
+      .success-box {
+        background: #1e1e3f;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 0 1px #5d5dff;
+        margin-bottom: 30px;
+      }
+
+      .success-icon {
+        font-size: 2.5rem;
+        color: #5dff96;
+        margin-bottom: 10px;
+      }
+
+      .success-title {
+        font-size: 1.4rem;
+        color: white;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .success-text {
+        font-size: 1rem;
+        color: #ddd;
+        margin-bottom: 20px;
+      }
+
+      .contact-followup {
+        background: #15151f;
+        padding: 25px;
+        border-radius: 10px;
+      }
+
+      .followup-msg {
+        font-size: 1rem;
+        color: #fff;
+        margin-bottom: 15px;
+      }
+
+      .contact-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 12px;
+      }
+
+      .c-button {
+        background: #5d5dff;
+        color: white;
+        padding: 12px 18px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      .c-button:hover {
+        background-color: #4a4ae0;
+      }
+
+      .optional-note {
+        font-size: 0.85rem;
+        color: #aaa;
+      }
+
+      .asterisk {
+        color: #ff6b6b;
+        margin-right: 4px;
+        font-weight: bold;
+      }
+
+      /* Show SMS only on mobile */
+      .sms-btn {
+        display: none;
+      }
+      @media (max-width: 767px) {
+        .sms-btn {
+          display: inline-block;
+        }
+      }
+
+      /* Show Email only on desktop */
+      .email-btn {
+        display: none;
+      }
+      @media (min-width: 768px) {
+        .email-btn {
+          display: inline-block;
+        }
+      }
     </style>
     <link href="whatsapp.css" rel="stylesheet" />
     <link
@@ -1071,20 +1233,46 @@
             </p>
           </div>
 
-          <div class="success-message" id="successMessage">
-            <i class="ri-checkbox-circle-line"></i>
-            <h3>Thank You for Your Request!</h3>
-            <p>
-              We've received your quote request and will contact you shortly to
-              confirm your appointment.
-            </p>
-            <button
-              class="c-button"
-              id="newRequestBtn"
-              onclick="window.location.href='https://canadianfitnessrepair.com/get-quote.html';"
-            >
-              Submit Another Request
-            </button>
+          <div
+            class="success-wrapper"
+            id="successMessage"
+            style="display: none"
+          >
+            <div class="success-box">
+              <i class="ri-checkbox-circle-line success-icon"></i>
+              <h3 class="success-title">Thank You for Booking Your Repair!</h3>
+              <p class="success-text">
+                We've received your booking request and will contact you shortly
+                to confirm your appointment.
+              </p>
+              <button class="c-button" id="newRequestBtn">
+                Submit Another Request
+              </button>
+            </div>
+
+            <div class="contact-followup" id="contactOptions">
+              <p class="followup-msg">
+                If you'd like, you can now send us a photo/video of the issue to
+                help us serve you better:
+              </p>
+              <div class="contact-buttons">
+                <a
+                  id="whatsappLink"
+                  class="c-button whatsapp-btn"
+                  target="_blank"
+                  >📲 Send via WhatsApp</a
+                >
+                <a id="smsLink" class="c-button sms-btn" target="_blank"
+                  >💬 Send via SMS</a
+                >
+                <a id="emailLink" class="c-button email-btn" target="_blank"
+                  >✉️ Send via Email</a
+                >
+              </div>
+              <p class="optional-note">
+                <span class="asterisk">*</span>This step is optional.
+              </p>
+            </div>
           </div>
 
           <form
@@ -1481,19 +1669,6 @@
               </div>
             </div>
 
-            <div class="form-group full-width">
-              <label for="equipmentFile">Upload Equipment Image/Video</label>
-              <input
-                accept="image/*,video/*"
-                id="equipmentFile"
-                name="equipmentFile"
-                type="file"
-              />
-              <div class="form-note">
-                Upload images or short videos showing the issue (optional)
-              </div>
-            </div>
-
             <div class="submit-btn">
               <button type="button" id="submitButton">
                 <i class="ri-service-line"></i> Book Your Service Now
@@ -1778,6 +1953,47 @@
             .then(() => {
               loadingOverlay.style.display = "none";
               successMessage.style.display = "block";
+              const name = document.getElementById("firstName").value.trim();
+              const phone = document
+                .getElementById("contactNumber")
+                .value.trim();
+              const city = document.getElementById("city").value;
+              const service = document.getElementById("serviceRequest").value;
+              const brand =
+                document.getElementById("brand").value ||
+                document.getElementById("manualBrand").value;
+              const model =
+                document.getElementById("model").value ||
+                document.getElementById("manualModel").value;
+
+              const message = `Hi! I just submitted a repair request. Here are my details:
+Name: ${name}
+Phone: ${phone}
+City: ${city}
+Service: ${service}
+Brand: ${brand}
+Model: ${model}
+
+I'd like to send a photo/video to help with the repair.`;
+
+              const encodedMessage = encodeURIComponent(message);
+              const yourPhone = "12899257239";
+              const yourEmail = "canadianfitnessrepair@gmail.com";
+
+              document.getElementById(
+                "whatsappLink"
+              ).href = `https://wa.me/${yourPhone}?text=${encodedMessage}`;
+              document.getElementById(
+                "smsLink"
+              ).href = `sms:${yourPhone}?&body=${encodedMessage}`;
+              document.getElementById(
+                "emailLink"
+              ).href = `mailto:${yourEmail}?subject=Repair%20Media%20From%20${encodeURIComponent(
+                name
+              )}&body=${encodedMessage}`;
+
+              document.getElementById("contactOptions").style.display = "block";
+
               quoteForm.style.display = "none";
               setTimeout(() => {
                 successMessage.scrollIntoView({
