@@ -381,6 +381,75 @@
       .city-list a:hover::before {
         transform: translateX(5px);
       }
+/* Grid background */
+.map-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(rgba(93, 93, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 93, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Regional grouping */
+.region-group {
+  position: absolute;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 4;
+  max-width: 200px;
+}
+
+.region-title {
+  font-weight: 600;
+  color: #ffcc00;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.region-cities {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.region-cities span {
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Pulsing animation for Hamilton */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+.map-center {
+  animation: pulse 2s infinite;
+}
+
+/* City label hover effects */
+.city-label {
+  transition: all 0.3s ease;
+}
+
+.city-label:hover {
+  background: #ffcc00;
+  color: #1a2a6c;
+  transform: scale(1.05);
+  z-index: 20;
+}
       
       /* Service Information */
       .service-info {
@@ -532,100 +601,54 @@
                     <div class="map-visual">
                         <div class="map-center"></div>
                         <div class="map-radius"></div>
-                        <div class="map-radius-label">60km Radius</div>
+                        <div class="map-radius-label" style="top: 20%; left: 80%;">60km Radius</div>
+                        <div class="map-grid"></div>
+                        <!-- Regional Groups -->
+<div class="region-group" style="top: 30%; left: 30%;">
+    <div class="region-title">Southwest Ontario</div>
+    <div class="region-cities">
+      <span>Guelph</span>
+      <span>Waterloo</span>
+      <span>Brantford</span>
+    </div>
+  </div>
+  
+  <div class="region-group" style="top: 30%; left: 70%;">
+    <div class="region-title">Greater Toronto</div>
+    <div class="region-cities">
+      <span>Brampton</span>
+      <span>Etobicoke</span>
+      <span>Georgesville</span>
+      <span>Lalton Hills</span>
+    </div>
+  </div>
+  
+  <div class="region-group" style="top: 70%; left: 30%;">
+    <div class="region-title">Hamilton Area</div>
+    <div class="region-cities">
+      <span>Sydney Creek</span>
+      <span>Vineland</span>
+      <span>Beansville</span>
+    </div>
+  </div>
+  
+  <div class="region-group" style="top: 70%; left: 70%;">
+    <div class="region-title">Niagara Region</div>
+    <div class="region-cities">
+      <span>Niagara Falls</span>
+      <span>Welland</span>
+    </div>
+  </div>
                         
-                        <!-- City Markers -->
-                        <!-- Hamilton Region -->
-                        <div class="city-marker" style="top: 50%; left: 50%;"></div>
-                        <div class="city-label" style="top: 49%; left: 51%;">Hamilton</div>
-                        
-                        <div class="city-marker" style="top: 45%; left: 48%;"></div>
-                        <div class="city-label" style="top: 44%; left: 49%;">Ancaster</div>
-                        
-                        <div class="city-marker" style="top: 52%; left: 47%;"></div>
-                        <div class="city-label" style="top: 51%; left: 48%;">Dundas</div>
-                        
-                        <div class="city-marker" style="top: 47%; left: 53%;"></div>
-                        <div class="city-label" style="top: 46%; left: 54%;">Waterdown</div>
-                        
-                        <div class="city-marker" style="top: 55%; left: 52%;"></div>
-                        <div class="city-label" style="top: 54%; left: 53%;">Binbrook</div>
-                        
-                        <div class="city-marker" style="top: 53%; left: 45%;"></div>
-                        <div class="city-label" style="top: 52%; left: 46%;">Carlisle</div>
-                        
-                        <div class="city-marker" style="top: 48%; left: 43%;"></div>
-                        <div class="city-label" style="top: 47%; left: 44%;">Freelton</div>
-                        
-                        <div class="city-marker" style="top: 51%; left: 42%;"></div>
-                        <div class="city-label" style="top: 50%; left: 43%;">Lynden</div>
-                        
-                        <!-- Niagara Region -->
-                        <div class="city-marker" style="top: 55%; left: 45%;"></div>
-                        <div class="city-label" style="top: 54%; left: 46%;">Stoney Creek</div>
-                        
-                        <div class="city-marker" style="top: 60%; left: 40%;"></div>
-                        <div class="city-label" style="top: 59%; left: 41%;">Grimsby</div>
-                        
-                        <div class="city-marker" style="top: 65%; left: 50%;"></div>
-                        <div class="city-label" style="top: 64%; left: 51%;">Niagara</div>
-                        
-                        <div class="city-marker" style="top: 58%; left: 55%;"></div>
-                        <div class="city-label" style="top: 57%; left: 56%;">St. Catharines</div>
-                        
-                        <div class="city-marker" style="top: 63%; left: 53%;"></div>
-                        <div class="city-label" style="top: 62%; left: 54%;">Niagara Falls</div>
-                        
-                        <div class="city-marker" style="top: 68%; left: 48%;"></div>
-                        <div class="city-label" style="top: 67%; left: 49%;">Welland</div>
-                        
-                        <div class="city-marker" style="top: 62%; left: 43%;"></div>
-                        <div class="city-label" style="top: 61%; left: 44%;">Beamsville</div>
-                        
-                        <div class="city-marker" style="top: 59%; left: 46%;"></div>
-                        <div class="city-label" style="top: 58%; left: 47%;">Vineland</div>
-                        
-                        <!-- GTA -->
-                        <div class="city-marker" style="top: 45%; left: 55%;"></div>
-                        <div class="city-label" style="top: 44%; left: 56%;">Burlington</div>
-                        
-                        <div class="city-marker" style="top: 40%; left: 60%;"></div>
-                        <div class="city-label" style="top: 39%; left: 61%;">Oakville</div>
-                        
-                        <div class="city-marker" style="top: 35%; left: 65%;"></div>
-                        <div class="city-label" style="top: 34%; left: 66%;">Mississauga</div>
-                        
-                        <div class="city-marker" style="top: 38%; left: 68%;"></div>
-                        <div class="city-label" style="top: 37%; left: 69%;">Brampton</div>
-                        
-                        <div class="city-marker" style="top: 43%; left: 63%;"></div>
-                        <div class="city-label" style="top: 42%; left: 64%;">Halton Hills</div>
-                        
-                        <div class="city-marker" style="top: 33%; left: 62%;"></div>
-                        <div class="city-label" style="top: 32%; left: 63%;">Georgetown</div>
-                        
-                        <div class="city-marker" style="top: 42%; left: 58%;"></div>
-                        <div class="city-label" style="top: 41%; left: 59%;">Milton</div>
-                        
-                        <div class="city-marker" style="top: 30%; left: 67%;"></div>
-                        <div class="city-label" style="top: 29%; left: 68%;">Etobicoke</div>
+                        <!-- Major City Markers -->
+<div class="city-marker" style="top: 50%; left: 50%;"></div>
+<div class="city-label" style="top: 49%; left: 51%;">Hamilton</div>
 
-                        
-                        <!-- Southwestern Ontario -->
-                        <div class="city-marker" style="top: 50%; left: 35%;"></div>
-                        <div class="city-label" style="top: 49%; left: 36%;">Brantford</div>
-                        
-                        <div class="city-marker" style="top: 35%; left: 45%;"></div>
-                        <div class="city-label" style="top: 34%; left: 46%;">Cambridge</div>
-                        
-                        <div class="city-marker" style="top: 30%; left: 50%;"></div>
-                        <div class="city-label" style="top: 29%; left: 51%;">Guelph</div>
-                        
-                        <div class="city-marker" style="top: 33%; left: 40%;"></div>
-                        <div class="city-label" style="top: 32%; left: 41%;">Kitchener</div>
-                        
-                        <div class="city-marker" style="top: 36%; left: 38%;"></div>
-                        <div class="city-label" style="top: 35%; left: 39%;">Waterloo</div>
+<div class="city-marker" style="top: 35%; left: 65%;"></div>
+<div class="city-label" style="top: 34%; left: 66%;">Brampton</div>
+
+<div class="city-marker" style="top: 65%; left: 50%;"></div>
+<div class="city-label" style="top: 64%; left: 51%;">Niagara Falls</div>
                     </div>
                     
                     <div class="map-key">
@@ -823,5 +846,27 @@
             });
         });
     </script>
+    <script>
+        // City marker hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+          const markers = document.querySelectorAll('.city-marker');
+          
+          markers.forEach(marker => {
+            marker.addEventListener('mouseover', function() {
+              const label = this.nextElementSibling;
+              label.style.backgroundColor = '#ffcc00';
+              label.style.color = '#1a2a6c';
+              label.style.transform = 'scale(1.1)';
+            });
+            
+            marker.addEventListener('mouseout', function() {
+              const label = this.nextElementSibling;
+              label.style.backgroundColor = 'rgba(26, 42, 108, 0.9)';
+              label.style.color = 'white';
+              label.style.transform = 'scale(1)';
+            });
+          });
+        });
+      </script>
 </body>
 </html>
