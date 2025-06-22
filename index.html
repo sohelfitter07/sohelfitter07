@@ -64,110 +64,130 @@
       window.addEventListener("touchstart", loadGTM, { once: true });
     </script>
   
-    <!-- Clean LocalBusiness Schema (merged and deduplicated) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Canadian Fitness Repair",
-        "url": "https://www.canadianfitnessrepair.com/",
-        "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
-        "image": [
-          "https://www.canadianfitnessrepair.com/images/service-van.jpg",
-          "https://www.canadianfitnessrepair.com/images/technician-working.jpg"
-        ],
-        "description": "Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "22 Canary Grass Blvd",
-          "addressLocality": "Hamilton",
-          "addressRegion": "Ontario",
-          "postalCode": "L0R 1P0",
-          "addressCountry": "CA"
-        },
-        "telephone": "+1-289-925-7239",
-        "priceRange": "$$",
-        "geo": {
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Canadian Fitness Repair",
+      "url": "https://www.canadianfitnessrepair.com/",
+      "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
+      "image": [
+        "https://www.canadianfitnessrepair.com/images/service-van.jpg",
+        "https://www.canadianfitnessrepair.com/images/technician-working.jpg"
+      ],
+      "description": "Mobile fitness equipment repair serving Hamilton and surrounding areas within 60km. We come to you for treadmill, elliptical, and gym equipment repairs!",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Hamilton",
+        "addressRegion": "ON",
+        "addressCountry": "CA"
+      },
+      "telephone": "+1-289-925-7239",
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
           "@type": "GeoCoordinates",
-          "latitude": "43.2250",
-          "longitude": "-79.8660"
+          "latitude": "43.2557",
+          "longitude": "-79.8711"
         },
-        "areaServed": [
-          "Hamilton", "Toronto", "Oakville", "Burlington", "Mississauga"
-        ],
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-          "opens": "00:00",
-          "closes": "23:59"
+        "geoRadius": "60000"
+      },
+      "areaServed": [
+        "Hamilton", "Ancaster", "Dundas", "Burlington", "Oakville", 
+        "Mississauga", "Stoney Creek", "Grimsby", "St. Catharines",
+        "Niagara Falls", "Brantford", "Cambridge", "Guelph", "Waterdown",
+        "Caledonia", "Paris", "Milton", "Binbrook", "Freelton", "Lynden", 
+        "Rockton", "Carlisle", "Kilbride", "Mount Hope", "Copetown", 
+        "Flamborough", "Aldershot", "Dundas", "Waterdown", "Carlisle",
+        "Freelton", "Lynden", "Rockton", "Copetown", "Mount Hope", 
+        "Binbrook", "Caledonia", "Paris", "Grimsby", "St. Catharines",
+        "Niagara Falls", "Brantford", "Cambridge", "Guelph", "Kitchener",
+        "Woodstock", "Ingersoll", "Tillsonburg", "Simcoe", "Delhi",
+        "Port Dover", "Jarvis", "Hagersville", "Cayuga", "Dunnville",
+        "Beamsville", "Vineland", "Smithville", "Caledonia", "Waterford"
+      ],
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "makesOffer": [
+        {
+          "@type": "Service",
+          "name": "Treadmill Repair",
+          "serviceType": "Repair",
+          "description": "Motor issues, belt replacements, incline fixes, control panel repairs for all treadmill brands.",
+          "areaServed": ["Hamilton", "Burlington", "Oakville", "Niagara"]
         },
-        "makesOffer": [
-          {
-            "@type": "Service",
-            "name": "Treadmill Repair",
-            "serviceType": "Repair",
-            "description": "Motor issues, belt replacements, incline fixes, control panel repairs for all treadmill brands."
-          },
-          {
-            "@type": "Service",
-            "name": "Elliptical Repair",
-            "serviceType": "Repair",
-            "description": "Stride adjustment, noise fixes, resistance and console repairs for ellipticals."
-          },
-          {
-            "@type": "Service",
-            "name": "Exercise Bike Repair",
-            "serviceType": "Repair",
-            "description": "Pedal, crank, resistance unit, and display repairs for upright and spin bikes."
-          },
-          {
-            "@type": "Service",
-            "name": "Rower Repair",
-            "serviceType": "Repair",
-            "description": "Rowing machine fixes including belt/chain tension, seat wheels, and resistance settings."
-          },
-          {
-            "@type": "Service",
-            "name": "Strength Equipment Repair",
-            "serviceType": "Repair",
-            "description": "Cables, pulleys, adjustment knobs, and upholstery repair for gym strength machines."
-          },
-          {
-            "@type": "Service",
-            "name": "Preventative Maintenance",
-            "serviceType": "Maintenance",
-            "description": "Routine maintenance including belt lubrication, motor cleaning, alignment and inspection."
-          },
-          {
-            "@type": "Service",
-            "name": "Fitness Equipment Tune-Ups",
-            "serviceType": "Maintenance",
-            "description": "System checks, recalibration, minor repairs and noise reduction for all types of machines."
-          },
-          {
-            "@type": "Service",
-            "name": "Commercial Fitness Equipment Service",
-            "serviceType": "Commercial Service",
-            "description": "Onsite service contracts and same-day repairs for fitness clubs, condos, and hotels."
-          },
-          {
-            "@type": "Service",
-            "name": "Equipment Relocation & Assembly",
-            "serviceType": "Installation",
-            "description": "Disassembly, transportation, and reassembly of gym equipment during moves or setup."
-          }
-        ],
-        "sameAs": [
-          "https://www.facebook.com/CanadianFitnessRepair",
-          "https://www.instagram.com/canadianfitnessrepair",
-          "https://ca.linkedin.com/company/yourprofile"
-        ],
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "142"
+        {
+          "@type": "Service",
+          "name": "Elliptical Repair",
+          "serviceType": "Repair",
+          "description": "Stride adjustment, noise fixes, resistance and console repairs for ellipticals.",
+          "areaServed": ["Ancaster", "Dundas", "Waterdown", "Stoney Creek"]
+        },
+        {
+          "@type": "Service",
+          "name": "Exercise Bike Repair",
+          "serviceType": "Repair",
+          "description": "Pedal, crank, resistance unit, and display repairs for upright and spin bikes.",
+          "areaServed": ["Mississauga", "Brampton", "Cambridge", "Guelph"]
+        },
+        {
+          "@type": "Service",
+          "name": "Rower Repair",
+          "serviceType": "Repair",
+          "description": "Rowing machine fixes including belt/chain tension, seat wheels, and resistance settings.",
+          "areaServed": ["Grimsby", "St. Catharines", "Niagara Falls", "Brantford"]
+        },
+        {
+          "@type": "Service",
+          "name": "Strength Equipment Repair",
+          "serviceType": "Repair",
+          "description": "Cables, pulleys, adjustment knobs, and upholstery repair for gym strength machines.",
+          "areaServed": ["Hamilton", "Burlington", "Oakville", "Mississauga"]
+        },
+        {
+          "@type": "Service",
+          "name": "Preventative Maintenance",
+          "serviceType": "Maintenance",
+          "description": "Routine maintenance including belt lubrication, motor cleaning, alignment and inspection.",
+          "areaServed": ["All service areas"]
+        },
+        {
+          "@type": "Service",
+          "name": "Fitness Equipment Tune-Ups",
+          "serviceType": "Maintenance",
+          "description": "System checks, recalibration, minor repairs and noise reduction for all types of machines.",
+          "areaServed": ["All service areas"]
+        },
+        {
+          "@type": "Service",
+          "name": "Commercial Fitness Equipment Service",
+          "serviceType": "Commercial Service",
+          "description": "Onsite service contracts and same-day repairs for fitness clubs, condos, and hotels.",
+          "areaServed": ["Hamilton", "Burlington", "Oakville", "Mississauga", "Niagara"]
+        },
+        {
+          "@type": "Service",
+          "name": "Equipment Relocation & Assembly",
+          "serviceType": "Installation",
+          "description": "Disassembly, transportation, and reassembly of gym equipment during moves or setup.",
+          "areaServed": ["All service areas"]
         }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/CanadianFitnessRepair",
+        "https://www.instagram.com/canadianfitnessrepair",
+        "https://ca.linkedin.com/company/canadianfitnessrepair"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "142"
       }
+    }
     </script>
     <style>
       * {
