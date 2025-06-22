@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Areas | Canadian Fitness Repair | Hamilton & Surrounding Regions</title>
+    <meta name="description" content="Canadian Fitness Repair services Hamilton, Burlington, Oakville, Mississauga, Niagara and all cities within 60km radius. View our full service area map and coverage.">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Service Areas",
+      "description": "Service coverage map for Canadian Fitness Repair showing all cities within 60km of Hamilton",
+      "url": "https://www.canadianfitnessrepair.com/service-areas.html",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://www.canadianfitnessrepair.com/images/service-area-map.webp",
+        "width": "1200",
+        "height": "800"
+      },
+      "relatedLink": [
+        "https://www.canadianfitnessrepair.com/treadmill-repair-hamilton.html",
+        "https://www.canadianfitnessrepair.com/treadmill-repair-burlington.html",
+        "https://www.canadianfitnessrepair.com/treadmill-repair-oakville.html"
+      ]
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1a2a6c, #3a7bd5);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: #ffcc00;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 42, 108, 0.8), rgba(58, 123, 213, 0.8)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .highlight {
+            background: #ffcc00;
+            color: #1a2a6c;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        
+        /* Main Content */
+        .service-area-content {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #1a2a6c;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2:after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: #ffcc00;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .map-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        
+        .map-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        
+        .map-key {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .key-item {
+            display: flex;
+            align-items: center;
+            margin: 0 15px;
+        }
+        
+        .key-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+        
+        .primary-service {
+            background: #1a2a6c;
+        }
+        
+        .secondary-service {
+            background: #3a7bd5;
+        }
+        
+        .cities-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .city-group {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+        }
+        
+        .city-group h3 {
+            color: #1a2a6c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ffcc00;
+        }
+        
+        .city-list {
+            list-style: none;
+            columns: 2;
+            -webkit-columns: 2;
+            -moz-columns: 2;
+        }
+        
+        .city-list li {
+            margin-bottom: 10px;
+            break-inside: avoid;
+        }
+        
+        .city-list a {
+            color: #3a7bd5;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .city-list a:before {
+            content: "→";
+            margin-right: 8px;
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        
+        .city-list a:hover {
+            color: #1a2a6c;
+            text-decoration: underline;
+        }
+        
+        .service-info {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .service-info h3 {
+            color: #1a2a6c;
+            margin-bottom: 20px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .info-card {
+            background: #f1f7ff;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #ffcc00;
+        }
+        
+        .info-card h4 {
+            color: #1a2a6c;
+            margin-bottom: 10px;
+        }
+        
+        /* Call to Action */
+        .cta-section {
+            background: linear-gradient(135deg, #1a2a6c, #3a7bd5);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #ffcc00;
+            color: #1a2a6c;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            background: #ffd84d;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1a2a6c;
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: #ffcc00;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .city-list {
+                columns: 1;
+                -webkit-columns: 1;
+                -moz-columns: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">Canadian <span>Fitness Repair</span></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="service-areas.html" class="active">Service Areas</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Our Service Coverage Area</h1>
+            <p>Canadian Fitness Repair provides mobile repair services throughout Hamilton and all surrounding communities within a <span class="highlight">60km radius</span>. Our certified technicians come directly to your home or business anywhere in the Greater Toronto Area and beyond.</p>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="service-area-content container">
+        <!-- Service Area Map -->
+        <div class="section-title">
+            <h2>Service Area Map</h2>
+        </div>
+        
+        <div class="map-container">
+            <p>Our technicians service all locations within the shaded region on the map below. This covers Hamilton and surrounding cities within approximately 60km.</p>
+            
+            <img src="https://www.canadianfitnessrepair.com/images/service-area-map.webp" alt="Canadian Fitness Repair service area map showing 60km radius from Hamilton, Ontario">
+            
+            <div class="map-key">
+                <div class="key-item">
+                    <div class="key-color primary-service"></div>
+                    <span>Primary Service Area (Hamilton + 20km)</span>
+                </div>
+                <div class="key-item">
+                    <div class="key-color secondary-service"></div>
+                    <span>Extended Service Area (20-60km from Hamilton)</span>
+                </div>
+            </div>
+            
+            <p>Whether you're in downtown Hamilton, Burlington, Oakville, or anywhere in between, we come to you for fast, reliable fitness equipment repairs.</p>
+        </div>
+        
+        <!-- Cities List -->
+        <div class="section-title">
+            <h2>Cities We Serve</h2>
+        </div>
+        
+        <div class="cities-container">
+            <div class="city-group">
+                <h3>Hamilton Region</h3>
+                <ul class="city-list">
+                    <li><a href="treadmill-repair-hamilton.html">Hamilton</a></li>
+                    <li><a href="ancaster.html">Ancaster</a></li>
+                    <li><a href="dundas.html">Dundas</a></li>
+                    <li><a href="stoney-creek.html">Stoney Creek</a></li>
+                    <li><a href="waterdown.html">Waterdown</a></li>
+                    <li><a href="binbrook.html">Binbrook</a></li>
+                    <li><a href="carlisle.html">Carlisle</a></li>
+                    <li><a href="freelton.html">Freelton</a></li>
+                    <li><a href="lynden.html">Lynden</a></li>
+                    <li><a href="milton.html">Milton</a></li>
+                </ul>
+            </div>
+            
+            <div class="city-group">
+                <h3>Niagara Region</h3>
+                <ul class="city-list">
+                    <li><a href="st-catharines.html">St. Catharines</a></li>
+                    <li><a href="niagara-falls.html">Niagara Falls</a></li>
+                    <li><a href="welland.html">Welland</a></li>
+                    <li><a href="grimsby.html">Grimsby</a></li>
+                    <li><a href="beamsville.html">Beamsville</a></li>
+                    <li><a href="vineland.html">Vineland</a></li>
+                    <li><a href="jordan.html">Jordan</a></li>
+                    <li><a href="niagara-on-the-lake.html">Niagara-on-the-Lake</a></li>
+                    <li><a href="port-colborne.html">Port Colborne</a></li>
+                    <li><a href="fort-erie.html">Fort Erie</a></li>
+                </ul>
+            </div>
+            
+            <div class="city-group">
+                <h3>Greater Toronto Area</h3>
+                <ul class="city-list">
+                    <li><a href="burlington.html">Burlington</a></li>
+                    <li><a href="oakville.html">Oakville</a></li>
+                    <li><a href="mississauga.html">Mississauga</a></li>
+                    <li><a href="brampton.html">Brampton</a></li>
+                    <li><a href="halton-hills.html">Halton Hills</a></li>
+                    <li><a href="georgetown.html">Georgetown</a></li>
+                    <li><a href="milton.html">Milton</a></li>
+                    <li><a href="etobicoke.html">Etobicoke</a></li>
+                    <li><a href="toronto.html">Toronto (West End)</a></li>
+                    <li><a href="vaughan.html">Vaughan</a></li>
+                </ul>
+            </div>
+            
+            <div class="city-group">
+                <h3>Southwestern Ontario</h3>
+                <ul class="city-list">
+                    <li><a href="brantford.html">Brantford</a></li>
+                    <li><a href="cambridge.html">Cambridge</a></li>
+                    <li><a href="kitchener.html">Kitchener</a></li>
+                    <li><a href="waterloo.html">Waterloo</a></li>
+                    <li><a href="guelph.html">Guelph</a></li>
+                    <li><a href="paris.html">Paris</a></li>
+                    <li><a href="woodstock.html">Woodstock</a></li>
+                    <li><a href="ingersoll.html">Ingersoll</a></li>
+                    <li><a href="ayr.html">Ayr</a></li>
+                    <li><a href="new-hamburg.html">New Hamburg</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Service Information -->
+        <div class="service-info">
+            <h3>Our Service Coverage Details</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>Service Radius</h4>
+                    <p>We service all locations within a 60km radius of Hamilton, Ontario. This includes both residential and commercial properties.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h4>Same-Day Service</h4>
+                    <p>For locations within 30km of Hamilton, we offer same-day emergency service for most repair needs.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h4>Travel Fees</h4>
+                    <p>No travel fees for locations within 20km of Hamilton. Standard travel fees apply beyond 20km.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h4>Commercial Accounts</h4>
+                    <p>We offer special service agreements for commercial clients with multiple locations throughout our service area.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Need Fitness Equipment Repair?</h2>
+            <p>Our certified technicians are ready to help you with any fitness equipment repair needs throughout Hamilton and surrounding areas.</p>
+            <a href="tel:+12899257239" class="btn">Call Now: (289) 925-7239</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Canadian Fitness Repair</h3>
+                    <p>Professional fitness equipment repair and maintenance services for homes and commercial gyms throughout Southern Ontario.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="service-areas.html">Service Areas</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Areas</h3>
+                    <ul>
+                        <li><a href="treadmill-repair-hamilton.html">Hamilton</a></li>
+                        <li><a href="treadmill-repair-burlington.html">Burlington</a></li>
+                        <li><a href="treadmill-repair-oakville.html">Oakville</a></li>
+                        <li><a href="treadmill-repair-mississauga.html">Mississauga</a></li>
+                        <li><a href="treadmill-repair-niagara.html">Niagara Region</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Phone: <a href="tel:+12899257239">(289) 925-7239</a></li>
+                        <li>Email: <a href="mailto:info@canadianfitnessrepair.com">info@canadianfitnessrepair.com</a></li>
+                        <li>Service Area: Hamilton + 60km Radius</li>
+                        <li>Hours: Mon-Fri 6am-11pm, Sat-Sun 9am-10pm</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Canadian Fitness Repair. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
