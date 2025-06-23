@@ -5,788 +5,405 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Service Area Map | Canadian Fitness Repair</title>
     <meta name="description" content="Canadian Fitness Repair services Hamilton, Burlington, Oakville, Mississauga, Niagara and all cities within 60km radius. View our full service area map and coverage.">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="Service Area Coverage | Hamilton & GTA Fitness Equipment Repair" />
-    <meta property="og:description" content="24/7 mobile repair service throughout Hamilton and surrounding communities within 60km radius. Same-day service available!" />
-    <meta property="og:image" content="https://www.canadianfitnessrepair.com/images/service-area-map.jpg" />
-    <meta property="og:url" content="https://www.canadianfitnessrepair.com/service-areas.html" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en_CA" />
-  
-    <!-- Geo & ICBM -->
-    <meta name="geo.placename" content="Hamilton, Burlington, Oakville, Mississauga, Niagara, Greater Toronto Area, Southern Ontario" />
-    <meta name="geo.position" content="43.2250;-79.8660" />
-    <meta name="geo.region" content="CA-ON" />
-    <meta name="ICBM" content="43.2250, -79.8660" />
-  
-    <!-- Preload -->
-    <link rel="preload" href="/images/map-background.webp" as="image" />
-  
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="canonical" href="https://www.canadianfitnessrepair.com/service-areas.html" />
-    <link href="https://www.google.com/maps?cid=8149323007071080669" rel="publisher" />
-
-    <!-- Schema Markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ServiceArea",
-      "name": "Canadian Fitness Repair Service Coverage",
-      "description": "Mobile fitness equipment repair serving Hamilton and surrounding areas within 60km radius",
-      "areaServed": {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
-          "@type": "GeoCoordinates",
-          "latitude": "43.2557",
-          "longitude": "-79.8711"
-        },
-        "geoRadius": "60000"
-      },
-      "serviceArea": [
-        "Hamilton", "Ancaster", "Dundas", "Burlington", "Oakville", 
-        "Mississauga", "Stoney Creek", "Grimsby", "St. Catharines",
-        "Niagara Falls", "Brantford", "Cambridge", "Guelph", "Waterdown",
-        "Caledonia", "Paris", "Milton", "Binbrook", "Freelton", "Lynden", 
-        "Rockton", "Carlisle", "Kilbride", "Mount Hope", "Copetown", 
-        "Flamborough", "Aldershot", "Kitchener", "Woodstock", "Ingersoll",
-        "Tillsonburg", "Simcoe", "Delhi", "Port Dover", "Jarvis",
-        "Hagersville", "Cayuga", "Dunnville", "Beamsville", "Vineland",
-        "Smithville", "Waterford"
-      ],
-      "provider": {
-        "@type": "LocalBusiness",
-        "name": "Canadian Fitness Repair",
-        "image": "https://www.canadianfitnessrepair.com/images/logo.png",
-        "telephone": "+1-289-925-7239",
-        "openingHours": "Mo-Su 06:00-23:00"
-      }
-    }
-    </script>
-  
-    <!-- Fonts & Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" /></noscript>
-  
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /></noscript>
-  
-    <!-- Local Stylesheets -->
-    <link href="headerfooter.css" rel="stylesheet" />
-    <link href="whatsapp.css" rel="stylesheet" />
-  
-    <!-- GTM Lazy Load -->
-    <script>
-      let gtmLoaded = false;
-      function loadGTM() {
-        if (gtmLoaded) return;
-        gtmLoaded = true;
-        (function (w, d, s, l, i) {
-          w[l] = w[l] || [];
-          w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-          var f = d.getElementsByTagName(s)[0],
-              j = d.createElement(s),
-              dl = l != 'dataLayer' ? '&l=' + l : '';
-          j.async = true;
-          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-          f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-PRFVRKQB');
-      }
-      window.addEventListener("scroll", loadGTM, { once: true });
-      window.addEventListener("mousemove", loadGTM, { once: true });
-      window.addEventListener("touchstart", loadGTM, { once: true });
-    </script>
-       <style>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --theme-color: #1a2a6c;
+            --accent-color: #ffcc00;
+            --bg-color: #0f1429;
+            --card-bg: rgba(30, 30, 46, 0.7);
+            --light-text: rgba(255, 255, 255, 0.85);
+            --text-color: #ffffff;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-          font-family: "Segoe UI", Roboto, sans-serif;
-          background-color: var(--bg-color);
-          color: var(--text-color);
-          min-height: 100vh;
-          overflow-x: hidden;
-          line-height: 1.6;
-          padding-top: 120px;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
         
         .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         /* Hero Section */
         .service-hero {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          padding: 10rem 2rem 3rem;
-          background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)), 
-                     url("/images/map-background.webp");
-          background-size: cover;
-          background-position: center;
-          min-height: 60vh;
-          position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 3rem;
+            background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)), 
+                       url("https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+            position: relative;
         }
         
         .service-hero h1 {
-          font-size: clamp(2.5rem, 5vw, 4rem);
-          margin-bottom: 1.5rem;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          line-height: 1.3;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
         
         .service-hero p {
-          font-size: clamp(1.25rem, 3vw, 1.5rem);
-          max-width: 800px;
-          margin-bottom: 1rem;
-          color: var(--light-text);
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            max-width: 800px;
+            margin-bottom: 1rem;
+            color: var(--light-text);
         }
         
         .highlight {
-          color: var(--accent-color);
-          font-weight: 700;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+        
+        .c-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-color);
+            color: var(--theme-color);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .c-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            background: #ffd83d;
         }
         
         /* Map Section */
         .map-section {
-          padding: 5rem 0;
-          text-align: center;
+            padding: 5rem 0;
+            text-align: center;
         }
         
         .section-title {
-          text-align: center;
-          font-size: clamp(1.8rem, 4vw, 2.5rem);
-          margin-bottom: 3rem;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          color: var(--theme-color);
-          position: relative;
-          padding-bottom: 1rem;
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            position: relative;
+            padding-bottom: 1rem;
         }
         
         .section-title::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 100px;
-          height: 4px;
-          background: var(--accent-color);
-          border-radius: 2px;
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
         }
         
         .map-container {
-          background: var(--card-bg);
-          border-radius: 16px;
-          padding: 30px;
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-          margin: 0 auto 40px;
-          max-width: 1000px;
-          position: relative;
-          overflow: hidden;
-          border: 1px solid rgba(93, 93, 255, 0.15);
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            margin: 0 auto 40px;
+            max-width: 1000px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(93, 93, 255, 0.15);
         }
         
-        .map-visual {
-          position: relative;
-          height: 500px;
-          background: #0f1429;
-          border-radius: 12px;
-          overflow: hidden;
-          margin: 20px auto;
+        .map-description {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
+        
+        /* Enhanced Map Visualization */
+        .map-visual {
+            position: relative;
+            height: 500px;
+            background: #0f1429;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .map-base {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            background: 
+                radial-gradient(circle at center, rgba(26, 42, 108, 0.8) 0%, rgba(15, 20, 41, 0.9) 70%);
+            border-radius: 50%;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7);
+        }
+        
+        .concentric-rings {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+        }
+        
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+        
+        .ring-1 { width: 60%; height: 60%; }
+        .ring-2 { width: 80%; height: 80%; }
+        .ring-3 { width: 100%; height: 100%; }
+        
+        .ring-label {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--theme-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-size: 0.9rem;
+        }
+        
+        .ring-label-1 { top: 20%; left: 20%; }
+        .ring-label-2 { top: 10%; left: 10%; }
+        .ring-label-3 { top: 0; left: 0; }
         
         .map-center {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 20px;
-          height: 20px;
-          background: #ff0000;
-          border-radius: 50%;
-          border: 3px solid white;
-          box-shadow: 0 0 0 4px #ff0000;
-          z-index: 10;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 25px;
+            height: 25px;
+            background: #ff0000;
+            border-radius: 50%;
+            border: 3px solid white;
+            z-index: 10;
+            animation: pulse 2s infinite;
         }
         
         .map-center::after {
-          content: "Hamilton";
-          position: absolute;
-          top: -40px;
-          left: 50%;
-          transform: translateX(-50%);
-          background: white;
-          padding: 5px 15px;
-          border-radius: 30px;
-          font-weight: 600;
-          color: var(--bg-color);
-          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-          white-space: nowrap;
-        }
-        
-        .map-radius {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 70%;
-          height: 70%;
-          border: 2px dashed var(--theme-color);
-          border-radius: 50%;
-          opacity: 0.7;
-        }
-        
-        .map-radius-label {
-          position: absolute;
-          top: 50%;
-          right: 15%;
-          transform: translateY(-50%);
-          background: var(--accent-color);
-          padding: 8px 15px;
-          border-radius: 30px;
-          font-weight: 600;
-          color: white;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            content: "Hamilton";
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--theme-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            white-space: nowrap;
         }
         
         .city-marker {
-          position: absolute;
-          width: 10px;
-          height: 10px;
-          background: var(--theme-color);
-          border-radius: 50%;
-          border: 2px solid white;
-          box-shadow: 0 0 0 2px var(--theme-color);
-          z-index: 5;
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px var(--accent-color);
+            z-index: 5;
+            transition: all 0.3s ease;
         }
         
         .city-label {
-          position: absolute;
-          font-size: 14px;
-          font-weight: 500;
-          color: white;
-          background: rgba(26, 42, 108, 0.8);
-          padding: 5px 12px;
-          border-radius: 20px;
-          white-space: nowrap;
-          z-index: 5;
-          backdrop-filter: blur(5px);
+            position: absolute;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            background: rgba(26, 42, 108, 0.9);
+            padding: 6px 15px;
+            border-radius: 30px;
+            white-space: nowrap;
+            z-index: 5;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            opacity: 0.9;
         }
         
-        .map-key {
-          display: flex;
-          justify-content: center;
-          gap: 30px;
-          margin: 30px 0;
-          flex-wrap: wrap;
+        .city-marker:hover, .city-label:hover {
+            transform: scale(1.2);
+            cursor: pointer;
         }
         
-        .key-item {
-          display: flex;
-          align-items: center;
-          font-size: 1.1rem;
+        .city-marker:hover + .city-label {
+            background: var(--accent-color);
+            color: var(--theme-color);
+            opacity: 1;
+            z-index: 20;
         }
         
-        .key-color {
-          width: 25px;
-          height: 25px;
-          margin-right: 10px;
-          border-radius: 4px;
+        .map-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(93, 93, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(93, 93, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
         
-        .primary-service {
-          background: var(--theme-color);
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
         }
         
-        .secondary-service {
-          background: var(--accent-color);
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
         
-        /* Cities List */
-        .cities-section {
-          padding: 5rem 0;
-          background: var(--card-bg);
+        .floating {
+            animation: float 4s ease-in-out infinite;
         }
-        
-        .cities-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 30px;
-          margin-top: 40px;
-        }
-        
-        .city-group {
-          background: rgba(30, 30, 46, 0.7);
-          border-radius: 16px;
-          padding: 25px;
-          box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-          border: 1px solid rgba(93, 93, 255, 0.1);
-          transition: var(--transition);
-        }
-        
-        .city-group:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 15px 30px rgba(93, 93, 255, 0.2);
-        }
-        
-        .city-group h3 {
-          color: var(--theme-color);
-          margin-bottom: 20px;
-          padding-bottom: 10px;
-          border-bottom: 2px solid var(--accent-color);
-          font-size: 1.5rem;
-        }
-        
-        .city-list {
-          list-style: none;
-          columns: 2;
-          -webkit-columns: 2;
-          -moz-columns: 2;
-        }
-        
-        .city-list li {
-          margin-bottom: 12px;
-          break-inside: avoid;
-        }
-        
-        .city-list a {
-          color: var(--light-text);
-          text-decoration: none;
-          transition: var(--transition);
-          display: flex;
-          align-items: center;
-          font-size: 1.1rem;
-        }
-        
-        .city-list a::before {
-          content: "→";
-          margin-right: 10px;
-          color: var(--accent-color);
-          font-weight: bold;
-          transition: var(--transition);
-        }
-        
-        .city-list a:hover {
-          color: white;
-        }
-        
-        .city-list a:hover::before {
-          transform: translateX(5px);
-        }
-  /* Grid background */
-  .map-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      linear-gradient(rgba(93, 93, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(93, 93, 255, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  
-  /* Regional grouping */
-  .region-group {
-    position: absolute;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    z-index: 4;
-    max-width: 200px;
-  }
-  
-  .region-title {
-    font-weight: 600;
-    color: #ffcc00;
-    margin-bottom: 8px;
-    font-size: 1.1rem;
-    text-align: center;
-  }
-  
-  .region-cities {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    font-size: 0.9rem;
-  }
-  
-  .region-cities span {
-    padding: 4px 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  /* Pulsing animation for Hamilton */
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-  }
-  
-  .map-center {
-    animation: pulse 2s infinite;
-  }
-  
-  /* City label hover effects */
-  .city-label {
-    transition: all 0.3s ease;
-  }
-  
-  .city-label:hover {
-    background: #ffcc00;
-    color: #1a2a6c;
-    transform: scale(1.05);
-    z-index: 20;
-  }
         
         /* Service Information */
         .service-info {
-          padding: 5rem 0;
-          text-align: center;
+            padding: 5rem 0;
+            text-align: center;
         }
         
         .info-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 30px;
-          max-width: 1200px;
-          margin: 40px auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto 0;
         }
         
         .info-card {
-          background: var(--card-bg);
-          border-radius: 16px;
-          padding: 30px;
-          text-align: center;
-          box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-          border-left: 4px solid var(--accent-color);
-          transition: var(--transition);
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border-left: 4px solid var(--accent-color);
+            transition: var(--transition);
         }
         
         .info-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 15px 35px rgba(93, 93, 255, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(93, 93, 255, 0.3);
         }
         
         .info-card i {
-          font-size: 3rem;
-          color: var(--theme-color);
-          margin-bottom: 20px;
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
         }
         
         .info-card h4 {
-          font-size: 1.5rem;
-          margin-bottom: 15px;
-          color: var(--theme-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
         }
         
         /* Call to Action */
         .cta-section {
-          background: linear-gradient(135deg, var(--theme-color), #3a3aff);
-          padding: 80px 0;
-          text-align: center;
-          position: relative;
-          overflow: hidden;
+            background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         
         .cta-section::before {
-          content: "";
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
-          transform: rotate(30deg);
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            transform: rotate(30deg);
         }
         
         .cta-section h2 {
-          font-size: clamp(2rem, 4vw, 3rem);
-          margin-bottom: 20px;
-          position: relative;
-          z-index: 1;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
         }
         
         .cta-section p {
-          max-width: 700px;
-          margin: 0 auto 30px;
-          font-size: 1.2rem;
-          position: relative;
-          z-index: 1;
-          color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .c-button {
-          text-decoration: none;
-        }
-  
-        
-        /* WhatsApp Widget */
-        .whatsapp-widget {
-          /* Styles from your existing whatsapp.css */
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+            color: rgba(255, 255, 255, 0.9);
         }
         
         /* Responsive Adjustments */
         @media (max-width: 992px) {
-          .map-visual {
-            height: 400px;
-          }
+            .map-visual {
+                height: 400px;
+            }
         }
         
         @media (max-width: 768px) {
-          .service-hero {
-            padding: 8rem 2rem 2rem;
-          }
-          
-          .city-list {
-            columns: 1;
-            -webkit-columns: 1;
-            -moz-columns: 1;
-          }
-          
-          .map-visual {
-            height: 350px;
-          }
+            .service-hero {
+                padding: 8rem 2rem 2rem;
+            }
+            
+            .map-visual {
+                height: 350px;
+            }
         }
         
         @media (max-width: 480px) {
-          .map-visual {
-            height: 300px;
-          }
-          
-          .map-key {
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-          }
+            .map-visual {
+                height: 300px;
+            }
         }
-      </style>
-    <style>
-      /* Additions to existing styles */
-      .map-visual {
-        position: relative;
-        height: 600px; /* Increased height for better spacing */
-        background: #0f1429;
-        border-radius: 12px;
-        overflow: hidden;
-        margin: 20px auto;
-      }
-      
-      /* New grid background */
-      .map-grid {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: 
-          linear-gradient(rgba(93, 93, 255, 0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(93, 93, 255, 0.05) 1px, transparent 1px);
-        background-size: 40px 40px;
-        z-index: 1;
-      }
-      
-      /* Enhanced region groups */
-      .region-group {
-        position: absolute;
-        padding: 15px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        z-index: 4;
-        max-width: 200px;
-        transition: all 0.3s ease;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      }
-      
-      .region-group:hover {
-        background: rgba(255, 255, 255, 0.15);
-        transform: scale(1.05);
-        box-shadow: 0 12px 25px rgba(93, 93, 255, 0.3);
-      }
-      
-      .region-title {
-        font-weight: 600;
-        color: #ffcc00;
-        margin-bottom: 10px;
-        font-size: 1.2rem;
-        text-align: center;
-        padding-bottom: 5px;
-        border-bottom: 1px solid rgba(255, 204, 0, 0.3);
-      }
-      
-      .region-cities {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        font-size: 0.95rem;
-      }
-      
-      .region-cities span {
-        padding: 6px 10px;
-        background: rgba(26, 42, 108, 0.6);
-        border-radius: 8px;
-        text-align: center;
-        transition: all 0.3s ease;
-      }
-      
-      .region-cities span:hover {
-        background: rgba(58, 123, 213, 0.8);
-        transform: translateX(5px);
-      }
-      
-      /* Pulsing animation for Hamilton */
-      @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-        70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-      }
-      
-      .map-center {
-        animation: pulse 2s infinite;
-      }
-      
-      /* Floating animation */
-      @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-8px); }
-        100% { transform: translateY(0px); }
-      }
-      
-      .floating {
-        animation: float 4s ease-in-out infinite;
-      }
-      
-      /* Enhanced radius label */
-      .map-radius-label {
-        position: absolute;
-        top: 15%;
-        left: 85%;
-        transform: translate(-50%, -50%);
-        background: rgba(255, 255, 255, 0.9);
-        padding: 10px 20px;
-        border-radius: 30px;
-        font-weight: 600;
-        color: #1a2a6c;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        font-size: 1.1rem;
-        z-index: 10;
-      }
-      
-      /* Improved city markers */
-      .city-marker {
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        background: var(--theme-color);
-        border-radius: 50%;
-        border: 2px solid white;
-        box-shadow: 0 0 0 3px var(--theme-color);
-        z-index: 5;
-      }
-      
-      .city-label {
-        position: absolute;
-        font-size: 1.1rem;
-        font-weight: 500;
-        color: white;
-        background: rgba(26, 42, 108, 0.9);
-        padding: 8px 16px;
-        border-radius: 30px;
-        white-space: nowrap;
-        z-index: 5;
-        backdrop-filter: blur(5px);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        transition: all 0.3s ease;
-      }
-      
-      .city-label:hover {
-        background: #ffcc00;
-        color: #1a2a6c;
-        transform: scale(1.1);
-        z-index: 20;
-      }
-      
-      /* Responsive adjustments */
-      @media (max-width: 992px) {
-        .map-visual {
-          height: 500px;
-        }
-      }
-      
-      @media (max-width: 768px) {
-        .map-visual {
-          height: 450px;
-        }
-        
-        .map-radius-label {
-          top: 10%;
-          left: 80%;
-          font-size: 1rem;
-          padding: 8px 15px;
-        }
-        
-        .region-group {
-          max-width: 160px;
-          padding: 12px;
-        }
-        
-        .region-title {
-          font-size: 1.1rem;
-        }
-      }
-      
-      @media (max-width: 480px) {
-        .map-visual {
-          height: 400px;
-        }
-        
-        .map-radius-label {
-          top: 8%;
-          left: 75%;
-          font-size: 0.9rem;
-          padding: 6px 12px;
-        }
-        
-        .region-group {
-          max-width: 140px;
-          padding: 10px;
-        }
-        
-        .region-title {
-          font-size: 1rem;
-        }
-        
-        .region-cities {
-          font-size: 0.85rem;
-        }
-        
-        .city-label {
-          font-size: 1rem;
-          padding: 6px 12px;
-        }
-      }
     </style>
 </head>
 <body>
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PRFVRKQB" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    
-    <div id="header"></div>
-    
     <main>
         <!-- Hero Section -->
         <section class="service-hero">
@@ -802,297 +419,137 @@
             <div class="container">
                 <h2 class="section-title">Service Area Map</h2>
                 <div class="map-container">
-                    <p>Our technicians service all locations within the shaded region on the map below. This covers Hamilton and surrounding cities within approximately 60km.</p>
+                    <p class="map-description">Our technicians service all locations within the shaded region on the map below. This covers Hamilton and surrounding cities within approximately 60km. Whether you're in downtown Hamilton, Burlington, Oakville, or anywhere in between, we come to you for fast, reliable fitness equipment repairs.</p>
     
-    <div class="map-visual">
-        <div class="map-grid"></div>
-        <div class="map-center"></div>
-        <div class="map-radius"></div>
-        <div class="map-radius-label floating">60km Service Radius</div>
-        
-        <!-- Enhanced Regional Groups -->
-        <div class="region-group floating" style="top: 25%; left: 25%;">
-            <div class="region-title">Southwest Ontario</div>
-            <div class="region-cities">
-                <span>Guelph</span>
-                <span>Waterloo</span>
-                <span>Brantford</span>
-                <span>Cambridge</span>
+                    <div class="map-visual">
+                        <div class="map-base">
+                            <div class="map-grid"></div>
+                            <div class="concentric-rings">
+                                <div class="ring ring-1"></div>
+                                <div class="ring ring-2"></div>
+                                <div class="ring ring-3"></div>
+                                <div class="ring-label ring-label-1 floating">20km Radius</div>
+                                <div class="ring-label ring-label-2 floating">40km Radius</div>
+                                <div class="ring-label ring-label-3 floating">60km Radius</div>
+                            </div>
+                            
+                            <div class="map-center"></div>
+                            
+                            <!-- City Markers -->
+                            <div class="city-marker" style="top: 50%; left: 65%;">
+                                <div class="city-label" style="top: -30px; left: 0;">Burlington</div>
+                            </div>
+                            <div class="city-marker" style="top: 40%; left: 75%;">
+                                <div class="city-label" style="top: -30px; left: 0;">Oakville</div>
+                            </div>
+                            <div class="city-marker" style="top: 30%; left: 70%;">
+                                <div class="city-label" style="top: -30px; left: 0;">Mississauga</div>
+                            </div>
+                            <div class="city-marker" style="top: 60%; left: 65%;">
+                                <div class="city-label" style="top: 20px; left: 0;">Stoney Creek</div>
+                            </div>
+                            <div class="city-marker" style="top: 65%; left: 55%;">
+                                <div class="city-label" style="top: 20px; left: 0;">Grimsby</div>
+                            </div>
+                            <div class="city-marker" style="top: 70%; left: 50%;">
+                                <div class="city-label" style="top: 20px; left: 0;">St. Catharines</div>
+                            </div>
+                            <div class="city-marker" style="top: 35%; left: 35%;">
+                                <div class="city-label" style="top: -30px; left: 0;">Cambridge</div>
+                            </div>
+                            <div class="city-marker" style="top: 45%; left: 25%;">
+                                <div class="city-label" style="top: -30px; left: 0;">Brantford</div>
+                            </div>
+                            <div class="city-marker" style="top: 30%; left: 45%;">
+                                <div class="city-label" style="top: -30px; left: 0;">Guelph</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="map-key">
+                        <div class="key-item">
+                            <div class="key-color" style="background: #ff0000;"></div>
+                            <span>Hamilton (Service Center)</span>
+                        </div>
+                        <div class="key-item">
+                            <div class="key-color" style="background: #ffcc00;"></div>
+                            <span>Covered Cities</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
         
-        <div class="region-group floating" style="top: 25%; left: 75%;">
-            <div class="region-title">Greater Toronto</div>
-            <div class="region-cities">
-                <span>Brampton</span>
-                <span>Etobicoke</span>
-                <span>Georgesville</span>
-                <span>Lalton Hills</span>
+        <!-- Service Information -->
+        <section class="service-info">
+            <div class="container">
+                <h2 class="section-title">Service Coverage Details</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <i class="ri-map-pin-line"></i>
+                        <h4>Service Radius</h4>
+                        <p>We service all locations within a 60km radius of Hamilton, including both residential and commercial properties.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <i class="ri-time-line"></i>
+                        <h4>Same-Day Service</h4>
+                        <p>For locations within 30km of Hamilton, we offer same-day emergency service for most repair needs.</p>
+                    </div>
+                    
+                    <div class="city-group">
+                        <h3>Key Service Areas</h3>
+                        <ul class="city-list">
+                            <li>Hamilton Region</li>
+                            <li>Niagara Region</li>
+                            <li>Greater Toronto Area</li>
+                            <li>Southwestern Ontario</li>
+                            <li>Waterdown & Flamborough</li>
+                            <li>Brant County</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <i class="ri-building-line"></i>
+                        <h4>Commercial Accounts</h4>
+                        <p>Special service agreements available for commercial clients with multiple locations.</p>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
         
-        <div class="region-group floating" style="top: 70%; left: 25%;">
-            <div class="region-title">Hamilton Area</div>
-            <div class="region-cities">
-                <span>Sydney Creek</span>
-                <span>Vineland</span>
-                <span>Beansville</span>
-                <span>Waterdown</span>
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Need Fitness Equipment Repair?</h2>
+                <p>Our certified technicians are ready to help you with any fitness equipment repair needs throughout Hamilton and surrounding areas.</p>
+                <a href="tel:+12899257239" class="c-button">
+                    <i class="ri-phone-line"></i> Call Now: (289) 925-7239
+                </a>
             </div>
-        </div>
-        
-        <div class="region-group floating" style="top: 70%; left: 75%;">
-            <div class="region-title">Niagara Region</div>
-            <div class="region-cities">
-                <span>Niagara Falls</span>
-                <span>Welland</span>
-                <span>Grimsby</span>
-                <span>St. Catharines</span>
-            </div>
-        </div>
-        
-        <!-- Key City Markers -->
-        <div class="city-marker" style="top: 50%; left: 50%;"></div>
-        <div class="city-label" style="top: 45%; left: 50%;">Hamilton</div>
-        
-        <div class="city-marker" style="top: 30%; left: 65%;"></div>
-        <div class="city-label" style="top: 25%; left: 65%;">Brampton</div>
-        
-        <div class="city-marker" style="top: 65%; left: 55%;"></div>
-        <div class="city-label" style="top: 60%; left: 55%;">Niagara Falls</div>
-    </div>
+        </section>
+    </main>
     
-    <div class="map-key">
-        <div class="key-item">
-            <div class="key-color primary-service"></div>
-            <span>Primary Service Area (Hamilton + 20km)</span>
-        </div>
-        <div class="key-item">
-            <div class="key-color secondary-service"></div>
-            <span>Extended Service Area (20-60km from Hamilton)</span>
-        </div>
-    </div>
-    
-    <p>Whether you're in downtown Hamilton, Burlington, Oakville, or anywhere in between, we come to you for fast, reliable fitness equipment repairs.</p>
-</div>
-</div>
-</section>
-
-<!-- Cities List -->
-<section class="cities-section">
-<div class="container">
-<h2 class="section-title">Cities We Serve</h2>
-<div class="cities-container">
-    <div class="city-group">
-        <h3>Hamilton Region</h3>
-        <ul class="city-list">
-            <li><a href="treadmill-repair-hamilton.html">Hamilton</a></li>
-            <li><a href="ancaster.html">Ancaster</a></li>
-            <li><a href="dundas.html">Dundas</a></li>
-            <li><a href="stoney-creek.html">Stoney Creek</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Waterdown</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Binbrook</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Carlisle</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Freelton</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Lynden</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Milton</a></li>
-        </ul>
-    </div>
-    
-    <div class="city-group">
-        <h3>Niagara Region</h3>
-        <ul class="city-list">
-            <li><a href="treadmill-repair-hamilton.html">St. Catharines</a></li>
-            <li><a href="treadmill-repair-niagara.html">Niagara Falls</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Welland</a></li>
-            <li><a href="grimsby.html">Grimsby</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Beamsville</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Vineland</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Jordan</a></li>
-            <li><a href="treadmill-repair-niagara.html">Niagara-on-the-Lake</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Port Colborne</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Fort Erie</a></li>
-        </ul>
-    </div>
-    
-    <div class="city-group">
-        <h3>Greater Toronto Area</h3>
-        <ul class="city-list">
-            <li><a href="treadmill-repair-burlington.html">Burlington</a></li>
-            <li><a href="treadmill-repair-oakville.html">Oakville</a></li>
-            <li><a href="treadmill-repair-mississauga.html">Mississauga</a></li>
-            <li><a href="treadmill-repair-brampton.html">Brampton</a></li>
-            <li><a href="treadmill-repair-mississauga.html">Halton Hills</a></li>
-            <li><a href="treadmill-repair-oakville.html">Georgetown</a></li>
-            <li><a href="treadmill-repair-mississauga.html">Milton</a></li>
-            <li><a href="treadmill-repair-mississauga.html">Etobicoke</a></li>
-            <li><a href="treadmill-repair-toronto.html">Toronto (West End)</a></li>
-            <li><a href="treadmill-repair-toronto.html">Vaughan</a></li>
-        </ul>
-    </div>
-    
-    <div class="city-group">
-        <h3>Southwestern Ontario</h3>
-        <ul class="city-list">
-            <li><a href="treadmill-repair-cambridge.html">Brantford</a></li>
-            <li><a href="treadmill-repair-cambridge.html">Cambridge</a></li>
-            <li><a href="treadmill-repair-kitchener.html">Kitchener</a></li>
-            <li><a href="treadmill-repair-london.html">Waterloo</a></li>
-            <li><a href="treadmill-repair-cambridge.html">Guelph</a></li>
-            <li><a href="treadmill-repair-cambridge.html">Paris</a></li>
-            <li><a href="treadmill-repair-burlington.html">Woodstock</a></li>
-            <li><a href="treadmill-repair-cambridge.html">Ingersoll</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Ayr</a></li>
-            <li><a href="treadmill-repair-hamilton.html">New Hamburg</a></li>
-        </ul>
-    </div>
-</div>
-</div>
-</section>
-
-<!-- Service Information -->
-<section class="service-info">
-<div class="container">
-<h2 class="section-title">Service Coverage Details</h2>
-<div class="info-grid">
-    <div class="info-card">
-        <i class="ri-map-pin-line"></i>
-        <h4>Service Radius</h4>
-        <p>We service all locations within a 60km radius of Hamilton, including both residential and commercial properties.</p>
-    </div>
-    
-    <div class="info-card">
-        <i class="ri-time-line"></i>
-        <h4>Same-Day Service</h4>
-        <p>For locations within 30km of Hamilton, we offer same-day emergency service for most repair needs.</p>
-    </div>
-    
-    <div class="info-card">
-        <i class="ri-car-line"></i>
-        <h4>Travel Fees</h4>
-        <p>No travel fees within 20km of Hamilton. Standard travel fees apply beyond 20km.</p>
-    </div>
-    
-    <div class="info-card">
-        <i class="ri-building-line"></i>
-        <h4>Commercial Accounts</h4>
-        <p>Special service agreements available for commercial clients with multiple locations.</p>
-    </div>
-</div>
-</div>
-</section>
-
-<!-- Call to Action -->
-<section class="cta-section">
-<div class="container">
-<h2>Need Fitness Equipment Repair?</h2>
-<p>Our certified technicians are ready to help you with any fitness equipment repair needs throughout Hamilton and surrounding areas.</p>
-<a href="tel:+12899257239" class="c-button">
-    <i class="ri-phone-line"></i> Call Now: (289) 925-7239
-</a>
-</div>
-</section>
-
-<!-- WhatsApp Widget -->
-<section>
-<div class="whatsapp-widget" id="whatsappWidget">
-<div class="widget-header">
-    <div class="whatsapp-icon">
-        <i class="fab fa-whatsapp"></i>
-    </div>
-    <div class="header-text">
-        <h3>Canadian Fitness Repair</h3>
-        <p>Typically replies instantly</p>
-    </div>
-    <button class="close-btn" id="closeBtn">&times;</button>
-</div>
-<div class="chat-content" id="chatContent">
-    <div class="message received">
-        Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
-    </div>
-    <div class="message received">
-        We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with!
-    </div>
-    <div class="message sent">Great!.</div>
-</div>
-<div class="action-area">
-    <button class="whatsapp-btn" id="whatsappBtn">
-        <i class="fab fa-whatsapp"></i>
-        Chat on WhatsApp
-    </button>
-</div>
-</div>
-<div class="floating-btn pulse" id="floatingBtn">
-<i class="fab fa-whatsapp"></i>
-</div>
-</section>
-</main>
-
-<div id="footer"></div>
-<script defer src="menu.js"></script>
-    <script defer src="animations.js"></script>
-    <script defer src="whatsapp.js"></script>
-    <script defer src="headerfooter.js"></script>
     <script>
-        // Initialize WhatsApp widget
+        // Add animation to city markers
         document.addEventListener('DOMContentLoaded', function() {
-            const floatingBtn = document.getElementById('floatingBtn');
-            const whatsappWidget = document.getElementById('whatsappWidget');
-            const closeBtn = document.getElementById('closeBtn');
-            const whatsappBtn = document.getElementById('whatsappBtn');
+            const markers = document.querySelectorAll('.city-marker');
             
-            floatingBtn.addEventListener('click', function() {
-                whatsappWidget.style.display = 'block';
-                floatingBtn.style.display = 'none';
-            });
-            
-            closeBtn.addEventListener('click', function() {
-                whatsappWidget.style.display = 'none';
-                floatingBtn.style.display = 'block';
-            });
-            
-            whatsappBtn.addEventListener('click', function() {
-                window.open('https://wa.me/12899257239', '_blank');
-            });
-        });
-    </script>
-    <script>
-        // City marker hover effects
-        document.addEventListener('DOMContentLoaded', function() {
-          const markers = document.querySelectorAll('.city-marker');
-          
-          markers.forEach(marker => {
-            marker.addEventListener('mouseover', function() {
-              const label = this.nextElementSibling;
-              label.style.backgroundColor = '#ffcc00';
-              label.style.color = '#1a2a6c';
-              label.style.transform = 'scale(1.1)';
-            });
-            
-            marker.addEventListener('mouseout', function() {
-              const label = this.nextElementSibling;
-              label.style.backgroundColor = 'rgba(26, 42, 108, 0.9)';
-              label.style.color = 'white';
-              label.style.transform = 'scale(1)';
-            });
-          });
-        });
-    </script>    
-    <script>
-        // Add this script at the bottom of your existing scripts
-        document.addEventListener('DOMContentLoaded', function() {
-            // Region group hover effects
-            const regions = document.querySelectorAll('.region-group');
-            
-            regions.forEach(region => {
-                region.addEventListener('mouseover', function() {
-                    this.style.transform = 'scale(1.05)';
-                    this.style.boxShadow = '0 12px 25px rgba(255, 204, 0, 0.4)';
+            markers.forEach(marker => {
+                marker.addEventListener('mouseover', function() {
+                    const label = this.querySelector('.city-label');
+                    if (label) {
+                        label.style.backgroundColor = '#ffcc00';
+                        label.style.color = '#1a2a6c';
+                    }
                 });
                 
-                region.addEventListener('mouseout', function() {
-                    this.style.transform = 'scale(1)';
-                    this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.2)';
+                marker.addEventListener('mouseout', function() {
+                    const label = this.querySelector('.city-label');
+                    if (label) {
+                        label.style.backgroundColor = 'rgba(26, 42, 108, 0.9)';
+                        label.style.color = 'white';
+                    }
                 });
             });
         });
