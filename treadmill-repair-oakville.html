@@ -41,7 +41,6 @@
   <meta content="Professional treadmill repair services throughout the GTA. Same-day service for all fitness equipment." name="twitter:description"/>
   <meta content="https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80" name="twitter:image"/>
   <meta content="@canadianfitnessrepair" name="twitter:site"/>
-  <link href="https://www.canadianfitnessrepair.com/treadmill-repair-oakville" rel="canonical"/>
   <link href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🏃&lt;/text&gt;&lt;/svg&gt;" rel="icon"/>
   <title>
    Oakville Treadmill Repair | Certified Fitness Equipment Service | Canadian Fitness Repair
@@ -740,8 +739,46 @@
   <div id="footer">
   </div>
   <script>
-   // City tab functionality function showCity(city) { // Hide all city pages document.querySelectorAll('.city-page').forEach(page => { page.style.display = 'none'; }); // Show selected city page document.getElementById(`${city}-page`).style.display = 'block'; // Update active tab document.querySelectorAll('.city-tab').forEach(tab => { tab.classList.remove('active'); }); event.target.classList.add('active'); } // FAQ toggle functionality document.addEventListener('DOMContentLoaded', function () { const faqItems = document.querySelectorAll('.faq-item'); faqItems.forEach(item => { const question = item.querySelector('.faq-question'); question.addEventListener('click', () => { const isActive = item.classList.contains('active'); // Close all other FAQ items faqItems.forEach(faq => { if (faq !== item) { faq.classList.remove('active'); } }); // Toggle current item item.classList.toggle('active', !isActive); }); }); });
-  </script>
+    // City tab functionality
+    function showCity(city) {
+        // Hide all city pages
+        document.querySelectorAll('.city-page').forEach(page => {
+            page.style.display = 'none';
+        });
+        
+        // Show selected city page
+        document.getElementById(`${city}-page`).style.display = 'block';
+        
+        // Update active tab
+        document.querySelectorAll('.city-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        event.target.classList.add('active');
+    }
+    
+    // FAQ toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other FAQ items
+                faqItems.forEach(faq => {
+                    if (faq !== item) {
+                        faq.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active', !isActive);
+            });
+        });
+    });
+    </script>
   <script src="menu.js">
   </script>
   <section>
