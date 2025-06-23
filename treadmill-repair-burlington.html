@@ -740,8 +740,47 @@
   <div id="footer">
   </div>
   <script>
-   // City tab functionality function showCity(city) { // Hide all city pages document.querySelectorAll('.city-page').forEach(page => { page.style.display = 'none'; }); // Show selected city page document.getElementById(`${city}-page`).style.display = 'block'; // Update active tab document.querySelectorAll('.city-tab').forEach(tab => { tab.classList.remove('active'); }); event.target.classList.add('active'); } // FAQ toggle functionality document.addEventListener('DOMContentLoaded', function () { const faqItems = document.querySelectorAll('.faq-item'); faqItems.forEach(item => { const question = item.querySelector('.faq-question'); question.addEventListener('click', () => { const isActive = item.classList.contains('active'); // Close all other FAQ items faqItems.forEach(faq => { if (faq !== item) { faq.classList.remove('active'); } }); // Toggle current item item.classList.toggle('active', !isActive); }); }); });
-  </script>
+    // City tab functionality - fixed version
+    function showCity(city, element) {
+        // Hide all city pages
+        document.querySelectorAll('.city-page').forEach(page => {
+            page.style.display = 'none';
+        });
+        
+        // Show selected city page
+        document.getElementById(`${city}-page`).style.display = 'block';
+        
+        // Update active tab
+        document.querySelectorAll('.city-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        element.classList.add('active');
+    }
+    
+    // FAQ toggle functionality - fixed version
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other FAQ items
+                faqItems.forEach(faq => {
+                    if (faq !== item) {
+                        faq.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active', !isActive);
+            });
+        });
+    });
+    </script>
   <script src="menu.js">
   </script>
   <section>
