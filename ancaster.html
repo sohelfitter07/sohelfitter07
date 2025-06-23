@@ -116,7 +116,7 @@
        </i>
        Call Ancaster Techs: (289) 925-7239
       </a>
-      <a class="btn btn-secondary" href="#contact">
+      <a class="btn btn-secondary" href="https://canadianfitnessrepair.com/get-quote.html">
        <i class="fas fa-calendar-check">
        </i>
        Schedule Online
@@ -402,7 +402,7 @@
    <section class="partnership">
     <div class="container partner-container">
      <div class="partner-logo">
-      <img alt="Ancaster Fitness Centre" src="https://via.placeholder.com/300x150.png/1e40af/ffffff?text=Ancaster+Fitness+Centre"/>
+      <img alt="Ancaster Fitness Centre" src="https://tourismhamilton.com/media/Tiffany-Falls-5-web-custom.jpg"/>
      </div>
      <div class="partner-info">
       <h2 class="partner-name">
@@ -521,8 +521,37 @@
   <div id="footer">
   </div>
   <script>
-   // Simple animations for service cards document.addEventListener('DOMContentLoaded', function() { const serviceCards = document.querySelectorAll('.service-card'); serviceCards.forEach(card => { card.addEventListener('mouseenter', function() { this.style.transform = 'translateY(-10px)'; }); card.addEventListener('mouseleave', function() { this.style.transform = 'translateY(0)'; }); }); // Smooth scrolling for anchor links document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { e.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' }); }); }); });
-  </script>
+    // Simple animations for service cards
+    document.addEventListener('DOMContentLoaded', function() {
+        // Service card hover animations
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+    </script>
   <script src="menu.js">
   </script>
   <script src="animations.js">
@@ -574,7 +603,5 @@
     </i>
    </div>
   </section>
-  <script src="whatsapp.js">
-  </script>
  </body>
 </html>
