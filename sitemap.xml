@@ -1,81 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <!-- Total of 44 URLs -->
+    <!-- Home & Core Pages (Priority 0.9-1.0) -->
     <url>
-        <loc>https://canadianfitnessrepair.com/FAQ.html</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/aboutus.html</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/ancaster.html</loc>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/blog.html</loc>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/commercial-residential.html</loc>
-        <priority>0.7</priority>
+        <loc>https://canadianfitnessrepair.com/index.html</loc>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://canadianfitnessrepair.com/contactform.html</loc>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://canadianfitnessrepair.com/downtown-hamilton.html</loc>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/dundas.html</loc>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/elliptical-repair.html</loc>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/gallery.html</loc>
-        <priority>0.6</priority>
-    </url>
-    <url>
         <loc>https://canadianfitnessrepair.com/get-quote.html</loc>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://canadianfitnessrepair.com/grimsby.html</loc>
-        <priority>0.7</priority>
+        <loc>https://canadianfitnessrepair.com/services.html</loc>
+        <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://canadianfitnessrepair.com/hamilton-mountain.html</loc>
-        <priority>0.7</priority>
+        <loc>https://canadianfitnessrepair.com/treadmill-repair.html</loc>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Key Content Pages (Priority 0.8) -->
+    <url>
+        <loc>https://canadianfitnessrepair.com/aboutus.html</loc>
+        <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://canadianfitnessrepair.com/horizon-repair.html</loc>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/index.html</loc>
-        <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/inspection.html</loc>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/lifefitness-repair.html</loc>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/nordictrack-repair.html</loc>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/precor-repair.html</loc>
-        <priority>0.7</priority>
+        <loc>https://canadianfitnessrepair.com/FAQ.html</loc>
+        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://canadianfitnessrepair.com/preventative-maintenance.html</loc>
@@ -84,10 +38,6 @@
     <url>
         <loc>https://canadianfitnessrepair.com/pricingpackagespage.html</loc>
         <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://canadianfitnessrepair.com/relocation-assembly.html</loc>
-        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://canadianfitnessrepair.com/repairprocess.html</loc>
@@ -105,12 +55,65 @@
         <loc>https://canadianfitnessrepair.com/service-areas.html</loc>
         <priority>0.8</priority>
     </url>
+
+    <!-- Equipment Repair Pages (Priority 0.7) -->
     <url>
-        <loc>https://canadianfitnessrepair.com/services.html</loc>
-        <priority>0.9</priority>
+        <loc>https://canadianfitnessrepair.com/elliptical-repair.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/horizon-repair.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/lifefitness-repair.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/nordictrack-repair.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/precor-repair.html</loc>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://canadianfitnessrepair.com/sole-repair.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/commercial-residential.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/inspection.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/relocation-assembly.html</loc>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Location Pages (Priority 0.7) -->
+    <!-- Hamilton Region -->
+    <url>
+        <loc>https://canadianfitnessrepair.com/ancaster.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/downtown-hamilton.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/dundas.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/grimsby.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/hamilton-mountain.html</loc>
         <priority>0.7</priority>
     </url>
     <url>
@@ -122,11 +125,13 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://canadianfitnessrepair.com/treadmill-repair-brampton.html</loc>
+        <loc>https://canadianfitnessrepair.com/treadmill-repair-waterdown.html</loc>
         <priority>0.7</priority>
     </url>
+    
+    <!-- GTA & Surrounding Areas -->
     <url>
-        <loc>https://canadianfitnessrepair.com/treadmill-repair-brantford.html</loc>
+        <loc>https://canadianfitnessrepair.com/treadmill-repair-brampton.html</loc>
         <priority>0.7</priority>
     </url>
     <url>
@@ -170,15 +175,29 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://canadianfitnessrepair.com/treadmill-repair-waterdown.html</loc>
-        <priority>0.7</priority>
-    </url>
-    <url>
         <loc>https://canadianfitnessrepair.com/treadmill-repair-welland.html</loc>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://canadianfitnessrepair.com/treadmill-repair.html</loc>
-        <priority>0.9</priority>
+        <loc>https://canadianfitnessrepair.com/treadmill-repair-brantford.html</loc>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Supplemental Pages (Priority 0.5-0.6) -->
+    <url>
+        <loc>https://canadianfitnessrepair.com/blog.html</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/gallery.html</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/privacy-terms.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://canadianfitnessrepair.com/termsandconditions.html</loc>
+        <priority>0.5</priority>
     </url>
 </urlset>
