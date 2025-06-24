@@ -754,6 +754,22 @@
             margin-bottom: 20px;
             border: 1px solid var(--border);
         }
+        
+        /* Settings form */
+        .settings-form {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+        }
+        
+        .settings-form h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -802,7 +818,7 @@
                         <div class="icon">
                             <i class="fas fa-calendar-check"></i>
                         </div>
-                        <div class="value" id="total-appointments">5</div>
+                        <div class="value" id="total-appointments">0</div>
                         <div class="label">Total Appointments</div>
                     </div>
                     
@@ -810,7 +826,7 @@
                         <div class="icon">
                             <i class="fas fa-clock"></i>
                         </div>
-                        <div class="value" id="scheduled-count">1</div>
+                        <div class="value" id="scheduled-count">0</div>
                         <div class="label">Scheduled</div>
                     </div>
                     
@@ -818,15 +834,15 @@
                         <div class="icon">
                             <i class="fas fa-check-circle"></i>
                         </div>
-                        <div class="value" id="completed-count">1</div>
-                        <div class="label">Completed</div>
+                        <div class="value" id="released-count">0</div>
+                        <div class="label">Released</div>
                     </div>
                     
                     <div class="stat-card">
                         <div class="icon">
                             <i class="fas fa-tools"></i>
                         </div>
-                        <div class="value" id="inprogress-count">3</div>
+                        <div class="value" id="inprogress-count">0</div>
                         <div class="label">In Progress</div>
                     </div>
                 </div>
@@ -875,7 +891,7 @@
                     <div class="calendar-header">
                         <div class="calendar-nav">
                             <button id="prev-month"><i class="fas fa-chevron-left"></i> Prev</button>
-                            <h2 id="current-month-year">July 2023</h2>
+                            <h2 id="current-month-year">July 2020</h2>
                             <button id="next-month">Next <i class="fas fa-chevron-right"></i></button>
                         </div>
                     </div>
@@ -888,7 +904,7 @@
                         <h3>Calendar Summary</h3>
                         <div class="summary-grid">
                             <div class="summary-item">
-                                <div class="value" id="summary-total">5</div>
+                                <div class="value" id="summary-total">0</div>
                                 <div class="label">Total Appointments</div>
                             </div>
                             <div class="summary-item">
@@ -896,11 +912,11 @@
                                 <div class="label">Business Days</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value" id="summary-revenue">$370</div>
-                                <div class="label">Estimated Revenue</div>
+                                <div class="value" id="summary-revenue">$0</div>
+                                <div class="label">Total Revenue</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value" id="summary-utilization">68%</div>
+                                <div class="value" id="summary-utilization">0%</div>
                                 <div class="label">Utilization Rate</div>
                             </div>
                         </div>
@@ -916,19 +932,19 @@
                         <h3>Performance Metrics</h3>
                         <div class="summary-grid">
                             <div class="summary-item">
-                                <div class="value" id="current-appointments">5</div>
+                                <div class="value" id="current-appointments">0</div>
                                 <div class="label">Current Appointments</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value" id="monthly-completed">1</div>
-                                <div class="label">Completed This Month</div>
+                                <div class="value" id="monthly-released">0</div>
+                                <div class="label">Released This Month</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value" id="monthly-revenue">$150</div>
+                                <div class="value" id="monthly-revenue">$0</div>
                                 <div class="label">Monthly Revenue</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value" id="satisfaction-rate">92%</div>
+                                <div class="value" id="satisfaction-rate">0%</div>
                                 <div class="label">Satisfaction Rate</div>
                             </div>
                         </div>
@@ -953,7 +969,7 @@
                         </div>
                         <div class="status-step">
                             <div class="status-icon"><i class="fas fa-flag-checkered"></i></div>
-                            <div>Completed</div>
+                            <div>Released</div>
                         </div>
                     </div>
                 </div>
@@ -1022,26 +1038,8 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="equipment-type">Equipment Type</label>
-                            <select id="equipment-type" class="form-control" required>
-                                <option value="">Select Equipment</option>
-                                <option value="Treadmill">Treadmill</option>
-                                <option value="Elliptical">Elliptical</option>
-                                <option value="Exercise Bike">Exercise Bike</option>
-                                <option value="Rowing Machine">Rowing Machine</option>
-                                <option value="Strength Equipment">Strength Equipment</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="equipment-brand">Brand</label>
-                                <input type="text" id="equipment-brand" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="equipment-model">Model</label>
-                                <input type="text" id="equipment-model" class="form-control" required>
-                            </div>
+                            <label for="equipment">Equipment</label>
+                            <input type="text" id="equipment" class="form-control" required>
                         </div>
                         
                         <div class="form-group">
@@ -1080,19 +1078,13 @@
     <script>
         let editingAppointmentId = null;
         let chartInstance = null;
-        let currentMonth = new Date().getMonth();
-        let currentYear = new Date().getFullYear();
+        let currentMonth = 6; // July (0-based index)
+        let currentYear = 2020;
         let defaultPrice = 150; // Default service price
         let allowPastEdits = true; // Allow editing past appointments
 
-        // Appointment data structure
-        let appointments = [
-            { id: 1001, customer: "John Smith", equipment: "NordicTrack Treadmill", date: "Jul 15, 2023 - 10:00 AM", status: "released", issue: "Motor not running", price: 150 },
-            { id: 1002, customer: "Sarah Johnson", equipment: "ProForm Elliptical", date: "Jul 17, 2023 - 2:30 PM", status: "in_progress", issue: "Replace display panel", price: 220 },
-            { id: 1003, customer: "Mike Williams", equipment: "Life Fitness Bike", date: "Jul 18, 2023 - 9:00 AM", status: "in_progress", issue: "Waiting for replacement pedals", price: 95 },
-            { id: 1004, customer: "Jennifer Brown", equipment: "Bowflex Treadmill", date: "Jul 18, 2023 - 11:00 AM", status: "scheduled", issue: "Belt slipping during use", price: 0 },
-            { id: 1005, customer: "Robert Davis", equipment: "Sole Fitness Rower", date: "Jul 19, 2023 - 3:00 PM", status: "draft", issue: "Annual maintenance check", price: 0 }
-        ];
+        // Appointment data structure - now starts empty
+        let appointments = [];
 
         // Helper function to convert 12-hour time to 24-hour format
         function convertTo24Hour(time12) {
@@ -1105,6 +1097,28 @@
             if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
             
             return `${hours.padStart(2, '0')}:${minutes}`;
+        }
+        
+        // Helper function to parse appointment date string
+        function parseAppointmentDate(dateStr) {
+            const months = {
+                'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+                'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+            };
+            
+            // Handle different date formats
+            const parts = dateStr.split(/[\s,]+/).filter(Boolean);
+            if (parts.length < 3) return new Date(NaN);
+            
+            const monthName = parts[0];
+            const day = parseInt(parts[1]);
+            const year = parseInt(parts[2]);
+            
+            if (!months.hasOwnProperty(monthName) || isNaN(day) || isNaN(year)) {
+                return new Date(NaN);
+            }
+            
+            return new Date(year, months[monthName], day);
         }
 
         // Open edit modal with appointment data
@@ -1120,26 +1134,19 @@
             
             // Parse date and time
             const [datePart, timePart] = appointment.date.split(' - ');
-            const dateObj = new Date(datePart);
+            const dateObj = parseAppointmentDate(datePart);
             
             // Format date for input field (YYYY-MM-DD)
             const formattedDate = dateObj.toISOString().split('T')[0];
             document.getElementById('appointment-date').value = formattedDate;
             
             // Format time for input field (HH:MM)
-            const time24 = convertTo24Hour(timePart);
+            const time24 = timePart.includes('AM') || timePart.includes('PM') ? 
+                convertTo24Hour(timePart) : timePart;
             document.getElementById('appointment-time').value = time24;
             
-            // Parse equipment details
-            const equipmentParts = appointment.equipment.split(' ');
-            const lastPart = equipmentParts.pop();
-            const equipmentType = lastPart.replace(/[()]/g, '');
-            const model = equipmentParts.pop();
-            const brand = equipmentParts.join(' ');
-            
-            document.getElementById('equipment-brand').value = brand;
-            document.getElementById('equipment-model').value = model;
-            document.getElementById('equipment-type').value = equipmentType;
+            // Equipment
+            document.getElementById('equipment').value = appointment.equipment;
             
             document.getElementById('appointment-price').value = appointment.price || defaultPrice;
             document.getElementById('issue-description').value = appointment.issue || '';
@@ -1253,7 +1260,7 @@
             
             document.getElementById('total-appointments').textContent = total;
             document.getElementById('scheduled-count').textContent = scheduled;
-            document.getElementById('completed-count').textContent = released;
+            document.getElementById('released-count').textContent = released;
             document.getElementById('inprogress-count').textContent = inProgress;
         }
 
@@ -1305,6 +1312,35 @@
             tbody.querySelectorAll('.edit-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const id = parseInt(this.getAttribute('data-id'));
+                    
+                    // Check if editing past appointments is allowed
+                    if (!allowPastEdits) {
+                        const appointment = appointments.find(app => app.id === id);
+                        if (appointment) {
+                            const [dateStr] = appointment.date.split(' - ');
+                            const appointmentDate = parseAppointmentDate(dateStr);
+                            const today = new Date();
+                            
+                            // Create date objects without time for accurate comparison
+                            const appointmentDateOnly = new Date(
+                                appointmentDate.getFullYear(),
+                                appointmentDate.getMonth(),
+                                appointmentDate.getDate()
+                            );
+                            
+                            const todayOnly = new Date(
+                                today.getFullYear(),
+                                today.getMonth(),
+                                today.getDate()
+                            );
+                            
+                            if (appointmentDateOnly < todayOnly) {
+                                alert('Editing past appointments is disabled in settings.');
+                                return;
+                            }
+                        }
+                    }
+                    
                     openEditModal(id);
                 });
             });
@@ -1364,7 +1400,8 @@
         function updateCalendarSummary() {
             // Filter appointments for the current month
             const monthlyAppointments = appointments.filter(app => {
-                const appDate = new Date(app.date.split(' - ')[0]);
+                const [dateStr] = app.date.split(' - ');
+                const appDate = parseAppointmentDate(dateStr);
                 return appDate.getMonth() === currentMonth && 
                        appDate.getFullYear() === currentYear;
             });
@@ -1372,7 +1409,7 @@
             // Calculate business days for the month
             const businessDays = getBusinessDays(currentMonth, currentYear);
             
-            // Calculate revenue for completed appointments this month
+            // Calculate revenue for released appointments this month
             const monthlyRevenue = monthlyAppointments
                 .filter(app => app.status === 'released')
                 .reduce((sum, app) => sum + (app.price || 0), 0);
@@ -1383,7 +1420,8 @@
             document.getElementById('summary-revenue').textContent = `$${monthlyRevenue}`;
             
             // Utilization rate calculation
-            const utilizationRate = Math.min(100, Math.round((monthlyAppointments.length / (businessDays * 3)) * 100));
+            const utilizationRate = monthlyAppointments.length > 0 ? 
+                Math.min(100, Math.round((monthlyAppointments.length / (businessDays * 3)) * 100)) : 0;
             document.getElementById('summary-utilization').textContent = `${utilizationRate}%`;
         }
 
@@ -1391,7 +1429,8 @@
         function updatePerformanceMetrics() {
             // Filter appointments for the current month
             const monthlyAppointments = appointments.filter(app => {
-                const appDate = new Date(app.date.split(' - ')[0]);
+                const [dateStr] = app.date.split(' - ');
+                const appDate = parseAppointmentDate(dateStr);
                 return appDate.getMonth() === currentMonth && 
                        appDate.getFullYear() === currentYear;
             });
@@ -1404,8 +1443,9 @@
             
             // Update UI
             document.getElementById('current-appointments').textContent = appointments.length;
-            document.getElementById('monthly-completed').textContent = releasedThisMonth;
+            document.getElementById('monthly-released').textContent = releasedThisMonth;
             document.getElementById('monthly-revenue').textContent = `$${monthlyRevenue}`;
+            document.getElementById('satisfaction-rate').textContent = appointments.length > 0 ? '92%' : '0%';
         }
 
         // Render calendar
@@ -1448,7 +1488,8 @@
                 
                 // Add appointments to calendar
                 const appointmentsForDay = appointments.filter(app => {
-                    const appDate = new Date(app.date.split(' - ')[0]);
+                    const [dateStr] = app.date.split(' - ');
+                    const appDate = parseAppointmentDate(dateStr);
                     return appDate.getMonth() === currentMonth && 
                            appDate.getFullYear() === currentYear &&
                            appDate.getDate() === day;
@@ -1558,9 +1599,7 @@
             const phone = document.getElementById('customer-phone').value;
             const date = document.getElementById('appointment-date').value;
             const time = document.getElementById('appointment-time').value;
-            const equipmentType = document.getElementById('equipment-type').value;
-            const brand = document.getElementById('equipment-brand').value;
-            const model = document.getElementById('equipment-model').value;
+            const equipment = document.getElementById('equipment').value;
             const price = parseFloat(document.getElementById('appointment-price').value) || 0;
             const issue = document.getElementById('issue-description').value;
             const status = document.getElementById('appointment-status').value;
@@ -1586,7 +1625,7 @@
                         ...appointments[index],
                         customer: customerName,
                         phone: phone,
-                        equipment: `${brand} ${model} (${equipmentType})`,
+                        equipment: equipment,
                         date: `${formattedDate} - ${formattedTime}`,
                         price: price,
                         issue: issue,
@@ -1601,7 +1640,7 @@
                     id: newId,
                     customer: customerName,
                     phone: phone,
-                    equipment: `${brand} ${model} (${equipmentType})`,
+                    equipment: equipment,
                     date: `${formattedDate} - ${formattedTime}`,
                     price: price,
                     issue: issue,
@@ -1682,23 +1721,6 @@
             if (document.querySelector('.tab[data-tab="stats"]').classList.contains('active')) {
                 initChart();
             }
-            
-            // Add event delegation for edit buttons
-            const appointmentsBody = document.getElementById('appointments-body');
-            appointmentsBody.addEventListener('click', function(e) {
-                const editBtn = e.target.closest('.edit-btn');
-                const deleteBtn = e.target.closest('.delete-btn');
-                
-                if (editBtn) {
-                    const id = parseInt(editBtn.getAttribute('data-id'));
-                    openEditModal(id);
-                }
-                
-                if (deleteBtn) {
-                    const id = parseInt(deleteBtn.getAttribute('data-id'));
-                    deleteAppointment(id);
-                }
-            });
         });
     </script>
 </body>

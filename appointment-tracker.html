@@ -43,7 +43,7 @@
         
         header {
             background-color: var(--dark);
-            padding: 1rem 2rem;
+            padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -230,6 +230,7 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .btn {
@@ -265,6 +266,7 @@
             display: flex;
             border-bottom: 1px solid var(--border);
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .tab {
@@ -273,6 +275,7 @@
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
             color: var(--text-light);
+            flex-shrink: 0;
         }
         
         .tab.active {
@@ -298,6 +301,7 @@
             overflow: hidden;
             box-shadow: 0 4px 6px var(--shadow);
             border: 1px solid var(--border);
+            min-width: 800px;
         }
         
         .appointments-table th {
@@ -328,18 +332,19 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
+            white-space: nowrap;
         }
         
         .status-scheduled { background: rgba(93, 93, 255, 0.2); color: var(--primary); }
-        .status-diagnosis { background: rgba(155, 89, 182, 0.2); color: #9b59b6; }
-        .status-waiting { background: rgba(241, 196, 15, 0.2); color: #f39c12; }
-        .status-installation { background: rgba(52, 152, 219, 0.3); color: #2980b9; }
-        .status-completed { background: rgba(46, 204, 113, 0.2); color: var(--success); }
+        .status-draft { background: rgba(149, 165, 166, 0.2); color: #95a5a6; }
+        .status-released { background: rgba(46, 204, 113, 0.2); color: var(--success); }
+        .status-inprogress { background: rgba(52, 152, 219, 0.3); color: #2980b9; }
         .status-cancelled { background: rgba(231, 76, 60, 0.2); color: var(--danger); }
         
         .action-cell {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         
         .action-btn {
@@ -349,6 +354,9 @@
             cursor: pointer;
             font-size: 0.85rem;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .edit-btn { background: rgba(93, 93, 255, 0.1); color: var(--primary); }
@@ -364,15 +372,38 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
         }
         
         .calendar-nav button {
-            background: none;
-            border: 1px solid var(--border);
-            padding: 5px 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
-            color: var(--text-light);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .calendar-nav button:hover {
+            opacity: 0.9;
+        }
+        
+        .calendar-nav h2 {
+            min-width: 150px;
+            text-align: center;
+            font-size: 1.2rem;
         }
         
         .calendar-grid {
@@ -389,6 +420,7 @@
             border-radius: 5px;
             color: var(--text-light);
             border: 1px solid var(--border);
+            font-size: 0.9rem;
         }
         
         .calendar-day {
@@ -398,6 +430,7 @@
             min-height: 120px;
             padding: 10px;
             position: relative;
+            overflow: hidden;
         }
         
         .calendar-day.empty {
@@ -411,10 +444,13 @@
             right: 10px;
             font-weight: bold;
             color: var(--text-light);
+            font-size: 0.9rem;
         }
         
         .calendar-appointments {
             margin-top: 25px;
+            max-height: 80px;
+            overflow-y: auto;
         }
         
         .appointment-item {
@@ -425,6 +461,9 @@
             margin-bottom: 5px;
             font-size: 0.8rem;
             cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         /* Modal */
@@ -439,6 +478,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 15px;
         }
         
         .modal.active {
@@ -448,7 +488,7 @@
         .modal-content {
             background: var(--card-bg);
             border-radius: 10px;
-            width: 90%;
+            width: 100%;
             max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
@@ -461,10 +501,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            z-index: 10;
         }
         
         .modal-header h3 {
             color: var(--primary);
+            font-size: 1.5rem;
         }
         
         .close-modal {
@@ -515,6 +560,7 @@
             gap: 10px;
             padding: 20px;
             border-top: 1px solid var(--border);
+            flex-wrap: wrap;
         }
         
         /* Status Workflow */
@@ -523,6 +569,7 @@
             justify-content: space-between;
             margin: 30px 0;
             position: relative;
+            flex-wrap: wrap;
         }
         
         .status-workflow::before {
@@ -541,6 +588,8 @@
             z-index: 2;
             position: relative;
             width: 20%;
+            min-width: 70px;
+            margin-bottom: 20px;
         }
         
         .status-icon {
@@ -565,6 +614,16 @@
         }
         
         /* Responsive */
+        @media (max-width: 1200px) {
+            .calendar-day {
+                min-height: 100px;
+            }
+            
+            .appointment-item {
+                font-size: 0.75rem;
+            }
+        }
+        
         @media (max-width: 992px) {
             .app-container {
                 flex-direction: column;
@@ -583,6 +642,12 @@
                 display: flex;
                 overflow-x: auto;
                 padding-bottom: 10px;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            .nav-links::-webkit-scrollbar {
+                display: none;
             }
             
             .nav-links li {
@@ -600,6 +665,10 @@
                 border-left: none;
                 border-bottom: 3px solid var(--primary);
             }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, minmax(100px, 1fr));
+            }
         }
         
         @media (max-width: 768px) {
@@ -609,17 +678,14 @@
             }
             
             .stats-container {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
             
             .table-responsive {
                 display: block;
                 overflow-x: auto;
                 margin-bottom: 20px;
-            }
-            
-            .calendar-grid {
-                grid-template-columns: repeat(1, 1fr);
+                -webkit-overflow-scrolling: touch;
             }
             
             .dashboard-header {
@@ -629,15 +695,21 @@
             }
             
             .action-buttons {
-                flex-direction: column;
+                justify-content: center;
             }
             
             .tabs {
                 overflow-x: auto;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            .tabs::-webkit-scrollbar {
+                display: none;
             }
             
             .tab {
-                flex-shrink: 0;
+                padding: 10px 15px;
             }
             
             header {
@@ -645,11 +717,50 @@
             }
             
             .logo h1 {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, minmax(80px, 1fr));
+                gap: 5px;
+            }
+            
+            .calendar-day-header {
+                padding: 8px 5px;
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day {
+                min-height: 90px;
+                padding: 8px;
+            }
+            
+            .day-number {
+                top: 3px;
+                right: 5px;
+                font-size: 0.8rem;
+            }
+            
+            .calendar-appointments {
+                margin-top: 20px;
+                max-height: 65px;
+            }
+            
+            .appointment-item {
+                font-size: 0.7rem;
+                padding: 3px;
+            }
+            
+            .status-workflow {
+                gap: 10px;
+            }
+            
+            .status-step {
+                width: 18%;
             }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
             .main-content {
                 padding: 15px;
             }
@@ -659,16 +770,125 @@
             }
             
             .status-workflow {
-                flex-wrap: wrap;
-                gap: 15px;
+                gap: 5px;
             }
             
             .status-step {
-                width: 45%;
+                width: 30%;
+                min-width: 60px;
             }
             
             .user-info span {
                 display: none;
+            }
+            
+            .dashboard-header .user-info span {
+                display: none;
+            }
+            
+            .logo h1 {
+                font-size: 1.1rem;
+            }
+            
+            .logo i {
+                font-size: 1.4rem;
+            }
+            
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .calendar-nav {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .calendar-nav h2 {
+                min-width: 100%;
+                margin: 5px 0;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
+            
+            .calendar-day {
+                min-height: 70px;
+            }
+            
+            .day-number {
+                font-size: 0.7rem;
+            }
+            
+            .calendar-appointments {
+                margin-top: 15px;
+                max-height: 50px;
+            }
+            
+            .appointment-item {
+                font-size: 0.65rem;
+            }
+            
+            .modal-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .form-control {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .form-actions {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            
+            .calendar-day-header {
+                display: none;
+            }
+            
+            .calendar-day {
+                min-height: auto;
+                display: flex;
+                align-items: center;
+                padding: 10px 15px;
+            }
+            
+            .day-number {
+                position: static;
+                font-weight: bold;
+                margin-right: 15px;
+                min-width: 40px;
+            }
+            
+            .calendar-appointments {
+                margin-top: 0;
+                flex: 1;
+                max-height: none;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            .appointment-item {
+                flex: 1;
+                min-width: 120px;
+                font-size: 0.75rem;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: unset;
+                padding: 6px 8px;
             }
         }
         
@@ -678,6 +898,8 @@
             overflow-x: auto;
             margin-bottom: 20px;
             -webkit-overflow-scrolling: touch;
+            border-radius: 10px;
+            border: 1px solid var(--border);
         }
         
         footer {
@@ -701,6 +923,7 @@
             margin-bottom: 15px;
             border-bottom: 1px solid var(--border);
             padding-bottom: 10px;
+            font-size: 1.3rem;
         }
         
         .summary-grid {
@@ -726,6 +949,32 @@
         .summary-item .label {
             font-size: 0.9rem;
             color: var(--text-light);
+        }
+        
+        /* Chart container */
+        .chart-container {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+        
+        /* Settings form */
+        .settings-form {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+        }
+        
+        .settings-form h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            font-size: 1.5rem;
         }
     </style>
 </head>
@@ -791,8 +1040,8 @@
                         <div class="icon">
                             <i class="fas fa-check-circle"></i>
                         </div>
-                        <div class="value" id="completed-count">1</div>
-                        <div class="label">Completed</div>
+                        <div class="value" id="released-count">1</div>
+                        <div class="label">Released</div>
                     </div>
                     
                     <div class="stat-card">
@@ -819,6 +1068,7 @@
                     <div class="tab active" data-tab="list">List View</div>
                     <div class="tab" data-tab="calendar">Calendar View</div>
                     <div class="tab" data-tab="stats">Statistics</div>
+                    <div class="tab" data-tab="settings">Settings</div>
                 </div>
                 
                 <!-- Tab Content -->
@@ -832,65 +1082,12 @@
                                     <th>Equipment</th>
                                     <th>Date & Time</th>
                                     <th>Status</th>
+                                    <th>Price</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="appointments-body">
-                                <tr>
-                                    <td>#1001</td>
-                                    <td>John Smith</td>
-                                    <td>NordicTrack Treadmill</td>
-                                    <td>Jul 15, 2023 - 10:00 AM</td>
-                                    <td><span class="status-badge status-completed">Completed</span></td>
-                                    <td class="action-cell">
-                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
-                                        <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#1002</td>
-                                    <td>Sarah Johnson</td>
-                                    <td>ProForm Elliptical</td>
-                                    <td>Jul 17, 2023 - 2:30 PM</td>
-                                    <td><span class="status-badge status-installation">Final Installation</span></td>
-                                    <td class="action-cell">
-                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
-                                        <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#1003</td>
-                                    <td>Mike Williams</td>
-                                    <td>Life Fitness Bike</td>
-                                    <td>Jul 18, 2023 - 9:00 AM</td>
-                                    <td><span class="status-badge status-waiting">Waiting on Parts</span></td>
-                                    <td class="action-cell">
-                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
-                                        <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#1004</td>
-                                    <td>Jennifer Brown</td>
-                                    <td>Bowflex Treadmill</td>
-                                    <td>Jul 18, 2023 - 11:00 AM</td>
-                                    <td><span class="status-badge status-diagnosis">Initial Diagnosis</span></td>
-                                    <td class="action-cell">
-                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
-                                        <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#1005</td>
-                                    <td>Robert Davis</td>
-                                    <td>Sole Fitness Rower</td>
-                                    <td>Jul 19, 2023 - 3:00 PM</td>
-                                    <td><span class="status-badge status-scheduled">Scheduled</span></td>
-                                    <td class="action-cell">
-                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
-                                        <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                                <!-- Appointments will be populated dynamically -->
                             </tbody>
                         </table>
                     </div>
@@ -898,10 +1095,10 @@
                 
                 <div class="tab-content" id="calendar-view">
                     <div class="calendar-header">
-                        <h2>July 2023</h2>
                         <div class="calendar-nav">
-                            <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
-                            <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                            <button id="prev-month"><i class="fas fa-chevron-left"></i> Prev</button>
+                            <h2 id="current-month-year">July 2020</h2>
+                            <button id="next-month">Next <i class="fas fa-chevron-right"></i></button>
                         </div>
                     </div>
                     
@@ -913,19 +1110,19 @@
                         <h3>Calendar Summary</h3>
                         <div class="summary-grid">
                             <div class="summary-item">
-                                <div class="value">5</div>
+                                <div class="value" id="summary-total">5</div>
                                 <div class="label">Total Appointments</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value">3</div>
+                                <div class="value" id="summary-days">21</div>
                                 <div class="label">Business Days</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value">$1,230</div>
-                                <div class="label">Estimated Revenue</div>
+                                <div class="value" id="summary-revenue">$7,730</div>
+                                <div class="label">Total Revenue</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value">78%</div>
+                                <div class="value" id="summary-utilization">68%</div>
                                 <div class="label">Utilization Rate</div>
                             </div>
                         </div>
@@ -933,7 +1130,7 @@
                 </div>
                 
                 <div class="tab-content" id="stats-view">
-                    <div class="chart-container" style="height: 300px; margin-top: 20px;">
+                    <div class="chart-container" style="height: 300px;">
                         <canvas id="appointmentsChart"></canvas>
                     </div>
                     
@@ -941,19 +1138,19 @@
                         <h3>Performance Metrics</h3>
                         <div class="summary-grid">
                             <div class="summary-item">
-                                <div class="value">5</div>
+                                <div class="value" id="current-appointments">5</div>
                                 <div class="label">Current Appointments</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value">12</div>
-                                <div class="label">Completed This Month</div>
+                                <div class="value" id="monthly-released">1</div>
+                                <div class="label">Released This Month</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value">$5,670</div>
+                                <div class="value" id="monthly-revenue">$2,100</div>
                                 <div class="label">Monthly Revenue</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value">92%</div>
+                                <div class="value" id="satisfaction-rate">92%</div>
                                 <div class="label">Satisfaction Rate</div>
                             </div>
                         </div>
@@ -978,7 +1175,37 @@
                         </div>
                         <div class="status-step">
                             <div class="status-icon"><i class="fas fa-flag-checkered"></i></div>
-                            <div>Completed</div>
+                            <div>Released</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Tab -->
+                <div class="tab-content" id="settings-view">
+                    <div class="settings-form">
+                        <h2>System Settings</h2>
+                        <div class="form-group">
+                            <label for="company-name">Company Name</label>
+                            <input type="text" id="company-name" class="form-control" value="Canadian Fitness Repair">
+                        </div>
+                        <div class="form-group">
+                            <label for="default-price">Default Service Price ($)</label>
+                            <input type="number" id="default-price" class="form-control" value="150" min="0" step="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="business-hours">Business Hours</label>
+                            <input type="text" id="business-hours" class="form-control" value="9:00 AM - 6:00 PM">
+                        </div>
+                        <div class="form-group">
+                            <label for="enable-past-edits">Allow Editing Past Appointments</label>
+                            <select id="enable-past-edits" class="form-control">
+                                <option value="true" selected>Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn" id="reset-settings">Reset Defaults</button>
+                            <button class="btn btn-primary" id="save-settings">Save Settings</button>
                         </div>
                     </div>
                 </div>
@@ -989,7 +1216,7 @@
         <div class="modal" id="appointment-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>Add New Appointment</h3>
+                    <h3 id="modal-title">Add New Appointment</h3>
                     <button class="close-modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -1017,26 +1244,13 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="equipment-type">Equipment Type</label>
-                            <select id="equipment-type" class="form-control" required>
-                                <option value="">Select Equipment</option>
-                                <option value="Treadmill">Treadmill</option>
-                                <option value="Elliptical">Elliptical</option>
-                                <option value="Exercise Bike">Exercise Bike</option>
-                                <option value="Rowing Machine">Rowing Machine</option>
-                                <option value="Strength Equipment">Strength Equipment</option>
-                            </select>
+                            <label for="equipment">Equipment</label>
+                            <input type="text" id="equipment" class="form-control" required>
                         </div>
                         
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="equipment-brand">Brand</label>
-                                <input type="text" id="equipment-brand" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="equipment-model">Model</label>
-                                <input type="text" id="equipment-model" class="form-control" required>
-                            </div>
+                        <div class="form-group">
+                            <label for="appointment-price">Price ($)</label>
+                            <input type="number" id="appointment-price" class="form-control" min="0" step="5" value="150" required>
                         </div>
                         
                         <div class="form-group">
@@ -1047,11 +1261,11 @@
                         <div class="form-group">
                             <label for="appointment-status">Status</label>
                             <select id="appointment-status" class="form-control" required>
+                                <option value="draft">Draft (Not Confirmed)</option>
                                 <option value="scheduled">Scheduled</option>
-                                <option value="diagnosis">Initial Diagnosis</option>
-                                <option value="waiting">Waiting on Parts</option>
-                                <option value="installation">Final Parts Installation</option>
-                                <option value="completed">Completed</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="released">Released (Completed)</option>
+                                <option value="cancelled">Cancelled</option>
                             </select>
                         </div>
                     </form>
@@ -1069,523 +1283,697 @@
     </footer>
     <script>
         let editingAppointmentId = null;
+        let chartInstance = null;
+        let currentMonth = 6; // July (0-based index)
+        let currentYear = 2020;
+        let defaultPrice = 150; // Default service price
+        let allowPastEdits = true; // Allow editing past appointments
+        let inactivityTimer; // For session timeout
+    
+        // Appointment data structure
+        let appointments = [
+            { 
+                id: 1001, 
+                customer: "John Smith", 
+                equipment: "Treadmill Pro 3000", 
+                date: "Jul 15, 2020 - 10:00 AM", 
+                status: "released", 
+                issue: "Motor not running", 
+                price: 2100 
+            },
+            { 
+                id: 1002, 
+                customer: "Sarah Johnson", 
+                equipment: "Elliptical Master", 
+                date: "Jul 17, 2020 - 2:30 PM", 
+                status: "in_progress", 
+                issue: "Replace display panel", 
+                price: 5200 
+            },
+            { 
+                id: 1003, 
+                customer: "Mike Williams", 
+                equipment: "Cycling Bike Elite", 
+                date: "Jul 18, 2020 - 9:00 AM", 
+                status: "in_progress", 
+                issue: "Waiting for replacement pedals", 
+                price: 360 
+            },
+            { 
+                id: 1004, 
+                customer: "Jennifer Brown", 
+                equipment: "Rowing Machine Pro", 
+                date: "Jul 18, 2020 - 11:00 AM", 
+                status: "scheduled", 
+                issue: "Belt slipping during use", 
+                price: 50 
+            },
+            { 
+                id: 1005, 
+                customer: "Robert Davis", 
+                equipment: "Weight Bench System", 
+                date: "Jul 19, 2020 - 3:00 PM", 
+                status: "draft", 
+                issue: "Annual maintenance check", 
+                price: 20 
+            }
+        ];
+    
+        // ======================
+        // LOGOUT FUNCTIONALITY
+        // ======================
         
-
-// Appointment data structure
-let appointments = [
-    { id: 1001, customer: "John Smith", equipment: "NordicTrack Treadmill", date: "Jul 15, 2023 - 10:00 AM", status: "completed", issue: "Motor not running", revenue: 150 },
-    { id: 1002, customer: "Sarah Johnson", equipment: "ProForm Elliptical", date: "Jul 17, 2023 - 2:30 PM", status: "installation", issue: "Replace display panel", revenue: 220 },
-    { id: 1003, customer: "Mike Williams", equipment: "Life Fitness Bike", date: "Jul 18, 2023 - 9:00 AM", status: "waiting", issue: "Waiting for replacement pedals", revenue: 95 },
-    { id: 1004, customer: "Jennifer Brown", equipment: "Bowflex Treadmill", date: "Jul 18, 2023 - 11:00 AM", status: "diagnosis", issue: "Belt slipping during use", revenue: 0 },
-    { id: 1005, customer: "Robert Davis", equipment: "Sole Fitness Rower", date: "Jul 19, 2023 - 3:00 PM", status: "scheduled", issue: "Annual maintenance check", revenue: 0 }
-];
-
-// Helper function to convert 12-hour time to 24-hour format
-function convertTo24Hour(time12) {
-    if (!time12) return '';
-    
-    const [time, modifier] = time12.split(' ');
-    let [hours, minutes] = time.split(':');
-    
-    if (hours === '12') hours = '00';
-    if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
-    
-    return `${hours.padStart(2, '0')}:${minutes}`;
-}
-
-// Open edit modal with appointment data
-function openEditModal(appointmentId) {
-    const appointment = appointments.find(app => app.id === appointmentId);
-    if (!appointment) return;
-    
-    editingAppointmentId = appointmentId;
-    
-    // Fill form with appointment data
-    document.getElementById('customer-name').value = appointment.customer;
-    document.getElementById('customer-phone').value = appointment.phone || '';
-    
-    // Parse date and time
-    const [datePart, timePart] = appointment.date.split(' - ');
-    const dateObj = new Date(datePart);
-    
-    // Format date for input field (YYYY-MM-DD)
-    const formattedDate = dateObj.toISOString().split('T')[0];
-    document.getElementById('appointment-date').value = formattedDate;
-    
-    // Format time for input field (HH:MM)
-    const time24 = convertTo24Hour(timePart);
-    document.getElementById('appointment-time').value = time24;
-    
-    // Parse equipment details
-    const equipmentMatch = appointment.equipment.match(/(.+) (.+) \((.+)\)/);
-    if (equipmentMatch) {
-        document.getElementById('equipment-brand').value = equipmentMatch[1];
-        document.getElementById('equipment-model').value = equipmentMatch[2];
-        document.getElementById('equipment-type').value = equipmentMatch[3];
-    }
-    
-    document.getElementById('issue-description').value = appointment.issue || '';
-    document.getElementById('appointment-status').value = appointment.status;
-    
-    // Change button text
-    document.getElementById('save-appointment').textContent = 'Update Appointment';
-    
-    // Open modal
-    modal.classList.add('active');
-}
-
-// Tab functionality
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        // Remove active class from all tabs and content
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        
-        // Add active class to clicked tab
-        tab.classList.add('active');
-        
-        // Show corresponding content
-        const tabName = tab.getAttribute('data-tab');
-        document.getElementById(`${tabName}-view`).classList.add('active');
-        
-        // Initialize chart when stats tab is opened
-        if (tabName === 'stats') {
-            initChart();
+        function logout() {
+            if(confirm("Are you sure you want to logout? All unsaved changes will be lost.")) {
+                // Clear sensitive data from memory
+                appointments = [];
+                
+                // Redirect to login page
+                window.location.href = "admin-login.html";
+            }
         }
-        // Render calendar when calendar tab is opened
-        if (tabName === 'calendar') {
-            renderCalendar();
+        
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            // Set timeout for 30 minutes (1800000 ms)
+            inactivityTimer = setTimeout(logout, 1800000);
         }
-    });
-});
-
-// Sidebar navigation
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
         
-        // Remove active class from all links
-        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-        
-        // Add active class to clicked link
-        this.classList.add('active');
-        
-        const view = this.getAttribute('data-view');
-        if (view === 'calendar') {
-            document.querySelector('.tab[data-tab="calendar"]').click();
-        } else if (view === 'logout') {
-            alert('Logout functionality would go here');
-        } else {
-            document.querySelector('.tab[data-tab="list"]').click();
-        }
-    });
-});
-
-// Modal functionality
-const modal = document.getElementById('appointment-modal');
-const addBtn = document.getElementById('add-appointment');
-const closeBtn = document.querySelector('.close-modal');
-const cancelBtn = document.getElementById('cancel-appointment');
-
-addBtn.addEventListener('click', () => {
-    editingAppointmentId = null;
-    document.getElementById('save-appointment').textContent = 'Save Appointment';
-    
-    // Reset form and set current datetime
-    document.getElementById('appointment-form').reset();
-    
-    const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0];
-    document.getElementById('appointment-date').value = formattedDate;
-    
-    const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-    const hours = nextHour.getHours().toString().padStart(2, '0');
-    const minutes = nextHour.getMinutes().toString().padStart(2, '0');
-    document.getElementById('appointment-time').value = `${hours}:${minutes}`;
-    
-    modal.classList.add('active');
-});
-
-closeBtn.addEventListener('click', () => {
-    modal.classList.remove('active');
-});
-
-cancelBtn.addEventListener('click', () => {
-    modal.classList.remove('active');
-});
-
-// Close modal when clicking outside
-window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        modal.classList.remove('active');
-    }
-});
-
-// Update stats counts
-function updateStats() {
-    const total = appointments.length;
-    const scheduled = appointments.filter(app => app.status === 'scheduled').length;
-    const completed = appointments.filter(app => app.status === 'completed').length;
-    const inProgress = appointments.filter(app => 
-        app.status === 'diagnosis' || 
-        app.status === 'waiting' || 
-        app.status === 'installation'
-    ).length;
-    
-    document.getElementById('total-appointments').textContent = total;
-    document.getElementById('scheduled-count').textContent = scheduled;
-    document.getElementById('completed-count').textContent = completed;
-    document.getElementById('inprogress-count').textContent = inProgress;
-}
-
-// Render appointments table
-function renderAppointmentsTable() {
-    const tbody = document.getElementById('appointments-body');
-    tbody.innerHTML = '';
-    
-    appointments.forEach(app => {
-        const statusMap = {
-            scheduled: { text: 'Scheduled', class: 'status-scheduled' },
-            diagnosis: { text: 'Initial Diagnosis', class: 'status-diagnosis' },
-            waiting: { text: 'Waiting on Parts', class: 'status-waiting' },
-            installation: { text: 'Final Installation', class: 'status-installation' },
-            completed: { text: 'Completed', class: 'status-completed' }
-        };
-        
-        const statusInfo = statusMap[app.status] || { text: app.status, class: '' };
-        
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>#${app.id}</td>
-            <td>${app.customer}</td>
-            <td>${app.equipment}</td>
-            <td>${app.date}</td>
-            <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
-            <td class="action-cell">
-                <button class="action-btn edit-btn" data-id="${app.id}">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="action-btn delete-btn" data-id="${app.id}">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        `;
-        tbody.appendChild(row);
-    });
-    
-    // Add event listeners to delete buttons
-    tbody.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const id = parseInt(this.getAttribute('data-id'));
-            deleteAppointment(id);
-        });
-    });
-    
-    // Add event listeners to edit buttons
-    tbody.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const id = parseInt(this.getAttribute('data-id'));
-            openEditModal(id);
-        });
-    });
-}
-
-// Delete appointment
-function deleteAppointment(id) {
-    const index = appointments.findIndex(app => app.id === id);
-    if (index !== -1) {
-        appointments.splice(index, 1);
-        renderAppointmentsTable();
-        updateStats();
-        renderCalendar();
-        initChart();
-    }
-}
-
-// Render calendar
-function renderCalendar() {
-    const calendarGrid = document.getElementById('calendar-days');
-    calendarGrid.innerHTML = '';
-    
-    // Calendar headers
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    days.forEach(day => {
-        const header = document.createElement('div');
-        header.className = 'calendar-day-header';
-        header.textContent = day;
-        calendarGrid.appendChild(header);
-    });
-    
-    // Empty days for start of month
-    for (let i = 0; i < 6; i++) {
-        const emptyDay = document.createElement('div');
-        emptyDay.className = 'calendar-day empty';
-        calendarGrid.appendChild(emptyDay);
-    }
-    
-    // Calendar days
-    for (let day = 1; day <= 31; day++) {
-        const dayElement = document.createElement('div');
-        dayElement.className = 'calendar-day';
-        
-        const dayNumber = document.createElement('div');
-        dayNumber.className = 'day-number';
-        dayNumber.textContent = day;
-        dayElement.appendChild(dayNumber);
-        
-        // Add appointments to calendar
-        const appointmentsForDay = appointments.filter(app => {
-            const appDay = parseInt(app.date.split(' ')[1].replace(',', ''));
-            return appDay === day;
-        });
-        
-        if (appointmentsForDay.length > 0) {
-            const appointmentsContainer = document.createElement('div');
-            appointmentsContainer.className = 'calendar-appointments';
-            
-            appointmentsForDay.forEach(app => {
-                const appItem = document.createElement('div');
-                appItem.className = 'appointment-item';
-                appItem.textContent = `${app.customer.split(' ')[0]} - ${app.date.split(' - ')[1]}`;
-                appointmentsContainer.appendChild(appItem);
+        function setupLogout() {
+            // Add event listener to logout link
+            document.querySelector('.nav-links a[data-view="logout"]').addEventListener('click', function(e) {
+                e.preventDefault();
+                logout();
             });
             
-            dayElement.appendChild(appointmentsContainer);
+            // Reset timer on user activity
+            document.addEventListener('mousemove', resetInactivityTimer);
+            document.addEventListener('keypress', resetInactivityTimer);
+            document.addEventListener('click', resetInactivityTimer);
+            document.addEventListener('scroll', resetInactivityTimer);
+            
+            // Initialize timer
+            resetInactivityTimer();
         }
-        
-        calendarGrid.appendChild(dayElement);
-    }
-}
-
-// Initialize chart
-function initChart() {
-    const ctx = document.getElementById('appointmentsChart').getContext('2d');
     
-    // Destroy existing chart if it exists
-    if (window.chartInstance) {
-        window.chartInstance.destroy();
-    }
+        // Helper function to convert 12-hour time to 24-hour format
+        function convertTo24Hour(time12) {
+            if (!time12) return '';
+            
+            const [time, modifier] = time12.split(' ');
+            let [hours, minutes] = time.split(':');
+            
+            if (hours === '12') hours = '00';
+            if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
+            
+            return `${hours.padStart(2, '0')}:${minutes}`;
+        }
     
-    // Calculate status counts for chart
-    const scheduled = appointments.filter(app => app.status === 'scheduled').length;
-    const completed = appointments.filter(app => app.status === 'completed').length;
-    const inProgress = appointments.filter(app => 
-        app.status === 'diagnosis' || 
-        app.status === 'waiting' || 
-        app.status === 'installation'
-    ).length;
+        // Open edit modal with appointment data
+        function openEditModal(appointmentId) {
+            const appointment = appointments.find(app => app.id === appointmentId);
+            if (!appointment) return;
+            
+            editingAppointmentId = appointmentId;
+            
+            // Fill form with appointment data
+            document.getElementById('customer-name').value = appointment.customer;
+            document.getElementById('customer-phone').value = appointment.phone || '';
+            
+            // Parse date and time
+            const [datePart, timePart] = appointment.date.split(' - ');
+            const dateObj = new Date(datePart);
+            
+            // Format date for input field (YYYY-MM-DD)
+            const formattedDate = dateObj.toISOString().split('T')[0];
+            document.getElementById('appointment-date').value = formattedDate;
+            
+            // Format time for input field (HH:MM)
+            const time24 = timePart.includes('AM') || timePart.includes('PM') ? 
+                convertTo24Hour(timePart) : timePart;
+            document.getElementById('appointment-time').value = time24;
+            
+            document.getElementById('equipment').value = appointment.equipment;
+            
+            document.getElementById('appointment-price').value = appointment.price || defaultPrice;
+            document.getElementById('issue-description').value = appointment.issue || '';
+            document.getElementById('appointment-status').value = appointment.status;
+            
+            // Change button text
+            document.getElementById('modal-title').textContent = 'Edit Appointment';
+            document.getElementById('save-appointment').textContent = 'Update Appointment';
+            
+            // Open modal
+            modal.classList.add('active');
+        }
     
-    window.chartInstance = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Scheduled', 'Completed', 'In Progress'],
-            datasets: [{
-                data: [scheduled, completed, inProgress],
-                backgroundColor: [
-                    'rgba(93, 93, 255, 0.7)',
-                    'rgba(46, 204, 113, 0.7)',
-                    'rgba(52, 152, 219, 0.7)'
-                ],
-                borderColor: [
-                    'rgba(93, 93, 255, 1)',
-                    'rgba(46, 204, 113, 1)',
-                    'rgba(52, 152, 219, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#f0f0f0',
-                        font: {
-                            size: 12
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabName = tab.getAttribute('data-tab');
+                document.getElementById(`${tabName}-view`).classList.add('active');
+                
+                // Initialize chart when stats tab is opened
+                if (tabName === 'stats') {
+                    initChart();
+                }
+                // Render calendar when calendar tab is opened
+                if (tabName === 'calendar') {
+                    renderCalendar();
+                }
+            });
+        });
+    
+        // Sidebar navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                const view = this.getAttribute('data-view');
+                if (view === 'calendar') {
+                    document.querySelector('.tab[data-tab="calendar"]').click();
+                } else if (view === 'settings') {
+                    document.querySelector('.tab[data-tab="settings"]').click();
+                } else if (view === 'logout') {
+                    // Handled by setupLogout()
+                } else {
+                    document.querySelector('.tab[data-tab="list"]').click();
+                }
+            });
+        });
+    
+        // Modal functionality
+        const modal = document.getElementById('appointment-modal');
+        const addBtn = document.getElementById('add-appointment');
+        const closeBtn = document.querySelector('.close-modal');
+        const cancelBtn = document.getElementById('cancel-appointment');
+    
+        addBtn.addEventListener('click', () => {
+            editingAppointmentId = null;
+            document.getElementById('modal-title').textContent = 'Add New Appointment';
+            document.getElementById('save-appointment').textContent = 'Save Appointment';
+            
+            // Reset form and set current datetime
+            document.getElementById('appointment-form').reset();
+            
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('appointment-date').value = formattedDate;
+            
+            const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+            const hours = nextHour.getHours().toString().padStart(2, '0');
+            const minutes = nextHour.getMinutes().toString().padStart(2, '0');
+            document.getElementById('appointment-time').value = `${hours}:${minutes}`;
+            document.getElementById('appointment-price').value = defaultPrice;
+            
+            modal.classList.add('active');
+        });
+    
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+    
+        cancelBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+    
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    
+        // Update stats counts
+        function updateStats() {
+            const total = appointments.length;
+            const scheduled = appointments.filter(app => app.status === 'scheduled').length;
+            const released = appointments.filter(app => app.status === 'released').length;
+            const inProgress = appointments.filter(app => app.status === 'in_progress').length;
+            
+            document.getElementById('total-appointments').textContent = total;
+            document.getElementById('scheduled-count').textContent = scheduled;
+            document.getElementById('released-count').textContent = released;
+            document.getElementById('inprogress-count').textContent = inProgress;
+        }
+    
+        // Render appointments table
+        function renderAppointmentsTable() {
+            const tbody = document.getElementById('appointments-body');
+            tbody.innerHTML = '';
+            
+            appointments.forEach(app => {
+                const statusMap = {
+                    draft: { text: 'Draft (Not Confirmed)', class: 'status-draft' },
+                    scheduled: { text: 'Scheduled', class: 'status-scheduled' },
+                    in_progress: { text: 'In Progress', class: 'status-inprogress' },
+                    released: { text: 'Released (Completed)', class: 'status-released' },
+                    cancelled: { text: 'Cancelled', class: 'status-cancelled' }
+                };
+                
+                const statusInfo = statusMap[app.status] || { text: app.status, class: '' };
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>#${app.id}</td>
+                    <td>${app.customer}</td>
+                    <td>${app.equipment}</td>
+                    <td>${app.date}</td>
+                    <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
+                    <td>$${app.price || 0}</td>
+                    <td class="action-cell">
+                        <button class="action-btn edit-btn" data-id="${app.id}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" data-id="${app.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            // Add event listeners to delete buttons
+            tbody.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    deleteAppointment(id);
+                });
+            });
+            
+            // Add event listeners to edit buttons
+            tbody.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    
+                    // Check if editing past appointments is allowed
+                    if (!allowPastEdits) {
+                        const appointment = appointments.find(app => app.id === id);
+                        if (appointment) {
+                            const [dateStr] = appointment.date.split(' - ');
+                            const appointmentDate = new Date(dateStr);
+                            const today = new Date();
+                            
+                            if (appointmentDate < today) {
+                                alert('Editing past appointments is disabled in settings.');
+                                return;
+                            }
                         }
                     }
+                    
+                    openEditModal(id);
+                });
+            });
+        }
+    
+        // Delete appointment
+        function deleteAppointment(id) {
+            const index = appointments.findIndex(app => app.id === id);
+            if (index !== -1) {
+                appointments.splice(index, 1);
+                renderAppointmentsTable();
+                updateStats();
+                renderCalendar();
+                updateCalendarSummary();
+                updatePerformanceMetrics();
+                initChart();
+            }
+        }
+    
+        // Get number of days in a month
+        function getDaysInMonth(month, year) {
+            return new Date(year, month + 1, 0).getDate();
+        }
+    
+        // Get first day of month (0-6, Sun-Sat)
+        function getFirstDayOfMonth(month, year) {
+            return new Date(year, month, 1).getDay();
+        }
+    
+        // Calculate business days in a month
+        function getBusinessDays(month, year) {
+            const startDate = new Date(year, month, 1);
+            const endDate = new Date(year, month + 1, 0);
+            
+            let businessDays = 0;
+            let currentDay = new Date(startDate);
+            
+            while (currentDay <= endDate) {
+                const dayOfWeek = currentDay.getDay();
+                if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                    businessDays++;
+                }
+                currentDay.setDate(currentDay.getDate() + 1);
+            }
+            
+            return businessDays;
+        }
+    
+        // Format month/year for display
+        function formatMonthYear(month, year) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                            'July', 'August', 'September', 'October', 'November', 'December'];
+            return `${months[month]} ${year}`;
+        }
+    
+        // Update calendar summary
+        function updateCalendarSummary() {
+            // Filter appointments for the current month
+            const monthlyAppointments = appointments.filter(app => {
+                const appDate = new Date(app.date.split(' - ')[0]);
+                return appDate.getMonth() === currentMonth && 
+                       appDate.getFullYear() === currentYear;
+            });
+            
+            // Calculate business days for the month
+            const businessDays = getBusinessDays(currentMonth, currentYear);
+            
+            // Calculate revenue for released appointments this month
+            const monthlyRevenue = monthlyAppointments
+                .filter(app => app.status === 'released')
+                .reduce((sum, app) => sum + (app.price || 0), 0);
+            
+            // Update UI
+            document.getElementById('summary-total').textContent = monthlyAppointments.length;
+            document.getElementById('summary-days').textContent = businessDays;
+            document.getElementById('summary-revenue').textContent = `$${monthlyRevenue}`;
+            
+            // Utilization rate calculation
+            const utilizationRate = Math.min(100, Math.round((monthlyAppointments.length / (businessDays * 3)) * 100));
+            document.getElementById('summary-utilization').textContent = `${utilizationRate}%`;
+        }
+    
+        // Update performance metrics
+        function updatePerformanceMetrics() {
+            // Filter appointments for the current month
+            const monthlyAppointments = appointments.filter(app => {
+                const appDate = new Date(app.date.split(' - ')[0]);
+                return appDate.getMonth() === currentMonth && 
+                       appDate.getFullYear() === currentYear;
+            });
+            
+            // Calculate metrics
+            const releasedThisMonth = monthlyAppointments.filter(app => app.status === 'released').length;
+            const monthlyRevenue = monthlyAppointments
+                .filter(app => app.status === 'released')
+                .reduce((sum, app) => sum + (app.price || 0), 0);
+            
+            // Update UI
+            document.getElementById('current-appointments').textContent = appointments.length;
+            document.getElementById('monthly-released').textContent = releasedThisMonth;
+            document.getElementById('monthly-revenue').textContent = `$${monthlyRevenue}`;
+        }
+    
+        // Render calendar
+        function renderCalendar() {
+            const calendarGrid = document.getElementById('calendar-days');
+            calendarGrid.innerHTML = '';
+            
+            // Update month/year display
+            document.getElementById('current-month-year').textContent = formatMonthYear(currentMonth, currentYear);
+            
+            // Calendar headers
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-day-header';
+                header.textContent = day;
+                calendarGrid.appendChild(header);
+            });
+            
+            // Get first day of month and total days
+            const firstDay = getFirstDayOfMonth(currentMonth, currentYear);
+            const totalDays = getDaysInMonth(currentMonth, currentYear);
+            
+            // Empty days for start of month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day empty';
+                calendarGrid.appendChild(emptyDay);
+            }
+            
+            // Calendar days
+            for (let day = 1; day <= totalDays; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'day-number';
+                dayNumber.textContent = day;
+                dayElement.appendChild(dayNumber);
+                
+                // Add appointments to calendar
+                const appointmentsForDay = appointments.filter(app => {
+                    const appDate = new Date(app.date.split(' - ')[0]);
+                    return appDate.getMonth() === currentMonth && 
+                           appDate.getFullYear() === currentYear &&
+                           appDate.getDate() === day;
+                });
+                
+                if (appointmentsForDay.length > 0) {
+                    const appointmentsContainer = document.createElement('div');
+                    appointmentsContainer.className = 'calendar-appointments';
+                    
+                    appointmentsForDay.forEach(app => {
+                        const appItem = document.createElement('div');
+                        appItem.className = 'appointment-item';
+                        appItem.textContent = `${app.customer.split(' ')[0]} - ${app.date.split(' - ')[1]}`;
+                        appointmentsContainer.appendChild(appItem);
+                    });
+                    
+                    dayElement.appendChild(appointmentsContainer);
+                }
+                
+                calendarGrid.appendChild(dayElement);
+            }
+            
+            // Update calendar summary
+            updateCalendarSummary();
+        }
+    
+        // Initialize chart
+        function initChart() {
+            const ctx = document.getElementById('appointmentsChart').getContext('2d');
+            
+            // Destroy existing chart if it exists
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+            
+            // Calculate status counts for chart
+            const draft = appointments.filter(app => app.status === 'draft').length;
+            const scheduled = appointments.filter(app => app.status === 'scheduled').length;
+            const inProgress = appointments.filter(app => app.status === 'in_progress').length;
+            const released = appointments.filter(app => app.status === 'released').length;
+            const cancelled = appointments.filter(app => app.status === 'cancelled').length;
+            
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Draft', 'Scheduled', 'In Progress', 'Released', 'Cancelled'],
+                    datasets: [{
+                        data: [draft, scheduled, inProgress, released, cancelled],
+                        backgroundColor: [
+                            'rgba(149, 165, 166, 0.7)',
+                            'rgba(93, 93, 255, 0.7)',
+                            'rgba(52, 152, 219, 0.7)',
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(231, 76, 60, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(149, 165, 166, 1)',
+                            'rgba(93, 93, 255, 1)',
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(231, 76, 60, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
                 },
-                title: {
-                    display: true,
-                    text: 'Appointment Status Distribution',
-                    color: '#f0f0f0',
-                    font: {
-                        size: 16
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const label = context.label || '';
-                            const value = context.raw || 0;
-                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = Math.round((value / total) * 100);
-                            return `${label}: ${value} (${percentage}%)`;
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: '#f0f0f0',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Appointment Status Distribution',
+                            color: '#f0f0f0',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
                         }
                     }
                 }
+            });
+        }
+    
+        // Save appointment
+        document.getElementById('save-appointment').addEventListener('click', () => {
+            // Get form values
+            const customerName = document.getElementById('customer-name').value;
+            const phone = document.getElementById('customer-phone').value;
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('appointment-time').value;
+            const equipment = document.getElementById('equipment').value;
+            const price = parseFloat(document.getElementById('appointment-price').value) || 0;
+            const issue = document.getElementById('issue-description').value;
+            const status = document.getElementById('appointment-status').value;
+            
+            // Format date for display
+            const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+            
+            // Format time for display
+            const formattedTime = new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit'
+            });
+            
+            if (editingAppointmentId) {
+                // Update existing appointment
+                const index = appointments.findIndex(app => app.id === editingAppointmentId);
+                if (index !== -1) {
+                    appointments[index] = {
+                        ...appointments[index],
+                        customer: customerName,
+                        phone: phone,
+                        equipment: equipment,
+                        date: `${formattedDate} - ${formattedTime}`,
+                        price: price,
+                        issue: issue,
+                        status: status
+                    };
+                }
+                editingAppointmentId = null;
+            } else {
+                // Add new appointment
+                const newId = appointments.length > 0 ? Math.max(...appointments.map(a => a.id)) + 1 : 1001;
+                appointments.push({
+                    id: newId,
+                    customer: customerName,
+                    phone: phone,
+                    equipment: equipment,
+                    date: `${formattedDate} - ${formattedTime}`,
+                    price: price,
+                    issue: issue,
+                    status: status
+                });
             }
-        }
-    });
-}
-
-// Save appointment
-document.getElementById('save-appointment').addEventListener('click', () => {
-    // Get form values
-    const customerName = document.getElementById('customer-name').value;
-    const phone = document.getElementById('customer-phone').value;
-    const date = document.getElementById('appointment-date').value;
-    const time = document.getElementById('appointment-time').value;
-    const equipmentType = document.getElementById('equipment-type').value;
-    const brand = document.getElementById('equipment-brand').value;
-    const model = document.getElementById('equipment-model').value;
-    const issue = document.getElementById('issue-description').value;
-    const status = document.getElementById('appointment-status').value;
-    let revenue = 0;
-if (status === 'completed') {
-    revenue = 150; // Set your default revenue for completed appointments
-}
-    
-    // Format date for display
-    const formattedDate = new Date(date).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-    });
-    
-    // Format time for display
-    const formattedTime = new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit'
-    });
-    
-    if (editingAppointmentId) {
-        // Update existing appointment
-        const index = appointments.findIndex(app => app.id === editingAppointmentId);
-        if (index !== -1) {
-            appointments[index] = {
-                ...appointments[index],
-                customer: customerName,
-                phone: phone,
-                equipment: `${brand} ${model} (${equipmentType})`,
-                date: `${formattedDate} - ${formattedTime}`,
-                issue: issue,
-                status: status
-            };
-        }
-        editingAppointmentId = null;
-    } else {
-        // Add new appointment
-        const newId = appointments.length > 0 ? Math.max(...appointments.map(a => a.id)) + 1 : 1001;
-        appointments.push({
-            id: newId,
-            customer: customerName,
-            phone: phone,
-            equipment: `${brand} ${model} (${equipmentType})`,
-            date: `${formattedDate} - ${formattedTime}`,
-            issue: issue,
-            status: status
+            
+            // Update UI
+            renderAppointmentsTable();
+            updateStats();
+            renderCalendar();
+            updateCalendarSummary();
+            updatePerformanceMetrics();
+            initChart();
+            
+            // Close modal and reset form
+            modal.classList.remove('active');
+            document.getElementById('appointment-form').reset();
+            document.getElementById('save-appointment').textContent = 'Save Appointment';
         });
-    }
     
-    // Update UI
-    renderAppointmentsTable();
-    updateStats();
-    renderCalendar();
-    initChart();
+        // Month navigation
+        document.getElementById('prev-month').addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        });
+        
+        document.getElementById('next-month').addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        });
     
-    // Close modal and reset form
-    modal.classList.remove('active');
-    document.getElementById('appointment-form').reset();
-    document.getElementById('save-appointment').textContent = 'Save Appointment';
-});
-
-// Initialize the page
-document.addEventListener('DOMContentLoaded', () => {
-    // Set today's date as default in the form
-    const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0];
-    document.getElementById('appointment-date').value = formattedDate;
+        // Settings functionality
+        document.getElementById('save-settings').addEventListener('click', () => {
+            defaultPrice = parseFloat(document.getElementById('default-price').value) || 150;
+            allowPastEdits = document.getElementById('enable-past-edits').value === 'true';
+            alert('Settings saved successfully!');
+        });
     
-    // Set current time + 1 hour as default
-    const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-    const hours = nextHour.getHours().toString().padStart(2, '0');
-    const minutes = nextHour.getMinutes().toString().padStart(2, '0');
-    document.getElementById('appointment-time').value = `${hours}:${minutes}`;
+        document.getElementById('reset-settings').addEventListener('click', () => {
+            document.getElementById('company-name').value = "Canadian Fitness Repair";
+            document.getElementById('default-price').value = "150";
+            document.getElementById('business-hours').value = "9:00 AM - 6:00 PM";
+            document.getElementById('enable-past-edits').value = "true";
+            defaultPrice = 150;
+            allowPastEdits = true;
+        });
     
-    // Initial renders
-    renderAppointmentsTable();
-    updateStats();
-    renderCalendar();
-    
-    // Initialize chart if on stats tab
-    if (document.querySelector('.tab[data-tab="stats"]').classList.contains('active')) {
-        initChart();
-    }
-});
-
-function updateCalendarSummary() {
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
-    
-    // Filter appointments for current month
-    const monthlyAppointments = appointments.filter(app => {
-        const appDate = new Date(app.date.split(' - ')[0]);
-        return appDate.getMonth() === currentMonth && 
-               appDate.getFullYear() === currentYear;
-    });
-    
-    // Calculate business days
-    const startDate = new Date(currentYear, currentMonth, 1);
-    const endDate = new Date(currentYear, currentMonth + 1, 0);
-    
-    let businessDays = 0;
-    let currentDay = new Date(startDate);
-    
-    while (currentDay <= endDate) {
-        const dayOfWeek = currentDay.getDay();
-        if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-            businessDays++;
-        }
-        currentDay.setDate(currentDay.getDate() + 1);
-    }
-    
-    // Calculate revenue
-    const monthlyRevenue = monthlyAppointments
-        .filter(app => app.status === 'completed')
-        .reduce((sum, app) => sum + (app.revenue || 0), 0);
-    
-    // Update UI
-    document.getElementById('summary-total').textContent = monthlyAppointments.length;
-    document.getElementById('summary-days').textContent = businessDays;
-    document.getElementById('summary-revenue').textContent = `$${monthlyRevenue}`;
-    document.getElementById('summary-utilization').textContent = `78%`; // Simplified for demo
-}
-function updatePerformanceMetrics() {
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
-    
-    // Filter appointments for current month
-    const monthlyAppointments = appointments.filter(app => {
-        const appDate = new Date(app.date.split(' - ')[0]);
-        return appDate.getMonth() === currentMonth && 
-               appDate.getFullYear() === currentYear;
-    });
-    
-    const completedThisMonth = monthlyAppointments.filter(app => app.status === 'completed').length;
-    const monthlyRevenue = monthlyAppointments
-        .filter(app => app.status === 'completed')
-        .reduce((sum, app) => sum + (app.revenue || 0), 0);
-    
-    // Update UI
-    document.getElementById('current-appointments').textContent = appointments.length;
-    document.getElementById('monthly-completed').textContent = completedThisMonth;
-    document.getElementById('monthly-revenue').textContent = `$${monthlyRevenue}`;
-}
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set today's date as default in the form
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('appointment-date').value = formattedDate;
+            
+            // Set current time + 1 hour as default
+            const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+            const hours = nextHour.getHours().toString().padStart(2, '0');
+            const minutes = nextHour.getMinutes().toString().padStart(2, '0');
+            document.getElementById('appointment-time').value = `${hours}:${minutes}`;
+            
+            // Initial renders
+            renderAppointmentsTable();
+            updateStats();
+            renderCalendar();
+            updateCalendarSummary();
+            updatePerformanceMetrics();
+            
+            // Initialize chart if on stats tab
+            if (document.querySelector('.tab[data-tab="stats"]').classList.contains('active')) {
+                initChart();
+            }
+            
+            // Setup logout functionality
+            setupLogout();
+        });
     </script>
-
 </body>
 </html>
