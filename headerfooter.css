@@ -43,7 +43,7 @@ header {
 body.has-banner {
   padding-top: 160px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 767px) {
   .discount-banner {
     font-size: 1rem;
     padding: 10px 30px;
@@ -460,7 +460,7 @@ footer {
     font-size: 0.75rem;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 767px) {
   body {
     padding-top: 100px;
   }
@@ -630,7 +630,7 @@ footer {
     transform: rotate(180deg);
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 767px) {
   .dropdown.active .dropdown-toggle-icon i {
     transform: rotate(180deg);
   }
@@ -719,7 +719,7 @@ footer {
     gap: 0.5rem 1rem;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 767px) {
   .footertop {
     flex-direction: column;
     gap: 2rem;
@@ -752,181 +752,5 @@ footer {
   }
   .footer-neighborhoods h3 {
     font-size: 1.1rem;
-  }
-}
-@media (min-width: 768px) and (max-width: 1024px) {
-  #navbottom {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 10px 20px;
-  }
-
-  .c-button-nav {
-    font-size: 0.85rem;
-    padding: 0.5rem 1rem;
-  }
-}
-/* ADD THESE NEW STYLES AT THE BOTTOM */
-/* Improved menu styling */
-.navbarList {
-  gap: 0.1rem !important;
-}
-
-.navbarList a {
-  padding: 10px 12px !important;
-  font-size: 0.9rem !important;
-}
-
-.menu-text {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-#quote {
-  margin-left: 15px;
-}
-
-.c-button-nav {
-  padding: 0.7rem 1.2rem !important;
-  font-size: 0.95rem !important;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.quotetext {
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-/* Better dropdown positioning */
-.dropdown-content {
-  min-width: 200px;
-}
-
-/* Mobile menu improvements */
-@media (max-width: 1024px) {
-  .navbarList {
-    width: 100%;
-    padding: 80px 20px 20px;
-  }
-  
-  .navbarList a {
-    padding: 12px 15px !important;
-    font-size: 1rem !important;
-  }
-  
-  .c-button-nav {
-    padding: 0.8rem 1.2rem !important;
-    font-size: 1rem !important;
-  }
-  
-  .hamburger .close-icon {
-    top: 25px;
-    right: 25px;
-  }
-}
-
-/* Desktop optimization */
-@media (min-width: 1025px) {
-  .navbarList {
-    gap: 0.2rem !important;
-  }
-  
-  .navbarList a {
-    padding: 10px 10px !important;
-    font-size: 0.85rem !important;
-  }
-  
-  .logo-text {
-    font-size: 1.4rem !important;
-  }
-  
-  .tagline {
-    font-size: 0.75rem !important;
-  }
-  
-  .c-button-nav {
-    padding: 0.7rem 1.2rem !important;
-    font-size: 0.9rem !important;
-  }
-}
-
-/* Extra small screens */
-@media (max-width: 480px) {
-  .logo-text {
-    font-size: 0.9rem !important;
-  }
-  
-  .tagline {
-    font-size: 0.6rem !important;
-  }
-  
-  .promo-item {
-    padding: 0 15px !important;
-  }
-  
-  .c-button-nav {
-    padding: 0.6rem 0.8rem !important;
-  }
-  
-  .quotetext {
-    font-size: 0.75rem;
-  }
-}
-/* Add this at the end of the file */
-@media (min-width: 1025px) and (max-width: 1178px) {
-  /* Optimize logo space */
-  #navlogo .logo-text {
-    font-size: 1.1rem !important;
-    line-height: 1.1;
-  }
-  
-  /* Hide tagline to save space */
-  .tagline {
-    display: none;
-  }
-  
-  /* Adjust menu items */
-  .navbarList a {
-    padding: 10px 8px !important;
-    font-size: 0.75rem !important;
-  }
-  
-  /* Compact button style */
-  .c-button-nav {
-    padding: 0.6rem 0.8rem !important;
-    font-size: 0.8rem !important;
-  }
-  
-  .quotetext {
-    font-size: 0.75rem;
-  }
-  
-  /* Add space before button */
-  #quote {
-    margin-left: 10px;
-  }
-}
-
-/* Add this for better button spacing */
-@media (min-width: 1025px) {
-  #navbottom {
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
-  #navlogo {
-    flex: 0 1 auto;
-  }
-  
-  .navbar {
-    flex: 1 1 auto;
-    justify-content: center;
-  }
-  
-  #quote {
-    flex: 0 0 auto;
-    margin-left: auto;
   }
 }
