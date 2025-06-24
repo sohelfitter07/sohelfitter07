@@ -58,7 +58,7 @@ body.has-banner {
 .promo-line {
   background: linear-gradient(90deg, var(--accent-color), #ff8e8e);
   color: var(--bg-color);
-  padding: 5px 0;
+  padding: 5px 0 5px 0;
   overflow: hidden;
   position: relative;
   font-weight: 600;
@@ -80,7 +80,7 @@ body.has-banner {
 }
 @keyframes promo-scroll {
   0% {
-    transform: translateX(65%);
+    transform: translateX(50%);
   }
   100% {
     transform: translateX(-100%);
@@ -868,6 +868,9 @@ footer {
     gap: 0.8rem;
     font-size: 0.85rem;
   }
+  .navbarList {
+    padding-bottom: 20px; /* Add space at bottom */
+  }
 }
 
 @media (max-width: 480px) {
@@ -878,5 +881,72 @@ footer {
   
   .footer-contact {
     padding: 12px;
+  }
+}
+/* Admin Portal Styles */
+.admin-button {
+  position: absolute;
+  top: 3px;
+  right: 20px;
+  background: none;
+  color: var(--theme-color) !important;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 1001; /* Increased z-index */
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.admin-button:hover {
+  background: #1a252f;
+  transform: translateY(-2px);
+}
+
+/* Mobile Admin Link */
+.mobile-admin-item {
+  display: none; /* Hidden by default */
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.mobile-admin-link {
+  display: block;
+  background: #2c3e50;
+  color: white !important;
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .admin-button {
+    display: none;
+  }
+  
+  .mobile-admin-item {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-admin-item {
+    display: none !important;
+  }
+}
+/* Ensure mobile menu has space at bottom */
+@media (max-width: 767px) {
+  .navbarList {
+    padding-bottom: 20px;
   }
 }

@@ -1,47 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Favicon Universal Support -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-
-    <!-- Apple/Safari Support -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <!-- GTM Lazy Load -->
-    <script>
-        let gtmLoaded = false;
-        function loadGTM() {
-          if (gtmLoaded) return;
-          gtmLoaded = true;
-          (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-          })(window, document, 'script', 'dataLayer', 'GTM-PRFVRKQB');
-        }
-        window.addEventListener("scroll", loadGTM, { once: true });
-        window.addEventListener("mousemove", loadGTM, { once: true });
-        window.addEventListener("touchstart", loadGTM, { once: true });
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Tracker | Canadian Fitness Repair</title>
-    <!-- Fonts & Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" /></noscript>
-     
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /></noscript>
-     
-    <!-- Local Stylesheets -->
-    <link href="headerfooter.css" rel="stylesheet" />
-    <link href="whatsapp.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -77,22 +40,64 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        main{
-            padding-top: 14rem;
-            min-height: 100vh;  
-        }
-
-        .app-container {
+        
+        header {
+            background-color: var(--dark);
+            padding: 1rem 2rem;
             display: flex;
-            flex: 1;
-            min-height: 0;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border-bottom: 1px solid var(--border);
         }
         
-        /* Main content area with header spacing */
-        .main-content-container {
+        .logo {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        main {
+            padding-top: 6rem;
             flex: 1;
+            padding-bottom: 2rem;
+        }
+        
+        .app-container {
+            display: flex;
+            min-height: calc(100vh - 8rem);
         }
         
         /* Sidebar */
@@ -136,6 +141,7 @@
             text-decoration: none;
             transition: all 0.3s;
             gap: 10px;
+            cursor: pointer;
         }
         
         .nav-links li a:hover, 
@@ -171,24 +177,6 @@
         .dashboard-header h1 {
             color: var(--primary);
             font-size: 1.8rem;
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
         }
         
         /* Stats Cards */
@@ -624,578 +612,980 @@
                 grid-template-columns: 1fr;
             }
             
-            .appointments-table {
+            .table-responsive {
                 display: block;
                 overflow-x: auto;
+                margin-bottom: 20px;
             }
             
             .calendar-grid {
                 grid-template-columns: repeat(1, 1fr);
             }
+            
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+            }
+            
+            .tab {
+                flex-shrink: 0;
+            }
+            
+            header {
+                padding: 0.8rem 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 15px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .status-workflow {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .status-step {
+                width: 45%;
+            }
+            
+            .user-info span {
+                display: none;
+            }
+        }
+        
+        /* Table wrapper for horizontal scrolling */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        footer {
+            background: var(--dark);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+        
+        .data-summary {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+        }
+        
+        .data-summary h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .summary-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .summary-item .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .summary-item .label {
+            font-size: 0.9rem;
+            color: var(--text-light);
         }
     </style>
 </head>
 <body>
-    <div id="header"></div>
+    <header>
+        <div class="logo">
+            <i class="fas fa-dumbbell"></i>
+            <h1>Fitness Repair Tracker</h1>
+        </div>
+        <div class="user-info">
+            <div class="user-avatar">CF</div>
+            <span>Admin</span>
+        </div>
+    </header>
     
-<main>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h2><i class="fas fa-dumbbell"></i> Fitness Repair Tracker</h2>
+    <main>
+        <div class="app-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2><i class="fas fa-dumbbell"></i> Fitness Repair Tracker</h2>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#" class="active" data-view="dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#" data-view="calendar"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
+                    <li><a href="#" data-view="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="#" data-view="customers"><i class="fas fa-users"></i> Customers</a></li>
+                    <li><a href="#" data-view="reports"><i class="fas fa-chart-line"></i> Reports</a></li>
+                    <li><a href="#" data-view="help"><i class="fas fa-question-circle"></i> Help</a></li>
+                    <li><a href="#" data-view="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
             </div>
-            <ul class="nav-links">
-                <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a href="#"><i class="fas fa-users"></i> Customers</a></li>
-                <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
-                <li><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
-                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-            </ul>
+            
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="dashboard-header">
+                    <h1>Appointment Dashboard</h1>
+                    <div class="user-info">
+                        <div class="user-avatar">CF</div>
+                        <span>Admin</span>
+                    </div>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="value" id="total-appointments">5</div>
+                        <div class="label">Total Appointments</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="value" id="scheduled-count">1</div>
+                        <div class="label">Scheduled</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="value" id="completed-count">1</div>
+                        <div class="label">Completed</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="value" id="inprogress-count">3</div>
+                        <div class="label">In Progress</div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="add-appointment">
+                        <i class="fas fa-plus"></i> Add Appointment
+                    </button>
+                    <button class="btn btn-success">
+                        <i class="fas fa-print"></i> Print Schedule
+                    </button>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" data-tab="list">List View</div>
+                    <div class="tab" data-tab="calendar">Calendar View</div>
+                    <div class="tab" data-tab="stats">Statistics</div>
+                </div>
+                
+                <!-- Tab Content -->
+                <div class="tab-content active" id="list-view">
+                    <div class="table-responsive">
+                        <table class="appointments-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Customer</th>
+                                    <th>Equipment</th>
+                                    <th>Date & Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointments-body">
+                                <tr>
+                                    <td>#1001</td>
+                                    <td>John Smith</td>
+                                    <td>NordicTrack Treadmill</td>
+                                    <td>Jul 15, 2023 - 10:00 AM</td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td class="action-cell">
+                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#1002</td>
+                                    <td>Sarah Johnson</td>
+                                    <td>ProForm Elliptical</td>
+                                    <td>Jul 17, 2023 - 2:30 PM</td>
+                                    <td><span class="status-badge status-installation">Final Installation</span></td>
+                                    <td class="action-cell">
+                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#1003</td>
+                                    <td>Mike Williams</td>
+                                    <td>Life Fitness Bike</td>
+                                    <td>Jul 18, 2023 - 9:00 AM</td>
+                                    <td><span class="status-badge status-waiting">Waiting on Parts</span></td>
+                                    <td class="action-cell">
+                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#1004</td>
+                                    <td>Jennifer Brown</td>
+                                    <td>Bowflex Treadmill</td>
+                                    <td>Jul 18, 2023 - 11:00 AM</td>
+                                    <td><span class="status-badge status-diagnosis">Initial Diagnosis</span></td>
+                                    <td class="action-cell">
+                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#1005</td>
+                                    <td>Robert Davis</td>
+                                    <td>Sole Fitness Rower</td>
+                                    <td>Jul 19, 2023 - 3:00 PM</td>
+                                    <td><span class="status-badge status-scheduled">Scheduled</span></td>
+                                    <td class="action-cell">
+                                        <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="calendar-view">
+                    <div class="calendar-header">
+                        <h2>July 2023</h2>
+                        <div class="calendar-nav">
+                            <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                            <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-grid" id="calendar-days">
+                        <!-- Calendar will be populated dynamically -->
+                    </div>
+                    
+                    <div class="data-summary">
+                        <h3>Calendar Summary</h3>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <div class="value">5</div>
+                                <div class="label">Total Appointments</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="value">3</div>
+                                <div class="label">Business Days</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="value">$1,230</div>
+                                <div class="label">Estimated Revenue</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="value">78%</div>
+                                <div class="label">Utilization Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="stats-view">
+                    <div class="chart-container" style="height: 300px; margin-top: 20px;">
+                        <canvas id="appointmentsChart"></canvas>
+                    </div>
+                    
+                    <div class="data-summary">
+                        <h3>Performance Metrics</h3>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <div class="value">5</div>
+                                <div class="label">Current Appointments</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="value">12</div>
+                                <div class="label">Completed This Month</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="value">$5,670</div>
+                                <div class="label">Monthly Revenue</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="value">92%</div>
+                                <div class="label">Satisfaction Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-workflow">
+                        <div class="status-step completed">
+                            <div class="status-icon"><i class="fas fa-check"></i></div>
+                            <div>Scheduled</div>
+                        </div>
+                        <div class="status-step active">
+                            <div class="status-icon"><i class="fas fa-stethoscope"></i></div>
+                            <div>Diagnosis</div>
+                        </div>
+                        <div class="status-step">
+                            <div class="status-icon"><i class="fas fa-box-open"></i></div>
+                            <div>Waiting Parts</div>
+                        </div>
+                        <div class="status-step">
+                            <div class="status-icon"><i class="fas fa-wrench"></i></div>
+                            <div>Installation</div>
+                        </div>
+                        <div class="status-step">
+                            <div class="status-icon"><i class="fas fa-flag-checkered"></i></div>
+                            <div>Completed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <!-- Main Content -->
-        <div class="main-content">
-            <div class="dashboard-header">
-                <h1>Appointment Dashboard</h1>
-                <div class="user-info">
-                    <div class="user-avatar">CF</div>
-                    <span>Admin</span>
+        <!-- Add Appointment Modal -->
+        <div class="modal" id="appointment-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add New Appointment</h3>
+                    <button class="close-modal">&times;</button>
                 </div>
-            </div>
-            
-            <!-- Stats Cards -->
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <div class="value">24</div>
-                    <div class="label">Total Appointments</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="value">8</div>
-                    <div class="label">Scheduled</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="icon">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="value">12</div>
-                    <div class="label">Completed</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="value">4</div>
-                    <div class="label">In Progress</div>
-                </div>
-            </div>
-            
-            <!-- Action Buttons -->
-            <div class="action-buttons">
-                <button class="btn btn-primary" id="add-appointment">
-                    <i class="fas fa-plus"></i> Add Appointment
-                </button>
-                <button class="btn btn-success">
-                    <i class="fas fa-print"></i> Print Schedule
-                </button>
-            </div>
-            
-            <!-- Tabs -->
-            <div class="tabs">
-                <div class="tab active" data-tab="list">List View</div>
-                <div class="tab" data-tab="calendar">Calendar View</div>
-                <div class="tab" data-tab="stats">Statistics</div>
-            </div>
-            
-            <!-- Tab Content -->
-            <div class="tab-content active" id="list-view">
-                <div class="table-responsive">
-                    <table class="appointments-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Customer</th>
-                                <th>Equipment</th>
-                                <th>Date & Time</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#1001</td>
-                                <td>John Smith</td>
-                                <td>NordicTrack Treadmill</td>
-                                <td>Jul 15, 2023 - 10:00 AM</td>
-                                <td><span class="status-badge status-completed">Completed</span></td>
-                                <td class="action-cell">
-                                    <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#1002</td>
-                                <td>Sarah Johnson</td>
-                                <td>ProForm Elliptical</td>
-                                <td>Jul 17, 2023 - 2:30 PM</td>
-                                <td><span class="status-badge status-installation">Final Installation</span></td>
-                                <td class="action-cell">
-                                    <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#1003</td>
-                                <td>Mike Williams</td>
-                                <td>Life Fitness Bike</td>
-                                <td>Jul 18, 2023 - 9:00 AM</td>
-                                <td><span class="status-badge status-waiting">Waiting on Parts</span></td>
-                                <td class="action-cell">
-                                    <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#1004</td>
-                                <td>Jennifer Brown</td>
-                                <td>Bowflex Treadmill</td>
-                                <td>Jul 18, 2023 - 11:00 AM</td>
-                                <td><span class="status-badge status-diagnosis">Initial Diagnosis</span></td>
-                                <td class="action-cell">
-                                    <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#1005</td>
-                                <td>Robert Davis</td>
-                                <td>Sole Fitness Rower</td>
-                                <td>Jul 19, 2023 - 3:00 PM</td>
-                                <td><span class="status-badge status-scheduled">Scheduled</span></td>
-                                <td class="action-cell">
-                                    <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="calendar-view">
-                <div class="calendar-header">
-                    <h2>July 2023</h2>
-                    <div class="calendar-nav">
-                        <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
-                        <button id="next-month"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                </div>
-                
-                <div class="calendar-grid">
-                    <div class="calendar-day-header">Sun</div>
-                    <div class="calendar-day-header">Mon</div>
-                    <div class="calendar-day-header">Tue</div>
-                    <div class="calendar-day-header">Wed</div>
-                    <div class="calendar-day-header">Thu</div>
-                    <div class="calendar-day-header">Fri</div>
-                    <div class="calendar-day-header">Sat</div>
-                    
-                    <!-- Empty days for start of month -->
-                    <div class="calendar-day empty"></div>
-                    <div class="calendar-day empty"></div>
-                    <div class="calendar-day empty"></div>
-                    <div class="calendar-day empty"></div>
-                    <div class="calendar-day empty"></div>
-                    <div class="calendar-day empty"></div>
-                    <div class="calendar-day">
-                        <div class="day-number">1</div>
-                    </div>
-                    
-                    <!-- Continue with the rest of the days -->
-                    <div class="calendar-day">
-                        <div class="day-number">2</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">3</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">4</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">5</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">6</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">7</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">8</div>
-                    </div>
-                    
-                    <!-- Day with appointments -->
-                    <div class="calendar-day">
-                        <div class="day-number">9</div>
-                        <div class="calendar-appointments">
-                            <div class="appointment-item">John Smith - 10:00 AM</div>
+                <div class="modal-body">
+                    <form id="appointment-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customer-name">Customer Name</label>
+                                <input type="text" id="customer-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-phone">Phone Number</label>
+                                <input type="tel" id="customer-phone" class="form-control" required>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Continue with the rest of the days -->
-                    <div class="calendar-day">
-                        <div class="day-number">10</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">11</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">12</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">13</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">14</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">15</div>
-                        <div class="calendar-appointments">
-                            <div class="appointment-item">Sarah Johnson - 9:30 AM</div>
-                            <div class="appointment-item">Mike Williams - 2:00 PM</div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="appointment-date">Date</label>
+                                <input type="date" id="appointment-date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-time">Time</label>
+                                <input type="time" id="appointment-time" class="form-control" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">16</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">17</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">18</div>
-                        <div class="calendar-appointments">
-                            <div class="appointment-item">Robert Davis - 11:00 AM</div>
+                        
+                        <div class="form-group">
+                            <label for="equipment-type">Equipment Type</label>
+                            <select id="equipment-type" class="form-control" required>
+                                <option value="">Select Equipment</option>
+                                <option value="Treadmill">Treadmill</option>
+                                <option value="Elliptical">Elliptical</option>
+                                <option value="Exercise Bike">Exercise Bike</option>
+                                <option value="Rowing Machine">Rowing Machine</option>
+                                <option value="Strength Equipment">Strength Equipment</option>
+                            </select>
                         </div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">19</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">20</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">21</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">22</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">23</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">24</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">25</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">26</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">27</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">28</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">29</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">30</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">31</div>
-                    </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="equipment-brand">Brand</label>
+                                <input type="text" id="equipment-brand" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="equipment-model">Model</label>
+                                <input type="text" id="equipment-model" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="issue-description">Issue Description</label>
+                            <textarea id="issue-description" class="form-control" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="appointment-status">Status</label>
+                            <select id="appointment-status" class="form-control" required>
+                                <option value="scheduled">Scheduled</option>
+                                <option value="diagnosis">Initial Diagnosis</option>
+                                <option value="waiting">Waiting on Parts</option>
+                                <option value="installation">Final Parts Installation</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            
-            <div class="tab-content" id="stats-view">
-                <div class="chart-container" style="height: 300px; margin-top: 20px;">
-                    <canvas id="appointmentsChart"></canvas>
-                </div>
-                
-                <div class="status-workflow">
-                    <div class="status-step completed">
-                        <div class="status-icon"><i class="fas fa-check"></i></div>
-                        <div>Scheduled</div>
-                    </div>
-                    <div class="status-step active">
-                        <div class="status-icon"><i class="fas fa-stethoscope"></i></div>
-                        <div>Diagnosis</div>
-                    </div>
-                    <div class="status-step">
-                        <div class="status-icon"><i class="fas fa-box-open"></i></div>
-                        <div>Waiting Parts</div>
-                    </div>
-                    <div class="status-step">
-                        <div class="status-icon"><i class="fas fa-wrench"></i></div>
-                        <div>Installation</div>
-                    </div>
-                    <div class="status-step">
-                        <div class="status-icon"><i class="fas fa-flag-checkered"></i></div>
-                        <div>Completed</div>
-                    </div>
+                <div class="form-actions">
+                    <button class="btn" id="cancel-appointment">Cancel</button>
+                    <button class="btn btn-primary" id="save-appointment">Save Appointment</button>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
     
-    <!-- Add Appointment Modal -->
-    <div class="modal" id="appointment-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add New Appointment</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="appointment-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="customer-name">Customer Name</label>
-                            <input type="text" id="customer-name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="customer-phone">Phone Number</label>
-                            <input type="tel" id="customer-phone" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="appointment-date">Date</label>
-                            <input type="date" id="appointment-date" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="appointment-time">Time</label>
-                            <input type="time" id="appointment-time" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="equipment-type">Equipment Type</label>
-                        <select id="equipment-type" class="form-control" required>
-                            <option value="">Select Equipment</option>
-                            <option value="Treadmill">Treadmill</option>
-                            <option value="Elliptical">Elliptical</option>
-                            <option value="Exercise Bike">Exercise Bike</option>
-                            <option value="Rowing Machine">Rowing Machine</option>
-                            <option value="Strength Equipment">Strength Equipment</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="equipment-brand">Brand</label>
-                            <input type="text" id="equipment-brand" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="equipment-model">Model</label>
-                            <input type="text" id="equipment-model" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="issue-description">Issue Description</label>
-                        <textarea id="issue-description" class="form-control" rows="3" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="appointment-status">Status</label>
-                        <select id="appointment-status" class="form-control" required>
-                            <option value="scheduled">Scheduled</option>
-                            <option value="diagnosis">Initial Diagnosis</option>
-                            <option value="waiting">Waiting on Parts</option>
-                            <option value="installation">Final Parts Installation</option>
-                            <option value="completed">Completed</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="form-actions">
-                <button class="btn" id="cancel-appointment">Cancel</button>
-                <button class="btn btn-primary" id="save-appointment">Save Appointment</button>
-            </div>
-        </div>
-    </div>
-</main>
-    <div id="footer"></div>
+    <footer>
+        <p>© 2023 Canadian Fitness Repair. All rights reserved.</p>
+    </footer>
     <script>
-        // Tab functionality
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs and content
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                // Add active class to clicked tab
-                tab.classList.add('active');
-                
-                // Show corresponding content
-                const tabName = tab.getAttribute('data-tab');
-                document.getElementById(`${tabName}-view`).classList.add('active');
-                
-                // Initialize chart when stats tab is opened
-                if (tabName === 'stats') {
-                    initChart();
-                }
+        let editingAppointmentId = null;
+        
+
+// Appointment data structure
+let appointments = [
+    { id: 1001, customer: "John Smith", equipment: "NordicTrack Treadmill", date: "Jul 15, 2023 - 10:00 AM", status: "completed", issue: "Motor not running", revenue: 150 },
+    { id: 1002, customer: "Sarah Johnson", equipment: "ProForm Elliptical", date: "Jul 17, 2023 - 2:30 PM", status: "installation", issue: "Replace display panel", revenue: 220 },
+    { id: 1003, customer: "Mike Williams", equipment: "Life Fitness Bike", date: "Jul 18, 2023 - 9:00 AM", status: "waiting", issue: "Waiting for replacement pedals", revenue: 95 },
+    { id: 1004, customer: "Jennifer Brown", equipment: "Bowflex Treadmill", date: "Jul 18, 2023 - 11:00 AM", status: "diagnosis", issue: "Belt slipping during use", revenue: 0 },
+    { id: 1005, customer: "Robert Davis", equipment: "Sole Fitness Rower", date: "Jul 19, 2023 - 3:00 PM", status: "scheduled", issue: "Annual maintenance check", revenue: 0 }
+];
+
+// Helper function to convert 12-hour time to 24-hour format
+function convertTo24Hour(time12) {
+    if (!time12) return '';
+    
+    const [time, modifier] = time12.split(' ');
+    let [hours, minutes] = time.split(':');
+    
+    if (hours === '12') hours = '00';
+    if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
+    
+    return `${hours.padStart(2, '0')}:${minutes}`;
+}
+
+// Open edit modal with appointment data
+function openEditModal(appointmentId) {
+    const appointment = appointments.find(app => app.id === appointmentId);
+    if (!appointment) return;
+    
+    editingAppointmentId = appointmentId;
+    
+    // Fill form with appointment data
+    document.getElementById('customer-name').value = appointment.customer;
+    document.getElementById('customer-phone').value = appointment.phone || '';
+    
+    // Parse date and time
+    const [datePart, timePart] = appointment.date.split(' - ');
+    const dateObj = new Date(datePart);
+    
+    // Format date for input field (YYYY-MM-DD)
+    const formattedDate = dateObj.toISOString().split('T')[0];
+    document.getElementById('appointment-date').value = formattedDate;
+    
+    // Format time for input field (HH:MM)
+    const time24 = convertTo24Hour(timePart);
+    document.getElementById('appointment-time').value = time24;
+    
+    // Parse equipment details
+    const equipmentMatch = appointment.equipment.match(/(.+) (.+) \((.+)\)/);
+    if (equipmentMatch) {
+        document.getElementById('equipment-brand').value = equipmentMatch[1];
+        document.getElementById('equipment-model').value = equipmentMatch[2];
+        document.getElementById('equipment-type').value = equipmentMatch[3];
+    }
+    
+    document.getElementById('issue-description').value = appointment.issue || '';
+    document.getElementById('appointment-status').value = appointment.status;
+    
+    // Change button text
+    document.getElementById('save-appointment').textContent = 'Update Appointment';
+    
+    // Open modal
+    modal.classList.add('active');
+}
+
+// Tab functionality
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Remove active class from all tabs and content
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        // Add active class to clicked tab
+        tab.classList.add('active');
+        
+        // Show corresponding content
+        const tabName = tab.getAttribute('data-tab');
+        document.getElementById(`${tabName}-view`).classList.add('active');
+        
+        // Initialize chart when stats tab is opened
+        if (tabName === 'stats') {
+            initChart();
+        }
+        // Render calendar when calendar tab is opened
+        if (tabName === 'calendar') {
+            renderCalendar();
+        }
+    });
+});
+
+// Sidebar navigation
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all links
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        
+        // Add active class to clicked link
+        this.classList.add('active');
+        
+        const view = this.getAttribute('data-view');
+        if (view === 'calendar') {
+            document.querySelector('.tab[data-tab="calendar"]').click();
+        } else if (view === 'logout') {
+            alert('Logout functionality would go here');
+        } else {
+            document.querySelector('.tab[data-tab="list"]').click();
+        }
+    });
+});
+
+// Modal functionality
+const modal = document.getElementById('appointment-modal');
+const addBtn = document.getElementById('add-appointment');
+const closeBtn = document.querySelector('.close-modal');
+const cancelBtn = document.getElementById('cancel-appointment');
+
+addBtn.addEventListener('click', () => {
+    editingAppointmentId = null;
+    document.getElementById('save-appointment').textContent = 'Save Appointment';
+    
+    // Reset form and set current datetime
+    document.getElementById('appointment-form').reset();
+    
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0];
+    document.getElementById('appointment-date').value = formattedDate;
+    
+    const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+    const hours = nextHour.getHours().toString().padStart(2, '0');
+    const minutes = nextHour.getMinutes().toString().padStart(2, '0');
+    document.getElementById('appointment-time').value = `${hours}:${minutes}`;
+    
+    modal.classList.add('active');
+});
+
+closeBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+});
+
+cancelBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.classList.remove('active');
+    }
+});
+
+// Update stats counts
+function updateStats() {
+    const total = appointments.length;
+    const scheduled = appointments.filter(app => app.status === 'scheduled').length;
+    const completed = appointments.filter(app => app.status === 'completed').length;
+    const inProgress = appointments.filter(app => 
+        app.status === 'diagnosis' || 
+        app.status === 'waiting' || 
+        app.status === 'installation'
+    ).length;
+    
+    document.getElementById('total-appointments').textContent = total;
+    document.getElementById('scheduled-count').textContent = scheduled;
+    document.getElementById('completed-count').textContent = completed;
+    document.getElementById('inprogress-count').textContent = inProgress;
+}
+
+// Render appointments table
+function renderAppointmentsTable() {
+    const tbody = document.getElementById('appointments-body');
+    tbody.innerHTML = '';
+    
+    appointments.forEach(app => {
+        const statusMap = {
+            scheduled: { text: 'Scheduled', class: 'status-scheduled' },
+            diagnosis: { text: 'Initial Diagnosis', class: 'status-diagnosis' },
+            waiting: { text: 'Waiting on Parts', class: 'status-waiting' },
+            installation: { text: 'Final Installation', class: 'status-installation' },
+            completed: { text: 'Completed', class: 'status-completed' }
+        };
+        
+        const statusInfo = statusMap[app.status] || { text: app.status, class: '' };
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>#${app.id}</td>
+            <td>${app.customer}</td>
+            <td>${app.equipment}</td>
+            <td>${app.date}</td>
+            <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
+            <td class="action-cell">
+                <button class="action-btn edit-btn" data-id="${app.id}">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete-btn" data-id="${app.id}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+    
+    // Add event listeners to delete buttons
+    tbody.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = parseInt(this.getAttribute('data-id'));
+            deleteAppointment(id);
+        });
+    });
+    
+    // Add event listeners to edit buttons
+    tbody.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = parseInt(this.getAttribute('data-id'));
+            openEditModal(id);
+        });
+    });
+}
+
+// Delete appointment
+function deleteAppointment(id) {
+    const index = appointments.findIndex(app => app.id === id);
+    if (index !== -1) {
+        appointments.splice(index, 1);
+        renderAppointmentsTable();
+        updateStats();
+        renderCalendar();
+        initChart();
+    }
+}
+
+// Render calendar
+function renderCalendar() {
+    const calendarGrid = document.getElementById('calendar-days');
+    calendarGrid.innerHTML = '';
+    
+    // Calendar headers
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    days.forEach(day => {
+        const header = document.createElement('div');
+        header.className = 'calendar-day-header';
+        header.textContent = day;
+        calendarGrid.appendChild(header);
+    });
+    
+    // Empty days for start of month
+    for (let i = 0; i < 6; i++) {
+        const emptyDay = document.createElement('div');
+        emptyDay.className = 'calendar-day empty';
+        calendarGrid.appendChild(emptyDay);
+    }
+    
+    // Calendar days
+    for (let day = 1; day <= 31; day++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        
+        const dayNumber = document.createElement('div');
+        dayNumber.className = 'day-number';
+        dayNumber.textContent = day;
+        dayElement.appendChild(dayNumber);
+        
+        // Add appointments to calendar
+        const appointmentsForDay = appointments.filter(app => {
+            const appDay = parseInt(app.date.split(' ')[1].replace(',', ''));
+            return appDay === day;
+        });
+        
+        if (appointmentsForDay.length > 0) {
+            const appointmentsContainer = document.createElement('div');
+            appointmentsContainer.className = 'calendar-appointments';
+            
+            appointmentsForDay.forEach(app => {
+                const appItem = document.createElement('div');
+                appItem.className = 'appointment-item';
+                appItem.textContent = `${app.customer.split(' ')[0]} - ${app.date.split(' - ')[1]}`;
+                appointmentsContainer.appendChild(appItem);
             });
-        });
+            
+            dayElement.appendChild(appointmentsContainer);
+        }
         
-        // Modal functionality
-        const modal = document.getElementById('appointment-modal');
-        const addBtn = document.getElementById('add-appointment');
-        const closeBtn = document.querySelector('.close-modal');
-        const cancelBtn = document.getElementById('cancel-appointment');
-        
-        addBtn.addEventListener('click', () => {
-            modal.classList.add('active');
-        });
-        
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-        
-        cancelBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-        
-        // Save appointment
-        document.getElementById('save-appointment').addEventListener('click', () => {
-            // In a real app, you would save to a database
-            // Here we'll just close the modal and show a success message
-            modal.classList.remove('active');
-            alert('Appointment added successfully!');
-            // Reset form
-            document.getElementById('appointment-form').reset();
-        });
-        
-        // Initialize chart
-        function initChart() {
-            const ctx = document.getElementById('appointmentsChart').getContext('2d');
-            const chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                    datasets: [{
-                        label: 'Appointments',
-                        data: [12, 19, 15, 17, 22, 21, 24],
-                        backgroundColor: '#5d5dff',
-                        borderColor: '#4a4ae6',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: '#b0b0d0'
-                            },
-                            grid: {
-                                color: 'rgba(255,255,255,0.05)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#b0b0d0'
-                            },
-                            grid: {
-                                color: 'rgba(255,255,255,0.05)'
-                            }
+        calendarGrid.appendChild(dayElement);
+    }
+}
+
+// Initialize chart
+function initChart() {
+    const ctx = document.getElementById('appointmentsChart').getContext('2d');
+    
+    // Destroy existing chart if it exists
+    if (window.chartInstance) {
+        window.chartInstance.destroy();
+    }
+    
+    // Calculate status counts for chart
+    const scheduled = appointments.filter(app => app.status === 'scheduled').length;
+    const completed = appointments.filter(app => app.status === 'completed').length;
+    const inProgress = appointments.filter(app => 
+        app.status === 'diagnosis' || 
+        app.status === 'waiting' || 
+        app.status === 'installation'
+    ).length;
+    
+    window.chartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Scheduled', 'Completed', 'In Progress'],
+            datasets: [{
+                data: [scheduled, completed, inProgress],
+                backgroundColor: [
+                    'rgba(93, 93, 255, 0.7)',
+                    'rgba(46, 204, 113, 0.7)',
+                    'rgba(52, 152, 219, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(93, 93, 255, 1)',
+                    'rgba(46, 204, 113, 1)',
+                    'rgba(52, 152, 219, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#f0f0f0',
+                        font: {
+                            size: 12
                         }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#f0f0f0'
-                            }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Appointment Status Distribution',
+                    color: '#f0f0f0',
+                    font: {
+                        size: 16
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = Math.round((value / total) * 100);
+                            return `${label}: ${value} (${percentage}%)`;
                         }
                     }
                 }
-            });
-        }
-        
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', () => {
-            // Set today's date as default in the form
-            const today = new Date();
-            const formattedDate = today.toISOString().split('T')[0];
-            document.getElementById('appointment-date').value = formattedDate;
-            
-            // Set current time + 1 hour as default
-            const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-            const hours = nextHour.getHours().toString().padStart(2, '0');
-            const minutes = nextHour.getMinutes().toString().padStart(2, '0');
-            document.getElementById('appointment-time').value = `${hours}:${minutes}`;
-            
-            // Initialize chart if on stats tab
-            if (document.querySelector('.tab[data-tab="stats"]').classList.contains('active')) {
-                initChart();
             }
+        }
+    });
+}
+
+// Save appointment
+document.getElementById('save-appointment').addEventListener('click', () => {
+    // Get form values
+    const customerName = document.getElementById('customer-name').value;
+    const phone = document.getElementById('customer-phone').value;
+    const date = document.getElementById('appointment-date').value;
+    const time = document.getElementById('appointment-time').value;
+    const equipmentType = document.getElementById('equipment-type').value;
+    const brand = document.getElementById('equipment-brand').value;
+    const model = document.getElementById('equipment-model').value;
+    const issue = document.getElementById('issue-description').value;
+    const status = document.getElementById('appointment-status').value;
+    let revenue = 0;
+if (status === 'completed') {
+    revenue = 150; // Set your default revenue for completed appointments
+}
+    
+    // Format date for display
+    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
+    
+    // Format time for display
+    const formattedTime = new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit'
+    });
+    
+    if (editingAppointmentId) {
+        // Update existing appointment
+        const index = appointments.findIndex(app => app.id === editingAppointmentId);
+        if (index !== -1) {
+            appointments[index] = {
+                ...appointments[index],
+                customer: customerName,
+                phone: phone,
+                equipment: `${brand} ${model} (${equipmentType})`,
+                date: `${formattedDate} - ${formattedTime}`,
+                issue: issue,
+                status: status
+            };
+        }
+        editingAppointmentId = null;
+    } else {
+        // Add new appointment
+        const newId = appointments.length > 0 ? Math.max(...appointments.map(a => a.id)) + 1 : 1001;
+        appointments.push({
+            id: newId,
+            customer: customerName,
+            phone: phone,
+            equipment: `${brand} ${model} (${equipmentType})`,
+            date: `${formattedDate} - ${formattedTime}`,
+            issue: issue,
+            status: status
         });
-        
-        // Booking tracking functionality
-        document.querySelectorAll('.appointment-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const appointmentText = this.textContent;
-                alert(`Tracking appointment: ${appointmentText}`);
-                // In a real app, you would open a detailed view here
-            });
-        });
-        
-        document.querySelectorAll('.edit-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const row = this.closest('tr');
-                const id = row.cells[0].textContent;
-                alert(`Editing appointment: ${id}`);
-                // Open edit modal with appointment details
-            });
-        });
-        
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const row = this.closest('tr');
-                const id = row.cells[0].textContent;
-                if (confirm(`Are you sure you want to delete appointment ${id}?`)) {
-                    row.remove();
-                    alert(`Appointment ${id} deleted`);
-                }
-            });
-        });
+    }
+    
+    // Update UI
+    renderAppointmentsTable();
+    updateStats();
+    renderCalendar();
+    initChart();
+    
+    // Close modal and reset form
+    modal.classList.remove('active');
+    document.getElementById('appointment-form').reset();
+    document.getElementById('save-appointment').textContent = 'Save Appointment';
+});
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', () => {
+    // Set today's date as default in the form
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0];
+    document.getElementById('appointment-date').value = formattedDate;
+    
+    // Set current time + 1 hour as default
+    const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+    const hours = nextHour.getHours().toString().padStart(2, '0');
+    const minutes = nextHour.getMinutes().toString().padStart(2, '0');
+    document.getElementById('appointment-time').value = `${hours}:${minutes}`;
+    
+    // Initial renders
+    renderAppointmentsTable();
+    updateStats();
+    renderCalendar();
+    
+    // Initialize chart if on stats tab
+    if (document.querySelector('.tab[data-tab="stats"]').classList.contains('active')) {
+        initChart();
+    }
+});
+
+function updateCalendarSummary() {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    
+    // Filter appointments for current month
+    const monthlyAppointments = appointments.filter(app => {
+        const appDate = new Date(app.date.split(' - ')[0]);
+        return appDate.getMonth() === currentMonth && 
+               appDate.getFullYear() === currentYear;
+    });
+    
+    // Calculate business days
+    const startDate = new Date(currentYear, currentMonth, 1);
+    const endDate = new Date(currentYear, currentMonth + 1, 0);
+    
+    let businessDays = 0;
+    let currentDay = new Date(startDate);
+    
+    while (currentDay <= endDate) {
+        const dayOfWeek = currentDay.getDay();
+        if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+            businessDays++;
+        }
+        currentDay.setDate(currentDay.getDate() + 1);
+    }
+    
+    // Calculate revenue
+    const monthlyRevenue = monthlyAppointments
+        .filter(app => app.status === 'completed')
+        .reduce((sum, app) => sum + (app.revenue || 0), 0);
+    
+    // Update UI
+    document.getElementById('summary-total').textContent = monthlyAppointments.length;
+    document.getElementById('summary-days').textContent = businessDays;
+    document.getElementById('summary-revenue').textContent = `$${monthlyRevenue}`;
+    document.getElementById('summary-utilization').textContent = `78%`; // Simplified for demo
+}
+function updatePerformanceMetrics() {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    
+    // Filter appointments for current month
+    const monthlyAppointments = appointments.filter(app => {
+        const appDate = new Date(app.date.split(' - ')[0]);
+        return appDate.getMonth() === currentMonth && 
+               appDate.getFullYear() === currentYear;
+    });
+    
+    const completedThisMonth = monthlyAppointments.filter(app => app.status === 'completed').length;
+    const monthlyRevenue = monthlyAppointments
+        .filter(app => app.status === 'completed')
+        .reduce((sum, app) => sum + (app.revenue || 0), 0);
+    
+    // Update UI
+    document.getElementById('current-appointments').textContent = appointments.length;
+    document.getElementById('monthly-completed').textContent = completedThisMonth;
+    document.getElementById('monthly-revenue').textContent = `$${monthlyRevenue}`;
+}
     </script>
-    <script defer src="menu.js"></script>
-    <script defer src="animations.js"></script>
-    <script defer src="whatsapp.js"></script>
-    <script defer src="headerfooter.js"></script>
+
 </body>
 </html>
