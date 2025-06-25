@@ -1133,10 +1133,23 @@
             <div class="tab" data-tab="calendar">Calendar View</div>
             <div class="tab" data-tab="stats">Statistics</div>
             <div class="tab" data-tab="settings">Settings</div>
+            <div class="tab" data-tab="reports">Reports</div>
           </div>
 
           <!-- Tab Content -->
           <div class="tab-content active" id="list-view">
+            <!-- 🔍 Search Bar -->
+            <div style="margin-bottom: 1rem">
+              <input
+                type="text"
+                id="search-appointments"
+                class="form-control"
+                placeholder="Search by customer name or phone..."
+                style="width: 100%; max-width: 300px"
+              />
+            </div>
+
+            <!-- Appointment Table -->
             <div class="table-responsive">
               <table class="appointments-table">
                 <thead>
@@ -1151,9 +1164,32 @@
                   </tr>
                 </thead>
                 <tbody id="appointments-body">
-                  <!-- Appointments will be populated dynamically -->
+                  <!-- JS will populate rows -->
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          <div class="tab-content" id="reports-view">
+            <div class="data-summary">
+              <h3>Completed Repair Reports</h3>
+              <div class="table-responsive">
+                <table class="appointments-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Customer</th>
+                      <th>Equipment</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Repair Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody id="report-table-body">
+                    <!-- Will be filled with JS -->
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
@@ -1388,6 +1424,15 @@
                   required
                 ></textarea>
               </div>
+              <div class="form-group">
+                <label for="repair-notes">Repair Notes</label>
+                <textarea
+                  id="repair-notes"
+                  class="form-control"
+                  rows="3"
+                  placeholder="What was done to fix the issue?"
+                ></textarea>
+              </div>
 
               <div class="form-group">
                 <label for="appointment-status">Status</label>
@@ -1530,6 +1575,9 @@
           appointment.price || defaultPrice;
         document.getElementById("issue-description").value =
           appointment.issue || "";
+        document.getElementById("repair-notes").value =
+          appointment.repair_notes || "";
+
         document.getElementById("appointment-status").value =
           appointment.status;
 
@@ -1568,6 +1616,9 @@
           if (tabName === "calendar") {
             renderCalendar();
           }
+          if (tabName === "reports") {
+            renderReportsTable();
+          }
         });
       });
 
@@ -1591,6 +1642,8 @@
             document.querySelector('.tab[data-tab="settings"]').click();
           } else if (view === "logout") {
             // Handled by setupLogout()
+          } else if (view === "reports") {
+            document.querySelector('.tab[data-tab="reports"]').click();
           } else {
             document.querySelector('.tab[data-tab="list"]').click();
           }
@@ -1754,6 +1807,27 @@
 
             openEditModal(id);
           });
+        });
+      }
+      function renderReportsTable() {
+        const tbody = document.getElementById("report-table-body");
+        tbody.innerHTML = "";
+
+        const completedAppointments = appointments.filter(
+          (app) => app.status === "repair_completed"
+        );
+
+        completedAppointments.forEach((app) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+      <td>#${app.id}</td>
+      <td>${app.customer}</td>
+      <td>${app.equipment}</td>
+      <td>${app.date}</td>
+      <td><span class="status-badge status-released">✔️ Repair Completed</span></td>
+      <td>${app.repair_notes || "—"}</td>
+    `;
+          tbody.appendChild(row);
         });
       }
 
@@ -2070,6 +2144,7 @@
             parseFloat(document.getElementById("appointment-price").value) || 0;
           const issue = document.getElementById("issue-description").value;
           const status = document.getElementById("appointment-status").value;
+          const repairNotes = document.getElementById("repair-notes").value;
 
           // Format date for display
           const formattedDate = new Date(date).toLocaleDateString("en-US", {
@@ -2087,7 +2162,6 @@
           });
 
           if (editingAppointmentId) {
-            // Update existing appointment
             const index = appointments.findIndex(
               (app) => app.id === editingAppointmentId
             );
@@ -2101,8 +2175,13 @@
                 price: price,
                 issue: issue,
                 status: status,
+                repair_notes: repairNotes, // make sure notes update too
               };
             }
+
+            // ✅ Save updated array
+            localStorage.setItem("appointments", JSON.stringify(appointments));
+
             editingAppointmentId = null;
           } else {
             // Add new appointment
@@ -2119,6 +2198,7 @@
               price: price,
               issue: issue,
               status: status,
+              repair_notes: repairNotes,
             });
             localStorage.setItem("appointments", JSON.stringify(appointments));
           }
@@ -2212,6 +2292,19 @@
         // Setup logout functionality
         setupLogout();
       });
+      document
+        .getElementById("search-appointments")
+        .addEventListener("input", function () {
+          const keyword = this.value.toLowerCase();
+
+          const filtered = appointments.filter(
+            (app) =>
+              app.customer.toLowerCase().includes(keyword) ||
+              (app.phone && app.phone.toLowerCase().includes(keyword))
+          );
+
+          renderAppointmentsTable(filtered);
+        });
     </script>
   </body>
 </html>
