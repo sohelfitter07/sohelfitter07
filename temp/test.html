@@ -43,7 +43,7 @@
         
         header {
             background-color: var(--dark);
-            padding: 1rem 2rem;
+            padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -230,6 +230,7 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .btn {
@@ -265,6 +266,7 @@
             display: flex;
             border-bottom: 1px solid var(--border);
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .tab {
@@ -273,6 +275,7 @@
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
             color: var(--text-light);
+            flex-shrink: 0;
         }
         
         .tab.active {
@@ -298,6 +301,7 @@
             overflow: hidden;
             box-shadow: 0 4px 6px var(--shadow);
             border: 1px solid var(--border);
+            min-width: 800px;
         }
         
         .appointments-table th {
@@ -328,6 +332,7 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
+            white-space: nowrap;
         }
         
         .status-scheduled { background: rgba(93, 93, 255, 0.2); color: var(--primary); }
@@ -339,6 +344,7 @@
         .action-cell {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         
         .action-btn {
@@ -348,6 +354,9 @@
             cursor: pointer;
             font-size: 0.85rem;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .edit-btn { background: rgba(93, 93, 255, 0.1); color: var(--primary); }
@@ -363,12 +372,15 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .calendar-nav {
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
         
         .calendar-nav button {
@@ -379,6 +391,9 @@
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .calendar-nav button:hover {
@@ -388,6 +403,7 @@
         .calendar-nav h2 {
             min-width: 150px;
             text-align: center;
+            font-size: 1.2rem;
         }
         
         .calendar-grid {
@@ -404,6 +420,7 @@
             border-radius: 5px;
             color: var(--text-light);
             border: 1px solid var(--border);
+            font-size: 0.9rem;
         }
         
         .calendar-day {
@@ -413,6 +430,7 @@
             min-height: 120px;
             padding: 10px;
             position: relative;
+            overflow: hidden;
         }
         
         .calendar-day.empty {
@@ -426,10 +444,13 @@
             right: 10px;
             font-weight: bold;
             color: var(--text-light);
+            font-size: 0.9rem;
         }
         
         .calendar-appointments {
             margin-top: 25px;
+            max-height: 80px;
+            overflow-y: auto;
         }
         
         .appointment-item {
@@ -457,6 +478,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 15px;
         }
         
         .modal.active {
@@ -466,7 +488,7 @@
         .modal-content {
             background: var(--card-bg);
             border-radius: 10px;
-            width: 90%;
+            width: 100%;
             max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
@@ -479,10 +501,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            z-index: 10;
         }
         
         .modal-header h3 {
             color: var(--primary);
+            font-size: 1.5rem;
         }
         
         .close-modal {
@@ -533,6 +560,7 @@
             gap: 10px;
             padding: 20px;
             border-top: 1px solid var(--border);
+            flex-wrap: wrap;
         }
         
         /* Status Workflow */
@@ -541,6 +569,7 @@
             justify-content: space-between;
             margin: 30px 0;
             position: relative;
+            flex-wrap: wrap;
         }
         
         .status-workflow::before {
@@ -559,6 +588,8 @@
             z-index: 2;
             position: relative;
             width: 20%;
+            min-width: 70px;
+            margin-bottom: 20px;
         }
         
         .status-icon {
@@ -583,6 +614,16 @@
         }
         
         /* Responsive */
+        @media (max-width: 1200px) {
+            .calendar-day {
+                min-height: 100px;
+            }
+            
+            .appointment-item {
+                font-size: 0.75rem;
+            }
+        }
+        
         @media (max-width: 992px) {
             .app-container {
                 flex-direction: column;
@@ -601,6 +642,12 @@
                 display: flex;
                 overflow-x: auto;
                 padding-bottom: 10px;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            .nav-links::-webkit-scrollbar {
+                display: none;
             }
             
             .nav-links li {
@@ -618,6 +665,10 @@
                 border-left: none;
                 border-bottom: 3px solid var(--primary);
             }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, minmax(100px, 1fr));
+            }
         }
         
         @media (max-width: 768px) {
@@ -627,17 +678,14 @@
             }
             
             .stats-container {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
             
             .table-responsive {
                 display: block;
                 overflow-x: auto;
                 margin-bottom: 20px;
-            }
-            
-            .calendar-grid {
-                grid-template-columns: repeat(1, 1fr);
+                -webkit-overflow-scrolling: touch;
             }
             
             .dashboard-header {
@@ -647,15 +695,21 @@
             }
             
             .action-buttons {
-                flex-direction: column;
+                justify-content: center;
             }
             
             .tabs {
                 overflow-x: auto;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            .tabs::-webkit-scrollbar {
+                display: none;
             }
             
             .tab {
-                flex-shrink: 0;
+                padding: 10px 15px;
             }
             
             header {
@@ -663,11 +717,50 @@
             }
             
             .logo h1 {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, minmax(80px, 1fr));
+                gap: 5px;
+            }
+            
+            .calendar-day-header {
+                padding: 8px 5px;
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day {
+                min-height: 90px;
+                padding: 8px;
+            }
+            
+            .day-number {
+                top: 3px;
+                right: 5px;
+                font-size: 0.8rem;
+            }
+            
+            .calendar-appointments {
+                margin-top: 20px;
+                max-height: 65px;
+            }
+            
+            .appointment-item {
+                font-size: 0.7rem;
+                padding: 3px;
+            }
+            
+            .status-workflow {
+                gap: 10px;
+            }
+            
+            .status-step {
+                width: 18%;
             }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
             .main-content {
                 padding: 15px;
             }
@@ -677,16 +770,125 @@
             }
             
             .status-workflow {
-                flex-wrap: wrap;
-                gap: 15px;
+                gap: 5px;
             }
             
             .status-step {
-                width: 45%;
+                width: 30%;
+                min-width: 60px;
             }
             
             .user-info span {
                 display: none;
+            }
+            
+            .dashboard-header .user-info span {
+                display: none;
+            }
+            
+            .logo h1 {
+                font-size: 1.1rem;
+            }
+            
+            .logo i {
+                font-size: 1.4rem;
+            }
+            
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .calendar-nav {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .calendar-nav h2 {
+                min-width: 100%;
+                margin: 5px 0;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
+            
+            .calendar-day {
+                min-height: 70px;
+            }
+            
+            .day-number {
+                font-size: 0.7rem;
+            }
+            
+            .calendar-appointments {
+                margin-top: 15px;
+                max-height: 50px;
+            }
+            
+            .appointment-item {
+                font-size: 0.65rem;
+            }
+            
+            .modal-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .form-control {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .form-actions {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            
+            .calendar-day-header {
+                display: none;
+            }
+            
+            .calendar-day {
+                min-height: auto;
+                display: flex;
+                align-items: center;
+                padding: 10px 15px;
+            }
+            
+            .day-number {
+                position: static;
+                font-weight: bold;
+                margin-right: 15px;
+                min-width: 40px;
+            }
+            
+            .calendar-appointments {
+                margin-top: 0;
+                flex: 1;
+                max-height: none;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            .appointment-item {
+                flex: 1;
+                min-width: 120px;
+                font-size: 0.75rem;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: unset;
+                padding: 6px 8px;
             }
         }
         
@@ -696,6 +898,8 @@
             overflow-x: auto;
             margin-bottom: 20px;
             -webkit-overflow-scrolling: touch;
+            border-radius: 10px;
+            border: 1px solid var(--border);
         }
         
         footer {
@@ -719,6 +923,7 @@
             margin-bottom: 15px;
             border-bottom: 1px solid var(--border);
             padding-bottom: 10px;
+            font-size: 1.3rem;
         }
         
         .summary-grid {
@@ -769,6 +974,7 @@
             color: var(--primary);
             border-bottom: 1px solid var(--border);
             padding-bottom: 10px;
+            font-size: 1.5rem;
         }
     </style>
 </head>
@@ -818,7 +1024,7 @@
                         <div class="icon">
                             <i class="fas fa-calendar-check"></i>
                         </div>
-                        <div class="value" id="total-appointments">0</div>
+                        <div class="value" id="total-appointments">5</div>
                         <div class="label">Total Appointments</div>
                     </div>
                     
@@ -826,7 +1032,7 @@
                         <div class="icon">
                             <i class="fas fa-clock"></i>
                         </div>
-                        <div class="value" id="scheduled-count">0</div>
+                        <div class="value" id="scheduled-count">1</div>
                         <div class="label">Scheduled</div>
                     </div>
                     
@@ -834,7 +1040,7 @@
                         <div class="icon">
                             <i class="fas fa-check-circle"></i>
                         </div>
-                        <div class="value" id="released-count">0</div>
+                        <div class="value" id="released-count">1</div>
                         <div class="label">Released</div>
                     </div>
                     
@@ -842,7 +1048,7 @@
                         <div class="icon">
                             <i class="fas fa-tools"></i>
                         </div>
-                        <div class="value" id="inprogress-count">0</div>
+                        <div class="value" id="inprogress-count">3</div>
                         <div class="label">In Progress</div>
                     </div>
                 </div>
@@ -904,7 +1110,7 @@
                         <h3>Calendar Summary</h3>
                         <div class="summary-grid">
                             <div class="summary-item">
-                                <div class="value" id="summary-total">0</div>
+                                <div class="value" id="summary-total">5</div>
                                 <div class="label">Total Appointments</div>
                             </div>
                             <div class="summary-item">
@@ -912,11 +1118,11 @@
                                 <div class="label">Business Days</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value" id="summary-revenue">$0</div>
+                                <div class="value" id="summary-revenue">$7,730</div>
                                 <div class="label">Total Revenue</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value" id="summary-utilization">0%</div>
+                                <div class="value" id="summary-utilization">68%</div>
                                 <div class="label">Utilization Rate</div>
                             </div>
                         </div>
@@ -932,19 +1138,19 @@
                         <h3>Performance Metrics</h3>
                         <div class="summary-grid">
                             <div class="summary-item">
-                                <div class="value" id="current-appointments">0</div>
+                                <div class="value" id="current-appointments">5</div>
                                 <div class="label">Current Appointments</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value" id="monthly-released">0</div>
+                                <div class="value" id="monthly-released">1</div>
                                 <div class="label">Released This Month</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value" id="monthly-revenue">$0</div>
+                                <div class="value" id="monthly-revenue">$2,100</div>
                                 <div class="label">Monthly Revenue</div>
                             </div>
                             <div class="summary-item">
-                                <div class="value" id="satisfaction-rate">0%</div>
+                                <div class="value" id="satisfaction-rate">92%</div>
                                 <div class="label">Satisfaction Rate</div>
                             </div>
                         </div>
@@ -1078,49 +1284,74 @@
     <script>
         let editingAppointmentId = null;
         let chartInstance = null;
-        let currentMonth = 6; // July (0-based index)
-        let currentYear = 2020;
+        const today = new Date();
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+
         let defaultPrice = 150; // Default service price
         let allowPastEdits = true; // Allow editing past appointments
+        let inactivityTimer; // For session timeout
+    
+        // Appointment data structure
+        let appointments = []; // start with no appointments
 
-        // Appointment data structure - now starts empty
-        let appointments = [];
-
-        // Helper function to convert 12-hour time to 24-hour format
-        function convertTo24Hour(time12) {
-            if (!time12) return '';
-            
-            const [time, modifier] = time12.split(' ');
-            let [hours, minutes] = time.split(':');
-            
-            if (hours === '12') hours = '00';
-            if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
-            
-            return `${hours.padStart(2, '0')}:${minutes}`;
+        // ======================
+        // LOGOUT FUNCTIONALITY
+        // ======================
+        
+        function logout() {
+            if(confirm("Are you sure you want to logout? All unsaved changes will be lost.")) {
+                // Clear sensitive data from memory
+                appointments = [];
+                
+                // Redirect to login page
+                window.location.href = "admin-login.html";
+            }
         }
         
-        // Helper function to parse appointment date string
-        function parseAppointmentDate(dateStr) {
-            const months = {
-                'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
-                'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
-            };
-            
-            // Handle different date formats
-            const parts = dateStr.split(/[\s,]+/).filter(Boolean);
-            if (parts.length < 3) return new Date(NaN);
-            
-            const monthName = parts[0];
-            const day = parseInt(parts[1]);
-            const year = parseInt(parts[2]);
-            
-            if (!months.hasOwnProperty(monthName) || isNaN(day) || isNaN(year)) {
-                return new Date(NaN);
-            }
-            
-            return new Date(year, months[monthName], day);
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            // Set timeout for 30 minutes (1800000 ms)
+            inactivityTimer = setTimeout(logout, 1800000);
         }
-
+        
+        function setupLogout() {
+            // Add event listener to logout link
+            document.querySelector('.nav-links a[data-view="logout"]').addEventListener('click', function(e) {
+                e.preventDefault();
+                logout();
+            });
+            
+            // Reset timer on user activity
+            document.addEventListener('mousemove', resetInactivityTimer);
+            document.addEventListener('keypress', resetInactivityTimer);
+            document.addEventListener('click', resetInactivityTimer);
+            document.addEventListener('scroll', resetInactivityTimer);
+            
+            // Initialize timer
+            resetInactivityTimer();
+        }
+    
+        // Helper function to convert 12-hour time to 24-hour format
+        function convertTo24Hour(time12) {
+    if (!time12) return '';
+    
+    const [time, modifier] = time12.split(' ');
+    let [hours, minutes] = time.split(':');
+    
+    // Convert hours to integer for calculations
+    let hourInt = parseInt(hours, 10);
+    
+    if (hours === '12') {
+        hourInt = modifier === 'AM' ? 0 : 12;
+    } else if (modifier === 'PM') {
+        hourInt += 12;
+    }
+    
+    // Convert back to string and pad with zero if needed
+    return `${hourInt.toString().padStart(2, '0')}:${minutes}`;
+}
+    
         // Open edit modal with appointment data
         function openEditModal(appointmentId) {
             const appointment = appointments.find(app => app.id === appointmentId);
@@ -1134,7 +1365,7 @@
             
             // Parse date and time
             const [datePart, timePart] = appointment.date.split(' - ');
-            const dateObj = parseAppointmentDate(datePart);
+            const dateObj = new Date(datePart);
             
             // Format date for input field (YYYY-MM-DD)
             const formattedDate = dateObj.toISOString().split('T')[0];
@@ -1145,7 +1376,6 @@
                 convertTo24Hour(timePart) : timePart;
             document.getElementById('appointment-time').value = time24;
             
-            // Equipment
             document.getElementById('equipment').value = appointment.equipment;
             
             document.getElementById('appointment-price').value = appointment.price || defaultPrice;
@@ -1159,7 +1389,7 @@
             // Open modal
             modal.classList.add('active');
         }
-
+    
         // Tab functionality
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -1184,7 +1414,7 @@
                 }
             });
         });
-
+    
         // Sidebar navigation
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function(e) {
@@ -1202,19 +1432,19 @@
                 } else if (view === 'settings') {
                     document.querySelector('.tab[data-tab="settings"]').click();
                 } else if (view === 'logout') {
-                    alert('Logout functionality would go here');
+                    // Handled by setupLogout()
                 } else {
                     document.querySelector('.tab[data-tab="list"]').click();
                 }
             });
         });
-
+    
         // Modal functionality
         const modal = document.getElementById('appointment-modal');
         const addBtn = document.getElementById('add-appointment');
         const closeBtn = document.querySelector('.close-modal');
         const cancelBtn = document.getElementById('cancel-appointment');
-
+    
         addBtn.addEventListener('click', () => {
             editingAppointmentId = null;
             document.getElementById('modal-title').textContent = 'Add New Appointment';
@@ -1235,22 +1465,22 @@
             
             modal.classList.add('active');
         });
-
+    
         closeBtn.addEventListener('click', () => {
             modal.classList.remove('active');
         });
-
+    
         cancelBtn.addEventListener('click', () => {
             modal.classList.remove('active');
         });
-
+    
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.classList.remove('active');
             }
         });
-
+    
         // Update stats counts
         function updateStats() {
             const total = appointments.length;
@@ -1263,7 +1493,7 @@
             document.getElementById('released-count').textContent = released;
             document.getElementById('inprogress-count').textContent = inProgress;
         }
-
+    
         // Render appointments table
         function renderAppointmentsTable() {
             const tbody = document.getElementById('appointments-body');
@@ -1318,23 +1548,10 @@
                         const appointment = appointments.find(app => app.id === id);
                         if (appointment) {
                             const [dateStr] = appointment.date.split(' - ');
-                            const appointmentDate = parseAppointmentDate(dateStr);
+                            const appointmentDate = new Date(dateStr);
                             const today = new Date();
                             
-                            // Create date objects without time for accurate comparison
-                            const appointmentDateOnly = new Date(
-                                appointmentDate.getFullYear(),
-                                appointmentDate.getMonth(),
-                                appointmentDate.getDate()
-                            );
-                            
-                            const todayOnly = new Date(
-                                today.getFullYear(),
-                                today.getMonth(),
-                                today.getDate()
-                            );
-                            
-                            if (appointmentDateOnly < todayOnly) {
+                            if (appointmentDate < today) {
                                 alert('Editing past appointments is disabled in settings.');
                                 return;
                             }
@@ -1345,7 +1562,7 @@
                 });
             });
         }
-
+    
         // Delete appointment
         function deleteAppointment(id) {
             const index = appointments.findIndex(app => app.id === id);
@@ -1359,17 +1576,17 @@
                 initChart();
             }
         }
-
+    
         // Get number of days in a month
         function getDaysInMonth(month, year) {
             return new Date(year, month + 1, 0).getDate();
         }
-
+    
         // Get first day of month (0-6, Sun-Sat)
         function getFirstDayOfMonth(month, year) {
             return new Date(year, month, 1).getDay();
         }
-
+    
         // Calculate business days in a month
         function getBusinessDays(month, year) {
             const startDate = new Date(year, month, 1);
@@ -1388,20 +1605,19 @@
             
             return businessDays;
         }
-
+    
         // Format month/year for display
         function formatMonthYear(month, year) {
             const months = ['January', 'February', 'March', 'April', 'May', 'June', 
                             'July', 'August', 'September', 'October', 'November', 'December'];
             return `${months[month]} ${year}`;
         }
-
+    
         // Update calendar summary
         function updateCalendarSummary() {
             // Filter appointments for the current month
             const monthlyAppointments = appointments.filter(app => {
-                const [dateStr] = app.date.split(' - ');
-                const appDate = parseAppointmentDate(dateStr);
+                const appDate = new Date(app.date.split(' - ')[0]);
                 return appDate.getMonth() === currentMonth && 
                        appDate.getFullYear() === currentYear;
             });
@@ -1420,17 +1636,15 @@
             document.getElementById('summary-revenue').textContent = `$${monthlyRevenue}`;
             
             // Utilization rate calculation
-            const utilizationRate = monthlyAppointments.length > 0 ? 
-                Math.min(100, Math.round((monthlyAppointments.length / (businessDays * 3)) * 100)) : 0;
+            const utilizationRate = Math.min(100, Math.round((monthlyAppointments.length / (businessDays * 3)) * 100));
             document.getElementById('summary-utilization').textContent = `${utilizationRate}%`;
         }
-
+    
         // Update performance metrics
         function updatePerformanceMetrics() {
             // Filter appointments for the current month
             const monthlyAppointments = appointments.filter(app => {
-                const [dateStr] = app.date.split(' - ');
-                const appDate = parseAppointmentDate(dateStr);
+                const appDate = new Date(app.date.split(' - ')[0]);
                 return appDate.getMonth() === currentMonth && 
                        appDate.getFullYear() === currentYear;
             });
@@ -1445,9 +1659,8 @@
             document.getElementById('current-appointments').textContent = appointments.length;
             document.getElementById('monthly-released').textContent = releasedThisMonth;
             document.getElementById('monthly-revenue').textContent = `$${monthlyRevenue}`;
-            document.getElementById('satisfaction-rate').textContent = appointments.length > 0 ? '92%' : '0%';
         }
-
+    
         // Render calendar
         function renderCalendar() {
             const calendarGrid = document.getElementById('calendar-days');
@@ -1488,8 +1701,7 @@
                 
                 // Add appointments to calendar
                 const appointmentsForDay = appointments.filter(app => {
-                    const [dateStr] = app.date.split(' - ');
-                    const appDate = parseAppointmentDate(dateStr);
+                    const appDate = new Date(app.date.split(' - ')[0]);
                     return appDate.getMonth() === currentMonth && 
                            appDate.getFullYear() === currentYear &&
                            appDate.getDate() === day;
@@ -1515,7 +1727,7 @@
             // Update calendar summary
             updateCalendarSummary();
         }
-
+    
         // Initialize chart
         function initChart() {
             const ctx = document.getElementById('appointmentsChart').getContext('2d');
@@ -1591,7 +1803,7 @@
                 }
             });
         }
-
+    
         // Save appointment
         document.getElementById('save-appointment').addEventListener('click', () => {
             // Get form values
@@ -1661,7 +1873,7 @@
             document.getElementById('appointment-form').reset();
             document.getElementById('save-appointment').textContent = 'Save Appointment';
         });
-
+    
         // Month navigation
         document.getElementById('prev-month').addEventListener('click', () => {
             currentMonth--;
@@ -1680,14 +1892,14 @@
             }
             renderCalendar();
         });
-
+    
         // Settings functionality
         document.getElementById('save-settings').addEventListener('click', () => {
             defaultPrice = parseFloat(document.getElementById('default-price').value) || 150;
             allowPastEdits = document.getElementById('enable-past-edits').value === 'true';
             alert('Settings saved successfully!');
         });
-
+    
         document.getElementById('reset-settings').addEventListener('click', () => {
             document.getElementById('company-name').value = "Canadian Fitness Repair";
             document.getElementById('default-price').value = "150";
@@ -1696,7 +1908,7 @@
             defaultPrice = 150;
             allowPastEdits = true;
         });
-
+    
         // Initialize the page
         document.addEventListener('DOMContentLoaded', () => {
             // Set today's date as default in the form
@@ -1721,6 +1933,9 @@
             if (document.querySelector('.tab[data-tab="stats"]').classList.contains('active')) {
                 initChart();
             }
+            
+            // Setup logout functionality
+            setupLogout();
         });
     </script>
 </body>
