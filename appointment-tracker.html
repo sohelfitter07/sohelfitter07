@@ -1291,8 +1291,53 @@
         let inactivityTimer; // For session timeout
     
         // Appointment data structure
-        let appointment = JSON.parse(localStorage.getItem('appointments') || '[]');
-
+        let appointments = [
+            { 
+                id: 1001, 
+                customer: "John Smith", 
+                equipment: "Treadmill Pro 3000", 
+                date: "Jul 15, 2020 - 10:00 AM", 
+                status: "released", 
+                issue: "Motor not running", 
+                price: 2100 
+            },
+            { 
+                id: 1002, 
+                customer: "Sarah Johnson", 
+                equipment: "Elliptical Master", 
+                date: "Jul 17, 2020 - 2:30 PM", 
+                status: "in_progress", 
+                issue: "Replace display panel", 
+                price: 5200 
+            },
+            { 
+                id: 1003, 
+                customer: "Mike Williams", 
+                equipment: "Cycling Bike Elite", 
+                date: "Jul 18, 2020 - 9:00 AM", 
+                status: "in_progress", 
+                issue: "Waiting for replacement pedals", 
+                price: 360 
+            },
+            { 
+                id: 1004, 
+                customer: "Jennifer Brown", 
+                equipment: "Rowing Machine Pro", 
+                date: "Jul 18, 2020 - 11:00 AM", 
+                status: "scheduled", 
+                issue: "Belt slipping during use", 
+                price: 50 
+            },
+            { 
+                id: 1005, 
+                customer: "Robert Davis", 
+                equipment: "Weight Bench System", 
+                date: "Jul 19, 2020 - 3:00 PM", 
+                status: "draft", 
+                issue: "Annual maintenance check", 
+                price: 20 
+            }
+        ];
     
         // ======================
         // LOGOUT FUNCTIONALITY
@@ -1301,7 +1346,7 @@
         function logout() {
             if(confirm("Are you sure you want to logout? All unsaved changes will be lost.")) {
                 // Clear sensitive data from memory
-                // appointments = []; // Removed to preserve data
+                appointments = [];
                 
                 // Redirect to login page
                 window.location.href = "admin-login.html";
@@ -1315,27 +1360,22 @@
         }
         
         function setupLogout() {
-    // Add event listener to logout link
-    document.querySelector('.nav-links a[data-view="logout"]').addEventListener('click', function(e) {
-        e.preventDefault();
-        logout();
-    });
-
-    // Reset timer on user activity
-    document.addEventListener('mousemove', resetInactivityTimer);
-    document.addEventListener('keypress', resetInactivityTimer);
-    document.addEventListener('click', resetInactivityTimer);
-    document.addEventListener('scroll', resetInactivityTimer);
-
-    // Initialize timer
-    resetInactivityTimer();
-}
-
-// Save appointments to localStorage
-function saveAppointments() {
-    localStorage.setItem('appointments', JSON.stringify(appointments));
-}
-
+            // Add event listener to logout link
+            document.querySelector('.nav-links a[data-view="logout"]').addEventListener('click', function(e) {
+                e.preventDefault();
+                logout();
+            });
+            
+            // Reset timer on user activity
+            document.addEventListener('mousemove', resetInactivityTimer);
+            document.addEventListener('keypress', resetInactivityTimer);
+            document.addEventListener('click', resetInactivityTimer);
+            document.addEventListener('scroll', resetInactivityTimer);
+            
+            // Initialize timer
+            resetInactivityTimer();
+        }
+    
         // Helper function to convert 12-hour time to 24-hour format
         function convertTo24Hour(time12) {
     if (!time12) return '';
@@ -1572,7 +1612,6 @@ function saveAppointments() {
             const index = appointments.findIndex(app => app.id === id);
             if (index !== -1) {
                 appointments.splice(index, 1);
-    saveAppointments();
                 renderAppointmentsTable();
                 updateStats();
                 renderCalendar();
@@ -1811,7 +1850,6 @@ function saveAppointments() {
     
         // Save appointment
         document.getElementById('save-appointment').addEventListener('click', () => {
-    saveAppointments();
             // Get form values
             const customerName = document.getElementById('customer-name').value;
             const phone = document.getElementById('customer-phone').value;
