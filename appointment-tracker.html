@@ -1392,11 +1392,18 @@
               <div class="form-group">
                 <label for="appointment-status">Status</label>
                 <select id="appointment-status" class="form-control" required>
-                  <option value="draft">Draft (Not Confirmed)</option>
-                  <option value="scheduled">Scheduled</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="released">Released (Completed)</option>
-                  <option value="cancelled">Cancelled</option>
+                  <option value="scheduled">
+                    🗓️ Scheduled for Initial Diagnosis/Repair
+                  </option>
+                  <option value="needs_parts">🔍 Needs Parts Ordered</option>
+                  <option value="parts_ordered">
+                    📦 Parts Ordered / Waiting on Parts
+                  </option>
+                  <option value="parts_arrived">📬 Parts Arrived</option>
+                  <option value="second_appointment">
+                    📅 Second Appointment Booked
+                  </option>
+                  <option value="repair_completed">✔️ Repair Completed</option>
                 </select>
               </div>
             </form>
@@ -1417,8 +1424,10 @@
     <script>
       let editingAppointmentId = null;
       let chartInstance = null;
-      let currentMonth = 6; // July (0-based index)
-      let currentYear = 2020;
+      const today = new Date();
+      let currentMonth = today.getMonth(); // 0-11
+      let currentYear = today.getFullYear();
+
       let defaultPrice = 150; // Default service price
       let allowPastEdits = true; // Allow editing past appointments
       let inactivityTimer; // For session timeout
@@ -1436,9 +1445,6 @@
             "Are you sure you want to logout? All unsaved changes will be lost."
           )
         ) {
-          // Clear sensitive data from memory
-          appointments = [];
-
           // Redirect to login page
           window.location.href = "admin-login.html";
         }
@@ -1663,14 +1669,30 @@
 
         appointments.forEach((app) => {
           const statusMap = {
-            draft: { text: "Draft (Not Confirmed)", class: "status-draft" },
-            scheduled: { text: "Scheduled", class: "status-scheduled" },
-            in_progress: { text: "In Progress", class: "status-inprogress" },
-            released: {
-              text: "Released (Completed)",
+            scheduled: {
+              text: "🗓️ Scheduled for Initial Diagnosis/Repair",
+              class: "status-scheduled",
+            },
+            needs_parts: {
+              text: "🔍 Needs Parts Ordered",
+              class: "status-inprogress",
+            },
+            parts_ordered: {
+              text: "📦 Parts Ordered / Waiting on Parts",
+              class: "status-inprogress",
+            },
+            parts_arrived: {
+              text: "📬 Parts Arrived",
+              class: "status-inprogress",
+            },
+            second_appointment: {
+              text: "📅 Second Appointment Booked",
+              class: "status-scheduled",
+            },
+            repair_completed: {
+              text: "✔️ Repair Completed",
               class: "status-released",
             },
-            cancelled: { text: "Cancelled", class: "status-cancelled" },
           };
 
           const statusInfo = statusMap[app.status] || {
@@ -1735,11 +1757,11 @@
         });
       }
 
-      // Delete appointment
       function deleteAppointment(id) {
         const index = appointments.findIndex((app) => app.id === id);
         if (index !== -1) {
           appointments.splice(index, 1);
+          localStorage.setItem("appointments", JSON.stringify(appointments)); // 👈 add this line
           renderAppointmentsTable();
           updateStats();
           renderCalendar();
@@ -2098,6 +2120,7 @@
               issue: issue,
               status: status,
             });
+            localStorage.setItem("appointments", JSON.stringify(appointments));
           }
 
           // Update UI
