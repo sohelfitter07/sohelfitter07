@@ -2316,20 +2316,22 @@ document
           renderAppointmentsTable(filtered);
         });
         function saveToGoogleSheet(appointment) {
+  console.log("📤 Sending to Google Sheet:", appointment);
+
   fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "text/plain;charset=utf-8"  // ✅ KEY: bypasses CORS preflight
     },
     body: JSON.stringify(appointment)
   })
-    .then(res => res.json())
-    .then(data => {
-      console.log("✅ Saved to Google Sheet:", data);
-    })
-    .catch(err => {
-      console.error("❌ Failed to save to Google Sheet:", err);
-    });
+  .then(res => res.json())
+  .then(data => {
+    console.log("✅ Saved to Google Sheet:", data);
+  })
+  .catch(err => {
+    console.error("❌ Failed to save to Google Sheet:", err);
+  });
 }
 
    </script>
