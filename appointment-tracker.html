@@ -1478,11 +1478,8 @@
       let inactivityTimer; // For session timeout
 
       // Appointment data structure
-      let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+      let appointments = [];
 
-      // ======================
-      // LOGOUT FUNCTIONALITY
-      // ======================
 
       function logout() {
         if (
@@ -2275,11 +2272,8 @@ document.getElementById("save-appointment").addEventListener("click", () => {
         ).value = `${hours}:${minutes}`;
 
         // Initial renders
-        renderAppointmentsTable();
-        updateStats();
-        renderCalendar();
-        updateCalendarSummary();
-        updatePerformanceMetrics();
+        loadAppointmentsFromGoogleSheet();
+
 
         // Initialize chart if on stats tab
         if (
@@ -2320,6 +2314,34 @@ document.getElementById("save-appointment").addEventListener("click", () => {
     })
     .catch(err => {
       console.error("❌ Failed to save to Google Sheet:", err);
+    });
+}
+function loadAppointmentsFromGoogleSheet() {
+  fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec")
+    .then(res => res.json())
+    .then(data => {
+      appointments = data.map(app => ({
+        id: parseInt(app.id),
+        customer: app.customer,
+        phone: app.phone,
+        equipment: app.equipment,
+        date: `${app.date} - ${app.time}`,
+        price: parseFloat(app.price),
+        issue: app.issue,
+        status: app.status,
+        repair_notes: app.repair_notes || ""
+      }));
+
+      localStorage.setItem("appointments", JSON.stringify(appointments)); // Optional
+      renderAppointmentsTable();
+      updateStats();
+      renderCalendar();
+      updateCalendarSummary();
+      updatePerformanceMetrics();
+      initChart();
+    })
+    .catch(err => {
+      console.error("❌ Failed to load from Google Sheet:", err);
     });
 }
 
