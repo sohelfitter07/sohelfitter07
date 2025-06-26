@@ -2316,12 +2316,10 @@ document
           renderAppointmentsTable(filtered);
         });
         function saveToGoogleSheet(appointment) {
-  console.log("📤 Sending to Google Sheet:", appointment);
-
   fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec", {
     method: "POST",
     headers: {
-      "Content-Type": "text/plain;charset=utf-8"  // ✅ KEY: bypasses CORS preflight
+      "Content-Type": "text/plain"  // ✅ Critical for skipping preflight CORS
     },
     body: JSON.stringify(appointment)
   })
