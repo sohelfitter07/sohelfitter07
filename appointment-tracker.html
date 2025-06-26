@@ -1405,5 +1405,35 @@ function deleteAppointment(id) {
   .then(data => console.log("✅ Deleted from Google Sheet:", data))
   .catch(err => console.error("❌ Failed to delete from Google Sheet:", err));
 }
-</script></body>
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec")
+      .then(res => res.json())
+      .then(data => {
+        appointments = data.map(app => ({
+          id: parseInt(app.id),
+          customer: app.customer,
+          phone: app.phone,
+          equipment: app.equipment,
+          date: `${app.date} - ${app.time}`,
+          price: parseFloat(app.price),
+          issue: app.issue,
+          status: app.status,
+          repair_notes: app.repair_notes || ""
+        }));
+        localStorage.setItem("appointments", JSON.stringify(appointments));
+        renderAppointmentsTable();
+        updateStats();
+        renderCalendar();
+        updateCalendarSummary();
+        updatePerformanceMetrics();
+        initChart();
+      })
+      .catch(err => {
+        console.error("❌ Failed to load appointments from Google Sheet:", err);
+      });
+  });
+  </script>
+  </body>
 </html>
