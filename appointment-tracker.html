@@ -1502,6 +1502,35 @@
         // Initialize timer
         resetInactivityTimer();
       }
+      async function fetchAppointmentsFromSheet() {
+        try {
+          const res = await fetch(
+            "https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec"
+          );
+          const json = await res.json();
+
+          if (json.status === "success") {
+            appointments = json.appointments.map((app) => ({
+              id: parseInt(app.id),
+              customer: app.customer,
+              phone: app.phone,
+              equipment: app.equipment,
+              date: `${app.date} - ${app.time}`,
+              price: parseFloat(app.price),
+              issue: app.issue,
+              status: app.status,
+              repair_notes: app.repair_notes || "",
+            }));
+
+            // Sync localStorage
+            localStorage.setItem("appointments", JSON.stringify(appointments));
+          } else {
+            console.error("Failed to load appointments from sheet:", json);
+          }
+        } catch (error) {
+          console.error("Error fetching appointments:", error);
+        }
+      }
 
       // Helper function to convert 12-hour time to 24-hour format
       function convertTo24Hour(time12) {
@@ -1819,6 +1848,21 @@
         if (index !== -1) {
           appointments.splice(index, 1);
           localStorage.setItem("appointments", JSON.stringify(appointments)); // 👈 add this line
+          fetch(
+            "https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec",
+            {
+              method: "POST",
+              mode: "no-cors",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                action: "delete",
+                id: id,
+              }),
+            }
+          );
+
           renderAppointmentsTable();
           updateStats();
           renderCalendar();
@@ -2160,6 +2204,30 @@
                 status: status,
                 repair_notes: repairNotes, // make sure notes update too
               };
+              fetch(
+                "https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec",
+                {
+                  method: "POST",
+                  mode: "no-cors",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    action: "update",
+                    appointment: {
+                      id: appointments[index].id,
+                      customer: customerName,
+                      phone: phone,
+                      equipment: equipment,
+                      date: formattedDate,
+                      time: formattedTime,
+                      status: status,
+                      price: price,
+                      issue: issue,
+                    },
+                  }),
+                }
+              );
             }
 
             // ✅ Save updated array
@@ -2185,6 +2253,30 @@
             });
             localStorage.setItem("appointments", JSON.stringify(appointments));
           }
+          fetch(
+            "https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec",
+            {
+              method: "POST",
+              mode: "no-cors",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                action: "create",
+                appointment: {
+                  id: newId,
+                  customer: customerName,
+                  phone: phone,
+                  equipment: equipment,
+                  date: formattedDate,
+                  time: formattedTime,
+                  status: status,
+                  price: price,
+                  issue: issue,
+                },
+              }),
+            }
+          );
 
           // Update UI
           renderAppointmentsTable();
@@ -2242,7 +2334,9 @@
         });
 
       // Initialize the page
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", async () => {
+        await fetchAppointmentsFromSheet(); // <-- LOAD from sheet on load
+
         // Set today's date as default in the form
         const today = new Date();
         const formattedDate = today.toISOString().split("T")[0];
