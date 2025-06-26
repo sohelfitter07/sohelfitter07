@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Appointment Tracker | Canadian Fitness Repair</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-
-
-<style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointment Tracker | Canadian Fitness Repair</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
       :root {
         --primary: #5d5dff;
         --secondary: #ff7e5f;
@@ -266,6 +267,11 @@
 
       .btn-success {
         background: var(--success);
+        color: white;
+      }
+
+      .btn-warning {
+        background: var(--warning);
         color: white;
       }
 
@@ -1011,429 +1017,1493 @@
         padding-bottom: 10px;
         font-size: 1.5rem;
       }
+      
+      /* Sync status */
+      .sync-status {
+        padding: 10px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 5px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.9rem;
+      }
+      
+      .sync-status i {
+        color: var(--success);
+      }
+      
+      .sync-status.error i {
+        color: var(--danger);
+      }
+      
+      .loading {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+      
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255,255,255,0.1);
+        border-top: 4px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
     </style>
-</head>
-<body>
-<header>
-<div class="logo">
-<i class="fas fa-dumbbell"></i>
-<h1>Fitness Repair Tracker</h1>
-</div>
-<div class="user-info">
-<div class="user-avatar">CF</div>
-<span>Admin</span>
-</div>
-</header>
-<main>
-<div class="app-container">
-<!-- Sidebar -->
-<div class="sidebar">
-<div class="sidebar-header">
-<h2><i class="fas fa-dumbbell"></i> Fitness Repair Tracker</h2>
-</div>
-<ul class="nav-links">
-<li>
-<a class="active" data-view="dashboard" href="#"><i class="fas fa-home"></i> Dashboard</a>
-</li>
-<li>
-<a data-view="calendar" href="#"><i class="fas fa-calendar-alt"></i> Calendar</a>
-</li>
-<li>
-<a data-view="settings" href="#"><i class="fas fa-cog"></i> Settings</a>
-</li>
-<li>
-<a data-view="customers" href="#"><i class="fas fa-users"></i> Customers</a>
-</li>
-<li>
-<a data-view="reports" href="#"><i class="fas fa-chart-line"></i> Reports</a>
-</li>
-<li>
-<a data-view="help" href="#"><i class="fas fa-question-circle"></i> Help</a>
-</li>
-<li>
-<a data-view="logout" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</li>
-</ul>
-</div>
-<!-- Main Content -->
-<div class="main-content">
-<div class="dashboard-header">
-<h1>Appointment Dashboard</h1>
-<div class="user-info">
-<div class="user-avatar">CF</div>
-<span>Admin</span>
-</div>
-</div>
-<!-- Stats Cards -->
-<div class="stats-container">
-<div class="stat-card">
-<div class="icon">
-<i class="fas fa-calendar-check"></i>
-</div>
-<div class="value" id="total-appointments">5</div>
-<div class="label">Total Appointments</div>
-</div>
-<div class="stat-card">
-<div class="icon">
-<i class="fas fa-clock"></i>
-</div>
-<div class="value" id="scheduled-count">1</div>
-<div class="label">Scheduled</div>
-</div>
-<div class="stat-card">
-<div class="icon">
-<i class="fas fa-check-circle"></i>
-</div>
-<div class="value" id="released-count">1</div>
-<div class="label">Released</div>
-</div>
-<div class="stat-card">
-<div class="icon">
-<i class="fas fa-tools"></i>
-</div>
-<div class="value" id="inprogress-count">3</div>
-<div class="label">In Progress</div>
-</div>
-</div>
-<!-- Action Buttons -->
-<div class="action-buttons">
-<button class="btn btn-primary" id="add-appointment">
-<i class="fas fa-plus"></i> Add Appointment
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <i class="fas fa-dumbbell"></i>
+        <h1>Fitness Repair Tracker</h1>
+      </div>
+      <div class="user-info">
+        <div class="user-avatar">CF</div>
+        <span>Admin</span>
+      </div>
+    </header>
+
+    <main>
+      <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="sidebar-header">
+            <h2><i class="fas fa-dumbbell"></i> Fitness Repair Tracker</h2>
+          </div>
+          <ul class="nav-links">
+            <li>
+              <a href="#" class="active" data-view="dashboard"
+                ><i class="fas fa-home"></i> Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="#" data-view="calendar"
+                ><i class="fas fa-calendar-alt"></i> Calendar</a
+              >
+            </li>
+            <li>
+              <a href="#" data-view="settings"
+                ><i class="fas fa-cog"></i> Settings</a
+              >
+            </li>
+            <li>
+              <a href="#" data-view="customers"
+                ><i class="fas fa-users"></i> Customers</a
+              >
+            </li>
+            <li>
+              <a href="#" data-view="reports"
+                ><i class="fas fa-chart-line"></i> Reports</a
+              >
+            </li>
+            <li>
+              <a href="#" data-view="help"
+                ><i class="fas fa-question-circle"></i> Help</a
+              >
+            </li>
+            <li>
+              <a href="#" data-view="logout"
+                ><i class="fas fa-sign-out-alt"></i> Logout</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+          <div class="dashboard-header">
+            <h1>Appointment Dashboard</h1>
+            <div class="user-info">
+              <div class="user-avatar">CF</div>
+              <span>Admin</span>
+              <button class="btn btn-warning" id="sync-button" style="margin-left: 15px;">
+                <i class="fas fa-sync-alt"></i> Sync Data
+              </button>
+            </div>
+          </div>
+          
+          <!-- Sync Status -->
+          <div class="sync-status" id="sync-status">
+            <i class="fas fa-check-circle"></i>
+            <span>Last sync: Just now</span>
+          </div>
+
+          <!-- Stats Cards -->
+          <div class="stats-container">
+            <div class="stat-card">
+              <div class="icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="value" id="total-appointments">0</div>
+              <div class="label">Total Appointments</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="value" id="scheduled-count">0</div>
+              <div class="label">Scheduled</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="value" id="released-count">0</div>
+              <div class="label">Released</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="icon">
+                <i class="fas fa-tools"></i>
+              </div>
+              <div class="value" id="inprogress-count">0</div>
+              <div class="label">In Progress</div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button class="btn btn-primary" id="add-appointment">
+              <i class="fas fa-plus"></i> Add Appointment
             </button>
-<button class="btn btn-success">
-<i class="fas fa-print"></i> Print Schedule
+            <button class="btn btn-success">
+              <i class="fas fa-print"></i> Print Schedule
             </button>
-</div>
-<!-- Tabs -->
-<div class="tabs">
-<div class="tab active" data-tab="list">List View</div>
-<div class="tab" data-tab="calendar">Calendar View</div>
-<div class="tab" data-tab="stats">Statistics</div>
-<div class="tab" data-tab="settings">Settings</div>
-<div class="tab" data-tab="reports">Reports</div>
-</div>
-<!-- Tab Content -->
-<div class="tab-content active" id="list-view">
-<!-- 🔍 Search Bar -->
-<div style="margin-bottom: 1rem">
-<input class="form-control" id="search-appointments" placeholder="Search by customer name or phone..." style="width: 100%; max-width: 300px" type="text"/>
-</div>
-<!-- Appointment Table -->
-<div class="table-responsive">
-<table class="appointments-table">
-<thead>
-<tr>
-<th>ID</th>
-<th>Customer</th>
-<th>Equipment</th>
-<th>Date &amp; Time</th>
-<th>Status</th>
-<th>Price</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody id="appointments-body">
-<!-- JS will populate rows -->
-</tbody>
-</table>
-</div>
-</div>
-<div class="tab-content" id="reports-view">
-<div class="data-summary">
-<h3>Completed Repair Reports</h3>
-<div class="table-responsive">
-<table class="appointments-table">
-<thead>
-<tr>
-<th>ID</th>
-<th>Customer</th>
-<th>Equipment</th>
-<th>Date</th>
-<th>Status</th>
-<th>Repair Notes</th>
-</tr>
-</thead>
-<tbody id="report-table-body">
-<!-- Will be filled with JS -->
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="tab-content" id="calendar-view">
-<div class="calendar-header">
-<div class="calendar-nav">
-<button id="prev-month">
-<i class="fas fa-chevron-left"></i> Prev
+          </div>
+
+          <!-- Tabs -->
+          <div class="tabs">
+            <div class="tab active" data-tab="list">List View</div>
+            <div class="tab" data-tab="calendar">Calendar View</div>
+            <div class="tab" data-tab="stats">Statistics</div>
+            <div class="tab" data-tab="settings">Settings</div>
+            <div class="tab" data-tab="reports">Reports</div>
+          </div>
+
+          <!-- Tab Content -->
+          <div class="tab-content active" id="list-view">
+            <!-- 🔍 Search Bar -->
+            <div style="margin-bottom: 1rem">
+              <input
+                type="text"
+                id="search-appointments"
+                class="form-control"
+                placeholder="Search by customer name or phone..."
+                style="width: 100%; max-width: 300px"
+              />
+            </div>
+
+            <!-- Appointment Table -->
+            <div class="table-responsive">
+              <table class="appointments-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Equipment</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="appointments-body">
+                  <tr>
+                    <td colspan="7" class="loading">
+                      <div class="spinner"></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-content" id="reports-view">
+            <div class="data-summary">
+              <h3>Completed Repair Reports</h3>
+              <div class="table-responsive">
+                <table class="appointments-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Customer</th>
+                      <th>Equipment</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Repair Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody id="report-table-body">
+                    <tr>
+                      <td colspan="6" class="loading">
+                        <div class="spinner"></div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="calendar-view">
+            <div class="calendar-header">
+              <div class="calendar-nav">
+                <button id="prev-month">
+                  <i class="fas fa-chevron-left"></i> Prev
                 </button>
-<h2 id="current-month-year">July 2020</h2>
-<button id="next-month">
+                <h2 id="current-month-year">Loading...</h2>
+                <button id="next-month">
                   Next <i class="fas fa-chevron-right"></i>
-</button>
-</div>
-</div>
-<div class="calendar-grid" id="calendar-days">
-<!-- Calendar will be populated dynamically -->
-</div>
-<div class="data-summary">
-<h3>Calendar Summary</h3>
-<div class="summary-grid">
-<div class="summary-item">
-<div class="value" id="summary-total">5</div>
-<div class="label">Total Appointments</div>
-</div>
-<div class="summary-item">
-<div class="value" id="summary-days">21</div>
-<div class="label">Business Days</div>
-</div>
-<div class="summary-item">
-<div class="value" id="summary-revenue">$7,730</div>
-<div class="label">Total Revenue</div>
-</div>
-<div class="summary-item">
-<div class="value" id="summary-utilization">68%</div>
-<div class="label">Utilization Rate</div>
-</div>
-</div>
-</div>
-</div>
-<div class="tab-content" id="stats-view">
-<div class="chart-container" style="height: 300px">
-<canvas id="appointmentsChart"></canvas>
-</div>
-<div class="data-summary">
-<h3>Performance Metrics</h3>
-<div class="summary-grid">
-<div class="summary-item">
-<div class="value" id="current-appointments">5</div>
-<div class="label">Current Appointments</div>
-</div>
-<div class="summary-item">
-<div class="value" id="monthly-released">1</div>
-<div class="label">Released This Month</div>
-</div>
-<div class="summary-item">
-<div class="value" id="monthly-revenue">$2,100</div>
-<div class="label">Monthly Revenue</div>
-</div>
-<div class="summary-item">
-<div class="value" id="satisfaction-rate">92%</div>
-<div class="label">Satisfaction Rate</div>
-</div>
-</div>
-</div>
-<div class="status-workflow">
-<div class="status-step completed">
-<div class="status-icon"><i class="fas fa-check"></i></div>
-<div>Scheduled</div>
-</div>
-<div class="status-step active">
-<div class="status-icon">
-<i class="fas fa-stethoscope"></i>
-</div>
-<div>Diagnosis</div>
-</div>
-<div class="status-step">
-<div class="status-icon"><i class="fas fa-box-open"></i></div>
-<div>Waiting Parts</div>
-</div>
-<div class="status-step">
-<div class="status-icon"><i class="fas fa-wrench"></i></div>
-<div>Installation</div>
-</div>
-<div class="status-step">
-<div class="status-icon">
-<i class="fas fa-flag-checkered"></i>
-</div>
-<div>Released</div>
-</div>
-</div>
-</div>
-<!-- Settings Tab -->
-<div class="tab-content" id="settings-view">
-<div class="settings-form">
-<h2>System Settings</h2>
-<div class="form-group">
-<label for="company-name">Company Name</label>
-<input class="form-control" id="company-name" type="text" value="Canadian Fitness Repair"/>
-</div>
-<div class="form-group">
-<label for="default-price">Default Service Price ($)</label>
-<input class="form-control" id="default-price" min="0" step="5" type="number" value="150"/>
-</div>
-<div class="form-group">
-<label for="business-hours">Business Hours</label>
-<input class="form-control" id="business-hours" type="text" value="9:00 AM - 6:00 PM"/>
-</div>
-<div class="form-group">
-<label for="enable-past-edits">Allow Editing Past Appointments</label>
-<select class="form-control" id="enable-past-edits">
-<option selected="" value="true">Yes</option>
-<option value="false">No</option>
-</select>
-</div>
-<div class="form-actions">
-<button class="btn" id="reset-settings">Reset Defaults</button>
-<button class="btn btn-primary" id="save-settings">
+                </button>
+              </div>
+            </div>
+
+            <div class="calendar-grid" id="calendar-days">
+              <div class="loading" style="grid-column: span 7;">
+                <div class="spinner"></div>
+              </div>
+            </div>
+
+            <div class="data-summary">
+              <h3>Calendar Summary</h3>
+              <div class="summary-grid">
+                <div class="summary-item">
+                  <div class="value" id="summary-total">0</div>
+                  <div class="label">Total Appointments</div>
+                </div>
+                <div class="summary-item">
+                  <div class="value" id="summary-days">0</div>
+                  <div class="label">Business Days</div>
+                </div>
+                <div class="summary-item">
+                  <div class="value" id="summary-revenue">$0</div>
+                  <div class="label">Total Revenue</div>
+                </div>
+                <div class="summary-item">
+                  <div class="value" id="summary-utilization">0%</div>
+                  <div class="label">Utilization Rate</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="stats-view">
+            <div class="chart-container" style="height: 300px">
+              <canvas id="appointmentsChart"></canvas>
+            </div>
+
+            <div class="data-summary">
+              <h3>Performance Metrics</h3>
+              <div class="summary-grid">
+                <div class="summary-item">
+                  <div class="value" id="current-appointments">0</div>
+                  <div class="label">Current Appointments</div>
+                </div>
+                <div class="summary-item">
+                  <div class="value" id="monthly-released">0</div>
+                  <div class="label">Released This Month</div>
+                </div>
+                <div class="summary-item">
+                  <div class="value" id="monthly-revenue">$0</div>
+                  <div class="label">Monthly Revenue</div>
+                </div>
+                <div class="summary-item">
+                  <div class="value" id="satisfaction-rate">0%</div>
+                  <div class="label">Satisfaction Rate</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="status-workflow">
+              <div class="status-step completed">
+                <div class="status-icon"><i class="fas fa-check"></i></div>
+                <div>Scheduled</div>
+              </div>
+              <div class="status-step active">
+                <div class="status-icon">
+                  <i class="fas fa-stethoscope"></i>
+                </div>
+                <div>Diagnosis</div>
+              </div>
+              <div class="status-step">
+                <div class="status-icon"><i class="fas fa-box-open"></i></div>
+                <div>Waiting Parts</div>
+              </div>
+              <div class="status-step">
+                <div class="status-icon"><i class="fas fa-wrench"></i></div>
+                <div>Installation</div>
+              </div>
+              <div class="status-step">
+                <div class="status-icon">
+                  <i class="fas fa-flag-checkered"></i>
+                </div>
+                <div>Released</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Settings Tab -->
+          <div class="tab-content" id="settings-view">
+            <div class="settings-form">
+              <h2>System Settings</h2>
+              <div class="form-group">
+                <label for="company-name">Company Name</label>
+                <input
+                  type="text"
+                  id="company-name"
+                  class="form-control"
+                  value="Canadian Fitness Repair"
+                />
+              </div>
+              <div class="form-group">
+                <label for="default-price">Default Service Price ($)</label>
+                <input
+                  type="number"
+                  id="default-price"
+                  class="form-control"
+                  value="150"
+                  min="0"
+                  step="5"
+                />
+              </div>
+              <div class="form-group">
+                <label for="business-hours">Business Hours</label>
+                <input
+                  type="text"
+                  id="business-hours"
+                  class="form-control"
+                  value="9:00 AM - 6:00 PM"
+                />
+              </div>
+              <div class="form-group">
+                <label for="enable-past-edits"
+                  >Allow Editing Past Appointments</label
+                >
+                <select id="enable-past-edits" class="form-control">
+                  <option value="true" selected>Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+              <div class="form-actions">
+                <button class="btn" id="reset-settings">Reset Defaults</button>
+                <button class="btn btn-primary" id="save-settings">
                   Save Settings
                 </button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Add Appointment Modal -->
-<div class="modal" id="appointment-modal">
-<div class="modal-content">
-<div class="modal-header">
-<h3 id="modal-title">Add New Appointment</h3>
-<button class="close-modal">×</button>
-</div>
-<div class="modal-body">
-<form id="appointment-form">
-<div class="form-row">
-<div class="form-group">
-<label for="customer-name">Customer Name</label>
-<input class="form-control" id="customer-name" required="" type="text"/>
-</div>
-<div class="form-group">
-<label for="customer-phone">Phone Number</label>
-<input class="form-control" id="customer-phone" required="" type="tel"/>
-</div>
-</div>
-<div class="form-row">
-<div class="form-group">
-<label for="appointment-date">Date</label>
-<input class="form-control" id="appointment-date" required="" type="date"/>
-</div>
-<div class="form-group">
-<label for="appointment-time">Time</label>
-<input class="form-control" id="appointment-time" required="" type="time"/>
-</div>
-</div>
-<div class="form-group">
-<label for="equipment">Equipment</label>
-<input class="form-control" id="equipment" required="" type="text"/>
-</div>
-<div class="form-group">
-<label for="appointment-price">Price ($)</label>
-<input class="form-control" id="appointment-price" min="0" required="" step="5" type="number" value="150"/>
-</div>
-<div class="form-group">
-<label for="issue-description">Issue Description</label>
-<textarea class="form-control" id="issue-description" required="" rows="3"></textarea>
-</div>
-<div class="form-group">
-<label for="repair-notes">Repair Notes</label>
-<textarea class="form-control" id="repair-notes" placeholder="What was done to fix the issue?" rows="3"></textarea>
-</div>
-<div class="form-group">
-<label for="appointment-status">Status</label>
-<select class="form-control" id="appointment-status" required="">
-<option value="scheduled">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Appointment Modal -->
+      <div class="modal" id="appointment-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 id="modal-title">Add New Appointment</h3>
+            <button class="close-modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form id="appointment-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="customer-name">Customer Name</label>
+                  <input
+                    type="text"
+                    id="customer-name"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="customer-phone">Phone Number</label>
+                  <input
+                    type="tel"
+                    id="customer-phone"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="appointment-date">Date</label>
+                  <input
+                    type="date"
+                    id="appointment-date"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="appointment-time">Time</label>
+                  <input
+                    type="time"
+                    id="appointment-time"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="equipment">Equipment</label>
+                <input
+                  type="text"
+                  id="equipment"
+                  class="form-control"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="appointment-price">Price ($)</label>
+                <input
+                  type="number"
+                  id="appointment-price"
+                  class="form-control"
+                  min="0"
+                  step="5"
+                  value="150"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="issue-description">Issue Description</label>
+                <textarea
+                  id="issue-description"
+                  class="form-control"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="repair-notes">Repair Notes</label>
+                <textarea
+                  id="repair-notes"
+                  class="form-control"
+                  rows="3"
+                  placeholder="What was done to fix the issue?"
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="appointment-status">Status</label>
+                <select id="appointment-status" class="form-control" required>
+                  <option value="scheduled">
                     🗓️ Scheduled for Initial Diagnosis/Repair
                   </option>
-<option value="needs_parts">🔍 Needs Parts Ordered</option>
-<option value="parts_ordered">
+                  <option value="needs_parts">🔍 Needs Parts Ordered</option>
+                  <option value="parts_ordered">
                     📦 Parts Ordered / Waiting on Parts
                   </option>
-<option value="parts_arrived">📬 Parts Arrived</option>
-<option value="second_appointment">
+                  <option value="parts_arrived">📬 Parts Arrived</option>
+                  <option value="second_appointment">
                     📅 Second Appointment Booked
                   </option>
-<option value="repair_completed">✔️ Repair Completed</option>
-</select>
-</div>
-</form>
-</div>
-<div class="form-actions">
-<button class="btn" id="cancel-appointment">Cancel</button>
-<button class="btn btn-primary" id="save-appointment">
+                  <option value="repair_completed">✔️ Repair Completed</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="form-actions">
+            <button class="btn" id="cancel-appointment">Cancel</button>
+            <button class="btn btn-primary" id="save-appointment">
               Save Appointment
             </button>
-</div>
-</div>
-</div>
-</main>
-<footer>
-<p>© 2023 Canadian Fitness Repair. All rights reserved.</p>
-</footer>
+          </div>
+        </div>
+      </div>
+    </main>
 
+    <footer>
+      <p>© 2023 Canadian Fitness Repair. All rights reserved.</p>
+    </footer>
+    <script>
+      let editingAppointmentId = null;
+      let chartInstance = null;
+      const today = new Date();
+      let currentMonth = today.getMonth(); // 0-11
+      let currentYear = today.getFullYear();
 
+      let defaultPrice = 150; // Default service price
+      let allowPastEdits = true; // Allow editing past appointments
+      let inactivityTimer; // For session timeout
 
-<script>
-let appointments = [];
-let editingAppointmentId = null;
-let allowPastEdits = true;
+      // Appointment data structure
+      let appointments = [];
+      
+      // Google Sheets API URL
+      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec";
+      
+      // Update sync status display
+      function updateSyncStatus(message, isError = false) {
+        const statusEl = document.getElementById('sync-status');
+        statusEl.innerHTML = `
+          <i class="fas ${isError ? 'fa-exclamation-circle error' : 'fa-check-circle'}"></i>
+          <span>${message}</span>
+        `;
+        statusEl.classList.toggle('error', isError);
+      }
+      
+      // Load appointments from Google Sheets
+      async function loadAppointmentsFromGoogleSheet() {
+        try {
+          // Show loading state
+          document.getElementById('appointments-body').innerHTML = `
+            <tr><td colspan="7" class="loading"><div class="spinner"></div></td></tr>
+          `;
+          
+          const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=get`);
+          const data = await response.json();
+          
+          if (data && data.status === 'success' && data.appointments) {
+            appointments = data.appointments.map(app => ({
+              ...app,
+              // Convert string dates back to Date objects if needed
+              date: new Date(app.date).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              }) + ' - ' + app.time
+            }));
+            
+            updateSyncStatus(`Last sync: ${new Date().toLocaleTimeString()}`);
+            renderAppointmentsTable();
+            updateStats();
+            renderCalendar();
+            updateCalendarSummary();
+            updatePerformanceMetrics();
+            initChart();
+          } else {
+            throw new Error('Invalid data format from server');
+          }
+        } catch (error) {
+          console.error('Error loading appointments:', error);
+          updateSyncStatus(`Error: ${error.message}`, true);
+          
+          // Show error in table
+          document.getElementById('appointments-body').innerHTML = `
+            <tr>
+              <td colspan="7" style="text-align:center;color:var(--danger);padding:20px;">
+                <i class="fas fa-exclamation-triangle"></i> Failed to load appointments
+              </td>
+            </tr>
+          `;
+        }
+      }
+      
+      // Save appointment to Google Sheets
+      async function saveToGoogleSheet(appointment, isUpdate = false) {
+        try {
+          // Add timestamp to appointment
+          const appointmentWithTimestamp = {
+            ...appointment,
+            lastUpdated: new Date().toISOString()
+          };
+          
+          const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify({
+              action: isUpdate ? 'update' : 'create',
+              appointment: appointmentWithTimestamp
+            }),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
+          
+          const result = await response.json();
+          
+          if (result.status === 'success') {
+            return true;
+          } else {
+            throw new Error(result.message || 'Failed to save appointment');
+          }
+        } catch (error) {
+          console.error('Error saving appointment:', error);
+          updateSyncStatus(`Save error: ${error.message}`, true);
+          return false;
+        }
+      }
+      
+      // Delete appointment from Google Sheets
+      async function deleteFromGoogleSheet(id) {
+        try {
+          const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify({
+              action: 'delete',
+              id: id
+            }),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
+          
+          const result = await response.json();
+          
+          if (result.status === 'success') {
+            return true;
+          } else {
+            throw new Error(result.message || 'Failed to delete appointment');
+          }
+        } catch (error) {
+          console.error('Error deleting appointment:', error);
+          updateSyncStatus(`Delete error: ${error.message}`, true);
+          return false;
+        }
+      }
 
-function saveToGoogleSheet(appointment, mode = "add") {
-  const payload = {
-    ...appointment,
-    ...(mode === "edit" ? { editId: appointment.id } : {})
-  };
+      function logout() {
+        if (
+          confirm(
+            "Are you sure you want to logout? All unsaved changes will be lost."
+          )
+        ) {
+          // Redirect to login page
+          window.location.href = "admin-login.html";
+        }
+      }
 
-  fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "text/plain"
-    },
-    body: JSON.stringify(payload)
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log("✅ Saved to Google Sheet:", data);
-  })
-  .catch(err => {
-    console.error("❌ Failed to save to Google Sheet:", err);
-  });
-}
+      function resetInactivityTimer() {
+        clearTimeout(inactivityTimer);
+        // Set timeout for 30 minutes (1800000 ms)
+        inactivityTimer = setTimeout(logout, 1800000);
+      }
 
-function deleteAppointment(id) {
-  if (!confirm("Are you sure you want to delete this appointment?")) return;
+      function setupLogout() {
+        // Add event listener to logout link
+        document
+          .querySelector('.nav-links a[data-view="logout"]')
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+            logout();
+          });
 
-  appointments = appointments.filter(app => app.id !== id);
-  localStorage.setItem("appointments", JSON.stringify(appointments));
-  renderAppointmentsTable();
-  updateStats();
+        // Reset timer on user activity
+        document.addEventListener("mousemove", resetInactivityTimer);
+        document.addEventListener("keypress", resetInactivityTimer);
+        document.addEventListener("click", resetInactivityTimer);
+        document.addEventListener("scroll", resetInactivityTimer);
 
-  fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec", {
-    method: "POST",
-    headers: { "Content-Type": "text/plain" },
-    body: JSON.stringify({ deleteId: id })
-  })
-  .then(res => res.json())
-  .then(data => console.log("✅ Deleted from Google Sheet:", data))
-  .catch(err => console.error("❌ Failed to delete from Google Sheet:", err));
-}
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec")
-      .then(res => res.json())
-      .then(data => {
-        appointments = data.map(app => ({
-          id: parseInt(app.id),
-          customer: app.customer,
-          phone: app.phone,
-          equipment: app.equipment,
-          date: `${app.date} - ${app.time}`,
-          price: parseFloat(app.price),
-          issue: app.issue,
-          status: app.status,
-          repair_notes: app.repair_notes || ""
-        }));
-        localStorage.setItem("appointments", JSON.stringify(appointments));
-        renderAppointmentsTable();
-        updateStats();
-        renderCalendar();
-        updateCalendarSummary();
-        updatePerformanceMetrics();
-        initChart();
-      })
-      .catch(err => {
-        console.error("❌ Failed to load appointments from Google Sheet:", err);
+        // Initialize timer
+        resetInactivityTimer();
+      }
+
+      // Helper function to convert 12-hour time to 24-hour format
+      function convertTo24Hour(time12) {
+        if (!time12) return "";
+
+        const [time, modifier] = time12.split(" ");
+        let [hours, minutes] = time.split(":");
+
+        // Convert hours to integer for calculations
+        let hourInt = parseInt(hours, 10);
+
+        if (hours === "12") {
+          hourInt = modifier === "AM" ? 0 : 12;
+        } else if (modifier === "PM") {
+          hourInt += 12;
+        }
+
+        // Convert back to string and pad with zero if needed
+        return `${hourInt.toString().padStart(2, "0")}:${minutes}`;
+      }
+
+      // Open edit modal with appointment data
+      function openEditModal(appointmentId) {
+        const appointment = appointments.find(
+          (app) => app.id === appointmentId
+        );
+        if (!appointment) return;
+
+        editingAppointmentId = appointmentId;
+
+        // Fill form with appointment data
+        document.getElementById("customer-name").value = appointment.customer;
+        document.getElementById("customer-phone").value =
+          appointment.phone || "";
+
+        // Parse date and time
+        const [datePart, timePart] = appointment.date.split(" - ");
+        const dateObj = new Date(datePart);
+
+        // Format date for input field (YYYY-MM-DD)
+        const formattedDate = dateObj.toISOString().split("T")[0];
+        document.getElementById("appointment-date").value = formattedDate;
+
+        // Format time for input field (HH:MM)
+        const time24 =
+          timePart.includes("AM") || timePart.includes("PM")
+            ? convertTo24Hour(timePart)
+            : timePart;
+        document.getElementById("appointment-time").value = time24;
+
+        document.getElementById("equipment").value = appointment.equipment;
+
+        document.getElementById("appointment-price").value =
+          appointment.price || defaultPrice;
+        document.getElementById("issue-description").value =
+          appointment.issue || "";
+        document.getElementById("repair-notes").value =
+          appointment.repair_notes || "";
+
+        document.getElementById("appointment-status").value =
+          appointment.status;
+
+        // Change button text
+        document.getElementById("modal-title").textContent = "Edit Appointment";
+        document.getElementById("save-appointment").textContent =
+          "Update Appointment";
+
+        // Open modal
+        modal.classList.add("active");
+      }
+
+      // Tab functionality
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          // Remove active class from all tabs and content
+          document
+            .querySelectorAll(".tab")
+            .forEach((t) => t.classList.remove("active"));
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((c) => c.classList.remove("active"));
+
+          // Add active class to clicked tab
+          tab.classList.add("active");
+
+          // Show corresponding content
+          const tabName = tab.getAttribute("data-tab");
+          document.getElementById(`${tabName}-view`).classList.add("active");
+
+          // Initialize chart when stats tab is opened
+          if (tabName === "stats") {
+            initChart();
+          }
+          // Render calendar when calendar tab is opened
+          if (tabName === "calendar") {
+            renderCalendar();
+          }
+          if (tabName === "reports") {
+            renderReportsTable();
+          }
+        });
       });
-  });
-  </script>
+
+      // Sidebar navigation
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          // Remove active class from all links
+          document
+            .querySelectorAll(".nav-links a")
+            .forEach((a) => a.classList.remove("active"));
+
+          // Add active class to clicked link
+          this.classList.add("active");
+
+          const view = this.getAttribute("data-view");
+          if (view === "calendar") {
+            document.querySelector('.tab[data-tab="calendar"]').click();
+          } else if (view === "settings") {
+            document.querySelector('.tab[data-tab="settings"]').click();
+          } else if (view === "logout") {
+            // Handled by setupLogout()
+          } else if (view === "reports") {
+            document.querySelector('.tab[data-tab="reports"]').click();
+          } else {
+            document.querySelector('.tab[data-tab="list"]').click();
+          }
+        });
+      });
+
+      // Modal functionality
+      const modal = document.getElementById("appointment-modal");
+      const addBtn = document.getElementById("add-appointment");
+      const closeBtn = document.querySelector(".close-modal");
+      const cancelBtn = document.getElementById("cancel-appointment");
+
+      addBtn.addEventListener("click", () => {
+        editingAppointmentId = null;
+        document.getElementById("modal-title").textContent =
+          "Add New Appointment";
+        document.getElementById("save-appointment").textContent =
+          "Save Appointment";
+
+        // Reset form and set current datetime
+        document.getElementById("appointment-form").reset();
+
+        const today = new Date();
+        const formattedDate = today.toISOString().split("T")[0];
+        document.getElementById("appointment-date").value = formattedDate;
+
+        const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+        const hours = nextHour.getHours().toString().padStart(2, "0");
+        const minutes = nextHour.getMinutes().toString().padStart(2, "0");
+        document.getElementById(
+          "appointment-time"
+        ).value = `${hours}:${minutes}`;
+        document.getElementById("appointment-price").value = defaultPrice;
+
+        modal.classList.add("active");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        modal.classList.remove("active");
+      });
+
+      cancelBtn.addEventListener("click", () => {
+        modal.classList.remove("active");
+      });
+
+      // Close modal when clicking outside
+      window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.remove("active");
+        }
+      });
+
+      // Update stats counts
+      function updateStats() {
+        const total = appointments.length;
+        const scheduled = appointments.filter(
+          (app) => app.status === "scheduled"
+        ).length;
+        const released = appointments.filter(
+          (app) => app.status === "released"
+        ).length;
+        const inProgress = appointments.filter(
+          (app) => app.status === "in_progress"
+        ).length;
+
+        document.getElementById("total-appointments").textContent = total;
+        document.getElementById("scheduled-count").textContent = scheduled;
+        document.getElementById("released-count").textContent = released;
+        document.getElementById("inprogress-count").textContent = inProgress;
+      }
+
+      // Render appointments table
+      function renderAppointmentsTable() {
+        const tbody = document.getElementById("appointments-body");
+        tbody.innerHTML = "";
+
+        appointments.forEach((app) => {
+          const statusMap = {
+            scheduled: {
+              text: "🗓️ Scheduled for Initial Diagnosis/Repair",
+              class: "status-scheduled",
+            },
+            needs_parts: {
+              text: "🔍 Needs Parts Ordered",
+              class: "status-inprogress",
+            },
+            parts_ordered: {
+              text: "📦 Parts Ordered / Waiting on Parts",
+              class: "status-inprogress",
+            },
+            parts_arrived: {
+              text: "📬 Parts Arrived",
+              class: "status-inprogress",
+            },
+            second_appointment: {
+              text: "📅 Second Appointment Booked",
+              class: "status-scheduled",
+            },
+            repair_completed: {
+              text: "✔️ Repair Completed",
+              class: "status-released",
+            },
+          };
+
+          const statusInfo = statusMap[app.status] || {
+            text: app.status,
+            class: "",
+          };
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                    <td>#${app.id}</td>
+                    <td>${app.customer}</td>
+                    <td>${app.equipment}</td>
+                    <td>${app.date}</td>
+                    <td><span class="status-badge ${statusInfo.class}">${
+            statusInfo.text
+          }</span></td>
+                    <td>$${app.price || 0}</td>
+                    <td class="action-cell">
+                        <button class="action-btn edit-btn" data-id="${app.id}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" data-id="${
+                          app.id
+                        }">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+          tbody.appendChild(row);
+        });
+
+        // Add event listeners to delete buttons
+        tbody.querySelectorAll(".delete-btn").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const id = parseInt(this.getAttribute("data-id"));
+            deleteAppointment(id);
+          });
+        });
+
+        // Add event listeners to edit buttons
+        tbody.querySelectorAll(".edit-btn").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const id = parseInt(this.getAttribute("data-id"));
+
+            // Check if editing past appointments is allowed
+            if (!allowPastEdits) {
+              const appointment = appointments.find((app) => app.id === id);
+              if (appointment) {
+                const [dateStr] = appointment.date.split(" - ");
+                const appointmentDate = new Date(dateStr);
+                const today = new Date();
+
+                if (appointmentDate < today) {
+                  alert("Editing past appointments is disabled in settings.");
+                  return;
+                }
+              }
+            }
+
+            openEditModal(id);
+          });
+        });
+      }
+      function renderReportsTable() {
+        const tbody = document.getElementById("report-table-body");
+        tbody.innerHTML = "";
+
+        const completedAppointments = appointments.filter(
+          (app) => app.status === "repair_completed"
+        );
+
+        completedAppointments.forEach((app) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+      <td>#${app.id}</td>
+      <td>${app.customer}</td>
+      <td>${app.equipment}</td>
+      <td>${app.date}</td>
+      <td><span class="status-badge status-released">✔️ Repair Completed</span></td>
+      <td>${app.repair_notes || "—"}</td>
+    `;
+          tbody.appendChild(row);
+        });
+      }
+
+      async function deleteAppointment(id) {
+        if (!confirm("Are you sure you want to delete this appointment?")) return;
+        
+        try {
+          // Delete from Google Sheets
+          const success = await deleteFromGoogleSheet(id);
+          
+          if (success) {
+            // Remove from local array
+            const index = appointments.findIndex((app) => app.id === id);
+            if (index !== -1) {
+              appointments.splice(index, 1);
+            }
+            
+            // Update UI
+            renderAppointmentsTable();
+            updateStats();
+            renderCalendar();
+            updateCalendarSummary();
+            updatePerformanceMetrics();
+            initChart();
+            
+            updateSyncStatus(`Appointment #${id} deleted successfully`);
+          }
+        } catch (error) {
+          console.error("Error deleting appointment:", error);
+          updateSyncStatus(`Error deleting appointment: ${error.message}`, true);
+        }
+      }
+
+      // Get number of days in a month
+      function getDaysInMonth(month, year) {
+        return new Date(year, month + 1, 0).getDate();
+      }
+
+      // Get first day of month (0-6, Sun-Sat)
+      function getFirstDayOfMonth(month, year) {
+        return new Date(year, month, 1).getDay();
+      }
+
+      // Calculate business days in a month
+      function getBusinessDays(month, year) {
+        const startDate = new Date(year, month, 1);
+        const endDate = new Date(year, month + 1, 0);
+
+        let businessDays = 0;
+        let currentDay = new Date(startDate);
+
+        while (currentDay <= endDate) {
+          const dayOfWeek = currentDay.getDay();
+          if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+            businessDays++;
+          }
+          currentDay.setDate(currentDay.getDate() + 1);
+        }
+
+        return businessDays;
+      }
+
+      // Format month/year for display
+      function formatMonthYear(month, year) {
+        const months = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        return `${months[month]} ${year}`;
+      }
+
+      // Update calendar summary
+      function updateCalendarSummary() {
+        // Filter appointments for the current month
+        const monthlyAppointments = appointments.filter((app) => {
+          const appDate = new Date(app.date.split(" - ")[0]);
+          return (
+            appDate.getMonth() === currentMonth &&
+            appDate.getFullYear() === currentYear
+          );
+        });
+
+        // Calculate business days for the month
+        const businessDays = getBusinessDays(currentMonth, currentYear);
+
+        // Calculate revenue for released appointments this month
+        const monthlyRevenue = monthlyAppointments
+          .filter((app) => app.status === "released")
+          .reduce((sum, app) => sum + (app.price || 0), 0);
+
+        // Update UI
+        document.getElementById("summary-total").textContent =
+          monthlyAppointments.length;
+        document.getElementById("summary-days").textContent = businessDays;
+        document.getElementById(
+          "summary-revenue"
+        ).textContent = `$${monthlyRevenue}`;
+
+        // Utilization rate calculation
+        const utilizationRate = Math.min(
+          100,
+          Math.round((monthlyAppointments.length / (businessDays * 3)) * 100)
+        );
+        document.getElementById(
+          "summary-utilization"
+        ).textContent = `${utilizationRate}%`;
+      }
+
+      // Update performance metrics
+      function updatePerformanceMetrics() {
+        // Filter appointments for the current month
+        const monthlyAppointments = appointments.filter((app) => {
+          const appDate = new Date(app.date.split(" - ")[0]);
+          return (
+            appDate.getMonth() === currentMonth &&
+            appDate.getFullYear() === currentYear
+          );
+        });
+
+        // Calculate metrics
+        const releasedThisMonth = monthlyAppointments.filter(
+          (app) => app.status === "released"
+        ).length;
+        const monthlyRevenue = monthlyAppointments
+          .filter((app) => app.status === "released")
+          .reduce((sum, app) => sum + (app.price || 0), 0);
+
+        // Update UI
+        document.getElementById("current-appointments").textContent =
+          appointments.length;
+        document.getElementById("monthly-released").textContent =
+          releasedThisMonth;
+        document.getElementById(
+          "monthly-revenue"
+        ).textContent = `$${monthlyRevenue}`;
+      }
+
+      // Render calendar
+      function renderCalendar() {
+        const calendarGrid = document.getElementById("calendar-days");
+        calendarGrid.innerHTML = "";
+
+        // Update month/year display
+        document.getElementById("current-month-year").textContent =
+          formatMonthYear(currentMonth, currentYear);
+
+        // Calendar headers
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        days.forEach((day) => {
+          const header = document.createElement("div");
+          header.className = "calendar-day-header";
+          header.textContent = day;
+          calendarGrid.appendChild(header);
+        });
+
+        // Get first day of month and total days
+        const firstDay = getFirstDayOfMonth(currentMonth, currentYear);
+        const totalDays = getDaysInMonth(currentMonth, currentYear);
+
+        // Empty days for start of month
+        for (let i = 0; i < firstDay; i++) {
+          const emptyDay = document.createElement("div");
+          emptyDay.className = "calendar-day empty";
+          calendarGrid.appendChild(emptyDay);
+        }
+
+        // Calendar days
+        for (let day = 1; day <= totalDays; day++) {
+          const dayElement = document.createElement("div");
+          dayElement.className = "calendar-day";
+
+          const dayNumber = document.createElement("div");
+          dayNumber.className = "day-number";
+          dayNumber.textContent = day;
+          dayElement.appendChild(dayNumber);
+
+          // Add appointments to calendar
+          const appointmentsForDay = appointments.filter((app) => {
+            const appDate = new Date(app.date.split(" - ")[0]);
+            return (
+              appDate.getMonth() === currentMonth &&
+              appDate.getFullYear() === currentYear &&
+              appDate.getDate() === day
+            );
+          });
+
+          if (appointmentsForDay.length > 0) {
+            const appointmentsContainer = document.createElement("div");
+            appointmentsContainer.className = "calendar-appointments";
+
+            appointmentsForDay.forEach((app) => {
+              const appItem = document.createElement("div");
+              appItem.className = "appointment-item";
+              appItem.textContent = `${app.customer.split(" ")[0]} - ${
+                app.date.split(" - ")[1]
+              }`;
+              appointmentsContainer.appendChild(appItem);
+            });
+
+            dayElement.appendChild(appointmentsContainer);
+          }
+
+          calendarGrid.appendChild(dayElement);
+        }
+
+        // Update calendar summary
+        updateCalendarSummary();
+      }
+
+      // Initialize chart
+      function initChart() {
+        const ctx = document
+          .getElementById("appointmentsChart")
+          .getContext("2d");
+
+        // Destroy existing chart if it exists
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+
+        // Calculate status counts for chart
+        const draft = appointments.filter(
+          (app) => app.status === "draft"
+        ).length;
+        const scheduled = appointments.filter(
+          (app) => app.status === "scheduled"
+        ).length;
+        const inProgress = appointments.filter(
+          (app) => app.status === "in_progress"
+        ).length;
+        const released = appointments.filter(
+          (app) => app.status === "released"
+        ).length;
+        const cancelled = appointments.filter(
+          (app) => app.status === "cancelled"
+        ).length;
+
+        chartInstance = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: [
+              "Draft",
+              "Scheduled",
+              "In Progress",
+              "Released",
+              "Cancelled",
+            ],
+            datasets: [
+              {
+                data: [draft, scheduled, inProgress, released, cancelled],
+                backgroundColor: [
+                  "rgba(149, 165, 166, 0.7)",
+                  "rgba(93, 93, 255, 0.7)",
+                  "rgba(52, 152, 219, 0.7)",
+                  "rgba(46, 204, 113, 0.7)",
+                  "rgba(231, 76, 60, 0.7)",
+                ],
+                borderColor: [
+                  "rgba(149, 165, 166, 1)",
+                  "rgba(93, 93, 255, 1)",
+                  "rgba(52, 152, 219, 1)",
+                  "rgba(46, 204, 113, 1)",
+                  "rgba(231, 76, 60, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "right",
+                labels: {
+                  color: "#f0f0f0",
+                  font: {
+                    size: 12,
+                  },
+                },
+              },
+              title: {
+                display: true,
+                text: "Appointment Status Distribution",
+                color: "#f0f0f0",
+                font: {
+                  size: 16,
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    const label = context.label || "";
+                    const value = context.raw || 0;
+                    const total = context.dataset.data.reduce(
+                      (a, b) => a + b,
+                      0
+                    );
+                    const percentage = Math.round((value / total) * 100);
+                    return `${label}: ${value} (${percentage}%)`;
+                  },
+                },
+              },
+            },
+          },
+        });
+      }
+
+      // Save appointment
+      document.getElementById("save-appointment").addEventListener("click", async () => {
+        // Get form values
+        const customerName = document.getElementById("customer-name").value;
+        const phone = document.getElementById("customer-phone").value;
+        const date = document.getElementById("appointment-date").value;
+        const time = document.getElementById("appointment-time").value;
+        const equipment = document.getElementById("equipment").value;
+        const price = parseFloat(document.getElementById("appointment-price").value) || 0;
+        const issue = document.getElementById("issue-description").value;
+        const status = document.getElementById("appointment-status").value;
+        const repairNotes = document.getElementById("repair-notes").value;
+
+        // Format date/time
+        const formattedDate = new Date(date).toLocaleDateString("en-US", {
+          month: "short", day: "numeric", year: "numeric"
+        });
+        const formattedTime = new Date(`2000-01-01T${time}`).toLocaleTimeString("en-US", {
+          hour: "numeric", minute: "2-digit"
+        });
+
+        let appointmentId;
+        let isUpdate = false;
+
+        if (editingAppointmentId) {
+          // Update existing appointment
+          const index = appointments.findIndex(app => app.id === editingAppointmentId);
+          if (index !== -1) {
+            appointmentId = editingAppointmentId;
+            appointments[index] = {
+              ...appointments[index],
+              customer: customerName,
+              phone: phone,
+              equipment: equipment,
+              date: `${formattedDate} - ${formattedTime}`,
+              price: price,
+              issue: issue,
+              status: status,
+              repair_notes: repairNotes,
+            };
+          }
+          isUpdate = true;
+          editingAppointmentId = null;
+        } else {
+          // Add new appointment
+          appointmentId = appointments.length > 0
+            ? Math.max(...appointments.map(a => a.id)) + 1
+            : 1001;
+
+          appointments.push({
+            id: appointmentId,
+            customer: customerName,
+            phone: phone,
+            equipment: equipment,
+            date: `${formattedDate} - ${formattedTime}`,
+            price: price,
+            issue: issue,
+            status: status,
+            repair_notes: repairNotes,
+          });
+        }
+
+        // Save to Google Sheet
+        const success = await saveToGoogleSheet({
+          id: appointmentId,
+          customer: customerName,
+          phone: phone,
+          equipment: equipment,
+          date: formattedDate,
+          time: formattedTime,
+          status: status,
+          price: price,
+          issue: issue,
+          repair_notes: repairNotes
+        }, isUpdate);
+        
+        if (success) {
+          // Update UI
+          renderAppointmentsTable();
+          updateStats();
+          renderCalendar();
+          updateCalendarSummary();
+          updatePerformanceMetrics();
+          initChart();
+
+          // Close modal
+          modal.classList.remove("active");
+          document.getElementById("appointment-form").reset();
+          document.getElementById("save-appointment").textContent = "Save Appointment";
+          
+          updateSyncStatus(`Appointment ${isUpdate ? 'updated' : 'created'} successfully`);
+        } else {
+          alert("Failed to save appointment to server. Please try again.");
+        }
+      });
+
+      // Month navigation
+      document.getElementById("prev-month").addEventListener("click", () => {
+        currentMonth--;
+        if (currentMonth < 0) {
+          currentMonth = 11;
+          currentYear--;
+        }
+        renderCalendar();
+      });
+
+      document.getElementById("next-month").addEventListener("click", () => {
+        currentMonth++;
+        if (currentMonth > 11) {
+          currentMonth = 0;
+          currentYear++;
+        }
+        renderCalendar();
+      });
+
+      // Settings functionality
+      document.getElementById("save-settings").addEventListener("click", () => {
+        defaultPrice =
+          parseFloat(document.getElementById("default-price").value) || 150;
+        allowPastEdits =
+          document.getElementById("enable-past-edits").value === "true";
+        alert("Settings saved successfully!");
+      });
+
+      document
+        .getElementById("reset-settings")
+        .addEventListener("click", () => {
+          document.getElementById("company-name").value =
+            "Canadian Fitness Repair";
+          document.getElementById("default-price").value = "150";
+          document.getElementById("business-hours").value = "9:00 AM - 6:00 PM";
+          document.getElementById("enable-past-edits").value = "true";
+          defaultPrice = 150;
+          allowPastEdits = true;
+        });
+        
+      // Sync button
+      document.getElementById("sync-button").addEventListener("click", () => {
+        loadAppointmentsFromGoogleSheet();
+      });
+
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", () => {
+        // Set today's date as default in the form
+        const today = new Date();
+        const formattedDate = today.toISOString().split("T")[0];
+        document.getElementById("appointment-date").value = formattedDate;
+
+        // Set current time + 1 hour as default
+        const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+        const hours = nextHour.getHours().toString().padStart(2, "0");
+        const minutes = nextHour.getMinutes().toString().padStart(2, "0");
+        document.getElementById(
+          "appointment-time"
+        ).value = `${hours}:${minutes}`;
+
+        // Load appointments from Google Sheets
+        loadAppointmentsFromGoogleSheet();
+
+        // Setup logout functionality
+        setupLogout();
+      });
+      
+      document
+        .getElementById("search-appointments")
+        .addEventListener("input", function () {
+          const keyword = this.value.toLowerCase();
+
+          const filtered = appointments.filter(
+            (app) =>
+              app.customer.toLowerCase().includes(keyword) ||
+              (app.phone && app.phone.toLowerCase().includes(keyword))
+          );
+
+          renderAppointmentsTable(filtered);
+        });
+   </script>
   </body>
 </html>
