@@ -2257,37 +2257,52 @@ document.getElementById("save-appointment").addEventListener("click", () => {
         });
 
       // Initialize the page
-      document.addEventListener("DOMContentLoaded", () => {
-        // Set today's date as default in the form
-        const today = new Date();
-        const formattedDate = today.toISOString().split("T")[0];
-        document.getElementById("appointment-date").value = formattedDate;
+      
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec")
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data) && data.length > 0) {
+        appointments = data.map(app => ({
+          id: parseInt(app.id),
+          customer: app.customer,
+          phone: app.phone,
+          equipment: app.equipment,
+          date: `${app.date} - ${app.time}`,
+          price: parseFloat(app.price),
+          issue: app.issue,
+          status: app.status,
+          repair_notes: app.repair_notes || ""
+        }));
+        localStorage.setItem("appointments", JSON.stringify(appointments));
+      } else {
+        const stored = localStorage.getItem("appointments");
+        appointments = stored ? JSON.parse(stored) : [];
+      }
 
-        // Set current time + 1 hour as default
-        const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-        const hours = nextHour.getHours().toString().padStart(2, "0");
-        const minutes = nextHour.getMinutes().toString().padStart(2, "0");
-        document.getElementById(
-          "appointment-time"
-        ).value = `${hours}:${minutes}`;
+      renderAppointmentsTable();
+      updateStats();
+      renderCalendar();
+      updateCalendarSummary();
+      updatePerformanceMetrics();
+      initChart();
+    })
+    .catch(err => {
+      console.error("❌ Failed to load from Google Sheet. Using localStorage instead.", err);
+      const stored = localStorage.getItem("appointments");
+      appointments = stored ? JSON.parse(stored) : [];
 
-        // Initial renders
-        loadAppointmentsFromGoogleSheet();
+      renderAppointmentsTable();
+      updateStats();
+      renderCalendar();
+      updateCalendarSummary();
+      updatePerformanceMetrics();
+      initChart();
+    });
 
-
-        // Initialize chart if on stats tab
-        if (
-          document
-            .querySelector('.tab[data-tab="stats"]')
-            .classList.contains("active")
-        ) {
-          initChart();
-        }
-
-        // Setup logout functionality
-        setupLogout();
-      });
-      document
+  setupLogout();
+});
+document
         .getElementById("search-appointments")
         .addEventListener("input", function () {
           const keyword = this.value.toLowerCase();
@@ -2314,34 +2329,6 @@ document.getElementById("save-appointment").addEventListener("click", () => {
     })
     .catch(err => {
       console.error("❌ Failed to save to Google Sheet:", err);
-    });
-}
-function loadAppointmentsFromGoogleSheet() {
-  fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec")
-    .then(res => res.json())
-    .then(data => {
-      appointments = data.map(app => ({
-        id: parseInt(app.id),
-        customer: app.customer,
-        phone: app.phone,
-        equipment: app.equipment,
-        date: `${app.date} - ${app.time}`,
-        price: parseFloat(app.price),
-        issue: app.issue,
-        status: app.status,
-        repair_notes: app.repair_notes || ""
-      }));
-
-      localStorage.setItem("appointments", JSON.stringify(appointments)); // Optional
-      renderAppointmentsTable();
-      updateStats();
-      renderCalendar();
-      updateCalendarSummary();
-      updatePerformanceMetrics();
-      initChart();
-    })
-    .catch(err => {
-      console.error("❌ Failed to load from Google Sheet:", err);
     });
 }
 
