@@ -1714,100 +1714,66 @@
 
       // Render appointments table
       function renderAppointmentsTable() {
-        const tbody = document.getElementById("appointments-body");
-        tbody.innerHTML = "";
+  const tbody = document.getElementById("appointments-body");
+  tbody.innerHTML = "";
 
-        appointments.forEach((app) => {
-          const statusMap = {
-            scheduled: {
-              text: "🗓️ Scheduled for Initial Diagnosis/Repair",
-              class: "status-scheduled",
-            },
-            needs_parts: {
-              text: "🔍 Needs Parts Ordered",
-              class: "status-inprogress",
-            },
-            parts_ordered: {
-              text: "📦 Parts Ordered / Waiting on Parts",
-              class: "status-inprogress",
-            },
-            parts_arrived: {
-              text: "📬 Parts Arrived",
-              class: "status-inprogress",
-            },
-            second_appointment: {
-              text: "📅 Second Appointment Booked",
-              class: "status-scheduled",
-            },
-            repair_completed: {
-              text: "✔️ Repair Completed",
-              class: "status-released",
-            },
-          };
+  appointments.forEach((app) => {
+    const statusMap = {
+      scheduled: {
+        text: "🗓️ Scheduled for Initial Diagnosis/Repair",
+        class: "status-scheduled",
+      },
+      needs_parts: {
+        text: "🔍 Needs Parts Ordered",
+        class: "status-inprogress",
+      },
+      parts_ordered: {
+        text: "📦 Parts Ordered / Waiting on Parts",
+        class: "status-inprogress",
+      },
+      parts_arrived: {
+        text: "📬 Parts Arrived",
+        class: "status-inprogress",
+      },
+      second_appointment: {
+        text: "📅 Second Appointment Booked",
+        class: "status-scheduled",
+      },
+      repair_completed: {
+        text: "✔️ Repair Completed",
+        class: "status-released",
+      },
+    };
 
-          const statusInfo = statusMap[app.status] || {
-            text: app.status,
-            class: "",
-          };
+    const statusInfo = statusMap[app.status] || {
+      text: app.status,
+      class: "",
+    };
 
-          const row = document.createElement("tr");
-          row.innerHTML = `
-                    <td>#${app.id}</td>
-                    <td>${app.customer}</td>
-                    <td>${app.equipment}</td>
-                    <td>${app.date}</td>
-                    <td><span class="status-badge ${statusInfo.class}">${
-            statusInfo.text
-          }</span></td>
-                    <td>$${app.price || 0}</td>
-                    <td class="action-cell">
-                        <button class="action-btn edit-btn" data-id="${app.id}">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete-btn" data-id="${
-                          app.id
-                        }">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                `;
-          tbody.appendChild(row);
-        });
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>#${app.id}</td>
+      <td>${app.customer}</td>
+      <td>${app.equipment}</td>
+      <td>${app.date}</td>
+      <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
+      <td>$${app.price || 0}</td>
+      <td class="action-cell">
+        <button class="action-btn edit-btn" data-id="${app.id}">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="action-btn delete-btn" data-id="${app.id}">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
 
-        // Add event listeners to delete buttons
-        tbody.querySelectorAll(".delete-btn").forEach((btn) => {
-          btn.addEventListener("click", function () {
-            const id = parseInt(this.getAttribute("data-id"));
-            deleteAppointment(id);
-          });
-        });
-
-        // Add event listeners to edit buttons
-        tbody.querySelectorAll(".edit-btn").forEach((btn) => {
-          btn.addEventListener("click", function () {
-            const id = parseInt(this.getAttribute("data-id"));
-
-            // Check if editing past appointments is allowed
-            if (!allowPastEdits) {
-              const appointment = appointments.find((app) => app.id === id);
-              if (appointment) {
-                const [dateStr] = appointment.date.split(" - ");
-                const appointmentDate = new Date(dateStr);
-                const today = new Date();
-
-                if (appointmentDate < today) {
-                  alert("Editing past appointments is disabled in settings.");
-                  return;
-                }
-
+  // ✅ Always call this after rendering rows
   addRowEventListeners();
-              }
-            }
+}
 
-            openEditModal(id);
-          });
-        });
-      }
       function renderReportsTable() {
         const tbody = document.getElementById("report-table-body");
         tbody.innerHTML = "";
@@ -2338,20 +2304,36 @@ document
   
 <script>
 function addRowEventListeners() {
-  document.querySelectorAll(".edit-btn").forEach(button => {
-    button.addEventListener("click", function () {
-      const id = parseInt(this.getAttribute("data-id"));
-      editAppointment(id);
-    });
-  });
-
-  document.querySelectorAll(".delete-btn").forEach(button => {
-    button.addEventListener("click", function () {
+  document.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
       const id = parseInt(this.getAttribute("data-id"));
       deleteAppointment(id);
     });
   });
+
+  document.querySelectorAll(".edit-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const id = parseInt(this.getAttribute("data-id"));
+
+      if (!allowPastEdits) {
+        const appointment = appointments.find((app) => app.id === id);
+        if (appointment) {
+          const [dateStr] = appointment.date.split(" - ");
+          const appointmentDate = new Date(dateStr);
+          const today = new Date();
+
+          if (appointmentDate < today) {
+            alert("Editing past appointments is disabled in settings.");
+            return;
+          }
+        }
+      }
+
+      openEditModal(id);
+    });
+  });
 }
+
 </script>
 
 </body>
