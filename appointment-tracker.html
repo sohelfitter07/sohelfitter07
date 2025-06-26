@@ -1551,10 +1551,10 @@
           `;
           
           const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=get`);
-          const data = await response.json();
+          const result = await response.json();
           
-          if (data && data.status === 'success' && data.appointments) {
-            appointments = data.appointments.map(app => ({
+          if (result && result.status === 'success' && result.appointments) {
+            appointments = result.appointments.map(app => ({
               ...app,
               // Convert string dates back to Date objects if needed
               date: new Date(app.date).toLocaleDateString('en-US', {
