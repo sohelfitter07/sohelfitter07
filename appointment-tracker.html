@@ -2321,57 +2321,5 @@ document.getElementById("save-appointment").addEventListener("click", () => {
 }
 
    </script>
-  
-<script>
-function deleteAppointment(id) {
-  const confirmDelete = confirm("Are you sure you want to delete this appointment?");
-  if (!confirmDelete) return;
-
-  appointments = appointments.filter(app => app.id !== id);
-  localStorage.setItem("appointments", JSON.stringify(appointments));
-
-  renderAppointmentsTable();
-  updateStats();
-  renderCalendar();
-  updateCalendarSummary();
-  updatePerformanceMetrics();
-  initChart();
-
-  // Delete from Google Sheet
-  fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec", {
-    method: "POST",
-    headers: { "Content-Type": "text/plain" },
-    body: JSON.stringify({ deleteId: id })
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log("✅ Deleted from Google Sheet:", data);
-  })
-  .catch(err => {
-    console.error("❌ Failed to delete from Google Sheet:", err);
-  });
-}
-
-function editAppointment(id) {
-  const app = appointments.find(app => app.id === id);
-  if (!app) return;
-
-  const [dateStr, timeStr] = app.date.split(" - ");
-
-  document.getElementById("customer-name").value = app.customer;
-  document.getElementById("customer-phone").value = app.phone;
-  document.getElementById("equipment-name").value = app.equipment;
-  document.getElementById("appointment-date").value = dateStr;
-  document.getElementById("appointment-time").value = timeStr;
-  document.getElementById("appointment-status").value = app.status;
-  document.getElementById("repair-price").value = app.price;
-  document.getElementById("repair-issue").value = app.issue;
-  document.getElementById("repair-notes").value = app.repair_notes || "";
-
-  editingAppointmentId = id;
-  document.getElementById("save-appointment").textContent = "Update Appointment";
-}
-</script>
-
-</body>
+  </body>
 </html>
