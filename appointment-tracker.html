@@ -2318,14 +2318,14 @@ document
         function saveToGoogleSheet(appointment) {
   fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec", {
     method: "POST",
-    body: JSON.stringify(appointment),
     headers: {
       "Content-Type": "application/json"
-    }
+    },
+    body: JSON.stringify(appointment)
   })
     .then(res => res.json())
     .then(data => {
-      console.log("✅ Appointment saved to Google Sheet:", data);
+      console.log("✅ Saved to Google Sheet:", data);
     })
     .catch(err => {
       console.error("❌ Failed to save to Google Sheet:", err);
