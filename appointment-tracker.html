@@ -2130,93 +2130,94 @@
         });
       }
 
-      // Save appointment
-      document
-        .getElementById("save-appointment")
-        .addEventListener("click", () => {
-          // Get form values
-          const customerName = document.getElementById("customer-name").value;
-          const phone = document.getElementById("customer-phone").value;
-          const date = document.getElementById("appointment-date").value;
-          const time = document.getElementById("appointment-time").value;
-          const equipment = document.getElementById("equipment").value;
-          const price =
-            parseFloat(document.getElementById("appointment-price").value) || 0;
-          const issue = document.getElementById("issue-description").value;
-          const status = document.getElementById("appointment-status").value;
-          const repairNotes = document.getElementById("repair-notes").value;
+// Save appointment
+document.getElementById("save-appointment").addEventListener("click", () => {
+  // Get form values
+  const customerName = document.getElementById("customer-name").value;
+  const phone = document.getElementById("customer-phone").value;
+  const date = document.getElementById("appointment-date").value;
+  const time = document.getElementById("appointment-time").value;
+  const equipment = document.getElementById("equipment").value;
+  const price = parseFloat(document.getElementById("appointment-price").value) || 0;
+  const issue = document.getElementById("issue-description").value;
+  const status = document.getElementById("appointment-status").value;
+  const repairNotes = document.getElementById("repair-notes").value;
 
-          // Format date for display
-          const formattedDate = new Date(date).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          });
+  // Format date/time
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    month: "short", day: "numeric", year: "numeric"
+  });
+  const formattedTime = new Date(`2000-01-01T${time}`).toLocaleTimeString("en-US", {
+    hour: "numeric", minute: "2-digit"
+  });
 
-          // Format time for display
-          const formattedTime = new Date(
-            `2000-01-01T${time}`
-          ).toLocaleTimeString("en-US", {
-            hour: "numeric",
-            minute: "2-digit",
-          });
+  let appointmentId;
 
-          if (editingAppointmentId) {
-            const index = appointments.findIndex(
-              (app) => app.id === editingAppointmentId
-            );
-            if (index !== -1) {
-              appointments[index] = {
-                ...appointments[index],
-                customer: customerName,
-                phone: phone,
-                equipment: equipment,
-                date: `${formattedDate} - ${formattedTime}`,
-                price: price,
-                issue: issue,
-                status: status,
-                repair_notes: repairNotes, // make sure notes update too
-              };
-            }
+  if (editingAppointmentId) {
+    // Update existing appointment
+    const index = appointments.findIndex(app => app.id === editingAppointmentId);
+    if (index !== -1) {
+      appointmentId = editingAppointmentId;
+      appointments[index] = {
+        ...appointments[index],
+        customer: customerName,
+        phone: phone,
+        equipment: equipment,
+        date: `${formattedDate} - ${formattedTime}`,
+        price: price,
+        issue: issue,
+        status: status,
+        repair_notes: repairNotes,
+      };
+    }
+    localStorage.setItem("appointments", JSON.stringify(appointments));
+    editingAppointmentId = null;
+  } else {
+    // Add new appointment
+    appointmentId = appointments.length > 0
+      ? Math.max(...appointments.map(a => a.id)) + 1
+      : 1001;
 
-            // ✅ Save updated array
-            localStorage.setItem("appointments", JSON.stringify(appointments));
+    appointments.push({
+      id: appointmentId,
+      customer: customerName,
+      phone: phone,
+      equipment: equipment,
+      date: `${formattedDate} - ${formattedTime}`,
+      price: price,
+      issue: issue,
+      status: status,
+      repair_notes: repairNotes,
+    });
+    localStorage.setItem("appointments", JSON.stringify(appointments));
+  }
 
-            editingAppointmentId = null;
-          } else {
-            // Add new appointment
-            const newId =
-              appointments.length > 0
-                ? Math.max(...appointments.map((a) => a.id)) + 1
-                : 1001;
-            appointments.push({
-              id: newId,
-              customer: customerName,
-              phone: phone,
-              equipment: equipment,
-              date: `${formattedDate} - ${formattedTime}`,
-              price: price,
-              issue: issue,
-              status: status,
-              repair_notes: repairNotes,
-            });
-            localStorage.setItem("appointments", JSON.stringify(appointments));
-          }
+  // ✅ Save to Google Sheet
+  saveToGoogleSheet({
+    id: appointmentId,
+    customer: customerName,
+    phone: phone,
+    equipment: equipment,
+    date: formattedDate,
+    time: formattedTime,
+    status: status,
+    price: price,
+    issue: issue
+  });
 
-          // Update UI
-          renderAppointmentsTable();
-          updateStats();
-          renderCalendar();
-          updateCalendarSummary();
-          updatePerformanceMetrics();
-          initChart();
+  // Update UI
+  renderAppointmentsTable();
+  updateStats();
+  renderCalendar();
+  updateCalendarSummary();
+  updatePerformanceMetrics();
+  initChart();
 
-          // Close modal and reset form
-          modal.classList.remove("active");
-          document.getElementById("appointment-form").reset();
-          document.getElementById("save-appointment").textContent =
-            "Save Appointment";
-        });
+  // Close modal
+  modal.classList.remove("active");
+  document.getElementById("appointment-form").reset();
+  document.getElementById("save-appointment").textContent = "Save Appointment";
+});
 
       // Month navigation
       document.getElementById("prev-month").addEventListener("click", () => {
@@ -2305,6 +2306,23 @@
 
           renderAppointmentsTable(filtered);
         });
-    </script>
+        function saveToGoogleSheet(appointment) {
+  fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec", {
+    method: "POST",
+    body: JSON.stringify(appointment),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("✅ Appointment saved to Google Sheet:", data);
+    })
+    .catch(err => {
+      console.error("❌ Failed to save to Google Sheet:", err);
+    });
+}
+
+   </script>
   </body>
 </html>
