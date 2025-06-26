@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Sheet Test</title>
+</head>
+<body>
+  <h2>Google Apps Script Test</h2>
+  <button onclick="sendTest()">Send Test Appointment</button>
+
+  <script>
+    function sendTest() {
+      const testAppointment = {
+        id: Date.now(),
+        customer: "CORS Test",
+        phone: "1234567890",
+        equipment: "Test Treadmill",
+        date: "2025-06-25",
+        time: "10:00",
+        status: "new",
+        price: "100",
+        issue: "Test run from website"
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain"
+        },
+        body: JSON.stringify(testAppointment)
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log("✅ Success:", data);
+        alert("✅ Success! Check your Google Sheet.");
+      })
+      .catch(err => {
+        console.error("❌ Error:", err);
+        alert("❌ Failed: " + err.message);
+      });
+    }
+  </script>
+</body>
+</html>
