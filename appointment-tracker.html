@@ -92,12 +92,6 @@
         font-weight: bold;
       }
 
-      main {
-        padding-top: 6rem;
-        flex: 1;
-        padding-bottom: 2rem;
-      }
-
       .app-container {
         display: flex;
         min-height: calc(100vh - 8rem);
@@ -1015,17 +1009,6 @@
     </style>
   </head>
   <body>
-    <header>
-      <div class="logo">
-        <i class="fas fa-dumbbell"></i>
-        <h1>Fitness Repair Tracker</h1>
-      </div>
-      <div class="user-info">
-        <div class="user-avatar">CF</div>
-        <span>Admin</span>
-      </div>
-    </header>
-
     <main>
       <div class="app-container">
         <!-- Sidebar -->
@@ -1122,7 +1105,7 @@
             <button class="btn btn-primary" id="add-appointment">
               <i class="fas fa-plus"></i> Add Appointment
             </button>
-            <button class="btn btn-success">
+            <button class="btn btn-success" id="print-schedule">
               <i class="fas fa-print"></i> Print Schedule
             </button>
           </div>
@@ -2304,6 +2287,11 @@
           );
 
           renderAppointmentsTable(filtered);
+        });
+      document
+        .getElementById("print-schedule")
+        .addEventListener("click", function () {
+          window.print();
         });
     </script>
   </body>
