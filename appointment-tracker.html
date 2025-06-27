@@ -2085,10 +2085,24 @@
       });
 
       // Initial setup on DOM ready
-      document.addEventListener("DOMContentLoaded", () => {
-        fetchAppointments();
+      import { onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        // Default form setup
+      document.addEventListener("DOMContentLoaded", () => {
+        // Real-time listener: updates appointments & UI on any Firestore change
+        onSnapshot(appointmentsCollection, (snapshot) => {
+          appointments = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          renderAppointmentsTable();
+          updateStats();
+          renderCalendar();
+          updateCalendarSummary();
+          updatePerformanceMetrics();
+          initChart();
+        });
+
+        // Default form setup remains unchanged
         const today = new Date();
         document.getElementById("appointment-date").value = today
           .toISOString()
