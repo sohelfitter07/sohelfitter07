@@ -1018,7 +1018,7 @@
           </div>
           <ul class="nav-links">
             <li>
-              <a href="#" class="active" data-view="dashboard"
+              <a href="#" class="active" data-view="list"
                 ><i class="fas fa-home"></i> Dashboard</a
               >
             </li>
@@ -1068,34 +1068,23 @@
           <!-- Stats Cards -->
           <div class="stats-container">
             <div class="stat-card">
-              <div class="icon">
-                <i class="fas fa-calendar-check"></i>
-              </div>
-              <div class="value" id="total-appointments">5</div>
+              <div class="icon"><i class="fas fa-calendar-check"></i></div>
+              <div class="value" id="total-appointments">0</div>
               <div class="label">Total Appointments</div>
             </div>
-
             <div class="stat-card">
-              <div class="icon">
-                <i class="fas fa-clock"></i>
-              </div>
-              <div class="value" id="scheduled-count">1</div>
+              <div class="icon"><i class="fas fa-clock"></i></div>
+              <div class="value" id="scheduled-count">0</div>
               <div class="label">Scheduled</div>
             </div>
-
             <div class="stat-card">
-              <div class="icon">
-                <i class="fas fa-check-circle"></i>
-              </div>
-              <div class="value" id="released-count">1</div>
+              <div class="icon"><i class="fas fa-check-circle"></i></div>
+              <div class="value" id="released-count">0</div>
               <div class="label">Released</div>
             </div>
-
             <div class="stat-card">
-              <div class="icon">
-                <i class="fas fa-tools"></i>
-              </div>
-              <div class="value" id="inprogress-count">3</div>
+              <div class="icon"><i class="fas fa-tools"></i></div>
+              <div class="value" id="inprogress-count">0</div>
               <div class="label">In Progress</div>
             </div>
           </div>
@@ -1119,9 +1108,8 @@
             <div class="tab" data-tab="reports">Reports</div>
           </div>
 
-          <!-- Tab Content -->
+          <!-- Tab Contents -->
           <div class="tab-content active" id="list-view">
-            <!-- 🔍 Search Bar -->
             <div style="margin-bottom: 1rem">
               <input
                 type="text"
@@ -1131,8 +1119,6 @@
                 style="width: 100%; max-width: 300px"
               />
             </div>
-
-            <!-- Appointment Table -->
             <div class="table-responsive">
               <table class="appointments-table">
                 <thead>
@@ -1147,32 +1133,9 @@
                   </tr>
                 </thead>
                 <tbody id="appointments-body">
-                  <!-- JS will populate rows -->
+                  <!-- Populated by JS -->
                 </tbody>
               </table>
-            </div>
-          </div>
-
-          <div class="tab-content" id="reports-view">
-            <div class="data-summary">
-              <h3>Completed Repair Reports</h3>
-              <div class="table-responsive">
-                <table class="appointments-table">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Customer</th>
-                      <th>Equipment</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Repair Notes</th>
-                    </tr>
-                  </thead>
-                  <tbody id="report-table-body">
-                    <!-- Will be filled with JS -->
-                  </tbody>
-                </table>
-              </div>
             </div>
           </div>
 
@@ -1182,34 +1145,30 @@
                 <button id="prev-month">
                   <i class="fas fa-chevron-left"></i> Prev
                 </button>
-                <h2 id="current-month-year">July 2020</h2>
+                <h2 id="current-month-year">Loading...</h2>
                 <button id="next-month">
                   Next <i class="fas fa-chevron-right"></i>
                 </button>
               </div>
             </div>
-
-            <div class="calendar-grid" id="calendar-days">
-              <!-- Calendar will be populated dynamically -->
-            </div>
-
+            <div class="calendar-grid" id="calendar-days"></div>
             <div class="data-summary">
               <h3>Calendar Summary</h3>
               <div class="summary-grid">
                 <div class="summary-item">
-                  <div class="value" id="summary-total">5</div>
+                  <div class="value" id="summary-total">0</div>
                   <div class="label">Total Appointments</div>
                 </div>
                 <div class="summary-item">
-                  <div class="value" id="summary-days">21</div>
+                  <div class="value" id="summary-days">0</div>
                   <div class="label">Business Days</div>
                 </div>
                 <div class="summary-item">
-                  <div class="value" id="summary-revenue">$7,730</div>
+                  <div class="value" id="summary-revenue">$0</div>
                   <div class="label">Total Revenue</div>
                 </div>
                 <div class="summary-item">
-                  <div class="value" id="summary-utilization">68%</div>
+                  <div class="value" id="summary-utilization">0%</div>
                   <div class="label">Utilization Rate</div>
                 </div>
               </div>
@@ -1220,58 +1179,29 @@
             <div class="chart-container" style="height: 300px">
               <canvas id="appointmentsChart"></canvas>
             </div>
-
             <div class="data-summary">
               <h3>Performance Metrics</h3>
               <div class="summary-grid">
                 <div class="summary-item">
-                  <div class="value" id="current-appointments">5</div>
+                  <div class="value" id="current-appointments">0</div>
                   <div class="label">Current Appointments</div>
                 </div>
                 <div class="summary-item">
-                  <div class="value" id="monthly-released">1</div>
+                  <div class="value" id="monthly-released">0</div>
                   <div class="label">Released This Month</div>
                 </div>
                 <div class="summary-item">
-                  <div class="value" id="monthly-revenue">$2,100</div>
+                  <div class="value" id="monthly-revenue">$0</div>
                   <div class="label">Monthly Revenue</div>
                 </div>
                 <div class="summary-item">
-                  <div class="value" id="satisfaction-rate">92%</div>
+                  <div class="value" id="satisfaction-rate">N/A</div>
                   <div class="label">Satisfaction Rate</div>
                 </div>
               </div>
             </div>
-
-            <div class="status-workflow">
-              <div class="status-step completed">
-                <div class="status-icon"><i class="fas fa-check"></i></div>
-                <div>Scheduled</div>
-              </div>
-              <div class="status-step active">
-                <div class="status-icon">
-                  <i class="fas fa-stethoscope"></i>
-                </div>
-                <div>Diagnosis</div>
-              </div>
-              <div class="status-step">
-                <div class="status-icon"><i class="fas fa-box-open"></i></div>
-                <div>Waiting Parts</div>
-              </div>
-              <div class="status-step">
-                <div class="status-icon"><i class="fas fa-wrench"></i></div>
-                <div>Installation</div>
-              </div>
-              <div class="status-step">
-                <div class="status-icon">
-                  <i class="fas fa-flag-checkered"></i>
-                </div>
-                <div>Released</div>
-              </div>
-            </div>
           </div>
 
-          <!-- Settings Tab -->
           <div class="tab-content" id="settings-view">
             <div class="settings-form">
               <h2>System Settings</h2>
@@ -1321,15 +1251,42 @@
               </div>
             </div>
           </div>
+
+          <div class="tab-content" id="reports-view">
+            <div class="data-summary">
+              <h3>Completed Repair Reports</h3>
+              <div class="table-responsive">
+                <table class="appointments-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Customer</th>
+                      <th>Equipment</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Repair Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody id="report-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Add Appointment Modal -->
-      <div class="modal" id="appointment-modal">
+      <!-- Add/Edit Appointment Modal -->
+      <div
+        class="modal"
+        id="appointment-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-hidden="true"
+      >
         <div class="modal-content">
           <div class="modal-header">
             <h3 id="modal-title">Add New Appointment</h3>
-            <button class="close-modal">&times;</button>
+            <button class="close-modal" title="Close">&times;</button>
           </div>
           <div class="modal-body">
             <form id="appointment-form">
@@ -1353,7 +1310,6 @@
                   />
                 </div>
               </div>
-
               <div class="form-row">
                 <div class="form-group">
                   <label for="appointment-date">Date</label>
@@ -1374,7 +1330,6 @@
                   />
                 </div>
               </div>
-
               <div class="form-group">
                 <label for="equipment">Equipment</label>
                 <input
@@ -1384,7 +1339,6 @@
                   required
                 />
               </div>
-
               <div class="form-group">
                 <label for="appointment-price">Price ($)</label>
                 <input
@@ -1397,7 +1351,6 @@
                   required
                 />
               </div>
-
               <div class="form-group">
                 <label for="issue-description">Issue Description</label>
                 <textarea
@@ -1416,7 +1369,6 @@
                   placeholder="What was done to fix the issue?"
                 ></textarea>
               </div>
-
               <div class="form-group">
                 <label for="appointment-status">Status</label>
                 <select id="appointment-status" class="form-control" required>
@@ -1450,7 +1402,6 @@
       <p>© 2023 Canadian Fitness Repair. All rights reserved.</p>
     </footer>
     <script type="module">
-      // Firebase imports
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
       import {
         getFirestore,
@@ -1462,7 +1413,7 @@
         doc,
       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-      // Firebase config & initialization
+      // Firebase config and initialization
       const firebaseConfig = {
         apiKey: "AIzaSyCtz3qjz880jPQBH6jJ5fBY_O86wK1iRzs",
         authDomain: "cfr-tracker.firebaseapp.com",
@@ -1472,100 +1423,22 @@
         appId: "1:870691427306:web:fc18ec2a33394e7fcf5893",
         measurementId: "G-CMVSQHBQKH",
       };
-
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
       const appointmentsCollection = collection(db, "appointments");
 
-      // Variables & constants
+      // Globals & state
+      let appointments = [];
       let editingAppointmentId = null;
       let chartInstance = null;
-      let appointments = [];
+      let currentMonth = new Date().getMonth();
+      let currentYear = new Date().getFullYear();
       const defaultPriceInitial = 150;
       let defaultPrice = defaultPriceInitial;
       let allowPastEdits = true;
       let inactivityTimer;
 
-      // --- LOGOUT ---
-      function logout() {
-        if (
-          confirm(
-            "Are you sure you want to logout? All unsaved changes will be lost."
-          )
-        ) {
-          window.location.href = "admin-login.html";
-        }
-      }
-      function resetInactivityTimer() {
-        clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(logout, 1800000); // 30 min
-      }
-      function setupLogout() {
-        document
-          .querySelector('.nav-links a[data-view="logout"]')
-          .addEventListener("click", (e) => {
-            e.preventDefault();
-            logout();
-          });
-        ["mousemove", "keypress", "click", "scroll"].forEach((evt) =>
-          document.addEventListener(evt, resetInactivityTimer)
-        );
-        resetInactivityTimer();
-      }
-
-      // --- FIRESTORE DATA HANDLING ---
-      async function fetchAppointments() {
-        try {
-          const snapshot = await getDocs(appointmentsCollection);
-          appointments = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          // LocalStorage sync optional, can keep it or remove
-          localStorage.setItem("appointments", JSON.stringify(appointments));
-
-          // Render all UI parts after fetch
-          renderAppointmentsTable();
-          updateStats();
-          renderCalendar();
-          updateCalendarSummary();
-          updatePerformanceMetrics();
-          initChart();
-        } catch (error) {
-          console.error("Error fetching appointments:", error);
-        }
-      }
-
-      async function saveAppointment(data) {
-        try {
-          if (editingAppointmentId) {
-            // Update existing doc
-            const docRef = doc(db, "appointments", editingAppointmentId);
-            await updateDoc(docRef, data);
-          } else {
-            // Add new doc
-            await addDoc(appointmentsCollection, data);
-          }
-          editingAppointmentId = null;
-          await fetchAppointments();
-        } catch (error) {
-          console.error("Error saving appointment:", error);
-        }
-      }
-
-      async function deleteAppointment(id) {
-        try {
-          await deleteDoc(doc(db, "appointments", id));
-          // Also update local array & UI
-          appointments = appointments.filter((app) => app.id !== id);
-          localStorage.setItem("appointments", JSON.stringify(appointments));
-          await fetchAppointments();
-        } catch (error) {
-          console.error("Error deleting appointment:", error);
-        }
-      }
-
-      // --- HELPER ---
+      // Utility functions
       function convertTo24Hour(time12) {
         if (!time12) return "";
         const [time, modifier] = time12.split(" ");
@@ -1579,47 +1452,130 @@
         return `${hourInt.toString().padStart(2, "0")}:${minutes}`;
       }
 
-      // --- MODAL HANDLING ---
+      function getBusinessDays(month, year) {
+        let count = 0;
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        for (let day = 1; day <= daysInMonth; day++) {
+          const d = new Date(year, month, day);
+          if (d.getDay() !== 0 && d.getDay() !== 6) count++;
+        }
+        return count;
+      }
+
+      function formatMonthYear(month, year) {
+        return new Date(year, month).toLocaleString("default", {
+          month: "long",
+          year: "numeric",
+        });
+      }
+
+      // Logout handling and inactivity
+      function logout() {
+        if (
+          confirm(
+            "Are you sure you want to logout? All unsaved changes will be lost."
+          )
+        ) {
+          window.location.href = "admin-login.html";
+        }
+      }
+
+      function resetInactivityTimer() {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(logout, 1800000); // 30 minutes
+      }
+
+      function setupLogout() {
+        document
+          .querySelector('.nav-links a[data-view="logout"]')
+          .addEventListener("click", (e) => {
+            e.preventDefault();
+            logout();
+          });
+        ["mousemove", "keypress", "click", "scroll"].forEach((evt) =>
+          document.addEventListener(evt, resetInactivityTimer)
+        );
+        resetInactivityTimer();
+      }
+
+      // Fetch appointments from Firestore
+      async function fetchAppointments() {
+        try {
+          const snapshot = await getDocs(appointmentsCollection);
+          appointments = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          renderAppointmentsTable();
+          updateStats();
+          renderCalendar();
+          updateCalendarSummary();
+          updatePerformanceMetrics();
+          initChart();
+        } catch (error) {
+          console.error("Error fetching appointments:", error);
+        }
+      }
+
+      // Save (add or update) appointment in Firestore
+      async function saveAppointment(data) {
+        try {
+          if (editingAppointmentId) {
+            const docRef = doc(db, "appointments", editingAppointmentId);
+            await updateDoc(docRef, data);
+          } else {
+            await addDoc(appointmentsCollection, data);
+          }
+          editingAppointmentId = null;
+          await fetchAppointments();
+        } catch (error) {
+          console.error("Error saving appointment:", error);
+        }
+      }
+
+      // Delete appointment from Firestore
+      async function deleteAppointment(id) {
+        try {
+          await deleteDoc(doc(db, "appointments", id));
+          await fetchAppointments();
+        } catch (error) {
+          console.error("Error deleting appointment:", error);
+        }
+      }
+
+      // Modal open/close functions
       const modal = document.getElementById("appointment-modal");
       const addBtn = document.getElementById("add-appointment");
       const closeBtn = document.querySelector(".close-modal");
       const cancelBtn = document.getElementById("cancel-appointment");
 
-      function openEditModal(appointmentId) {
-        const appointment = appointments.find(
-          (app) => app.id === appointmentId
-        );
-        if (!appointment) return;
+      function openEditModal(id) {
+        const app = appointments.find((a) => a.id === id);
+        if (!app) return;
 
-        editingAppointmentId = appointmentId;
+        editingAppointmentId = id;
 
-        document.getElementById("customer-name").value = appointment.customer;
-        document.getElementById("customer-phone").value =
-          appointment.phone || "";
+        document.getElementById("customer-name").value = app.customer;
+        document.getElementById("customer-phone").value = app.phone || "";
 
-        // Date & time parsing
-        let [datePart, timePart] = appointment.date.split(" - ");
-        if (!timePart) timePart = "12:00";
+        const [datePart, timePart = "12:00"] = app.date.split(" - ");
         const dateObj = new Date(datePart);
-        const formattedDate = dateObj.toISOString().split("T")[0];
-        document.getElementById("appointment-date").value = formattedDate;
+        document.getElementById("appointment-date").value = dateObj
+          .toISOString()
+          .split("T")[0];
 
-        const time24 =
+        const timeValue =
           timePart.includes("AM") || timePart.includes("PM")
             ? convertTo24Hour(timePart)
             : timePart;
-        document.getElementById("appointment-time").value = time24;
+        document.getElementById("appointment-time").value = timeValue;
 
-        document.getElementById("equipment").value =
-          appointment.equipment || "";
+        document.getElementById("equipment").value = app.equipment || "";
         document.getElementById("appointment-price").value =
-          appointment.price || defaultPrice;
-        document.getElementById("issue-description").value =
-          appointment.issue || "";
-        document.getElementById("repair-notes").value =
-          appointment.repair_notes || "";
-        document.getElementById("appointment-status").value =
-          appointment.status || "";
+          app.price || defaultPrice;
+        document.getElementById("issue-description").value = app.issue || "";
+        document.getElementById("repair-notes").value = app.repair_notes || "";
+        document.getElementById("appointment-status").value = app.status || "";
 
         document.getElementById("modal-title").textContent = "Edit Appointment";
         document.getElementById("save-appointment").textContent =
@@ -1628,46 +1584,40 @@
         modal.classList.add("active");
       }
 
-      addBtn.addEventListener("click", () => {
+      function openAddModal() {
         editingAppointmentId = null;
+
+        document.getElementById("appointment-form").reset();
+
+        const today = new Date();
+        document.getElementById("appointment-date").value = today
+          .toISOString()
+          .split("T")[0];
+
+        const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+        document.getElementById("appointment-time").value = `${nextHour
+          .getHours()
+          .toString()
+          .padStart(2, "0")}:${nextHour
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")}`;
+
+        document.getElementById("appointment-price").value = defaultPrice;
         document.getElementById("modal-title").textContent =
           "Add New Appointment";
         document.getElementById("save-appointment").textContent =
           "Save Appointment";
 
-        document.getElementById("appointment-form").reset();
-
-        const today = new Date();
-        const formattedDate = today.toISOString().split("T")[0];
-        document.getElementById("appointment-date").value = formattedDate;
-
-        const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-        const hours = nextHour.getHours().toString().padStart(2, "0");
-        const minutes = nextHour.getMinutes().toString().padStart(2, "0");
-        document.getElementById(
-          "appointment-time"
-        ).value = `${hours}:${minutes}`;
-        document.getElementById("appointment-price").value = defaultPrice;
-
         modal.classList.add("active");
-      });
+      }
 
-      closeBtn.addEventListener("click", () => {
+      function closeModal() {
         modal.classList.remove("active");
-      });
-      cancelBtn.addEventListener("click", () => {
-        modal.classList.remove("active");
-      });
-      window.addEventListener("click", (e) => {
-        if (e.target === modal) {
-          modal.classList.remove("active");
-        }
-      });
+      }
 
-      // --- RENDER FUNCTIONS (simplified & concise) ---
-
-      function renderAppointmentsTable(filteredAppointments) {
-        const list = filteredAppointments || appointments;
+      // Render appointment table
+      function renderAppointmentsTable(list = appointments) {
         const tbody = document.getElementById("appointments-body");
         tbody.innerHTML = "";
 
@@ -1718,64 +1668,43 @@
           }</span></td>
             <td>$${app.price || 0}</td>
             <td class="action-cell">
-              <button class="action-btn edit-btn" data-id="${app.id}">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="action-btn delete-btn" data-id="${app.id}">
-                <i class="fas fa-trash"></i>
-              </button>
+              <button class="action-btn edit-btn" data-id="${
+                app.id
+              }"><i class="fas fa-edit"></i></button>
+              <button class="action-btn delete-btn" data-id="${
+                app.id
+              }"><i class="fas fa-trash"></i></button>
             </td>
           `;
           tbody.appendChild(row);
         });
 
-        // Event Listeners for Edit/Delete buttons
         tbody.querySelectorAll(".edit-btn").forEach((btn) => {
           btn.onclick = () => {
-            const id = btn.getAttribute("data-id");
             if (!allowPastEdits) {
-              const app = appointments.find((a) => a.id === id);
+              const app = appointments.find((a) => a.id === btn.dataset.id);
               if (app) {
                 const appDate = new Date(app.date.split(" - ")[0]);
                 if (appDate < new Date()) {
-                  alert("Editing past appointments is disabled in settings.");
+                  alert("Editing past appointments is disabled.");
                   return;
                 }
               }
             }
-            openEditModal(id);
+            openEditModal(btn.dataset.id);
           };
         });
+
         tbody.querySelectorAll(".delete-btn").forEach((btn) => {
           btn.onclick = () => {
-            const id = btn.getAttribute("data-id");
             if (confirm("Are you sure you want to delete this appointment?")) {
-              deleteAppointment(id);
+              deleteAppointment(btn.dataset.id);
             }
           };
         });
       }
 
-      function renderReportsTable() {
-        const tbody = document.getElementById("report-table-body");
-        tbody.innerHTML = "";
-        const completed = appointments.filter(
-          (app) => app.status === "repair_completed"
-        );
-        completed.forEach((app) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>#${app.id}</td>
-            <td>${app.customer}</td>
-            <td>${app.equipment}</td>
-            <td>${app.date}</td>
-            <td><span class="status-badge status-released">✔️ Repair Completed</span></td>
-            <td>${app.repair_notes || "—"}</td>
-          `;
-          tbody.appendChild(row);
-        });
-      }
-
+      // Stats update
       function updateStats() {
         document.getElementById("total-appointments").textContent =
           appointments.length;
@@ -1787,94 +1716,7 @@
           appointments.filter((a) => a.status === "in_progress").length;
       }
 
-      function getDaysInMonth(month, year) {
-        return new Date(year, month + 1, 0).getDate();
-      }
-      function getFirstDayOfMonth(month, year) {
-        return new Date(year, month, 1).getDay();
-      }
-      function getBusinessDays(month, year) {
-        let count = 0;
-        let d = new Date(year, month, 1);
-        const lastDay = getDaysInMonth(month, year);
-        for (let day = 1; day <= lastDay; day++) {
-          d.setDate(day);
-          if (d.getDay() !== 0 && d.getDay() !== 6) count++;
-        }
-        return count;
-      }
-      function formatMonthYear(month, year) {
-        const months = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ];
-        return `${months[month]} ${year}`;
-      }
-
-      function updateCalendarSummary() {
-        const monthlyApps = appointments.filter((app) => {
-          const d = new Date(app.date.split(" - ")[0]);
-          return (
-            d.getMonth() === currentMonth && d.getFullYear() === currentYear
-          );
-        });
-        const businessDays = getBusinessDays(currentMonth, currentYear);
-        const monthlyRevenue = monthlyApps
-          .filter((a) => a.status === "released")
-          .reduce((sum, a) => sum + (a.price || 0), 0);
-
-        document.getElementById("summary-total").textContent =
-          monthlyApps.length;
-        document.getElementById("summary-days").textContent = businessDays;
-        document.getElementById(
-          "summary-revenue"
-        ).textContent = `$${monthlyRevenue}`;
-
-        const utilizationRate = Math.min(
-          100,
-          Math.round((monthlyApps.length / (businessDays * 3)) * 100)
-        );
-        document.getElementById("summary-utilization").textContent =
-          utilizationRate + "%";
-      }
-
-      function updatePerformanceMetrics() {
-        const monthlyApps = appointments.filter((app) => {
-          const d = new Date(app.date.split(" - ")[0]);
-          return (
-            d.getMonth() === currentMonth && d.getFullYear() === currentYear
-          );
-        });
-
-        const releasedThisMonth = monthlyApps.filter(
-          (a) => a.status === "released"
-        ).length;
-        const monthlyRevenue = monthlyApps
-          .filter((a) => a.status === "released")
-          .reduce((sum, a) => sum + (a.price || 0), 0);
-
-        document.getElementById("current-appointments").textContent =
-          appointments.length;
-        document.getElementById("monthly-released").textContent =
-          releasedThisMonth;
-        document.getElementById(
-          "monthly-revenue"
-        ).textContent = `$${monthlyRevenue}`;
-      }
-
-      let currentMonth = new Date().getMonth();
-      let currentYear = new Date().getFullYear();
-
+      // Calendar rendering and summary
       function renderCalendar() {
         const calendarGrid = document.getElementById("calendar-days");
         calendarGrid.innerHTML = "";
@@ -1890,8 +1732,8 @@
           calendarGrid.appendChild(dayHeader);
         });
 
-        const firstDay = getFirstDayOfMonth(currentMonth, currentYear);
-        const totalDays = getDaysInMonth(currentMonth, currentYear);
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
 
         for (let i = 0; i < firstDay; i++) {
           const emptyCell = document.createElement("div");
@@ -1932,10 +1774,63 @@
 
             dayCell.appendChild(container);
           }
-
           calendarGrid.appendChild(dayCell);
         }
+
         updateCalendarSummary();
+      }
+
+      function updateCalendarSummary() {
+        const monthlyApps = appointments.filter((app) => {
+          const d = new Date(app.date.split(" - ")[0]);
+          return (
+            d.getMonth() === currentMonth && d.getFullYear() === currentYear
+          );
+        });
+
+        const businessDays = getBusinessDays(currentMonth, currentYear);
+        const monthlyRevenue = monthlyApps
+          .filter((a) => a.status === "released")
+          .reduce((sum, a) => sum + (a.price || 0), 0);
+
+        document.getElementById("summary-total").textContent =
+          monthlyApps.length;
+        document.getElementById("summary-days").textContent = businessDays;
+        document.getElementById(
+          "summary-revenue"
+        ).textContent = `$${monthlyRevenue}`;
+
+        const utilizationRate = Math.min(
+          100,
+          Math.round((monthlyApps.length / (businessDays * 3)) * 100)
+        );
+        document.getElementById("summary-utilization").textContent =
+          utilizationRate + "%";
+      }
+
+      // Performance metrics
+      function updatePerformanceMetrics() {
+        const monthlyApps = appointments.filter((app) => {
+          const d = new Date(app.date.split(" - ")[0]);
+          return (
+            d.getMonth() === currentMonth && d.getFullYear() === currentYear
+          );
+        });
+
+        const releasedThisMonth = monthlyApps.filter(
+          (a) => a.status === "released"
+        ).length;
+        const monthlyRevenue = monthlyApps
+          .filter((a) => a.status === "released")
+          .reduce((sum, a) => sum + (a.price || 0), 0);
+
+        document.getElementById("current-appointments").textContent =
+          appointments.length;
+        document.getElementById("monthly-released").textContent =
+          releasedThisMonth;
+        document.getElementById(
+          "monthly-revenue"
+        ).textContent = `$${monthlyRevenue}`;
       }
 
       // Chart.js setup
@@ -2020,7 +1915,100 @@
         });
       }
 
-      // --- FORM SAVE BUTTON ---
+      // Tab navigation
+      const sidebarLinks = document.querySelectorAll(".nav-links a");
+      const tabs = document.querySelectorAll(".tab");
+
+      sidebarLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetView = link.getAttribute("data-view");
+
+          if (targetView === "logout") {
+            logout();
+            return;
+          }
+
+          sidebarLinks.forEach((l) => l.classList.remove("active"));
+          link.classList.add("active");
+
+          tabs.forEach((tab) => {
+            if (tab.getAttribute("data-tab") === targetView) {
+              tab.classList.add("active");
+            } else {
+              tab.classList.remove("active");
+            }
+          });
+
+          if (targetView === "stats") {
+            initChart();
+          }
+        });
+      });
+
+      // Month navigation buttons
+      document.getElementById("prev-month").addEventListener("click", () => {
+        currentMonth--;
+        if (currentMonth < 0) {
+          currentMonth = 11;
+          currentYear--;
+        }
+        renderCalendar();
+      });
+
+      document.getElementById("next-month").addEventListener("click", () => {
+        currentMonth++;
+        if (currentMonth > 11) {
+          currentMonth = 0;
+          currentYear++;
+        }
+        renderCalendar();
+      });
+
+      // Settings save/reset
+      document.getElementById("save-settings").addEventListener("click", () => {
+        defaultPrice =
+          parseFloat(document.getElementById("default-price").value) ||
+          defaultPriceInitial;
+        allowPastEdits =
+          document.getElementById("enable-past-edits").value === "true";
+        alert("Settings saved successfully!");
+      });
+
+      document
+        .getElementById("reset-settings")
+        .addEventListener("click", () => {
+          document.getElementById("company-name").value =
+            "Canadian Fitness Repair";
+          document.getElementById("default-price").value =
+            defaultPriceInitial.toString();
+          document.getElementById("business-hours").value = "9:00 AM - 6:00 PM";
+          document.getElementById("enable-past-edits").value = "true";
+          defaultPrice = defaultPriceInitial;
+          allowPastEdits = true;
+        });
+
+      // Search functionality
+      document
+        .getElementById("search-appointments")
+        .addEventListener("input", function () {
+          const keyword = this.value.toLowerCase();
+          const filtered = appointments.filter(
+            (app) =>
+              app.customer.toLowerCase().includes(keyword) ||
+              (app.phone && app.phone.toLowerCase().includes(keyword))
+          );
+          renderAppointmentsTable(filtered);
+        });
+
+      // Print button
+      document
+        .getElementById("print-schedule")
+        .addEventListener("click", () => {
+          window.print();
+        });
+
+      // Save appointment button (form submission)
       document
         .getElementById("save-appointment")
         .addEventListener("click", async () => {
@@ -2050,7 +2038,6 @@
             return;
           }
 
-          // Format date/time display
           const formattedDate = new Date(dateInput).toLocaleDateString(
             "en-US",
             {
@@ -2078,11 +2065,8 @@
           };
 
           await saveAppointment(appointmentData);
+          closeModal();
 
-          modal.classList.remove("active");
-          document.getElementById("appointment-form").reset();
-
-          // Update UI
           renderAppointmentsTable();
           updateStats();
           renderCalendar();
@@ -2091,114 +2075,32 @@
           initChart();
         });
 
-      // --- TAB NAVIGATION ---
-      const sidebarLinks = document.querySelectorAll(".nav-links a");
-      const tabs = document.querySelectorAll(".tab");
-
-      sidebarLinks.forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const targetView = link.getAttribute("data-view");
-
-          if (targetView === "logout") {
-            logout();
-            return;
-          }
-
-          // Activate clicked sidebar link
-          sidebarLinks.forEach((l) => l.classList.remove("active"));
-          link.classList.add("active");
-
-          // Show/hide tabs
-          tabs.forEach((tab) => {
-            if (tab.getAttribute("data-tab") === targetView) {
-              tab.classList.add("active");
-            } else {
-              tab.classList.remove("active");
-            }
-          });
-
-          // Initialize chart if stats tab shown
-          if (targetView === "stats") {
-            initChart();
-          }
-        });
+      // Modal controls
+      addBtn.addEventListener("click", openAddModal);
+      closeBtn.addEventListener("click", closeModal);
+      cancelBtn.addEventListener("click", closeModal);
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("active"))
+          closeModal();
       });
 
-      // --- MONTH NAVIGATION ---
-      document.getElementById("prev-month").addEventListener("click", () => {
-        currentMonth--;
-        if (currentMonth < 0) {
-          currentMonth = 11;
-          currentYear--;
-        }
-        renderCalendar();
-      });
-
-      document.getElementById("next-month").addEventListener("click", () => {
-        currentMonth++;
-        if (currentMonth > 11) {
-          currentMonth = 0;
-          currentYear++;
-        }
-        renderCalendar();
-      });
-
-      // --- SETTINGS ---
-      document.getElementById("save-settings").addEventListener("click", () => {
-        defaultPrice =
-          parseFloat(document.getElementById("default-price").value) ||
-          defaultPriceInitial;
-        allowPastEdits =
-          document.getElementById("enable-past-edits").value === "true";
-        alert("Settings saved successfully!");
-      });
-
-      document
-        .getElementById("reset-settings")
-        .addEventListener("click", () => {
-          document.getElementById("company-name").value =
-            "Canadian Fitness Repair";
-          document.getElementById("default-price").value =
-            defaultPriceInitial.toString();
-          document.getElementById("business-hours").value = "9:00 AM - 6:00 PM";
-          document.getElementById("enable-past-edits").value = "true";
-          defaultPrice = defaultPriceInitial;
-          allowPastEdits = true;
-        });
-
-      // --- SEARCH ---
-      document
-        .getElementById("search-appointments")
-        .addEventListener("input", function () {
-          const keyword = this.value.toLowerCase();
-          const filtered = appointments.filter(
-            (app) =>
-              app.customer.toLowerCase().includes(keyword) ||
-              (app.phone && app.phone.toLowerCase().includes(keyword))
-          );
-          renderAppointmentsTable(filtered);
-        });
-
-      // --- PRINT ---
-      document
-        .getElementById("print-schedule")
-        .addEventListener("click", () => {
-          window.print();
-        });
-
-      // --- INITIALIZATION ---
+      // Initial setup on DOM ready
       document.addEventListener("DOMContentLoaded", () => {
         fetchAppointments();
 
-        // Set today's date and next hour for new appointments form
+        // Default form setup
         const today = new Date();
-        const formattedDate = today.toISOString().split("T")[0];
-        document.getElementById("appointment-date").value = formattedDate;
+        document.getElementById("appointment-date").value = today
+          .toISOString()
+          .split("T")[0];
         const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-        const hh = nextHour.getHours().toString().padStart(2, "0");
-        const mm = nextHour.getMinutes().toString().padStart(2, "0");
-        document.getElementById("appointment-time").value = `${hh}:${mm}`;
+        document.getElementById("appointment-time").value = `${nextHour
+          .getHours()
+          .toString()
+          .padStart(2, "0")}:${nextHour
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")}`;
         document.getElementById("appointment-price").value =
           defaultPriceInitial;
 
