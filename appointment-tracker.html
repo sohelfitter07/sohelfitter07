@@ -1505,7 +1505,7 @@
       async function fetchAppointmentsFromSheet() {
         try {
           const res = await fetch(
-            "https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec"
+            "https://script.google.com/macros/s/AKfycbxA3t4ixkpVUN5Waqd_4vmbENR_SpBAtHteBWjPHkSrcA8cOMaOYJuieP601FhN6VHA/exec"
           );
           const json = await res.json();
 
@@ -1849,7 +1849,7 @@
           appointments.splice(index, 1);
           localStorage.setItem("appointments", JSON.stringify(appointments)); // 👈 add this line
           fetch(
-            "https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec",
+            "https://script.google.com/macros/s/AKfycbxA3t4ixkpVUN5Waqd_4vmbENR_SpBAtHteBWjPHkSrcA8cOMaOYJuieP601FhN6VHA/exec",
             {
               method: "POST",
               mode: "no-cors",
@@ -2205,7 +2205,7 @@
                 repair_notes: repairNotes, // make sure notes update too
               };
               fetch(
-                "https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec",
+                "https://script.google.com/macros/s/AKfycbxA3t4ixkpVUN5Waqd_4vmbENR_SpBAtHteBWjPHkSrcA8cOMaOYJuieP601FhN6VHA/exec",
                 {
                   method: "POST",
                   mode: "no-cors",
@@ -2254,7 +2254,7 @@
             localStorage.setItem("appointments", JSON.stringify(appointments));
           }
           fetch(
-            "https://script.google.com/macros/s/AKfycbzjZTTZLQF8d0JoMKcLFNALAxpb53a16A6MT27FaZzLHCr3eZaGQErDSWxHWpGx7Qlsdw/exec",
+            "https://script.google.com/macros/s/AKfycbxA3t4ixkpVUN5Waqd_4vmbENR_SpBAtHteBWjPHkSrcA8cOMaOYJuieP601FhN6VHA/exec",
             {
               method: "POST",
               mode: "no-cors",
