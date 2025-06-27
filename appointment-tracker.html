@@ -1450,121 +1450,85 @@
       <p>© 2023 Canadian Fitness Repair. All rights reserved.</p>
     </footer>
     <script>
-      // ✅ Full and Final JavaScript for Appointment Tracker
-      // Make sure this replaces your entire JS <script> section
+      // Replaces old save, update, delete functions with proper async logic
+      // Must be placed inside <script> tag at the bottom of your HTML
 
-      let editingAppointmentId = null;
-      let chartInstance = null;
-      const today = new Date();
-      let currentMonth = today.getMonth();
-      let currentYear = today.getFullYear();
-
-      let defaultPrice = 150;
-      let allowPastEdits = true;
-      let inactivityTimer;
-      let appointments = [];
-
-      // ✅ Google Apps Script Web App URL
-      const SHEET_ENDPOINT =
+      const SHEET_API_URL =
         "https://script.google.com/macros/s/AKfycbxA3t4ixkpVUN5Waqd_4vmbENR_SpBAtHteBWjPHkSrcA8cOMaOYJuieP601FhN6VHA/exec";
 
-      // ✅ Fetch appointments from Google Sheets
-      async function fetchAppointmentsFromSheet() {
-        try {
-          const res = await fetch(SHEET_ENDPOINT);
-          const json = await res.json();
-
-          if (json.status === "success") {
-            appointments = json.appointments.map((app) => ({
-              id: parseInt(app.id),
-              customer: app.customer,
-              phone: app.phone,
-              equipment: app.equipment,
-              date: `${app.date} - ${app.time}`,
-              price: parseFloat(app.price),
-              issue: app.issue,
-              status: app.status,
-              repair_notes: app.repair_notes || "",
-            }));
-
-            localStorage.setItem("appointments", JSON.stringify(appointments));
-          } else {
-            alert("Failed to load appointments from Google Sheets.");
-          }
-        } catch (error) {
-          console.error(error);
-          alert("Error fetching appointment data.");
-        }
-      }
-
-      // ✅ Save appointment to Google Sheets (add or edit)
       async function saveAppointmentToSheet(appointment, isEdit = false) {
         const action = isEdit ? "update" : "create";
 
+        const payload = {
+          action,
+          appointment: {
+            id: appointment.id,
+            customer: appointment.customer,
+            phone: appointment.phone,
+            equipment: appointment.equipment,
+            date: appointment.date,
+            time: appointment.time,
+            status: appointment.status,
+            price: appointment.price,
+            issue: appointment.issue,
+            repair_notes: appointment.repair_notes || "",
+          },
+        };
+
         try {
-          const res = await fetch(SHEET_ENDPOINT, {
+          const res = await fetch(SHEET_API_URL, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ action, appointment }),
+            body: JSON.stringify(payload),
           });
 
-          const data = await res.json();
-
-          if (data.status === "success") {
-            alert(`${isEdit ? "Updated" : "Added"} appointment successfully.`);
+          const result = await res.json();
+          if (result.status === "success") {
+            alert(`Appointment ${action}d successfully.`);
             return true;
           } else {
-            alert("Failed to save appointment.");
+            alert(`Failed to ${action} appointment: ${result.message}`);
             return false;
           }
-        } catch (error) {
-          console.error(error);
-          alert("Error saving appointment.");
+        } catch (err) {
+          console.error(`${action} error:`, err);
+          alert(`Error: ${err.message}`);
           return false;
         }
       }
 
-      // ✅ Delete appointment from Google Sheets
-      async function deleteAppointment(id) {
-        const confirmed = confirm(
-          "Are you sure you want to delete this appointment?"
-        );
-        if (!confirmed) return;
-
+      async function deleteAppointmentFromSheet(id) {
         try {
-          const res = await fetch(SHEET_ENDPOINT, {
+          const res = await fetch(SHEET_API_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+            },
             body: JSON.stringify({ action: "delete", id }),
           });
 
-          const data = await res.json();
-          if (data.status === "success") {
-            appointments = appointments.filter((a) => a.id !== id);
-            localStorage.setItem("appointments", JSON.stringify(appointments));
+          const result = await res.json();
+          if (result.status === "success") {
             alert("Appointment deleted successfully.");
-            renderAppointmentsTable();
-            updateStats();
-            renderCalendar();
-            updateCalendarSummary();
-            updatePerformanceMetrics();
-            initChart();
+            return true;
           } else {
-            alert("Failed to delete appointment.");
+            alert(`Failed to delete: ${result.message}`);
+            return false;
           }
-        } catch (error) {
-          console.error(error);
+        } catch (err) {
+          console.error("Delete error:", err);
           alert("Error deleting appointment.");
+          return false;
         }
       }
 
-      // ✅ Save appointment handler (add/edit)
+      // Replace your save button click logic with:
       document
         .getElementById("save-appointment")
         .addEventListener("click", async () => {
-          const customer = document.getElementById("customer-name").value;
+          const customerName = document.getElementById("customer-name").value;
           const phone = document.getElementById("customer-phone").value;
           const date = document.getElementById("appointment-date").value;
           const time = document.getElementById("appointment-time").value;
@@ -1573,88 +1537,102 @@
             parseFloat(document.getElementById("appointment-price").value) || 0;
           const issue = document.getElementById("issue-description").value;
           const status = document.getElementById("appointment-status").value;
-          const repair_notes =
-            document.getElementById("repair-notes").value || "";
+          const repairNotes = document.getElementById("repair-notes").value;
 
           const formattedDate = new Date(date).toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
             year: "numeric",
           });
+
           const formattedTime = new Date(
             `2000-01-01T${time}`
-          ).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+          ).toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+          });
+
+          let appointment;
 
           if (editingAppointmentId) {
             const index = appointments.findIndex(
               (a) => a.id === editingAppointmentId
             );
-            if (index !== -1) {
-              const updated = {
-                id: appointments[index].id,
-                customer,
-                phone,
-                equipment,
-                date: `${formattedDate} - ${formattedTime}`,
-                price,
-                issue,
-                status,
-                repair_notes,
-              };
-              const success = await saveAppointmentToSheet(updated, true);
-              if (!success) return;
-
-              appointments[index] = updated;
-              localStorage.setItem(
-                "appointments",
-                JSON.stringify(appointments)
-              );
-            }
-            editingAppointmentId = null;
-          } else {
-            const newId =
-              appointments.length > 0
-                ? Math.max(...appointments.map((a) => a.id)) + 1
-                : 1001;
-            const newApp = {
-              id: newId,
-              customer,
+            if (index === -1) return;
+            appointments[index] = {
+              ...appointments[index],
+              customer: customerName,
               phone,
               equipment,
               date: `${formattedDate} - ${formattedTime}`,
               price,
               issue,
               status,
-              repair_notes,
+              repair_notes: repairNotes,
             };
-            const success = await saveAppointmentToSheet(newApp, false);
-            if (!success) return;
-
-            appointments.push(newApp);
-            localStorage.setItem("appointments", JSON.stringify(appointments));
+            appointment = appointments[index];
+          } else {
+            const newId =
+              appointments.length > 0
+                ? Math.max(...appointments.map((a) => a.id)) + 1
+                : 1001;
+            appointment = {
+              id: newId,
+              customer: customerName,
+              phone,
+              equipment,
+              date: `${formattedDate} - ${formattedTime}`,
+              price,
+              issue,
+              status,
+              repair_notes: repairNotes,
+            };
+            appointments.push(appointment);
           }
 
-          modal.classList.remove("active");
-          document.getElementById("appointment-form").reset();
+          const success = await saveAppointmentToSheet(
+            appointment,
+            !!editingAppointmentId
+          );
+
+          if (success) {
+            localStorage.setItem("appointments", JSON.stringify(appointments));
+            renderAppointmentsTable();
+            updateStats();
+            renderCalendar();
+            updateCalendarSummary();
+            updatePerformanceMetrics();
+            initChart();
+            modal.classList.remove("active");
+            document.getElementById("appointment-form").reset();
+            document.getElementById("save-appointment").textContent =
+              "Save Appointment";
+            editingAppointmentId = null;
+          }
+        });
+
+      // Replace your delete logic with:
+      async function deleteAppointment(id) {
+        const index = appointments.findIndex((a) => a.id === id);
+        if (index === -1) return;
+        const confirmed = confirm(
+          "Are you sure you want to delete this appointment?"
+        );
+        if (!confirmed) return;
+
+        const success = await deleteAppointmentFromSheet(id);
+
+        if (success) {
+          appointments.splice(index, 1);
+          localStorage.setItem("appointments", JSON.stringify(appointments));
           renderAppointmentsTable();
           updateStats();
           renderCalendar();
           updateCalendarSummary();
           updatePerformanceMetrics();
           initChart();
-        });
-
-      // ✅ Fetch on load
-      document.addEventListener("DOMContentLoaded", async () => {
-        await fetchAppointmentsFromSheet();
-        renderAppointmentsTable();
-        updateStats();
-        renderCalendar();
-        updateCalendarSummary();
-        updatePerformanceMetrics();
-        initChart();
-        setupLogout();
-      });
+        }
+      }
     </script>
   </body>
 </html>
