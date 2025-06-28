@@ -1495,6 +1495,10 @@
           ) {
             signOut(auth)
               .then(() => {
+                logAction(
+                  "User logged out",
+                  auth.currentUser?.email || "guest"
+                );
                 window.location.href = "admin-login.html";
               })
               .catch((error) => {
@@ -1526,6 +1530,10 @@
           removeLogoutWarning();
           sessionTimer = setTimeout(() => {
             signOut(auth).then(() => {
+              logAction(
+                "Session auto-logout due to inactivity",
+                auth.currentUser?.email || "guest"
+              );
               showToast("Session expired due to inactivity");
               window.location.href = "admin-login.html";
             });
@@ -1703,10 +1711,20 @@
           try {
             await deleteDoc(doc(db, "appointments", id));
             showToast("Appointment deleted successfully");
+            // ✅ Log success
+            logAction(
+              "Appointment deleted",
+              auth.currentUser?.email || "guest"
+            );
             await fetchAppointments();
           } catch (error) {
             console.error("Error deleting appointment:", error);
             showToast("Failed to delete appointment", true);
+            // ✅ Log failure
+            logAction(
+              "Appointment delete failed",
+              auth.currentUser?.email || "guest"
+            );
           }
         }
 
@@ -2165,6 +2183,7 @@
             allowPastEdits =
               document.getElementById("enable-past-edits").value === "true";
             showToast("Settings saved successfully");
+            logAction("Settings updated", auth.currentUser?.email || "guest");
           });
 
         document
