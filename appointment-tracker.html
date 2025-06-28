@@ -1432,18 +1432,24 @@
       }
     
       // Initialize Firebase
-      getFirebaseConfig().then(firebaseConfig => {
-        if (!firebaseConfig) return;
-        
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        const appointmentsCollection = collection(db, "appointments");
-        
-        // Initialize application with Firebase services
-        initApp(auth, db, appointmentsCollection);
-      });
-    
+      const firebaseConfig = {
+  apiKey: "AIzaSyCtz3qjz880jPQBH6jJ5fBY_O86wK1iRzs",
+  authDomain: "cfr-tracker.firebaseapp.com",
+  projectId: "cfr-tracker",
+  storageBucket: "cfr-tracker.appspot.com",
+  messagingSenderId: "870691427306",
+  appId: "1:870691427306:web:fc18ec2a33394e7fcf5893",
+  measurementId: "G-CMVSQHBQKH"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const appointmentsCollection = collection(db, "appointments");
+
+// Initialize application with Firebase services
+initApp(auth, db, appointmentsCollection);
+
       function initApp(auth, db, appointmentsCollection) {
         // ================ AUTHENTICATION HANDLING ================ 
         onAuthStateChanged(auth, (user) => {
