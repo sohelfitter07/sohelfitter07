@@ -1422,7 +1422,7 @@
       // Fetch Firebase config securely
       async function getFirebaseConfig() {
         try {
-          const response = await fetch('/api/firebase-config');
+          const response = await fetch('https://cfr-backend-1.onrender.com/api/firebase-config');
           return await response.json();
         } catch (error) {
   console.error("Error fetching Firebase config:", error);
