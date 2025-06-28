@@ -1444,13 +1444,6 @@
   initApp(auth, db, appointmentsCollection);
 });
 
-const db = getFirestore(app);
-const auth = getAuth(app);
-const appointmentsCollection = collection(db, "appointments");
-
-// Initialize application with Firebase services
-initApp(auth, db, appointmentsCollection);
-
       function initApp(auth, db, appointmentsCollection) {
         // ================ AUTHENTICATION HANDLING ================ 
         onAuthStateChanged(auth, (user) => {
@@ -1468,9 +1461,10 @@ initApp(auth, db, appointmentsCollection);
             signOut(auth).then(() => {
               window.location.href = 'admin-login.html';
             }).catch((error) => {
-              console.error('Logout error:', error);
-              showToast('Logout failed', true);
-            });
+  console.error('Logout error:', error);
+  alert('Logout failed');
+});
+
           }
         }
     
