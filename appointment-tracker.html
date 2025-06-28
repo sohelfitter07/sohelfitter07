@@ -1440,6 +1440,7 @@
         onAuthStateChanged,
         signOut,
       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+      let auth;
 
       function logAction(action, user = "guest") {
         fetch("https://cfr-backend-1.onrender.com/api/log", {
@@ -1475,7 +1476,7 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const auth = getAuth(app);
+        auth = getAuth(app);
         const appointmentsCollection = collection(db, "appointments");
 
         // ✅ Start your app logic
