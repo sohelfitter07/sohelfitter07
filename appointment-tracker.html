@@ -2159,8 +2159,11 @@
               }
             });
 
+            // ✅ This ensures calendar renders when tab is clicked
             if (targetView === "stats") {
               initChart();
+            } else if (targetView === "calendar") {
+              renderCalendar();
             }
           });
         });
