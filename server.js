@@ -22,7 +22,10 @@ app.use(
   })
 );
 
-// Secure endpoint for Firebase config
+// ✅ Enable JSON body parsing (needed for log requests)
+app.use(express.json());
+
+// ✅ Secure endpoint for Firebase config
 app.get("/api/firebase-config", (req, res) => {
   res.json({
     apiKey: process.env.FIREBASE_API_KEY,
@@ -35,8 +38,19 @@ app.get("/api/firebase-config", (req, res) => {
   });
 });
 
+// ✅ NEW: Logging endpoint
+app.post("/api/log", (req, res) => {
+  const log = {
+    timestamp: new Date().toISOString(),
+    action: req.body.action || "unknown action",
+    user: req.body.user || "anonymous",
+  };
+
+  console.log("[📋 CFR LOG]", log);
+  res.status(200).json({ success: true });
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
-// CORS fix final confirmation - June 28
