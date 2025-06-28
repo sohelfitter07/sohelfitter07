@@ -1440,6 +1440,7 @@
         onAuthStateChanged,
         signOut,
       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+      let renderCalendar;
 
       function logAction(action, user = "guest") {
         fetch("https://cfr-backend-1.onrender.com/api/log", {
@@ -1931,7 +1932,7 @@
         }
 
         // Calendar rendering and summary
-        function renderCalendar() {
+        renderCalendar = function () {
           const calendarGrid = document.getElementById("calendar-days");
           calendarGrid.innerHTML = "";
 
@@ -1996,7 +1997,7 @@
           }
 
           updateCalendarSummary();
-        }
+        };
         window.renderCalendar = renderCalendar;
 
         function updateCalendarSummary() {
