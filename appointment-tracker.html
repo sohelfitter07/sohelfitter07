@@ -1432,17 +1432,20 @@
       }
 
       // Initialize Firebase
-      const firebaseConfig = await getFirebaseConfig();
-      if (!firebaseConfig) return;
+      (async () => {
+        const firebaseConfig = await getFirebaseConfig();
+        if (!firebaseConfig) {
+          alert("Failed to load Firebase config");
+          return;
+        }
 
-      const app = initializeApp(firebaseConfig);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const appointmentsCollection = collection(db, "appointments");
 
-      const db = getFirestore(app);
-      const auth = getAuth(app);
-      const appointmentsCollection = collection(db, "appointments");
-
-      // Initialize application with Firebase services
-      initApp(auth, db, appointmentsCollection);
+        initApp(auth, db, appointmentsCollection);
+      })();
 
       function initApp(auth, db, appointmentsCollection) {
         // ================ AUTHENTICATION HANDLING ================
