@@ -1425,9 +1425,9 @@
           const response = await fetch('/api/firebase-config');
           return await response.json();
         } catch (error) {
-          console.error("Error fetching Firebase config:", error);
-          showToast("Failed to initialize application", true);
-          return null;
+  console.error("Error fetching Firebase config:", error);
+  alert("Failed to initialize application"); // ✅ This works in all browsers
+  return null;
         }
       }
     
