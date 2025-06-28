@@ -1411,684 +1411,740 @@
         updateDoc,
         deleteDoc,
         doc,
+        onSnapshot
       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-      // Firebase config and initialization
-      const firebaseConfig = {
-        apiKey: "AIzaSyCtz3qjz880jPQBH6jJ5fBY_O86wK1iRzs",
-        authDomain: "cfr-tracker.firebaseapp.com",
-        projectId: "cfr-tracker",
-        storageBucket: "cfr-tracker.firebasestorage.app",
-        messagingSenderId: "870691427306",
-        appId: "1:870691427306:web:fc18ec2a33394e7fcf5893",
-        measurementId: "G-CMVSQHBQKH",
-      };
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-      const appointmentsCollection = collection(db, "appointments");
-
-      // Globals & state
-      let appointments = [];
-      let editingAppointmentId = null;
-      let chartInstance = null;
-      let currentMonth = new Date().getMonth();
-      let currentYear = new Date().getFullYear();
-      const defaultPriceInitial = 150;
-      let defaultPrice = defaultPriceInitial;
-      let allowPastEdits = true;
-      let inactivityTimer;
-
-      // Utility functions
-      function convertTo24Hour(time12) {
-        if (!time12) return "";
-        const [time, modifier] = time12.split(" ");
-        let [hours, minutes] = time.split(":");
-        let hourInt = parseInt(hours, 10);
-        if (hours === "12") {
-          hourInt = modifier === "AM" ? 0 : 12;
-        } else if (modifier === "PM") {
-          hourInt += 12;
-        }
-        return `${hourInt.toString().padStart(2, "0")}:${minutes}`;
-      }
-
-      function getBusinessDays(month, year) {
-        let count = 0;
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        for (let day = 1; day <= daysInMonth; day++) {
-          const d = new Date(year, month, day);
-          if (d.getDay() !== 0 && d.getDay() !== 6) count++;
-        }
-        return count;
-      }
-
-      function formatMonthYear(month, year) {
-        return new Date(year, month).toLocaleString("default", {
-          month: "long",
-          year: "numeric",
-        });
-      }
-
-      // Logout handling and inactivity
-      function logout() {
-        if (
-          confirm(
-            "Are you sure you want to logout? All unsaved changes will be lost."
-          )
-        ) {
-          window.location.href = "admin-login.html";
-        }
-      }
-
-      function resetInactivityTimer() {
-        clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(logout, 1800000); // 30 minutes
-      }
-
-      function setupLogout() {
-        document
-          .querySelector('.nav-links a[data-view="logout"]')
-          .addEventListener("click", (e) => {
-            e.preventDefault();
-            logout();
-          });
-        ["mousemove", "keypress", "click", "scroll"].forEach((evt) =>
-          document.addEventListener(evt, resetInactivityTimer)
-        );
-        resetInactivityTimer();
-      }
-
-      // Fetch appointments from Firestore
-      async function fetchAppointments() {
+      import {
+        getAuth,
+        onAuthStateChanged,
+        signOut
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    
+      // Fetch Firebase config securely
+      async function getFirebaseConfig() {
         try {
-          const snapshot = await getDocs(appointmentsCollection);
-          appointments = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          renderAppointmentsTable();
-          updateStats();
-          renderCalendar();
-          updateCalendarSummary();
-          updatePerformanceMetrics();
-          initChart();
+          const response = await fetch('/api/firebase-config');
+          return await response.json();
         } catch (error) {
-          console.error("Error fetching appointments:", error);
+          console.error("Error fetching Firebase config:", error);
+          showToast("Failed to initialize application", true);
+          return null;
         }
       }
-
-      // Save (add or update) appointment in Firestore
-      async function saveAppointment(data) {
-        try {
-          if (editingAppointmentId) {
-            const docRef = doc(db, "appointments", editingAppointmentId);
-            await updateDoc(docRef, data);
+    
+      // Initialize Firebase
+      getFirebaseConfig().then(firebaseConfig => {
+        if (!firebaseConfig) return;
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const appointmentsCollection = collection(db, "appointments");
+        
+        // Initialize application with Firebase services
+        initApp(auth, db, appointmentsCollection);
+      });
+    
+      function initApp(auth, db, appointmentsCollection) {
+        // ================ AUTHENTICATION HANDLING ================ 
+        onAuthStateChanged(auth, (user) => {
+          if (!user) {
+            window.location.href = 'admin-login.html';
           } else {
-            await addDoc(appointmentsCollection, data);
+            fetchAppointments();
+            startSessionTimer(auth);
           }
-          editingAppointmentId = null;
-          await fetchAppointments();
-        } catch (error) {
-          console.error("Error saving appointment:", error);
-        }
-      }
-
-      // Delete appointment from Firestore
-      async function deleteAppointment(id) {
-        try {
-          await deleteDoc(doc(db, "appointments", id));
-          await fetchAppointments();
-        } catch (error) {
-          console.error("Error deleting appointment:", error);
-        }
-      }
-
-      // Modal open/close functions
-      const modal = document.getElementById("appointment-modal");
-      const addBtn = document.getElementById("add-appointment");
-      const closeBtn = document.querySelector(".close-modal");
-      const cancelBtn = document.getElementById("cancel-appointment");
-
-      function openEditModal(id) {
-        const app = appointments.find((a) => a.id === id);
-        if (!app) return;
-
-        editingAppointmentId = id;
-
-        document.getElementById("customer-name").value = app.customer;
-        document.getElementById("customer-phone").value = app.phone || "";
-
-        const [datePart, timePart = "12:00"] = app.date.split(" - ");
-        const dateObj = new Date(datePart);
-        document.getElementById("appointment-date").value = dateObj
-          .toISOString()
-          .split("T")[0];
-
-        const timeValue =
-          timePart.includes("AM") || timePart.includes("PM")
-            ? convertTo24Hour(timePart)
-            : timePart;
-        document.getElementById("appointment-time").value = timeValue;
-
-        document.getElementById("equipment").value = app.equipment || "";
-        document.getElementById("appointment-price").value =
-          app.price || defaultPrice;
-        document.getElementById("issue-description").value = app.issue || "";
-        document.getElementById("repair-notes").value = app.repair_notes || "";
-        document.getElementById("appointment-status").value = app.status || "";
-
-        document.getElementById("modal-title").textContent = "Edit Appointment";
-        document.getElementById("save-appointment").textContent =
-          "Update Appointment";
-
-        modal.classList.add("active");
-      }
-
-      function openAddModal() {
-        editingAppointmentId = null;
-
-        document.getElementById("appointment-form").reset();
-
-        const today = new Date();
-        document.getElementById("appointment-date").value = today
-          .toISOString()
-          .split("T")[0];
-
-        const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-        document.getElementById("appointment-time").value = `${nextHour
-          .getHours()
-          .toString()
-          .padStart(2, "0")}:${nextHour
-          .getMinutes()
-          .toString()
-          .padStart(2, "0")}`;
-
-        document.getElementById("appointment-price").value = defaultPrice;
-        document.getElementById("modal-title").textContent =
-          "Add New Appointment";
-        document.getElementById("save-appointment").textContent =
-          "Save Appointment";
-
-        modal.classList.add("active");
-      }
-
-      function closeModal() {
-        modal.classList.remove("active");
-      }
-
-      // Render appointment table
-      function renderAppointmentsTable(list = appointments) {
-        const tbody = document.getElementById("appointments-body");
-        tbody.innerHTML = "";
-
-        const statusMap = {
-          scheduled: {
-            text: "🗓️ Scheduled for Initial Diagnosis/Repair",
-            class: "status-scheduled",
-          },
-          needs_parts: {
-            text: "🔍 Needs Parts Ordered",
-            class: "status-inprogress",
-          },
-          parts_ordered: {
-            text: "📦 Parts Ordered / Waiting on Parts",
-            class: "status-inprogress",
-          },
-          parts_arrived: {
-            text: "📬 Parts Arrived",
-            class: "status-inprogress",
-          },
-          second_appointment: {
-            text: "📅 Second Appointment Booked",
-            class: "status-scheduled",
-          },
-          repair_completed: {
-            text: "✔️ Repair Completed",
-            class: "status-released",
-          },
-          draft: { text: "Draft", class: "status-draft" },
-          in_progress: { text: "In Progress", class: "status-inprogress" },
-          released: { text: "Released", class: "status-released" },
-          cancelled: { text: "Cancelled", class: "status-cancelled" },
-        };
-
-        list.forEach((app) => {
-          const statusInfo = statusMap[app.status] || {
-            text: app.status || "",
-            class: "",
-          };
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>#${app.id}</td>
-            <td>${app.customer}</td>
-            <td>${app.equipment || ""}</td>
-            <td>${app.date || ""}</td>
-            <td><span class="status-badge ${statusInfo.class}">${
-            statusInfo.text
-          }</span></td>
-            <td>$${app.price || 0}</td>
-            <td class="action-cell">
-              <button class="action-btn edit-btn" data-id="${
-                app.id
-              }"><i class="fas fa-edit"></i></button>
-              <button class="action-btn delete-btn" data-id="${
-                app.id
-              }"><i class="fas fa-trash"></i></button>
-            </td>
-          `;
-          tbody.appendChild(row);
         });
-
-        tbody.querySelectorAll(".edit-btn").forEach((btn) => {
-          btn.onclick = () => {
-            if (!allowPastEdits) {
-              const app = appointments.find((a) => a.id === btn.dataset.id);
-              if (app) {
-                const appDate = new Date(app.date.split(" - ")[0]);
-                if (appDate < new Date()) {
-                  alert("Editing past appointments is disabled.");
-                  return;
+    
+        // Logout function
+        function logout() {
+          if (confirm("Are you sure you want to logout? All unsaved changes will be lost.")) {
+            signOut(auth).then(() => {
+              window.location.href = 'admin-login.html';
+            }).catch((error) => {
+              console.error('Logout error:', error);
+              showToast('Logout failed', true);
+            });
+          }
+        }
+    
+        // ================ SESSION MANAGEMENT ================ 
+        let sessionTimer;
+    
+        function startSessionTimer(auth) {
+          resetSessionTimer(auth);
+          
+          // Reset timer on user activity
+          ['mousemove', 'keypress', 'click', 'scroll'].forEach(evt => {
+            document.addEventListener(evt, () => resetSessionTimer(auth));
+          });
+        }
+    
+        function resetSessionTimer(auth) {
+          clearTimeout(sessionTimer);
+          sessionTimer = setTimeout(() => {
+            signOut(auth).then(() => {
+              showToast('Session expired due to inactivity');
+              window.location.href = 'admin-login.html';
+            });
+          }, 30 * 60 * 1000); // 30 minutes
+        }
+    
+        // ================ TOAST NOTIFICATIONS ================
+        function showToast(message, isError = false) {
+          const toast = document.createElement('div');
+          toast.className = `toast ${isError ? 'error' : ''}`;
+          toast.textContent = message;
+          document.body.appendChild(toast);
+          
+          setTimeout(() => toast.classList.add('show'), 100);
+          setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+          }, 3000);
+        }
+    
+        // ================ APPLICATION CODE ================ 
+        // Globals & state
+        let appointments = [];
+        let editingAppointmentId = null;
+        let chartInstance = null;
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        const defaultPriceInitial = 150;
+        let defaultPrice = defaultPriceInitial;
+        let allowPastEdits = true;
+    
+        // Utility functions
+        function convertTo24Hour(time12) {
+          if (!time12) return "";
+          const [time, modifier] = time12.split(" ");
+          let [hours, minutes] = time.split(":");
+          let hourInt = parseInt(hours, 10);
+          if (hours === "12") {
+            hourInt = modifier === "AM" ? 0 : 12;
+          } else if (modifier === "PM") {
+            hourInt += 12;
+          }
+          return `${hourInt.toString().padStart(2, "0")}:${minutes}`;
+        }
+    
+        function getBusinessDays(month, year) {
+          let count = 0;
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+          for (let day = 1; day <= daysInMonth; day++) {
+            const d = new Date(year, month, day);
+            if (d.getDay() !== 0 && d.getDay() !== 6) count++;
+          }
+          return count;
+        }
+    
+        function formatMonthYear(month, year) {
+          return new Date(year, month).toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          });
+        }
+    
+        // Fetch appointments from Firestore
+        async function fetchAppointments() {
+          try {
+            const snapshot = await getDocs(appointmentsCollection);
+            appointments = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+            renderAppointmentsTable();
+            updateStats();
+            renderCalendar();
+            updateCalendarSummary();
+            updatePerformanceMetrics();
+            initChart();
+          } catch (error) {
+            console.error("Error fetching appointments:", error);
+            showToast("Failed to fetch appointments", true);
+          }
+        }
+    
+        // Save (add or update) appointment in Firestore
+        async function saveAppointment(data) {
+          try {
+            if (editingAppointmentId) {
+              const docRef = doc(db, "appointments", editingAppointmentId);
+              await updateDoc(docRef, data);
+              showToast("Appointment updated successfully");
+            } else {
+              await addDoc(appointmentsCollection, data);
+              showToast("Appointment added successfully");
+            }
+            editingAppointmentId = null;
+            await fetchAppointments();
+          } catch (error) {
+            console.error("Error saving appointment:", error);
+            showToast("Failed to save appointment", true);
+          }
+        }
+    
+        // Delete appointment from Firestore
+        async function deleteAppointment(id) {
+          try {
+            await deleteDoc(doc(db, "appointments", id));
+            showToast("Appointment deleted successfully");
+            await fetchAppointments();
+          } catch (error) {
+            console.error("Error deleting appointment:", error);
+            showToast("Failed to delete appointment", true);
+          }
+        }
+    
+        // Modal open/close functions
+        const modal = document.getElementById("appointment-modal");
+        const addBtn = document.getElementById("add-appointment");
+        const closeBtn = document.querySelector(".close-modal");
+        const cancelBtn = document.getElementById("cancel-appointment");
+    
+        function openEditModal(id) {
+          const app = appointments.find((a) => a.id === id);
+          if (!app) return;
+    
+          editingAppointmentId = id;
+    
+          document.getElementById("customer-name").value = app.customer;
+          document.getElementById("customer-phone").value = app.phone || "";
+    
+          const [datePart, timePart = "12:00"] = app.date.split(" - ");
+          const dateObj = new Date(datePart);
+          document.getElementById("appointment-date").value = dateObj
+            .toISOString()
+            .split("T")[0];
+    
+          const timeValue =
+            timePart.includes("AM") || timePart.includes("PM")
+              ? convertTo24Hour(timePart)
+              : timePart;
+          document.getElementById("appointment-time").value = timeValue;
+    
+          document.getElementById("equipment").value = app.equipment || "";
+          document.getElementById("appointment-price").value =
+            app.price || defaultPrice;
+          document.getElementById("issue-description").value = app.issue || "";
+          document.getElementById("repair-notes").value = app.repair_notes || "";
+          document.getElementById("appointment-status").value = app.status || "";
+    
+          document.getElementById("modal-title").textContent = "Edit Appointment";
+          document.getElementById("save-appointment").textContent =
+            "Update Appointment";
+    
+          modal.classList.add("active");
+        }
+    
+        function openAddModal() {
+          editingAppointmentId = null;
+    
+          document.getElementById("appointment-form").reset();
+    
+          const today = new Date();
+          document.getElementById("appointment-date").value = today
+            .toISOString()
+            .split("T")[0];
+    
+          const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+          document.getElementById("appointment-time").value = `${nextHour
+            .getHours()
+            .toString()
+            .padStart(2, "0")}:${nextHour
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}`;
+    
+          document.getElementById("appointment-price").value = defaultPrice;
+          document.getElementById("modal-title").textContent =
+            "Add New Appointment";
+          document.getElementById("save-appointment").textContent =
+            "Save Appointment";
+    
+          modal.classList.add("active");
+        }
+    
+        function closeModal() {
+          modal.classList.remove("active");
+        }
+    
+        // Render appointment table
+        function renderAppointmentsTable(list = appointments) {
+          const tbody = document.getElementById("appointments-body");
+          tbody.innerHTML = "";
+    
+          const statusMap = {
+            scheduled: {
+              text: "🗓️ Scheduled for Initial Diagnosis/Repair",
+              class: "status-scheduled",
+            },
+            needs_parts: {
+              text: "🔍 Needs Parts Ordered",
+              class: "status-inprogress",
+            },
+            parts_ordered: {
+              text: "📦 Parts Ordered / Waiting on Parts",
+              class: "status-inprogress",
+            },
+            parts_arrived: {
+              text: "📬 Parts Arrived",
+              class: "status-inprogress",
+            },
+            second_appointment: {
+              text: "📅 Second Appointment Booked",
+              class: "status-scheduled",
+            },
+            repair_completed: {
+              text: "✔️ Repair Completed",
+              class: "status-released",
+            },
+            draft: { text: "Draft", class: "status-draft" },
+            in_progress: { text: "In Progress", class: "status-inprogress" },
+            released: { text: "Released", class: "status-released" },
+            cancelled: { text: "Cancelled", class: "status-cancelled" },
+          };
+    
+          list.forEach((app) => {
+            const statusInfo = statusMap[app.status] || {
+              text: app.status || "",
+              class: "",
+            };
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>#${app.id}</td>
+              <td>${app.customer}</td>
+              <td>${app.equipment || ""}</td>
+              <td>${app.date || ""}</td>
+              <td><span class="status-badge ${statusInfo.class}">${
+              statusInfo.text
+            }</span></td>
+              <td>$${app.price || 0}</td>
+              <td class="action-cell">
+                <button class="action-btn edit-btn" data-id="${
+                  app.id
+                }"><i class="fas fa-edit"></i></button>
+                <button class="action-btn delete-btn" data-id="${
+                  app.id
+                }"><i class="fas fa-trash"></i></button>
+              </td>
+            `;
+            tbody.appendChild(row);
+          });
+    
+          tbody.querySelectorAll(".edit-btn").forEach((btn) => {
+            btn.onclick = () => {
+              if (!allowPastEdits) {
+                const app = appointments.find((a) => a.id === btn.dataset.id);
+                if (app) {
+                  const appDate = new Date(app.date.split(" - ")[0]);
+                  if (appDate < new Date()) {
+                    showToast("Editing past appointments is disabled", true);
+                    return;
+                  }
                 }
               }
-            }
-            openEditModal(btn.dataset.id);
-          };
-        });
-
-        tbody.querySelectorAll(".delete-btn").forEach((btn) => {
-          btn.onclick = () => {
-            if (confirm("Are you sure you want to delete this appointment?")) {
-              deleteAppointment(btn.dataset.id);
-            }
-          };
-        });
-      }
-
-      // Stats update
-      function updateStats() {
-        document.getElementById("total-appointments").textContent =
-          appointments.length;
-        document.getElementById("scheduled-count").textContent =
-          appointments.filter((a) => a.status === "scheduled").length;
-        document.getElementById("released-count").textContent =
-          appointments.filter((a) => a.status === "released").length;
-        document.getElementById("inprogress-count").textContent =
-          appointments.filter((a) => a.status === "in_progress").length;
-      }
-
-      // Calendar rendering and summary
-      function renderCalendar() {
-        const calendarGrid = document.getElementById("calendar-days");
-        calendarGrid.innerHTML = "";
-
-        document.getElementById("current-month-year").textContent =
-          formatMonthYear(currentMonth, currentYear);
-
-        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        daysOfWeek.forEach((day) => {
-          const dayHeader = document.createElement("div");
-          dayHeader.className = "calendar-day-header";
-          dayHeader.textContent = day;
-          calendarGrid.appendChild(dayHeader);
-        });
-
-        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-        const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-        for (let i = 0; i < firstDay; i++) {
-          const emptyCell = document.createElement("div");
-          emptyCell.className = "calendar-day empty";
-          calendarGrid.appendChild(emptyCell);
+              openEditModal(btn.dataset.id);
+            };
+          });
+    
+          tbody.querySelectorAll(".delete-btn").forEach((btn) => {
+            btn.onclick = () => {
+              if (confirm("Are you sure you want to delete this appointment?")) {
+                deleteAppointment(btn.dataset.id);
+              }
+            };
+          });
         }
-
-        for (let day = 1; day <= totalDays; day++) {
-          const dayCell = document.createElement("div");
-          dayCell.className = "calendar-day";
-
-          const dayNumber = document.createElement("div");
-          dayNumber.className = "day-number";
-          dayNumber.textContent = day;
-          dayCell.appendChild(dayNumber);
-
-          const dayAppointments = appointments.filter((app) => {
+    
+        // Stats update
+        function updateStats() {
+          document.getElementById("total-appointments").textContent =
+            appointments.length;
+          document.getElementById("scheduled-count").textContent =
+            appointments.filter((a) => a.status === "scheduled").length;
+          document.getElementById("released-count").textContent =
+            appointments.filter((a) => a.status === "released").length;
+          document.getElementById("inprogress-count").textContent =
+            appointments.filter((a) => a.status === "in_progress").length;
+        }
+    
+        // Calendar rendering and summary
+        function renderCalendar() {
+          const calendarGrid = document.getElementById("calendar-days");
+          calendarGrid.innerHTML = "";
+    
+          document.getElementById("current-month-year").textContent =
+            formatMonthYear(currentMonth, currentYear);
+    
+          const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+          daysOfWeek.forEach((day) => {
+            const dayHeader = document.createElement("div");
+            dayHeader.className = "calendar-day-header";
+            dayHeader.textContent = day;
+            calendarGrid.appendChild(dayHeader);
+          });
+    
+          const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+          const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+    
+          for (let i = 0; i < firstDay; i++) {
+            const emptyCell = document.createElement("div");
+            emptyCell.className = "calendar-day empty";
+            calendarGrid.appendChild(emptyCell);
+          }
+    
+          for (let day = 1; day <= totalDays; day++) {
+            const dayCell = document.createElement("div");
+            dayCell.className = "calendar-day";
+    
+            const dayNumber = document.createElement("div");
+            dayNumber.className = "day-number";
+            dayNumber.textContent = day;
+            dayCell.appendChild(dayNumber);
+    
+            const dayAppointments = appointments.filter((app) => {
+              const d = new Date(app.date.split(" - ")[0]);
+              return (
+                d.getMonth() === currentMonth &&
+                d.getFullYear() === currentYear &&
+                d.getDate() === day
+              );
+            });
+    
+            if (dayAppointments.length > 0) {
+              const container = document.createElement("div");
+              container.className = "calendar-appointments";
+    
+              dayAppointments.forEach((app) => {
+                const item = document.createElement("div");
+                item.className = "appointment-item";
+                item.textContent = `${app.customer.split(" ")[0]} - ${
+                  app.date.split(" - ")[1]
+                }`;
+                container.appendChild(item);
+              });
+    
+              dayCell.appendChild(container);
+            }
+            calendarGrid.appendChild(dayCell);
+          }
+    
+          updateCalendarSummary();
+        }
+    
+        function updateCalendarSummary() {
+          const monthlyApps = appointments.filter((app) => {
             const d = new Date(app.date.split(" - ")[0]);
             return (
-              d.getMonth() === currentMonth &&
-              d.getFullYear() === currentYear &&
-              d.getDate() === day
+              d.getMonth() === currentMonth && d.getFullYear() === currentYear
             );
           });
-
-          if (dayAppointments.length > 0) {
-            const container = document.createElement("div");
-            container.className = "calendar-appointments";
-
-            dayAppointments.forEach((app) => {
-              const item = document.createElement("div");
-              item.className = "appointment-item";
-              item.textContent = `${app.customer.split(" ")[0]} - ${
-                app.date.split(" - ")[1]
-              }`;
-              container.appendChild(item);
-            });
-
-            dayCell.appendChild(container);
-          }
-          calendarGrid.appendChild(dayCell);
+    
+          const businessDays = getBusinessDays(currentMonth, currentYear);
+          const monthlyRevenue = monthlyApps
+            .filter((a) => a.status === "released")
+            .reduce((sum, a) => sum + (a.price || 0), 0);
+    
+          document.getElementById("summary-total").textContent =
+            monthlyApps.length;
+          document.getElementById("summary-days").textContent = businessDays;
+          document.getElementById(
+            "summary-revenue"
+          ).textContent = `$${monthlyRevenue}`;
+    
+          const utilizationRate = Math.min(
+            100,
+            Math.round((monthlyApps.length / (businessDays * 3)) * 100)
+          );
+          document.getElementById("summary-utilization").textContent =
+            utilizationRate + "%";
         }
-
-        updateCalendarSummary();
-      }
-
-      function updateCalendarSummary() {
-        const monthlyApps = appointments.filter((app) => {
-          const d = new Date(app.date.split(" - ")[0]);
-          return (
-            d.getMonth() === currentMonth && d.getFullYear() === currentYear
-          );
-        });
-
-        const businessDays = getBusinessDays(currentMonth, currentYear);
-        const monthlyRevenue = monthlyApps
-          .filter((a) => a.status === "released")
-          .reduce((sum, a) => sum + (a.price || 0), 0);
-
-        document.getElementById("summary-total").textContent =
-          monthlyApps.length;
-        document.getElementById("summary-days").textContent = businessDays;
-        document.getElementById(
-          "summary-revenue"
-        ).textContent = `$${monthlyRevenue}`;
-
-        const utilizationRate = Math.min(
-          100,
-          Math.round((monthlyApps.length / (businessDays * 3)) * 100)
-        );
-        document.getElementById("summary-utilization").textContent =
-          utilizationRate + "%";
-      }
-
-      // Performance metrics
-      function updatePerformanceMetrics() {
-        const monthlyApps = appointments.filter((app) => {
-          const d = new Date(app.date.split(" - ")[0]);
-          return (
-            d.getMonth() === currentMonth && d.getFullYear() === currentYear
-          );
-        });
-
-        const releasedThisMonth = monthlyApps.filter(
-          (a) => a.status === "released"
-        ).length;
-        const monthlyRevenue = monthlyApps
-          .filter((a) => a.status === "released")
-          .reduce((sum, a) => sum + (a.price || 0), 0);
-
-        document.getElementById("current-appointments").textContent =
-          appointments.length;
-        document.getElementById("monthly-released").textContent =
-          releasedThisMonth;
-        document.getElementById(
-          "monthly-revenue"
-        ).textContent = `$${monthlyRevenue}`;
-      }
-
-      // Chart.js setup
-      function initChart() {
-        const ctx = document
-          .getElementById("appointmentsChart")
-          .getContext("2d");
-        if (chartInstance) chartInstance.destroy();
-
-        const counts = {
-          draft: appointments.filter((a) => a.status === "draft").length,
-          scheduled: appointments.filter((a) => a.status === "scheduled")
-            .length,
-          in_progress: appointments.filter((a) => a.status === "in_progress")
-            .length,
-          released: appointments.filter((a) => a.status === "released").length,
-          cancelled: appointments.filter((a) => a.status === "cancelled")
-            .length,
-        };
-
-        chartInstance = new Chart(ctx, {
-          type: "doughnut",
-          data: {
-            labels: [
-              "Draft",
-              "Scheduled",
-              "In Progress",
-              "Released",
-              "Cancelled",
-            ],
-            datasets: [
-              {
-                data: Object.values(counts),
-                backgroundColor: [
-                  "rgba(149, 165, 166, 0.7)",
-                  "rgba(93, 93, 255, 0.7)",
-                  "rgba(52, 152, 219, 0.7)",
-                  "rgba(46, 204, 113, 0.7)",
-                  "rgba(231, 76, 60, 0.7)",
-                ],
-                borderColor: [
-                  "rgba(149, 165, 166, 1)",
-                  "rgba(93, 93, 255, 1)",
-                  "rgba(52, 152, 219, 1)",
-                  "rgba(46, 204, 113, 1)",
-                  "rgba(231, 76, 60, 1)",
-                ],
-                borderWidth: 1,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: "right",
-                labels: { color: "#f0f0f0", font: { size: 12 } },
-              },
-              title: {
-                display: true,
-                text: "Appointment Status Distribution",
-                color: "#f0f0f0",
-                font: { size: 16 },
-              },
-              tooltip: {
-                callbacks: {
-                  label: (context) => {
-                    const label = context.label || "";
-                    const value = context.raw || 0;
-                    const total = context.dataset.data.reduce(
-                      (a, b) => a + b,
-                      0
-                    );
-                    const pct = total ? Math.round((value / total) * 100) : 0;
-                    return `${label}: ${value} (${pct}%)`;
+    
+        // Performance metrics
+        function updatePerformanceMetrics() {
+          const monthlyApps = appointments.filter((app) => {
+            const d = new Date(app.date.split(" - ")[0]);
+            return (
+              d.getMonth() === currentMonth && d.getFullYear() === currentYear
+            );
+          });
+    
+          const releasedThisMonth = monthlyApps.filter(
+            (a) => a.status === "released"
+          ).length;
+          const monthlyRevenue = monthlyApps
+            .filter((a) => a.status === "released")
+            .reduce((sum, a) => sum + (a.price || 0), 0);
+    
+          document.getElementById("current-appointments").textContent =
+            appointments.length;
+          document.getElementById("monthly-released").textContent =
+            releasedThisMonth;
+          document.getElementById(
+            "monthly-revenue"
+          ).textContent = `$${monthlyRevenue}`;
+        }
+    
+        // Chart.js setup
+        function initChart() {
+          const ctx = document
+            .getElementById("appointmentsChart")
+            .getContext("2d");
+          if (chartInstance) chartInstance.destroy();
+    
+          const counts = {
+            draft: appointments.filter((a) => a.status === "draft").length,
+            scheduled: appointments.filter((a) => a.status === "scheduled")
+              .length,
+            in_progress: appointments.filter((a) => a.status === "in_progress")
+              .length,
+            released: appointments.filter((a) => a.status === "released").length,
+            cancelled: appointments.filter((a) => a.status === "cancelled")
+              .length,
+          };
+    
+          chartInstance = new Chart(ctx, {
+            type: "doughnut",
+            data: {
+              labels: [
+                "Draft",
+                "Scheduled",
+                "In Progress",
+                "Released",
+                "Cancelled",
+              ],
+              datasets: [
+                {
+                  data: Object.values(counts),
+                  backgroundColor: [
+                    "rgba(149, 165, 166, 0.7)",
+                    "rgba(93, 93, 255, 0.7)",
+                    "rgba(52, 152, 219, 0.7)",
+                    "rgba(46, 204, 113, 0.7)",
+                    "rgba(231, 76, 60, 0.7)",
+                  ],
+                  borderColor: [
+                    "rgba(149, 165, 166, 1)",
+                    "rgba(93, 93, 255, 1)",
+                    "rgba(52, 152, 219, 1)",
+                    "rgba(46, 204, 113, 1)",
+                    "rgba(231, 76, 60, 1)",
+                  ],
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: "right",
+                  labels: { color: "#f0f0f0", font: { size: 12 } },
+                },
+                title: {
+                  display: true,
+                  text: "Appointment Status Distribution",
+                  color: "#f0f0f0",
+                  font: { size: 16 },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (context) => {
+                      const label = context.label || "";
+                      const value = context.raw || 0;
+                      const total = context.dataset.data.reduce(
+                        (a, b) => a + b,
+                        0
+                      );
+                      const pct = total ? Math.round((value / total) * 100) : 0;
+                      return `${label}: ${value} (${pct}%)`;
+                    },
                   },
                 },
               },
             },
-          },
-        });
-      }
-
-      // Tab navigation
-      const sidebarLinks = document.querySelectorAll(".nav-links a");
-      const tabs = document.querySelectorAll(".tab");
-
-      sidebarLinks.forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const targetView = link.getAttribute("data-view");
-
-          if (targetView === "logout") {
-            logout();
-            return;
-          }
-
-          sidebarLinks.forEach((l) => l.classList.remove("active"));
-          link.classList.add("active");
-
-          tabs.forEach((tab) => {
-            if (tab.getAttribute("data-tab") === targetView) {
-              tab.classList.add("active");
-            } else {
-              tab.classList.remove("active");
+          });
+        }
+    
+        // Tab navigation
+        const sidebarLinks = document.querySelectorAll(".nav-links a");
+        const tabs = document.querySelectorAll(".tab");
+    
+        sidebarLinks.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetView = link.getAttribute("data-view");
+    
+            if (targetView === "logout") {
+              logout();
+              return;
+            }
+    
+            sidebarLinks.forEach((l) => l.classList.remove("active"));
+            link.classList.add("active");
+    
+            tabs.forEach((tab) => {
+              if (tab.getAttribute("data-tab") === targetView) {
+                tab.classList.add("active");
+              } else {
+                tab.classList.remove("active");
+              }
+            });
+    
+            if (targetView === "stats") {
+              initChart();
             }
           });
-
-          if (targetView === "stats") {
-            initChart();
+        });
+    
+        // Month navigation buttons
+        document.getElementById("prev-month").addEventListener("click", () => {
+          currentMonth--;
+          if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
           }
-        });
-      });
-
-      // Month navigation buttons
-      document.getElementById("prev-month").addEventListener("click", () => {
-        currentMonth--;
-        if (currentMonth < 0) {
-          currentMonth = 11;
-          currentYear--;
-        }
-        renderCalendar();
-      });
-
-      document.getElementById("next-month").addEventListener("click", () => {
-        currentMonth++;
-        if (currentMonth > 11) {
-          currentMonth = 0;
-          currentYear++;
-        }
-        renderCalendar();
-      });
-
-      // Settings save/reset
-      document.getElementById("save-settings").addEventListener("click", () => {
-        defaultPrice =
-          parseFloat(document.getElementById("default-price").value) ||
-          defaultPriceInitial;
-        allowPastEdits =
-          document.getElementById("enable-past-edits").value === "true";
-        alert("Settings saved successfully!");
-      });
-
-      document
-        .getElementById("reset-settings")
-        .addEventListener("click", () => {
-          document.getElementById("company-name").value =
-            "Canadian Fitness Repair";
-          document.getElementById("default-price").value =
-            defaultPriceInitial.toString();
-          document.getElementById("business-hours").value = "9:00 AM - 6:00 PM";
-          document.getElementById("enable-past-edits").value = "true";
-          defaultPrice = defaultPriceInitial;
-          allowPastEdits = true;
-        });
-
-      // Search functionality
-      document
-        .getElementById("search-appointments")
-        .addEventListener("input", function () {
-          const keyword = this.value.toLowerCase();
-          const filtered = appointments.filter(
-            (app) =>
-              app.customer.toLowerCase().includes(keyword) ||
-              (app.phone && app.phone.toLowerCase().includes(keyword))
-          );
-          renderAppointmentsTable(filtered);
-        });
-
-      // Print button
-      document
-        .getElementById("print-schedule")
-        .addEventListener("click", () => {
-          window.print();
-        });
-
-      // Save appointment button (form submission)
-      document
-        .getElementById("save-appointment")
-        .addEventListener("click", async () => {
-          const customerName = document
-            .getElementById("customer-name")
-            .value.trim();
-          const phone = document.getElementById("customer-phone").value.trim();
-          const dateInput = document.getElementById("appointment-date").value;
-          const timeInput = document.getElementById("appointment-time").value;
-          const equipment = document.getElementById("equipment").value.trim();
-          const price =
-            parseFloat(document.getElementById("appointment-price").value) || 0;
-          const issue = document
-            .getElementById("issue-description")
-            .value.trim();
-          const status = document.getElementById("appointment-status").value;
-          const repairNotes = document
-            .getElementById("repair-notes")
-            .value.trim();
-
-          if (!customerName) {
-            alert("Please enter customer name.");
-            return;
-          }
-          if (!dateInput || !timeInput) {
-            alert("Please select date and time.");
-            return;
-          }
-
-          const formattedDate = new Date(dateInput).toLocaleDateString(
-            "en-US",
-            {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            }
-          );
-          const formattedTime = new Date(
-            `2000-01-01T${timeInput}`
-          ).toLocaleTimeString("en-US", {
-            hour: "numeric",
-            minute: "2-digit",
-          });
-
-          const appointmentData = {
-            customer: customerName,
-            phone,
-            equipment,
-            date: `${formattedDate} - ${formattedTime}`,
-            price,
-            issue,
-            status,
-            repair_notes: repairNotes,
-          };
-
-          await saveAppointment(appointmentData);
-          closeModal();
-
-          renderAppointmentsTable();
-          updateStats();
           renderCalendar();
-          updateCalendarSummary();
-          updatePerformanceMetrics();
-          initChart();
         });
-
-      // Modal controls
-      addBtn.addEventListener("click", openAddModal);
-      closeBtn.addEventListener("click", closeModal);
-      cancelBtn.addEventListener("click", closeModal);
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("active"))
-          closeModal();
-      });
-
-      // Initial setup on DOM ready
-      import { onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-      document.addEventListener("DOMContentLoaded", () => {
-        // Real-time listener: updates appointments & UI on any Firestore change
+    
+        document.getElementById("next-month").addEventListener("click", () => {
+          currentMonth++;
+          if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+          }
+          renderCalendar();
+        });
+    
+        // Settings save/reset
+        document.getElementById("save-settings").addEventListener("click", () => {
+          defaultPrice =
+            parseFloat(document.getElementById("default-price").value) ||
+            defaultPriceInitial;
+          allowPastEdits =
+            document.getElementById("enable-past-edits").value === "true";
+          showToast("Settings saved successfully");
+        });
+    
+        document
+          .getElementById("reset-settings")
+          .addEventListener("click", () => {
+            document.getElementById("company-name").value =
+              "Canadian Fitness Repair";
+            document.getElementById("default-price").value =
+              defaultPriceInitial.toString();
+            document.getElementById("business-hours").value = "9:00 AM - 6:00 PM";
+            document.getElementById("enable-past-edits").value = "true";
+            defaultPrice = defaultPriceInitial;
+            allowPastEdits = true;
+            showToast("Settings reset to defaults");
+          });
+    
+        // Search functionality
+        document
+          .getElementById("search-appointments")
+          .addEventListener("input", function () {
+            const keyword = this.value.toLowerCase();
+            const filtered = appointments.filter(
+              (app) =>
+                app.customer.toLowerCase().includes(keyword) ||
+                (app.phone && app.phone.toLowerCase().includes(keyword))
+            );
+            renderAppointmentsTable(filtered);
+          });
+    
+        // Print button
+        document
+          .getElementById("print-schedule")
+          .addEventListener("click", () => {
+            window.print();
+          });
+    
+        // Save appointment button (form submission)
+        document
+          .getElementById("save-appointment")
+          .addEventListener("click", async () => {
+            const customerName = document
+              .getElementById("customer-name")
+              .value.trim();
+            const phone = document.getElementById("customer-phone").value.trim();
+            const dateInput = document.getElementById("appointment-date").value;
+            const timeInput = document.getElementById("appointment-time").value;
+            const equipment = document.getElementById("equipment").value.trim();
+            const price =
+              parseFloat(document.getElementById("appointment-price").value) || 0;
+            const issue = document
+              .getElementById("issue-description")
+              .value.trim();
+            const status = document.getElementById("appointment-status").value;
+            const repairNotes = document
+              .getElementById("repair-notes")
+              .value.trim();
+    
+            if (!customerName) {
+              showToast("Please enter customer name", true);
+              return;
+            }
+            if (!dateInput || !timeInput) {
+              showToast("Please select date and time", true);
+              return;
+            }
+    
+            const formattedDate = new Date(dateInput).toLocaleDateString(
+              "en-US",
+              {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              }
+            );
+            const formattedTime = new Date(
+              `2000-01-01T${timeInput}`
+            ).toLocaleTimeString("en-US", {
+              hour: "numeric",
+              minute: "2-digit",
+            });
+    
+            const appointmentData = {
+              customer: customerName,
+              phone,
+              equipment,
+              date: `${formattedDate} - ${formattedTime}`,
+              price,
+              issue,
+              status,
+              repair_notes: repairNotes,
+            };
+    
+            await saveAppointment(appointmentData);
+            closeModal();
+    
+            renderAppointmentsTable();
+            updateStats();
+            renderCalendar();
+            updateCalendarSummary();
+            updatePerformanceMetrics();
+            initChart();
+          });
+    
+        // Modal controls
+        addBtn.addEventListener("click", openAddModal);
+        closeBtn.addEventListener("click", closeModal);
+        cancelBtn.addEventListener("click", closeModal);
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modal.classList.contains("active"))
+            closeModal();
+        });
+    
+        // Setup logout button
+        document.querySelector('.nav-links a[data-view="logout"]').addEventListener("click", (e) => {
+          e.preventDefault();
+          logout();
+        });
+    
+        // Real-time listener
         onSnapshot(appointmentsCollection, (snapshot) => {
           appointments = snapshot.docs.map((doc) => ({
             id: doc.id,
@@ -2101,8 +2157,8 @@
           updatePerformanceMetrics();
           initChart();
         });
-
-        // Default form setup remains unchanged
+    
+        // Default form setup
         const today = new Date();
         document.getElementById("appointment-date").value = today
           .toISOString()
@@ -2117,9 +2173,7 @@
           .padStart(2, "0")}`;
         document.getElementById("appointment-price").value =
           defaultPriceInitial;
-
-        setupLogout();
-      });
+      }
     </script>
   </body>
 </html>
