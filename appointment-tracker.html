@@ -642,6 +642,19 @@
       .status-step.completed .status-icon {
         background: var(--success);
       }
+      .logout-warning {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+.toast.warning {
+  background-color: #ffc107;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
 
       /* Responsive */
       @media (max-width: 1200px) {
@@ -1470,6 +1483,8 @@
     
         // ================ SESSION MANAGEMENT ================ 
         let sessionTimer;
+        let logoutWarningTimer;
+        let countdownInterval;
     
         function startSessionTimer(auth) {
           resetSessionTimer(auth);
@@ -1482,6 +1497,9 @@
     
         function resetSessionTimer(auth) {
           clearTimeout(sessionTimer);
+          clearTimeout(logoutWarningTimer);
+          clearInterval(countdownInterval);
+          removeLogoutWarning();
           sessionTimer = setTimeout(() => {
             signOut(auth).then(() => {
               showToast('Session expired due to inactivity');
@@ -1489,7 +1507,57 @@
             });
           }, 30 * 60 * 1000); // 30 minutes
         }
-    
+        
+        function showLogoutWarning(auth) {
+        let countdown = 60;
+        const warningDiv = document.createElement("div");
+        warningDiv.className = "logout-warning";
+        warningDiv.innerHTML = `
+          <div class="toast warning">
+            ⚠️ You will be logged out in <span id="logout-countdown">${countdown}</span> seconds due to inactivity.
+          </div>
+        `;
+        document.body.appendChild(warningDiv);
+
+        countdownInterval = setInterval(() => {
+          countdown--;
+          document.getElementById("logout-countdown").textContent = countdown;
+          if (countdown <= 0) {
+            clearInterval(countdownInterval);
+            autoSaveIfEditing();
+            signOut(auth).then(() => {
+              window.location.href = 'admin-login.html';
+            });
+          }
+        }, 1000);
+      }
+
+      function removeLogoutWarning() {
+        const warning = document.querySelector(".logout-warning");
+        if (warning) warning.remove();
+            }
+
+            function autoSaveIfEditing() {
+        const form = document.getElementById("appointment-form");
+        if (!form || form.style.display === "none") return;
+
+        const customer = document.getElementById("customer-name").value.trim();
+        if (!customer) return;
+
+        const data = {
+          customer,
+          phone: document.getElementById("customer-phone").value.trim(),
+          equipment: document.getElementById("equipment").value.trim(),
+          date: `${document.getElementById("appointment-date").value} - ${document.getElementById("appointment-time").value}`,
+          price: parseFloat(document.getElementById("appointment-price").value) || 0,
+          issue: document.getElementById("issue-description").value.trim(),
+          status: document.getElementById("appointment-status").value,
+          repair_notes: document.getElementById("repair-notes").value.trim()
+        };
+
+        saveAppointment(data); // Calls your existing logic
+      }
+
         // ================ TOAST NOTIFICATIONS ================
         function showToast(message, isError = false) {
           const toast = document.createElement('div');
