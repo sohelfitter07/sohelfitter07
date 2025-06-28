@@ -39,3 +39,4 @@ app.get("/api/firebase-config", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+// CORS fix final confirmation - June 28
