@@ -1019,6 +1019,12 @@
         padding-bottom: 10px;
         font-size: 1.5rem;
       }
+      .user-info {
+        color: #ccc;
+        font-size: 14px;
+        margin-top: 1rem;
+        padding-left: 1rem;
+      }
     </style>
   </head>
   <body>
@@ -1066,6 +1072,9 @@
               >
             </li>
           </ul>
+        </div>
+        <div id="user-info" class="user-info">
+          👤 <span id="user-name">Loading...</span>
         </div>
 
         <!-- Main Content -->
@@ -1479,6 +1488,8 @@
           if (!user) {
             window.location.href = "admin-login.html";
           } else {
+            // ✅ Show logged-in user's email
+            document.getElementById("user-name").textContent = user.email;
             // ✅ Log when dashboard is opened
             logAction("Dashboard loaded", user.email);
             fetchAppointments();
