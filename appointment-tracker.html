@@ -1432,6 +1432,16 @@
         signOut,
       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+      function logAction(action, user = "guest") {
+        fetch("https://cfr-backend-1.onrender.com/api/log", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action, user }),
+        }).catch((err) => {
+          console.error("Logging failed:", err);
+        });
+      }
+
       // 🔐 Fetch Firebase config from your backend
       async function getFirebaseConfig() {
         try {
@@ -1469,6 +1479,8 @@
           if (!user) {
             window.location.href = "admin-login.html";
           } else {
+            // ✅ Log when dashboard is opened
+            logAction("Dashboard loaded", user.email);
             fetchAppointments();
             startSessionTimer(auth);
           }
@@ -1659,15 +1671,30 @@
               const docRef = doc(db, "appointments", editingAppointmentId);
               await updateDoc(docRef, data);
               showToast("Appointment updated successfully");
+              // ✅ Log update
+              logAction(
+                "Appointment updated",
+                auth.currentUser?.email || "guest"
+              );
             } else {
               await addDoc(appointmentsCollection, data);
               showToast("Appointment added successfully");
+              // ✅ Log add
+              logAction(
+                "Appointment added",
+                auth.currentUser?.email || "guest"
+              );
             }
             editingAppointmentId = null;
             await fetchAppointments();
           } catch (error) {
             console.error("Error saving appointment:", error);
             showToast("Failed to save appointment", true);
+            // ✅ Log failure
+            logAction(
+              "Appointment save failed",
+              auth.currentUser?.email || "guest"
+            );
           }
         }
 
