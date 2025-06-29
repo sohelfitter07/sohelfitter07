@@ -1,3082 +1,1747 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Appointment Tracker | Canadian Fitness Repair</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Canadian Fitness Repair</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-      :root {
-        --primary: #6a6aff;
-        --secondary: #ff8c66;
-        --accent: #ff5252;
-        --light: #ecf0f1;
-        --dark: #151719;
-        --darker: #0d0f11;
-        --card-bg: #1a1c23;
-        --sidebar-bg: #0d0f11;
-        --border: #2a2e39;
-        --shadow: rgba(0, 0, 0, 0.3);
-        --text-light: #d0d0f0;
-        --text-color: #f0f0f0;
-        --success: #27ae60;
-        --warning: #f39c12;
-        --danger: #ff4c4c;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
-
-      body {
-        background-color: var(--darker);
-        color: var(--text-color);
-        line-height: 1.6;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-
-      header {
-        background-color: var(--dark);
-        padding: 1rem 1.5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .logo h1 {
-        font-size: 1.5rem;
-        color: var(--primary);
-      }
-
-      .logo i {
-        color: var(--secondary);
-        font-size: 1.8rem;
-      }
-
-      .user-info {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-
-      .user-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: var(--primary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-      }
-
-      .app-container {
-        display: flex;
-        min-height: calc(100vh - 8rem);
-      }
-
-      /* Sidebar */
-      .sidebar {
-        width: 250px;
-        background: var(--sidebar-bg);
-        color: var(--text-light);
-        padding: 20px 0;
-        transition: all 0.3s;
-        flex-shrink: 0;
-        border-right: 1px solid var(--border);
-      }
-
-      .sidebar-header {
-        padding: 0 20px 20px;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 20px;
-      }
-
-      .sidebar-header h2 {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 1.5rem;
-        color: var(--primary);
-      }
-
-      .sidebar-header h2 i {
-        color: var(--secondary);
-      }
-
-      .nav-links {
-        list-style: none;
-      }
-
-      .nav-links li a {
-        display: flex;
-        align-items: center;
-        padding: 12px 20px;
-        color: var(--text-light);
-        text-decoration: none;
-        transition: all 0.3s;
-        gap: 10px;
-        cursor: pointer;
-      }
-
-      .nav-links li a:hover,
-      .nav-links li a.active {
-        background: rgba(93, 93, 255, 0.1);
-        color: var(--text-color);
-        border-left: 4px solid var(--primary);
-      }
-
-      .nav-links li a i {
-        width: 24px;
-        text-align: center;
-        color: var(--secondary);
-      }
-
-      /* Main Content */
-      .main-content {
-        flex: 1;
-        padding: 20px;
-        overflow-y: auto;
-        background: var(--dark);
-      }
-
-      .dashboard-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        padding: 15px 0;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .dashboard-header h1 {
-        color: var(--primary);
-        font-size: 1.8rem;
-      }
-
-      /* Stats Cards */
-      .stats-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-        margin-bottom: 30px;
-      }
-
-      .stat-card {
-        background: var(--card-bg);
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 6px var(--shadow);
-        display: flex;
-        flex-direction: column;
-        border: 1px solid var(--border);
-      }
-
-      .stat-card .icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 15px;
-        font-size: 1.5rem;
-      }
-
-      .stat-card:nth-child(1) .icon {
-        background: rgba(93, 93, 255, 0.2);
-        color: var(--primary);
-      }
-      .stat-card:nth-child(2) .icon {
-        background: rgba(255, 126, 95, 0.2);
-        color: var(--secondary);
-      }
-      .stat-card:nth-child(3) .icon {
-        background: rgba(46, 204, 113, 0.2);
-        color: var(--success);
-      }
-      .stat-card:nth-child(4) .icon {
-        background: rgba(155, 89, 182, 0.2);
-        color: #9b59b6;
-      }
-
-      .stat-card .value {
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin: 5px 0;
-        color: var(--text-color);
-      }
-
-      .stat-card .label {
-        color: var(--text-light);
-        font-size: 0.9rem;
-      }
-
-      /* Action Buttons */
-      .action-buttons {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-      }
-
-      .btn {
-        padding: 10px 20px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-        font-weight: 500;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        transition: all 0.3s;
-      }
-
-      .btn-primary {
-        background: var(--primary);
-        color: white;
-      }
-
-      .btn-success {
-        background: var(--success);
-        color: white;
-      }
-
-      .btn:hover {
-        opacity: 0.9;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
-
-      /* Tabs */
-      .tabs {
-        display: flex;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-      }
-
-      .tab {
-        padding: 10px 20px;
-        cursor: pointer;
-        border-bottom: 3px solid transparent;
-        transition: all 0.3s;
-        color: var(--text-light);
-        flex-shrink: 0;
-      }
-
-      .tab.active {
-        border-bottom: 3px solid var(--primary);
-        color: var(--primary);
-        font-weight: 500;
-      }
-
-      .tab-content {
-        display: none;
-      }
-
-      .tab-content.active {
-        display: block;
-      }
-      .help-section {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border);
-  }
-  
-  .faq-item {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-  }
-  
-  .faq-item h4 {
-    color: var(--primary);
-    margin-bottom: 8px;
-  }
-  
-  .document-links {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  
-  .reports-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .report-card {
-    background: var(--card-bg);
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid var(--border);
-  }
-  
-  @media (min-width: 992px) {
-    .reports-container {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-      /* Appointments Table */
-      .appointments-table {
-        width: 100%;
-        border-collapse: collapse;
-        background: var(--card-bg);
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px var(--shadow);
-        border: 1px solid var(--border);
-        min-width: 800px;
-      }
-
-      .appointments-table th {
-        background: #252830;
-        padding: 15px;
-        text-align: left;
-        font-weight: 600;
-        color: var(--text-color);
-        border-bottom: 2px solid var(--border);
-      }
-
-      .appointments-table td {
-        padding: 15px;
-        border-bottom: 1px solid var(--border);
-        color: var(--text-light);
-      }
-
-      .appointments-table tr:last-child td {
-        border-bottom: none;
-      }
-
-      .appointments-table tr:hover {
-        background: rgba(93, 93, 255, 0.05);
-      }
-
-      .status-badge {
-        padding: 5px 10px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 500;
-        white-space: nowrap;
-      }
-
-      .status-scheduled {
-        background: rgba(93, 93, 255, 0.2);
-        color: var(--primary);
-      }
-      .status-draft {
-        background: rgba(149, 165, 166, 0.2);
-        color: #95a5a6;
-      }
-      .status-released {
-        background: rgba(46, 204, 113, 0.2);
-        color: var(--success);
-      }
-      .status-inprogress {
-        background: rgba(52, 152, 219, 0.3);
-        color: #2980b9;
-      }
-      .status-cancelled {
-        background: rgba(231, 76, 60, 0.2);
-        color: var(--danger);
-      }
-
-      .action-cell {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-
-      .action-btn {
-        padding: 5px 10px;
-        border-radius: 4px;
-        border: none;
-        cursor: pointer;
-        font-size: 0.85rem;
-        transition: all 0.3s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .edit-btn {
-        background: rgba(93, 93, 255, 0.1);
-        color: var(--primary);
-      }
-      .delete-btn {
-        background: rgba(255, 126, 95, 0.1);
-        color: var(--secondary);
-      }
-
-      .action-btn:hover {
-        opacity: 0.8;
-      }
-
-      /* Calendar View */
-      .calendar-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-        gap: 15px;
-      }
-
-      .calendar-nav {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-
-      .calendar-nav button {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-      }
-
-      .calendar-nav button:hover {
-        opacity: 0.9;
-      }
-
-      .calendar-nav h2 {
-        min-width: 150px;
-        text-align: center;
-        font-size: 1.2rem;
-      }
-
-      .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 10px;
-      }
-
-      .calendar-day-header {
-        text-align: center;
-        padding: 10px;
-        background: var(--card-bg);
-        font-weight: 600;
-        border-radius: 5px;
-        color: var(--text-light);
-        border: 1px solid var(--border);
-        font-size: 0.9rem;
-      }
-
-      .calendar-day {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        min-height: 120px;
-        padding: 10px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .calendar-day.empty {
-        background: transparent;
-        border: none;
-      }
-
-      .day-number {
-        position: absolute;
-        top: 5px;
-        right: 10px;
-        font-weight: bold;
-        color: var(--text-light);
-        font-size: 0.9rem;
-      }
-
-      .calendar-appointments {
-        margin-top: 25px;
-        max-height: 80px;
-        overflow-y: auto;
-      }
-
-      .appointment-item {
-        background: var(--primary);
-        color: white;
-        padding: 5px;
-        border-radius: 4px;
-        margin-bottom: 5px;
-        font-size: 0.8rem;
-        cursor: pointer;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      /* Modal */
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 1000;
-        align-items: center;
-        justify-content: center;
-        padding: 15px;
-      }
-
-      .modal.active {
-        display: flex;
-      }
-
-      .modal-content {
-        background: var(--card-bg);
-        border-radius: 10px;
-        width: 100%;
-        max-width: 600px;
-        max-height: 90vh;
-        overflow-y: auto;
-        border: 1px solid var(--border);
-      }
-
-      .modal-header {
-        padding: 20px;
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        background: var(--card-bg);
-        z-index: 10;
-      }
-
-      .modal-header h3 {
-        color: var(--primary);
-        font-size: 1.5rem;
-      }
-
-      .close-modal {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--text-light);
-      }
-
-      .modal-body {
-        padding: 20px;
-      }
-
-      .form-group {
-        margin-bottom: 20px;
-      }
-
-      .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-        color: var(--text-light);
-      }
-
-      .form-control {
-        width: 100%;
-        padding: 10px 15px;
-        border: 1px solid var(--border);
-        border-radius: 5px;
-        font-size: 1rem;
-        background: var(--dark);
-        color: var(--text-color);
-      }
-
-      .form-row {
-        display: flex;
-        gap: 20px;
-      }
-
-      .form-row .form-group {
-        flex: 1;
-      }
-
-      .form-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        padding: 20px;
-        border-top: 1px solid var(--border);
-        flex-wrap: wrap;
-      }
-
-      /* Status Workflow */
-      .status-workflow {
-        display: flex;
-        justify-content: space-between;
-        margin: 30px 0;
-        position: relative;
-        flex-wrap: wrap;
-      }
-
-      .status-workflow::before {
-        content: "";
-        position: absolute;
-        top: 20px;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: var(--border);
-        z-index: 1;
-      }
-
-      .status-step {
-        text-align: center;
-        z-index: 2;
-        position: relative;
-        width: 20%;
-        min-width: 70px;
-        margin-bottom: 20px;
-      }
-
-      .status-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: var(--border);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 10px;
-        color: white;
-        font-weight: bold;
-      }
-
-      .status-step.active .status-icon {
-        background: var(--primary);
-      }
-
-      .status-step.completed .status-icon {
-        background: var(--success);
-      }
-      .logout-warning {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-      }
-      .toast.warning {
-        background-color: #ffc107;
-        padding: 12px 18px;
-        border-radius: 6px;
-        font-weight: bold;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      }
-
-      /* Responsive */
-      @media (max-width: 1200px) {
-        .calendar-day {
-          min-height: 100px;
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --gray: #95a5a6;
+            --sidebar-width: 250px;
+            --header-height: 60px;
         }
-
-        .appointment-item {
-          font-size: 0.75rem;
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-      }
-
-      @media (max-width: 992px) {
-        .app-container {
-          flex-direction: column;
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-
+        
+        /* Sidebar */
         .sidebar {
-          width: 100%;
-          padding: 10px;
+            width: var(--sidebar-width);
+            background: var(--primary);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            z-index: 100;
         }
-
-        .sidebar-header {
-          padding: 10px;
+        
+        .brand {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
+        
+        .brand h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
         .nav-links {
-          display: flex;
-          overflow-x: auto;
-          padding-bottom: 10px;
-          -ms-overflow-style: none;
-          scrollbar-width: none;
+            padding: 20px 0;
         }
-
-        .nav-links::-webkit-scrollbar {
-          display: none;
+        
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
         }
-
-        .nav-links li {
-          flex-shrink: 0;
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-left: 4px solid var(--secondary);
         }
-
-        .nav-links li a {
-          padding: 10px 15px;
-          border-left: none;
-          border-bottom: 3px solid transparent;
+        
+        .nav-links a i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
         }
-
-        .nav-links li a:hover,
-        .nav-links li a.active {
-          border-left: none;
-          border-bottom: 3px solid var(--primary);
-        }
-
-        .calendar-grid {
-          grid-template-columns: repeat(7, minmax(100px, 1fr));
-        }
-      }
-
-      @media (max-width: 768px) {
-        .form-row {
-          flex-direction: column;
-          gap: 0;
-        }
-
-        .stats-container {
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        }
-
-        .table-responsive {
-          display: block;
-          overflow-x: auto;
-          margin-bottom: 20px;
-          -webkit-overflow-scrolling: touch;
-        }
-
-        .dashboard-header {
-          flex-direction: column;
-          gap: 15px;
-          text-align: center;
-        }
-
-        .action-buttons {
-          justify-content: center;
-        }
-
-        .tabs {
-          overflow-x: auto;
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-
-        .tabs::-webkit-scrollbar {
-          display: none;
-        }
-
-        .tab {
-          padding: 10px 15px;
-        }
-
-        header {
-          padding: 0.8rem 1rem;
-        }
-
-        .logo h1 {
-          font-size: 1.3rem;
-        }
-
-        .calendar-grid {
-          grid-template-columns: repeat(7, minmax(80px, 1fr));
-          gap: 5px;
-        }
-
-        .calendar-day-header {
-          padding: 8px 5px;
-          font-size: 0.8rem;
-        }
-
-        .calendar-day {
-          min-height: 90px;
-          padding: 8px;
-        }
-
-        .day-number {
-          top: 3px;
-          right: 5px;
-          font-size: 0.8rem;
-        }
-
-        .calendar-appointments {
-          margin-top: 20px;
-          max-height: 65px;
-        }
-
-        .appointment-item {
-          font-size: 0.7rem;
-          padding: 3px;
-        }
-
-        .status-workflow {
-          gap: 10px;
-        }
-
-        .status-step {
-          width: 18%;
-        }
-      }
-
-      @media (max-width: 576px) {
+        
+        /* Main Content */
         .main-content {
-          padding: 15px;
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            padding-top: 80px;
         }
-
-        .stat-card {
-          padding: 15px;
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            height: var(--header-height);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 90;
         }
-
-        .status-workflow {
-          gap: 5px;
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
-
-        .status-step {
-          width: 30%;
-          min-width: 60px;
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        .user-info span {
-          display: none;
-        }
-
-        .dashboard-header .user-info span {
-          display: none;
-        }
-
-        .logo h1 {
-          font-size: 1.1rem;
-        }
-
-        .logo i {
-          font-size: 1.4rem;
-        }
-
+        
         .user-avatar {
-          width: 35px;
-          height: 35px;
-          font-size: 0.9rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
-
+        
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .tab.active {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .card-content {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .card-footer {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            color: var(--gray);
+        }
+        
+        .action-btn:hover {
+            background: #f1f1f1;
+            color: var(--secondary);
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-scheduled {
+            background: rgba(93, 93, 255, 0.1);
+            color: #5d5dff;
+        }
+        
+        .status-draft {
+            background: rgba(149, 165, 166, 0.1);
+            color: #95a5a6;
+        }
+        
+        .status-released {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+        }
+        
+        .status-inprogress {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+        }
+        
+        .status-cancelled {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+        
+        .status-warning {
+            background: rgba(243, 156, 18, 0.1);
+            color: #f39c12;
+        }
+        
+        /* Calendar */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
         .calendar-nav {
-          width: 100%;
-          justify-content: center;
+            display: flex;
+            gap: 10px;
         }
-
-        .calendar-nav h2 {
-          min-width: 100%;
-          margin: 5px 0;
-        }
-
+        
         .calendar-grid {
-          grid-template-columns: repeat(7, 1fr);
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
         }
-
-        .calendar-day {
-          min-height: 70px;
-        }
-
-        .day-number {
-          font-size: 0.7rem;
-        }
-
-        .calendar-appointments {
-          margin-top: 15px;
-          max-height: 50px;
-        }
-
-        .appointment-item {
-          font-size: 0.65rem;
-        }
-
-        .modal-header h3 {
-          font-size: 1.3rem;
-        }
-
-        .form-control {
-          padding: 8px 12px;
-          font-size: 0.9rem;
-        }
-
-        .form-actions {
-          justify-content: center;
-        }
-      }
-
-      @media (max-width: 400px) {
-        .stats-container {
-          grid-template-columns: 1fr;
-        }
-
-        .calendar-grid {
-          grid-template-columns: repeat(1, 1fr);
-        }
-
+        
         .calendar-day-header {
-          display: none;
+            text-align: center;
+            padding: 10px;
+            font-weight: 600;
+            background: #f8f9fa;
+            border-radius: 5px;
         }
-
+        
         .calendar-day {
-          min-height: auto;
-          display: flex;
-          align-items: center;
-          padding: 10px 15px;
+            min-height: 100px;
+            background: white;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-
+        
+        .calendar-day.empty {
+            background: transparent;
+            box-shadow: none;
+        }
+        
         .day-number {
-          position: static;
-          font-weight: bold;
-          margin-right: 15px;
-          min-width: 40px;
+            font-weight: 600;
+            margin-bottom: 5px;
         }
-
-        .calendar-appointments {
-          margin-top: 0;
-          flex: 1;
-          max-height: none;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 5px;
-        }
-
+        
         .appointment-item {
-          flex: 1;
-          min-width: 120px;
-          font-size: 0.75rem;
-          white-space: normal;
-          overflow: visible;
-          text-overflow: unset;
-          padding: 6px 8px;
+            background: #e3f2fd;
+            padding: 5px;
+            border-radius: 3px;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
         }
-      }
-
-      /* Table wrapper for horizontal scrolling */
-      .table-responsive {
-        width: 100%;
-        overflow-x: auto;
-        margin-bottom: 20px;
-        -webkit-overflow-scrolling: touch;
-        border-radius: 10px;
-        border: 1px solid var(--border);
-      }
-
-      footer {
-        background: var(--dark);
-        padding: 1.5rem 2rem;
-        text-align: center;
-        border-top: 1px solid var(--border);
-        margin-top: auto;
-      }
-
-      .data-summary {
-        background: var(--card-bg);
-        border-radius: 10px;
-        padding: 20px;
-        margin-top: 20px;
-        border: 1px solid var(--border);
-      }
-
-      .data-summary h3 {
-        color: var(--primary);
-        margin-bottom: 15px;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 10px;
-        font-size: 1.3rem;
-      }
-
-      .summary-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
-      }
-
-      .summary-item {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 15px;
-        border-radius: 8px;
-        text-align: center;
-      }
-
-      .summary-item .value {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: var(--primary);
-        margin-bottom: 5px;
-      }
-
-      .summary-item .label {
-        font-size: 0.9rem;
-        color: var(--text-light);
-      }
-
-      /* Chart container */
-      .chart-container {
-        background: var(--card-bg);
-        border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 20px;
-        border: 1px solid var(--border);
-      }
-
-      /* Settings form */
-      .settings-form {
-        background: var(--card-bg);
-        border-radius: 10px;
-        padding: 25px;
-        margin-top: 20px;
-        border: 1px solid var(--border);
-      }
-
-      .settings-form h2 {
-        margin-bottom: 20px;
-        color: var(--primary);
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 10px;
-        font-size: 1.5rem;
-      }
-      .user-info {
-        color: #ccc;
-        font-size: 14px;
-        margin-top: 1rem;
-        padding-left: 1rem;
-      }
+        
+        .btn {
+            padding: 10px 15px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .toast.error {
+            background: var(--danger);
+        }
+        
+        /* Loading overlay */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-direction: column;
+            display: none;
+        }
+        
+        #loading-overlay .spinner {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .sidebar .brand h2, .sidebar .nav-links a span {
+                display: none;
+            }
+            
+            .sidebar .nav-links a {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .sidebar .nav-links a i {
+                margin-right: 0;
+                font-size: 1.4rem;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .header {
+                left: 70px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <h1 style="text-align:center; color:limegreen;">✅ HTML IS UPDATED</h1>
-<button onclick="console.log('✅ Console Test Clicked')">Test Console Log</button>
-
-    <main>
-      <div class="app-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-          <div class="sidebar-header">
-            <h2><i class="fas fa-dumbbell"></i> Fitness Repair Tracker</h2>
-          </div>
-          <ul class="nav-links">
-            <li>
-              <a href="#" class="active" data-view="list"
-                ><i class="fas fa-home"></i> Dashboard</a
-              >
-            </li>
-            <li>
-              <a href="#" data-view="calendar"
-                ><i class="fas fa-calendar-alt"></i> Calendar</a
-              >
-            </li>
-            <li>
-              <a href="#" data-view="settings"
-                ><i class="fas fa-cog"></i> Settings</a
-              >
-            </li>
-            <li>
-              <a href="#" data-view="customers"
-                ><i class="fas fa-users"></i> Customers</a
-              >
-            </li>
-            <li>
-              <a href="#" data-view="reports"
-                ><i class="fas fa-chart-line"></i> Reports</a
-              >
-            </li>
-            <li>
-              <a href="#" data-view="help"
-                ><i class="fas fa-question-circle"></i> Help</a
-              >
-            </li>
-            <li>
-              <a href="#" data-view="logout"
-                ><i class="fas fa-sign-out-alt"></i> Logout</a
-              >
-            </li>
-          </ul>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay">
+        <div class="spinner"><i class="fas fa-spinner"></i></div>
+        <div>Loading data...</div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="brand">
+            <h2>Admin Dashboard</h2>
         </div>
-        <div id="user-info" class="user-info">
-          👤 <span id="user-name">Loading...</span>
+        <div class="nav-links">
+            <a href="#" data-view="dashboard" class="active">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" data-view="appointments">
+                <i class="fas fa-calendar-check"></i>
+                <span>Appointments</span>
+            </a>
+            <a href="#" data-view="calendar">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Calendar</span>
+            </a>
+            <a href="#" data-view="customers">
+                <i class="fas fa-users"></i>
+                <span>Customers</span>
+            </a>
+            <a href="#" data-view="reports">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+            </a>
+            <a href="#" data-view="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="#" data-view="help">
+                <i class="fas fa-question-circle"></i>
+                <span>Help</span>
+            </a>
+            <a href="#" data-view="logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h2>Dashboard Overview</h2>
+            <div class="header-right">
+                <div class="user-info">
+                    <div class="user-avatar">A</div>
+                    <div>
+                        <div id="user-name">admin@example.com</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-          <div style="text-align: center; padding: 20px; background: #ff5252; color: white;">
-            <button onclick="console.log('✅ Manual click log')">Test Console Log</button>
-          </div>
-          <div class="dashboard-header">
-            <h1>Appointment Dashboard</h1>
-            <div class="user-info">
-              <div class="user-avatar">CF</div>
-              <span>Admin</span>
-            </div>
-          </div>
-
-          <!-- Stats Cards -->
-          <div class="stats-container">
-            <div class="stat-card">
-              <div class="icon"><i class="fas fa-calendar-check"></i></div>
-              <div class="value" id="total-appointments">0</div>
-              <div class="label">Total Appointments</div>
-            </div>
-            <div class="stat-card">
-              <div class="icon"><i class="fas fa-clock"></i></div>
-              <div class="value" id="scheduled-count">0</div>
-              <div class="label">Scheduled</div>
-            </div>
-            <div class="stat-card">
-              <div class="icon"><i class="fas fa-check-circle"></i></div>
-              <div class="value" id="released-count">0</div>
-              <div class="label">Released</div>
-            </div>
-            <div class="stat-card">
-              <div class="icon"><i class="fas fa-tools"></i></div>
-              <div class="value" id="inprogress-count">0</div>
-              <div class="label">In Progress</div>
-            </div>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="action-buttons">
-            <button class="btn btn-primary" id="add-appointment" aria-label="Add new appointment">
-              <i class="fas fa-plus"></i> Add Appointment
-            </button>
-            <button class="btn btn-success" id="print-schedule" aria-label="Print schedule">
-              <i class="fas fa-print"></i> Print Schedule
-            </button>
-          </div>
-
-          <!-- Tabs -->
-          <div class="tabs">
-            <div class="tab active" data-tab="list">List View</div>
-            <div class="tab" data-tab="calendar">Calendar View</div>
-            <div class="tab" data-tab="stats">Statistics</div>
-            <div class="tab" data-tab="settings">Settings</div>
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" data-tab="dashboard">Dashboard</div>
+            <div class="tab" data-tab="appointments">Appointments</div>
+            <div class="tab" data-tab="calendar">Calendar</div>
+            <div class="tab" data-tab="customers">Customers</div>
             <div class="tab" data-tab="reports">Reports</div>
-          </div>
+            <div class="tab" data-tab="settings">Settings</div>
+        </div>
 
-          <!-- Tab Contents -->
-          <div class="tab-content active" id="list-view">
-            <div style="margin-bottom: 1rem">
-              <input
-                type="text"
-                id="search-appointments"
-                class="form-control"
-                placeholder="Search by customer name or phone..."
-                style="width: 100%; max-width: 300px"
-              />
-            </div>
-            <div class="table-responsive">
-              <table class="appointments-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Customer</th>
-                    <th>Equipment</th>
-                    <th>Date & Time</th>
-                    <th>Status</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="appointments-body">
-                  <!-- Populated by JS -->
-                </tbody>
-              </table>
-            </div>
-            <div class="pagination" style="display: flex; gap: 10px; align-items: center; justify-content: center; margin-top: 15px;">
-              <button id="prev-page">👈 Prev</button>
-              <span id="page-indicator">Page 1</span>
-              <button id="next-page">Next 👉</button>
-            </div>            
-          </div>
-
-          <div class="tab-content" id="calendar-view">
-            <div class="calendar-header">
-              <div class="calendar-nav">
-                <button id="prev-month" aria-label="Previous month">
-                  <i class="fas fa-chevron-left"></i> Prev
-                </button>
-                <h2 id="current-month-year">Loading...</h2>
-                <button id="next-month" aria-label="Next month">
-                  Next <i class="fas fa-chevron-right"></i>
-                </button>
-              </div>
-            </div>
-            <div class="calendar-grid" id="calendar-days"></div>
-            <div class="data-summary">
-              <h3>Calendar Summary</h3>
-              <div class="summary-grid">
-                <div class="summary-item">
-                  <div class="value" id="summary-total">0</div>
-                  <div class="label">Total Appointments</div>
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="tab-content active">
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Total Appointments</div>
+                        <div class="card-icon" style="background: rgba(93, 93, 255, 0.1); color: #5d5dff;">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                    </div>
+                    <div class="card-content" id="total-appointments">0</div>
+                    <div class="card-footer">Loading data...</div>
                 </div>
-                <div class="summary-item">
-                  <div class="value" id="summary-days">0</div>
-                  <div class="label">Business Days</div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Scheduled</div>
+                        <div class="card-icon" style="background: rgba(52, 152, 219, 0.1); color: #3498db;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="card-content" id="scheduled-count">0</div>
+                    <div class="card-footer">Loading data...</div>
                 </div>
-                <div class="summary-item">
-                  <div class="value" id="summary-revenue">$0</div>
-                  <div class="label">Total Revenue</div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">In Progress</div>
+                        <div class="card-icon" style="background: rgba(243, 156, 18, 0.1); color: #f39c12;">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                    </div>
+                    <div class="card-content" id="inprogress-count">0</div>
+                    <div class="card-footer">Loading data...</div>
                 </div>
-                <div class="summary-item">
-                  <div class="value" id="summary-utilization">0%</div>
-                  <div class="label">Utilization Rate</div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Completed</div>
+                        <div class="card-icon" style="background: rgba(46, 204, 113, 0.1); color: #2ecc71;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="card-content" id="released-count">0</div>
+                    <div class="card-footer">Loading data...</div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-content" id="stats-view">
-            <div class="chart-container" style="height: 300px">
-              <canvas id="appointmentsChart"></canvas>
-            </div>
-            <div class="data-summary">
-              <h3>Performance Metrics</h3>
-              <div class="summary-grid">
-                <div class="summary-item">
-                  <div class="value" id="current-appointments">0</div>
-                  <div class="label">Current Appointments</div>
-                </div>
-                <div class="summary-item">
-                  <div class="value" id="monthly-released">0</div>
-                  <div class="label">Released This Month</div>
-                </div>
-                <div class="summary-item">
-                  <div class="value" id="monthly-revenue">$0</div>
-                  <div class="label">Monthly Revenue</div>
-                </div>
-                <div class="summary-item">
-                  <div class="value" id="satisfaction-rate">N/A</div>
-                  <div class="label">Satisfaction Rate</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Add this with the other tab-content divs -->
-          <div class="tab-content" id="customers-view">
-            <div class="action-buttons">
-              <button class="btn btn-primary" id="add-customer">
-                <i class="fas fa-plus"></i> Add New Customer
-              </button>
             </div>
             
-            <div class="table-responsive">
-              <table class="appointments-table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Favorite Equipment</th>
-                    <th>Last Appointment</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="customers-body">
-                  <!-- Customers will appear here -->
-                </tbody>
-              </table>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Appointments Overview</div>
+                </div>
+                <div style="height: 300px;">
+                    <canvas id="appointmentsChart"></canvas>
+                </div>
             </div>
-          </div>
-          <div class="tab-content" id="inventory-view">
-            <div class="action-buttons">
-              <button class="btn btn-primary" id="add-part">
-                <i class="fas fa-plus"></i> Add New Part
-              </button>
-              <button class="btn btn-success" id="order-parts">
-                <i class="fas fa-shopping-cart"></i> Order Low Stock
-              </button>
-            </div>
-            
-            <div class="table-responsive">
-              <table class="appointments-table">
-                <thead>
-                  <tr>
-                    <th>Part Name</th>
-                    <th>Part Number</th>
-                    <th>Equipment Type</th>
-                    <th>In Stock</th>
-                    <th>Price</th>
-                    <th>Supplier</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="parts-body">
-                  <!-- Parts will appear here -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="tab-content" id="settings-view">
-            <div class="settings-form">
-              <h2>System Settings</h2>
-              <div class="form-group">
-                <label for="company-name">Company Name</label>
-                <input
-                  type="text"
-                  id="company-name"
-                  class="form-control"
-                  value="Canadian Fitness Repair"
-                />
-              </div>
-              <div class="form-group">
-                <label for="default-price">Default Service Price ($)</label>
-                <input
-                  type="number"
-                  id="default-price"
-                  class="form-control"
-                  value="150"
-                  min="0"
-                  step="5"
-                />
-              </div>
-              <div class="form-group">
-                <label for="business-hours">Business Hours</label>
-                <input
-                  type="text"
-                  id="business-hours"
-                  class="form-control"
-                  value="9:00 AM - 6:00 PM"
-                />
-              </div>
-              <div class="form-group">
-                <label for="enable-past-edits"
-                  >Allow Editing Past Appointments</label
-                >
-                <select id="enable-past-edits" class="form-control">
-                  <option value="true" selected>Yes</option>
-                  <option value="false">No</option>
-                </select>
-              </div>
-              <!-- Add to settings form -->
-              <div class="form-group">
-                <label for="sms-enabled">Enable SMS Reminders</label>
-                <select id="sms-enabled" class="form-control">
-                  <option value="true">Yes</option>
-                  <option value="false">No</option>
-                </select>
-              </div>
+        </div>
 
-              <div class="form-group">
-                <label for="sms-time">Reminder Time</label>
-                <select id="sms-time" class="form-control">
-                  <option value="1">1 day before</option>
-                  <option value="2">2 days before</option>
-                  <option value="3">3 days before</option>
-                  <option value="same">Same day</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="sms-message">Custom Message</label>
-                <textarea id="sms-message" class="form-control" rows="2">
-              Hi {name}! Reminder: Your fitness repair is scheduled for {date} at {time}.
-                </textarea>
-              </div>
-              <div class="form-actions">
-                <button class="btn" id="reset-settings">Reset Defaults</button>
-                <button class="btn btn-primary" id="save-settings">
-                  Save Settings
+        <!-- Appointments View -->
+        <div id="appointments-view" class="tab-content">
+            <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <button id="add-appointment" class="btn">
+                    <i class="fas fa-plus"></i> Add Appointment
                 </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-content" id="reports-view">
-            <div class="action-buttons">
-              <button class="btn btn-primary" id="generate-monthly-report">
-                <i class="fas fa-calendar"></i> Generate Monthly Report
-              </button>
-              <button class="btn btn-success" id="export-reports">
-                <i class="fas fa-file-export"></i> Export to Excel
-              </button>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="search-appointments" placeholder="Search appointments..." style="padding: 10px; border-radius: 5px; border: 1px solid #ddd; min-width: 250px;">
+                    <button class="btn" id="print-schedule"><i class="fas fa-print"></i> Print</button>
+                </div>
             </div>
             
-            <div class="reports-container">
-              <div class="report-card">
-                <h3><i class="fas fa-wrench"></i> Repair Completion Report</h3>
-                <div class="table-responsive">
-                  <table class="appointments-table">
+            <div class="table-container">
+                <table>
                     <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Customer</th>
-                        <th>Equipment</th>
-                        <th>Completion Date</th>
-                        <th>Repair Cost</th>
-                        <th>Time Taken</th>
-                      </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Equipment</th>
+                            <th>Date & Time</th>
+                            <th>Status</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
                     </thead>
-                    <tbody id="completed-repairs-body">
-                      <!-- Completed repairs will be populated here -->
+                    <tbody id="appointments-body">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 30px;">
+                                <i class="fas fa-spinner fa-spin"></i> Loading appointments...
+                            </td>
+                        </tr>
                     </tbody>
-                  </table>
-                </div>
-              </div>
-              
-              <div class="report-card">
-                <h3><i class="fas fa-chart-pie"></i> Revenue Summary</h3>
-                <div class="summary-grid">
-                  <div class="summary-item">
-                    <div class="value" id="monthly-revenue-report">$0</div>
-                    <div class="label">Monthly Revenue</div>
-                  </div>
-                  <div class="summary-item">
-                    <div class="value" id="avg-repair-cost">$0</div>
-                    <div class="label">Avg. Repair Cost</div>
-                  </div>
-                  <div class="summary-item">
-                    <div class="value" id="most-repaired">N/A</div>
-                    <div class="label">Most Repaired Equipment</div>
-                  </div>
-                  <div class="summary-item">
-                    <div class="value" id="revenue-growth">0%</div>
-                    <div class="label">Revenue Growth</div>
-                  </div>
-                </div>
-                <div class="chart-container" style="height: 250px; margin-top: 20px;">
-                  <canvas id="revenueChart"></canvas>
-                </div>
-              </div>
+                </table>
             </div>
-          </div>
-          <div class="tab-content" id="help-view">
-            <div class="settings-form">
-              <h2>Help & Support</h2>
-              
-              <div class="help-section">
-                <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
-                <div class="faq-item">
-                  <h4>How do I add a new appointment?</h4>
-                  <p>Click the "Add Appointment" button in the dashboard view. Fill in the customer details, select a date/time, and save.</p>
-                </div>
-                <div class="faq-item">
-                  <h4>How can I change an appointment status?</h4>
-                  <p>Edit the appointment and select the new status from the dropdown menu. The status workflow shows your progress.</p>
-                </div>
-                <div class="faq-item">
-                  <h4>Where can I see my monthly schedule?</h4>
-                  <p>Switch to the Calendar view using the sidebar or top navigation tabs.</p>
-                </div>
-              </div>
-              
-              <div class="help-section">
-                <h3><i class="fas fa-phone-alt"></i> Contact Support</h3>
-                <p>For technical assistance, please contact:</p>
-                <ul>
-                  <li><i class="fas fa-envelope"></i> Email: support@fitnessrepair.ca</li>
-                  <li><i class="fas fa-phone"></i> Phone: 1-800-555-REPAIR</li>
-                  <li><i class="fas fa-clock"></i> Hours: Mon-Fri 9AM-5PM EST</li>
-                </ul>
-              </div>
-              
-              <div class="help-section">
-                <h3><i class="fas fa-book"></i> User Guides</h3>
-                <div class="document-links">
-                  <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Quick Start Guide</a>
-                  <a href="#" class="btn"><i class="fas fa-file-video"></i> Video Tutorials</a>
-                  <a href="#" class="btn"><i class="fas fa-file-alt"></i> Advanced Features</a>
-                </div>
-              </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                <button id="prev-page" class="btn" disabled>Previous</button>
+                <div id="page-indicator">Page 1 of 1</div>
+                <button id="next-page" class="btn" disabled>Next</button>
             </div>
-          </div>
         </div>
-      </div>
 
-      <!-- Add/Edit Appointment Modal -->
-      <div
-        class="modal"
-        id="appointment-modal"
-        tabindex="-1"
-        role="dialog"
-        aria-hidden="true"
-      >
+        <!-- Calendar View -->
+        <div id="calendar-view" class="tab-content">
+            <div class="calendar-header">
+                <h2 id="current-month-year">June 2023</h2>
+                <div class="calendar-nav">
+                    <button id="prev-month" class="btn"><i class="fas fa-chevron-left"></i> Prev</button>
+                    <button id="next-month" class="btn">Next <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Month Summary</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                        <div>
+                            <div class="card-content" id="summary-total">0</div>
+                            <div class="card-footer">Total Appointments</div>
+                        </div>
+                        <div>
+                            <div class="card-content" id="summary-days">0</div>
+                            <div class="card-footer">Business Days</div>
+                        </div>
+                        <div>
+                            <div class="card-content" id="summary-revenue">$0</div>
+                            <div class="card-footer">Revenue</div>
+                        </div>
+                        <div>
+                            <div class="card-content" id="summary-utilization">0%</div>
+                            <div class="card-footer">Utilization</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Performance Metrics</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                        <div>
+                            <div class="card-content" id="current-appointments">0</div>
+                            <div class="card-footer">Current</div>
+                        </div>
+                        <div>
+                            <div class="card-content" id="monthly-released">0</div>
+                            <div class="card-footer">Completed</div>
+                        </div>
+                        <div>
+                            <div class="card-content" id="monthly-revenue">$0</div>
+                            <div class="card-footer">Revenue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="calendar-grid" id="calendar-days">
+                <!-- Calendar days will be populated dynamically -->
+            </div>
+        </div>
+
+        <!-- Customers View -->
+        <div id="customers-view" class="tab-content">
+            <div style="margin-bottom: 20px;">
+                <button id="add-customer" class="btn">
+                    <i class="fas fa-plus"></i> Add Customer
+                </button>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Favorite Equipment</th>
+                            <th>Last Appointment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customers-body">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 30px;">
+                                <i class="fas fa-spinner fa-spin"></i> Loading customers...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Reports View -->
+        <div id="reports-view" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Monthly Repair Report</div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <button id="generate-monthly-report" class="btn" style="margin-right: 10px;">
+                        <i class="fas fa-sync"></i> Generate Report
+                    </button>
+                    <button id="export-reports" class="btn">
+                        <i class="fas fa-download"></i> Export to PDF
+                    </button>
+                </div>
+                
+                <div style="height: 300px;">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Completed Repairs</div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Equipment</th>
+                                <th>Completion Date</th>
+                                <th>Revenue</th>
+                                <th>Repair Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="completed-repairs-body">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 20px;">
+                                    No data available. Generate report first.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings View -->
+        <div id="settings-view" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">General Settings</div>
+                </div>
+                <div style="padding: 20px;">
+                    <div style="margin-bottom: 20px;">
+                        <label>Company Name</label>
+                        <input type="text" id="company-name" class="form-control" value="Canadian Fitness Repair">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label>Default Appointment Price ($)</label>
+                        <input type="number" id="default-price" class="form-control" value="150">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label>Business Hours</label>
+                        <input type="text" id="business-hours" class="form-control" value="9:00 AM - 6:00 PM">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label>Allow Editing Past Appointments</label>
+                        <select id="enable-past-edits" class="form-control">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 30px;">
+                        <button id="save-settings" class="btn">Save Settings</button>
+                        <button id="reset-settings" class="btn" style="background: #95a5a6;">Reset to Default</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointment Modal -->
+    <div id="appointment-modal" class="modal">
         <div class="modal-content">
-          <div class="modal-header">
-            <h3 id="modal-title">Add New Appointment</h3>
-            <button class="close-modal" aria-label="Close modal" title="Close">&times;</button>
-          </div>
-          <div class="modal-body">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Add New Appointment</h2>
             <form id="appointment-form">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="customer-name">Customer Name</label>
-                  <input
-                    type="text"
-                    id="customer-name"
-                    class="form-control"
-                    required
-                  />
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label>Customer Name</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+                    <div>
+                        <label>Phone Number</label>
+                        <input type="tel" id="customer-phone">
+                    </div>
                 </div>
-                <div class="form-group">
-                  <label for="customer-phone">Phone Number</label>
-                  <input
-                    type="tel"
-                    id="customer-phone"
-                    class="form-control"
-                    required
-                  />
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label>Date</label>
+                        <input type="date" id="appointment-date" required>
+                    </div>
+                    <div>
+                        <label>Time</label>
+                        <input type="time" id="appointment-time" required>
+                    </div>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="appointment-date">Date</label>
-                  <input
-                    type="date"
-                    id="appointment-date"
-                    class="form-control"
-                    required
-                  />
+                
+                <div style="margin-bottom: 20px;">
+                    <label>Equipment</label>
+                    <input type="text" id="equipment">
                 </div>
-                <div class="form-group">
-                  <label for="appointment-time">Time</label>
-                  <input
-                    type="time"
-                    id="appointment-time"
-                    class="form-control"
-                    required
-                  />
+                
+                <div style="margin-bottom: 20px;">
+                    <label>Price ($)</label>
+                    <input type="number" id="appointment-price" value="150">
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="equipment">Equipment</label>
-                <input
-                  type="text"
-                  id="equipment"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="appointment-price">Price ($)</label>
-                <input
-                  type="number"
-                  id="appointment-price"
-                  class="form-control"
-                  min="0"
-                  step="5"
-                  value="150"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="issue-description">Issue Description</label>
-                <textarea
-                  id="issue-description"
-                  class="form-control"
-                  rows="3"
-                  required
-                ></textarea>
-              </div>
-              <div class="form-group">
-                <label for="repair-notes">Repair Notes</label>
-                <textarea
-                  id="repair-notes"
-                  class="form-control"
-                  rows="3"
-                  placeholder="What was done to fix the issue?"
-                ></textarea>
-              </div>
-              <div class="form-group">
-                <label for="appointment-status">Status</label>
-                <select id="appointment-status" class="form-control" required>
-                  <option value="scheduled">
-                    🗓️ Scheduled for Initial Diagnosis/Repair
-                  </option>
-                  <option value="needs_parts">🔍 Needs Parts Ordered</option>
-                  <option value="parts_ordered">
-                    📦 Parts Ordered / Waiting on Parts
-                  </option>
-                  <option value="parts_arrived">📬 Parts Arrived</option>
-                  <option value="second_appointment">
-                    📅 Second Appointment Booked
-                  </option>
-                  <option value="repair_completed">✔️ Repair Completed</option>
-                </select>
-              </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label>Issue Description</label>
+                    <textarea id="issue-description" rows="3"></textarea>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label>Repair Notes</label>
+                    <textarea id="repair-notes" rows="3"></textarea>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label>Status</label>
+                    <select id="appointment-status">
+                        <option value="scheduled">Scheduled</option>
+                        <option value="draft">Draft</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="needs_parts">Needs Parts</option>
+                        <option value="parts_ordered">Parts Ordered</option>
+                        <option value="repair_completed">Repair Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" id="save-appointment" class="btn">Save Appointment</button>
+                    <button type="button" id="cancel-appointment" class="btn" style="background: #95a5a6;">Cancel</button>
+                </div>
             </form>
-          </div>
-          <div class="form-actions">
-            <button class="btn" id="cancel-appointment" aria-label="Cancel appointment">Cancel</button>
-            <button class="btn btn-primary" id="save-appointment" aria-label="Save appointment">
-              Save Appointment
-            </button>
-          </div>
         </div>
-      </div>
-      <!-- Add this near the appointment modal -->
-<div class="modal" id="customer-modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 id="customer-modal-title">New Customer</h3>
-      <button class="close-modal">&times;</button>
     </div>
-    <div class="modal-body">
-      <form id="customer-form">
-        <div class="form-group">
-          <label for="customer-name">Full Name</label>
-          <input type="text" id="customer-name" class="form-control" required>
-        </div>
-        
-        <div class="form-row">
-          <div class="form-group">
-            <label for="customer-phone">Phone</label>
-            <input type="tel" id="customer-phone" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="customer-email">Email</label>
-            <input type="email" id="customer-email" class="form-control">
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="customer-address">Address</label>
-          <textarea id="customer-address" class="form-control" rows="2"></textarea>
-        </div>
-        
-        <div class="form-group">
-          <label for="customer-notes">Special Notes</label>
-          <textarea id="customer-notes" class="form-control" rows="3" 
-            placeholder="Allergies, preferences, etc."></textarea>
-        </div>
-      </form>
-    </div>
-    <div class="form-actions">
-      <button class="btn" id="cancel-customer">Cancel</button>
-      <button class="btn btn-primary" id="save-customer">Save Customer</button>
-    </div>
-  </div>
-</div>
-    </main>
 
-    <footer>
-      <p>© 2023 Canadian Fitness Repair. All rights reserved.</p>
-    </footer>
+    <!-- Customer Modal -->
+    <div id="customer-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="customer-modal-title">Add New Customer</h2>
+            <form id="customer-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label>Full Name</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+                    <div>
+                        <label>Phone Number</label>
+                        <input type="tel" id="customer-phone" required>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label>Email Address</label>
+                    <input type="email" id="customer-email">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label>Address</label>
+                    <input type="text" id="customer-address">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label>Notes</label>
+                    <textarea id="customer-notes" rows="3"></textarea>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" id="save-customer" class="btn">Save Customer</button>
+                    <button type="button" id="cancel-customer" class="btn" style="background: #95a5a6;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase Script -->
     <script type="module">
-            console.log("✅ Script is running");
-
-      // ================ FIREBASE INITIALIZATION ================
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  Timestamp,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-async function getFirebaseConfig() {
-  try {
-    const response = await fetch(
-      "https://cfr-backend-1.onrender.com/api/firebase-config"
-    );
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching Firebase config:", error);
-    alert("Failed to initialize Firebase");
-    return null;
-  }
-}
-
-(async () => {
-  const firebaseConfig = await getFirebaseConfig();
-  if (!firebaseConfig) {
-    alert("App configuration failed to load.");
-    return;
-  }
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const auth = getAuth(app);
-  const appointmentsCollection = collection(db, "appointments");
-  const customersCollection = collection(db, "customers");
-  const partsCollection = collection(db, "parts");
-
-  // ✅ Start your app logic
-  initApp(auth, db, appointmentsCollection, customersCollection, partsCollection);
-})();
-createDebugPanel();
-logToPanel("✅ Debug panel initialized on load");
-document.addEventListener("DOMContentLoaded", () => {
-  logToPanel("✅ DOM fully loaded");
-});
-
-
-// ================ UTILITY FUNCTIONS ================
-function logAction(action, user = "guest") {
-  fetch("https://cfr-backend-1.onrender.com/api/log", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ action, user }),
-  }).catch((err) => {
-    console.error("Logging failed:", err);
-  });
-}
-
-function cleanInput(input) {
-  return input.replace(/<[^>]*>/g, '').trim();
-}
-
-function formatTimestamp(dateObj) {
-  if (!dateObj) return "N/A";
-  
-  try {
-    return dateObj.toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit'
-    });
-  } catch (e) {
-    console.error("Date format error:", e);
-    return "Invalid Date";
-  }
-}
-
-function convertTo24Hour(time12h) {
-  if (!time12h) return "12:00";
-  const [time, modifier] = time12h.split(' ');
-  let [hours, minutes] = time.split(':');
-  
-  if (hours === '12') hours = '00';
-  if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
-  
-  return `${hours}:${minutes}`;
-}
-
-function formatTimeForDisplay(time24) {
-  if (!time24) return "";
-  const [hours, minutes] = time24.split(':');
-  const hourNum = parseInt(hours, 10);
-  if (hourNum === 0) return `12:${minutes} AM`;
-  if (hourNum < 12) return `${hourNum}:${minutes} AM`;
-  if (hourNum === 12) return `12:${minutes} PM`;
-  return `${hourNum - 12}:${minutes} PM`;
-}
-
-function getBusinessDays(month, year) {
-  let count = 0;
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  for (let day = 1; day <= daysInMonth; day++) {
-    const d = new Date(year, month, day);
-    if (d.getDay() !== 0 && d.getDay() !== 6) count++;
-  }
-  return count;
-}
-
-function formatMonthYear(month, year) {
-  return new Date(year, month).toLocaleString("default", {
-    month: "long",
-    year: "numeric",
-  });
-}
-
-function showLoading(show = true) {
-  const loadingElement = document.getElementById('loading-overlay');
-  if (loadingElement) {
-    loadingElement.style.display = show ? 'flex' : 'none';
-  }
-}
-
-// ================ MAIN APPLICATION ================
-function initApp(auth, db, appointmentsCollection, customersCollection, partsCollection) {
-  // ================ GLOBAL STATE ================
-  let appointments = [];
-  let customers = [];
-  let parts = [];
-  let editingAppointmentId = null;
-  let editingCustomerId = null;
-  let chartInstance = null;
-  let currentMonth = new Date().getMonth();
-  let currentYear = new Date().getFullYear();
-  const defaultPriceInitial = 150;
-  let defaultPrice = defaultPriceInitial;
-  let allowPastEdits = true;
-  let currentPage = 1;
-  const appointmentsPerPage = 20;
-  let sessionTimer;
-  let logoutWarningTimer;
-  let countdownInterval;
-
-  // Status map for appointments
-  const statusMap = {
-    scheduled: { text: "Scheduled", class: "status-scheduled" },
-    draft: { text: "Draft", class: "status-draft" },
-    released: { text: "Released", class: "status-released" },
-    in_progress: { text: "In Progress", class: "status-inprogress" },
-    cancelled: { text: "Cancelled", class: "status-cancelled" },
-    needs_parts: { text: "Needs Parts", class: "status-warning" },
-    parts_ordered: { text: "Parts Ordered", class: "status-inprogress" },
-    repair_completed: { text: "Completed", class: "status-released" }
-  };
-
-
-  function activateView(viewName) {
-    // Map sidebar views to tab views where necessary
-    const viewMap = {
-      list: "list",
-      calendar: "calendar",
-      settings: "settings",
-      customers: "customers",
-      reports: "reports",
-      help: "help",
-      logout: "logout"
-    };
-
-    const targetView = viewMap[viewName] || viewName;
-
-    // Update sidebar active state
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.classList.toggle('active', link.dataset.view === viewName);
-    });
-    
-    // Update top tabs if applicable
-    document.querySelectorAll('.tab').forEach(tab => {
-      if (tab.dataset.tab === targetView) {
-        tab.classList.add('active');
-        showView(targetView);  // Add this line to activate content
-      } else {
-        tab.classList.remove('active');
-      }
-    });
-    
-    // Show the actual content view
-    showView(targetView);
-  }
-
-  function showView(targetView) {
-    // Hide all views
-    document.querySelectorAll('.tab-content').forEach(view => {
-      view.classList.remove('active');
-    });
-    
-    // Show requested view
-    const viewElement = document.getElementById(`${targetView}-view`);
-    if (viewElement) viewElement.classList.add('active');
-
-    // Initialize view-specific content
-    switch(targetView) {
-      case "calendar":
-        renderCalendar();
-        break;
-      case "stats":
-        initChart();
-        break;
-      case "customers":
-        fetchCustomers();
-        break;
-      case "settings":
-        loadSettings();
-        break;
-      case "reports":
-        generateReports();
-        break;
-      case "help":
-        loadHelpContent();
-        break;
-      case "logout":
-        logout();
-        break;
-    }
-  }
-  document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const view = link.dataset.view;
-      console.log("Sidebar clicked:", view);
-      activateView(view);
-    });
-  });
-});
-
-  // ================ AUTHENTICATION HANDLING ================
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      window.location.href = "admin-login.html";
-    } else {
-      // Show logged-in user's email
-      document.getElementById("user-name").textContent = user.email;
-      // Log when dashboard is opened
-      logAction("Dashboard loaded", user.email);
-      fetchAppointments();
-      startSessionTimer(auth);
-    }
-  });
-
-  // Logout function
-  function logout() {
-    if (
-      confirm(
-        "Are you sure you want to logout? All unsaved changes will be lost."
-      )
-    ) {
-      signOut(auth)
-        .then(() => {
-          logAction(
-            "User logged out",
-            auth.currentUser?.email || "guest"
-          );
-          window.location.href = "admin-login.html";
-        })
-        .catch((error) => {
-          console.error("Logout error:", error);
-          showToast("Logout failed", true);
-        });
-    }
-  }
-
-  // ================ SESSION MANAGEMENT ================
-  function startSessionTimer(auth) {
-    resetSessionTimer(auth);
-
-    // Reset timer on user activity
-    ["mousemove", "keypress", "click", "scroll"].forEach((evt) => {
-      document.addEventListener(evt, () => resetSessionTimer(auth));
-    });
-  }
-
-  function resetSessionTimer(auth) {
-    clearTimeout(sessionTimer);
-    clearTimeout(logoutWarningTimer);
-    clearInterval(countdownInterval);
-    removeLogoutWarning();
-    sessionTimer = setTimeout(() => {
-      signOut(auth).then(() => {
-        logAction(
-          "Session auto-logout due to inactivity",
-          auth.currentUser?.email || "guest"
-        );
-        showToast("Session expired due to inactivity");
-        window.location.href = "admin-login.html";
-      });
-    }, 30 * 60 * 1000); // 30 minutes
-  }
-
-  function showLogoutWarning(auth) {
-    let countdown = 60;
-    const warningDiv = document.createElement("div");
-    warningDiv.className = "logout-warning";
-    warningDiv.innerHTML = `
-      <div class="toast warning">
-        ⚠️ You will be logged out in <span id="logout-countdown">${countdown}</span> seconds due to inactivity.
-      </div>
-    `;
-    document.body.appendChild(warningDiv);
-
-    countdownInterval = setInterval(() => {
-      countdown--;
-      document.getElementById("logout-countdown").textContent = countdown;
-      if (countdown <= 0) {
-        clearInterval(countdownInterval);
-        autoSaveIfEditing();
-        signOut(auth).then(() => {
-          window.location.href = "admin-login.html";
-        });
-      }
-    }, 1000);
-  }
-
-  function removeLogoutWarning() {
-    const warning = document.querySelector(".logout-warning");
-    if (warning) warning.remove();
-  }
-
-  function autoSaveIfEditing() {
-    // Implementation remains the same
-  }
-
-  // ================ TOAST NOTIFICATIONS ================
-  function showToast(message, isError = false) {
-    const toast = document.createElement("div");
-    toast.className = `toast ${isError ? "error" : ""}`;
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    setTimeout(() => toast.classList.add("show"), 100);
-    setTimeout(() => {
-      toast.classList.remove("show");
-      setTimeout(() => toast.remove(), 300);
-    }, 3000);
-  }
-
-  // ================ DATA MANAGEMENT ================
-  // Fetch appointments from Firestore
-  async function fetchAppointments() {
-    showLoading(true);
-    try {
-      const snapshot = await getDocs(appointmentsCollection);
-      appointments = snapshot.docs.map((doc) => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          ...data,
-          dateObj: data.date ? data.date.toDate() : new Date()
-        };
-      });
-      renderAppointmentsTable();
-      updateStats();
-      renderCalendar();
-      updateCalendarSummary();
-      updatePerformanceMetrics();
-      initChart();
-    } catch (error) {
-      console.error("Error fetching appointments:", error);
-      showToast("Failed to fetch appointments", true);
-    } finally {
-      showLoading(false);
-    }
-  }
-
-  // Fetch customers from Firestore
-  async function fetchCustomers() {
-    logToPanel("👥 Customers view activated");
-    showLoading(true);
-    try {
-      const snapshot = await getDocs(customersCollection);
-      customers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      renderCustomersTable();
-    } catch (error) {
-      console.error("Error fetching customers:", error);
-      showToast("Failed to load customers", true);
-    } finally {
-      showLoading(false);
-    }
-  }
-
-  // Fetch parts from Firestore
-  async function fetchParts() {
-    showLoading(true);
-    try {
-      const snapshot = await getDocs(partsCollection);
-      parts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      renderPartsTable();
-    } catch (error) {
-      showToast("Failed to load parts", true);
-      console.error(error);
-    } finally {
-      showLoading(false);
-    }
-  }
-
-  // Save (add or update) appointment in Firestore
-  async function saveAppointment(data) {
-    showLoading(true);
-    try {
-      if (editingAppointmentId) {
-        const docRef = doc(db, "appointments", editingAppointmentId);
-        await updateDoc(docRef, data);
-        showToast("Appointment updated successfully");
-        logAction("Appointment updated", auth.currentUser?.email || "guest");
-      } else {
-        await addDoc(appointmentsCollection, data);
-        showToast("Appointment added successfully");
-        logAction("Appointment added", auth.currentUser?.email || "guest");
-      }
-      editingAppointmentId = null;
-      await fetchAppointments();
-    } catch (error) {
-      console.error("Error saving appointment:", error);
-      showToast("Failed to save appointment", true);
-      logAction("Appointment save failed", auth.currentUser?.email || "guest");
-    } finally {
-      showLoading(false);
-    }
-  }
-
-  // Delete appointment from Firestore
-  async function deleteAppointment(id) {
-    if (!confirm("Are you sure you want to delete this appointment?")) return;
-    
-    showLoading(true);
-    try {
-      await deleteDoc(doc(db, "appointments", id));
-      showToast("Appointment deleted successfully");
-      logAction("Appointment deleted", auth.currentUser?.email || "guest");
-      await fetchAppointments();
-    } catch (error) {
-      console.error("Error deleting appointment:", error);
-      showToast("Failed to delete appointment", true);
-      logAction("Appointment delete failed", auth.currentUser?.email || "guest");
-    } finally {
-      showLoading(false);
-    }
-  }
-
-  // Save customer to Firestore
-  async function saveCustomer() {
-    showLoading(true);
-    const customerData = {
-      name: document.getElementById('customer-name').value.trim(),
-      phone: document.getElementById('customer-phone').value.trim(),
-      email: document.getElementById('customer-email').value.trim(),
-      address: document.getElementById('customer-address').value.trim(),
-      notes: document.getElementById('customer-notes').value.trim(),
-      createdAt: new Date().toISOString()
-    };
-    
-    try {
-      if (editingCustomerId) {
-        await updateDoc(doc(db, "customers", editingCustomerId), customerData);
-        showToast("Customer updated!");
-      } else {
-        await addDoc(customersCollection, customerData);
-        showToast("Customer added!");
-      }
-      document.getElementById('customer-modal').classList.remove('active');
-      fetchCustomers();
-    } catch (error) {
-      showToast("Failed to save customer", true);
-    } finally {
-      showLoading(false);
-    }
-  }
-
-  // ================ RENDERING FUNCTIONS ================
-  // Render appointments table
-  function renderAppointmentsTable(list = appointments) {
-    const tbody = document.getElementById("appointments-body");
-    tbody.innerHTML = "";
-
-    const start = (currentPage - 1) * appointmentsPerPage;
-    const pageApps = list.slice(start, start + appointmentsPerPage);
-
-    pageApps.forEach((app) => {
-      const statusInfo = statusMap[app.status] || {
-        text: app.status || "",
-        class: "",
-      };
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>#${app.id}</td>
-        <td>${app.customer}</td>
-        <td>${app.equipment || ""}</td>
-        <td>${formatTimestamp(app.dateObj)}</td>
-        <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
-        <td>$${app.price || 0}</td>
-        <td class="action-cell">
-          <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment"><i class="fas fa-edit"></i></button>
-          <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment"><i class="fas fa-trash"></i></button>
-        </td>
-      `;
-      tbody.appendChild(row);
-    });
-
-    // Add click listeners to buttons
-    tbody.querySelectorAll(".edit-btn").forEach((btn) => {
-      btn.onclick = () => {
-        openEditModal(btn.dataset.id);
-      };
-    });
-
-    tbody.querySelectorAll(".delete-btn").forEach((btn) => {
-      btn.onclick = () => {
-        deleteAppointment(btn.dataset.id);
-      };
-    });
-
-    // Update page indicator
-    const totalPages = Math.ceil(list.length / appointmentsPerPage);
-    document.getElementById("page-indicator").textContent = `Page ${currentPage} of ${totalPages || 1}`;
-
-    // Enable/disable pagination buttons
-    document.getElementById("prev-page").disabled = currentPage === 1;
-    document.getElementById("next-page").disabled = currentPage >= totalPages;
-  }
-
-  // Render customers table
-  function renderCustomersTable() {
-    const tbody = document.getElementById('customers-body');
-    tbody.innerHTML = '';
-
-    customers.forEach(customer => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${customer.name}</td>
-        <td>${customer.phone}</td>
-        <td>${customer.email || '-'}</td>
-        <td>${customer.favoriteEquipment || '-'}</td>
-        <td>${customer.lastAppointment || 'Never'}</td>
-        <td class="action-cell">
-          <button class="action-btn edit-btn" data-id="${customer.id}">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="action-btn delete-btn" data-id="${customer.id}">
-            <i class="fas fa-trash"></i>
-          </button>
-        </td>
-      `;
-      tbody.appendChild(row);
-    });
-
-    // Attach event listeners to each edit/delete button
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', () => openEditCustomerModal(btn.dataset.id));
-    });
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (confirm("Are you sure you want to delete this customer?")) {
-          deleteCustomer(btn.dataset.id);
-        }
-      });
-    });
-  }
-
-  // Delete customer
-  async function deleteCustomer(id) {
-    showLoading(true);
-    try {
-      await deleteDoc(doc(db, "customers", id));
-      showToast("Customer deleted successfully");
-      fetchCustomers();
-    } catch (error) {
-      showToast("Failed to delete customer", true);
-      console.error(error);
-    } finally {
-      showLoading(false);
-    }
-  }
-
-  // Render parts table
-  function renderPartsTable() {
-    const tbody = document.getElementById('parts-body');
-    tbody.innerHTML = '';
-    
-    parts.forEach(part => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${part.name}</td>
-        <td>${part.number}</td>
-        <td>${part.equipmentType}</td>
-        <td class="${part.quantity < 5 ? 'text-danger' : ''}">
-          ${part.quantity} ${part.quantity < 5 ? '⚠️' : ''}
-        </td>
-        <td>$${part.price?.toFixed(2) || '0.00'}</td>
-        <td>${part.supplier}</td>
-        <td class="action-cell">
-          <button class="action-btn edit-btn" data-id="${part.id}">✏️</button>
-          <button class="action-btn delete-btn" data-id="${part.id}">🗑️</button>
-        </td>
-      `;
-      tbody.appendChild(row);
-    });
-  }
-
-  // Stats update
-  function updateStats() {
-    document.getElementById("total-appointments").textContent =
-      appointments.length;
-    document.getElementById("scheduled-count").textContent =
-      appointments.filter((a) => a.status === "scheduled").length;
-    document.getElementById("released-count").textContent =
-      appointments.filter((a) => a.status === "released").length;
-    document.getElementById("inprogress-count").textContent =
-      appointments.filter((a) => a.status === "in_progress").length;
-  }
-
-  // Calendar rendering and summary - FIXED
-  function renderCalendar() {
-    logToPanel("🗓 Calendar view activated");
-    const calendarGrid = document.getElementById("calendar-days");
-    calendarGrid.innerHTML = "";
-
-    document.getElementById("current-month-year").textContent =
-      formatMonthYear(currentMonth, currentYear);
-
-    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    daysOfWeek.forEach((day) => {
-      const dayHeader = document.createElement("div");
-      dayHeader.className = "calendar-day-header";
-      dayHeader.textContent = day;
-      calendarGrid.appendChild(dayHeader);
-    });
-
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const totalDays = new Date(
-      currentYear,
-      currentMonth + 1,
-      0
-    ).getDate();
-
-    for (let i = 0; i < firstDay; i++) {
-      const emptyCell = document.createElement("div");
-      emptyCell.className = "calendar-day empty";
-      calendarGrid.appendChild(emptyCell);
-    }
-
-    // Precompute appointments by day
-    const appointmentsByDay = Array(totalDays + 1).fill().map(() => []);
-    
-    appointments.forEach(app => {
-      if (app.dateObj) {
-        const appMonth = app.dateObj.getMonth();
-        const appYear = app.dateObj.getFullYear();
-        const appDay = app.dateObj.getDate();
+        console.log("✅ Admin dashboard initialized");
         
-        if (appMonth === currentMonth && appYear === currentYear && appDay >= 1 && appDay <= totalDays) {
-          appointmentsByDay[appDay].push(app);
-        }
-      }
-    });
+        // ================ FIREBASE INITIALIZATION ================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            addDoc,
+            updateDoc,
+            deleteDoc,
+            doc,
+            Timestamp,
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut,
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    for (let day = 1; day <= totalDays; day++) {
-      const dayCell = document.createElement("div");
-      dayCell.className = "calendar-day";
-
-      const dayNumber = document.createElement("div");
-      dayNumber.className = "day-number";
-      dayNumber.textContent = day;
-      dayCell.appendChild(dayNumber);
-
-      const dayAppointments = appointmentsByDay[day];
-      
-      if (dayAppointments.length > 0) {
-        const container = document.createElement("div");
-        container.className = "calendar-appointments";
-
-        dayAppointments.forEach((app) => {
-          const item = document.createElement("div");
-          item.className = "appointment-item";
-          
-          // Format time from the Date object
-          const timeString = app.dateObj.toLocaleTimeString('en-US', {
-            hour: 'numeric', 
-            minute: '2-digit'
-          });
-          
-          item.textContent = `${app.customer.split(" ")[0]} - ${timeString}`;
-          container.appendChild(item);
-        });
-
-        dayCell.appendChild(container);
-      }
-      calendarGrid.appendChild(dayCell);
-    }
-
-    updateCalendarSummary();
-  }
-
-  function updateCalendarSummary() {
-    const monthlyApps = appointments.filter((app) => {
-      if (!app.dateObj) return false;
-      const d = app.dateObj;
-      return (
-        d.getMonth() === currentMonth && d.getFullYear() === currentYear
-      );
-    });
-
-    const businessDays = getBusinessDays(currentMonth, currentYear);
-    const monthlyRevenue = monthlyApps
-      .filter((a) => a.status === "released")
-      .reduce((sum, a) => sum + (a.price || 0), 0);
-
-    document.getElementById("summary-total").textContent =
-      monthlyApps.length;
-    document.getElementById("summary-days").textContent = businessDays;
-    document.getElementById(
-      "summary-revenue"
-    ).textContent = `$${monthlyRevenue}`;
-
-    const utilizationRate = Math.min(
-      100,
-      Math.round((monthlyApps.length / (businessDays * 3)) * 100)
-    );
-    document.getElementById("summary-utilization").textContent =
-      utilizationRate + "%";
-  }
-
-  // Performance metrics
-  function updatePerformanceMetrics() {
-    const monthlyApps = appointments.filter((app) => {
-      if (!app.dateObj) return false;
-      const d = app.dateObj;
-      return (
-        d.getMonth() === currentMonth && d.getFullYear() === currentYear
-      );
-    });
-
-    const releasedThisMonth = monthlyApps.filter(
-      (a) => a.status === "released"
-    ).length;
-    const monthlyRevenue = monthlyApps
-      .filter((a) => a.status === "released")
-      .reduce((sum, a) => sum + (a.price || 0), 0);
-
-    document.getElementById("current-appointments").textContent =
-      appointments.length;
-    document.getElementById("monthly-released").textContent =
-      releasedThisMonth;
-    document.getElementById(
-      "monthly-revenue"
-    ).textContent = `$${monthlyRevenue}`;
-  }
-
-  // Chart.js setup
-  function initChart() {
-    logToPanel("📈 Statistics view activated");
-    const ctx = document
-      .getElementById("appointmentsChart")
-      .getContext("2d");
-    
-    // Destroy existing chart if it exists
-    if (chartInstance) {
-      chartInstance.destroy();
-    }
-
-    const counts = {
-      draft: appointments.filter((a) => a.status === "draft").length,
-      scheduled: appointments.filter((a) => a.status === "scheduled")
-        .length,
-      in_progress: appointments.filter((a) => a.status === "in_progress")
-        .length,
-      released: appointments.filter((a) => a.status === "released")
-        .length,
-      cancelled: appointments.filter((a) => a.status === "cancelled")
-        .length,
-    };
-
-    chartInstance = new Chart(ctx, {
-      type: "doughnut",
-      data: {
-        labels: [
-          "Draft",
-          "Scheduled",
-          "In Progress",
-          "Released",
-          "Cancelled",
-        ],
-        datasets: [
-          {
-            data: Object.values(counts),
-            backgroundColor: [
-              "rgba(149, 165, 166, 0.7)",
-              "rgba(93, 93, 255, 0.7)",
-              "rgba(52, 152, 219, 0.7)",
-              "rgba(46, 204, 113, 0.7)",
-              "rgba(231, 76, 60, 0.7)",
-            ],
-            borderColor: [
-              "rgba(149, 165, 166, 1)",
-              "rgba(93, 93, 255, 1)",
-              "rgba(52, 152, 219, 1)",
-              "rgba(46, 204, 113, 1)",
-              "rgba(231, 76, 60, 1)",
-            ],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: "right",
-            labels: { color: "#f0f0f0", font: { size: 12 } },
-          },
-          title: {
-            display: true,
-            text: "Appointment Status Distribution",
-            color: "#f0f0f0",
-            font: { size: 16 },
-          },
-          tooltip: {
-            callbacks: {
-              label: (context) => {
-                const label = context.label || "";
-                const value = context.raw || 0;
-                const total = context.dataset.data.reduce(
-                  (a, b) => a + b,
-                  0
+        async function getFirebaseConfig() {
+            try {
+                const response = await fetch(
+                    "https://cfr-backend-1.onrender.com/api/firebase-config"
                 );
-                const pct = total ? Math.round((value / total) * 100) : 0;
-                return `${label}: ${value} (${pct}%)`;
-              },
-            },
-          },
-        },
-      },
-    });
-  }
-// ================ SETTINGS FUNCTIONS ================
-async function loadSettings() {
-  logToPanel("⚙️ Settings view activated");
-  try {
-    // In a real app, this would load from Firestore or localStorage
-    const settings = {
-      companyName: "Canadian Fitness Repair",
-      defaultPrice: 150,
-      businessHours: "9:00 AM - 6:00 PM",
-      enablePastEdits: true,
-      smsEnabled: false,
-      smsTime: "1",
-      smsMessage: "Hi {name}! Reminder: Your fitness repair is scheduled for {date} at {time}."
-    };
-
-    document.getElementById("company-name").value = settings.companyName;
-    document.getElementById("default-price").value = settings.defaultPrice;
-    document.getElementById("business-hours").value = settings.businessHours;
-    document.getElementById("enable-past-edits").value = settings.enablePastEdits.toString();
-    document.getElementById("sms-enabled").value = settings.smsEnabled.toString();
-    document.getElementById("sms-time").value = settings.smsTime;
-    document.getElementById("sms-message").value = settings.smsMessage;
-    
-    showToast("Settings loaded successfully");
-  } catch (error) {
-    console.error("Error loading settings:", error);
-    showToast("Failed to load settings", true);
-  }
-}
-
-// ================ REPORTS FUNCTIONS ================
-function generateReports() {
-  // Generate completed repairs report
-  logToPanel("📊 Reports view activated");
-  const completedRepairs = appointments.filter(app => 
-    app.status === "repair_completed"
-  );
-  
-  const tbody = document.getElementById("completed-repairs-body");
-  tbody.innerHTML = "";
-  
-  completedRepairs.forEach(app => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>#${app.id}</td>
-      <td>${app.customer}</td>
-      <td>${app.equipment || "N/A"}</td>
-      <td>${formatTimestamp(app.dateObj)}</td>
-      <td>$${app.price || 0}</td>
-      <td>${calculateRepairTime(app)}</td>
-    `;
-    tbody.appendChild(row);
-  });
-  
-  // Generate revenue metrics
-  const monthlyRevenue = completedRepairs
-    .filter(app => isThisMonth(app.dateObj))
-    .reduce((sum, app) => sum + (app.price || 0), 0);
-  
-  const avgRepairCost = completedRepairs.length > 0 
-    ? Math.round(completedRepairs.reduce((sum, app) => sum + (app.price || 0), 0) / completedRepairs.length)
-    : 0;
-  
-  document.getElementById("monthly-revenue-report").textContent = `$${monthlyRevenue}`;
-  document.getElementById("avg-repair-cost").textContent = `$${avgRepairCost}`;
-  
-  // Generate equipment stats
-  const equipmentCounts = {};
-  completedRepairs.forEach(app => {
-    if (app.equipment) {
-      equipmentCounts[app.equipment] = (equipmentCounts[app.equipment] || 0) + 1;
-    }
-  });
-  
-  const mostRepaired = Object.keys(equipmentCounts).reduce((a, b) => 
-    equipmentCounts[a] > equipmentCounts[b] ? a : b, "N/A"
-  );
-  
-  document.getElementById("most-repaired").textContent = mostRepaired;
-  
-  // Generate revenue chart
-  generateRevenueChart();
-}
-
-function generateRevenueChart() {
-  const ctx = document.getElementById("revenueChart").getContext("2d");
-  
-  // Generate revenue data for last 6 months
-  const monthlyRevenue = [];
-  const now = new Date();
-  
-  for (let i = 5; i >= 0; i--) {
-    const month = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    const revenue = appointments
-      .filter(app => 
-        app.status === "repair_completed" && 
-        isSameMonth(app.dateObj, month)
-      )
-      .reduce((sum, app) => sum + (app.price || 0), 0);
-    
-    monthlyRevenue.push(revenue);
-  }
-  
-  // Destroy existing chart if it exists
-  if (window.revenueChartInstance) {
-    window.revenueChartInstance.destroy();
-  }
-  
-  // Create new chart
-  window.revenueChartInstance = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: ["6m", "5m", "4m", "3m", "2m", "1m"],
-      datasets: [{
-        label: "Monthly Revenue ($)",
-        data: monthlyRevenue,
-        borderColor: "rgba(93, 93, 255, 1)",
-        backgroundColor: "rgba(93, 93, 255, 0.1)",
-        tension: 0.3,
-        fill: true
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          labels: { color: "#f0f0f0" }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { color: "#f0f0f0" },
-          grid: { color: "rgba(255, 255, 255, 0.1)" }
-        },
-        x: {
-          ticks: { color: "#f0f0f0" },
-          grid: { color: "rgba(255, 255, 255, 0.1)" }
-        }
-      }
-    }
-  });
-}
-
-// ================ HELP FUNCTIONS ================
-function loadHelpContent() {
-  // Content is static HTML so nothing to load dynamically
-  logToPanel("🆘 Help view activated");
-}
-
-// ================ UTILITY FUNCTIONS ================
-function calculateRepairTime(appointment) {
-  if (!appointment.createdAt || !appointment.completedAt) return "N/A";
-  
-  try {
-    const created = appointment.createdAt.toDate 
-      ? appointment.createdAt.toDate() 
-      : new Date(appointment.createdAt);
-    
-    const completed = appointment.completedAt.toDate 
-      ? appointment.completedAt.toDate() 
-      : new Date(appointment.completedAt);
-    
-    const diffDays = Math.ceil((completed - created) / (1000 * 60 * 60 * 24));
-    return `${diffDays} day${diffDays !== 1 ? 's' : ''}`;
-  } catch (e) {
-    return "N/A";
-  }
-}
-
-function isThisMonth(date) {
-  const today = new Date();
-  return date.getMonth() === today.getMonth() && 
-         date.getFullYear() === today.getFullYear();
-}
-
-function isSameMonth(date1, date2) {
-  return date1.getMonth() === date2.getMonth() && 
-         date1.getFullYear() === date2.getFullYear();
-}
-
-// ================ EVENT LISTENERS ================
-document.addEventListener("DOMContentLoaded", () => {
-  // Generate Reports button
-  document.getElementById("generate-monthly-report")?.addEventListener("click", generateReports);
-  
-  // Export Reports button
-  document.getElementById("export-reports")?.addEventListener("click", () => {
-    showToast("Export feature coming soon!");
-  });
-});
-  // ================ MODAL MANAGEMENT ================
-  // Modal open/close functions
-  const modal = document.getElementById("appointment-modal");
-  const addBtn = document.getElementById("add-appointment");
-  const closeBtn = document.querySelector(".close-modal");
-  const cancelBtn = document.getElementById("cancel-appointment");
-
-  function openEditModal(id) {
-    const app = appointments.find((a) => a.id === id);
-    if (!app) return;
-
-    editingAppointmentId = id;
-
-    document.getElementById("customer-name").value = app.customer;
-    document.getElementById("customer-phone").value = app.phone || "";
-
-    // Use the dateObj for editing
-    const dateObj = app.dateObj || new Date();
-    document.getElementById("appointment-date").value = dateObj
-      .toISOString()
-      .split("T")[0];
-
-    // Format time as HH:MM
-    const hours = dateObj.getHours().toString().padStart(2, '0');
-    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
-    document.getElementById("appointment-time").value = `${hours}:${minutes}`;
-
-    document.getElementById("equipment").value = app.equipment || "";
-    document.getElementById("appointment-price").value =
-      app.price || defaultPrice;
-    document.getElementById("issue-description").value = app.issue || "";
-    document.getElementById("repair-notes").value =
-      app.repair_notes || "";
-    document.getElementById("appointment-status").value =
-      app.status || "";
-
-    document.getElementById("modal-title").textContent =
-      "Edit Appointment";
-    document.getElementById("save-appointment").textContent =
-      "Update Appointment";
-
-    modal.classList.add("active");
-  }
-
-  function openAddModal() {
-    editingAppointmentId = null;
-
-    document.getElementById("appointment-form").reset();
-
-    const today = new Date();
-    document.getElementById("appointment-date").value = today
-      .toISOString()
-      .split("T")[0];
-
-    const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-    document.getElementById("appointment-time").value = `${nextHour
-      .getHours()
-      .toString()
-      .padStart(2, "0")}:${nextHour
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}`;
-
-    document.getElementById("appointment-price").value = defaultPrice;
-    document.getElementById("modal-title").textContent =
-      "Add New Appointment";
-    document.getElementById("save-appointment").textContent =
-      "Save Appointment";
-
-    modal.classList.add("active");
-  }
-
-  function closeModal() {
-    modal.classList.remove("active");
-  }
-
-  // Customer modal functions
-  function openAddCustomerModal() {
-    editingCustomerId = null;
-    document.getElementById('customer-form').reset();
-    document.getElementById('customer-modal-title').textContent = "New Customer";
-    document.getElementById('customer-modal').classList.add('active');
-  }
-
-  function openEditCustomerModal(id) {
-    const customer = customers.find(c => c.id === id);
-    if (!customer) return;
-
-    editingCustomerId = id;
-    document.getElementById('customer-name').value = customer.name || '';
-    document.getElementById('customer-phone').value = customer.phone || '';
-    document.getElementById('customer-email').value = customer.email || '';
-    document.getElementById('customer-address').value = customer.address || '';
-    document.getElementById('customer-notes').value = customer.notes || '';
-
-    document.getElementById('customer-modal-title').textContent = "Edit Customer";
-    document.getElementById('customer-modal').classList.add('active');
-  }
-
-  function closeCustomerModal() {
-    document.getElementById('customer-modal').classList.remove('active');
-  }
-
-  // ================ EVENT LISTENERS ================
-  function setupEventListeners() {
-    // Sidebar navigation
-    document.querySelectorAll(".nav-links a").forEach(link => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const view = link.dataset.view;
-    logToPanel("🔗 Sidebar clicked: " + view);
-    activateView(view);
-      });
-    });
-
-    // Top tab navigation
-    document.querySelectorAll(".tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        const targetView = tab.getAttribute("data-tab");
-        activateView(targetView);
-      });
-    });
-
-    // Month navigation buttons
-    document.getElementById("prev-month").addEventListener("click", () => {
-      currentMonth--;
-      if (currentMonth < 0) {
-        currentMonth = 11;
-        currentYear--;
-      }
-      renderCalendar();
-    });
-
-    document.getElementById("next-month").addEventListener("click", () => {
-      currentMonth++;
-      if (currentMonth > 11) {
-        currentMonth = 0;
-        currentYear++;
-      }
-      renderCalendar();
-    });
-
-    // Settings save/reset
-    document
-      .getElementById("save-settings")
-      .addEventListener("click", () => {
-        defaultPrice =
-          parseFloat(document.getElementById("default-price").value) ||
-          defaultPriceInitial;
-        allowPastEdits =
-          document.getElementById("enable-past-edits").value === "true";
-        showToast("Settings saved successfully");
-        logAction("Settings updated", auth.currentUser?.email || "guest");
-      });
-
-    document
-      .getElementById("reset-settings")
-      .addEventListener("click", () => {
-        document.getElementById("company-name").value =
-          "Canadian Fitness Repair";
-        document.getElementById("default-price").value =
-          defaultPriceInitial.toString();
-        document.getElementById("business-hours").value =
-          "9:00 AM - 6:00 PM";
-        document.getElementById("enable-past-edits").value = "true";
-        defaultPrice = defaultPriceInitial;
-        allowPastEdits = true;
-        showToast("Settings reset to defaults");
-      });
-
-    // Search functionality
-    document
-      .getElementById("search-appointments")
-      .addEventListener("input", function () {
-        const keyword = this.value.toLowerCase();
-        const filtered = appointments.filter(
-          (app) =>
-            app.customer.toLowerCase().includes(keyword) ||
-            (app.phone && app.phone.toLowerCase().includes(keyword))
-        );
-        renderAppointmentsTable(filtered);
-      });
-
-    // Print button
-    document
-      .getElementById("print-schedule")
-      .addEventListener("click", () => {
-        window.print();
-      });
-
-    // Save appointment button (form submission)
-    document
-      .getElementById("save-appointment")
-      .addEventListener("click", async () => {
-        const customerName = cleanInput(document.getElementById("customer-name").value.trim());
-        const phone = cleanInput(document.getElementById("customer-phone").value.trim());
-        const dateInput = document.getElementById("appointment-date").value;
-        const timeInput = document.getElementById("appointment-time").value;
-        const dateObj = new Date(`${dateInput}T${timeInput}`);
-        const timestamp = Timestamp.fromDate(dateObj);
-        const equipment = cleanInput(document.getElementById("equipment").value.trim());
-        const price = parseFloat(document.getElementById("appointment-price").value) || 0;
-        const issue = cleanInput(document.getElementById("issue-description").value.trim());
-        const status = cleanInput(document.getElementById("appointment-status").value);
-        const repairNotes = cleanInput(document.getElementById("repair-notes").value.trim());
-
-        if (!customerName) {
-          showToast("Please enter customer name", true);
-          return;
-        }
-        if (!dateInput || !timeInput) {
-          showToast("Please select date and time", true);
-          return;
+                return await response.json();
+            } catch (error) {
+                console.error("Error fetching Firebase config:", error);
+                showToast("Failed to initialize Firebase", true);
+                return null;
+            }
         }
 
-        const appointmentData = {
-          customer: customerName,
-          phone,
-          equipment,
-          date: timestamp,
-          price,
-          issue,
-          status,
-          repair_notes: repairNotes,
-        };
+        (async () => {
+            const firebaseConfig = await getFirebaseConfig();
+            if (!firebaseConfig) {
+                showToast("App configuration failed to load.", true);
+                return;
+            }
 
-        await saveAppointment(appointmentData);
-        closeModal();
-      });
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            const auth = getAuth(app);
+            const appointmentsCollection = collection(db, "appointments");
+            const customersCollection = collection(db, "customers");
 
-    // Modal controls
-    addBtn.addEventListener("click", openAddModal);
-    closeBtn.addEventListener("click", closeModal);
-    cancelBtn.addEventListener("click", closeModal);
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("active"))
-        closeModal();
-    });
-
-    // Customer modal controls
-    document.getElementById('add-customer').addEventListener('click', openAddCustomerModal);
-    document.getElementById('save-customer').addEventListener('click', saveCustomer);
-    document.getElementById('cancel-customer').addEventListener('click', closeCustomerModal);
-    document.querySelectorAll('#customer-modal .close-modal').forEach(btn => {
-      btn.addEventListener('click', closeCustomerModal);
-    });
-
-    // Setup logout button
-    document
-      .querySelector('.nav-links a[data-view="logout"]')
-      .addEventListener("click", (e) => {
-        e.preventDefault();
-        logout();
-      });
-
-    // Pagination buttons
-    document.getElementById("prev-page").addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderAppointmentsTable();
-      }
-    });
-
-    document.getElementById("next-page").addEventListener("click", () => {
-      const totalPages = Math.ceil(appointments.length / appointmentsPerPage);
-      if (currentPage < totalPages) {
-        currentPage++;
-        renderAppointmentsTable();
-      }
-    });
-  }
-
-  // ================ INITIALIZATION ================
-  // Initialize the application
-  function initialize() {
-    setupEventListeners();
-    activateView('list');
-    
-    // Create loading overlay
-    const loadingOverlay = document.createElement('div');
-    loadingOverlay.id = 'loading-overlay';
-    loadingOverlay.style.display = 'none';
-    loadingOverlay.style.position = 'fixed';
-    loadingOverlay.style.top = '0';
-    loadingOverlay.style.left = '0';
-    loadingOverlay.style.width = '100%';
-    loadingOverlay.style.height = '100%';
-    loadingOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-    loadingOverlay.style.zIndex = '2000';
-    loadingOverlay.style.justifyContent = 'center';
-    loadingOverlay.style.alignItems = 'center';
-    loadingOverlay.innerHTML = `
-      <div style="color: white; text-align: center;">
-        <i class="fas fa-spinner fa-spin fa-3x"></i>
-        <p style="margin-top: 20px; font-size: 1.2rem;">Loading data...</p>
-      </div>
-    `;
-    document.body.appendChild(loadingOverlay);
-
-    // Default form setup
-    const today = new Date();
-    document.getElementById("appointment-date").value = today
-      .toISOString()
-      .split("T")[0];
-    const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-    document.getElementById("appointment-time").value = `${nextHour
-      .getHours()
-      .toString()
-      .padStart(2, "0")}:${nextHour
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}`;
-    document.getElementById("appointment-price").value =
-      defaultPriceInitial;
-  }
-
-  // Start the application
-  initialize();
-}
+            // Start your app logic
+            initApp(auth, db, appointmentsCollection, customersCollection);
+        })();
+        
+        // ================ UTILITY FUNCTIONS ================
+        function showLoading(show = true) {
+            const loadingElement = document.getElementById('loading-overlay');
+            if (loadingElement) {
+                loadingElement.style.display = show ? 'flex' : 'none';
+            }
+        }
+        
+        function showToast(message, isError = false) {
+            const toast = document.createElement("div");
+            toast.className = `toast ${isError ? "error" : ""}`;
+            toast.textContent = message;
+            document.getElementById("toast-container").appendChild(toast);
+            
+            setTimeout(() => toast.classList.add("show"), 100);
+            setTimeout(() => {
+                toast.classList.remove("show");
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        function formatTimestamp(dateObj) {
+            if (!dateObj) return "N/A";
+            
+            try {
+                return dateObj.toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit'
+                });
+            } catch (e) {
+                return "Invalid Date";
+            }
+        }
+        
+        // ================ MAIN APPLICATION ================
+        function initApp(auth, db, appointmentsCollection, customersCollection) {
+            // ================ GLOBAL STATE ================
+            let appointments = [];
+            let customers = [];
+            let editingAppointmentId = null;
+            let editingCustomerId = null;
+            let chartInstance = null;
+            let currentMonth = new Date().getMonth();
+            let currentYear = new Date().getFullYear();
+            let currentPage = 1;
+            const appointmentsPerPage = 10;
+            
+            // Status map for appointments
+            const statusMap = {
+                scheduled: { text: "Scheduled", class: "status-scheduled" },
+                draft: { text: "Draft", class: "status-draft" },
+                released: { text: "Released", class: "status-released" },
+                in_progress: { text: "In Progress", class: "status-inprogress" },
+                cancelled: { text: "Cancelled", class: "status-cancelled" },
+                needs_parts: { text: "Needs Parts", class: "status-warning" },
+                parts_ordered: { text: "Parts Ordered", class: "status-inprogress" },
+                repair_completed: { text: "Completed", class: "status-released" }
+            };
+            
+            // ================ VIEW MANAGEMENT ================
+            function activateView(viewName) {
+                // Update sidebar active state
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.toggle('active', link.dataset.view === viewName);
+                });
+                
+                // Hide all views
+                document.querySelectorAll('.tab-content').forEach(view => {
+                    view.classList.remove('active');
+                });
+                
+                // Show requested view
+                const viewElement = document.getElementById(`${viewName}-view`);
+                if (viewElement) viewElement.classList.add('active');
+                
+                // Initialize view-specific content
+                switch(viewName) {
+                    case "dashboard":
+                        updateStats();
+                        initChart();
+                        break;
+                    case "appointments":
+                        fetchAppointments();
+                        break;
+                    case "calendar":
+                        renderCalendar();
+                        updateCalendarSummary();
+                        break;
+                    case "customers":
+                        fetchCustomers();
+                        break;
+                    case "reports":
+                        generateReports();
+                        break;
+                    case "settings":
+                        loadSettings();
+                        break;
+                }
+            }
+            
+            // ================ AUTHENTICATION HANDLING ================
+            onAuthStateChanged(auth, (user) => {
+                if (!user) {
+                    window.location.href = "admin-login.html";
+                } else {
+                    // Show logged-in user's email
+                    document.getElementById("user-name").textContent = user.email;
+                    fetchAppointments();
+                }
+            });
+            
+            // Logout function
+            function logout() {
+                if (confirm("Are you sure you want to logout?")) {
+                    signOut(auth)
+                        .then(() => {
+                            window.location.href = "admin-login.html";
+                        })
+                        .catch((error) => {
+                            console.error("Logout error:", error);
+                            showToast("Logout failed", true);
+                        });
+                }
+            }
+            
+            // ================ DATA MANAGEMENT ================
+            // Fetch appointments from Firestore
+            async function fetchAppointments() {
+                showLoading(true);
+                try {
+                    const snapshot = await getDocs(appointmentsCollection);
+                    appointments = snapshot.docs.map((doc) => {
+                        const data = doc.data();
+                        return {
+                            id: doc.id,
+                            ...data,
+                            dateObj: data.date ? data.date.toDate() : new Date()
+                        };
+                    });
+                    renderAppointmentsTable();
+                    updateStats();
+                    renderCalendar();
+                    updateCalendarSummary();
+                    initChart();
+                } catch (error) {
+                    console.error("Error fetching appointments:", error);
+                    showToast("Failed to fetch appointments", true);
+                } finally {
+                    showLoading(false);
+                }
+            }
+            
+            // Fetch customers from Firestore
+            async function fetchCustomers() {
+                showLoading(true);
+                try {
+                    const snapshot = await getDocs(customersCollection);
+                    customers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    renderCustomersTable();
+                } catch (error) {
+                    console.error("Error fetching customers:", error);
+                    showToast("Failed to load customers", true);
+                } finally {
+                    showLoading(false);
+                }
+            }
+            
+            // Save (add or update) appointment in Firestore
+            async function saveAppointment(data) {
+                showLoading(true);
+                try {
+                    if (editingAppointmentId) {
+                        const docRef = doc(db, "appointments", editingAppointmentId);
+                        await updateDoc(docRef, data);
+                        showToast("Appointment updated successfully");
+                    } else {
+                        await addDoc(appointmentsCollection, data);
+                        showToast("Appointment added successfully");
+                    }
+                    editingAppointmentId = null;
+                    await fetchAppointments();
+                    document.getElementById('appointment-modal').classList.remove('active');
+                } catch (error) {
+                    console.error("Error saving appointment:", error);
+                    showToast("Failed to save appointment", true);
+                } finally {
+                    showLoading(false);
+                }
+            }
+            
+            // Delete appointment from Firestore
+            async function deleteAppointment(id) {
+                if (!confirm("Are you sure you want to delete this appointment?")) return;
+                
+                showLoading(true);
+                try {
+                    await deleteDoc(doc(db, "appointments", id));
+                    showToast("Appointment deleted successfully");
+                    await fetchAppointments();
+                } catch (error) {
+                    console.error("Error deleting appointment:", error);
+                    showToast("Failed to delete appointment", true);
+                } finally {
+                    showLoading(false);
+                }
+            }
+            
+            // Save customer to Firestore
+            async function saveCustomer() {
+                showLoading(true);
+                const customerData = {
+                    name: document.getElementById('customer-name').value.trim(),
+                    phone: document.getElementById('customer-phone').value.trim(),
+                    email: document.getElementById('customer-email').value.trim(),
+                    address: document.getElementById('customer-address').value.trim(),
+                    notes: document.getElementById('customer-notes').value.trim(),
+                    createdAt: new Date().toISOString()
+                };
+                
+                try {
+                    if (editingCustomerId) {
+                        await updateDoc(doc(db, "customers", editingCustomerId), customerData);
+                        showToast("Customer updated!");
+                    } else {
+                        await addDoc(customersCollection, customerData);
+                        showToast("Customer added!");
+                    }
+                    document.getElementById('customer-modal').classList.remove('active');
+                    fetchCustomers();
+                } catch (error) {
+                    showToast("Failed to save customer", true);
+                } finally {
+                    showLoading(false);
+                }
+            }
+            
+            // ================ RENDERING FUNCTIONS ================
+            // Render appointments table
+            function renderAppointmentsTable(list = appointments) {
+                const tbody = document.getElementById("appointments-body");
+                tbody.innerHTML = "";
+                
+                if (list.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 30px;">
+                                No appointments found
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                const start = (currentPage - 1) * appointmentsPerPage;
+                const pageApps = list.slice(start, start + appointmentsPerPage);
+                
+                pageApps.forEach((app) => {
+                    const statusInfo = statusMap[app.status] || {
+                        text: app.status || "",
+                        class: "",
+                    };
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>#${app.id}</td>
+                        <td>${app.customer}</td>
+                        <td>${app.equipment || ""}</td>
+                        <td>${formatTimestamp(app.dateObj)}</td>
+                        <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
+                        <td>$${app.price || 0}</td>
+                        <td class="action-cell">
+                            <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment"><i class="fas fa-trash"></i></button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+                
+                // Add click listeners to buttons
+                tbody.querySelectorAll(".edit-btn").forEach((btn) => {
+                    btn.onclick = () => openEditModal(btn.dataset.id);
+                });
+                
+                tbody.querySelectorAll(".delete-btn").forEach((btn) => {
+                    btn.onclick = () => deleteAppointment(btn.dataset.id);
+                });
+                
+                // Update page indicator
+                const totalPages = Math.ceil(list.length / appointmentsPerPage);
+                document.getElementById("page-indicator").textContent = `Page ${currentPage} of ${totalPages || 1}`;
+                
+                // Enable/disable pagination buttons
+                document.getElementById("prev-page").disabled = currentPage === 1;
+                document.getElementById("next-page").disabled = currentPage >= totalPages;
+            }
+            
+            // Render customers table
+            function renderCustomersTable() {
+                const tbody = document.getElementById('customers-body');
+                tbody.innerHTML = '';
+                
+                if (customers.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 30px;">
+                                No customers found
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                customers.forEach(customer => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${customer.name}</td>
+                        <td>${customer.phone}</td>
+                        <td>${customer.email || '-'}</td>
+                        <td>${customer.favoriteEquipment || '-'}</td>
+                        <td>${customer.lastAppointment || 'Never'}</td>
+                        <td class="action-cell">
+                            <button class="action-btn edit-btn" data-id="${customer.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete-btn" data-id="${customer.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+                
+                // Attach event listeners to each edit/delete button
+                document.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', () => openEditCustomerModal(btn.dataset.id));
+                });
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (confirm("Are you sure you want to delete this customer?")) {
+                            deleteCustomer(btn.dataset.id);
+                        }
+                    });
+                });
+            }
+            
+            // Delete customer
+            async function deleteCustomer(id) {
+                showLoading(true);
+                try {
+                    await deleteDoc(doc(db, "customers", id));
+                    showToast("Customer deleted successfully");
+                    fetchCustomers();
+                } catch (error) {
+                    showToast("Failed to delete customer", true);
+                    console.error(error);
+                } finally {
+                    showLoading(false);
+                }
+            }
+            
+            // Stats update
+            function updateStats() {
+                document.getElementById("total-appointments").textContent = appointments.length;
+                document.getElementById("scheduled-count").textContent = appointments.filter((a) => a.status === "scheduled").length;
+                document.getElementById("inprogress-count").textContent = appointments.filter((a) => a.status === "in_progress").length;
+                document.getElementById("released-count").textContent = appointments.filter((a) => a.status === "released").length;
+            }
+            
+            // Calendar rendering and summary
+            function renderCalendar() {
+                const calendarGrid = document.getElementById("calendar-days");
+                calendarGrid.innerHTML = "";
+                
+                document.getElementById("current-month-year").textContent = 
+                    new Date(currentYear, currentMonth).toLocaleString("default", {
+                        month: "long",
+                        year: "numeric"
+                    });
+                
+                const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                daysOfWeek.forEach((day) => {
+                    const dayHeader = document.createElement("div");
+                    dayHeader.className = "calendar-day-header";
+                    dayHeader.textContent = day;
+                    calendarGrid.appendChild(dayHeader);
+                });
+                
+                const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+                
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyCell = document.createElement("div");
+                    emptyCell.className = "calendar-day empty";
+                    calendarGrid.appendChild(emptyCell);
+                }
+                
+                for (let day = 1; day <= totalDays; day++) {
+                    const dayCell = document.createElement("div");
+                    dayCell.className = "calendar-day";
+                    
+                    const dayNumber = document.createElement("div");
+                    dayNumber.className = "day-number";
+                    dayNumber.textContent = day;
+                    dayCell.appendChild(dayNumber);
+                    
+                    // Get appointments for this day
+                    const dayApps = appointments.filter(app => {
+                        if (!app.dateObj) return false;
+                        const d = app.dateObj;
+                        return d.getDate() === day && 
+                               d.getMonth() === currentMonth && 
+                               d.getFullYear() === currentYear;
+                    });
+                    
+                    if (dayApps.length > 0) {
+                        const container = document.createElement("div");
+                        container.className = "calendar-appointments";
+                        
+                        dayApps.forEach(app => {
+                            const item = document.createElement("div");
+                            item.className = "appointment-item";
+                            item.textContent = `${app.customer.split(" ")[0]} - ${app.dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+                            container.appendChild(item);
+                        });
+                        
+                        dayCell.appendChild(container);
+                    }
+                    
+                    calendarGrid.appendChild(dayCell);
+                }
+            }
+            
+            function updateCalendarSummary() {
+                const monthlyApps = appointments.filter((app) => {
+                    if (!app.dateObj) return false;
+                    const d = app.dateObj;
+                    return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+                });
+                
+                const businessDays = getBusinessDays(currentMonth, currentYear);
+                const monthlyRevenue = monthlyApps
+                    .filter((a) => a.status === "released")
+                    .reduce((sum, a) => sum + (a.price || 0), 0);
+                
+                document.getElementById("summary-total").textContent = monthlyApps.length;
+                document.getElementById("summary-days").textContent = businessDays;
+                document.getElementById("summary-revenue").textContent = `$${monthlyRevenue}`;
+                
+                const utilizationRate = Math.min(100, Math.round((monthlyApps.length / (businessDays * 3))) * 100);
+                document.getElementById("summary-utilization").textContent = utilizationRate + "%";
+            }
+            
+            function getBusinessDays(month, year) {
+                let count = 0;
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const d = new Date(year, month, day);
+                    if (d.getDay() !== 0 && d.getDay() !== 6) count++;
+                }
+                return count;
+            }
+            
+            // Chart.js setup
+            function initChart() {
+                const ctx = document.getElementById("appointmentsChart").getContext("2d");
+                
+                // Destroy existing chart if it exists
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+                
+                const counts = {
+                    draft: appointments.filter((a) => a.status === "draft").length,
+                    scheduled: appointments.filter((a) => a.status === "scheduled").length,
+                    in_progress: appointments.filter((a) => a.status === "in_progress").length,
+                    released: appointments.filter((a) => a.status === "released").length,
+                    cancelled: appointments.filter((a) => a.status === "cancelled").length,
+                };
+                
+                chartInstance = new Chart(ctx, {
+                    type: "doughnut",
+                    data: {
+                        labels: ["Draft", "Scheduled", "In Progress", "Completed", "Cancelled"],
+                        datasets: [{
+                            data: Object.values(counts),
+                            backgroundColor: [
+                                "rgba(149, 165, 166, 0.7)",
+                                "rgba(93, 93, 255, 0.7)",
+                                "rgba(52, 152, 219, 0.7)",
+                                "rgba(46, 204, 113, 0.7)",
+                                "rgba(231, 76, 60, 0.7)",
+                            ],
+                            borderColor: [
+                                "rgba(149, 165, 166, 1)",
+                                "rgba(93, 93, 255, 1)",
+                                "rgba(52, 152, 219, 1)",
+                                "rgba(46, 204, 113, 1)",
+                                "rgba(231, 76, 60, 1)",
+                            ],
+                            borderWidth: 1,
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: "right",
+                                labels: { color: "#333", font: { size: 12 } },
+                            },
+                            title: {
+                                display: true,
+                                text: "Appointment Status Distribution",
+                                color: "#333",
+                                font: { size: 16 },
+                            },
+                        },
+                    },
+                });
+            }
+            
+            // ================ MODAL MANAGEMENT ================
+            function openEditModal(id) {
+                const app = appointments.find((a) => a.id === id);
+                if (!app) return;
+                
+                editingAppointmentId = id;
+                
+                document.getElementById("customer-name").value = app.customer;
+                document.getElementById("customer-phone").value = app.phone || "";
+                
+                // Use the dateObj for editing
+                const dateObj = app.dateObj || new Date();
+                document.getElementById("appointment-date").value = dateObj.toISOString().split("T")[0];
+                
+                // Format time as HH:MM
+                const hours = dateObj.getHours().toString().padStart(2, '0');
+                const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+                document.getElementById("appointment-time").value = `${hours}:${minutes}`;
+                
+                document.getElementById("equipment").value = app.equipment || "";
+                document.getElementById("appointment-price").value = app.price || 150;
+                document.getElementById("issue-description").value = app.issue || "";
+                document.getElementById("repair-notes").value = app.repair_notes || "";
+                document.getElementById("appointment-status").value = app.status || "";
+                
+                document.getElementById("modal-title").textContent = "Edit Appointment";
+                document.getElementById("save-appointment").textContent = "Update Appointment";
+                
+                document.getElementById('appointment-modal').classList.add('active');
+            }
+            
+            function openAddModal() {
+                editingAppointmentId = null;
+                
+                document.getElementById("appointment-form").reset();
+                
+                const today = new Date();
+                document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
+                
+                const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+                document.getElementById("appointment-time").value = `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
+                
+                document.getElementById("appointment-price").value = 150;
+                document.getElementById("modal-title").textContent = "Add New Appointment";
+                document.getElementById("save-appointment").textContent = "Save Appointment";
+                
+                document.getElementById('appointment-modal').classList.add('active');
+            }
+            
+            function closeAppointmentModal() {
+                document.getElementById('appointment-modal').classList.remove('active');
+            }
+            
+            function openAddCustomerModal() {
+                editingCustomerId = null;
+                document.getElementById('customer-form').reset();
+                document.getElementById('customer-modal-title').textContent = "New Customer";
+                document.getElementById('customer-modal').classList.add('active');
+            }
+            
+            function openEditCustomerModal(id) {
+                const customer = customers.find(c => c.id === id);
+                if (!customer) return;
+                
+                editingCustomerId = id;
+                document.getElementById('customer-name').value = customer.name || '';
+                document.getElementById('customer-phone').value = customer.phone || '';
+                document.getElementById('customer-email').value = customer.email || '';
+                document.getElementById('customer-address').value = customer.address || '';
+                document.getElementById('customer-notes').value = customer.notes || '';
+                
+                document.getElementById('customer-modal-title').textContent = "Edit Customer";
+                document.getElementById('customer-modal').classList.add('active');
+            }
+            
+            function closeCustomerModal() {
+                document.getElementById('customer-modal').classList.remove('active');
+            }
+            
+            // ================ EVENT LISTENERS ================
+            function setupEventListeners() {
+                // Sidebar navigation
+                document.querySelectorAll(".nav-links a").forEach(link => {
+                    link.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        const view = link.dataset.view;
+                        activateView(view);
+                    });
+                });
+                
+                // Logout button
+                document.querySelector('.nav-links a[data-view="logout"]').addEventListener("click", (e) => {
+                    e.preventDefault();
+                    logout();
+                });
+                
+                // Top tab navigation
+                document.querySelectorAll(".tab").forEach(tab => {
+                    tab.addEventListener("click", () => {
+                        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        activateView(tab.dataset.tab);
+                    });
+                });
+                
+                // Month navigation buttons
+                document.getElementById("prev-month").addEventListener("click", () => {
+                    currentMonth--;
+                    if (currentMonth < 0) {
+                        currentMonth = 11;
+                        currentYear--;
+                    }
+                    renderCalendar();
+                    updateCalendarSummary();
+                });
+                
+                document.getElementById("next-month").addEventListener("click", () => {
+                    currentMonth++;
+                    if (currentMonth > 11) {
+                        currentMonth = 0;
+                        currentYear++;
+                    }
+                    renderCalendar();
+                    updateCalendarSummary();
+                });
+                
+                // Appointment pagination
+                document.getElementById("prev-page").addEventListener("click", () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderAppointmentsTable();
+                    }
+                });
+                
+                document.getElementById("next-page").addEventListener("click", () => {
+                    const totalPages = Math.ceil(appointments.length / appointmentsPerPage);
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderAppointmentsTable();
+                    }
+                });
+                
+                // Search functionality
+                document.getElementById("search-appointments").addEventListener("input", function () {
+                    const keyword = this.value.toLowerCase();
+                    const filtered = appointments.filter(
+                        (app) => app.customer.toLowerCase().includes(keyword) ||
+                                 (app.phone && app.phone.toLowerCase().includes(keyword))
+                    );
+                    currentPage = 1;
+                    renderAppointmentsTable(filtered);
+                });
+                
+                // Print button
+                document.getElementById("print-schedule").addEventListener("click", () => {
+                    window.print();
+                });
+                
+                // Add appointment button
+                document.getElementById("add-appointment").addEventListener("click", openAddModal);
+                
+                // Save appointment button
+                document.getElementById("save-appointment").addEventListener("click", async () => {
+                    const customerName = document.getElementById("customer-name").value.trim();
+                    const phone = document.getElementById("customer-phone").value.trim();
+                    const dateInput = document.getElementById("appointment-date").value;
+                    const timeInput = document.getElementById("appointment-time").value;
+                    const dateObj = new Date(`${dateInput}T${timeInput}`);
+                    const timestamp = Timestamp.fromDate(dateObj);
+                    const equipment = document.getElementById("equipment").value.trim();
+                    const price = parseFloat(document.getElementById("appointment-price").value) || 0;
+                    const issue = document.getElementById("issue-description").value.trim();
+                    const status = document.getElementById("appointment-status").value;
+                    const repairNotes = document.getElementById("repair-notes").value.trim();
+                    
+                    if (!customerName) {
+                        showToast("Please enter customer name", true);
+                        return;
+                    }
+                    if (!dateInput || !timeInput) {
+                        showToast("Please select date and time", true);
+                        return;
+                    }
+                    
+                    const appointmentData = {
+                        customer: customerName,
+                        phone,
+                        equipment,
+                        date: timestamp,
+                        price,
+                        issue,
+                        status,
+                        repair_notes: repairNotes,
+                    };
+                    
+                    await saveAppointment(appointmentData);
+                });
+                
+                // Modal controls
+                document.querySelectorAll('.close-modal').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        closeAppointmentModal();
+                        closeCustomerModal();
+                    });
+                });
+                
+                document.getElementById("cancel-appointment").addEventListener("click", closeAppointmentModal);
+                
+                // Customer modals
+                document.getElementById('add-customer').addEventListener('click', openAddCustomerModal);
+                document.getElementById('save-customer').addEventListener('click', saveCustomer);
+                document.getElementById('cancel-customer').addEventListener('click', closeCustomerModal);
+                
+                // Settings
+                document.getElementById('save-settings').addEventListener('click', () => {
+                    showToast("Settings saved successfully");
+                });
+                
+                document.getElementById('reset-settings').addEventListener('click', () => {
+                    document.getElementById("company-name").value = "Canadian Fitness Repair";
+                    document.getElementById("default-price").value = "150";
+                    document.getElementById("business-hours").value = "9:00 AM - 6:00 PM";
+                    document.getElementById("enable-past-edits").value = "true";
+                    showToast("Settings reset to defaults");
+                });
+            }
+            
+            // ================ INITIALIZATION ================
+            function initialize() {
+                setupEventListeners();
+                activateView('dashboard');
+                
+                // Set default date for appointment form
+                const today = new Date();
+                document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
+                const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+                document.getElementById("appointment-time").value = `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
+            }
+            
+            // Start the application
+            initialize();
+        }
     </script>
-    <script>
-      function logToPanel(message) {
-        const panel = document.getElementById("debug-panel") || createPanel();
-        const entry = document.createElement("div");
-        entry.textContent = message;
-        panel.appendChild(entry);
-      }
-    
-      function createPanel() {
-        const panel = document.createElement("div");
-        panel.id = "debug-panel";
-        panel.style.position = "fixed";
-        panel.style.bottom = "0";
-        panel.style.right = "0";
-        panel.style.width = "300px";
-        panel.style.maxHeight = "200px";
-        panel.style.overflowY = "auto";
-        panel.style.background = "rgba(0,0,0,0.85)";
-        panel.style.color = "#0f0";
-        panel.style.fontSize = "12px";
-        panel.style.padding = "8px";
-        panel.style.zIndex = "9999";
-        panel.style.border = "1px solid #0f0";
-        panel.innerText = "🧪 Debug panel initialized...";
-        document.body.appendChild(panel);
-        return panel;
-      }
-    
-      // Example usage on load
-      document.addEventListener("DOMContentLoaded", () => {
-        logToPanel("✅ DOM loaded");
-      });
-    </script>
-    </body>
-    
-  </body>
+</body>
 </html>
