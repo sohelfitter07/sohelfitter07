@@ -1576,39 +1576,26 @@
 // Tab navigation
 const sidebarLinks = document.querySelectorAll(".nav-links a");
 const tabs = document.querySelectorAll(".tab");
-
 sidebarLinks.forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
     const targetView = link.getAttribute("data-view");
-
     if (targetView === "logout") {
       logout();
       return;
     }
-
-    sidebarLinks.forEach((l) => l.classList.remove("active"));
-    link.classList.add("active");
-
-    tabs.forEach((tab) => {
-      if (tab.getAttribute("data-tab") === targetView) {
-        tab.classList.add("active");
-      } else {
-        tab.classList.remove("active");
-      }
-    });
-
-    // ✅ This ensures calendar renders when tab is clicked
+    activateView(targetView); // This line is the key change
+    // The specific rendering functions for each view
     if (targetView === "stats") {
       initChart();
     } else if (targetView === "calendar") {
       renderCalendar();
     } else if (targetView === "customers") {
-      showCustomersView(); // THIS IS THE LINE TO CHANGE
+      showCustomersView();
     }
   });
 });
-      function logAction(action, user = "guest") {
+     function logAction(action, user = "guest") {
         fetch("https://cfr-backend-1.onrender.com/api/log", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1912,7 +1899,7 @@ setupTabListeners();
         let defaultPrice = defaultPriceInitial;
         let allowPastEdits = true;
  // 🔧 FIXED: Add missing statusMap
- const statusMap = {
+        const statusMap = {
           scheduled: { text: "Scheduled", class: "status-scheduled" },
           draft: { text: "Draft", class: "status-draft" },
           released: { text: "Released", class: "status-released" },
