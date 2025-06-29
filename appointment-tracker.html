@@ -1669,6 +1669,11 @@ function showView(viewName) {
   // Show the view we want
   const viewToShow = document.getElementById(`${viewName}-view`);
   if (viewToShow) viewToShow.classList.add('active');
+  // Add to showView function
+console.log(`Showing view: ${viewName}`);
+
+// Add to setupTabs
+console.log("Setting up tab listeners");
 }
 
 // Function to handle tab clicks
