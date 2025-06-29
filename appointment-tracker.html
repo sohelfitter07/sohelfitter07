@@ -11,8 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
       :root {
-        --primary: #5d5dff;
-        --secondary: #ff7e5f;
+        --primary: #6a6aff;
+        --secondary: #ff8c66;
         --accent: #ff5252;
         --light: #ecf0f1;
         --dark: #151719;
@@ -21,11 +21,11 @@
         --sidebar-bg: #0d0f11;
         --border: #2a2e39;
         --shadow: rgba(0, 0, 0, 0.3);
-        --text-light: #b0b0d0;
+        --text-light: #d0d0f0;
         --text-color: #f0f0f0;
         --success: #27ae60;
         --warning: #f39c12;
-        --danger: #e74c3c;
+        --danger: #ff4c4c;
       }
 
       * {
@@ -1113,10 +1113,10 @@
 
           <!-- Action Buttons -->
           <div class="action-buttons">
-            <button class="btn btn-primary" id="add-appointment">
+            <button class="btn btn-primary" id="add-appointment" aria-label="Add new appointment">
               <i class="fas fa-plus"></i> Add Appointment
             </button>
-            <button class="btn btn-success" id="print-schedule">
+            <button class="btn btn-success" id="print-schedule" aria-label="Print schedule">
               <i class="fas fa-print"></i> Print Schedule
             </button>
           </div>
@@ -1159,16 +1159,21 @@
                 </tbody>
               </table>
             </div>
+            <div class="pagination" style="display: flex; gap: 10px; align-items: center; justify-content: center; margin-top: 15px;">
+              <button id="prev-page">👈 Prev</button>
+              <span id="page-indicator">Page 1</span>
+              <button id="next-page">Next 👉</button>
+            </div>            
           </div>
 
           <div class="tab-content" id="calendar-view">
             <div class="calendar-header">
               <div class="calendar-nav">
-                <button id="prev-month">
+                <button id="prev-month" aria-label="Previous month">
                   <i class="fas fa-chevron-left"></i> Prev
                 </button>
                 <h2 id="current-month-year">Loading...</h2>
-                <button id="next-month">
+                <button id="next-month" aria-label="Next month">
                   Next <i class="fas fa-chevron-right"></i>
                 </button>
               </div>
@@ -1308,7 +1313,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h3 id="modal-title">Add New Appointment</h3>
-            <button class="close-modal" title="Close">&times;</button>
+            <button class="close-modal" aria-label="Close modal" title="Close">&times;</button>
           </div>
           <div class="modal-body">
             <form id="appointment-form">
@@ -1411,8 +1416,8 @@
             </form>
           </div>
           <div class="form-actions">
-            <button class="btn" id="cancel-appointment">Cancel</button>
-            <button class="btn btn-primary" id="save-appointment">
+            <button class="btn" id="cancel-appointment" aria-label="Cancel appointment">Cancel</button>
+            <button class="btn btn-primary" id="save-appointment" aria-label="Save appointment">
               Save Appointment
             </button>
           </div>
@@ -1434,6 +1439,7 @@
         deleteDoc,
         doc,
         onSnapshot,
+        Timestamp, // ✅ ADD THIS
       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
       import {
         getAuth,
@@ -1477,6 +1483,13 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
         const appointmentsCollection = collection(db, "appointments");
+
+        // 🧼 Cleans potentially harmful input
+        function cleanInput(input) {
+          return input.replace(/<[^>]*>/g, '').trim();
+        }
+
+
 
         // ✅ Start your app logic
         initApp(auth, db, appointmentsCollection);
@@ -1524,6 +1537,9 @@
 
         let logoutWarningTimer;
         let countdownInterval;
+        let currentPage = 1;
+        const appointmentsPerPage = 20;
+
 
         function startSessionTimer(auth) {
           resetSessionTimer(auth);
@@ -1590,19 +1606,16 @@
           if (!customer) return;
 
           const data = {
-            customer,
-            phone: document.getElementById("customer-phone").value.trim(),
-            equipment: document.getElementById("equipment").value.trim(),
-            date: `${document.getElementById("appointment-date").value} - ${
-              document.getElementById("appointment-time").value
-            }`,
-            price:
-              parseFloat(document.getElementById("appointment-price").value) ||
-              0,
-            issue: document.getElementById("issue-description").value.trim(),
-            status: document.getElementById("appointment-status").value,
-            repair_notes: document.getElementById("repair-notes").value.trim(),
-          };
+          customer: cleanInput(document.getElementById("customer-name").value.trim()),
+          phone: cleanInput(document.getElementById("customer-phone").value.trim()),
+          equipment: cleanInput(document.getElementById("equipment").value.trim()),
+          date: `${document.getElementById("appointment-date").value} - ${document.getElementById("appointment-time").value}`,
+          price: parseFloat(document.getElementById("appointment-price").value) || 0,
+          issue: cleanInput(document.getElementById("issue-description").value.trim()),
+          status: cleanInput(document.getElementById("appointment-status").value),
+          repair_notes: cleanInput(document.getElementById("repair-notes").value.trim()),
+        };
+
 
           saveAppointment(data); // Calls your existing logic
         }
@@ -1633,18 +1646,15 @@
         let allowPastEdits = true;
 
         // Utility functions
-        function convertTo24Hour(time12) {
-          if (!time12) return "";
-          const [time, modifier] = time12.split(" ");
-          let [hours, minutes] = time.split(":");
-          let hourInt = parseInt(hours, 10);
-          if (hours === "12") {
-            hourInt = modifier === "AM" ? 0 : 12;
-          } else if (modifier === "PM") {
-            hourInt += 12;
-          }
-          return `${hourInt.toString().padStart(2, "0")}:${minutes}`;
-        }
+        function formatTimeForDisplay(time24) {
+        const [hours, minutes] = time24.split(':');
+        const hourNum = parseInt(hours, 10);
+        if (hourNum === 0) return `12:${minutes} AM`;
+        if (hourNum < 12) return `${hourNum}:${minutes} AM`;
+        if (hourNum === 12) return `12:${minutes} PM`;
+        return `${hourNum - 12}:${minutes} PM`;
+      }
+
 
         function getBusinessDays(month, year) {
           let count = 0;
@@ -1817,93 +1827,63 @@
 
         // Render appointment table
         function renderAppointmentsTable(list = appointments) {
-          const tbody = document.getElementById("appointments-body");
-          tbody.innerHTML = "";
+  const tbody = document.getElementById("appointments-body");
+  tbody.innerHTML = "";
 
-          const statusMap = {
-            scheduled: {
-              text: "🗓️ Scheduled for Initial Diagnosis/Repair",
-              class: "status-scheduled",
-            },
-            needs_parts: {
-              text: "🔍 Needs Parts Ordered",
-              class: "status-inprogress",
-            },
-            parts_ordered: {
-              text: "📦 Parts Ordered / Waiting on Parts",
-              class: "status-inprogress",
-            },
-            parts_arrived: {
-              text: "📬 Parts Arrived",
-              class: "status-inprogress",
-            },
-            second_appointment: {
-              text: "📅 Second Appointment Booked",
-              class: "status-scheduled",
-            },
-            repair_completed: {
-              text: "✔️ Repair Completed",
-              class: "status-released",
-            },
-            draft: { text: "Draft", class: "status-draft" },
-            in_progress: { text: "In Progress", class: "status-inprogress" },
-            released: { text: "Released", class: "status-released" },
-            cancelled: { text: "Cancelled", class: "status-cancelled" },
-          };
+  const start = (currentPage - 1) * appointmentsPerPage;
+  const pageApps = list.slice(start, start + appointmentsPerPage);
 
-          list.forEach((app) => {
-            const statusInfo = statusMap[app.status] || {
-              text: app.status || "",
-              class: "",
-            };
-            const row = document.createElement("tr");
-            row.innerHTML = `
-              <td>#${app.id}</td>
-              <td>${app.customer}</td>
-              <td>${app.equipment || ""}</td>
-              <td>${formatTimestamp(app.date)}</td>
-              <td><span class="status-badge ${statusInfo.class}">${
-              statusInfo.text
-            }</span></td>
-              <td>$${app.price || 0}</td>
-              <td class="action-cell">
-                <button class="action-btn edit-btn" data-id="${
-                  app.id
-                }"><i class="fas fa-edit"></i></button>
-                <button class="action-btn delete-btn" data-id="${
-                  app.id
-                }"><i class="fas fa-trash"></i></button>
-              </td>
-            `;
-            tbody.appendChild(row);
-          });
+  // your existing row generation code goes here — unchanged
+  pageApps.forEach((app) => {
+    const statusInfo = statusMap[app.status] || {
+      text: app.status || "",
+      class: "",
+    };
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>#${app.id}</td>
+      <td>${app.customer}</td>
+      <td>${app.equipment || ""}</td>
+      <td>${formatTimestamp(app.date)}</td>
+      <td><span class="status-badge ${statusInfo.class}">${
+      statusInfo.text
+    }</span></td>
+      <td>$${app.price || 0}</td>
+      <td class="action-cell">
+        <button class="action-btn edit-btn" data-id="${
+          app.id
+        }" aria-label="Edit appointment"><i class="fas fa-edit"></i></button>
+        <button class="action-btn delete-btn" data-id="${
+          app.id
+        }" aria-label="Delete appointment"><i class="fas fa-trash"></i></button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
 
-          tbody.querySelectorAll(".edit-btn").forEach((btn) => {
-            btn.onclick = () => {
-              if (!allowPastEdits) {
-                const app = appointments.find((a) => a.id === btn.dataset.id);
-                if (app) {
-                  const appDate = new Date(app.date.split(" - ")[0]);
-                  if (appDate < new Date()) {
-                    showToast("Editing past appointments is disabled", true);
-                    return;
-                  }
-                }
-              }
-              openEditModal(btn.dataset.id);
-            };
-          });
+  // Add click listeners to buttons
+  tbody.querySelectorAll(".edit-btn").forEach((btn) => {
+    btn.onclick = () => {
+      openEditModal(btn.dataset.id);
+    };
+  });
 
-          tbody.querySelectorAll(".delete-btn").forEach((btn) => {
-            btn.onclick = () => {
-              if (
-                confirm("Are you sure you want to delete this appointment?")
-              ) {
-                deleteAppointment(btn.dataset.id);
-              }
-            };
-          });
-        }
+  tbody.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.onclick = () => {
+      if (confirm("Are you sure you want to delete this appointment?")) {
+        deleteAppointment(btn.dataset.id);
+      }
+    };
+  });
+
+  // Update page indicator
+  const totalPages = Math.ceil(list.length / appointmentsPerPage);
+  document.getElementById("page-indicator").textContent = `Page ${currentPage} of ${totalPages}`;
+
+  // Enable/disable pagination buttons
+  document.getElementById("prev-page").disabled = currentPage === 1;
+  document.getElementById("next-page").disabled = currentPage >= totalPages;
+}
 
         // Stats update
         function updateStats() {
@@ -1984,9 +1964,10 @@
               dayAppointments.forEach((app) => {
                 const item = document.createElement("div");
                 item.className = "appointment-item";
-                item.textContent = `${app.customer.split(" ")[0]} - ${
-                  app.date.split(" - ")[1]
-                }`;
+                const timeRaw = app.date.split(" - ")[1] || "00:00";
+                const formattedTime = formatTimeForDisplay(timeRaw);
+                item.textContent = `${app.customer.split(" ")[0]} - ${formattedTime}`;
+
                 container.appendChild(item);
               });
 
@@ -2236,30 +2217,20 @@
           });
 
         // Save appointment button (form submission)
-        document
+          document
           .getElementById("save-appointment")
           .addEventListener("click", async () => {
-            const customerName = document
-              .getElementById("customer-name")
-              .value.trim();
-            const phone = document
-              .getElementById("customer-phone")
-              .value.trim();
+            const customerName = cleanInput(document.getElementById("customer-name").value.trim());
+            const phone = cleanInput(document.getElementById("customer-phone").value.trim());
             const dateInput = document.getElementById("appointment-date").value;
             const timeInput = document.getElementById("appointment-time").value;
             const dateObj = new Date(`${dateInput}T${timeInput}`);
-            const timestamp = firebase.firestore.Timestamp.fromDate(dateObj);
-            const equipment = document.getElementById("equipment").value.trim();
-            const price =
-              parseFloat(document.getElementById("appointment-price").value) ||
-              0;
-            const issue = document
-              .getElementById("issue-description")
-              .value.trim();
-            const status = document.getElementById("appointment-status").value;
-            const repairNotes = document
-              .getElementById("repair-notes")
-              .value.trim();
+            const timestamp = Timestamp.fromDate(dateObj);
+            const equipment = cleanInput(document.getElementById("equipment").value.trim());
+            const price = parseFloat(document.getElementById("appointment-price").value) || 0;
+            const issue = cleanInput(document.getElementById("issue-description").value.trim());
+            const status = cleanInput(document.getElementById("appointment-status").value);
+            const repairNotes = cleanInput(document.getElementById("repair-notes").value.trim());
 
             if (!customerName) {
               showToast("Please enter customer name", true);
@@ -2353,6 +2324,21 @@
           .padStart(2, "0")}`;
         document.getElementById("appointment-price").value =
           defaultPriceInitial;
+          // ================ PAGINATION BUTTON HANDLERS ================
+        document.getElementById("prev-page").addEventListener("click", () => {
+          if (currentPage > 1) {
+            currentPage--;
+            renderAppointmentsTable();
+          }
+        });
+
+        document.getElementById("next-page").addEventListener("click", () => {
+          const totalPages = Math.ceil(appointments.length / appointmentsPerPage);
+          if (currentPage < totalPages) {
+            currentPage++;
+            renderAppointmentsTable();
+          }
+        });
       }
     </script>
   </body>
