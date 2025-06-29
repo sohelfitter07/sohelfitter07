@@ -300,7 +300,48 @@
       .tab-content.active {
         display: block;
       }
-
+      .help-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .faq-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .faq-item h4 {
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  
+  .document-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .reports-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .report-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid var(--border);
+  }
+  
+  @media (min-width: 992px) {
+    .reports-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
       /* Appointments Table */
       .appointments-table {
         width: 100%;
@@ -1364,22 +1405,100 @@
           </div>
 
           <div class="tab-content" id="reports-view">
-            <div class="data-summary">
-              <h3>Completed Repair Reports</h3>
-              <div class="table-responsive">
-                <table class="appointments-table">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Customer</th>
-                      <th>Equipment</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Repair Notes</th>
-                    </tr>
-                  </thead>
-                  <tbody id="report-table-body"></tbody>
-                </table>
+            <div class="action-buttons">
+              <button class="btn btn-primary" id="generate-monthly-report">
+                <i class="fas fa-calendar"></i> Generate Monthly Report
+              </button>
+              <button class="btn btn-success" id="export-reports">
+                <i class="fas fa-file-export"></i> Export to Excel
+              </button>
+            </div>
+            
+            <div class="reports-container">
+              <div class="report-card">
+                <h3><i class="fas fa-wrench"></i> Repair Completion Report</h3>
+                <div class="table-responsive">
+                  <table class="appointments-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Equipment</th>
+                        <th>Completion Date</th>
+                        <th>Repair Cost</th>
+                        <th>Time Taken</th>
+                      </tr>
+                    </thead>
+                    <tbody id="completed-repairs-body">
+                      <!-- Completed repairs will be populated here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              
+              <div class="report-card">
+                <h3><i class="fas fa-chart-pie"></i> Revenue Summary</h3>
+                <div class="summary-grid">
+                  <div class="summary-item">
+                    <div class="value" id="monthly-revenue-report">$0</div>
+                    <div class="label">Monthly Revenue</div>
+                  </div>
+                  <div class="summary-item">
+                    <div class="value" id="avg-repair-cost">$0</div>
+                    <div class="label">Avg. Repair Cost</div>
+                  </div>
+                  <div class="summary-item">
+                    <div class="value" id="most-repaired">N/A</div>
+                    <div class="label">Most Repaired Equipment</div>
+                  </div>
+                  <div class="summary-item">
+                    <div class="value" id="revenue-growth">0%</div>
+                    <div class="label">Revenue Growth</div>
+                  </div>
+                </div>
+                <div class="chart-container" style="height: 250px; margin-top: 20px;">
+                  <canvas id="revenueChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content" id="help-view">
+            <div class="settings-form">
+              <h2>Help & Support</h2>
+              
+              <div class="help-section">
+                <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
+                <div class="faq-item">
+                  <h4>How do I add a new appointment?</h4>
+                  <p>Click the "Add Appointment" button in the dashboard view. Fill in the customer details, select a date/time, and save.</p>
+                </div>
+                <div class="faq-item">
+                  <h4>How can I change an appointment status?</h4>
+                  <p>Edit the appointment and select the new status from the dropdown menu. The status workflow shows your progress.</p>
+                </div>
+                <div class="faq-item">
+                  <h4>Where can I see my monthly schedule?</h4>
+                  <p>Switch to the Calendar view using the sidebar or top navigation tabs.</p>
+                </div>
+              </div>
+              
+              <div class="help-section">
+                <h3><i class="fas fa-phone-alt"></i> Contact Support</h3>
+                <p>For technical assistance, please contact:</p>
+                <ul>
+                  <li><i class="fas fa-envelope"></i> Email: support@fitnessrepair.ca</li>
+                  <li><i class="fas fa-phone"></i> Phone: 1-800-555-REPAIR</li>
+                  <li><i class="fas fa-clock"></i> Hours: Mon-Fri 9AM-5PM EST</li>
+                </ul>
+              </div>
+              
+              <div class="help-section">
+                <h3><i class="fas fa-book"></i> User Guides</h3>
+                <div class="document-links">
+                  <a href="#" class="btn"><i class="fas fa-file-pdf"></i> Quick Start Guide</a>
+                  <a href="#" class="btn"><i class="fas fa-file-video"></i> Video Tutorials</a>
+                  <a href="#" class="btn"><i class="fas fa-file-alt"></i> Advanced Features</a>
+                </div>
               </div>
             </div>
           </div>
@@ -2390,7 +2509,196 @@ function showView(targetView, originalView) {
       },
     });
   }
+// ================ SETTINGS FUNCTIONS ================
+async function loadSettings() {
+  try {
+    // In a real app, this would load from Firestore or localStorage
+    const settings = {
+      companyName: "Canadian Fitness Repair",
+      defaultPrice: 150,
+      businessHours: "9:00 AM - 6:00 PM",
+      enablePastEdits: true,
+      smsEnabled: false,
+      smsTime: "1",
+      smsMessage: "Hi {name}! Reminder: Your fitness repair is scheduled for {date} at {time}."
+    };
 
+    document.getElementById("company-name").value = settings.companyName;
+    document.getElementById("default-price").value = settings.defaultPrice;
+    document.getElementById("business-hours").value = settings.businessHours;
+    document.getElementById("enable-past-edits").value = settings.enablePastEdits.toString();
+    document.getElementById("sms-enabled").value = settings.smsEnabled.toString();
+    document.getElementById("sms-time").value = settings.smsTime;
+    document.getElementById("sms-message").value = settings.smsMessage;
+    
+    showToast("Settings loaded successfully");
+  } catch (error) {
+    console.error("Error loading settings:", error);
+    showToast("Failed to load settings", true);
+  }
+}
+
+// ================ REPORTS FUNCTIONS ================
+function generateReports() {
+  // Generate completed repairs report
+  const completedRepairs = appointments.filter(app => 
+    app.status === "repair_completed"
+  );
+  
+  const tbody = document.getElementById("completed-repairs-body");
+  tbody.innerHTML = "";
+  
+  completedRepairs.forEach(app => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>#${app.id}</td>
+      <td>${app.customer}</td>
+      <td>${app.equipment || "N/A"}</td>
+      <td>${formatTimestamp(app.dateObj)}</td>
+      <td>$${app.price || 0}</td>
+      <td>${calculateRepairTime(app)}</td>
+    `;
+    tbody.appendChild(row);
+  });
+  
+  // Generate revenue metrics
+  const monthlyRevenue = completedRepairs
+    .filter(app => isThisMonth(app.dateObj))
+    .reduce((sum, app) => sum + (app.price || 0), 0);
+  
+  const avgRepairCost = completedRepairs.length > 0 
+    ? Math.round(completedRepairs.reduce((sum, app) => sum + (app.price || 0), 0) / completedRepairs.length)
+    : 0;
+  
+  document.getElementById("monthly-revenue-report").textContent = `$${monthlyRevenue}`;
+  document.getElementById("avg-repair-cost").textContent = `$${avgRepairCost}`;
+  
+  // Generate equipment stats
+  const equipmentCounts = {};
+  completedRepairs.forEach(app => {
+    if (app.equipment) {
+      equipmentCounts[app.equipment] = (equipmentCounts[app.equipment] || 0) + 1;
+    }
+  });
+  
+  const mostRepaired = Object.keys(equipmentCounts).reduce((a, b) => 
+    equipmentCounts[a] > equipmentCounts[b] ? a : b, "N/A"
+  );
+  
+  document.getElementById("most-repaired").textContent = mostRepaired;
+  
+  // Generate revenue chart
+  generateRevenueChart();
+}
+
+function generateRevenueChart() {
+  const ctx = document.getElementById("revenueChart").getContext("2d");
+  
+  // Generate revenue data for last 6 months
+  const monthlyRevenue = [];
+  const now = new Date();
+  
+  for (let i = 5; i >= 0; i--) {
+    const month = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const revenue = appointments
+      .filter(app => 
+        app.status === "repair_completed" && 
+        isSameMonth(app.dateObj, month)
+      )
+      .reduce((sum, app) => sum + (app.price || 0), 0);
+    
+    monthlyRevenue.push(revenue);
+  }
+  
+  // Destroy existing chart if it exists
+  if (window.revenueChartInstance) {
+    window.revenueChartInstance.destroy();
+  }
+  
+  // Create new chart
+  window.revenueChartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: ["6m", "5m", "4m", "3m", "2m", "1m"],
+      datasets: [{
+        label: "Monthly Revenue ($)",
+        data: monthlyRevenue,
+        borderColor: "rgba(93, 93, 255, 1)",
+        backgroundColor: "rgba(93, 93, 255, 0.1)",
+        tension: 0.3,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: { color: "#f0f0f0" }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#f0f0f0" },
+          grid: { color: "rgba(255, 255, 255, 0.1)" }
+        },
+        x: {
+          ticks: { color: "#f0f0f0" },
+          grid: { color: "rgba(255, 255, 255, 0.1)" }
+        }
+      }
+    }
+  });
+}
+
+// ================ HELP FUNCTIONS ================
+function loadHelpContent() {
+  // Content is static HTML so nothing to load dynamically
+  console.log("Help content loaded");
+}
+
+// ================ UTILITY FUNCTIONS ================
+function calculateRepairTime(appointment) {
+  if (!appointment.createdAt || !appointment.completedAt) return "N/A";
+  
+  try {
+    const created = appointment.createdAt.toDate 
+      ? appointment.createdAt.toDate() 
+      : new Date(appointment.createdAt);
+    
+    const completed = appointment.completedAt.toDate 
+      ? appointment.completedAt.toDate() 
+      : new Date(appointment.completedAt);
+    
+    const diffDays = Math.ceil((completed - created) / (1000 * 60 * 60 * 24));
+    return `${diffDays} day${diffDays !== 1 ? 's' : ''}`;
+  } catch (e) {
+    return "N/A";
+  }
+}
+
+function isThisMonth(date) {
+  const today = new Date();
+  return date.getMonth() === today.getMonth() && 
+         date.getFullYear() === today.getFullYear();
+}
+
+function isSameMonth(date1, date2) {
+  return date1.getMonth() === date2.getMonth() && 
+         date1.getFullYear() === date2.getFullYear();
+}
+
+// ================ EVENT LISTENERS ================
+document.addEventListener("DOMContentLoaded", () => {
+  // Generate Reports button
+  document.getElementById("generate-monthly-report")?.addEventListener("click", generateReports);
+  
+  // Export Reports button
+  document.getElementById("export-reports")?.addEventListener("click", () => {
+    showToast("Export feature coming soon!");
+  });
+});
   // ================ MODAL MANAGEMENT ================
   // Modal open/close functions
   const modal = document.getElementById("appointment-modal");
