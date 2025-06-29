@@ -2056,6 +2056,7 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
 
   // Fetch customers from Firestore
   async function fetchCustomers() {
+    console.log("👥 Customers view activated");
     showLoading(true);
     try {
       const snapshot = await getDocs(customersCollection);
@@ -2301,6 +2302,7 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
 
   // Calendar rendering and summary - FIXED
   function renderCalendar() {
+    console.log("🗓 Calendar view activated");
     const calendarGrid = document.getElementById("calendar-days");
     calendarGrid.innerHTML = "";
 
@@ -2437,6 +2439,7 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
 
   // Chart.js setup
   function initChart() {
+    console.log("📈 Statistics view activated");
     const ctx = document
       .getElementById("appointmentsChart")
       .getContext("2d");
@@ -2523,6 +2526,7 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
   }
 // ================ SETTINGS FUNCTIONS ================
 async function loadSettings() {
+  console.log("⚙️ Settings view activated");
   try {
     // In a real app, this would load from Firestore or localStorage
     const settings = {
@@ -2553,6 +2557,7 @@ async function loadSettings() {
 // ================ REPORTS FUNCTIONS ================
 function generateReports() {
   // Generate completed repairs report
+  console.log("📊 Reports view activated");
   const completedRepairs = appointments.filter(app => 
     app.status === "repair_completed"
   );
@@ -2667,7 +2672,7 @@ function generateRevenueChart() {
 // ================ HELP FUNCTIONS ================
 function loadHelpContent() {
   // Content is static HTML so nothing to load dynamically
-  console.log("Help content loaded");
+  console.log("🆘 Help view activated");
 }
 
 // ================ UTILITY FUNCTIONS ================
