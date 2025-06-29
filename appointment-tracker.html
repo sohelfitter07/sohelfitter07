@@ -1903,6 +1903,17 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
         break;
     }
   }
+  document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const view = link.dataset.view;
+      console.log("Sidebar clicked:", view);
+      activateView(view);
+    });
+  });
+});
+
   // ================ AUTHENTICATION HANDLING ================
   onAuthStateChanged(auth, (user) => {
     if (!user) {
