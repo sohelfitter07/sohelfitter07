@@ -1842,7 +1842,7 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
     calendar: "calendar",
     settings: "settings",
     customers: "customers",
-    reports: "stats",
+    reports: "reports",
     help: "help",
     logout: "logout"
   };
@@ -1863,10 +1863,10 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
   });
     
  // Show the actual content view
- showView(targetView, viewName);
+ showView(targetView);
 }
-
-function showView(targetView, originalView) {
+// Replace the existing showView function with this:
+function showView(targetView) {
   // Hide all views
   document.querySelectorAll('.tab-content').forEach(view => {
     view.classList.remove('active');
@@ -1890,17 +1890,12 @@ function showView(targetView, originalView) {
     case "settings":
       loadSettings();
       break;
-    case "reports":
+    case "reports":  // Changed from 'stats' to 'reports'
       generateReports();
       break;
     case "help":
       loadHelpContent();
       break;
-  }
-
-  // Special case for reports sidebar
-  if (originalView === "reports" && targetView === "stats") {
-    // Any special handling for reports view
   }
 }
 
