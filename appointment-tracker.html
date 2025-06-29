@@ -1655,12 +1655,42 @@ async function saveCustomer() {
     showToast("Failed to save customer", true);
   }
 }
-// Add this at the VERY TOP of your initApp function
-document.getElementById('test-tab-button').addEventListener('click', () => {
-  alert("JavaScript is working!");
-  document.getElementById('list-view').classList.add('active');
-});
+// Add this function at the top of initApp
+function activateView(viewName) {
+  // Update sidebar active state
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.classList.toggle('active', link.dataset.view === viewName);
+  });
+  
+  // Update top tabs
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.tab === viewName);
+  });
+  
+  // Show the actual content view
+  showView(viewName);
+}
 
+// Replace the entire sidebarLinks and tabs code with:
+document.querySelectorAll('.nav-links a, .tab').forEach(element => {
+  element.addEventListener('click', e => {
+    e.preventDefault();
+    
+    const viewName = element.dataset.view || element.dataset.tab;
+    
+    if (viewName === 'logout') {
+      logout();
+      return;
+    }
+    
+    activateView(viewName);
+    
+    // Special initialization
+    if (viewName === 'stats') initChart();
+    if (viewName === 'calendar') renderCalendar();
+    if (viewName === 'customers') fetchCustomers();
+  });
+});
         // ✅ Start your app logic
         initApp(auth, db, appointmentsCollection);
       })();
@@ -1677,33 +1707,13 @@ function showView(viewName) {
   });
   
   // Show the view we want
-  const viewToShow = document.getElementById(`${viewName}-view`);
+  const viewElement = document.getElementById(`${viewName}-view`);
   if (viewToShow) viewToShow.classList.add('active');
   // Add to showView function
 console.log(`Showing view: ${viewName}`);
 
 // Add to setupTabs
 console.log("Setting up tab listeners");
-}
-
-// Function to handle tab clicks
-function setupTabListeners() {
-  // Sidebar tabs
-  document.querySelectorAll('.nav-links a').forEach(tab => {
-    tab.addEventListener('click', (e) => {
-      e.preventDefault();
-      const viewName = tab.getAttribute('data-view');
-      showView(viewName);
-    });
-  });
-  
-  // Top tabs (List, Calendar, etc.)
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const viewName = tab.getAttribute('data-tab');
-      showView(viewName);
-    });
-  });
 }
 
 // Call this function to set up the tabs
@@ -2485,38 +2495,6 @@ function showCustomersView() {
         const sidebarLinks = document.querySelectorAll(".nav-links a");
         const tabs = document.querySelectorAll(".tab");
 
-        sidebarLinks.forEach((link) => {
-          link.addEventListener("click", (e) => {
-            e.preventDefault();
-            const targetView = link.getAttribute("data-view");
-
-            if (targetView === "logout") {
-              logout();
-              return;
-            }
-
-            sidebarLinks.forEach((l) => l.classList.remove("active"));
-            link.classList.add("active");
-
-            tabs.forEach((tab) => {
-              if (tab.getAttribute("data-tab") === targetView) {
-                tab.classList.add("active");
-              } else {
-                tab.classList.remove("active");
-              }
-            });
-
-            // ✅ This ensures calendar renders when tab is clicked
-            if (targetView === "stats") {
-              initChart();
-            } else if (targetView === "calendar") {
-              renderCalendar();
-            }else if (targetView === "customers") {
-              showCustomersView();
-            }
-          });
-        });
-
         // Month navigation buttons
         document.getElementById("prev-month").addEventListener("click", () => {
           currentMonth--;
@@ -2709,6 +2687,7 @@ function showCustomersView() {
         });
         // Add this at the END of initApp function (before the closing curly brace)
 showView('list'); // Show the list view by default
+activateView('list'); // Activate default view
       }
     </script>
   </body>
