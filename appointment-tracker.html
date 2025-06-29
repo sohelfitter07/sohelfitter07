@@ -1717,6 +1717,13 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
 
   // ================ VIEW MANAGEMENT ================
   function activateView(viewName) {
+     // Map sidebar views to tab views where necessary
+  const viewMap = {
+    reports: "stats", // Sidebar "Reports" shows "Stats" view
+    dashboard: "list" // Alias for clarity
+  };
+
+  const targetView = viewMap[viewName] || viewName;
     // Update sidebar active state
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.classList.toggle('active', link.dataset.view === viewName);
@@ -1727,35 +1734,48 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
       tab.classList.toggle('active', tab.dataset.tab === viewName);
     });
     
-    // Show the actual content view
-    showView(viewName);
-  }
+ // Show the actual content view
+ showView(targetView, viewName);
+}
 
-  function showView(viewName) {
-    // Hide all views
-    document.querySelectorAll('.tab-content').forEach(view => {
-      view.classList.remove('active');
-    });
-    
-    // Show requested view
-    const viewElement = document.getElementById(`${viewName}-view`);
-    if (viewElement) viewElement.classList.add('active');
+function showView(targetView, originalView) {
+  // Hide all views
+  document.querySelectorAll('.tab-content').forEach(view => {
+    view.classList.remove('active');
+  });
+  
+  // Show requested view
+  const viewElement = document.getElementById(`${targetView}-view`);
+  if (viewElement) viewElement.classList.add('active');
 
-    // Execute view-specific initialization
-    if (viewName === "stats") {
+  // Execute view-specific initialization
+  switch(targetView) {
+    case "stats":
       initChart();
-    } else if (viewName === "calendar") {
+      break;
+    case "calendar":
       renderCalendar();
-    } else if (viewName === "customers") {
+      break;
+    case "customers":
       fetchCustomers();
-    } else if (viewName === "reports") {
-      // Initialize reports if needed
-    } else if (viewName === "settings") {
-      // Initialize settings if needed
-    } else if (viewName === "inventory") {
+      break;
+    case "settings":
+      // Initialize settings
+      break;
+    case "inventory":
       fetchParts();
-    }
+      break;
+    case "reports":
+      // Initialize reports
+      break;
+    // Add other cases as needed
   }
+
+  // Special case for reports sidebar
+  if (originalView === "reports" && targetView === "stats") {
+    // Any special handling for reports view
+  }
+}
 
   // ================ AUTHENTICATION HANDLING ================
   onAuthStateChanged(auth, (user) => {
