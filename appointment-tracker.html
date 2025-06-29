@@ -1656,6 +1656,43 @@ async function saveCustomer() {
       })();
 
       function initApp(auth, db, appointmentsCollection) {
+        // Add this RIGHT AFTER: function initApp(auth, db, appointmentsCollection) {
+console.log("Fixing tabs...");
+
+// Function to show different views
+function showView(viewName) {
+  // Hide all views
+  document.querySelectorAll('.tab-content').forEach(view => {
+    view.classList.remove('active');
+  });
+  
+  // Show the view we want
+  const viewToShow = document.getElementById(`${viewName}-view`);
+  if (viewToShow) viewToShow.classList.add('active');
+}
+
+// Function to handle tab clicks
+function setupTabListeners() {
+  // Sidebar tabs
+  document.querySelectorAll('.nav-links a').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      const viewName = tab.getAttribute('data-view');
+      showView(viewName);
+    });
+  });
+  
+  // Top tabs (List, Calendar, etc.)
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const viewName = tab.getAttribute('data-tab');
+      showView(viewName);
+    });
+  });
+}
+
+// Call this function to set up the tabs
+setupTabListeners();
         // ================ AUTHENTICATION HANDLING ================
         onAuthStateChanged(auth, (user) => {
           if (!user) {
@@ -2655,6 +2692,8 @@ function showCustomersView() {
             renderAppointmentsTable();
           }
         });
+        // Add this at the END of initApp function (before the closing curly brace)
+showView('list'); // Show the list view by default
       }
     </script>
   </body>
