@@ -1701,19 +1701,14 @@ console.log("Fixing tabs...");
 
 // Function to show different views
 function showView(viewName) {
-  // Hide all views
   document.querySelectorAll('.tab-content').forEach(view => {
     view.classList.remove('active');
   });
   
-  // Show the view we want
   const viewElement = document.getElementById(`${viewName}-view`);
-  if (viewToShow) viewToShow.classList.add('active');
-  // Add to showView function
-console.log(`Showing view: ${viewName}`);
+  if (viewElement) viewElement.classList.add('active');
 
-// Add to setupTabs
-console.log("Setting up tab listeners");
+  console.log(`Showing view: ${viewName}`);
 }
 
 // Call this function to set up the tabs
