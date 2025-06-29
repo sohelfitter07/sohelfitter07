@@ -3028,5 +3028,22 @@ document.addEventListener("DOMContentLoaded", () => {
   initialize();
 }
     </script>
+    <script type="module">
+      document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('.nav-links a');
+        console.log("Found sidebar links:", links.length); // Debug: how many links?
+    
+        links.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const view = link.dataset.view;
+            console.log("Sidebar clicked:", view); // Debug: what was clicked
+            activateView(view); // Show the correct view
+          });
+        });
+      });
+    </script>
+    </body>
+    
   </body>
 </html>
