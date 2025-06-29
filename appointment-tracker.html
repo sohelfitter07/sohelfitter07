@@ -1228,7 +1228,61 @@
               </div>
             </div>
           </div>
-
+          <!-- Add this with the other tab-content divs -->
+          <div class="tab-content" id="customers-view">
+            <div class="action-buttons">
+              <button class="btn btn-primary" id="add-customer">
+                <i class="fas fa-plus"></i> Add New Customer
+              </button>
+            </div>
+            
+            <div class="table-responsive">
+              <table class="appointments-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Favorite Equipment</th>
+                    <th>Last Appointment</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="customers-body">
+                  <!-- Customers will appear here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-content" id="inventory-view">
+            <div class="action-buttons">
+              <button class="btn btn-primary" id="add-part">
+                <i class="fas fa-plus"></i> Add New Part
+              </button>
+              <button class="btn btn-success" id="order-parts">
+                <i class="fas fa-shopping-cart"></i> Order Low Stock
+              </button>
+            </div>
+            
+            <div class="table-responsive">
+              <table class="appointments-table">
+                <thead>
+                  <tr>
+                    <th>Part Name</th>
+                    <th>Part Number</th>
+                    <th>Equipment Type</th>
+                    <th>In Stock</th>
+                    <th>Price</th>
+                    <th>Supplier</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="parts-body">
+                  <!-- Parts will appear here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
           <div class="tab-content" id="settings-view">
             <div class="settings-form">
               <h2>System Settings</h2>
@@ -1269,6 +1323,31 @@
                   <option value="true" selected>Yes</option>
                   <option value="false">No</option>
                 </select>
+              </div>
+              <!-- Add to settings form -->
+              <div class="form-group">
+                <label for="sms-enabled">Enable SMS Reminders</label>
+                <select id="sms-enabled" class="form-control">
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="sms-time">Reminder Time</label>
+                <select id="sms-time" class="form-control">
+                  <option value="1">1 day before</option>
+                  <option value="2">2 days before</option>
+                  <option value="3">3 days before</option>
+                  <option value="same">Same day</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="sms-message">Custom Message</label>
+                <textarea id="sms-message" class="form-control" rows="2">
+              Hi {name}! Reminder: Your fitness repair is scheduled for {date} at {time}.
+                </textarea>
               </div>
               <div class="form-actions">
                 <button class="btn" id="reset-settings">Reset Defaults</button>
@@ -1423,6 +1502,49 @@
           </div>
         </div>
       </div>
+      <!-- Add this near the appointment modal -->
+<div class="modal" id="customer-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="customer-modal-title">New Customer</h3>
+      <button class="close-modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="customer-form">
+        <div class="form-group">
+          <label for="customer-name">Full Name</label>
+          <input type="text" id="customer-name" class="form-control" required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="customer-phone">Phone</label>
+            <input type="tel" id="customer-phone" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="customer-email">Email</label>
+            <input type="email" id="customer-email" class="form-control">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="customer-address">Address</label>
+          <textarea id="customer-address" class="form-control" rows="2"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="customer-notes">Special Notes</label>
+          <textarea id="customer-notes" class="form-control" rows="3" 
+            placeholder="Allergies, preferences, etc."></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="form-actions">
+      <button class="btn" id="cancel-customer">Cancel</button>
+      <button class="btn btn-primary" id="save-customer">Save Customer</button>
+    </div>
+  </div>
+</div>
     </main>
 
     <footer>
@@ -1483,13 +1605,51 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
         const appointmentsCollection = collection(db, "appointments");
+        let customers = [];
+      let editingCustomerId = null;
+      const customersCollection = collection(db, "customers");
+      let parts = [];
+const partsCollection = collection(db, "parts");
+
 
         // 🧼 Cleans potentially harmful input
         function cleanInput(input) {
           return input.replace(/<[^>]*>/g, '').trim();
         }
 
+        document.getElementById('add-customer').addEventListener('click', openAddCustomerModal);
+        document.getElementById('save-customer').addEventListener('click', saveCustomer);
+        function openAddCustomerModal() {
+  editingCustomerId = null;
+  document.getElementById('customer-form').reset();
+  document.getElementById('customer-modal-title').textContent = "New Customer";
+  document.getElementById('customer-modal').classList.add('active');
+}
 
+async function saveCustomer() {
+  const customerData = {
+    name: document.getElementById('customer-name').value.trim(),
+    phone: document.getElementById('customer-phone').value.trim(),
+    email: document.getElementById('customer-email').value.trim(),
+    address: document.getElementById('customer-address').value.trim(),
+    notes: document.getElementById('customer-notes').value.trim(),
+    createdAt: new Date().toISOString()
+  };
+  
+  try {
+    if (editingCustomerId) {
+      await updateDoc(doc(db, "customers", editingCustomerId), customerData);
+      showToast("Customer updated!");
+    } else {
+      await addDoc(customersCollection, customerData);
+      showToast("Customer added!");
+    }
+    document.getElementById('customer-modal').classList.remove('active');
+    fetchCustomers();
+  } catch (error) {
+    showToast("Failed to save customer", true);
+  }
+}
 
         // ✅ Start your app logic
         initApp(auth, db, appointmentsCollection);
@@ -1654,7 +1814,42 @@
         if (hourNum === 12) return `12:${minutes} PM`;
         return `${hourNum - 12}:${minutes} PM`;
       }
+// Add to JavaScript
+async function sendSMS(appointmentId) {
+  const app = appointments.find(a => a.id === appointmentId);
+  if (!app) return;
+  
+  const customer = customers.find(c => c.phone === app.phone);
+  if (!customer) {
+    showToast("Customer not found for SMS", true);
+    return;
+  }
+  
+  try {
+    // This would connect to your SMS service
+    const response = await fetch('https://your-sms-service.com/send', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        to: app.phone,
+        message: `Hi ${customer.name}! Your appointment is on ${app.date}`
+      })
+    });
+    
+    if (response.ok) {
+      showToast("SMS reminder sent!");
+    } else {
+      showToast("Failed to send SMS", true);
+    }
+  } catch (error) {
+    showToast("SMS service error", true);
+  }
+}
 
+// Add event listener for SMS buttons
+document.querySelectorAll('.sms-btn').forEach(btn => {
+  btn.onclick = () => sendSMS(btn.dataset.id);
+});
 
         function getBusinessDays(month, year) {
           let count = 0;
@@ -1748,6 +1943,109 @@
             );
           }
         }
+        // ✅ Update status and open part selector if needed
+        function updateAppointmentStatus(id, status) {
+  const appRef = doc(db, "appointments", id);
+  updateDoc(appRef, { status })
+    .then(() => {
+      showToast("Status updated");
+      if (status === "needs_parts") {
+        openPartsSelector(id);
+      }
+    })
+    .catch((error) => {
+      showToast("Failed to update status", true);
+      console.error(error);
+    });
+}
+
+// ✅ Placeholder for future modal
+function openPartsSelector(appointmentId) {
+  alert("Open part selector for appointment #" + appointmentId);
+  // You can replace this with a real modal later
+}
+
+        async function fetchCustomers() {
+  try {
+    const snapshot = await getDocs(customersCollection);
+    customers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    renderCustomersTable();
+  } catch (error) {
+    console.error("Error fetching customers:", error);
+    showToast("Failed to load customers", true);
+  }
+}
+// ========== PARTS MANAGEMENT ==========
+
+async function fetchParts() {
+  try {
+    const snapshot = await getDocs(partsCollection);
+    parts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    renderPartsTable();
+  } catch (error) {
+    showToast("Failed to load parts", true);
+    console.error(error);
+  }
+}
+
+function renderPartsTable() {
+  const tbody = document.getElementById('parts-body');
+  tbody.innerHTML = '';
+  
+  parts.forEach(part => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${part.name}</td>
+      <td>${part.number}</td>
+      <td>${part.equipmentType}</td>
+      <td class="${part.quantity < 5 ? 'text-danger' : ''}">
+        ${part.quantity} ${part.quantity < 5 ? '⚠️' : ''}
+      </td>
+      <td>$${part.price?.toFixed(2) || '0.00'}</td>
+      <td>${part.supplier}</td>
+      <td class="action-cell">
+        <button class="action-btn edit-btn" data-id="${part.id}">✏️</button>
+        <button class="action-btn delete-btn" data-id="${part.id}">🗑️</button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  // Optional: add event listeners for edit/delete buttons
+}
+
+function renderCustomersTable() {
+  const tbody = document.getElementById('customers-body');
+  tbody.innerHTML = '';
+
+  customers.forEach(customer => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${customer.name}</td>
+      <td>${customer.phone}</td>
+      <td>${customer.email || '-'}</td>
+      <td>${customer.favoriteEquipment || '-'}</td>
+      <td>${customer.lastAppointment || 'Never'}</td>
+      <td class="action-cell">
+        <button class="action-btn edit-btn" data-id="${customer.id}">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="action-btn delete-btn" data-id="${customer.id}">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  // Attach event listeners to each edit/delete button
+  document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => openEditCustomerModal(btn.dataset.id));
+  });
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', () => deleteCustomer(btn.dataset.id));
+  });
+}
 
         // Modal open/close functions
         const modal = document.getElementById("appointment-modal");
@@ -1857,6 +2155,11 @@
           app.id
         }" aria-label="Delete appointment"><i class="fas fa-trash"></i></button>
       </td>
+      <td class="action-cell">
+  <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment"><i class="fas fa-edit"></i></button>
+  <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment"><i class="fas fa-trash"></i></button>
+  <button class="action-btn sms-btn" data-id="${app.id}" aria-label="Send SMS"><i class="fas fa-sms"></i></button>
+</td>
     `;
     tbody.appendChild(row);
   });
