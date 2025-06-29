@@ -1029,6 +1029,10 @@
   </head>
   <body>
     <main>
+      <!-- Add this at the top of your main-content div -->
+<button id="test-tab-button" style="background: red; color: white; padding: 10px; margin: 20px;">
+  TEST BUTTON - CLICK ME
+</button>
       <div class="app-container">
         <!-- Sidebar -->
         <div class="sidebar">
@@ -1650,6 +1654,11 @@ async function saveCustomer() {
     showToast("Failed to save customer", true);
   }
 }
+// Add this at the VERY TOP of your initApp function
+document.getElementById('test-tab-button').addEventListener('click', () => {
+  alert("JavaScript is working!");
+  document.getElementById('list-view').classList.add('active');
+});
 
         // ✅ Start your app logic
         initApp(auth, db, appointmentsCollection);
