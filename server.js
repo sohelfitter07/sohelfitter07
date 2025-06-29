@@ -8,6 +8,8 @@ const port = process.env.PORT || 3001;
 const allowedOrigins = [
   "https://canadianfitnessrepair.com",
   "https://www.canadianfitnessrepair.com",
+  "http://127.0.0.1:5500",
+  "http://localhost:5500"
 ];
 
 app.use(
