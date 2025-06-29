@@ -1030,6 +1030,7 @@
   <body>
     <main>
       <div class="app-container">
+        <!-- Sidebar -->
         <div class="sidebar">
           <div class="sidebar-header">
             <h2><i class="fas fa-dumbbell"></i> Fitness Repair Tracker</h2>
@@ -1076,8 +1077,9 @@
           👤 <span id="user-name">Loading...</span>
         </div>
 
+        <!-- Main Content -->
         <div class="main-content">
-          <div style="text-align: center; padding: 20px; background: #ff5252; color: white; display: none;">
+          <div style="text-align: center; padding: 20px; background: #ff5252; color: white;">
             <button id="test-tab-button" style="font-size: 20px; padding: 15px 30px;">
               TEST BUTTON - CLICK ME
             </button>
@@ -1090,6 +1092,7 @@
             </div>
           </div>
 
+          <!-- Stats Cards -->
           <div class="stats-container">
             <div class="stat-card">
               <div class="icon"><i class="fas fa-calendar-check"></i></div>
@@ -1113,6 +1116,7 @@
             </div>
           </div>
 
+          <!-- Action Buttons -->
           <div class="action-buttons">
             <button class="btn btn-primary" id="add-appointment" aria-label="Add new appointment">
               <i class="fas fa-plus"></i> Add Appointment
@@ -1122,6 +1126,7 @@
             </button>
           </div>
 
+          <!-- Tabs -->
           <div class="tabs">
             <div class="tab active" data-tab="list">List View</div>
             <div class="tab" data-tab="calendar">Calendar View</div>
@@ -1130,6 +1135,7 @@
             <div class="tab" data-tab="reports">Reports</div>
           </div>
 
+          <!-- Tab Contents -->
           <div class="tab-content active" id="list-view">
             <div style="margin-bottom: 1rem">
               <input
@@ -1154,7 +1160,8 @@
                   </tr>
                 </thead>
                 <tbody id="appointments-body">
-                  </tbody>
+                  <!-- Populated by JS -->
+                </tbody>
               </table>
             </div>
             <div class="pagination" style="display: flex; gap: 10px; align-items: center; justify-content: center; margin-top: 15px;">
@@ -1226,13 +1233,14 @@
               </div>
             </div>
           </div>
-
+          <!-- Add this with the other tab-content divs -->
           <div class="tab-content" id="customers-view">
             <div class="action-buttons">
               <button class="btn btn-primary" id="add-customer">
                 <i class="fas fa-plus"></i> Add New Customer
               </button>
             </div>
+            
             <div class="table-responsive">
               <table class="appointments-table">
                 <thead>
@@ -1246,11 +1254,11 @@
                   </tr>
                 </thead>
                 <tbody id="customers-body">
-                  </tbody>
+                  <!-- Customers will appear here -->
+                </tbody>
               </table>
             </div>
           </div>
-
           <div class="tab-content" id="inventory-view">
             <div class="action-buttons">
               <button class="btn btn-primary" id="add-part">
@@ -1260,6 +1268,7 @@
                 <i class="fas fa-shopping-cart"></i> Order Low Stock
               </button>
             </div>
+            
             <div class="table-responsive">
               <table class="appointments-table">
                 <thead>
@@ -1274,33 +1283,53 @@
                   </tr>
                 </thead>
                 <tbody id="parts-body">
-                  </tbody>
+                  <!-- Parts will appear here -->
+                </tbody>
               </table>
             </div>
           </div>
-
           <div class="tab-content" id="settings-view">
             <div class="settings-form">
               <h2>System Settings</h2>
               <div class="form-group">
                 <label for="company-name">Company Name</label>
-                <input type="text" id="company-name" class="form-control" value="Canadian Fitness Repair" />
+                <input
+                  type="text"
+                  id="company-name"
+                  class="form-control"
+                  value="Canadian Fitness Repair"
+                />
               </div>
               <div class="form-group">
                 <label for="default-price">Default Service Price ($)</label>
-                <input type="number" id="default-price" class="form-control" value="150" min="0" step="5" />
+                <input
+                  type="number"
+                  id="default-price"
+                  class="form-control"
+                  value="150"
+                  min="0"
+                  step="5"
+                />
               </div>
               <div class="form-group">
                 <label for="business-hours">Business Hours</label>
-                <input type="text" id="business-hours" class="form-control" value="9:00 AM - 6:00 PM" />
+                <input
+                  type="text"
+                  id="business-hours"
+                  class="form-control"
+                  value="9:00 AM - 6:00 PM"
+                />
               </div>
               <div class="form-group">
-                <label for="enable-past-edits" >Allow Editing Past Appointments</label >
+                <label for="enable-past-edits"
+                  >Allow Editing Past Appointments</label
+                >
                 <select id="enable-past-edits" class="form-control">
                   <option value="true" selected>Yes</option>
                   <option value="false">No</option>
                 </select>
               </div>
+              <!-- Add to settings form -->
               <div class="form-group">
                 <label for="sms-enabled">Enable SMS Reminders</label>
                 <select id="sms-enabled" class="form-control">
@@ -1308,6 +1337,7 @@
                   <option value="false">No</option>
                 </select>
               </div>
+
               <div class="form-group">
                 <label for="sms-time">Reminder Time</label>
                 <select id="sms-time" class="form-control">
@@ -1317,13 +1347,18 @@
                   <option value="same">Same day</option>
                 </select>
               </div>
+
               <div class="form-group">
                 <label for="sms-message">Custom Message</label>
-                <textarea id="sms-message" class="form-control" rows="2"> Hi {name}! Reminder: Your fitness repair is scheduled for {date} at {time}. </textarea>
+                <textarea id="sms-message" class="form-control" rows="2">
+              Hi {name}! Reminder: Your fitness repair is scheduled for {date} at {time}.
+                </textarea>
               </div>
               <div class="form-actions">
                 <button class="btn" id="reset-settings">Reset Defaults</button>
-                <button class="btn btn-primary" id="save-settings"> Save Settings </button>
+                <button class="btn btn-primary" id="save-settings">
+                  Save Settings
+                </button>
               </div>
             </div>
           </div>
@@ -1351,7 +1386,14 @@
         </div>
       </div>
 
-      <div class="modal" id="appointment-modal" tabindex="-1" role="dialog" aria-hidden="true" >
+      <!-- Add/Edit Appointment Modal -->
+      <div
+        class="modal"
+        id="appointment-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-hidden="true"
+      >
         <div class="modal-content">
           <div class="modal-header">
             <h3 id="modal-title">Add New Appointment</h3>
@@ -1362,47 +1404,96 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="customer-name">Customer Name</label>
-                  <input type="text" id="customer-name" class="form-control" required />
+                  <input
+                    type="text"
+                    id="customer-name"
+                    class="form-control"
+                    required
+                  />
                 </div>
                 <div class="form-group">
                   <label for="customer-phone">Phone Number</label>
-                  <input type="tel" id="customer-phone" class="form-control" required />
+                  <input
+                    type="tel"
+                    id="customer-phone"
+                    class="form-control"
+                    required
+                  />
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="appointment-date">Date</label>
-                  <input type="date" id="appointment-date" class="form-control" required />
+                  <input
+                    type="date"
+                    id="appointment-date"
+                    class="form-control"
+                    required
+                  />
                 </div>
                 <div class="form-group">
                   <label for="appointment-time">Time</label>
-                  <input type="time" id="appointment-time" class="form-control" required />
+                  <input
+                    type="time"
+                    id="appointment-time"
+                    class="form-control"
+                    required
+                  />
                 </div>
               </div>
               <div class="form-group">
                 <label for="equipment">Equipment</label>
-                <input type="text" id="equipment" class="form-control" required />
+                <input
+                  type="text"
+                  id="equipment"
+                  class="form-control"
+                  required
+                />
               </div>
               <div class="form-group">
                 <label for="appointment-price">Price ($)</label>
-                <input type="number" id="appointment-price" class="form-control" min="0" step="5" value="150" required />
+                <input
+                  type="number"
+                  id="appointment-price"
+                  class="form-control"
+                  min="0"
+                  step="5"
+                  value="150"
+                  required
+                />
               </div>
               <div class="form-group">
                 <label for="issue-description">Issue Description</label>
-                <textarea id="issue-description" class="form-control" rows="3" required ></textarea>
+                <textarea
+                  id="issue-description"
+                  class="form-control"
+                  rows="3"
+                  required
+                ></textarea>
               </div>
               <div class="form-group">
                 <label for="repair-notes">Repair Notes</label>
-                <textarea id="repair-notes" class="form-control" rows="3" placeholder="What was done to fix the issue?" ></textarea>
+                <textarea
+                  id="repair-notes"
+                  class="form-control"
+                  rows="3"
+                  placeholder="What was done to fix the issue?"
+                ></textarea>
               </div>
               <div class="form-group">
                 <label for="appointment-status">Status</label>
                 <select id="appointment-status" class="form-control" required>
-                  <option value="scheduled"> 🗓️ Scheduled for Initial Diagnosis/Repair </option>
+                  <option value="scheduled">
+                    🗓️ Scheduled for Initial Diagnosis/Repair
+                  </option>
                   <option value="needs_parts">🔍 Needs Parts Ordered</option>
-                  <option value="parts_ordered"> 📦 Parts Ordered / Waiting on Parts </option>
+                  <option value="parts_ordered">
+                    📦 Parts Ordered / Waiting on Parts
+                  </option>
                   <option value="parts_arrived">📬 Parts Arrived</option>
-                  <option value="second_appointment"> 📅 Second Appointment Booked </option>
+                  <option value="second_appointment">
+                    📅 Second Appointment Booked
+                  </option>
                   <option value="repair_completed">✔️ Repair Completed</option>
                 </select>
               </div>
@@ -1410,59 +1501,79 @@
           </div>
           <div class="form-actions">
             <button class="btn" id="cancel-appointment" aria-label="Cancel appointment">Cancel</button>
-            <button class="btn btn-primary" id="save-appointment" aria-label="Save appointment"> Save Appointment </button>
+            <button class="btn btn-primary" id="save-appointment" aria-label="Save appointment">
+              Save Appointment
+            </button>
           </div>
         </div>
       </div>
-
-      <div class="modal" id="customer-modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 id="customer-modal-title">New Customer</h3>
-            <button class="close-modal">&times;</button>
+      <!-- Add this near the appointment modal -->
+<div class="modal" id="customer-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="customer-modal-title">New Customer</h3>
+      <button class="close-modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="customer-form">
+        <div class="form-group">
+          <label for="customer-name">Full Name</label>
+          <input type="text" id="customer-name" class="form-control" required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="customer-phone">Phone</label>
+            <input type="tel" id="customer-phone" class="form-control" required>
           </div>
-          <div class="modal-body">
-            <form id="customer-form">
-              <div class="form-group">
-                <label for="customer-name">Full Name</label>
-                <input type="text" id="customer-name" class="form-control" required>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="customer-phone">Phone</label>
-                  <input type="tel" id="customer-phone" class="form-control" required>
-                </div>
-                <div class="form-group">
-                  <label for="customer-email">Email</label>
-                  <input type="email" id="customer-email" class="form-control">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="customer-address">Address</label>
-                <textarea id="customer-address" class="form-control" rows="2"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="customer-notes">Special Notes</label>
-                <textarea id="customer-notes" class="form-control" rows="3" placeholder="Allergies, preferences, etc."></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="form-actions">
-            <button class="btn" id="cancel-customer">Cancel</button>
-            <button class="btn btn-primary" id="save-customer">Save Customer</button>
+          <div class="form-group">
+            <label for="customer-email">Email</label>
+            <input type="email" id="customer-email" class="form-control">
           </div>
         </div>
-      </div>
+        
+        <div class="form-group">
+          <label for="customer-address">Address</label>
+          <textarea id="customer-address" class="form-control" rows="2"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="customer-notes">Special Notes</label>
+          <textarea id="customer-notes" class="form-control" rows="3" 
+            placeholder="Allergies, preferences, etc."></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="form-actions">
+      <button class="btn" id="cancel-customer">Cancel</button>
+      <button class="btn btn-primary" id="save-customer">Save Customer</button>
+    </div>
+  </div>
+</div>
     </main>
+
     <footer>
       <p>© 2023 Canadian Fitness Repair. All rights reserved.</p>
     </footer>
-
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-      import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, Timestamp, } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-      import { getAuth, onAuthStateChanged, signOut, } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        addDoc,
+        updateDoc,
+        deleteDoc,
+        doc,
+        onSnapshot,
+        Timestamp,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    
       // 🔐 Fetch Firebase config from your backend
       async function getFirebaseConfig() {
         try {
@@ -1476,51 +1587,42 @@
           return null;
         }
       }
-
+    
       // 🚀 Async IIFE to initialize Firebase and launch the app
       (async () => {
         const firebaseConfig = await getFirebaseConfig();
         if (!firebaseConfig) {
-          console.error("Firebase config not loaded. Exiting app initialization.");
-          alert("App configuration failed to load. Please try again later.");
+          alert("App configuration failed to load.");
           return;
         }
-        try {
-          const app = initializeApp(firebaseConfig);
-          const db = getFirestore(app);
-          const auth = getAuth(app);
-          const appointmentsCollection = collection(db, "appointments");
-          const customersCollection = collection(db, "customers");
-          const partsCollection = collection(db, "parts");
-
-          // ✅ Start your app logic
-          initApp(auth, db, appointmentsCollection, customersCollection, partsCollection);
-        } catch (e) {
-          console.error("Firebase initialization failed:", e);
-          alert("Failed to initialize Firebase services. Check console for details.");
-        }
+    
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const appointmentsCollection = collection(db, "appointments");
+        const customersCollection = collection(db, "customers");
+        const partsCollection = collection(db, "parts");
+    
+        // ✅ Start your app logic
+        initApp(auth, db, appointmentsCollection, customersCollection, partsCollection);
       })();
-
+    
       function logAction(action, user = "guest") {
         fetch("https://cfr-backend-1.onrender.com/api/log", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ action, user }),
         }).catch((err) => {
           console.error("Logging failed:", err);
         });
       }
-
+    
       // 🧼 Cleans potentially harmful input
       function cleanInput(input) {
-        if (typeof input !== 'string') return input; // Ensure it's a string
         return input.replace(/<[^>]*>/g, '').trim();
       }
-
+    
       function initApp(auth, db, appointmentsCollection, customersCollection, partsCollection) {
-        console.log("initApp: Application initialized.");
         // ================ GLOBAL STATE ================
         let appointments = [];
         let customers = [];
@@ -1538,7 +1640,7 @@
         let sessionTimer;
         let logoutWarningTimer;
         let countdownInterval;
-
+    
         // 🔧 FIXED: Status map for appointments
         const statusMap = {
           scheduled: { text: "Scheduled", class: "status-scheduled" },
@@ -1550,1110 +1652,960 @@
           parts_ordered: { text: "Parts Ordered", class: "status-inprogress" },
           repair_completed: { text: "Completed", class: "status-released" }
         };
-
+    
         // ================ UTILITY FUNCTIONS ================
         // 🔧 FIXED: Add missing formatTimestamp function
         function formatTimestamp(dateString) {
           if (!dateString) return "N/A";
+          
           try {
             // Handle both string formats and Timestamp objects
-            const dateObj = typeof dateString === 'string' ? new Date(dateString) : dateString.toDate();
-            return dateObj.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+            const dateObj = typeof dateString === 'string' 
+              ? new Date(dateString) 
+              : dateString.toDate();
+            
+            return dateObj.toLocaleString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit'
+            });
           } catch (e) {
             console.error("Date format error:", e);
             return "Invalid Date";
           }
         }
-
+    
         // 🔧 FIXED: Add missing convertTo24Hour function
         function convertTo24Hour(time12h) {
           if (!time12h) return "12:00";
           const [time, modifier] = time12h.split(' ');
           let [hours, minutes] = time.split(':');
+          
           if (hours === '12') hours = '00';
           if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
+          
           return `${hours}:${minutes}`;
         }
-
+    
         function formatTimeForDisplay(time24) {
           if (!time24) return "";
           const [hours, minutes] = time24.split(':');
           const hourNum = parseInt(hours, 10);
-          let formattedTime;
-
-          if (hourNum === 0) {
-              formattedTime = `12:${minutes} AM`;
-          } else if (hourNum === 12) {
-              formattedTime = `12:${minutes} PM`;
-          } else if (hourNum < 12) {
-              formattedTime = `${hourNum}:${minutes} AM`;
-          } else {
-              formattedTime = `${hourNum - 12}:${minutes} PM`;
-          }
-          return formattedTime;
+          if (hourNum === 0) return `12:${minutes} AM`;
+          if (hourNum < 12) return `${hourNum}:${minutes} AM`;
+          if (hourNum === 12) return `12:${minutes} PM`;
+          return `${hourNum - 12}:${minutes} PM`;
         }
-
+    
+        function getBusinessDays(month, year) {
+          let count = 0;
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+          for (let day = 1; day <= daysInMonth; day++) {
+            const d = new Date(year, month, day);
+            if (d.getDay() !== 0 && d.getDay() !== 6) count++;
+          }
+          return count;
+        }
+    
+        function formatMonthYear(month, year) {
+          return new Date(year, month).toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          });
+        }
+    
         // ================ VIEW MANAGEMENT ================
-        function activateView(viewId) {
-          console.log(`activateView: Attempting to activate view: ${viewId}`);
-          try {
-            // Deactivate all main tabs
-            document.querySelectorAll('.tab').forEach(tab => {
-              tab.classList.remove('active');
-            });
-
-            // Deactivate all tab contents
-            document.querySelectorAll('.tab-content').forEach(content => {
-              content.classList.remove('active');
-            });
-
-            // Deactivate all sidebar nav links
-            document.querySelectorAll('.nav-links li a').forEach(link => {
-                link.classList.remove('active');
-            });
-
-            // Activate the selected main tab
-            const selectedTab = document.querySelector(`.tab[data-tab="${viewId}"]`);
-            if (selectedTab) {
-              selectedTab.classList.add('active');
-              console.log(`activateView: Main tab '${viewId}' set to active.`);
-            } else {
-              console.warn(`activateView: Main tab element with data-tab="${viewId}" not found.`);
-            }
-
-            // Activate the corresponding tab content
-            const selectedContent = document.getElementById(`${viewId}-view`);
-            if (selectedContent) {
-              selectedContent.classList.add('active');
-              console.log(`activateView: Tab content '${viewId}-view' set to active.`);
-            } else {
-              console.warn(`activateView: Tab content element with id="${viewId}-view" not found.`);
-            }
-
-            // Activate the corresponding sidebar nav link
-            const selectedNavLink = document.querySelector(`.nav-links li a[data-view="${viewId}"]`);
-            if (selectedNavLink) {
-                selectedNavLink.classList.add('active');
-                console.log(`activateView: Sidebar nav link for view '${viewId}' set to active.`);
-            } else {
-                console.warn(`activateView: Sidebar nav link element with data-view="${viewId}" not found.`);
-            }
-
-            // Specific logic for certain views (e.g., hiding/showing buttons)
-            const addAppointmentBtn = document.getElementById('add-appointment');
-            if (addAppointmentBtn) {
-                if (viewId === 'list' || viewId === 'calendar') {
-                    addAppointmentBtn.style.display = 'inline-flex';
-                    console.log(`activateView: Add Appointment button shown for view: ${viewId}`);
-                } else {
-                    addAppointmentBtn.style.display = 'none';
-                    console.log(`activateView: Add Appointment button hidden for view: ${viewId}`);
-                }
-            }
-
-            if (viewId === 'calendar') {
-              renderCalendar();
-            }
-            if (viewId === 'stats') {
-              renderStatsChart();
-            }
-            if (viewId === 'reports') {
-                renderReportsTable();
-            }
-          } catch (e) {
-            console.error(`activateView: An error occurred while activating view '${viewId}':`, e);
+        // FIXED: Unified view activation system
+        function activateView(viewName) {
+          // Update sidebar active state
+          document.querySelectorAll('.nav-links a').forEach(link => {
+            link.classList.toggle('active', link.dataset.view === viewName);
+          });
+          
+          // Update top tabs
+          document.querySelectorAll('.tab').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.tab === viewName);
+          });
+          
+          // Show the actual content view
+          showView(viewName);
+        }
+    
+        function showView(viewName) {
+          // Hide all views
+          document.querySelectorAll('.tab-content').forEach(view => {
+            view.classList.remove('active');
+          });
+          
+          // Show requested view
+          const viewElement = document.getElementById(`${viewName}-view`);
+          if (viewElement) viewElement.classList.add('active');
+    
+          // Execute view-specific initialization
+          if (viewName === "stats") {
+            initChart();
+          } else if (viewName === "calendar") {
+            renderCalendar();
+          } else if (viewName === "customers") {
+            fetchCustomers();
+          } else if (viewName === "reports") {
+            // Initialize reports if needed
+          } else if (viewName === "settings") {
+            // Initialize settings if needed
           }
         }
-
-
-        // ================ EVENT LISTENERS ================
-        function setupEventListeners() {
-          console.log("setupEventListeners: Setting up event listeners.");
-          try {
-            // Main tab click listeners
-            document.querySelectorAll('.tabs .tab').forEach(tab => {
-              console.log(`setupEventListeners: Attaching click listener to tab: ${tab.dataset.tab}`);
-              tab.addEventListener('click', () => {
-                console.log(`Tab clicked: ${tab.dataset.tab}`);
-                activateView(tab.dataset.tab);
+    
+        // ================ AUTHENTICATION HANDLING ================
+        onAuthStateChanged(auth, (user) => {
+          if (!user) {
+            window.location.href = "admin-login.html";
+          } else {
+            // ✅ Show logged-in user's email
+            document.getElementById("user-name").textContent = user.email;
+            // ✅ Log when dashboard is opened
+            logAction("Dashboard loaded", user.email);
+            fetchAppointments();
+            startSessionTimer(auth);
+          }
+        });
+    
+        // Logout function
+        function logout() {
+          if (
+            confirm(
+              "Are you sure you want to logout? All unsaved changes will be lost."
+            )
+          ) {
+            signOut(auth)
+              .then(() => {
+                logAction(
+                  "User logged out",
+                  auth.currentUser?.email || "guest"
+                );
+                window.location.href = "admin-login.html";
+              })
+              .catch((error) => {
+                console.error("Logout error:", error);
+                showToast("Logout failed", true);
               });
-            });
-
-            // Sidebar navigation click listeners
-            document.querySelectorAll('.nav-links li a').forEach(link => {
-              console.log(`setupEventListeners: Attaching click listener to nav link: ${link.dataset.view}`);
-              link.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent default link behavior
-                console.log(`Nav link clicked: ${link.dataset.view}`);
-                const view = link.dataset.view;
-                if (view) {
-                  activateView(view);
-                }
-              });
-            });
-
-            // Add Appointment Button
-            const addAppointmentBtn = document.getElementById('add-appointment');
-            if (addAppointmentBtn) {
-                addAppointmentBtn.addEventListener('click', openAppointmentModal);
-                console.log("setupEventListeners: Add Appointment button listener attached.");
-            }
-
-            // Modal close buttons
-            document.querySelectorAll('.close-modal').forEach(button => {
-              button.addEventListener('click', closeModals);
-            });
-            document.getElementById('cancel-appointment')?.addEventListener('click', closeModals);
-            document.getElementById('cancel-customer')?.addEventListener('click', closeModals);
-            console.log("setupEventListeners: Modal close listeners attached.");
-
-            // Form submissions
-            document.getElementById('appointment-form')?.addEventListener('submit', handleAppointmentFormSubmit);
-            document.getElementById('customer-form')?.addEventListener('submit', handleCustomerFormSubmit);
-            console.log("setupEventListeners: Form submit listeners attached.");
-
-            // Settings form save
-            document.getElementById('save-settings')?.addEventListener('click', saveSettings);
-            document.getElementById('reset-settings')?.addEventListener('click', resetSettings);
-            console.log("setupEventListeners: Settings button listeners attached.");
-
-            // Search input
-            const searchInput = document.getElementById('search-appointments');
-            if (searchInput) {
-              searchInput.addEventListener('input', () => {
-                currentPage = 1; // Reset to first page on search
-                renderAppointmentsTable();
-              });
-              console.log("setupEventListeners: Search input listener attached.");
-            }
-
-            // Pagination for list view
-            document.getElementById('prev-page')?.addEventListener('click', () => {
-              if (currentPage > 1) {
-                currentPage--;
-                renderAppointmentsTable();
-              }
-            });
-
-            document.getElementById('next-page')?.addEventListener('click', () => {
-              const totalPages = Math.ceil(appointments.length / appointmentsPerPage);
-              if (currentPage < totalPages) {
-                currentPage++;
-                renderAppointmentsTable();
-              }
-            });
-            console.log("setupEventListeners: Pagination listeners attached.");
-
-            // Calendar navigation
-            document.getElementById('prev-month')?.addEventListener('click', () => {
-                currentMonth--;
-                if (currentMonth < 0) {
-                    currentMonth = 11;
-                    currentYear--;
-                }
-                renderCalendar();
-            });
-
-            document.getElementById('next-month')?.addEventListener('click', () => {
-                currentMonth++;
-                if (currentMonth > 11) {
-                    currentMonth = 0;
-                    currentYear++;
-                }
-                renderCalendar();
-            });
-            console.log("setupEventListeners: Calendar navigation listeners attached.");
-          } catch (e) {
-            console.error("setupEventListeners: An error occurred during event listener setup:", e);
           }
         }
-
-        // ================ FIREBASE DATA HANDLING ================
-        // --- Appointments ---
+    
+        // ================ SESSION MANAGEMENT ================
+        function startSessionTimer(auth) {
+          resetSessionTimer(auth);
+    
+          // Reset timer on user activity
+          ["mousemove", "keypress", "click", "scroll"].forEach((evt) => {
+            document.addEventListener(evt, () => resetSessionTimer(auth));
+          });
+        }
+    
+        function resetSessionTimer(auth) {
+          clearTimeout(sessionTimer);
+          clearTimeout(logoutWarningTimer);
+          clearInterval(countdownInterval);
+          removeLogoutWarning();
+          sessionTimer = setTimeout(() => {
+            signOut(auth).then(() => {
+              logAction(
+                "Session auto-logout due to inactivity",
+                auth.currentUser?.email || "guest"
+              );
+              showToast("Session expired due to inactivity");
+              window.location.href = "admin-login.html";
+            });
+          }, 30 * 60 * 1000); // 30 minutes
+        }
+    
+        function showLogoutWarning(auth) {
+          let countdown = 60;
+          const warningDiv = document.createElement("div");
+          warningDiv.className = "logout-warning";
+          warningDiv.innerHTML = `
+            <div class="toast warning">
+              ⚠️ You will be logged out in <span id="logout-countdown">${countdown}</span> seconds due to inactivity.
+            </div>
+          `;
+          document.body.appendChild(warningDiv);
+    
+          countdownInterval = setInterval(() => {
+            countdown--;
+            document.getElementById("logout-countdown").textContent = countdown;
+            if (countdown <= 0) {
+              clearInterval(countdownInterval);
+              autoSaveIfEditing();
+              signOut(auth).then(() => {
+                window.location.href = "admin-login.html";
+              });
+            }
+          }, 1000);
+        }
+    
+        function removeLogoutWarning() {
+          const warning = document.querySelector(".logout-warning");
+          if (warning) warning.remove();
+        }
+    
+        function autoSaveIfEditing() {
+          // Implementation remains the same
+        }
+    
+        // ================ TOAST NOTIFICATIONS ================
+        function showToast(message, isError = false) {
+          const toast = document.createElement("div");
+          toast.className = `toast ${isError ? "error" : ""}`;
+          toast.textContent = message;
+          document.body.appendChild(toast);
+    
+          setTimeout(() => toast.classList.add("show"), 100);
+          setTimeout(() => {
+            toast.classList.remove("show");
+            setTimeout(() => toast.remove(), 300);
+          }, 3000);
+        }
+    
+        // ================ DATA MANAGEMENT ================
+        // Fetch appointments from Firestore
         async function fetchAppointments() {
-          console.log("fetchAppointments: Fetching appointments...");
           try {
-            onSnapshot(appointmentsCollection, (snapshot) => {
-              appointments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-              appointments.sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time));
-              console.log("fetchAppointments: Appointments updated, re-rendering tables/charts.");
-              renderAppointmentsTable();
-              renderCalendar();
-              renderStatsChart();
-              updateStatCards();
-              renderReportsTable();
-            }, (error) => {
-                console.error("fetchAppointments: Error listening to appointments:", error);
-                alert("Failed to load appointments in real-time.");
-            });
-          } catch (e) {
-            console.error("fetchAppointments: Error setting up snapshot listener: ", e);
-            alert("Failed to load appointments.");
+            const snapshot = await getDocs(appointmentsCollection);
+            appointments = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+            renderAppointmentsTable();
+            updateStats();
+            renderCalendar();
+            updateCalendarSummary();
+            updatePerformanceMetrics();
+            initChart();
+          } catch (error) {
+            console.error("Error fetching appointments:", error);
+            showToast("Failed to fetch appointments", true);
           }
         }
-
-        async function addAppointment(appointment) {
+    
+        // Fetch customers from Firestore
+        async function fetchCustomers() {
           try {
-            await addDoc(appointmentsCollection, appointment);
-            logAction("add_appointment");
-            console.log("addAppointment: Appointment added successfully.");
-            return true;
-          } catch (e) {
-            console.error("Error adding document: ", e);
-            alert("Failed to add appointment.");
-            return false;
+            const snapshot = await getDocs(customersCollection);
+            customers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            renderCustomersTable();
+          } catch (error) {
+            console.error("Error fetching customers:", error);
+            showToast("Failed to load customers", true);
           }
         }
-
-        async function updateAppointment(id, updates) {
+    
+        // Fetch parts from Firestore
+        async function fetchParts() {
           try {
-            const docRef = doc(db, "appointments", id);
-            await updateDoc(docRef, updates);
-            logAction("update_appointment");
-            console.log(`updateAppointment: Appointment ${id} updated successfully.`);
-            return true;
-          } catch (e) {
-            console.error("Error updating document: ", e);
-            alert("Failed to update appointment.");
-            return false;
+            const snapshot = await getDocs(partsCollection);
+            parts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            renderPartsTable();
+          } catch (error) {
+            showToast("Failed to load parts", true);
+            console.error(error);
           }
         }
-
+    
+        // Save (add or update) appointment in Firestore
+        async function saveAppointment(data) {
+          try {
+            if (editingAppointmentId) {
+              const docRef = doc(db, "appointments", editingAppointmentId);
+              await updateDoc(docRef, data);
+              showToast("Appointment updated successfully");
+              logAction("Appointment updated", auth.currentUser?.email || "guest");
+            } else {
+              await addDoc(appointmentsCollection, data);
+              showToast("Appointment added successfully");
+              logAction("Appointment added", auth.currentUser?.email || "guest");
+            }
+            editingAppointmentId = null;
+            await fetchAppointments();
+          } catch (error) {
+            console.error("Error saving appointment:", error);
+            showToast("Failed to save appointment", true);
+            logAction("Appointment save failed", auth.currentUser?.email || "guest");
+          }
+        }
+    
+        // Delete appointment from Firestore
         async function deleteAppointment(id) {
-          if (!confirm("Are you sure you want to delete this appointment?")) return;
           try {
             await deleteDoc(doc(db, "appointments", id));
-            logAction("delete_appointment");
-            alert("Appointment deleted successfully!");
-            console.log(`deleteAppointment: Appointment ${id} deleted.`);
-          } catch (e) {
-            console.error("Error deleting document: ", e);
-            alert("Failed to delete appointment.");
+            showToast("Appointment deleted successfully");
+            logAction("Appointment deleted", auth.currentUser?.email || "guest");
+            await fetchAppointments();
+          } catch (error) {
+            console.error("Error deleting appointment:", error);
+            showToast("Failed to delete appointment", true);
+            logAction("Appointment delete failed", auth.currentUser?.email || "guest");
           }
         }
-
-        // --- Customers ---
-        async function fetchCustomers() {
-          console.log("fetchCustomers: Fetching customers...");
+    
+        // Save customer to Firestore
+        async function saveCustomer() {
+          const customerData = {
+            name: document.getElementById('customer-name').value.trim(),
+            phone: document.getElementById('customer-phone').value.trim(),
+            email: document.getElementById('customer-email').value.trim(),
+            address: document.getElementById('customer-address').value.trim(),
+            notes: document.getElementById('customer-notes').value.trim(),
+            createdAt: new Date().toISOString()
+          };
+          
           try {
-            onSnapshot(customersCollection, (snapshot) => {
-              customers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-              console.log("fetchCustomers: Customers updated, re-rendering customer table.");
-              renderCustomersTable();
-            }, (error) => {
-                console.error("fetchCustomers: Error listening to customers:", error);
-            });
-          } catch (e) {
-            console.error("fetchCustomers: Error setting up snapshot listener: ", e);
+            if (editingCustomerId) {
+              await updateDoc(doc(db, "customers", editingCustomerId), customerData);
+              showToast("Customer updated!");
+            } else {
+              await addDoc(customersCollection, customerData);
+              showToast("Customer added!");
+            }
+            document.getElementById('customer-modal').classList.remove('active');
+            fetchCustomers();
+          } catch (error) {
+            showToast("Failed to save customer", true);
           }
         }
-
-        async function addCustomer(customer) {
-            try {
-                await addDoc(customersCollection, customer);
-                logAction("add_customer");
-                console.log("addCustomer: Customer added successfully.");
-                return true;
-            } catch (e) {
-                console.error("Error adding customer:", e);
-                alert("Failed to add customer.");
-                return false;
-            }
-        }
-
-        async function updateCustomer(id, updates) {
-            try {
-                const docRef = doc(db, "customers", id);
-                await updateDoc(docRef, updates);
-                logAction("update_customer");
-                console.log(`updateCustomer: Customer ${id} updated successfully.`);
-                return true;
-            } catch (e) {
-                console.error("Error updating customer:", e);
-                alert("Failed to update customer.");
-                return false;
-            }
-        }
-
-        async function deleteCustomer(id) {
-            if (!confirm("Are you sure you want to delete this customer?")) return;
-            try {
-                await deleteDoc(doc(db, "customers", id));
-                logAction("delete_customer");
-                alert("Customer deleted successfully!");
-                console.log(`deleteCustomer: Customer ${id} deleted.`);
-            } catch (e) {
-                console.error("Error deleting customer:", e);
-                alert("Failed to delete customer.");
-            }
-        }
-
-        // --- Parts (Inventory) ---
-        async function fetchParts() {
-            console.log("fetchParts: Fetching parts...");
-            try {
-                onSnapshot(partsCollection, (snapshot) => {
-                    parts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                    console.log("fetchParts: Parts updated, re-rendering parts table.");
-                    renderPartsTable();
-                }, (error) => {
-                    console.error("fetchParts: Error listening to parts:", error);
-                });
-            } catch (e) {
-                console.error("fetchParts: Error setting up snapshot listener: ", e);
-            }
-        }
-
-        async function addPart(part) {
-            try {
-                await addDoc(partsCollection, part);
-                logAction("add_part");
-                console.log("addPart: Part added successfully.");
-                return true;
-            } catch (e) {
-                console.error("Error adding part:", e);
-                alert("Failed to add part.");
-                return false;
-            }
-        }
-
-        async function updatePart(id, updates) {
-            try {
-                const docRef = doc(db, "parts", id);
-                await updateDoc(docRef, updates);
-                logAction("update_part");
-                console.log(`updatePart: Part ${id} updated successfully.`);
-                return true;
-            } catch (e) {
-                console.error("Error updating part:", e);
-                alert("Failed to update part.");
-                return false;
-            }
-        }
-
-        async function deletePart(id) {
-            if (!confirm("Are you sure you want to delete this part?")) return;
-            try {
-                await deleteDoc(doc(db, "parts", id));
-                logAction("delete_part");
-                alert("Part deleted successfully!");
-                console.log(`deletePart: Part ${id} deleted.`);
-            } catch (e) {
-                console.error("Error deleting part:", e);
-                alert("Failed to delete part.");
-            }
-        }
-
-
+    
         // ================ RENDERING FUNCTIONS ================
-        function renderAppointmentsTable() {
-          const tbody = document.getElementById('appointments-body');
-          if (!tbody) {
-            console.warn("renderAppointmentsTable: #appointments-body not found.");
-            return;
-          }
-
-          const searchQuery = document.getElementById('search-appointments')?.value.toLowerCase() || '';
-          const filteredAppointments = appointments.filter(appt =>
-            appt.customerName?.toLowerCase().includes(searchQuery) ||
-            appt.customerPhone?.includes(searchQuery)
-          );
-
-          const startIndex = (currentPage - 1) * appointmentsPerPage;
-          const endIndex = startIndex + appointmentsPerPage;
-          const paginatedAppointments = filteredAppointments.slice(startIndex, endIndex);
-
-          tbody.innerHTML = '';
-          if (paginatedAppointments.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 20px;">No appointments found.</td></tr>`;
-            document.getElementById('page-indicator').textContent = 'Page 0';
-            return;
-          }
-
-          paginatedAppointments.forEach(appt => {
-            const statusInfo = statusMap[appt.status] || { text: "Unknown", class: "status-draft" };
-            const row = tbody.insertRow();
+        // Render appointments table
+        function renderAppointmentsTable(list = appointments) {
+          const tbody = document.getElementById("appointments-body");
+          tbody.innerHTML = "";
+    
+          const start = (currentPage - 1) * appointmentsPerPage;
+          const pageApps = list.slice(start, start + appointmentsPerPage);
+    
+          pageApps.forEach((app) => {
+            const statusInfo = statusMap[app.status] || {
+              text: app.status || "",
+              class: "",
+            };
+            const row = document.createElement("tr");
             row.innerHTML = `
-              <td>${cleanInput(appt.id?.substring(0, 5) || 'N/A')}...</td>
-              <td>${cleanInput(appt.customerName)}<br><small>${cleanInput(appt.customerPhone)}</small></td>
-              <td>${cleanInput(appt.equipment)}</td>
-              <td>${formatTimestamp(appt.date)} ${formatTimeForDisplay(appt.time)}</td>
+              <td>#${app.id}</td>
+              <td>${app.customer}</td>
+              <td>${app.equipment || ""}</td>
+              <td>${formatTimestamp(app.date)}</td>
               <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
-              <td>$${appt.price ? appt.price.toFixed(2) : '0.00'}</td>
+              <td>$${app.price || 0}</td>
               <td class="action-cell">
-                <button class="action-btn edit-btn" data-id="${appt.id}" data-type="appointment">
-                  <i class="fas fa-edit"></i> Edit
+                <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment"><i class="fas fa-edit"></i></button>
+                <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment"><i class="fas fa-trash"></i></button>
+                <button class="action-btn sms-btn" data-id="${app.id}" aria-label="Send SMS"><i class="fas fa-sms"></i></button>
+              </td>
+            `;
+            tbody.appendChild(row);
+          });
+    
+          // Add click listeners to buttons
+          tbody.querySelectorAll(".edit-btn").forEach((btn) => {
+            btn.onclick = () => {
+              openEditModal(btn.dataset.id);
+            };
+          });
+    
+          tbody.querySelectorAll(".delete-btn").forEach((btn) => {
+            btn.onclick = () => {
+              if (confirm("Are you sure you want to delete this appointment?")) {
+                deleteAppointment(btn.dataset.id);
+              }
+            };
+          });
+    
+          // Update page indicator
+          const totalPages = Math.ceil(list.length / appointmentsPerPage);
+          document.getElementById("page-indicator").textContent = `Page ${currentPage} of ${totalPages}`;
+    
+          // Enable/disable pagination buttons
+          document.getElementById("prev-page").disabled = currentPage === 1;
+          document.getElementById("next-page").disabled = currentPage >= totalPages;
+        }
+    
+        // Render customers table
+        function renderCustomersTable() {
+          const tbody = document.getElementById('customers-body');
+          tbody.innerHTML = '';
+    
+          customers.forEach(customer => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${customer.name}</td>
+              <td>${customer.phone}</td>
+              <td>${customer.email || '-'}</td>
+              <td>${customer.favoriteEquipment || '-'}</td>
+              <td>${customer.lastAppointment || 'Never'}</td>
+              <td class="action-cell">
+                <button class="action-btn edit-btn" data-id="${customer.id}">
+                  <i class="fas fa-edit"></i>
                 </button>
-                <button class="action-btn delete-btn" data-id="${appt.id}" data-type="appointment">
-                  <i class="fas fa-trash-alt"></i> Delete
+                <button class="action-btn delete-btn" data-id="${customer.id}">
+                  <i class="fas fa-trash"></i>
                 </button>
               </td>
             `;
+            tbody.appendChild(row);
           });
-          document.getElementById('page-indicator').textContent = `Page ${currentPage} of ${Math.ceil(filteredAppointments.length / appointmentsPerPage)}`;
-          addTableActionListeners();
+    
+          // Attach event listeners to each edit/delete button
+          document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', () => openEditCustomerModal(btn.dataset.id));
+          });
+          document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', () => deleteCustomer(btn.dataset.id));
+          });
         }
-
-        function renderCalendar() {
-          const calendarDaysContainer = document.getElementById('calendar-days');
-          const currentMonthYearHeader = document.getElementById('current-month-year');
-          if (!calendarDaysContainer || !currentMonthYearHeader) {
-            console.warn("renderCalendar: Calendar elements not found.");
-            return;
-          }
-
-          const date = new Date(currentYear, currentMonth, 1);
-          currentMonthYearHeader.textContent = date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
-
-          calendarDaysContainer.innerHTML = '';
-          const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-          dayNames.forEach(day => {
-            calendarDaysContainer.innerHTML += `<div class="calendar-day-header">${day}</div>`;
+    
+        // Render parts table
+        function renderPartsTable() {
+          const tbody = document.getElementById('parts-body');
+          tbody.innerHTML = '';
+          
+          parts.forEach(part => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${part.name}</td>
+              <td>${part.number}</td>
+              <td>${part.equipmentType}</td>
+              <td class="${part.quantity < 5 ? 'text-danger' : ''}">
+                ${part.quantity} ${part.quantity < 5 ? '⚠️' : ''}
+              </td>
+              <td>$${part.price?.toFixed(2) || '0.00'}</td>
+              <td>${part.supplier}</td>
+              <td class="action-cell">
+                <button class="action-btn edit-btn" data-id="${part.id}">✏️</button>
+                <button class="action-btn delete-btn" data-id="${part.id}">🗑️</button>
+              </td>
+            `;
+            tbody.appendChild(row);
           });
-
-          const firstDayIndex = date.getDay();
-          for (let i = 0; i < firstDayIndex; i++) {
-            calendarDaysContainer.innerHTML += `<div class="calendar-day empty"></div>`;
+        }
+    
+        // Stats update
+        function updateStats() {
+          document.getElementById("total-appointments").textContent =
+            appointments.length;
+          document.getElementById("scheduled-count").textContent =
+            appointments.filter((a) => a.status === "scheduled").length;
+          document.getElementById("released-count").textContent =
+            appointments.filter((a) => a.status === "released").length;
+          document.getElementById("inprogress-count").textContent =
+            appointments.filter((a) => a.status === "in_progress").length;
+        }
+    
+        // Calendar rendering and summary
+        function renderCalendar() {
+          const calendarGrid = document.getElementById("calendar-days");
+          calendarGrid.innerHTML = "";
+    
+          document.getElementById("current-month-year").textContent =
+            formatMonthYear(currentMonth, currentYear);
+    
+          const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+          daysOfWeek.forEach((day) => {
+            const dayHeader = document.createElement("div");
+            dayHeader.className = "calendar-day-header";
+            dayHeader.textContent = day;
+            calendarGrid.appendChild(dayHeader);
+          });
+    
+          const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+          const totalDays = new Date(
+            currentYear,
+            currentMonth + 1,
+            0
+          ).getDate();
+    
+          for (let i = 0; i < firstDay; i++) {
+            const emptyCell = document.createElement("div");
+            emptyCell.className = "calendar-day empty";
+            calendarGrid.appendChild(emptyCell);
           }
-
-          const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-          for (let day = 1; day <= daysInMonth; day++) {
-            const dayDiv = document.createElement('div');
-            dayDiv.classList.add('calendar-day');
-            dayDiv.innerHTML = `<span class="day-number">${day}</span><div class="calendar-appointments"></div>`;
-
-            const currentDayAppointments = appointments.filter(appt => {
-              const apptDate = new Date(appt.date);
-              return apptDate.getDate() === day && apptDate.getMonth() === currentMonth && apptDate.getFullYear() === currentYear;
+    
+          for (let day = 1; day <= totalDays; day++) {
+            const dayCell = document.createElement("div");
+            dayCell.className = "calendar-day";
+    
+            const dayNumber = document.createElement("div");
+            dayNumber.className = "day-number";
+            dayNumber.textContent = day;
+            dayCell.appendChild(dayNumber);
+    
+            const dayAppointments = appointments.filter((app) => {
+              const d = new Date(app.date.split(" - ")[0]);
+              return (
+                d.getMonth() === currentMonth &&
+                d.getFullYear() === currentYear &&
+                d.getDate() === day
+              );
             });
-
-            const appointmentsList = dayDiv.querySelector('.calendar-appointments');
-            currentDayAppointments.forEach(appt => {
-              const apptItem = document.createElement('div');
-              apptItem.classList.add('appointment-item');
-              apptItem.textContent = `${formatTimeForDisplay(appt.time)} - ${cleanInput(appt.customerName)}`;
-              apptItem.dataset.id = appt.id;
-              apptItem.addEventListener('click', () => openAppointmentModal(appt.id));
-              appointmentsList.appendChild(apptItem);
-            });
-            calendarDaysContainer.appendChild(dayDiv);
+    
+            if (dayAppointments.length > 0) {
+              const container = document.createElement("div");
+              container.className = "calendar-appointments";
+    
+              dayAppointments.forEach((app) => {
+                const item = document.createElement("div");
+                item.className = "appointment-item";
+                const timeRaw = app.date.split(" - ")[1] || "00:00";
+                const formattedTime = formatTimeForDisplay(timeRaw);
+                item.textContent = `${app.customer.split(" ")[0]} - ${formattedTime}`;
+    
+                container.appendChild(item);
+              });
+    
+              dayCell.appendChild(container);
+            }
+            calendarGrid.appendChild(dayCell);
           }
+    
           updateCalendarSummary();
         }
-
-        function renderStatsChart() {
-            const ctx = document.getElementById('appointmentsChart')?.getContext('2d');
-            if (!ctx) {
-                console.warn("renderStatsChart: #appointmentsChart canvas not found.");
-                return;
-            }
-
-            if (chartInstance) {
-                chartInstance.destroy();
-            }
-
-            // Group appointments by status
-            const statusCounts = appointments.reduce((acc, appt) => {
-                acc[appt.status] = (acc[appt.status] || 0) + 1;
-                return acc;
-            }, {});
-
-            const labels = Object.keys(statusCounts).map(status => statusMap[status]?.text || status);
-            const data = Object.values(statusCounts);
-            const backgroundColors = Object.keys(statusCounts).map(status => {
-                const className = statusMap[status]?.class;
-                // Map status classes to actual CSS variables or solid colors
-                switch (className) {
-                    case 'status-scheduled': return 'rgba(106, 106, 255, 0.7)'; // primary
-                    case 'status-released': return 'rgba(46, 204, 113, 0.7)'; // success
-                    case 'status-inprogress': return 'rgba(52, 152, 219, 0.7)'; // info blue
-                    case 'status-cancelled': return 'rgba(255, 76, 76, 0.7)'; // danger
-                    case 'status-warning': return 'rgba(243, 156, 18, 0.7)'; // warning
-                    case 'status-draft':
-                    default: return 'rgba(149, 165, 166, 0.7)'; // default grey
-                }
-            });
-
-            chartInstance = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: data,
-                        backgroundColor: backgroundColors,
-                        borderColor: 'transparent',
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                            labels: {
-                                color: '#f0f0f0', // Use a direct color or ensure var() is interpreted
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Appointments by Status',
-                            color: '#6a6aff', // Use a direct color or ensure var() is interpreted
-                            font: {
-                                size: 16
-                            }
-                        }
-                    }
-                }
-            });
-            updatePerformanceMetrics();
-        }
-
-        function renderCustomersTable() {
-            const tbody = document.getElementById('customers-body');
-            if (!tbody) {
-                console.warn("renderCustomersTable: #customers-body not found.");
-                return;
-            }
-
-            tbody.innerHTML = '';
-            if (customers.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 20px;">No customers found.</td></tr>`;
-                return;
-            }
-
-            customers.forEach(customer => {
-                const row = tbody.insertRow();
-                const lastAppointment = appointments
-                    .filter(appt => appt.customerId === customer.id) // Assuming customer has an ID now
-                    .sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time))[0];
-
-                row.innerHTML = `
-                    <td>${cleanInput(customer.fullName)}</td>
-                    <td>${cleanInput(customer.phone)}</td>
-                    <td>${cleanInput(customer.email || 'N/A')}</td>
-                    <td>${cleanInput(customer.favoriteEquipment || 'N/A')}</td>
-                    <td>${lastAppointment ? formatTimestamp(lastAppointment.date) : 'N/A'}</td>
-                    <td class="action-cell">
-                        <button class="action-btn edit-btn" data-id="${customer.id}" data-type="customer">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" data-id="${customer.id}" data-type="customer">
-                            <i class="fas fa-trash-alt"></i> Delete
-                        </button>
-                    </td>
-                `;
-            });
-            addTableActionListeners();
-        }
-
-        function renderPartsTable() {
-            const tbody = document.getElementById('parts-body');
-            if (!tbody) {
-                console.warn("renderPartsTable: #parts-body not found.");
-                return;
-            }
-
-            tbody.innerHTML = '';
-            if (parts.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 20px;">No parts found in inventory.</td></tr>`;
-                return;
-            }
-
-            parts.forEach(part => {
-                const row = tbody.insertRow();
-                row.innerHTML = `
-                    <td>${cleanInput(part.partName)}</td>
-                    <td>${cleanInput(part.partNumber)}</td>
-                    <td>${cleanInput(part.equipmentType)}</td>
-                    <td>${part.inStock}</td>
-                    <td>$${part.price ? part.price.toFixed(2) : '0.00'}</td>
-                    <td>${cleanInput(part.supplier || 'N/A')}</td>
-                    <td class="action-cell">
-                        <button class="action-btn edit-btn" data-id="${part.id}" data-type="part">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" data-id="${part.id}" data-type="part">
-                            <i class="fas fa-trash-alt"></i> Delete
-                        </button>
-                    </td>
-                `;
-            });
-            addTableActionListeners();
-        }
-
-        function renderReportsTable() {
-            const tbody = document.getElementById('report-table-body');
-            if (!tbody) {
-                console.warn("renderReportsTable: #report-table-body not found.");
-                return;
-            }
-
-            tbody.innerHTML = '';
-            const completedAppointments = appointments.filter(appt => appt.status === 'repair_completed');
-
-            if (completedAppointments.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 20px;">No completed repair reports.</td></tr>`;
-                return;
-            }
-
-            completedAppointments.forEach(appt => {
-                const row = tbody.insertRow();
-                const statusInfo = statusMap[appt.status] || { text: "Unknown", class: "status-draft" };
-                row.innerHTML = `
-                    <td>${cleanInput(appt.id?.substring(0, 5) || 'N/A')}...</td>
-                    <td>${cleanInput(appt.customerName)}</td>
-                    <td>${cleanInput(appt.equipment)}</td>
-                    <td>${formatTimestamp(appt.date)}</td>
-                    <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
-                    <td>${cleanInput(appt.repairNotes || 'No notes.')}</td>
-                `;
-            });
-        }
-
-        function updateStatCards() {
-          document.getElementById('total-appointments').textContent = appointments.length;
-          document.getElementById('scheduled-count').textContent = appointments.filter(appt => appt.status === 'scheduled').length;
-          document.getElementById('released-count').textContent = appointments.filter(appt => appt.status === 'repair_completed').length; // Assuming 'released' maps to 'repair_completed'
-          document.getElementById('inprogress-count').textContent = appointments.filter(appt => ['in_progress', 'needs_parts', 'parts_ordered', 'parts_arrived', 'second_appointment'].includes(appt.status)).length;
-        }
-
+    
         function updateCalendarSummary() {
-            const totalAppointmentsInMonth = appointments.filter(appt => {
-                const apptDate = new Date(appt.date);
-                return apptDate.getMonth() === currentMonth && apptDate.getFullYear() === currentYear;
-            }).length;
-
-            const totalRevenueInMonth = appointments.filter(appt => {
-                const apptDate = new Date(appt.date);
-                return apptDate.getMonth() === currentMonth && apptDate.getFullYear() === currentYear;
-            }).reduce((sum, appt) => sum + (appt.price || 0), 0);
-
-            const businessDaysWithAppointments = new Set(appointments.filter(appt => {
-                const apptDate = new Date(appt.date);
-                return apptDate.getMonth() === currentMonth && apptDate.getFullYear() === currentYear;
-            }).map(appt => new Date(appt.date).toDateString())).size;
-
-            document.getElementById('summary-total').textContent = totalAppointmentsInMonth;
-            document.getElementById('summary-revenue').textContent = `$${totalRevenueInMonth.toFixed(2)}`;
-            document.getElementById('summary-days').textContent = businessDaysWithAppointments;
-
-            // Simple utilization rate: (days with appts / total days in month) * 100
-            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-            const utilizationRate = daysInMonth > 0 ? ((businessDaysWithAppointments / daysInMonth) * 100).toFixed(1) : 0;
-            document.getElementById('summary-utilization').textContent = `${utilizationRate}%`;
+          const monthlyApps = appointments.filter((app) => {
+            const d = new Date(app.date.split(" - ")[0]);
+            return (
+              d.getMonth() === currentMonth && d.getFullYear() === currentYear
+            );
+          });
+    
+          const businessDays = getBusinessDays(currentMonth, currentYear);
+          const monthlyRevenue = monthlyApps
+            .filter((a) => a.status === "released")
+            .reduce((sum, a) => sum + (a.price || 0), 0);
+    
+          document.getElementById("summary-total").textContent =
+            monthlyApps.length;
+          document.getElementById("summary-days").textContent = businessDays;
+          document.getElementById(
+            "summary-revenue"
+          ).textContent = `$${monthlyRevenue}`;
+    
+          const utilizationRate = Math.min(
+            100,
+            Math.round((monthlyApps.length / (businessDays * 3)) * 100)
+          );
+          document.getElementById("summary-utilization").textContent =
+            utilizationRate + "%";
         }
-
+    
+        // Performance metrics
         function updatePerformanceMetrics() {
-            const currentAppointments = appointments.filter(appt => !['repair_completed', 'cancelled'].includes(appt.status)).length;
-            const monthlyReleased = appointments.filter(appt => {
-                const apptDate = new Date(appt.date);
-                return appt.status === 'repair_completed' && apptDate.getMonth() === new Date().getMonth() && apptDate.getFullYear() === new Date().getFullYear();
-            }).length;
-            const monthlyRevenue = appointments.filter(appt => {
-                const apptDate = new Date(appt.date);
-                return apptDate.getMonth() === new Date().getMonth() && apptDate.getFullYear() === new Date().getFullYear();
-            }).reduce((sum, appt) => sum + (appt.price || 0), 0);
-
-            document.getElementById('current-appointments').textContent = currentAppointments;
-            document.getElementById('monthly-released').textContent = monthlyReleased;
-            document.getElementById('monthly-revenue').textContent = `$${monthlyRevenue.toFixed(2)}`;
-            // Satisfaction rate would require additional data (e.g., feedback)
-            document.getElementById('satisfaction-rate').textContent = 'N/A';
-        }
-
-        function addTableActionListeners() {
-          document.querySelectorAll('.action-btn.edit-btn').forEach(button => {
-            button.onclick = (e) => {
-              const id = e.currentTarget.dataset.id;
-              const type = e.currentTarget.dataset.type;
-              if (type === 'appointment') {
-                openAppointmentModal(id);
-              } else if (type === 'customer') {
-                openCustomerModal(id);
-              } else if (type === 'part') {
-                openPartModal(id);
-              }
-            };
+          const monthlyApps = appointments.filter((app) => {
+            const d = new Date(app.date.split(" - ")[0]);
+            return (
+              d.getMonth() === currentMonth && d.getFullYear() === currentYear
+            );
           });
-
-          document.querySelectorAll('.action-btn.delete-btn').forEach(button => {
-            button.onclick = (e) => {
-              const id = e.currentTarget.dataset.id;
-              const type = e.currentTarget.dataset.type;
-              if (type === 'appointment') {
-                deleteAppointment(id);
-              } else if (type === 'customer') {
-                deleteCustomer(id);
-              } else if (type === 'part') {
-                deletePart(id);
-              }
-            };
+    
+          const releasedThisMonth = monthlyApps.filter(
+            (a) => a.status === "released"
+          ).length;
+          const monthlyRevenue = monthlyApps
+            .filter((a) => a.status === "released")
+            .reduce((sum, a) => sum + (a.price || 0), 0);
+    
+          document.getElementById("current-appointments").textContent =
+            appointments.length;
+          document.getElementById("monthly-released").textContent =
+            releasedThisMonth;
+          document.getElementById(
+            "monthly-revenue"
+          ).textContent = `$${monthlyRevenue}`;
+        }
+    
+        // Chart.js setup
+        function initChart() {
+          const ctx = document
+            .getElementById("appointmentsChart")
+            .getContext("2d");
+          if (chartInstance) chartInstance.destroy();
+    
+          const counts = {
+            draft: appointments.filter((a) => a.status === "draft").length,
+            scheduled: appointments.filter((a) => a.status === "scheduled")
+              .length,
+            in_progress: appointments.filter((a) => a.status === "in_progress")
+              .length,
+            released: appointments.filter((a) => a.status === "released")
+              .length,
+            cancelled: appointments.filter((a) => a.status === "cancelled")
+              .length,
+          };
+    
+          chartInstance = new Chart({
+            type: "doughnut",
+            data: {
+              labels: [
+                "Draft",
+                "Scheduled",
+                "In Progress",
+                "Released",
+                "Cancelled",
+              ],
+              datasets: [
+                {
+                  data: Object.values(counts),
+                  backgroundColor: [
+                    "rgba(149, 165, 166, 0.7)",
+                    "rgba(93, 93, 255, 0.7)",
+                    "rgba(52, 152, 219, 0.7)",
+                    "rgba(46, 204, 113, 0.7)",
+                    "rgba(231, 76, 60, 0.7)",
+                  ],
+                  borderColor: [
+                    "rgba(149, 165, 166, 1)",
+                    "rgba(93, 93, 255, 1)",
+                    "rgba(52, 152, 219, 1)",
+                    "rgba(46, 204, 113, 1)",
+                    "rgba(231, 76, 60, 1)",
+                  ],
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: "right",
+                  labels: { color: "#f0f0f0", font: { size: 12 } },
+                },
+                title: {
+                  display: true,
+                  text: "Appointment Status Distribution",
+                  color: "#f0f0f0",
+                  font: { size: 16 },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (context) => {
+                      const label = context.label || "";
+                      const value = context.raw || 0;
+                      const total = context.dataset.data.reduce(
+                        (a, b) => a + b,
+                        0
+                      );
+                      const pct = total ? Math.round((value / total) * 100) : 0;
+                      return `${label}: ${value} (${pct}%)`;
+                    },
+                  },
+                },
+              },
+            },
           });
         }
-
-        // ================ MODAL FUNCTIONS ================
-        function openAppointmentModal(id = null) {
-          const modal = document.getElementById('appointment-modal');
-          const form = document.getElementById('appointment-form');
-          const modalTitle = document.getElementById('modal-title');
-          const saveButton = document.getElementById('save-appointment');
-          form.reset(); // Clear previous data
+    
+        // ================ MODAL MANAGEMENT ================
+        // Modal open/close functions
+        const modal = document.getElementById("appointment-modal");
+        const addBtn = document.getElementById("add-appointment");
+        const closeBtn = document.querySelector(".close-modal");
+        const cancelBtn = document.getElementById("cancel-appointment");
+    
+        function openEditModal(id) {
+          const app = appointments.find((a) => a.id === id);
+          if (!app) return;
+    
           editingAppointmentId = id;
-          console.log(`openAppointmentModal: Opening modal for appointment ID: ${id || 'new'}`);
-
-          if (id) {
-            modalTitle.textContent = "Edit Appointment";
-            saveButton.textContent = "Update Appointment";
-            const appointmentToEdit = appointments.find(appt => appt.id === id);
-
-            if (appointmentToEdit) {
-              // Check if editing past appointments is allowed
-              const apptDateObj = new Date(appointmentToEdit.date);
-              const today = new Date();
-              today.setHours(0,0,0,0); // Normalize today's date
-
-              if (!allowPastEdits && apptDateObj < today) {
-                alert("Editing past appointments is not allowed based on current settings.");
-                closeModals();
-                console.warn("openAppointmentModal: Editing past appointment blocked by settings.");
+    
+          document.getElementById("customer-name").value = app.customer;
+          document.getElementById("customer-phone").value = app.phone || "";
+    
+          const [datePart, timePart = "12:00"] = app.date.split(" - ");
+          const dateObj = new Date(datePart);
+          document.getElementById("appointment-date").value = dateObj
+            .toISOString()
+            .split("T")[0];
+    
+          const timeValue =
+            timePart.includes("AM") || timePart.includes("PM")
+              ? convertTo24Hour(timePart)
+              : timePart;
+          document.getElementById("appointment-time").value = timeValue;
+    
+          document.getElementById("equipment").value = app.equipment || "";
+          document.getElementById("appointment-price").value =
+            app.price || defaultPrice;
+          document.getElementById("issue-description").value = app.issue || "";
+          document.getElementById("repair-notes").value =
+            app.repair_notes || "";
+          document.getElementById("appointment-status").value =
+            app.status || "";
+    
+          document.getElementById("modal-title").textContent =
+            "Edit Appointment";
+          document.getElementById("save-appointment").textContent =
+            "Update Appointment";
+    
+          modal.classList.add("active");
+        }
+    
+        function openAddModal() {
+          editingAppointmentId = null;
+    
+          document.getElementById("appointment-form").reset();
+    
+          const today = new Date();
+          document.getElementById("appointment-date").value = today
+            .toISOString()
+            .split("T")[0];
+    
+          const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+          document.getElementById("appointment-time").value = `${nextHour
+            .getHours()
+            .toString()
+            .padStart(2, "0")}:${nextHour
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}`;
+    
+          document.getElementById("appointment-price").value = defaultPrice;
+          document.getElementById("modal-title").textContent =
+            "Add New Appointment";
+          document.getElementById("save-appointment").textContent =
+            "Save Appointment";
+    
+          modal.classList.add("active");
+        }
+    
+        function closeModal() {
+          modal.classList.remove("active");
+        }
+    
+        // Customer modal functions
+        function openAddCustomerModal() {
+          editingCustomerId = null;
+          document.getElementById('customer-form').reset();
+          document.getElementById('customer-modal-title').textContent = "New Customer";
+          document.getElementById('customer-modal').classList.add('active');
+        }
+    
+        function openEditCustomerModal(id) {
+          const customer = customers.find(c => c.id === id);
+          if (!customer) return;
+    
+          editingCustomerId = id;
+          document.getElementById('customer-name').value = customer.name || '';
+          document.getElementById('customer-phone').value = customer.phone || '';
+          document.getElementById('customer-email').value = customer.email || '';
+          document.getElementById('customer-address').value = customer.address || '';
+          document.getElementById('customer-notes').value = customer.notes || '';
+    
+          document.getElementById('customer-modal-title').textContent = "Edit Customer";
+          document.getElementById('customer-modal').classList.add('active');
+        }
+    
+        function closeCustomerModal() {
+          document.getElementById('customer-modal').classList.remove('active');
+        }
+    
+        // ================ EVENT LISTENERS ================
+        function setupEventListeners() {
+          // Sidebar navigation
+          document.querySelectorAll(".nav-links a").forEach(link => {
+            link.addEventListener("click", (e) => {
+              e.preventDefault();
+              const targetView = link.getAttribute("data-view");
+    
+              if (targetView === "logout") {
+                logout();
                 return;
               }
-
-              document.getElementById('customer-name').value = appointmentToEdit.customerName;
-              document.getElementById('customer-phone').value = appointmentToEdit.customerPhone;
-              document.getElementById('appointment-date').value = appointmentToEdit.date;
-              document.getElementById('appointment-time').value = appointmentToEdit.time;
-              document.getElementById('equipment').value = appointmentToEdit.equipment;
-              document.getElementById('appointment-price').value = appointmentToEdit.price;
-              document.getElementById('issue-description').value = appointmentToEdit.issueDescription;
-              document.getElementById('repair-notes').value = appointmentToEdit.repairNotes || '';
-              document.getElementById('appointment-status').value = appointmentToEdit.status;
-            } else {
-                console.warn(`openAppointmentModal: Appointment with ID ${id} not found for editing.`);
-            }
-          } else {
-            modalTitle.textContent = "Add New Appointment";
-            saveButton.textContent = "Save Appointment";
-            // Set default date and time for new appointments
-            const today = new Date();
-            document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
-            const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-            document.getElementById("appointment-time").value = `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
-            document.getElementById("appointment-price").value = defaultPrice;
-          }
-          modal.classList.add('active');
-        }
-
-        async function handleAppointmentFormSubmit(event) {
-            event.preventDefault();
-            console.log("handleAppointmentFormSubmit: Form submission initiated.");
-            const form = event.target;
-
-            const appointmentData = {
-                customerName: cleanInput(form['customer-name'].value),
-                customerPhone: cleanInput(form['customer-phone'].value),
-                date: form['appointment-date'].value,
-                time: form['appointment-time'].value,
-                equipment: cleanInput(form['equipment'].value),
-                price: parseFloat(form['appointment-price'].value),
-                issueDescription: cleanInput(form['issue-description'].value),
-                repairNotes: cleanInput(form['repair-notes'].value),
-                status: form['appointment-status'].value,
-                createdAt: editingAppointmentId ? appointments.find(appt => appt.id === editingAppointmentId)?.createdAt : Timestamp.now(),
-                updatedAt: Timestamp.now()
-            };
-
-            let success;
-            if (editingAppointmentId) {
-                console.log(`handleAppointmentFormSubmit: Updating appointment with ID: ${editingAppointmentId}`);
-                success = await updateAppointment(editingAppointmentId, appointmentData);
-            } else {
-                console.log("handleAppointmentFormSubmit: Adding new appointment.");
-                success = await addAppointment(appointmentData);
-            }
-
-            if (success) {
-                closeModals();
-                alert(`Appointment ${editingAppointmentId ? 'updated' : 'added'} successfully!`);
-            }
-        }
-
-        function openCustomerModal(id = null) {
-            const modal = document.getElementById('customer-modal');
-            const form = document.getElementById('customer-form');
-            const modalTitle = document.getElementById('customer-modal-title');
-            const saveButton = document.getElementById('save-customer');
-            form.reset();
-            editingCustomerId = id;
-            console.log(`openCustomerModal: Opening modal for customer ID: ${id || 'new'}`);
-
-            if (id) {
-                modalTitle.textContent = "Edit Customer";
-                saveButton.textContent = "Update Customer";
-                const customerToEdit = customers.find(cust => cust.id === id);
-                if (customerToEdit) {
-                    form['customer-name'].value = customerToEdit.fullName || '';
-                    form['customer-phone'].value = customerToEdit.phone || '';
-                    form['customer-email'].value = customerToEdit.email || '';
-                    form['customer-address'].value = customerToEdit.address || '';
-                    form['customer-notes'].value = customerToEdit.specialNotes || '';
-                } else {
-                    console.warn(`openCustomerModal: Customer with ID ${id} not found for editing.`);
-                }
-            } else {
-                modalTitle.textContent = "Add New Customer";
-                saveButton.textContent = "Save Customer";
-            }
-            modal.classList.add('active');
-        }
-
-        async function handleCustomerFormSubmit(event) {
-            event.preventDefault();
-            console.log("handleCustomerFormSubmit: Customer form submission initiated.");
-            const form = event.target;
-            const customerData = {
-                fullName: cleanInput(form['customer-name'].value),
-                phone: cleanInput(form['customer-phone'].value),
-                email: cleanInput(form['customer-email'].value),
-                address: cleanInput(form['customer-address'].value),
-                specialNotes: cleanInput(form['customer-notes'].value),
-                createdAt: editingCustomerId ? customers.find(cust => cust.id === editingCustomerId)?.createdAt : Timestamp.now(),
-                updatedAt: Timestamp.now()
-            };
-
-            let success;
-            if (editingCustomerId) {
-                console.log(`handleCustomerFormSubmit: Updating customer with ID: ${editingCustomerId}`);
-                success = await updateCustomer(editingCustomerId, customerData);
-            } else {
-                console.log("handleCustomerFormSubmit: Adding new customer.");
-                success = await addCustomer(customerData);
-            }
-
-            if (success) {
-                closeModals();
-                alert(`Customer ${editingCustomerId ? 'updated' : 'added'} successfully!`);
-            }
-        }
-
-        function openPartModal(id = null) {
-            const modal = document.getElementById('part-modal'); // Assuming you'll add a part modal
-            if (!modal) {
-                alert("Part modal not implemented yet!");
-                console.warn("openPartModal: #part-modal not found. Functionality not implemented.");
-                return;
-            }
-            // Logic for populating and displaying part modal would go here
-            modal.classList.add('active');
-        }
-
-
-        function closeModals() {
-          document.querySelectorAll('.modal').forEach(modal => {
-            modal.classList.remove('active');
+    
+              activateView(targetView);
+            });
           });
-          editingAppointmentId = null;
-          editingCustomerId = null;
-          console.log("closeModals: All modals closed.");
-        }
-
-        // ================ SETTINGS MANAGEMENT ================
-        function loadSettings() {
-            console.log("loadSettings: Loading application settings.");
-            // Load from localStorage or default values
-            document.getElementById('company-name').value = localStorage.getItem('companyName') || 'Canadian Fitness Repair';
-            document.getElementById('default-price').value = localStorage.getItem('defaultPrice') || defaultPriceInitial;
-            document.getElementById('business-hours').value = localStorage.getItem('businessHours') || '9:00 AM - 6:00 PM';
-            document.getElementById('enable-past-edits').value = localStorage.getItem('allowPastEdits') === 'false' ? 'false' : 'true';
-            document.getElementById('sms-enabled').value = localStorage.getItem('smsEnabled') === 'true' ? 'true' : 'false';
-            document.getElementById('sms-time').value = localStorage.getItem('smsTime') || '1';
-            document.getElementById('sms-message').value = localStorage.getItem('smsMessage') || 'Hi {name}! Reminder: Your fitness repair is scheduled for {date} at {time}.';
-
-            // Update global state
-            defaultPrice = parseFloat(document.getElementById('default-price').value);
-            allowPastEdits = document.getElementById('enable-past-edits').value === 'true';
-            console.log("loadSettings: Settings loaded. Default price:", defaultPrice, "Allow past edits:", allowPastEdits);
-        }
-
-        function saveSettings() {
-            console.log("saveSettings: Saving application settings.");
-            localStorage.setItem('companyName', cleanInput(document.getElementById('company-name').value));
-            localStorage.setItem('defaultPrice', document.getElementById('default-price').value);
-            localStorage.setItem('businessHours', cleanInput(document.getElementById('business-hours').value));
-            localStorage.setItem('allowPastEdits', document.getElementById('enable-past-edits').value);
-            localStorage.setItem('smsEnabled', document.getElementById('sms-enabled').value);
-            localStorage.setItem('smsTime', document.getElementById('sms-time').value);
-            localStorage.setItem('smsMessage', cleanInput(document.getElementById('sms-message').value));
-            
-            loadSettings(); // Reload to update global state immediately
-            alert('Settings saved successfully!');
-            logAction("save_settings");
-            console.log("saveSettings: Settings saved successfully.");
-        }
-
-        function resetSettings() {
-            if (confirm('Are you sure you want to reset all settings to default?')) {
-                console.log("resetSettings: Resetting settings to default.");
-                localStorage.removeItem('companyName');
-                localStorage.removeItem('defaultPrice');
-                localStorage.removeItem('businessHours');
-                localStorage.removeItem('allowPastEdits');
-                localStorage.removeItem('smsEnabled');
-                localStorage.removeItem('smsTime');
-                localStorage.removeItem('smsMessage');
-                loadSettings();
-                alert('Settings reset to default!');
-                logAction("reset_settings");
+    
+          // Top tab navigation
+          document.querySelectorAll(".tab").forEach(tab => {
+            tab.addEventListener("click", () => {
+              const targetView = tab.getAttribute("data-tab");
+              activateView(targetView);
+            });
+          });
+    
+          // Month navigation buttons
+          document.getElementById("prev-month").addEventListener("click", () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+              currentMonth = 11;
+              currentYear--;
             }
-        }
-
-        // ================ AUTHENTICATION ================
-        function setupAuthListener(auth) {
-            console.log("setupAuthListener: Setting up authentication listener.");
-            onAuthStateChanged(auth, (user) => {
-                const userInfoDiv = document.getElementById('user-info');
-                const userNameSpan = document.getElementById('user-name');
-                if (user) {
-                    userNameSpan.textContent = user.displayName || user.email || 'Admin';
-                    userInfoDiv.style.display = 'block'; // Show user info if logged in
-                    startSessionTimer();
-                    console.log("setupAuthListener: User logged in:", user.email);
-                } else {
-                    userNameSpan.textContent = 'Guest';
-                    userInfoDiv.style.display = 'none'; // Hide user info if logged out
-                    stopSessionTimer();
-                    console.log("setupAuthListener: User logged out.");
-                    // Redirect to login page if user is not authenticated (optional, implement your login flow)
-                    // window.location.href = 'login.html';
-                }
-            });
-            // Handle Logout button click
-            document.querySelector('[data-view="logout"]')?.addEventListener('click', async (e) => {
-                e.preventDefault();
-                try {
-                    await signOut(auth);
-                    logAction("logout");
-                    alert("You have been logged out.");
-                    console.log("setupAuthListener: User signed out successfully.");
-                    // Optionally redirect to login page
-                } catch (error) {
-                    console.error("setupAuthListener: Error signing out:", error);
-                    alert("Failed to log out.");
-                }
-            });
-        }
-
-        // Session management (simplified for example)
-        const SESSION_TIMEOUT = 10 * 60 * 1000; // 10 minutes
-        const WARNING_TIME = 1 * 60 * 1000;    // 1 minute before timeout
-
-        function startSessionTimer() {
-            stopSessionTimer(); // Clear any existing timers
-            sessionTimer = setTimeout(showLogoutWarning, SESSION_TIMEOUT - WARNING_TIME);
-            window.addEventListener('mousemove', resetSessionTimer);
-            window.addEventListener('keypress', resetSessionTimer);
-            console.log("Session timer started.");
-        }
-
-        function resetSessionTimer() {
-            clearTimeout(sessionTimer);
-            clearTimeout(logoutWarningTimer);
-            clearInterval(countdownInterval);
-            hideLogoutWarning();
-            sessionTimer = setTimeout(showLogoutWarning, SESSION_TIMEOUT - WARNING_TIME);
-            console.log("Session timer reset.");
-        }
-
-        function showLogoutWarning() {
-            console.log("Showing logout warning.");
-            const warningDiv = document.createElement('div');
-            warningDiv.className = 'logout-warning toast warning';
-            warningDiv.innerHTML = `
-                Your session will expire in <span id="countdown">60</span> seconds due to inactivity.
-                <button id="stay-logged-in-btn">Stay Logged In</button>
-            `;
-            document.body.appendChild(warningDiv);
-
-            let countdown = 60;
-            const countdownSpan = document.getElementById('countdown');
-            countdownInterval = setInterval(() => {
-                countdown--;
-                if (countdown >= 0) {
-                    countdownSpan.textContent = countdown;
-                } else {
-                    clearInterval(countdownInterval);
-                    // Force logout if user doesn't respond
-                    signOut(auth);
-                    hideLogoutWarning();
-                    alert("You have been logged out due to inactivity.");
-                    console.log("Forced logout due to inactivity.");
-                }
-            }, 1000);
-
-            document.getElementById('stay-logged-in-btn')?.addEventListener('click', () => {
-                resetSessionTimer();
-                logAction("session_extended");
-                console.log("User chose to stay logged in.");
-            });
-
-            logoutWarningTimer = setTimeout(() => {
-                clearInterval(countdownInterval);
-                signOut(auth); // Force logout
-                hideLogoutWarning();
-                alert("You have been logged out due to inactivity.");
-                console.log("Forced logout after warning timeout.");
-            }, WARNING_TIME);
-        }
-
-        function hideLogoutWarning() {
-            const warningDiv = document.querySelector('.logout-warning');
-            if (warningDiv) {
-                warningDiv.remove();
-                console.log("Logout warning hidden.");
+            renderCalendar();
+          });
+    
+          document.getElementById("next-month").addEventListener("click", () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+              currentMonth = 0;
+              currentYear++;
             }
+            renderCalendar();
+          });
+    
+          // Settings save/reset
+          document
+            .getElementById("save-settings")
+            .addEventListener("click", () => {
+              defaultPrice =
+                parseFloat(document.getElementById("default-price").value) ||
+                defaultPriceInitial;
+              allowPastEdits =
+                document.getElementById("enable-past-edits").value === "true";
+              showToast("Settings saved successfully");
+              logAction("Settings updated", auth.currentUser?.email || "guest");
+            });
+    
+          document
+            .getElementById("reset-settings")
+            .addEventListener("click", () => {
+              document.getElementById("company-name").value =
+                "Canadian Fitness Repair";
+              document.getElementById("default-price").value =
+                defaultPriceInitial.toString();
+              document.getElementById("business-hours").value =
+                "9:00 AM - 6:00 PM";
+              document.getElementById("enable-past-edits").value = "true";
+              defaultPrice = defaultPriceInitial;
+              allowPastEdits = true;
+              showToast("Settings reset to defaults");
+            });
+    
+          // Search functionality
+          document
+            .getElementById("search-appointments")
+            .addEventListener("input", function () {
+              const keyword = this.value.toLowerCase();
+              const filtered = appointments.filter(
+                (app) =>
+                  app.customer.toLowerCase().includes(keyword) ||
+                  (app.phone && app.phone.toLowerCase().includes(keyword))
+              );
+              renderAppointmentsTable(filtered);
+            });
+    
+          // Print button
+          document
+            .getElementById("print-schedule")
+            .addEventListener("click", () => {
+              window.print();
+            });
+    
+          // Save appointment button (form submission)
+          document
+            .getElementById("save-appointment")
+            .addEventListener("click", async () => {
+              const customerName = cleanInput(document.getElementById("customer-name").value.trim());
+              const phone = cleanInput(document.getElementById("customer-phone").value.trim());
+              const dateInput = document.getElementById("appointment-date").value;
+              const timeInput = document.getElementById("appointment-time").value;
+              const dateObj = new Date(`${dateInput}T${timeInput}`);
+              const timestamp = Timestamp.fromDate(dateObj);
+              const equipment = cleanInput(document.getElementById("equipment").value.trim());
+              const price = parseFloat(document.getElementById("appointment-price").value) || 0;
+              const issue = cleanInput(document.getElementById("issue-description").value.trim());
+              const status = cleanInput(document.getElementById("appointment-status").value);
+              const repairNotes = cleanInput(document.getElementById("repair-notes").value.trim());
+    
+              if (!customerName) {
+                showToast("Please enter customer name", true);
+                return;
+              }
+              if (!dateInput || !timeInput) {
+                showToast("Please select date and time", true);
+                return;
+              }
+    
+              const appointmentData = {
+                customer: customerName,
+                phone,
+                equipment,
+                date: timestamp,
+                price,
+                issue,
+                status,
+                repair_notes: repairNotes,
+              };
+    
+              await saveAppointment(appointmentData);
+              closeModal();
+            });
+    
+          // Modal controls
+          addBtn.addEventListener("click", openAddModal);
+          closeBtn.addEventListener("click", closeModal);
+          cancelBtn.addEventListener("click", closeModal);
+          window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && modal.classList.contains("active"))
+              closeModal();
+          });
+    
+          // Customer modal controls
+          document.getElementById('add-customer').addEventListener('click', openAddCustomerModal);
+          document.getElementById('save-customer').addEventListener('click', saveCustomer);
+          document.getElementById('cancel-customer').addEventListener('click', closeCustomerModal);
+          document.querySelectorAll('#customer-modal .close-modal').forEach(btn => {
+            btn.addEventListener('click', closeCustomerModal);
+          });
+    
+          // Setup logout button
+          document
+            .querySelector('.nav-links a[data-view="logout"]')
+            .addEventListener("click", (e) => {
+              e.preventDefault();
+              logout();
+            });
+    
+          // Pagination buttons
+          document.getElementById("prev-page").addEventListener("click", () => {
+            if (currentPage > 1) {
+              currentPage--;
+              renderAppointmentsTable();
+            }
+          });
+    
+          document.getElementById("next-page").addEventListener("click", () => {
+            const totalPages = Math.ceil(appointments.length / appointmentsPerPage);
+            if (currentPage < totalPages) {
+              currentPage++;
+              renderAppointmentsTable();
+            }
+          });
         }
-
-        function stopSessionTimer() {
-            clearTimeout(sessionTimer);
-            clearTimeout(logoutWarningTimer);
-            clearInterval(countdownInterval);
-            hideLogoutWarning();
-            console.log("Session timers stopped.");
-        }
-
+    
         // ================ INITIALIZATION ================
         // Initialize the application
         function initialize() {
-          console.log("initialize: Starting application initialization.");
-          setupAuthListener(auth);
           setupEventListeners();
-          loadSettings(); // Load settings at startup
-          activateView('list'); // Default to list view on load
-          console.log("initialize: Default view set to 'list'.");
-
-          // Fetch initial data
-          fetchAppointments();
-          fetchCustomers();
-          fetchParts();
+          activateView('list');
           
-          // Default form setup for "Add Appointment" (if it's the default active tab)
-          const appointmentDateInput = document.getElementById("appointment-date");
-          const appointmentTimeInput = document.getElementById("appointment-time");
-          const appointmentPriceInput = document.getElementById("appointment-price");
-
-          if (appointmentDateInput && appointmentTimeInput && appointmentPriceInput) {
-            const today = new Date();
-            appointmentDateInput.value = today.toISOString().split("T")[0];
-            const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-            appointmentTimeInput.value = `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
-            appointmentPriceInput.value = defaultPriceInitial;
-            console.log("initialize: Default appointment form fields set.");
-          } else {
-            console.warn("initialize: One or more appointment form fields not found during default setup.");
-          }
-          console.log("initialize: Application initialization complete.");
+          // Default form setup
+          const today = new Date();
+          document.getElementById("appointment-date").value = today
+            .toISOString()
+            .split("T")[0];
+          const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+          document.getElementById("appointment-time").value = `${nextHour
+            .getHours()
+            .toString()
+            .padStart(2, "0")}:${nextHour
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}`;
+          document.getElementById("appointment-price").value =
+            defaultPriceInitial;
         }
-
+    
         // Start the application
         initialize();
       }
