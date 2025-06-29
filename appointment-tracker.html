@@ -2046,7 +2046,19 @@ function renderCustomersTable() {
     btn.addEventListener('click', () => deleteCustomer(btn.dataset.id));
   });
 }
-
+function showCustomersView() {
+  // Hide all views
+  document.querySelectorAll('.tab-content').forEach(view => {
+    view.classList.remove('active');
+  });
+  
+  // Show customers view
+  document.getElementById('customers-view').classList.add('active');
+  
+  // Load customers
+  fetchCustomers();
+}
+ 
         // Modal open/close functions
         const modal = document.getElementById("appointment-modal");
         const addBtn = document.getElementById("add-appointment");
@@ -2187,8 +2199,7 @@ function renderCustomersTable() {
   document.getElementById("prev-page").disabled = currentPage === 1;
   document.getElementById("next-page").disabled = currentPage >= totalPages;
 }
-
-        // Stats update
+       // Stats update
         function updateStats() {
           document.getElementById("total-appointments").textContent =
             appointments.length;
@@ -2448,6 +2459,8 @@ function renderCustomersTable() {
               initChart();
             } else if (targetView === "calendar") {
               renderCalendar();
+            }else if (targetView === "customers") {
+              showCustomersView();
             }
           });
         });
