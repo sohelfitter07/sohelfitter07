@@ -1724,6 +1724,12 @@ async function getFirebaseConfig() {
   // ✅ Start your app logic
   initApp(auth, db, appointmentsCollection, customersCollection, partsCollection);
 })();
+createDebugPanel();
+logToPanel("✅ Debug panel initialized on load");
+document.addEventListener("DOMContentLoaded", () => {
+  logToPanel("✅ DOM fully loaded");
+});
+
 
 // ================ UTILITY FUNCTIONS ================
 function logAction(action, user = "guest") {
