@@ -1675,6 +1675,8 @@
       <p>© 2023 Canadian Fitness Repair. All rights reserved.</p>
     </footer>
     <script type="module">
+            console.log("✅ Script is running");
+
       // ================ FIREBASE INITIALIZATION ================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
@@ -3027,23 +3029,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Start the application
   initialize();
 }
-    </script>
-    <script type="module">
-      console.log("✅ Script is running");
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const links = document.querySelectorAll('.nav-links a');
-        console.log("Found sidebar links:", links.length); // Debug: how many links?
-    
-        links.forEach(link => {
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const view = link.dataset.view;
-            console.log("Sidebar clicked:", view); // Debug: what was clicked
-            activateView(view); // Show the correct view
-          });
-        });
-      });
     </script>
     </body>
     
