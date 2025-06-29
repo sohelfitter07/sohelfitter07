@@ -1670,25 +1670,39 @@ function activateView(viewName) {
   // Show the actual content view
   showView(viewName);
 }
+// Tab navigation
+const sidebarLinks = document.querySelectorAll(".nav-links a");
+const tabs = document.querySelectorAll(".tab");
 
-// Replace the entire sidebarLinks and tabs code with:
-document.querySelectorAll('.nav-links a, .tab').forEach(element => {
-  element.addEventListener('click', e => {
+sidebarLinks.forEach((link) => {
+  link.addEventListener("click", (e) => {
     e.preventDefault();
-    
-    const viewName = element.dataset.view || element.dataset.tab;
-    
-    if (viewName === 'logout') {
+    const targetView = link.getAttribute("data-view");
+
+    if (targetView === "logout") {
       logout();
       return;
     }
-    
-    activateView(viewName);
-    
-    // Special initialization
-    if (viewName === 'stats') initChart();
-    if (viewName === 'calendar') renderCalendar();
-    if (viewName === 'customers') fetchCustomers();
+
+    sidebarLinks.forEach((l) => l.classList.remove("active"));
+    link.classList.add("active");
+
+    tabs.forEach((tab) => {
+      if (tab.getAttribute("data-tab") === targetView) {
+        tab.classList.add("active");
+      } else {
+        tab.classList.remove("active");
+      }
+    });
+
+    // ✅ This ensures calendar renders when tab is clicked
+    if (targetView === "stats") {
+      initChart();
+    } else if (targetView === "calendar") {
+      renderCalendar();
+    } else if (targetView === "customers") {
+      fetchCustomers(); // THIS IS THE LINE TO CHANGE
+    }
   });
 });
         // ✅ Start your app logic
