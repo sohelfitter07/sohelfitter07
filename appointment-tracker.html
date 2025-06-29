@@ -1718,9 +1718,14 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
   // ================ VIEW MANAGEMENT ================
   function activateView(viewName) {
      // Map sidebar views to tab views where necessary
-  const viewMap = {
-    reports: "stats", // Sidebar "Reports" shows "Stats" view
-    dashboard: "list" // Alias for clarity
+     const viewMap = {
+    list: "list",
+    calendar: "calendar",
+    settings: "settings",
+    customers: "customers",
+    reports: "stats",
+    help: "help",
+    logout: "logout"
   };
 
   const targetView = viewMap[viewName] || viewName;
@@ -1729,10 +1734,14 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
       link.classList.toggle('active', link.dataset.view === viewName);
     });
     
-    // Update top tabs
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.classList.toggle('active', tab.dataset.tab === viewName);
-    });
+  // Update top tabs if applicable
+  document.querySelectorAll('.tab').forEach(tab => {
+    if (tab.dataset.tab === targetView) {
+      tab.classList.add('active');
+    } else {
+      tab.classList.remove('active');
+    }
+  });
     
  // Show the actual content view
  showView(targetView, viewName);
@@ -1748,27 +1757,25 @@ function showView(targetView, originalView) {
   const viewElement = document.getElementById(`${targetView}-view`);
   if (viewElement) viewElement.classList.add('active');
 
-  // Execute view-specific initialization
+  // Initialize view-specific content
   switch(targetView) {
-    case "stats":
-      initChart();
-      break;
     case "calendar":
       renderCalendar();
+      break;
+    case "stats":
+      initChart();
       break;
     case "customers":
       fetchCustomers();
       break;
     case "settings":
-      // Initialize settings
-      break;
-    case "inventory":
-      fetchParts();
+      loadSettings();
       break;
     case "reports":
-      // Initialize reports
-      case "help":
-      // Load help content
+      generateReports();
+      break;
+    case "help":
+      loadHelpContent();
       break;
   }
 
