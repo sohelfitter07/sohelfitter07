@@ -1834,71 +1834,74 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
     repair_completed: { text: "Completed", class: "status-released" }
   };
 
-  // ================ VIEW MANAGEMENT ================
-  function activateView(viewName) {
-     // Map sidebar views to tab views where necessary
-     const viewMap = {
-    list: "list",
-    calendar: "calendar",
-    settings: "settings",
-    customers: "customers",
-    reports: "reports",
-    help: "help",
-    logout: "logout"
-  };
 
-  const targetView = viewMap[viewName] || viewName;
+  function activateView(viewName) {
+    // Map sidebar views to tab views where necessary
+    const viewMap = {
+      list: "list",
+      calendar: "calendar",
+      settings: "settings",
+      customers: "customers",
+      reports: "reports",
+      help: "help",
+      logout: "logout"
+    };
+
+    const targetView = viewMap[viewName] || viewName;
+
     // Update sidebar active state
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.classList.toggle('active', link.dataset.view === viewName);
     });
     
-  // Update top tabs if applicable
-  document.querySelectorAll('.tab').forEach(tab => {
-    if (tab.dataset.tab === targetView) {
-      tab.classList.add('active');
-    } else {
-      tab.classList.remove('active');
-    }
-  });
+    // Update top tabs if applicable
+    document.querySelectorAll('.tab').forEach(tab => {
+      if (tab.dataset.tab === targetView) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
     
- // Show the actual content view
- showView(targetView);
-}
-// Replace the existing showView function with this:
-function showView(targetView) {
-  // Hide all views
-  document.querySelectorAll('.tab-content').forEach(view => {
-    view.classList.remove('active');
-  });
-  
-  // Show requested view
-  const viewElement = document.getElementById(`${targetView}-view`);
-  if (viewElement) viewElement.classList.add('active');
-
-  // Initialize view-specific content
-  switch(targetView) {
-    case "calendar":
-      renderCalendar();
-      break;
-    case "stats":
-      initChart();
-      break;
-    case "customers":
-      fetchCustomers();
-      break;
-    case "settings":
-      loadSettings();
-      break;
-    case "reports":  // Changed from 'stats' to 'reports'
-      generateReports();
-      break;
-    case "help":
-      loadHelpContent();
-      break;
+    // Show the actual content view
+    showView(targetView);
   }
-}
 
+  function showView(targetView) {
+    // Hide all views
+    document.querySelectorAll('.tab-content').forEach(view => {
+      view.classList.remove('active');
+    });
+    
+    // Show requested view
+    const viewElement = document.getElementById(`${targetView}-view`);
+    if (viewElement) viewElement.classList.add('active');
+
+    // Initialize view-specific content
+    switch(targetView) {
+      case "calendar":
+        renderCalendar();
+        break;
+      case "stats":
+        initChart();
+        break;
+      case "customers":
+        fetchCustomers();
+        break;
+      case "settings":
+        loadSettings();
+        break;
+      case "reports":
+        generateReports();
+        break;
+      case "help":
+        loadHelpContent();
+        break;
+      case "logout":
+        logout();
+        break;
+    }
+  }
   // ================ AUTHENTICATION HANDLING ================
   onAuthStateChanged(auth, (user) => {
     if (!user) {
