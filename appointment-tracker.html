@@ -1858,6 +1858,7 @@ function initApp(auth, db, appointmentsCollection, customersCollection, partsCol
     document.querySelectorAll('.tab').forEach(tab => {
       if (tab.dataset.tab === targetView) {
         tab.classList.add('active');
+        showView(targetView);  // Add this line to activate content
       } else {
         tab.classList.remove('active');
       }
