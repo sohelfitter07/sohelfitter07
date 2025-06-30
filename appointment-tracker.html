@@ -1620,7 +1620,9 @@
             doc,
             Timestamp,
             query,
-            where 
+            where,
+            setDoc,
+            getDoc
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
         import {
             getAuth,
@@ -2234,7 +2236,7 @@ function updateNotificationStatusIndicators() {
     smsStatus.className = 'notification-status ' + (smsEnabled ? 'enabled' : '');
 }
 
-function loadSettings() {
+async function loadSettings() {
     // Show loading state
     const btn = document.getElementById('save-settings');
     const originalHTML = btn ? btn.innerHTML : '';
@@ -2244,37 +2246,84 @@ function loadSettings() {
         btn.disabled = true;
     }
 
-    // Simulate API call to load settings
-    setTimeout(() => {
-        try {
-            // Set default values
+    try {
+        // Clear any previous validation errors
+        clearAllValidationErrors();
+        
+        // Check if user is authenticated
+        const user = auth.currentUser;
+        let settings = null;
+        
+        // 1. Try loading from Firestore
+        if (user) {
+            try {
+                const settingsRef = doc(db, "settings", user.uid);
+                const docSnap = await getDoc(settingsRef);
+                
+                if (docSnap.exists()) {
+                    settings = docSnap.data();
+                    console.log("Settings loaded from Firestore:", settings);
+                    // Store in localStorage for faster access
+                    localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
+                }
+            } catch (firestoreError) {
+                console.warn("Firestore load failed, falling back to localStorage:", firestoreError);
+            }
+        }
+        
+        // 2. If not found in Firestore, try localStorage
+        if (!settings) {
+            const localData = localStorage.getItem('fitnessRepairSettings');
+            if (localData) {
+                settings = JSON.parse(localData);
+                console.log("Settings loaded from localStorage:", settings);
+            }
+        }
+        
+        // 3. Apply settings to form or use defaults
+        if (settings) {
+            document.getElementById('settings-full-name').value = settings.fullName || "Admin User";
+            document.getElementById('settings-business-name').value = settings.businessName || "Canadian Fitness Repair";
+            document.getElementById('settings-start-time').value = settings.startTime || "08:00";
+            document.getElementById('settings-end-time').value = settings.endTime || "18:00";
+            document.getElementById('email-notifications').checked = settings.emailNotifications !== false; // default true
+            document.getElementById('sms-notifications').checked = !!settings.smsNotifications;
+            document.getElementById('admin-phone').value = settings.adminPhone || "";
+            document.getElementById('sms-carrier').value = settings.smsCarrier || "";
+            
+            // Update business name in UI
+            if (settings.businessName) {
+                document.querySelector('.brand h2').textContent = settings.businessName;
+            }
+        } else {
+            // Set default values if no settings found
             document.getElementById('settings-full-name').value = "Admin User";
-            document.getElementById('settings-email').value = "admin@fitnessrepair.com";
             document.getElementById('settings-business-name').value = "Canadian Fitness Repair";
             document.getElementById('settings-start-time').value = "08:00";
             document.getElementById('settings-end-time').value = "18:00";
             document.getElementById('email-notifications').checked = true;
             document.getElementById('sms-notifications').checked = false;
-            
-            // Clear any previous validation errors
-            clearAllValidationErrors();
-            updateNotificationStatusIndicators();
-            loadSettingsFromStorage();
-            // Show success message
-            showToast("Settings loaded successfully");
-        } catch (error) {
-            console.error("Error loading settings:", error);
-            showToast("Failed to load settings", true);
-        } finally {
-            // Restore button state
-            if (btn) {
-                btn.innerHTML = '<i class="fas fa-save"></i> Save Settings';
-                btn.disabled = false;
-            }
+            document.getElementById('admin-phone').value = "";
+            document.getElementById('sms-carrier').value = "";
         }
-    }, 800);
+        
+        // Update notification indicators
+        updateNotificationStatusIndicators();
+        
+        // Show success message
+        showToast("Settings loaded successfully");
+        
+    } catch (error) {
+        console.error("Error loading settings:", error);
+        showToast("Failed to load settings", true);
+    } finally {
+        // Restore button state
+        if (btn) {
+            btn.innerHTML = '<i class="fas fa-save"></i> Save Settings';
+            btn.disabled = false;
+        }
+    }
 }
-
 // Save settings function
 async function saveSettings() {
     const btn = document.getElementById('save-settings');
@@ -2501,22 +2550,49 @@ async function sendSMSNotification(eventType, appointment) {
         if (eventType === 'test') {
             showToast("Sending test SMS...");
         }
-        
-        // Send via SMS endpoint
-        const response = await fetch('/api/send-sms', {
+
+        // NEW: Map carriers to email domains
+        const carrierDomains = {
+            att: "txt.att.net",
+            verizon: "vtext.com",
+            tmobile: "tmomail.net",
+            sprint: "messaging.sprintpcs.com",
+            virgin: "vmobl.com",
+            boost: "sms.myboostmobile.com",
+            cricket: "sms.cricketwireless.net",
+            metro: "mymetropcs.com"
+        };
+
+        // Get domain for selected carrier
+        const domain = carrierDomains[settings.smsCarrier];
+        if (!domain) {
+            throw new Error("Invalid SMS carrier selected");
+        }
+
+        // Format phone number by removing non-numeric characters
+        const cleanPhone = settings.adminPhone.replace(/\D/g, '');
+        if (cleanPhone.length !== 10) {
+            throw new Error("Phone number must be 10 digits");
+        }
+
+        // Create email address for SMS gateway
+        const smsEmail = `${cleanPhone}@${domain}`;
+
+        // NEW: Send via email-to-SMS gateway
+        const response = await fetch('/api/send-email', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ 
-                phoneNumber: settings.adminPhone,
-                carrier: settings.smsCarrier,
-                message: smsMessage
+                recipient: smsEmail,
+                subject: "CFR Notification",
+                body: smsMessage
             })
         });
         
         const result = await response.json();
         
         if (response.ok && result.success) {
-            console.log(`[📱 SMS SENT] ${eventType} to ${settings.adminPhone} via ${settings.smsCarrier}`);
+            console.log(`[📱 SMS SENT] ${eventType} to ${cleanPhone} via ${settings.smsCarrier}`);
             
             if (eventType === 'test') {
                 showToast("Test SMS sent successfully! Check your phone.");
@@ -2527,20 +2603,19 @@ async function sendSMSNotification(eventType, appointment) {
             console.error('SMS sending failed:', errorMsg);
             
             if (eventType === 'test') {
-                showToast(`Failed to send SMS: ${errorMsg}`, true);
+                showToast(`Failed to send SMS: ${error.message || errorMsg}`, true);
             }
             return false;
         }
     } catch (error) {
-        console.error('Network error sending SMS:', error);
+        console.error('Error sending SMS:', error);
         
         if (eventType === 'test') {
-            showToast("Network error sending SMS: " + error.message, true);
+            showToast(`SMS failed: ${error.message}`, true);
         }
         return false;
     }
 }
-
 // Run this check periodically (e.g., every hour)
 setInterval(checkUpcomingAppointments, 60 * 60 * 1000);
 // ===== HELP VIEW INITIALIZATION =====
