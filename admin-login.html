@@ -459,7 +459,8 @@ input.invalid {
           </div>
           <a href="#" class="forgot-password" id="forgotPassword">Forgot Password?</a>
         </div>
-        
+        <div class="g-recaptcha" data-sitekey="6LdgO3MrAAAAAGEx-CE4m5-mXXhOLAB9oXQcQHPX"></div>
+
         <button type="submit" class="btn" id="loginBtn">
           <i class="fas fa-sign-in-alt"></i> Login
         </button>
@@ -606,7 +607,12 @@ input.invalid {
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
       let valid = true;
-  
+      const recaptchaResponse = grecaptcha.getResponse();
+if (!recaptchaResponse) {
+  errorMessage.querySelector('span').textContent = 'Please complete the reCAPTCHA';
+  errorMessage.classList.add('show');
+  return;
+}
       // Pre-submit validation
       if (!validateEmail(email)) {
         showFieldError("email", "Enter a valid email address");
@@ -659,6 +665,6 @@ input.invalid {
       }
     });
   </script>
-  
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
