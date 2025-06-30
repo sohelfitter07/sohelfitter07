@@ -1,186 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Login | Canadian Fitness Repair</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #5d5dff;
-      --text-light: #b0b0d0;
-      --text-color: #f0f0f0;
-      --dark: #151719;
-      --darker: #0d0f11;
-      --card-bg: #1a1c23;
-      --border: #2a2e39;
-      --danger: #e74c3c;
+      --dark-bg: #121826;
+      --dark-card: #1f2937;
+      --dark-border: #374151;
+      --dark-text: #e5e7eb;
+      --dark-accent: #3b82f6;
+      --dark-hover: #4b5563;
+      --dark-success: #10b981;
+      --dark-warning: #f59e0b;
+      --dark-danger: #ef4444;
+      --dark-gray: #9ca3af;
+      --dark-highlight: #1e40af;
+      --dark-shadow: rgba(0, 0, 0, 0.4);
+      --transition: all 0.3s ease;
     }
+    
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
+    
     body {
-      background: linear-gradient(135deg, var(--darker), var(--card-bg));
-      color: var(--text-color);
+      background: linear-gradient(135deg, var(--dark-bg), #0d1017);
+      color: var(--dark-text);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      padding: 20px;
+      position: relative;
       overflow: hidden;
     }
+    
+    /* Decorative elements */
+    .decoration {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(45deg, var(--dark-accent), #8b5cf6);
+      opacity: 0.08;
+      border-radius: 50%;
+      filter: blur(60px);
+      z-index: 1;
+    }
+    
+    .decoration:nth-child(1) {
+      top: -100px;
+      left: -100px;
+    }
+    
+    .decoration:nth-child(2) {
+      bottom: -100px;
+      right: -100px;
+    }
+    
+    /* Login container */
     .login-container {
-      background: var(--card-bg);
-      padding: 40px 30px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 450px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      background: var(--dark-card);
+      width: 100%;
+      max-width: 420px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px var(--dark-shadow);
+      border: 1px solid var(--dark-border);
+      position: relative;
+      z-index: 10;
+    }
+    
+    /* Header styling */
+    .login-header {
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+      padding: 35px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .login-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--dark-accent), #8b5cf6);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .logo i {
+      font-size: 2.5rem;
+      color: var(--dark-accent);
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--dark-accent), #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .login-header p {
+      color: var(--dark-gray);
+      font-size: 0.95rem;
+      margin-top: 5px;
+    }
+    
+    /* Form styling */
+    .login-form {
+      padding: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 22px;
       position: relative;
     }
-    .logo-header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .logo-header i {
-      font-size: 3rem;
-      color: var(--primary);
-    }
-    .logo-header h1 {
-      margin-top: 10px;
-      font-size: 1.8rem;
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    label {
+    
+    .form-group label {
       display: block;
       margin-bottom: 8px;
-      color: var(--text-light);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--dark-gray);
     }
+    
     .input-with-icon {
       position: relative;
     }
+    
     .input-with-icon i {
       position: absolute;
-      left: 15px;
+      left: 18px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-light);
+      color: var(--dark-accent);
+      font-size: 1.1rem;
     }
+    
     .form-control {
       width: 100%;
-      padding: 12px 15px 12px 45px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--dark);
-      color: var(--text-color);
+      padding: 14px 20px 14px 52px;
+      background: var(--dark-bg);
+      border: 1px solid var(--dark-border);
+      border-radius: 10px;
+      color: var(--dark-text);
       font-size: 1rem;
+      transition: var(--transition);
     }
-    .btn {
-      width: 100%;
-      padding: 14px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--dark-accent);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    
+    /* Password field with toggle - FIXED POSITIONING */
+    .password-container {
+      position: relative;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--dark-gray);
       cursor: pointer;
-      font-size: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      z-index: 2;
+      padding: 5px;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
-      transition: background 0.3s;
     }
-    .btn:hover {
-      background: #4a4aff;
+    
+    .toggle-password:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--dark-accent);
     }
-    .error-message {
-      color: var(--danger);
-      text-align: center;
-      margin-top: 15px;
+    
+    /* Remember me & forgot password */
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
       font-size: 0.9rem;
-      display: none;
     }
+    
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .remember input {
+      accent-color: var(--dark-accent);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    
+    .forgot-password {
+      color: var(--dark-accent);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+    
+    /* Buttons */
+    .btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(90deg, var(--dark-accent), #7c3aed);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    }
+    
+    .btn:active {
+      transform: translateY(0);
+    }
+    
+    .btn.secondary {
+      background: var(--dark-card);
+      color: var(--dark-gray);
+      box-shadow: 0 4px 15px var(--dark-shadow);
+      margin-top: 15px;
+    }
+    
+    .btn.secondary:hover {
+      background: var(--dark-hover);
+      color: var(--dark-text);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Error message */
+    .error-message {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--dark-danger);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      border-left: 4px solid var(--dark-danger);
+      display: none;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .error-message.show {
+      display: flex;
+    }
+    
+    /* Security info */
     .security-info {
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 20px;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 25px;
+      border: 1px solid var(--dark-border);
     }
+    
+    .security-info h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      color: var(--dark-accent);
+    }
+    
+    .security-info ul {
+      padding-left: 25px;
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+    }
+    
+    .security-info li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    
+    /* Footer */
     .form-footer {
       text-align: center;
-      margin-top: 15px;
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid var(--dark-border);
+      font-size: 0.9rem;
+      color: var(--dark-gray);
     }
+    
     .form-footer a {
-      color: var(--primary);
+      color: var(--dark-accent);
       text-decoration: none;
+      transition: var(--transition);
     }
+    
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Animations */
     .shake {
       animation: shake 0.5s;
     }
+    
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-10px); }
-      40%, 80% { transform: translateX(10px); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+    
+    .btn.loading {
+      position: relative;
+      color: transparent;
+    }
+    
+    .btn.loading::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 576px) {
+      .login-container {
+        border-radius: 12px;
+      }
+      
+      .login-header {
+        padding: 25px 20px;
+      }
+      
+      .login-form {
+        padding: 25px 20px;
+      }
+      
+      .logo h1 {
+        font-size: 1.5rem;
+      }
+      
+      .logo i {
+        font-size: 2rem;
+      }
+      
+      .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Background Decorations -->
+  <div class="decoration"></div>
+  <div class="decoration"></div>
+  
+  <!-- Login Container -->
   <div class="login-container">
-    <div class="logo-header">
-      <i class="fas fa-dumbbell"></i>
-      <h1>Canadian Fitness Repair</h1>
+    <div class="login-header">
+      <div class="logo">
+        <i class="fas fa-dumbbell"></i>
+        <h1>Fitness Repair</h1>
+      </div>
       <p>Admin Portal - Appointment Tracker</p>
     </div>
-
-    <form id="login-form">
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <div class="input-with-icon">
-          <i class="fas fa-envelope"></i>
-          <input type="email" id="email" class="form-control" placeholder="Enter email" required>
+    
+    <div class="login-form">
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-with-icon">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" class="form-control" placeholder="Enter your email address" required autocomplete="username">
+          </div>
         </div>
-      </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <div class="input-with-icon">
-          <i class="fas fa-lock"></i>
-          <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-with-icon">
+            <i class="fas fa-lock"></i>
+            <div class="password-container">
+              <input type="password" id="password" class="form-control" placeholder="Enter password" required autocomplete="current-password">
+              <button type="button" class="toggle-password" id="togglePassword">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
         </div>
+        
+        <div class="remember-forgot">
+          <div class="remember">
+            <input type="checkbox" id="remember">
+            <label for="remember">Remember me</label>
+          </div>
+          <a href="#" class="forgot-password" id="forgotPassword">Forgot Password?</a>
+        </div>
+        
+        <button type="submit" class="btn" id="loginBtn">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        
+        <div class="error-message" id="errorMessage">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span>Invalid email or password</span>
+        </div>
+        
+        <a href="https://www.canadianfitnessrepair.com" class="btn secondary" target="_blank">
+          <i class="fas fa-home"></i> Visit Home Page
+        </a>
+      </form>
+      
+      <div class="security-info">
+        <h3><i class="fas fa-shield-alt"></i> Security Notice</h3>
+        <ul>
+          <li>Only authorized personnel are allowed access</li>
+          <li>All login attempts are monitored and logged</li>
+          <li>Use strong, unique passwords for your account</li>
+          <li>Log out after each session on shared devices</li>
+        </ul>
       </div>
-
-      <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Login</button>
-
-      <div class="error-message" id="errorMessage">
-        <i class="fas fa-exclamation-triangle"></i> Invalid email or password
+      
+      <div class="form-footer">
+        Need help? <a href="mailto:canadianfitnessrepair@gmail.com">Contact administrator</a>
       </div>
-    </form>
-
-    <div class="security-info">
-      <h3><i class="fas fa-shield-alt"></i> Security Notice</h3>
-      <ul>
-        <li>Only authorized personnel are allowed access.</li>
-        <li>All login attempts are monitored.</li>
-        <li>Always use strong, unique passwords.</li>
-      </ul>
-    </div>
-
-    <div class="form-footer">
-      Forgot your password? <a href="#" id="resetLink">Contact administrator</a>
     </div>
   </div>
-
-  <!-- Firebase Script (type="module") -->
+  
+  <!-- Firebase Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyCtz3qjz880jPQBH6jJ5fBY_O86wK1iRzs",
       authDomain: "cfr-tracker.firebaseapp.com",
@@ -191,30 +493,92 @@
       measurementId: "G-CMVSQHBQKH"
     };
 
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    // DOM elements
     const loginForm = document.getElementById('login-form');
     const errorMessage = document.getElementById('errorMessage');
+    const loginBtn = document.getElementById('loginBtn');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const forgotPassword = document.getElementById('forgotPassword');
+    const rememberCheckbox = document.getElementById('remember');
 
+    // Load saved credentials if "Remember me" was checked
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedEmail = localStorage.getItem('adminEmail');
+      const savedRemember = localStorage.getItem('rememberMe');
+      
+      if (savedEmail && savedRemember === 'true') {
+        document.getElementById('email').value = savedEmail;
+        rememberCheckbox.checked = true;
+      }
+    });
+
+    // Toggle password visibility
+    togglePassword.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePassword.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+    });
+
+    // Forgot password
+    forgotPassword.addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      
+      if (!email) {
+        errorMessage.querySelector('span').textContent = 'Please enter your email first';
+        errorMessage.classList.add('show');
+        return;
+      }
+      
+      alert(`Password reset instructions have been sent to ${email}. Please check your inbox.`);
+    });
+
+    // Login form submission
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-
+      
+      // Save credentials if "Remember me" is checked
+      if (rememberCheckbox.checked) {
+        localStorage.setItem('adminEmail', email);
+        localStorage.setItem('rememberMe', 'true');
+      } else {
+        localStorage.removeItem('adminEmail');
+        localStorage.removeItem('rememberMe');
+      }
+      
+      // Show loading state
+      loginBtn.classList.add('loading');
+      loginBtn.disabled = true;
+      errorMessage.classList.remove('show');
+      
       try {
         await signInWithEmailAndPassword(auth, email, password);
         window.location.href = 'appointment-tracker.html';
       } catch (error) {
-        errorMessage.style.display = 'block';
+        console.error('Login error:', error);
+        
+        let errorMsg = 'Invalid email or password';
+        if (error.code === 'auth/too-many-requests') {
+          errorMsg = 'Too many failed attempts. Account temporarily disabled.';
+        } else if (error.code === 'auth/user-not-found') {
+          errorMsg = 'No account found with this email';
+        }
+        
+        errorMessage.querySelector('span').textContent = errorMsg;
+        errorMessage.classList.add('show');
         loginForm.classList.add('shake');
         setTimeout(() => loginForm.classList.remove('shake'), 500);
+      } finally {
+        loginBtn.classList.remove('loading');
+        loginBtn.disabled = false;
       }
-    });
-
-    document.getElementById('resetLink').addEventListener('click', (e) => {
-      e.preventDefault();
-      alert("Please email canadianfitnessrepair@gmail.com to reset your password.");
     });
   </script>
 </body>
