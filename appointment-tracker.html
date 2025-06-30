@@ -1389,7 +1389,26 @@
                                 </label>
                             </div>
                         </div>
-                        
+                        <div style="margin-bottom: 20px;">
+                            <label>Admin Phone Number (for SMS)</label>
+                            <input type="tel" id="admin-phone" class="form-control" placeholder="e.g., 4161234567">
+                            <div class="validation-error" id="admin-phone-error"></div>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label>Mobile Carrier (for SMS Notifications)</label>
+                            <select id="sms-carrier" class="form-control">
+                                <option value="rogers">Rogers</option>
+                                <option value="bell">Bell</option>
+                                <option value="telus">Telus</option>
+                                <option value="fido">Fido</option>
+                                <option value="virgin">Virgin Mobile</option>
+                                <option value="koodo">Koodo</option>
+                                <option value="freedom">Freedom Mobile</option>
+                                <option value="public">Public Mobile</option>
+                                <option value="sasktel">SaskTel</option>
+                                <option value="videotron">Videotron</option>
+                            </select>
+                        </div>
                         <div class="form-actions">
                             <button type="button" id="save-settings" class="btn">
                                 <i class="fas fa-save"></i> Save Settings
@@ -2301,8 +2320,11 @@ function saveSettings() {
             smsNotifications,
             lastUpdated: new Date().toISOString(),
             emailNotifications: document.getElementById('email-notifications').checked,
-        smsNotifications: document.getElementById('sms-notifications').checked,
-        lastUpdated: new Date().toISOString()
+            smsNotifications: document.getElementById('sms-notifications').checked,
+            lastUpdated: new Date().toISOString(),
+            adminPhone: document.getElementById('admin-phone').value.trim(),
+        smsCarrier: document.getElementById('sms-carrier').value,
+        smsNotifications: document.getElementById('sms-notifications').checked
         };
         // Store in localStorage
     localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
@@ -2377,9 +2399,25 @@ async function sendEmailNotification(eventType, appointment) {
 }
 
 // SMS notification service
+// SMS notification service
 async function sendSMSNotification(eventType, appointment) {
-    let message;
+    // Get admin notification settings
+    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
     
+    // Check if SMS notifications are enabled
+    if (!settings.smsNotifications) {
+        console.log("SMS notifications are disabled");
+        return;
+    }
+    
+    // Ensure we have required information
+    if (!settings.adminPhone || !settings.smsCarrier) {
+        console.error("Missing admin phone or carrier information");
+        return;
+    }
+
+    // Format message based on event type
+    let message;
     switch(eventType) {
         case 'appointment_created':
             message = `New appt: ${appointment.customer} on ${appointment.dateObj.toLocaleDateString()}`;
@@ -2388,24 +2426,35 @@ async function sendSMSNotification(eventType, appointment) {
             message = `Updated: ${appointment.customer}'s appt`;
             break;
         case 'appointment_reminder':
-            message = `Reminder: Appt with ${appointment.customer} tomorrow`;
+            message = `Reminder: Appt with ${appointment.customer} tomorrow at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
             break;
+        default:
+            message = `Appointment update: ${appointment.customer}`;
     }
     
+    // Truncate message to SMS length limit
+    const smsMessage = message.substring(0, 160);
+    
     try {
-        await fetch('/api/send-sms', {
+        // Send via new SMS endpoint
+        const response = await fetch('/api/send-sms', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ 
-                phoneNumber: "+12899257239", // Admin's phone number
-                message
+                phoneNumber: settings.adminPhone,
+                carrier: settings.smsCarrier,
+                message: smsMessage
             })
         });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('SMS sending failed:', errorData.error);
+        }
     } catch (error) {
-        console.error('SMS sending failed:', error);
+        console.error('Network error sending SMS:', error);
     }
 }
-
 // Run this check periodically (e.g., every hour)
 setInterval(checkUpcomingAppointments, 60 * 60 * 1000);
 // ===== HELP VIEW INITIALIZATION =====

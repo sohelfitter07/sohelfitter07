@@ -1,9 +1,12 @@
 {
   "dependencies": {
     "@firebase/app-check": "^0.10.0",
+    "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.0.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.4",
+    "twilio": "^5.7.1"
   },
   "name": "sohelfitter07",
   "version": "1.0.0",
