@@ -1619,6 +1619,8 @@
             deleteDoc,
             doc,
             Timestamp,
+            query,
+            where 
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
         import {
             getAuth,
@@ -1973,7 +1975,7 @@ async function checkAppointmentReminders() {
             where('date', '<', Timestamp.fromDate(new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000)))
         );
         const snapshot = await getDocs(q);
-        
+
         snapshot.forEach(doc => {
             const appointment = {
                 id: doc.id,
