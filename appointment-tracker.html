@@ -902,6 +902,17 @@
         .mobile-menu-btn:hover {
             transform: scale(1.1);
         }
+        .mobile-menu-btn {
+  display: block;
+  cursor: pointer;
+}
+
+/* Hide hamburger menu on screens wider than 768px */
+@media (min-width: 768px) {
+  .mobile-menu-btn {
+    display: none;
+  }
+}
     </style>
 </head>
 <body>
@@ -925,6 +936,10 @@
             <i class="fas fa-dumbbell"></i>
             <h2>Fitness Repair</h2>
         </div>
+        <!-- Sidebar -->
+
+  <button class="close-sidebar">&times;</button>
+
         <div class="nav-links">
             <a href="#" data-view="dashboard" class="active">
                 <i class="fas fa-chart-line"></i>
@@ -2546,6 +2561,11 @@ function closeAppointmentModal() {
                 mobileMenuBtn.addEventListener('click', () => {
                     sidebar.classList.toggle('active');
                 });
+                
+  // Close sidebar when close button is clicked
+  closeSidebarBtn?.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+  });
             }
             
             // ================ INITIALIZATION ================
