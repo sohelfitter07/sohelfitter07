@@ -215,25 +215,38 @@ input.invalid {
     }
     
     .toggle-password {
-      position: absolute;
-      right: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--dark-gray);
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-size: 1.1rem;
-      transition: var(--transition);
-      z-index: 2;
-      padding: 5px;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  color: var(--dark-gray);
+  padding: 0; /* 🔑 no padding */
+  font-size: 16px; /* 🔑 size of the icon */
+}
+
+.toggle-password i {
+  font-size: 16px;     /* ✅ matches parent */
+  line-height: 1;      /* ✅ prevent vertical misalignment */
+  margin: 0;           /* ✅ remove default spacing */
+  pointer-events: none;
+}
+
+.toggle-password:hover {
+  background: rgba(255, 255, 255, 0.15); /* soft circle */
+  color: var(--dark-accent);
+}
+
+
     
     .toggle-password:hover {
       background: rgba(255, 255, 255, 0.1);
@@ -329,7 +342,25 @@ input.invalid {
     .error-message.show {
       display: flex;
     }
-    
+    .input-with-icon {
+  position: relative;
+}
+
+.input-with-icon i.fas.fa-lock,
+.input-with-icon i.fas.fa-envelope {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--dark-gray);
+  pointer-events: none;
+  font-size: 16px;
+}
+
+.input-with-icon input {
+  padding-left: 36px; /* make space for left icon */
+}
+
     /* Security info */
     .security-info {
       background: rgba(255, 255, 255, 0.05);
@@ -468,17 +499,18 @@ input.invalid {
         
         <div class="form-group">
           <label for="password">Password</label>
-          <div class="input-with-icon">
-            <i class="fas fa-lock"></i>
-            <div class="password-container">
+          <div>
+            <div class="input-with-icon password-container">
+              <i class="fas fa-lock"></i>
               <input type="password" id="password" class="form-control" placeholder="Enter password" required autocomplete="current-password">
               <button type="button" class="toggle-password" id="togglePassword">
                 <i class="fas fa-eye"></i>
               </button>
             </div>
           </div>
-          <div class="validation-error" id="password-error"></div> <!-- 🔴 Add this -->
+          <div class="validation-error" id="password-error"></div>
         </div>
+        
         
         <div class="remember-forgot">
           <div class="remember">
@@ -571,7 +603,6 @@ input.invalid {
       const email = emailInput.value.trim();
       if (!email) {
         showToast('Please enter your email first', 'warning');
-
         return;
       }
       try {
