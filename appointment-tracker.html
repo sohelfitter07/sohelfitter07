@@ -751,7 +751,16 @@
             min-height: 120px;
             resize: vertical;
         }
-        
+        /* Add to your CSS */
+.holiday {
+    background-color: #fff0f0 !important;
+    border: 1px solid #ffcccc !important;
+}
+
+.holiday .day-number {
+    color: #d32f2f;
+    font-weight: bold;
+}
         .form-actions {
             display: flex;
             gap: 15px;
@@ -1372,6 +1381,39 @@
                             <div class="validation-error" id="settings-business-name-error"></div>
                         </div>
                         
+                        <!-- NEW: Province Selection -->
+                        <div style="margin-bottom: 20px;">
+                            <label>Business Province</label>
+                            <select id="business-province" class="form-control">
+                                <option value="ON">Ontario</option>
+                                <option value="QC">Quebec</option>
+                                <option value="BC">British Columbia</option>
+                                <option value="AB">Alberta</option>
+                                <option value="MB">Manitoba</option>
+                                <option value="SK">Saskatchewan</option>
+                                <option value="NS">Nova Scotia</option>
+                                <option value="NB">New Brunswick</option>
+                                <option value="NL">Newfoundland and Labrador</option>
+                                <option value="PE">Prince Edward Island</option>
+                                <option value="NT">Northwest Territories</option>
+                                <option value="NU">Nunavut</option>
+                                <option value="YT">Yukon</option>
+                            </select>
+                        </div>
+                        
+                        <!-- NEW: Timezone Selection -->
+                        <div style="margin-bottom: 20px;">
+                            <label>Business Timezone</label>
+                            <select id="timezone" class="form-control">
+                                <option value="America/Toronto">Eastern (Toronto)</option>
+                                <option value="America/Vancouver">Pacific (Vancouver)</option>
+                                <option value="America/Edmonton">Mountain (Edmonton)</option>
+                                <option value="America/Winnipeg">Central (Winnipeg)</option>
+                                <option value="America/Halifax">Atlantic (Halifax)</option>
+                                <option value="America/St_Johns">Newfoundland (St. John's)</option>
+                            </select>
+                        </div>
+                        
                         <div style="margin-bottom: 20px;">
                             <label>Business Hours</label>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -1424,7 +1466,7 @@
                                 <option value="videotron">Videotron</option>
                             </select>
                         </div>
-
+        
                         <div class="form-actions">
                             <button type="button" id="save-settings" class="btn">
                                 <i class="fas fa-save"></i> Save Settings
@@ -1528,9 +1570,29 @@
                     <div class="validation-error" id="equipment-error"></div>
                 </div>
                 
-                <div style="margin-bottom: 20px;">
-                    <label>Price ($)</label>
-                    <input type="number" id="appointment-price" class="form-control" value="150">
+                <!-- In your appointment-modal -->
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label>Service Price (before tax)</label>
+                    <input type="number" id="appointment-base-price" class="form-control" step="0.01" placeholder="0.00">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label>Tax</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <input type="text" id="appointment-tax-rate" class="form-control" readonly>
+                            <div class="card-footer" style="text-align: center; padding: 5px;">Rate</div>
+                        </div>
+                        <div>
+                            <input type="number" id="appointment-tax-amount" class="form-control" readonly>
+                            <div class="card-footer" style="text-align: center; padding: 5px;">Amount</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label>Total Price (including tax)</label>
+                    <input type="number" id="appointment-price" class="form-control" readonly>
                 </div>
                 
                 <div style="margin-bottom: 20px;">
@@ -1633,7 +1695,7 @@
             onAuthStateChanged,
             signOut,
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+    
         async function getFirebaseConfig() {
             try {
                 const response = await fetch(
@@ -1646,134 +1708,134 @@
                 return null;
             }
         }
-
+    
         (async () => {
             const firebaseConfig = await getFirebaseConfig();
             if (!firebaseConfig) {
                 showToast("App configuration failed to load.", true);
                 return;
             }
-
+    
             const app = initializeApp(firebaseConfig);
             const db = getFirestore(app);
             const auth = getAuth(app);
             const appointmentsCollection = collection(db, "appointments");
             const customersCollection = collection(db, "customers");
-
+    
             // Start your app logic
             initApp(auth, db, appointmentsCollection, customersCollection);
         })();
         // ===== CACHING MECHANISM =====
-let cachedAppointments = null;
-let lastFetchTime = 0;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-
-// ===== ERROR HANDLING FOR FIREBASE =====
-async function initializeFirebaseWithRetry(retries = 3, delay = 2000) {
-  try {
-    const firebaseConfig = await getFirebaseConfig();
-    if (!firebaseConfig) throw new Error("Invalid Firebase config");
+    let cachedAppointments = null;
+    let lastFetchTime = 0;
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
     
-    const app = initializeApp(firebaseConfig);
-    return {
-      db: getFirestore(app),
-      auth: getAuth(app),
-      appointmentsCollection: collection(getFirestore(app), "appointments"),
-      customersCollection: collection(getFirestore(app), "customers")
-    };
-  } catch (error) {
-    if (retries > 0) {
-      console.log(`Retrying Firebase initialization... (${retries} left)`);
-      await new Promise(resolve => setTimeout(resolve, delay));
-      return initializeFirebaseWithRetry(retries - 1, delay * 2);
-    }
-    throw error;
-  }
-}
-
-// ===== PAGINATION FOR CUSTOMERS =====
-let currentCustomerPage = 1;
-const customersPerPage = 10;
-
-async function fetchCustomers() {
-  showLoading(true);
-  try {
-    const snapshot = await getDocs(customersCollection);
-    customers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    renderCustomersTable();
-  } catch (error) {
-    console.error("Error fetching customers:", error);
-    showToast("Failed to load customers", true);
-  } finally {
-    showLoading(false);
-  }
-}
-
-function renderCustomersTable() {
-  const tbody = document.getElementById('customers-body');
-  tbody.innerHTML = '';
-  
-  if (customers.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" class="no-data">No customers found</td></tr>`;
-    return;
-  }
-  
-  const start = (currentCustomerPage - 1) * customersPerPage;
-  const pageCustomers = customers.slice(start, start + customersPerPage);
-  
-  pageCustomers.forEach(customer => {
-    // ... existing customer row code
-  });
-  
-  // Add pagination controls for customers
-  const totalPages = Math.ceil(customers.length / customersPerPage);
-  document.getElementById("customer-page-indicator").textContent = 
-    `Page ${currentCustomerPage} of ${totalPages}`;
-  
-  document.getElementById("customer-prev-page").disabled = currentCustomerPage === 1;
-  document.getElementById("customer-next-page").disabled = currentCustomerPage >= totalPages;
-}
-// ===== SEARCH FUNCTIONALITY FOR APPOINTMENTS =====
-function setupAdvancedSearch() {
-  const searchInput = document.getElementById('search-appointments');
-  searchInput.addEventListener('input', function() {
-    const term = this.value.toLowerCase();
-    
-    if (!term) {
-      renderAppointmentsTable(appointments);
-      return;
+    // ===== ERROR HANDLING FOR FIREBASE =====
+    async function initializeFirebaseWithRetry(retries = 3, delay = 2000) {
+      try {
+        const firebaseConfig = await getFirebaseConfig();
+        if (!firebaseConfig) throw new Error("Invalid Firebase config");
+        
+        const app = initializeApp(firebaseConfig);
+        return {
+          db: getFirestore(app),
+          auth: getAuth(app),
+          appointmentsCollection: collection(getFirestore(app), "appointments"),
+          customersCollection: collection(getFirestore(app), "customers")
+        };
+      } catch (error) {
+        if (retries > 0) {
+          console.log(`Retrying Firebase initialization... (${retries} left)`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          return initializeFirebaseWithRetry(retries - 1, delay * 2);
+        }
+        throw error;
+      }
     }
     
-    const filtered = appointments.filter(app => 
-      app.customer.toLowerCase().includes(term) ||
-      (app.phone && app.phone.toLowerCase().includes(term)) ||
-      (app.equipment && app.equipment.toLowerCase().includes(term)) ||
-      (app.status && statusMap[app.status]?.text.toLowerCase().includes(term))
-    );
+    // ===== PAGINATION FOR CUSTOMERS =====
+    let currentCustomerPage = 1;
+    const customersPerPage = 10;
     
-    renderAppointmentsTable(filtered);
-  });
-}
-
-// ===== LOADING SKELETONS =====
-function showSkeletonLoader(containerId, rows = 5) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-  
-  for (let i = 0; i < rows; i++) {
-    const skeleton = document.createElement('div');
-    skeleton.className = 'skeleton-row';
-    skeleton.innerHTML = `
-      <div class="skeleton-cell"></div>
-      <div class="skeleton-cell"></div>
-      <div class="skeleton-cell"></div>
-      <div class="skeleton-cell"></div>
-      <div class="skeleton-cell"></div>
-    `;
-    container.appendChild(skeleton);
-  }
-}
-
+    async function fetchCustomers() {
+      showLoading(true);
+      try {
+        const snapshot = await getDocs(customersCollection);
+        customers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        renderCustomersTable();
+      } catch (error) {
+        console.error("Error fetching customers:", error);
+        showToast("Failed to load customers", true);
+      } finally {
+        showLoading(false);
+      }
+    }
+    
+    function renderCustomersTable() {
+      const tbody = document.getElementById('customers-body');
+      tbody.innerHTML = '';
+      
+      if (customers.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="no-data">No customers found</td></tr>`;
+        return;
+      }
+      
+      const start = (currentCustomerPage - 1) * customersPerPage;
+      const pageCustomers = customers.slice(start, start + customersPerPage);
+      
+      pageCustomers.forEach(customer => {
+        // ... existing customer row code
+      });
+      
+      // Add pagination controls for customers
+      const totalPages = Math.ceil(customers.length / customersPerPage);
+      document.getElementById("customer-page-indicator").textContent = 
+        `Page ${currentCustomerPage} of ${totalPages}`;
+      
+      document.getElementById("customer-prev-page").disabled = currentCustomerPage === 1;
+      document.getElementById("customer-next-page").disabled = currentCustomerPage >= totalPages;
+    }
+    // ===== SEARCH FUNCTIONALITY FOR APPOINTMENTS =====
+    function setupAdvancedSearch() {
+      const searchInput = document.getElementById('search-appointments');
+      searchInput.addEventListener('input', function() {
+        const term = this.value.toLowerCase();
+        
+        if (!term) {
+          renderAppointmentsTable(appointments);
+          return;
+        }
+        
+        const filtered = appointments.filter(app => 
+          app.customer.toLowerCase().includes(term) ||
+          (app.phone && app.phone.toLowerCase().includes(term)) ||
+          (app.equipment && app.equipment.toLowerCase().includes(term)) ||
+          (app.status && statusMap[app.status]?.text.toLowerCase().includes(term))
+        );
+        
+        renderAppointmentsTable(filtered);
+      });
+    }
+    
+    // ===== LOADING SKELETONS =====
+    function showSkeletonLoader(containerId, rows = 5) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      
+      for (let i = 0; i < rows; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'skeleton-row';
+        skeleton.innerHTML = `
+          <div class="skeleton-cell"></div>
+          <div class="skeleton-cell"></div>
+          <div class="skeleton-cell"></div>
+          <div class="skeleton-cell"></div>
+          <div class="skeleton-cell"></div>
+        `;
+        container.appendChild(skeleton);
+      }
+    }
+    
         // ================ UTILITY FUNCTIONS ================
         function showLoading(show = true) {
             const loadingElement = document.getElementById('loading-overlay');
@@ -1784,8 +1846,8 @@ function showSkeletonLoader(containerId, rows = 5) {
         
         function showToast(message, isError = false) {
           if (isError) {
-    console.error(message);
-  }
+            console.error(message);
+          }
             const toast = document.createElement("div");
             toast.className = `toast ${isError ? "error" : "success"}`;
             toast.innerHTML = `
@@ -1805,7 +1867,12 @@ function showSkeletonLoader(containerId, rows = 5) {
             if (!dateObj) return "N/A";
             
             try {
-                return dateObj.toLocaleString('en-US', {
+                // Get timezone from settings or default to Toronto
+                const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+                const timeZone = settings.timeZone || 'America/Toronto';
+                return dateObj.toLocaleString('en-CA', {
+                    timeZone: timeZone,
+                    hour12: true,
                     month: 'short',
                     day: 'numeric',
                     year: 'numeric',
@@ -1813,6 +1880,7 @@ function showSkeletonLoader(containerId, rows = 5) {
                     minute: '2-digit'
                 });
             } catch (e) {
+                console.error("Date formatting error:", e);
                 return "Invalid Date";
             }
         }
@@ -1825,6 +1893,57 @@ function showSkeletonLoader(containerId, rows = 5) {
                 if (d.getDay() !== 0 && d.getDay() !== 6) count++;
             }
             return count;
+        }
+        
+        // ================ TAX CALCULATION ================
+        function getTaxRate(province) {
+            const taxRates = {
+                'ON': 0.13,  // Ontario HST
+                'QC': 0.14975, // Quebec GST + QST
+                'BC': 0.12,   // British Columbia GST + PST
+                'AB': 0.05,   // Alberta GST
+                'MB': 0.12,   // Manitoba GST + PST
+                'SK': 0.11,   // Saskatchewan GST + PST
+                'NS': 0.15,   // Nova Scotia HST
+                'NB': 0.15,   // New Brunswick HST
+                'NL': 0.15,   // Newfoundland and Labrador HST
+                'PE': 0.15,   // Prince Edward Island HST
+                'NT': 0.05,   // Northwest Territories GST
+                'NU': 0.05,   // Nunavut GST
+                'YT': 0.05    // Yukon GST
+            };
+            return taxRates[province] || 0.13; // Default to Ontario rate
+        }
+    
+        function calculateTax() {
+            const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+            const province = settings.province || 'ON';
+            const taxRate = getTaxRate(province);
+            
+            const basePrice = parseFloat(document.getElementById('appointment-base-price').value) || 0;
+            const taxAmount = basePrice * taxRate;
+            const totalPrice = basePrice + taxAmount;
+            
+            document.getElementById('appointment-tax-rate').value = (taxRate * 100).toFixed(2) + '%';
+            document.getElementById('appointment-tax-amount').value = taxAmount.toFixed(2);
+            document.getElementById('appointment-price').value = totalPrice.toFixed(2);
+        }
+        
+        // ================ HOLIDAY CALENDAR ================
+        function getCanadianHolidays(year, province) {
+            const holidays = {
+                NEW_YEAR: new Date(year, 0, 1),
+                CANADA_DAY: new Date(year, 6, 1),
+                // Add more holidays as needed
+            };
+            
+            // Province-specific holidays
+            if (province === 'ON') {
+                holidays.FAMILY_DAY = new Date(year, 1, 17); // Third Monday in February
+            }
+            // Add other province-specific holidays
+            
+            return holidays;
         }
         
         // ================ MAIN APPLICATION ================
@@ -1852,211 +1971,210 @@ function showSkeletonLoader(containerId, rows = 5) {
                 repair_completed: { text: "Completed", class: "status-released" }
             };
             // ================ VALIDATION UTILITIES ================
-const validators = {
-    required: value => value.trim() !== '',
-    validDate: value => new Date(value).toString() !== 'Invalid Date',
-    validTime: value => /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value),
-    validPrice: value => !isNaN(parseFloat(value)) && parseFloat(value) >= 0
-};
-
-function showValidationError(fieldId, message) {
-    const field = document.getElementById(fieldId);
-    const errorId = `${fieldId}-error`;
-    const errorElement = document.getElementById(errorId);
-    
-    if (field && errorElement) {
-        field.classList.add('invalid');
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
-        errorElement.style.opacity = '1';
-    }
-}
-
-function showValidationToast(message, isError = true) {
-    const toast = document.createElement("div");
-    toast.className = `toast ${isError ? "error" : "success"}`;
-    toast.innerHTML = `
-        <i class="fas ${isError ? "fa-exclamation-circle" : "fa-check-circle"}"></i>
-        <div>${message}</div>
-    `;
-    document.getElementById("toast-container").appendChild(toast);
-    
-    // Show toast
-    setTimeout(() => toast.classList.add("show"), 100);
-    
-    // Auto-remove after delay
-    setTimeout(() => {
-        toast.classList.remove("show");
-        setTimeout(() => toast.remove(), 300);
-    }, 5000);
-}
-// Keep your existing single-field function
-function clearValidationError(fieldId) {
-    const field = document.getElementById(fieldId);
-    const errorId = `${fieldId}-error`;
-    const errorElement = document.getElementById(errorId);
-    
-    if (field) field.classList.remove('invalid');
-    if (errorElement) {
-        errorElement.style.display = 'none';
-        errorElement.textContent = ''; // Clear message text
-    }
-}
-
-// Add this new function to clear ALL validation errors
-function clearAllValidationErrors() {
-    document.querySelectorAll('.validation-error').forEach(el => {
-        el.textContent = '';
-        el.style.display = 'none';
-    });
-    
-    document.querySelectorAll('.form-control').forEach(field => {
-        field.classList.remove('invalid');
-    });
-}
-function initReportsView() {
-    const reportsView = document.getElementById('reports-view');
-    reportsView.innerHTML = `
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Reports Dashboard</div>
-            </div>
-            <div class="card-content">
-                <p>Revenue reports, appointment analytics, and performance metrics coming soon</p>
-                <button class="btn" id="export-reports">
-                    <i class="fas fa-file-export"></i> Export Data
-                </button>
-            </div>
-        </div>
-    `;
-}
-
-function initReminderSystem() {
-    // Check for appointments needing reminders
-    checkAppointmentReminders();
-    
-    // Check every hour
-    setInterval(checkAppointmentReminders, 60 * 60 * 1000);
-}
-// Reminder check function
-async function checkAppointmentReminders() {
-    try {
-        const now = new Date();
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        
-        // Get appointments scheduled for tomorrow
-        const q = query(
-            appointmentsCollection,
-            where('date', '>=', Timestamp.fromDate(tomorrow)),
-            where('date', '<', Timestamp.fromDate(new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000)))
-        );
-        const snapshot = await getDocs(q);
-
-        snapshot.forEach(doc => {
-            const appointment = {
-                id: doc.id,
-                ...doc.data(),
-                dateObj: doc.data().date.toDate()
-            };
-            
-            // Trigger reminder notification
-            triggerNotifications('appointment_reminder', appointment);
-        });
-    } catch (error) {
-        console.error("Error checking reminders:", error);
-    }
-}
-function setupFieldValidation(fieldId, validator) {
-    const field = document.getElementById(fieldId);
-    if (!field) return;
-    
-    field.addEventListener('blur', () => {
-        if (!validator(field.value)) {
-            field.classList.add('invalid');
-        } else {
-            field.classList.remove('invalid');
-        }
-    });
-    
-    field.addEventListener('input', () => {
-        if (validator(field.value)) {
-            field.classList.remove('invalid');
-        } else {
-            field.classList.add('invalid');
-        }
-    });
-}
-function initializeValidation() {
-      // Define validators
-      const validators = {
+    const validators = {
         required: value => value.trim() !== '',
-        validDate: value => !isNaN(Date.parse(value)),
-        validTime: value => /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value.trim()),
+        validDate: value => new Date(value).toString() !== 'Invalid Date',
+        validTime: value => /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value),
         validPrice: value => !isNaN(parseFloat(value)) && parseFloat(value) >= 0
     };
-    // Customer fields
-    setupFieldValidation('customer-name', validators.required, 'Customer name is required');
-    setupFieldValidation('appointment-date', validators.validDate, 'Please select a valid date');
-    setupFieldValidation('appointment-time', validators.validTime, 'Please select a valid time');
-    setupFieldValidation('appointment-price', validators.validPrice, 'Please enter a valid price');
-}
+    
+    function showValidationError(fieldId, message) {
+        const field = document.getElementById(fieldId);
+        const errorId = `${fieldId}-error`;
+        const errorElement = document.getElementById(errorId);
+        
+        if (field && errorElement) {
+            field.classList.add('invalid');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            errorElement.style.opacity = '1';
+        }
+    }
+    
+    function showValidationToast(message, isError = true) {
+        const toast = document.createElement("div");
+        toast.className = `toast ${isError ? "error" : "success"}`;
+        toast.innerHTML = `
+            <i class="fas ${isError ? "fa-exclamation-circle" : "fa-check-circle"}"></i>
+            <div>${message}</div>
+        `;
+        document.getElementById("toast-container").appendChild(toast);
+        
+        // Show toast
+        setTimeout(() => toast.classList.add("show"), 100);
+        
+        // Auto-remove after delay
+        setTimeout(() => {
+            toast.classList.remove("show");
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
+    }
+    
+    function clearValidationError(fieldId) {
+        const field = document.getElementById(fieldId);
+        const errorId = `${fieldId}-error`;
+        const errorElement = document.getElementById(errorId);
+        
+        if (field) field.classList.remove('invalid');
+        if (errorElement) {
+            errorElement.style.display = 'none';
+            errorElement.textContent = ''; // Clear message text
+        }
+    }
+    
+    function clearAllValidationErrors() {
+        document.querySelectorAll('.validation-error').forEach(el => {
+            el.textContent = '';
+            el.style.display = 'none';
+        });
+        
+        document.querySelectorAll('.form-control').forEach(field => {
+            field.classList.remove('invalid');
+        });
+    }
+    function initReportsView() {
+        const reportsView = document.getElementById('reports-view');
+        reportsView.innerHTML = `
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Reports Dashboard</div>
+                </div>
+                <div class="card-content">
+                    <p>Revenue reports, appointment analytics, and performance metrics coming soon</p>
+                    <button class="btn" id="export-reports">
+                        <i class="fas fa-file-export"></i> Export Data
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+    
+    function initReminderSystem() {
+        // Check for appointments needing reminders
+        checkAppointmentReminders();
+        
+        // Check every hour
+        setInterval(checkAppointmentReminders, 60 * 60 * 1000);
+    }
+    
+    async function checkAppointmentReminders() {
+        try {
+            const now = new Date();
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            // Get appointments scheduled for tomorrow
+            const q = query(
+                appointmentsCollection,
+                where('date', '>=', Timestamp.fromDate(tomorrow)),
+                where('date', '<', Timestamp.fromDate(new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000)))
+            );
+            const snapshot = await getDocs(q);
+    
+            snapshot.forEach(doc => {
+                const appointment = {
+                    id: doc.id,
+                    ...doc.data(),
+                    dateObj: doc.data().date.toDate()
+                };
+                
+                // Trigger reminder notification
+                triggerNotifications('appointment_reminder', appointment);
+            });
+        } catch (error) {
+            console.error("Error checking reminders:", error);
+        }
+    }
+    function setupFieldValidation(fieldId, validator) {
+        const field = document.getElementById(fieldId);
+        if (!field) return;
+        
+        field.addEventListener('blur', () => {
+            if (!validator(field.value)) {
+                field.classList.add('invalid');
+            } else {
+                field.classList.remove('invalid');
+            }
+        });
+        
+        field.addEventListener('input', () => {
+            if (validator(field.value)) {
+                field.classList.remove('invalid');
+            } else {
+                field.classList.add('invalid');
+            }
+        });
+    }
+    function initializeValidation() {
+          // Define validators
+          const validators = {
+            required: value => value.trim() !== '',
+            validDate: value => !isNaN(Date.parse(value)),
+            validTime: value => /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value.trim()),
+            validPrice: value => !isNaN(parseFloat(value)) && parseFloat(value) >= 0
+        };
+        // Customer fields
+        setupFieldValidation('customer-name', validators.required, 'Customer name is required');
+        setupFieldValidation('appointment-date', validators.validDate, 'Please select a valid date');
+        setupFieldValidation('appointment-time', validators.validTime, 'Please select a valid time');
+        setupFieldValidation('appointment-price', validators.validPrice, 'Please enter a valid price');
+    }
             // ================ VIEW MANAGEMENT ================
             function activateView(viewName) {
-    // ✅ FIX: Remove active class from ALL sidebar links first
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.classList.remove('active');
-    });
-    
-    // ✅ FIX: Add active class ONLY to the current view
-    const currentLink = document.querySelector(`.nav-links a[data-view="${viewName}"]`);
-    if (currentLink) {
-        currentLink.classList.add('active');
-    }
-    
-    // Hide all views
-    document.querySelectorAll('.tab-content').forEach(view => {
-        view.classList.remove('active');
-    });
-    
-    // Show requested view
-    const viewElement = document.getElementById(`${viewName}-view`);
-    if (viewElement) viewElement.classList.add('active');
-    
-    // Initialize view-specific content
-    switch(viewName) {
-        case "dashboard":
-        initReminderSystem();
-            updateStats();
-            initChart();
-            break;
-        case "appointments":
-            fetchAppointments();
-            break;
-        case "calendar":
-            renderCalendar();
-            updateCalendarSummary();
-            setupCalendarEventHandlers();
-            break;
-        case "customers":
-            fetchCustomers();
-            break;
-        case "reports":
-            initReportsView();
-            break;
-        case "settings":
-            loadSettings();
-            break;
-        case "help":
-            initHelpView();
-            break;
-    }
-    
-    // Auto-close sidebar on mobile
-    if (window.innerWidth <= 576) {
-        document.querySelector('.sidebar').classList.remove('active');
-    }
-}           
+        // Remove active class from ALL sidebar links first
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Add active class ONLY to the current view
+        const currentLink = document.querySelector(`.nav-links a[data-view="${viewName}"]`);
+        if (currentLink) {
+            currentLink.classList.add('active');
+        }
+        
+        // Hide all views
+        document.querySelectorAll('.tab-content').forEach(view => {
+            view.classList.remove('active');
+        });
+        
+        // Show requested view
+        const viewElement = document.getElementById(`${viewName}-view`);
+        if (viewElement) viewElement.classList.add('active');
+        
+        // Initialize view-specific content
+        switch(viewName) {
+            case "dashboard":
+            initReminderSystem();
+                updateStats();
+                initChart();
+                break;
+            case "appointments":
+                fetchAppointments();
+                break;
+            case "calendar":
+                renderCalendar();
+                updateCalendarSummary();
+                setupCalendarEventHandlers();
+                break;
+            case "customers":
+                fetchCustomers();
+                break;
+            case "reports":
+                initReportsView();
+                break;
+            case "settings":
+                loadSettings();
+                break;
+            case "help":
+                initHelpView();
+                break;
+        }
+        
+        // Auto-close sidebar on mobile
+        if (window.innerWidth <= 576) {
+            document.querySelector('.sidebar').classList.remove('active');
+        }
+    }           
             // ================ AUTHENTICATION HANDLING ================
             onAuthStateChanged(auth, (user) => {
               if (!user){
@@ -2084,85 +2202,85 @@ function initializeValidation() {
             
             // ================ DATA MANAGEMENT ================
             // Fetch appointments from Firestore
-            async function fetchAppointmentsWithCache(appointmentsCollection) {
-    const now = Date.now();
-    if (cachedAppointments && now - lastFetchTime < CACHE_DURATION) {
-        return cachedAppointments;
-    }
+            async function fetchAppointmentsWithCache() {
+                const now = Date.now();
+                if (cachedAppointments && now - lastFetchTime < CACHE_DURATION) {
+                    return cachedAppointments;
+                }
+                
+                showLoading(true);
+                // Show skeleton loader while data is loading
+                showSkeletonLoader('appointments-body', 7);
+                
+                try {
+                    // Create optimized query with ordering and limit
+                    const q = query(
+                        appointmentsCollection,
+                        orderBy("date", "desc"),
+                        limit(100) // Get only the most recent 100 appointments
+                    );
+                    
+                    const snapshot = await getDocs(q);
+                    
+                    cachedAppointments = snapshot.docs.map(doc => {
+                        const data = doc.data();
+                        return {
+                            id: doc.id,
+                            ...data,
+                            dateObj: data.date ? data.date.toDate() : new Date()
+                        };
+                    });
+                    
+                    lastFetchTime = now;
+                    return cachedAppointments;
+                } catch (error) {
+                    console.error("Error fetching appointments:", error);
+                    showToast("Failed to fetch appointments", true);
+                    return [];
+                } finally {
+                    showLoading(false);
+                }
+            }
     
-    showLoading(true);
-    // Show skeleton loader while data is loading
-    showSkeletonLoader('appointments-body', 7);
-    
-    try {
-        // Create optimized query with ordering and limit
-        const q = query(
-            appointmentsCollection,
-            orderBy("date", "desc"),
-            limit(100) // Get only the most recent 100 appointments
-        );
-        
-        const snapshot = await getDocs(q);
-        
-        cachedAppointments = snapshot.docs.map(doc => {
-            const data = doc.data();
-            return {
-                id: doc.id,
-                ...data,
-                dateObj: data.date ? data.date.toDate() : new Date()
-            };
-        });
-        
-        lastFetchTime = now;
-        return cachedAppointments;
-    } catch (error) {
-        console.error("Error fetching appointments:", error);
-        showToast("Failed to fetch appointments", true);
-        return [];
-    } finally {
-        showLoading(false);
-    }
-}
-
             async function fetchAppointments() {
-    try {
-        // Get appointments from cache or fresh fetch
-        appointments = await fetchAppointmentsWithCache(appointmentsCollection);
-        
-        // Update UI in priority order
-        renderAppointmentsTable(); // First priority
-        updateStats(); // Quick update
-        
-        // Defer heavier operations
-        setTimeout(() => {
-            // Only render calendar if it's visible
-            if (document.getElementById('calendar-view').classList.contains('active')) {
-                renderCalendar();
-                updateCalendarSummary();
-            }
+                try {
+                    // Get appointments from cache or fresh fetch
+                    appointments = await fetchAppointmentsWithCache();
+                    
+                    // Update UI in priority order
+                    renderAppointmentsTable(); // First priority
+                    updateStats(); // Quick update
+                    
+                    // Defer heavier operations
+                    setTimeout(() => {
+                        // Only render calendar if it's visible
+                        if (document.getElementById('calendar-view').classList.contains('active')) {
+                            renderCalendar();
+                            updateCalendarSummary();
+                        }
+                        
+                        // Only render chart if dashboard is visible
+                        if (document.getElementById('dashboard-view').classList.contains('active')) {
+                            initChart();
+                        }
+                    }, 50);
+                } catch (error) {
+                    console.error("Error in fetchAppointments:", error);
+                    showToast("Failed to load appointments", true);
+                }
+            }      
             
-            // Only render chart if dashboard is visible
-            if (document.getElementById('dashboard-view').classList.contains('active')) {
-                initChart();
-            }
-        }, 50);
-    } catch (error) {
-        console.error("Error in fetchAppointments:", error);
-        showToast("Failed to load appointments", true);
+    function logErrorToServer(error) {
+        // Send error to backend for logging
+        fetch('/api/log-error', {
+            method: 'POST',
+            body: JSON.stringify({
+                message: error.message,
+                stack: error.stack,
+                timestamp: new Date().toISOString()
+            })
+        });
     }
-}      
-            
-function logErrorToServer(error) {
-    // Send error to backend for logging
-    fetch('/api/log-error', {
-        method: 'POST',
-        body: JSON.stringify({
-            message: error.message,
-            stack: error.stack,
-            timestamp: new Date().toISOString()
-        })
-    });
-}
             // Fetch customers from Firestore
             async function fetchCustomers() {
                 showLoading(true);
@@ -2179,529 +2297,519 @@ function logErrorToServer(error) {
             }
             
             function initReportsCharts() {
-    // Repair Time Chart
-    const repairTimeCtx = document.getElementById('repairTimeChart').getContext('2d');
-    new Chart(repairTimeCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Treadmills', 'Ellipticals', 'Bikes', 'Rowers', 'Strength'],
-            datasets: [{
-                label: 'Avg. Repair Time (hours)',
-                data: [3.2, 2.8, 1.5, 2.1, 4.2],
-                backgroundColor: 'rgba(59, 130, 246, 0.7)',
-                borderColor: 'rgba(59, 130, 246, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Hours'
+        // Repair Time Chart
+        const repairTimeCtx = document.getElementById('repairTimeChart').getContext('2d');
+        new Chart(repairTimeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Treadmills', 'Ellipticals', 'Bikes', 'Rowers', 'Strength'],
+                datasets: [{
+                    label: 'Avg. Repair Time (hours)',
+                    data: [3.2, 2.8, 1.5, 2.1, 4.2],
+                    backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Hours'
+                        }
                     }
                 }
             }
-        }
-    });
-
-    // Revenue Chart
-    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-    new Chart(revenueCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Treadmills', 'Ellipticals', 'Bikes', 'Rowers', 'Strength'],
-            datasets: [{
-                label: 'Revenue by Type',
-                data: [1850, 1200, 650, 430, 150],
-                backgroundColor: [
-                    'rgba(59, 130, 246, 0.7)',
-                    'rgba(46, 204, 113, 0.7)',
-                    'rgba(155, 89, 182, 0.7)',
-                    'rgba(241, 196, 15, 0.7)',
-                    'rgba(230, 126, 34, 0.7)'
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'right'
+        });
+    
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Treadmills', 'Ellipticals', 'Bikes', 'Rowers', 'Strength'],
+                datasets: [{
+                    label: 'Revenue by Type',
+                    data: [1850, 1200, 650, 430, 150],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(46, 204, 113, 0.7)',
+                        'rgba(155, 89, 182, 0.7)',
+                        'rgba(241, 196, 15, 0.7)',
+                        'rgba(230, 126, 34, 0.7)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    }
                 }
             }
-        }
-    });
-}
-
-// ===== SETTINGS VIEW INITIALIZATION =====
-function updateNotificationStatusIndicators() {
-    const emailEnabled = document.getElementById('email-notifications').checked;
-    const smsEnabled = document.getElementById('sms-notifications').checked;
-    
-    const emailStatus = document.getElementById('email-notification-status');
-    const smsStatus = document.getElementById('sms-notification-status');
-    
-    emailStatus.className = 'notification-status ' + (emailEnabled ? 'enabled' : '');
-    smsStatus.className = 'notification-status ' + (smsEnabled ? 'enabled' : '');
-}
-
-async function loadSettings() {
-    // Show loading state
-    const btn = document.getElementById('save-settings');
-    const originalHTML = btn ? btn.innerHTML : '';
-    
-    if (btn) {
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading settings...';
-        btn.disabled = true;
+        });
     }
-
-    try {
-        // Clear any previous validation errors
-        clearAllValidationErrors();
+    
+    // ===== SETTINGS VIEW INITIALIZATION =====
+    function updateNotificationStatusIndicators() {
+        const emailEnabled = document.getElementById('email-notifications').checked;
+        const smsEnabled = document.getElementById('sms-notifications').checked;
         
-        // Check if user is authenticated
-        const user = auth.currentUser;
-        let settings = null;
+        const emailStatus = document.getElementById('email-notification-status');
+        const smsStatus = document.getElementById('sms-notification-status');
         
-        // 1. Try loading from Firestore
-        if (user) {
+        emailStatus.className = 'notification-status ' + (emailEnabled ? 'enabled' : '');
+        smsStatus.className = 'notification-status ' + (smsEnabled ? 'enabled' : '');
+    }
+    
+    async function loadSettings() {
+        // Show loading state
+        const btn = document.getElementById('save-settings');
+        const originalHTML = btn ? btn.innerHTML : '';
+        
+        if (btn) {
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading settings...';
+            btn.disabled = true;
+        }
+    
+        try {
+            // Clear any previous validation errors
+            clearAllValidationErrors();
+            
+            // Check if user is authenticated
+            const user = auth.currentUser;
+            let settings = null;
+            
+            // 1. Try loading from Firestore
+            if (user) {
+                try {
+                    const settingsRef = doc(db, "settings", user.uid);
+                    const docSnap = await getDoc(settingsRef);
+                    
+                    if (docSnap.exists()) {
+                        settings = docSnap.data();
+                        console.log("Settings loaded from Firestore:", settings);
+                        // Store in localStorage for faster access
+                        localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
+                    }
+                } catch (firestoreError) {
+                    console.warn("Firestore load failed, falling back to localStorage:", firestoreError);
+                }
+            }
+            
+            // 2. If not found in Firestore, try localStorage
+            if (!settings) {
+                const localData = localStorage.getItem('fitnessRepairSettings');
+                if (localData) {
+                    settings = JSON.parse(localData);
+                    console.log("Settings loaded from localStorage:", settings);
+                }
+            }
+            
+            // 3. Apply settings to form or use defaults
+            if (settings) {
+                document.getElementById('settings-full-name').value = settings.fullName || "Admin User";
+                document.getElementById('settings-business-name').value = settings.businessName || "Canadian Fitness Repair";
+                document.getElementById('settings-start-time').value = settings.startTime || "08:00";
+                document.getElementById('settings-end-time').value = settings.endTime || "18:00";
+                document.getElementById('email-notifications').checked = settings.emailNotifications !== false; // default true
+                document.getElementById('sms-notifications').checked = !!settings.smsNotifications;
+                document.getElementById('admin-phone').value = settings.adminPhone || "";
+                document.getElementById('sms-carrier').value = settings.smsCarrier || "";
+                if (settings.province) {
+                    document.getElementById('business-province').value = settings.province;
+                }
+                if (settings.timeZone) {
+                    document.getElementById('timezone').value = settings.timeZone;
+                } else {
+                    // Set default based on user's location
+                    const defaultTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    document.getElementById('timezone').value = 
+                        defaultTZ.startsWith('America') ? defaultTZ : 'America/Toronto';
+                }
+                // Update business name in UI
+                if (settings.businessName) {
+                    document.querySelector('.brand h2').textContent = settings.businessName;
+                }
+            } else {
+                // Set default values if no settings found
+                document.getElementById('settings-full-name').value = "Admin User";
+                document.getElementById('settings-business-name').value = "Canadian Fitness Repair";
+                document.getElementById('settings-start-time').value = "08:00";
+                document.getElementById('settings-end-time').value = "18:00";
+                document.getElementById('email-notifications').checked = true;
+                document.getElementById('sms-notifications').checked = false;
+                document.getElementById('admin-phone').value = "";
+                document.getElementById('sms-carrier').value = "";
+            }
+            
+            // Update notification indicators
+            updateNotificationStatusIndicators();
+            
+            // Show success message
+            showToast("Settings loaded successfully");
+            
+        } catch (error) {
+            console.error("Error loading settings:", error);
+            showToast("Failed to load settings", true);
+        } finally {
+            // Restore button state
+            if (btn) {
+                btn.innerHTML = '<i class="fas fa-save"></i> Save Settings';
+                btn.disabled = false;
+            }
+        }
+    }
+    
+    async function saveSettings() {
+        const btn = document.getElementById('save-settings');
+        if (!btn) return;
+        
+        const originalHTML = btn.innerHTML;
+        
+        // Show loading state
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        btn.disabled = true;
+        
+        try {
+            // Authentication State Check
+            const user = auth.currentUser;
+            if (!user) {
+                showToast("You need to be logged in to save settings", true);
+                return;
+            }
+            
+            // Get form values
+            const fullName = document.getElementById('settings-full-name').value.trim();
+            const businessName = document.getElementById('settings-business-name').value.trim();
+            const startTime = document.getElementById('settings-start-time').value;
+            const endTime = document.getElementById('settings-end-time').value;
+            const emailNotifications = document.getElementById('email-notifications').checked;
+            const smsNotifications = document.getElementById('sms-notifications').checked;
+            const adminPhone = document.getElementById('admin-phone').value.trim();
+            const smsCarrier = document.getElementById('sms-carrier').value;
+            const province = document.getElementById('business-province').value;
+            const timeZone = document.getElementById('timezone').value;
+            
+            // Clear previous errors
+            clearAllValidationErrors();
+            
+            // Validate inputs
+            let isValid = true;
+            
+            if (!fullName) {
+                showValidationError('settings-full-name', 'Full name is required');
+                isValid = false;
+            }
+            
+            if (!businessName) {
+                showValidationError('settings-business-name', 'Business name is required');
+                isValid = false;
+            }
+            
+            // CANADIAN PHONE VALIDATION (supports 10-digit format)
+            if (adminPhone) {
+                const cleanPhone = adminPhone.replace(/\D/g, '');
+                // Validates 10-digit Canadian numbers (without country code)
+                if (cleanPhone.length !== 10) {
+                    showValidationError('admin-phone', 'Canadian phone must be 10 digits (e.g., 4165551234)');
+                    isValid = false;
+                }
+            } else if (smsNotifications) {
+                showValidationError('admin-phone', 'Phone number is required for SMS notifications');
+                isValid = false;
+            }
+            
+            // CANADIAN CARRIER VALIDATION
+            const canadianCarriers = ['rogers', 'fido', 'bell', 'telus', 'koodo', 'virgin', 'freedom', 'chatr', 'public'];
+            if (smsNotifications) {
+                if (!smsCarrier) {
+                    showToast("Please select a mobile carrier for SMS notifications", true);
+                    isValid = false;
+                } else if (!canadianCarriers.includes(smsCarrier)) {
+                    showToast("Selected carrier is not supported in Canada", true);
+                    isValid = false;
+                }
+            }
+    
+            if (!startTime || !endTime) {
+                showToast("Business hours are required", true);
+                isValid = false;
+            } else if (startTime >= endTime) {
+                showToast("Closing time must be after opening time", true);
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                showToast("Please fix validation errors", true);
+                return;
+            }
+            
+            // Prepare settings data
+            const settings = {
+                fullName,
+                businessName,
+                startTime,
+                endTime,
+                emailNotifications,
+                smsNotifications,
+                province,
+                timeZone,
+                // Store cleaned Canadian phone number
+                adminPhone: adminPhone.replace(/\D/g, ''),
+                smsCarrier,
+                lastUpdated: new Date().toISOString(),
+                country: "CA" // Add country identifier
+            };
+            
+            // Store in localStorage
+            localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
+            
+            // Save to Firestore
             try {
                 const settingsRef = doc(db, "settings", user.uid);
-                const docSnap = await getDoc(settingsRef);
-                
-                if (docSnap.exists()) {
-                    settings = docSnap.data();
-                    console.log("Settings loaded from Firestore:", settings);
-                    // Store in localStorage for faster access
-                    localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
-                }
+                await setDoc(settingsRef, settings, { merge: true });
             } catch (firestoreError) {
-                console.warn("Firestore load failed, falling back to localStorage:", firestoreError);
+                console.error("Firestore save error:", firestoreError);
+                // Special handling for Canadian users
+                if (firestoreError.code === 'permission-denied') {
+                    showToast("Permission error. Please contact support.", true);
+                } else {
+                    showToast(`Failed to save settings: ${firestoreError.message}`, true);
+                }
+                return;
             }
-        }
-        
-        // 2. If not found in Firestore, try localStorage
-        if (!settings) {
-            const localData = localStorage.getItem('fitnessRepairSettings');
-            if (localData) {
-                settings = JSON.parse(localData);
-                console.log("Settings loaded from localStorage:", settings);
-            }
-        }
-        
-        // 3. Apply settings to form or use defaults
-        if (settings) {
-            document.getElementById('settings-full-name').value = settings.fullName || "Admin User";
-            document.getElementById('settings-business-name').value = settings.businessName || "Canadian Fitness Repair";
-            document.getElementById('settings-start-time').value = settings.startTime || "08:00";
-            document.getElementById('settings-end-time').value = settings.endTime || "18:00";
-            document.getElementById('email-notifications').checked = settings.emailNotifications !== false; // default true
-            document.getElementById('sms-notifications').checked = !!settings.smsNotifications;
-            document.getElementById('admin-phone').value = settings.adminPhone || "";
-            document.getElementById('sms-carrier').value = settings.smsCarrier || "";
             
-            // Update business name in UI
-            if (settings.businessName) {
-                document.querySelector('.brand h2').textContent = settings.businessName;
-            }
-        } else {
-            // Set default values if no settings found
-            document.getElementById('settings-full-name').value = "Admin User";
-            document.getElementById('settings-business-name').value = "Canadian Fitness Repair";
-            document.getElementById('settings-start-time').value = "08:00";
-            document.getElementById('settings-end-time').value = "18:00";
-            document.getElementById('email-notifications').checked = true;
-            document.getElementById('sms-notifications').checked = false;
-            document.getElementById('admin-phone').value = "";
-            document.getElementById('sms-carrier').value = "";
-        }
-        
-        // Update notification indicators
-        updateNotificationStatusIndicators();
-        
-        // Show success message
-        showToast("Settings loaded successfully");
-        
-    } catch (error) {
-        console.error("Error loading settings:", error);
-        showToast("Failed to load settings", true);
-    } finally {
-        // Restore button state
-        if (btn) {
-            btn.innerHTML = '<i class="fas fa-save"></i> Save Settings';
+            // Update UI
+            document.querySelector('.brand h2').textContent = businessName;
+            showToast("Settings saved successfully!");
+            updateNotificationStatusIndicators();
+            
+        } catch (error) {
+            console.error("Error saving settings:", error);
+            showToast(`Failed to save settings: ${error.message}`, true);
+        } finally {
+            btn.innerHTML = originalHTML;
             btn.disabled = false;
         }
     }
-}
-// Save settings function
-
-async function saveSettings() {
-    const btn = document.getElementById('save-settings');
-    if (!btn) return;
-    
-    const originalHTML = btn.innerHTML;
-    
-    // Show loading state
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-    btn.disabled = true;
-    
-    try {
-        // Authentication State Check
-        const user = auth.currentUser;
-        if (!user) {
-            showToast("You need to be logged in to save settings", true);
-            return;
-        }
+    function checkUpcomingAppointments() {
+        const upcoming = getAppointmentsWithin(24); // Get appointments within 24 hours
         
-        // Get form values
-        const fullName = document.getElementById('settings-full-name').value.trim();
-        const businessName = document.getElementById('settings-business-name').value.trim();
-        const startTime = document.getElementById('settings-start-time').value;
-        const endTime = document.getElementById('settings-end-time').value;
-        const emailNotifications = document.getElementById('email-notifications').checked;
-        const smsNotifications = document.getElementById('sms-notifications').checked;
-        const adminPhone = document.getElementById('admin-phone').value.trim();
-        const smsCarrier = document.getElementById('sms-carrier').value;
-        
-        // Clear previous errors
-        clearAllValidationErrors();
-        
-        // Validate inputs
-        let isValid = true;
-        
-        if (!fullName) {
-            showValidationError('settings-full-name', 'Full name is required');
-            isValid = false;
-        }
-        
-        if (!businessName) {
-            showValidationError('settings-business-name', 'Business name is required');
-            isValid = false;
-        }
-        
-        // CANADIAN PHONE VALIDATION (supports 10-digit format)
-        if (adminPhone) {
-            const cleanPhone = adminPhone.replace(/\D/g, '');
-            // Validates 10-digit Canadian numbers (without country code)
-            if (cleanPhone.length !== 10) {
-                showValidationError('admin-phone', 'Canadian phone must be 10 digits (e.g., 4165551234)');
-                isValid = false;
+        upcoming.forEach(appointment => {
+            if (settings.emailNotifications) {
+                sendEmailReminder(appointment);
             }
-        } else if (smsNotifications) {
-            showValidationError('admin-phone', 'Phone number is required for SMS notifications');
-            isValid = false;
-        }
-        
-        // CANADIAN CARRIER VALIDATION
-        const canadianCarriers = ['rogers', 'fido', 'bell', 'telus', 'koodo', 'virgin', 'freedom', 'chatr', 'public'];
-        if (smsNotifications) {
-            if (!smsCarrier) {
-                showToast("Please select a mobile carrier for SMS notifications", true);
-                isValid = false;
-            } else if (!canadianCarriers.includes(smsCarrier)) {
-                showToast("Selected carrier is not supported in Canada", true);
-                isValid = false;
+            
+            if (settings.smsNotifications) {
+                sendSMSReminder(appointment);
             }
-        }
-
-        if (!startTime || !endTime) {
-            showToast("Business hours are required", true);
-            isValid = false;
-        } else if (startTime >= endTime) {
-            showToast("Closing time must be after opening time", true);
-            isValid = false;
-        }
-        
-        if (!isValid) {
-            showToast("Please fix validation errors", true);
-            return;
-        }
-        
-        // Prepare settings data
-        const settings = {
-            fullName,
-            businessName,
-            startTime,
-            endTime,
-            emailNotifications,
-            smsNotifications,
-            // Store cleaned Canadian phone number
-            adminPhone: adminPhone.replace(/\D/g, ''),
-            smsCarrier,
-            lastUpdated: new Date().toISOString(),
-            country: "CA" // Add country identifier
-        };
-        
-        // Store in localStorage
-        localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
-        
-        // Save to Firestore
-        try {
-            const settingsRef = doc(db, "settings", user.uid);
-            await setDoc(settingsRef, settings, { merge: true });
-        } catch (firestoreError) {
-            console.error("Firestore save error:", firestoreError);
-            // Special handling for Canadian users
-            if (firestoreError.code === 'permission-denied') {
-                showToast("Permission error. Please contact support.", true);
-            } else {
-                showToast(`Failed to save settings: ${firestoreError.message}`, true);
-            }
-            return;
-        }
-        
-        // Update UI
-        document.querySelector('.brand h2').textContent = businessName;
-        showToast("Settings saved successfully!");
-        updateNotificationStatusIndicators();
-        
-    } catch (error) {
-        console.error("Error saving settings:", error);
-        showToast(`Failed to save settings: ${error.message}`, true);
-    } finally {
-        btn.innerHTML = originalHTML;
-        btn.disabled = false;
-    }
-}
-function checkUpcomingAppointments() {
-    const upcoming = getAppointmentsWithin(24); // Get appointments within 24 hours
-    
-    upcoming.forEach(appointment => {
-        if (settings.emailNotifications) {
-            sendEmailReminder(appointment);
-        }
-        
-        if (settings.smsNotifications) {
-            sendSMSReminder(appointment);
-        }
-    });
-}
-
-// Email notification service
-async function sendEmailNotification(eventType, appointment) {
-    let subject, body;
-    
-    switch(eventType) {
-        case 'appointment_created':
-            subject = "New Appointment Created";
-            body = `You have a new appointment with ${appointment.customer} on ${appointment.dateObj.toLocaleDateString()}`;
-            break;
-        case 'appointment_updated':
-            subject = "Appointment Updated";
-            body = `Appointment with ${appointment.customer} has been updated`;
-            break;
-        case 'appointment_reminder':
-            subject = "Appointment Reminder";
-            body = `Reminder: You have an appointment with ${appointment.customer} tomorrow`;
-            break;
-    }
-    
-    try {
-        await fetch('/api/send-email', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ 
-                recipient: "canadianfitnessrepair@gmail.com",
-                subject,
-                body
-            })
         });
-    } catch (error) {
-        console.error('Email sending failed:', error);
-    }
-}
-
-function loadSettingsFromStorage() {
-    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
-    
-    // Populate form fields
-    if (settings.fullName) document.getElementById('settings-full-name').value = settings.fullName;
-    if (settings.businessName) document.getElementById('settings-business-name').value = settings.businessName;
-    if (settings.startTime) document.getElementById('settings-start-time').value = settings.startTime;
-    if (settings.endTime) document.getElementById('settings-end-time').value = settings.endTime;
-    if (settings.adminPhone) document.getElementById('admin-phone').value = settings.adminPhone;
-    if (settings.smsCarrier) document.getElementById('sms-carrier').value = settings.smsCarrier;
-    
-    // Checkboxes
-    document.getElementById('email-notifications').checked = !!settings.emailNotifications;
-    document.getElementById('sms-notifications').checked = !!settings.smsNotifications;
-    
-    // Update UI
-    if (settings.businessName) {
-        document.querySelector('.brand h2').textContent = settings.businessName;
     }
     
-    updateNotificationStatusIndicators();
-}
-
-// SMS notification service
-async function sendSMSNotification(eventType, appointment) {
-    try {
-        // Get admin notification settings
-        const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
+    // Email notification service
+    async function sendEmailNotification(eventType, appointment) {
+        let subject, body;
         
-        // Check if SMS notifications are enabled
-        if (eventType !== 'test' && !settings.smsNotifications) {
-            console.log("SMS notifications are disabled");
-            return false;
-        }
-        
-        // Ensure we have required information
-        if (!settings.adminPhone || !settings.smsCarrier) {
-            const errorMsg = "Missing admin phone or carrier information";
-            if (eventType === 'test') {
-                showToast("Cannot send SMS: " + errorMsg, true);
-            }
-            console.error(errorMsg);
-            return false;
-        }
-
-        // Format message based on event type
-        let message;
         switch(eventType) {
             case 'appointment_created':
-                message = `📅 New appt: ${appointment.customer} on ${appointment.dateObj.toLocaleDateString('en-CA')} at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+                subject = "New Appointment Created";
+                body = `You have a new appointment with ${appointment.customer} on ${appointment.dateObj.toLocaleDateString()}`;
                 break;
             case 'appointment_updated':
-                message = `🔄 Updated: ${appointment.customer}'s appt on ${appointment.dateObj.toLocaleDateString('en-CA')}`;
+                subject = "Appointment Updated";
+                body = `Appointment with ${appointment.customer} has been updated`;
                 break;
             case 'appointment_reminder':
-                message = `⏰ Reminder: Appt with ${appointment.customer} tomorrow at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+                subject = "Appointment Reminder";
+                body = `Reminder: You have an appointment with ${appointment.customer} tomorrow`;
                 break;
-            case 'test':
-                message = "✅ Test: Canadian Fitness Repair notifications are working!";
-                break;   
-            default:
-                message = `ℹ️ Appointment update: ${appointment.customer}`;
         }
         
-        // Truncate message to SMS length limit
-        const smsMessage = message.substring(0, 160);
-        
-        // Show sending notification for test SMS
-        if (eventType === 'test') {
-            showToast("Sending test SMS...");
+        try {
+            await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ 
+                    recipient: "canadianfitnessrepair@gmail.com",
+                    subject,
+                    body
+                })
+            });
+        } catch (error) {
+            console.error('Email sending failed:', error);
         }
-
-        // CANADIAN CARRIER GATEWAYS
-        const canadianCarrierGateways = {
-            rogers: "pcs.rogers.com",
-            fido: "fido.ca",
-            bell: "txt.bell.ca",
-            telus: "msg.telus.com",
-            koodo: "msg.koodomobile.com",
-            virgin: "vmobile.ca",
-            freedom: "txt.freedommobile.ca",
-            chatr: "pcs.rogers.com",  // Same as Rogers
-            public: "msg.telus.com"   // Same as Telus
-        };
-
-        // Get domain for selected carrier
-        const domain = canadianCarrierGateways[settings.smsCarrier];
-        if (!domain) {
-            const errorMsg = `Unsupported Canadian carrier: ${settings.smsCarrier}`;
-            if (eventType === 'test') {
-                showToast(errorMsg, true);
-            }
-            console.error(errorMsg);
-            return false;
-        }
-
-        // Format phone number for Canadian SMS gateway (1 + 10-digit number)
-        const cleanPhone = settings.adminPhone.replace(/\D/g, '');
-        if (cleanPhone.length !== 10) {
-            const errorMsg = "Canadian phone must be 10 digits";
-            if (eventType === 'test') {
-                showToast(errorMsg, true);
-            }
-            console.error(errorMsg);
-            return false;
-        }
-
-        // Create email address for SMS gateway (1 + 10 digits)
-        const smsEmail = `1${cleanPhone}@${domain}`;
-
-        // Send via email-to-SMS gateway
-        const response = await fetch('/api/send-email', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ 
-                recipient: smsEmail,
-                subject: "CFR Notification",
-                body: smsMessage
-            })
-        });
-        
-        const result = await response.json();
-        
-        if (response.ok && result.success) {
-            console.log(`[📱 SMS SENT] ${eventType} to 1${cleanPhone} via ${settings.smsCarrier}`);
-            
-            if (eventType === 'test') {
-                showToast("Test SMS sent successfully! Check your phone.");
-            }
-            return true;
-        } else {
-            const errorMsg = result.error || "Unknown error";
-            console.error('SMS sending failed:', errorMsg);
-            
-            if (eventType === 'test') {
-                showToast(`Failed to send SMS: ${errorMsg}`, true);
-            }
-            return false;
-        }
-    } catch (error) {
-        console.error('Error sending SMS:', error);
-        
-        if (eventType === 'test') {
-            showToast(`SMS failed: ${error.message}`, true);
-        }
-        return false;
     }
-}
-// Run this check periodically (e.g., every hour)
-setInterval(checkUpcomingAppointments, 60 * 60 * 1000);
-// ===== HELP VIEW INITIALIZATION =====
-function initHelpView() {
-    // This could fetch FAQs from your backend
-    // For now, we'll just initialize the support form
-    document.getElementById('support-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const subject = document.getElementById('support-subject').value;
-        const message = document.getElementById('support-message').value;
-        
-        if (!subject || !message) {
-            showToast("Please fill all fields", true);
-            return;
+    
+    // SMS notification service
+    async function sendSMSNotification(eventType, appointment) {
+        try {
+            // Get admin notification settings
+            const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
+            
+            // Check if SMS notifications are enabled
+            if (eventType !== 'test' && !settings.smsNotifications) {
+                console.log("SMS notifications are disabled");
+                return false;
+            }
+            
+            // Ensure we have required information
+            if (!settings.adminPhone || !settings.smsCarrier) {
+                const errorMsg = "Missing admin phone or carrier information";
+                if (eventType === 'test') {
+                    showToast("Cannot send SMS: " + errorMsg, true);
+                }
+                console.error(errorMsg);
+                return false;
+            }
+    
+            // Format message based on event type
+            let message;
+            switch(eventType) {
+                case 'appointment_created':
+                    message = `📅 New appt: ${appointment.customer} on ${appointment.dateObj.toLocaleDateString('en-CA')} at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+                    break;
+                case 'appointment_updated':
+                    message = `🔄 Updated: ${appointment.customer}'s appt on ${appointment.dateObj.toLocaleDateString('en-CA')}`;
+                    break;
+                case 'appointment_reminder':
+                    message = `⏰ Reminder: Appt with ${appointment.customer} tomorrow at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+                    break;
+                case 'test':
+                    message = "✅ Test: Canadian Fitness Repair notifications are working!";
+                    break;   
+                default:
+                    message = `ℹ️ Appointment update: ${appointment.customer}`;
+            }
+            
+            // Truncate message to SMS length limit
+            const smsMessage = message.substring(0, 160);
+            
+            // Show sending notification for test SMS
+            if (eventType === 'test') {
+                showToast("Sending test SMS...");
+            }
+    
+            // CANADIAN CARRIER GATEWAYS
+            const canadianCarrierGateways = {
+                rogers: "pcs.rogers.com",
+                fido: "fido.ca",
+                bell: "txt.bell.ca",
+                telus: "msg.telus.com",
+                koodo: "msg.koodomobile.com",
+                virgin: "vmobile.ca",
+                freedom: "txt.freedommobile.ca",
+                chatr: "pcs.rogers.com",  // Same as Rogers
+                public: "msg.telus.com"   // Same as Telus
+            };
+    
+            // Get domain for selected carrier
+            const domain = canadianCarrierGateways[settings.smsCarrier];
+            if (!domain) {
+                const errorMsg = `Unsupported Canadian carrier: ${settings.smsCarrier}`;
+                if (eventType === 'test') {
+                    showToast(errorMsg, true);
+                }
+                console.error(errorMsg);
+                return false;
+            }
+    
+            // Format phone number for Canadian SMS gateway (1 + 10-digit number)
+            const cleanPhone = settings.adminPhone.replace(/\D/g, '');
+            if (cleanPhone.length !== 10) {
+                const errorMsg = "Canadian phone must be 10 digits";
+                if (eventType === 'test') {
+                    showToast(errorMsg, true);
+                }
+                console.error(errorMsg);
+                return false;
+            }
+    
+            // Create email address for SMS gateway (1 + 10 digits)
+            const smsEmail = `1${cleanPhone}@${domain}`;
+    
+            // Send via email-to-SMS gateway
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ 
+                    recipient: smsEmail,
+                    subject: "CFR Notification",
+                    body: smsMessage
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                console.log(`[📱 SMS SENT] ${eventType} to 1${cleanPhone} via ${settings.smsCarrier}`);
+                
+                if (eventType === 'test') {
+                    showToast("Test SMS sent successfully! Check your phone.");
+                }
+                return true;
+            } else {
+                const errorMsg = result.error || "Unknown error";
+                console.error('SMS sending failed:', errorMsg);
+                
+                if (eventType === 'test') {
+                    showToast(`Failed to send SMS: ${errorMsg}`, true);
+                }
+                return false;
+            }
+        } catch (error) {
+            console.error('Error sending SMS:', error);
+            
+            if (eventType === 'test') {
+                showToast(`SMS failed: ${error.message}`, true);
+            }
+            return false;
         }
-        
-        // Simulate sending support request
-        showLoading(true);
-        setTimeout(() => {
-            showLoading(false);
-            showToast("Your support request has been submitted!");
-            document.getElementById('support-form').reset();
-        }, 1500);
-    });
-}
-
+    }
+    // Run this check periodically (e.g., every hour)
+    setInterval(checkUpcomingAppointments, 60 * 60 * 1000);
+    // ===== HELP VIEW INITIALIZATION =====
+    function initHelpView() {
+        // This could fetch FAQs from your backend
+        // For now, we'll just initialize the support form
+        document.getElementById('support-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const subject = document.getElementById('support-subject').value;
+            const message = document.getElementById('support-message').value;
+            
+            if (!subject || !message) {
+                showToast("Please fill all fields", true);
+                return;
+            }
+            
+            // Simulate sending support request
+            showLoading(true);
+            setTimeout(() => {
+                showLoading(false);
+                showToast("Your support request has been submitted!");
+                document.getElementById('support-form').reset();
+            }, 1500);
+        });
+    }
+    
             // Save (add or update) appointment in Firestore
             async function saveAppointment(data) {
               if (!data.customer) {
-        showToast("Customer name is required", true);
-        return;
-    }
-    
-    if (!data.date || data.date.toDate().toString() === 'Invalid Date') {
-        showToast("Invalid date selected", true);
-        return;
-    }
+                    showToast("Customer name is required", true);
+                    return;
+                }
+                
+                if (!data.date || data.date.toDate().toString() === 'Invalid Date') {
+                    showToast("Invalid date selected", true);
+                    return;
+                }
                 showLoading(true);
                 try {
                     if (editingAppointmentId) {
@@ -2725,7 +2833,7 @@ function initHelpView() {
                 } finally {
                     showLoading(false);
                 }
-
+    
             }
             
             // Delete appointment from Firestore
@@ -2745,18 +2853,18 @@ function initHelpView() {
                 }
             }
      // Notification trigger function
-function triggerNotifications(eventType, appointmentData) {
-    // Get current settings
-    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
-    
-    if (settings.emailNotifications) {
-        sendEmailNotification(eventType, appointmentData);
-    }
-    
-    if (settings.smsNotifications) {
-        sendSMSNotification(eventType, appointmentData);
-    }
-}       
+    function triggerNotifications(eventType, appointmentData) {
+        // Get current settings
+        const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+        
+        if (settings.emailNotifications) {
+            sendEmailNotification(eventType, appointmentData);
+        }
+        
+        if (settings.smsNotifications) {
+            sendSMSNotification(eventType, appointmentData);
+        }
+    }       
             // Save customer to Firestore
             async function saveCustomer() {
                 showLoading(true);
@@ -2919,10 +3027,12 @@ function triggerNotifications(eventType, appointmentData) {
             
             // Calendar rendering and summary
             function renderCalendar() {
-                    // Only render if calendar is visible
+                // Only render if calendar is visible
                 if (!document.getElementById('calendar-view').classList.contains('active')) {
                     return;
                 }
+                const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+                const holidays = getCanadianHolidays(currentYear, settings.province || 'ON');
                 const calendarGrid = document.getElementById("calendar-days");
                 calendarGrid.innerHTML = "";
                 
@@ -2952,6 +3062,16 @@ function triggerNotifications(eventType, appointmentData) {
                 for (let day = 1; day <= totalDays; day++) {
                     const dayCell = document.createElement("div");
                     dayCell.className = "calendar-day";
+                    
+                    // Check if holiday
+                    const isHoliday = Object.values(holidays).some(holiday => 
+                        holiday.getDate() === day && 
+                        holiday.getMonth() === currentMonth
+                    );
+                    
+                    if (isHoliday) {
+                        dayCell.classList.add('holiday');
+                    }
                     
                     const dayNumber = document.createElement("div");
                     dayNumber.className = "day-number";
@@ -2987,57 +3107,54 @@ function triggerNotifications(eventType, appointmentData) {
                 }
             }
             function setupCalendarEventHandlers() {
-    document.querySelectorAll('.appointment-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-            const appointmentId = e.currentTarget.dataset.id;
-            showAppointmentDetails(appointmentId);
-        });
-    });
-}
+                document.querySelectorAll('.appointment-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        const appointmentId = e.currentTarget.dataset.id;
+                        showAppointmentDetails(appointmentId);
+                    });
+                });
+            }
             function showAppointmentDetails(id) {
-    const appointment = appointments.find(a => a.id === id); // or use AppState.getAppointments()
-    if (!appointment) return;
-
-    const modalContent = `
-        <h3>Appointment Details</h3>
-        <p><strong>Customer:</strong> ${appointment.customer}</p>
-        <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
-        <p><strong>Equipment:</strong> ${appointment.equipment}</p>
-        <p><strong>Status:</strong> ${statusMap[appointment.status]?.text || 'N/A'}</p>
-        <p><strong>Issue:</strong> ${appointment.issue}</p>
-        <button class="btn" id="edit-details">Edit Appointment</button>
-    `;
-
-    openDetailsModal(modalContent,id);
-    // ✅ Attach the edit logic AFTER the modal opens
-    setTimeout(() => {
-  const btn = document.getElementById('edit-details');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      // ✅ Manually close the Appointment Details modal
-      const detailsModal = document.querySelector('.modal-overlay.active');
-      if (detailsModal) {
-        detailsModal.classList.remove('active');
-      }
-
-      // ✅ Switch to the Appointments view tab
-      activateView("appointments");
-
-      // ✅ Wait for view to load, then open the edit form
-      setTimeout(() => {
-        openEditModal(id);
-      }, 100);
-    });
-  }
-}, 50);
-
-}
-            function formatTimestamp(dateObj) {
-    return dateObj.toLocaleString('en-CA', {
-        timeZone: 'America/Toronto',
-        hour12: true
-    });
-}
+                const appointment = appointments.find(a => a.id === id);
+                if (!appointment) return;
+    
+                const modalContent = `
+                    <h3>Appointment Details</h3>
+                    <p><strong>Customer:</strong> ${appointment.customer}</p>
+                    <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
+                    <p><strong>Equipment:</strong> ${appointment.equipment}</p>
+                    <p><strong>Status:</strong> ${statusMap[appointment.status]?.text || 'N/A'}</p>
+                    <p><strong>Issue:</strong> ${appointment.issue}</p>
+                    <p><strong>Base Price:</strong> $${(appointment.basePrice || 0).toFixed(2)}</p>
+                    <p><strong>Tax:</strong> $${((appointment.price || 0) - (appointment.basePrice || 0)).toFixed(2)}</p>
+                    <p><strong>Total Price:</strong> $${(appointment.price || 0).toFixed(2)}</p>
+                    <button class="btn" id="edit-details">Edit Appointment</button>
+                `;
+    
+                openDetailsModal(modalContent, id);
+                // Attach the edit logic AFTER the modal opens
+                setTimeout(() => {
+                    const btn = document.getElementById('edit-details');
+                    if (btn) {
+                        btn.addEventListener('click', () => {
+                            // Manually close the Appointment Details modal
+                            const detailsModal = document.querySelector('.modal-overlay.active');
+                            if (detailsModal) {
+                                detailsModal.classList.remove('active');
+                            }
+    
+                            // Switch to the Appointments view tab
+                            activateView("appointments");
+    
+                            // Wait for view to load, then open the edit form
+                            setTimeout(() => {
+                                openEditModal(id);
+                            }, 100);
+                        });
+                    }
+                }, 50);
+            }
+            
             function updateCalendarSummary() {
                 const monthlyApps = appointments.filter((app) => {
                     if (!app.dateObj) return false;
@@ -3120,18 +3237,18 @@ function triggerNotifications(eventType, appointmentData) {
             // ================ MODAL MANAGEMENT ================
             function openEditModal(id) {
                   // Clear existing toasts
-    document.getElementById('toast-container').innerHTML = '';
+                document.getElementById('toast-container').innerHTML = '';
                 const app = appointments.find((a) => a.id === id);
                 if (!app) return;
                 
                 editingAppointmentId = id;
                     // Clear validation errors
-    document.querySelectorAll('.validation-error').forEach(el => {
-        el.style.display = 'none';
-    });
-    document.querySelectorAll('.form-control').forEach(field => {
-        field.classList.remove('invalid');
-    });
+                document.querySelectorAll('.validation-error').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.form-control').forEach(field => {
+                    field.classList.remove('invalid');
+                });
                 document.getElementById("customer-name").value = app.customer;
                 document.getElementById("customer-phone").value = app.phone || "";
                 
@@ -3145,7 +3262,8 @@ function triggerNotifications(eventType, appointmentData) {
                 document.getElementById("appointment-time").value = `${hours}:${minutes}`;
                 
                 document.getElementById("equipment").value = app.equipment || "";
-                document.getElementById("appointment-price").value = app.price || 150;
+                document.getElementById("appointment-base-price").value = app.basePrice || app.price || 0;
+                calculateTax(); // Calculate tax based on base price
                 document.getElementById("issue-description").value = app.issue || "";
                 document.getElementById("repair-notes").value = app.repair_notes || "";
                 document.getElementById("appointment-status").value = app.status || "";
@@ -3158,60 +3276,61 @@ function triggerNotifications(eventType, appointmentData) {
             
             function openAddModal() {
                   // Clear existing toasts
-    document.getElementById('toast-container').innerHTML = '';
-              // Clear validation states
-    const fields = document.querySelectorAll('#appointment-form .form-control');
-    fields.forEach(field => {
-        field.classList.remove('invalid');
-        const errorId = `${field.id}-error`;
-        const errorElement = document.getElementById(errorId);
-        if (errorElement) errorElement.textContent = '';
-    });
-    editingAppointmentId = null;
+                document.getElementById('toast-container').innerHTML = '';
+                  // Clear validation states
+                const fields = document.querySelectorAll('#appointment-form .form-control');
+                fields.forEach(field => {
+                    field.classList.remove('invalid');
+                    const errorId = `${field.id}-error`;
+                    const errorElement = document.getElementById(errorId);
+                    if (errorElement) errorElement.textContent = '';
+                });
+                editingAppointmentId = null;
+                
+                // Reset form and set default values
+                document.getElementById("appointment-form").reset();
     
-    // Reset form and set default values
-    document.getElementById("appointment-form").reset();
-
-        // Clear validation errors
-        document.querySelectorAll('.validation-error').forEach(el => {
-        el.style.display = 'none';
-    });
-    document.querySelectorAll('.form-control').forEach(field => {
-        field.classList.remove('invalid');
-    });
-    
-    const today = new Date();
-    document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
-    
-    const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-    document.getElementById("appointment-time").value = 
-        `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
-    
-    document.getElementById("appointment-price").value = 150;
-    
-    // Update modal title
-    document.getElementById("modal-title").innerHTML = 
-        '<i class="fas fa-calendar-plus"></i> Add New Appointment';
-    
-    // Show modal
-    document.getElementById('appointment-modal').classList.add('active');
-}        
-            
-function closeAppointmentModal() {
+                // Clear validation errors
+                document.querySelectorAll('.validation-error').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.form-control').forEach(field => {
+                    field.classList.remove('invalid');
+                });
+                
+                const today = new Date();
+                document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
+                
+                const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+                document.getElementById("appointment-time").value = 
+                    `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
+                
+                document.getElementById("appointment-base-price").value = 150;
+                calculateTax(); // Calculate initial tax
+                
+                // Update modal title
+                document.getElementById("modal-title").innerHTML = 
+                    '<i class="fas fa-calendar-plus"></i> Add New Appointment';
+                
+                // Show modal
+                document.getElementById('appointment-modal').classList.add('active');
+            }        
+                
+    function closeAppointmentModal() {
                 document.getElementById('appointment-modal').classList.remove('active');
             }
             
             function openAddCustomerModal() {
-    editingCustomerId = null;
-    document.getElementById('customer-form').reset();
-    
-    // Update modal title
-    document.getElementById("customer-modal-title").innerHTML = 
-        '<i class="fas fa-user-plus"></i> Add New Customer';
-    
-    // Show modal
-    document.getElementById('customer-modal').classList.add('active');
-}  
+                editingCustomerId = null;
+                document.getElementById('customer-form').reset();
+                
+                // Update modal title
+                document.getElementById("customer-modal-title").innerHTML = 
+                    '<i class="fas fa-user-plus"></i> Add New Customer';
+                
+                // Show modal
+                document.getElementById('customer-modal').classList.add('active');
+            }  
             function openEditCustomerModal(id) {
                 const customer = customers.find(c => c.id === id);
                 if (!customer) return;
@@ -3243,18 +3362,18 @@ function closeAppointmentModal() {
                 });
                 
                 document.querySelectorAll(".nav-links a").forEach(link => {
-                link.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const view = link.dataset.view;
-                    activateView(view);
-                    
-                    // Auto-close sidebar on mobile
-                    if (window.innerWidth <= 576) {
-                    document.querySelector('.sidebar').classList.remove('active');
-                    }
+                    link.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        const view = link.dataset.view;
+                        activateView(view);
+                        
+                        // Auto-close sidebar on mobile
+                        if (window.innerWidth <= 576) {
+                            document.querySelector('.sidebar').classList.remove('active');
+                        }
+                    });
                 });
-                });
-
+    
                 // Logout button
                 document.querySelector('.nav-links a[data-view="logout"]').addEventListener("click", (e) => {
                     e.preventDefault();
@@ -3322,23 +3441,13 @@ function closeAppointmentModal() {
                 document.getElementById("print-schedule").addEventListener("click", () => {
                     window.print();
                 });
-                document.getElementById('save-appointment').addEventListener('click', async function () {
-    const btn = this;
-    btn.classList.add('loading');
-    btn.disabled = true;
-
-    try {
-        const data = collectAppointmentFormData(); // Use your form parsing logic
-        await saveAppointment(data);
-    } catch (error) {
-        console.error("Error saving appointment:", error);
-        showToast("Failed to save appointment", true);
-    } finally {
-        btn.classList.remove('loading');
-        btn.disabled = false;
-    }
-});
-
+                
+                // Add tax calculation to base price input
+                const basePriceInput = document.getElementById('appointment-base-price');
+                if (basePriceInput) {
+                    basePriceInput.addEventListener('input', calculateTax);
+                }
+                
                 // Add appointment button
                 document.getElementById("add-appointment").addEventListener("click", openAddModal);
                 
@@ -3352,145 +3461,154 @@ function closeAppointmentModal() {
                     field.classList.remove('invalid');
                 });
                 
-                // In setupEventListeners()
-document.getElementById('admin-phone')?.addEventListener('input', function(e) {
-    // Remove non-digit characters
-    let phone = this.value.replace(/\D/g, '');
-    
-    // Limit to 10 characters
-    phone = phone.substring(0, 10);
-    
-    this.value = phone;
-    
-    // Clear error when user types
-    clearValidationError('admin-phone');
-});
+                // Phone number formatting
+                document.getElementById('admin-phone')?.addEventListener('input', function(e) {
+                    // Remove non-digit characters
+                    let phone = this.value.replace(/\D/g, '');
+                    
+                    // Limit to 10 characters
+                    phone = phone.substring(0, 10);
+                    
+                    this.value = phone;
+                    
+                    // Clear error when user types
+                    clearValidationError('admin-phone');
+                });
+                
                 // Add real-time validation
                 document.querySelectorAll('.form-control').forEach(field => {
-  field.addEventListener('blur', () => {
-    validateField(field);
-  });
-});
-    // Notification preference change listeners
-    document.getElementById('email-notifications')?.addEventListener('change', () => {
-        updateNotificationStatusIndicators();
-    });
+                    field.addEventListener('blur', () => {
+                        validateField(field);
+                    });
+                });
+                
+                // Notification preference change listeners
+                document.getElementById('email-notifications')?.addEventListener('change', () => {
+                    updateNotificationStatusIndicators();
+                });
+                
+                document.getElementById('sms-notifications')?.addEventListener('change', () => {
+                    updateNotificationStatusIndicators();
+                });
     
-    document.getElementById('sms-notifications')?.addEventListener('change', () => {
-        updateNotificationStatusIndicators();
-    });
-
-    function validateField(field) {
-  const errorElement = document.getElementById(`${field.id}-error`);
-  if (!field.value.trim()) {
-    field.classList.add('invalid');
-    errorElement.textContent = 'This field is required';
-  } else {
-    field.classList.remove('invalid');
-    errorElement.textContent = '';
-  }
-}
-
-    // Validation helper functions
-    const validators = {
-        required: value => value.trim() !== '',
-        validDate: value => !isNaN(Date.parse(value)),
-        validTime: value => /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value.trim()),
-        validPrice: value => !isNaN(parseFloat(value)) && parseFloat(value) >= 0
-    };
-
-    let isValid = true;
-    let firstInvalidField = null;
-    let firstErrorMessage = '';
-
-    const fieldsToValidate = [
-        { id: 'customer-name', validator: validators.required, message: 'Customer name is required' },
-        { id: 'appointment-date', validator: validators.validDate, message: 'Please select a valid date' },
-        { id: 'appointment-time', validator: validators.validTime, message: 'Please select a valid time' },
-        { id: 'appointment-price', validator: validators.validPrice, message: 'Please enter a valid price' }
-    ];
-
-    // Validate fields and collect first error
-    fieldsToValidate.forEach(({ id, validator, message }) => {
-        const field = document.getElementById(id);
-        if (field && !validator(field.value)) {
-            field.classList.add('invalid');
-            if (!firstInvalidField) {
-                firstInvalidField = field;
-                firstErrorMessage = message;
-            }
-            isValid = false;
-        }
-    });
-
-    // Show toast for first error
-    if (!isValid) {
-        if (firstInvalidField) {
-            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            showToast(firstErrorMessage, true); // Show specific error toast
-        }
-        return;
-    }
-
-    // Proceed with save if valid...
-    try {
-        // Authentication check
-        if (!auth.currentUser) {
-            showToast("You need to re-authenticate. Redirecting to login...", true);
-            setTimeout(() => window.location.href = "admin-login.html", 2000);
-            return;
-        }
-
-        // Collect form data
-        const customerName = document.getElementById("customer-name").value.trim();
-        const phone = document.getElementById("customer-phone").value.trim();
-        const dateInput = document.getElementById("appointment-date").value;
-        const timeInput = document.getElementById("appointment-time").value;
-        const dateObj = new Date(`${dateInput}T${timeInput}`);
-        const timestamp = Timestamp.fromDate(dateObj);
-        const equipment = document.getElementById("equipment").value.trim();
-        const price = parseFloat(document.getElementById("appointment-price").value) || 0;
-        const issue = document.getElementById("issue-description").value.trim();
-        const status = document.getElementById("appointment-status").value;
-        const repairNotes = document.getElementById("repair-notes").value.trim();
-        const timeZone = 'America/Toronto'; // Adjust to your province
-
-        const appointmentData = {
-            customer: customerName,
-            phone,
-            equipment,
-            date: timestamp,
-            price,
-            issue,
-            status,
-            repair_notes: repairNotes,
-            createdAt: Timestamp.now(), // Add creation timestamp
-            createdBy: auth.currentUser.uid // Add creator ID
-        };
-
-        // Show saving notification
-        showToast("Saving appointment...");
-
-        // Save to Firestore
-        if (editingAppointmentId) {
-            const docRef = doc(db, "appointments", editingAppointmentId);
-            await updateDoc(docRef, appointmentData);
-            showToast("Appointment updated successfully!");
-        } else {
-            await addDoc(appointmentsCollection, appointmentData);
-            showToast("Appointment created successfully!");
-        }
-
-        // Reset and close modal
-        editingAppointmentId = null;
-        await fetchAppointments();
-        document.getElementById('appointment-modal').classList.remove('active');
-        
-    } catch (error) {
-        console.error("Error saving appointment:", error);
-        showToast(`Error saving appointment: ${error.message}`, true);
-    }
-});         
+                function validateField(field) {
+                    const errorElement = document.getElementById(`${field.id}-error`);
+                    if (!field.value.trim()) {
+                        field.classList.add('invalid');
+                        errorElement.textContent = 'This field is required';
+                    } else {
+                        field.classList.remove('invalid');
+                        errorElement.textContent = '';
+                    }
+                }
+    
+                // Validation helper functions
+                const validators = {
+                    required: value => value.trim() !== '',
+                    validDate: value => !isNaN(Date.parse(value)),
+                    validTime: value => /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value.trim()),
+                    validPrice: value => !isNaN(parseFloat(value)) && parseFloat(value) >= 0
+                };
+    
+                let isValid = true;
+                let firstInvalidField = null;
+                let firstErrorMessage = '';
+    
+                const fieldsToValidate = [
+                    { id: 'customer-name', validator: validators.required, message: 'Customer name is required' },
+                    { id: 'appointment-date', validator: validators.validDate, message: 'Please select a valid date' },
+                    { id: 'appointment-time', validator: validators.validTime, message: 'Please select a valid time' },
+                    { id: 'appointment-base-price', validator: validators.validPrice, message: 'Please enter a valid price' }
+                ];
+    
+                // Validate fields and collect first error
+                fieldsToValidate.forEach(({ id, validator, message }) => {
+                    const field = document.getElementById(id);
+                    if (field && !validator(field.value)) {
+                        field.classList.add('invalid');
+                        if (!firstInvalidField) {
+                            firstInvalidField = field;
+                            firstErrorMessage = message;
+                        }
+                        isValid = false;
+                    }
+                });
+    
+                // Show toast for first error
+                if (!isValid) {
+                    if (firstInvalidField) {
+                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        showToast(firstErrorMessage, true); // Show specific error toast
+                    }
+                    return;
+                }
+    
+                // Proceed with save if valid...
+                try {
+                    // Authentication check
+                    if (!auth.currentUser) {
+                        showToast("You need to re-authenticate. Redirecting to login...", true);
+                        setTimeout(() => window.location.href = "admin-login.html", 2000);
+                        return;
+                    }
+    
+                    // Collect form data
+                    const customerName = document.getElementById("customer-name").value.trim();
+                    const phone = document.getElementById("customer-phone").value.trim();
+                    const dateInput = document.getElementById("appointment-date").value;
+                    const timeInput = document.getElementById("appointment-time").value;
+                    const dateObj = new Date(`${dateInput}T${timeInput}`);
+                    const timestamp = Timestamp.fromDate(dateObj);
+                    const equipment = document.getElementById("equipment").value.trim();
+                    const basePrice = parseFloat(document.getElementById("appointment-base-price").value) || 0;
+                    const issue = document.getElementById("issue-description").value.trim();
+                    const status = document.getElementById("appointment-status").value;
+                    const repairNotes = document.getElementById("repair-notes").value.trim();
+                    
+                    // Get tax information
+                    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+                    const province = settings.province || 'ON';
+                    const taxRate = getTaxRate(province);
+                    const totalPrice = basePrice * (1 + taxRate);
+    
+                    const appointmentData = {
+                        customer: customerName,
+                        phone,
+                        equipment,
+                        date: timestamp,
+                        basePrice,
+                        price: totalPrice,
+                        taxRate,
+                        issue,
+                        status,
+                        repair_notes: repairNotes,
+                        createdAt: Timestamp.now(), // Add creation timestamp
+                        createdBy: auth.currentUser.uid // Add creator ID
+                    };
+    
+                    // Show saving notification
+                    showToast("Saving appointment...");
+    
+                    // Save to Firestore
+                    if (editingAppointmentId) {
+                        const docRef = doc(db, "appointments", editingAppointmentId);
+                        await updateDoc(docRef, appointmentData);
+                        showToast("Appointment updated successfully!");
+                    } else {
+                        await addDoc(appointmentsCollection, appointmentData);
+                        showToast("Appointment created successfully!");
+                    }
+    
+                    // Reset and close modal
+                    editingAppointmentId = null;
+                    await fetchAppointments();
+                    document.getElementById('appointment-modal').classList.remove('active');
+                    
+                } catch (error) {
+                    console.error("Error saving appointment:", error);
+                    showToast(`Error saving appointment: ${error.message}`, true);
+                }
+            });         
                 // Modal controls
                 document.querySelectorAll('.close-modal').forEach(btn => {
                     btn.addEventListener('click', () => {
@@ -3512,8 +3630,8 @@ document.getElementById('admin-phone')?.addEventListener('input', function(e) {
                 const closeSidebarBtn = document.querySelector('.close-sidebar-mobile');
                 // Add mobile close functionality
                 document.querySelector('.close-sidebar-mobile')?.addEventListener('click', () => {
-  document.querySelector('.sidebar').classList.remove('active');
-});
+                    document.querySelector('.sidebar').classList.remove('active');
+                });
                 mobileMenuBtn.addEventListener('click', () => {
                     sidebar.classList.toggle('active');
                 });
@@ -3521,91 +3639,92 @@ document.getElementById('admin-phone')?.addEventListener('input', function(e) {
                 // Close sidebar when close button is clicked
                 closeSidebarBtn?.addEventListener('click', () => {
                     sidebar.classList.remove('active');
-                    });
+                });
+                
                 // Add this in setupEventListeners()
                 const saveSettingsBtn = document.getElementById('save-settings');
                 if (saveSettingsBtn) {
                     saveSettingsBtn.addEventListener('click', saveSettings);
                 }           
-}
+    }
             
-// Add to setupEventListeners()
-document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
-
-function sendTestSMS() {
-    // Get current settings
-    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
+    // Add to setupEventListeners()
+    document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
     
-    // Check if settings are saved
-    if (!settings.adminPhone || !settings.smsCarrier) {
-        showToast("Please save your phone and carrier settings first", true);
-        return;
+    function sendTestSMS() {
+        // Get current settings
+        const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
+        
+        // Check if settings are saved
+        if (!settings.adminPhone || !settings.smsCarrier) {
+            showToast("Please save your phone and carrier settings first", true);
+            return;
+        }
+        
+        // Create test appointment data
+        const testAppointment = {
+            customer: "Test User",
+            dateObj: new Date(),
+            id: "test-123"
+        };
+        
+        // Show sending notification
+        showToast("Sending test SMS...");
+        
+        // Send test notification
+        sendSMSNotification('test', testAppointment);
     }
     
-    // Create test appointment data
-    const testAppointment = {
-        customer: "Test User",
-        dateObj: new Date(),
-        id: "test-123"
-    };
-    
-    // Show sending notification
-    showToast("Sending test SMS...");
-    
-    // Send test notification
-    sendSMSNotification('test', testAppointment);
-}
-
             // ================ INITIALIZATION ================
             function initialize() {
-    setupEventListeners();
-    activateView('dashboard');
-    
-    // Set current date for appointment form
-    const today = new Date();
-    document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
-    
-    const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-    document.getElementById("appointment-time").value = 
-        `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
-    
-    // Initialize form validation
-    initializeValidation();
-    
-    // Hide loading overlay after 1.5s
-    setTimeout(() => {
-        document.getElementById('loading-overlay').style.display = 'none';
-    }, 1500);
-}
+                setupEventListeners();
+                activateView('dashboard');
+                
+                // Set current date for appointment form
+                const today = new Date();
+                document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
+                
+                const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+                document.getElementById("appointment-time").value = 
+                    `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
+                
+                // Initialize form validation
+                initializeValidation();
+                
+                // Hide loading overlay after 1.5s
+                setTimeout(() => {
+                    document.getElementById('loading-overlay').style.display = 'none';
+                }, 1500);
+            }
             
             // Start the application
             initialize();
         }
         function openDetailsModal(content, id) {
-    const modal = document.createElement('div');
-    modal.className = 'modal active';
-    modal.innerHTML = `
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            ${content}
-        </div>
-    `;
-    document.body.appendChild(modal);
-
-    // Close button
-    modal.querySelector('.close-modal').addEventListener('click', () => {
-        modal.remove();
-    });
-
-    // Edit button logic
-    modal.querySelector('#edit-details')?.addEventListener('click', () => {
-        modal.remove();
-        if (typeof openEditModal === "function") {
-            openEditModal(id); // ✅ ID comes from argument
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    ${content}
+                </div>
+            `;
+            document.body.appendChild(modal);
+    
+            // Close button
+            modal.querySelector('.close-modal').addEventListener('click', () => {
+                modal.remove();
+            });
+    
+            // Edit button logic
+            modal.querySelector('#edit-details')?.addEventListener('click', () => {
+                modal.remove();
+                if (typeof openEditModal === "function") {
+                    openEditModal(id); // ID comes from argument
+                }
+            });
         }
-    });
-}
-
+    
     </script>
 </body>
 </html>
