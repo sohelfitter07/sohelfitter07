@@ -1723,7 +1723,7 @@ function initializeValidation() {
             
             // ================ AUTHENTICATION HANDLING ================
             onAuthStateChanged(auth, (user) => {
-              if (!user || user.role !== "admin") { // Add role check
+              if (!user){
                 window.location.href = "admin-login.html";
                 } else {
                     // Show logged-in user's email
