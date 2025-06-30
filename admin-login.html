@@ -142,7 +142,35 @@ input.invalid {
       margin-bottom: 22px;
       position: relative;
     }
-    
+    #toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  background-color: #333;
+  color: #fff;
+  padding: 12px 20px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  animation: fadeInOut 4s ease forwards;
+  opacity: 0;
+}
+
+.toast.success { background-color: #22c55e; }
+.toast.error { background-color: #ef4444; }
+.toast.warning { background-color: #f59e0b; }
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+
     .form-group label {
       display: block;
       margin-bottom: 8px;
@@ -542,14 +570,14 @@ input.invalid {
       e.preventDefault();
       const email = emailInput.value.trim();
       if (!email) {
-        errorMessage.querySelector('span').textContent = 'Please enter your email first';
-        errorMessage.classList.add('show');
+        showToast('Please enter your email first', 'warning');
+
         return;
       }
       try {
         await sendPasswordResetEmail(auth, email);
         errorMessage.classList.remove('show');
-        alert(`A password reset link has been sent to ${email}`);
+        showToast(`Password reset email sent to ${email}`, 'success');
       } catch (error) {
         console.error('Reset error:', error);
         let msg = 'Failed to send reset email';
@@ -582,6 +610,20 @@ input.invalid {
       error.style.display = "none";
     }
   
+    function showToast(message, type = 'success') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  container.appendChild(toast);
+
+  // Remove toast after 4s
+  setTimeout(() => {
+    toast.remove();
+  }, 4000);
+}
+
+
     emailInput.addEventListener("input", () => {
       const value = emailInput.value.trim();
       if (validateEmail(value)) {
@@ -609,8 +651,7 @@ input.invalid {
       let valid = true;
       const recaptchaResponse = grecaptcha.getResponse();
 if (!recaptchaResponse) {
-  errorMessage.querySelector('span').textContent = 'Please complete the reCAPTCHA';
-  errorMessage.classList.add('show');
+  showToast('Please complete the reCAPTCHA', 'warning');
   return;
 }
       // Pre-submit validation
@@ -666,5 +707,6 @@ if (!recaptchaResponse) {
     });
   </script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <div id="toast-container"></div>
 </body>
 </html>
