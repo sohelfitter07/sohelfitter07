@@ -2335,7 +2335,19 @@ async function saveSettings() {
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
     btn.disabled = true;
     
+    // Firestore Initialization Check
+    console.log("[DEBUG] Firestore instance:", db);
+    
     try {
+        // Authentication State Check
+        const user = auth.currentUser;
+        console.log("[DEBUG] Current user:", user);
+        
+        if (!user) {
+            showToast("You need to be logged in to save settings", true);
+            return;
+        }
+        
         // Get form values
         const fullName = document.getElementById('settings-full-name').value.trim();
         const businessName = document.getElementById('settings-business-name').value.trim();
@@ -2363,13 +2375,11 @@ async function saveSettings() {
         }
         
         if (adminPhone) {
-            // Validate phone format only if provided
             if (!/^\d{10}$/.test(adminPhone)) {
                 showValidationError('admin-phone', 'Phone must be 10 digits (no spaces)');
                 isValid = false;
             }
         } else if (smsNotifications) {
-            // Require phone if SMS is enabled
             showValidationError('admin-phone', 'Phone number is required for SMS notifications');
             isValid = false;
         }
@@ -2408,25 +2418,30 @@ async function saveSettings() {
         // Store in localStorage
         localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
         
-        // NEW: Save to Firestore
-        const user = auth.currentUser;
+        // Save to Firestore
         if (user) {
+            console.log("[DEBUG] Attempting to save to Firestore:", settings);
             const settingsRef = doc(db, "settings", user.uid);
             await setDoc(settingsRef, settings, { merge: true });
-        } else {
-            console.warn("User not authenticated. Settings saved locally only.");
+            console.log("[DEBUG] Firestore save successful");
         }
         
-        // Update UI immediately
+        // Update UI
         document.querySelector('.brand h2').textContent = businessName;
         showToast("Settings saved successfully!");
         updateNotificationStatusIndicators();
         
     } catch (error) {
+        // Error Logging Enhancement
         console.error("Error saving settings:", error);
-        showToast("Failed to save settings", true);
+        console.error("Error details:", {
+            code: error.code,
+            message: error.message,
+            stack: error.stack
+        });
+        
+        showToast(`Failed to save settings: ${error.message}`, true);
     } finally {
-        // Always restore button state
         btn.innerHTML = originalHTML;
         btn.disabled = false;
     }
