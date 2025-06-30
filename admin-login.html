@@ -481,6 +481,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     // Firebase configuration
     const firebaseConfig = {
@@ -525,18 +526,31 @@
     });
 
     // Forgot password
-    forgotPassword.addEventListener('click', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      
-      if (!email) {
-        errorMessage.querySelector('span').textContent = 'Please enter your email first';
-        errorMessage.classList.add('show');
-        return;
-      }
-      
-      alert(`Password reset instructions have been sent to ${email}. Please check your inbox.`);
-    });
+    forgotPassword.addEventListener('click', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+
+  if (!email) {
+    errorMessage.querySelector('span').textContent = 'Please enter your email first';
+    errorMessage.classList.add('show');
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    errorMessage.classList.remove('show');
+    alert(`A password reset link has been sent to ${email}`);
+  } catch (error) {
+    console.error('Reset error:', error);
+    let msg = 'Failed to send reset email';
+    if (error.code === 'auth/user-not-found') {
+      msg = 'No user found with that email address';
+    }
+    errorMessage.querySelector('span').textContent = msg;
+    errorMessage.classList.add('show');
+  }
+});
+
 
     // Login form submission
     loginForm.addEventListener('submit', async (e) => {
@@ -559,9 +573,16 @@
       errorMessage.classList.remove('show');
       
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        window.location.href = 'appointment-tracker.html';
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+const userEmail = userCredential.user.email;
+
+if (userEmail !== 'canadianfitnessrepair@gmail.com') {
+  throw new Error('Unauthorized user');
+}
+window.location.href = 'appointment-tracker.html';
+
       } catch (error) {
+        
         console.error('Login error:', error);
         
         let errorMsg = 'Invalid email or password';
