@@ -520,37 +520,43 @@
         
         /* Toast notifications */
         .toast {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            padding: 18px 28px;
-            border-radius: 12px;
-            background: var(--dark-card);
-            color: white;
-            z-index: 1000;
-            box-shadow: 0 8px 25px var(--dark-shadow);
-            opacity: 0;
-            transform: translateY(-30px);
-            transition: var(--transition);
-            border: 1px solid var(--dark-border);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            max-width: 350px;
-        }
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    padding: 18px 28px;
+    border-radius: 12px;
+    background: var(--dark-card);
+    color: white;
+    z-index: 1000;
+    box-shadow: 0 8px 25px var(--dark-shadow);
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: var(--transition);
+    border: 1px solid var(--dark-border);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    max-width: 350px;
+    /* Remove blur effect */
+    backdrop-filter: none !important;
+}
         
         .toast.show {
             opacity: 1;
             transform: translateY(0);
         }
         
-        .toast.error {
-            border-left: 4px solid var(--dark-danger);
-        }
+/* Make toasts more prominent */
+.toast.error {
+    background: rgba(239, 68, 68, 0.9);
+    border-left: 4px solid #b91c1c;
+}
         
-        .toast.success {
-            border-left: 4px solid var(--dark-success);
-        }
+.toast.success {
+    background: rgba(16, 185, 129, 0.9);
+    border-left: 4px solid #047857;
+}
+
         
         .toast i {
             font-size: 1.4rem;
@@ -1574,7 +1580,24 @@ function showValidationError(fieldId, message) {
     errorElement.style.opacity = '1'; // Remove any transparency
     errorElement.style.transform = 'none'; // Remove any transformations
 }
-
+function showValidationToast(message, isError = true) {
+    const toast = document.createElement("div");
+    toast.className = `toast ${isError ? "error" : "success"}`;
+    toast.innerHTML = `
+        <i class="fas ${isError ? "fa-exclamation-circle" : "fa-check-circle"}"></i>
+        <div>${message}</div>
+    `;
+    document.getElementById("toast-container").appendChild(toast);
+    
+    // Show toast
+    setTimeout(() => toast.classList.add("show"), 100);
+    
+    // Auto-remove after delay
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+}
 function clearValidationError(fieldId) {
     const field = document.getElementById(fieldId);
     const errorId = `${fieldId}-error`;
@@ -1584,26 +1607,34 @@ function clearValidationError(fieldId) {
     if (errorElement) errorElement.style.display = 'none';
 }
 
-function setupFieldValidation(fieldId, validator, errorMessage) {
+function setupFieldValidation(fieldId, validator) {
     const field = document.getElementById(fieldId);
     if (!field) return;
     
     field.addEventListener('blur', () => {
         if (!validator(field.value)) {
-            showValidationError(fieldId, errorMessage);
+            field.classList.add('invalid');
+        } else {
+            field.classList.remove('invalid');
         }
     });
     
     field.addEventListener('input', () => {
         if (validator(field.value)) {
-            clearValidationError(fieldId);
-        }else {
-            showValidationError(fieldId, errorMessage);
+            field.classList.remove('invalid');
+        } else {
+            field.classList.add('invalid');
         }
     });
 }
-
 function initializeValidation() {
+      // Define validators
+      const validators = {
+        required: value => value.trim() !== '',
+        validDate: value => !isNaN(Date.parse(value)),
+        validTime: value => /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value.trim()),
+        validPrice: value => !isNaN(parseFloat(value)) && parseFloat(value) >= 0
+    };
     // Customer fields
     setupFieldValidation('customer-name', validators.required, 'Customer name is required');
     setupFieldValidation('appointment-date', validators.validDate, 'Please select a valid date');
@@ -2073,6 +2104,8 @@ function initializeValidation() {
             
             // ================ MODAL MANAGEMENT ================
             function openEditModal(id) {
+                  // Clear existing toasts
+    document.getElementById('toast-container').innerHTML = '';
                 const app = appointments.find((a) => a.id === id);
                 if (!app) return;
                 
@@ -2109,6 +2142,8 @@ function initializeValidation() {
             }
             
             function openAddModal() {
+                  // Clear existing toasts
+    document.getElementById('toast-container').innerHTML = '';
               // Clear validation states
     const fields = document.querySelectorAll('#appointment-form .form-control');
     fields.forEach(field => {
@@ -2264,9 +2299,9 @@ function closeAppointmentModal() {
                 document.getElementById("add-appointment").addEventListener("click", openAddModal);
                 
                 document.getElementById("save-appointment").addEventListener("click", async () => {
-    // Clear previous errors
+    // Clear previous errors and styling
     document.querySelectorAll('.validation-error').forEach(el => {
-      el.textContent = '';
+        el.textContent = '';
         el.style.display = 'none';
     });
     document.querySelectorAll('.form-control').forEach(field => {
@@ -2283,6 +2318,7 @@ function closeAppointmentModal() {
 
     let isValid = true;
     let firstInvalidField = null;
+    let firstErrorMessage = '';
 
     const fieldsToValidate = [
         { id: 'customer-name', validator: validators.required, message: 'Customer name is required' },
@@ -2291,34 +2327,38 @@ function closeAppointmentModal() {
         { id: 'appointment-price', validator: validators.validPrice, message: 'Please enter a valid price' }
     ];
 
+    // Validate fields and collect first error
     fieldsToValidate.forEach(({ id, validator, message }) => {
         const field = document.getElementById(id);
         if (field && !validator(field.value)) {
-            showValidationError(id, message);
             field.classList.add('invalid');
             if (!firstInvalidField) {
                 firstInvalidField = field;
+                firstErrorMessage = message;
             }
             isValid = false;
         }
     });
 
+    // Show toast for first error
     if (!isValid) {
         if (firstInvalidField) {
             firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            showToast(firstErrorMessage, true); // Show specific error toast
         }
-        showToast("Please fix validation errors", true);
         return;
     }
 
     // Proceed with save if valid...
     try {
+        // Authentication check
         if (!auth.currentUser) {
             showToast("You need to re-authenticate. Redirecting to login...", true);
             setTimeout(() => window.location.href = "admin-login.html", 2000);
             return;
         }
 
+        // Collect form data
         const customerName = document.getElementById("customer-name").value.trim();
         const phone = document.getElementById("customer-phone").value.trim();
         const dateInput = document.getElementById("appointment-date").value;
@@ -2340,27 +2380,33 @@ function closeAppointmentModal() {
             issue,
             status,
             repair_notes: repairNotes,
+            createdAt: Timestamp.now(), // Add creation timestamp
+            createdBy: auth.currentUser.uid // Add creator ID
         };
 
+        // Show saving notification
         showToast("Saving appointment...");
 
-        const appointmentId = document.getElementById("appointment-id")?.value;
-
-        if (appointmentId) {
-            await db.collection("appointments").doc(appointmentId).update(appointmentData);
+        // Save to Firestore
+        if (editingAppointmentId) {
+            const docRef = doc(db, "appointments", editingAppointmentId);
+            await updateDoc(docRef, appointmentData);
             showToast("Appointment updated successfully!");
         } else {
-            await db.collection("appointments").add(appointmentData);
-            showToast("Appointment saved successfully!");
-            document.getElementById("appointment-form").reset();
+            await addDoc(appointmentsCollection, appointmentData);
+            showToast("Appointment created successfully!");
         }
 
+        // Reset and close modal
+        editingAppointmentId = null;
+        await fetchAppointments();
+        document.getElementById('appointment-modal').classList.remove('active');
+        
     } catch (error) {
         console.error("Error saving appointment:", error);
         showToast(`Error saving appointment: ${error.message}`, true);
     }
-});
-           
+});         
                 // Modal controls
                 document.querySelectorAll('.close-modal').forEach(btn => {
                     btn.addEventListener('click', () => {
