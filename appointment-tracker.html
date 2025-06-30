@@ -638,7 +638,17 @@
   border-radius: 4px;
   flex: 1;
 }
+.validation-error {
+    color: var(--dark-danger);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    min-height: 20px;
+}
 
+.form-control.invalid {
+    border-color: var(--dark-danger);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
 @keyframes pulse {
   0% { opacity: 0.6; }
   50% { opacity: 0.3; }
@@ -1170,7 +1180,8 @@
                     <div>
                         <label>Customer Name</label>
                         <input type="text" id="customer-name" class="form-control" placeholder="Enter customer name" required>
-                    </div>
+                        <div class="validation-error" id="customer-name-error"></div>
+                      </div>
                     <div>
                         <label>Phone Number</label>
                         <input type="tel" id="customer-phone" class="form-control" placeholder="Enter phone number">
@@ -1181,10 +1192,12 @@
                     <div>
                         <label>Date</label>
                         <input type="date" id="appointment-date" class="form-control" required>
+                        <div class="validation-error" id="customer-name-error"></div>
                     </div>
                     <div>
                         <label>Time</label>
                         <input type="time" id="appointment-time" class="form-control" required>
+                        <div class="validation-error" id="customer-name-error"></div>
                     </div>
                 </div>
                 
@@ -1534,7 +1547,59 @@ function showSkeletonLoader(containerId, rows = 5) {
                 parts_ordered: { text: "Parts Ordered", class: "status-inprogress" },
                 repair_completed: { text: "Completed", class: "status-released" }
             };
-            
+            // ================ VALIDATION UTILITIES ================
+const validators = {
+    required: value => value.trim() !== '',
+    validDate: value => new Date(value).toString() !== 'Invalid Date',
+    validTime: value => /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value),
+    validPrice: value => !isNaN(parseFloat(value)) && parseFloat(value) >= 0
+};
+
+function showValidationError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const errorId = `${fieldId}-error`;
+    const errorElement = document.getElementById(errorId);
+    
+    if (!field || !errorElement) return;
+    
+    field.classList.add('invalid');
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+}
+
+function clearValidationError(fieldId) {
+    const field = document.getElementById(fieldId);
+    const errorId = `${fieldId}-error`;
+    const errorElement = document.getElementById(errorId);
+    
+    if (field) field.classList.remove('invalid');
+    if (errorElement) errorElement.style.display = 'none';
+}
+
+function setupFieldValidation(fieldId, validator, errorMessage) {
+    const field = document.getElementById(fieldId);
+    if (!field) return;
+    
+    field.addEventListener('blur', () => {
+        if (!validator(field.value)) {
+            showValidationError(fieldId, errorMessage);
+        }
+    });
+    
+    field.addEventListener('input', () => {
+        if (validator(field.value)) {
+            clearValidationError(fieldId);
+        }
+    });
+}
+
+function initializeValidation() {
+    // Customer fields
+    setupFieldValidation('customer-name', validators.required, 'Customer name is required');
+    setupFieldValidation('appointment-date', validators.validDate, 'Please select a valid date');
+    setupFieldValidation('appointment-time', validators.validTime, 'Please select a valid time');
+    setupFieldValidation('appointment-price', validators.validPrice, 'Please enter a valid price');
+}
             // ================ VIEW MANAGEMENT ================
             function activateView(viewName) {
                 // Update sidebar active state
@@ -1645,6 +1710,15 @@ function showSkeletonLoader(containerId, rows = 5) {
             
             // Save (add or update) appointment in Firestore
             async function saveAppointment(data) {
+              if (!data.customer) {
+        showToast("Customer name is required", true);
+        return;
+    }
+    
+    if (!data.date || data.date.toDate().toString() === 'Invalid Date') {
+        showToast("Invalid date selected", true);
+        return;
+    }
                 showLoading(true);
                 try {
                     if (editingAppointmentId) {
@@ -1993,7 +2067,13 @@ function showSkeletonLoader(containerId, rows = 5) {
                 if (!app) return;
                 
                 editingAppointmentId = id;
-                
+                    // Clear validation errors
+    document.querySelectorAll('.validation-error').forEach(el => {
+        el.style.display = 'none';
+    });
+    document.querySelectorAll('.form-control').forEach(field => {
+        field.classList.remove('invalid');
+    });
                 document.getElementById("customer-name").value = app.customer;
                 document.getElementById("customer-phone").value = app.phone || "";
                 
@@ -2019,10 +2099,26 @@ function showSkeletonLoader(containerId, rows = 5) {
             }
             
             function openAddModal() {
+              // Clear validation states
+    const fields = document.querySelectorAll('#appointment-form .form-control');
+    fields.forEach(field => {
+        field.classList.remove('invalid');
+        const errorId = `${field.id}-error`;
+        const errorElement = document.getElementById(errorId);
+        if (errorElement) errorElement.textContent = '';
+    });
     editingAppointmentId = null;
     
     // Reset form and set default values
     document.getElementById("appointment-form").reset();
+
+        // Clear validation errors
+        document.querySelectorAll('.validation-error').forEach(el => {
+        el.style.display = 'none';
+    });
+    document.querySelectorAll('.form-control').forEach(field => {
+        field.classList.remove('invalid');
+    });
     
     const today = new Date();
     document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
@@ -2040,7 +2136,8 @@ function showSkeletonLoader(containerId, rows = 5) {
     // Show modal
     document.getElementById('appointment-modal').classList.add('active');
 }        
-            function closeAppointmentModal() {
+            
+function closeAppointmentModal() {
                 document.getElementById('appointment-modal').classList.remove('active');
             }
             
@@ -2156,43 +2253,103 @@ function showSkeletonLoader(containerId, rows = 5) {
                 // Add appointment button
                 document.getElementById("add-appointment").addEventListener("click", openAddModal);
                 
-                // Save appointment button
                 document.getElementById("save-appointment").addEventListener("click", async () => {
-                    const customerName = document.getElementById("customer-name").value.trim();
-                    const phone = document.getElementById("customer-phone").value.trim();
-                    const dateInput = document.getElementById("appointment-date").value;
-                    const timeInput = document.getElementById("appointment-time").value;
-                    const dateObj = new Date(`${dateInput}T${timeInput}`);
-                    const timestamp = Timestamp.fromDate(dateObj);
-                    const equipment = document.getElementById("equipment").value.trim();
-                    const price = parseFloat(document.getElementById("appointment-price").value) || 0;
-                    const issue = document.getElementById("issue-description").value.trim();
-                    const status = document.getElementById("appointment-status").value;
-                    const repairNotes = document.getElementById("repair-notes").value.trim();
-                    
-                    if (!customerName) {
-                        showToast("Please enter customer name", true);
-                        return;
-                    }
-                    if (!dateInput || !timeInput) {
-                        showToast("Please select date and time", true);
-                        return;
-                    }
-                    
-                    const appointmentData = {
-                        customer: customerName,
-                        phone,
-                        equipment,
-                        date: timestamp,
-                        price,
-                        issue,
-                        status,
-                        repair_notes: repairNotes,
-                    };
-                    
-                    await saveAppointment(appointmentData);
-                });
-                
+    // Clear previous errors
+    document.querySelectorAll('.validation-error').forEach(el => {
+        el.style.display = 'none';
+    });
+    document.querySelectorAll('.form-control').forEach(field => {
+        field.classList.remove('invalid');
+    });
+
+    // Validation helper functions
+    const validators = {
+        required: value => value.trim() !== '',
+        validDate: value => !isNaN(Date.parse(value)),
+        validTime: value => /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value.trim()),
+        validPrice: value => !isNaN(parseFloat(value)) && parseFloat(value) >= 0
+    };
+
+    let isValid = true;
+    let firstInvalidField = null;
+
+    const fieldsToValidate = [
+        { id: 'customer-name', validator: validators.required, message: 'Customer name is required' },
+        { id: 'appointment-date', validator: validators.validDate, message: 'Please select a valid date' },
+        { id: 'appointment-time', validator: validators.validTime, message: 'Please select a valid time' },
+        { id: 'appointment-price', validator: validators.validPrice, message: 'Please enter a valid price' }
+    ];
+
+    fieldsToValidate.forEach(({ id, validator, message }) => {
+        const field = document.getElementById(id);
+        if (field && !validator(field.value)) {
+            showValidationError(id, message);
+            field.classList.add('invalid');
+            if (!firstInvalidField) {
+                firstInvalidField = field;
+            }
+            isValid = false;
+        }
+    });
+
+    if (!isValid) {
+        if (firstInvalidField) {
+            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        showToast("Please fix validation errors", true);
+        return;
+    }
+
+    // Proceed with save if valid...
+    try {
+        if (!auth.currentUser) {
+            showToast("You need to re-authenticate. Redirecting to login...", true);
+            setTimeout(() => window.location.href = "admin-login.html", 2000);
+            return;
+        }
+
+        const customerName = document.getElementById("customer-name").value.trim();
+        const phone = document.getElementById("customer-phone").value.trim();
+        const dateInput = document.getElementById("appointment-date").value;
+        const timeInput = document.getElementById("appointment-time").value;
+        const dateObj = new Date(`${dateInput}T${timeInput}`);
+        const timestamp = Timestamp.fromDate(dateObj);
+        const equipment = document.getElementById("equipment").value.trim();
+        const price = parseFloat(document.getElementById("appointment-price").value) || 0;
+        const issue = document.getElementById("issue-description").value.trim();
+        const status = document.getElementById("appointment-status").value;
+        const repairNotes = document.getElementById("repair-notes").value.trim();
+
+        const appointmentData = {
+            customer: customerName,
+            phone,
+            equipment,
+            date: timestamp,
+            price,
+            issue,
+            status,
+            repair_notes: repairNotes,
+        };
+
+        showToast("Saving appointment...");
+
+        const appointmentId = document.getElementById("appointment-id")?.value;
+
+        if (appointmentId) {
+            await db.collection("appointments").doc(appointmentId).update(appointmentData);
+            showToast("Appointment updated successfully!");
+        } else {
+            await db.collection("appointments").add(appointmentData);
+            showToast("Appointment saved successfully!");
+            document.getElementById("appointment-form").reset();
+        }
+
+    } catch (error) {
+        console.error("Error saving appointment:", error);
+        showToast(`Error saving appointment: ${error.message}`, true);
+    }
+});
+           
                 // Modal controls
                 document.querySelectorAll('.close-modal').forEach(btn => {
                     btn.addEventListener('click', () => {
@@ -2219,21 +2376,25 @@ function showSkeletonLoader(containerId, rows = 5) {
             
             // ================ INITIALIZATION ================
             function initialize() {
-                setupEventListeners();
-                activateView('dashboard');
-                
-                // Set current date for appointment form
-                const today = new Date();
-                document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
-                
-                const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-                document.getElementById("appointment-time").value = `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
-                
-                // Hide loading overlay after 1.5s
-                setTimeout(() => {
-                    document.getElementById('loading-overlay').style.display = 'none';
-                }, 1500);
-            }
+    setupEventListeners();
+    activateView('dashboard');
+    
+    // Set current date for appointment form
+    const today = new Date();
+    document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
+    
+    const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+    document.getElementById("appointment-time").value = 
+        `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
+    
+    // Initialize form validation
+    initializeValidation();
+    
+    // Hide loading overlay after 1.5s
+    setTimeout(() => {
+        document.getElementById('loading-overlay').style.display = 'none';
+    }, 1500);
+}
             
             // Start the application
             initialize();
