@@ -505,7 +505,21 @@
         .btn:active {
             transform: translateY(0);
         }
-        
+        /* Loading state for save operations */
+.btn.loading {
+    position: relative;
+    color: transparent;
+}
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+}
         .btn.secondary {
             background: var(--dark-card);
             color: var(--dark-gray);
@@ -527,7 +541,7 @@
     border-radius: 12px;
     background: var(--dark-card);
     color: white;
-    z-index: 1000;
+    z-index: 4000;
     box-shadow: 0 8px 25px var(--dark-shadow);
     opacity: 0;
     transform: translateY(-30px);
@@ -645,13 +659,15 @@
   flex: 1;
 }
 .validation-error {
-    color: var(--dark-danger);
-    font-size: 0.85rem;
-    margin-top: 5px;
-    min-height: 20px;
-    display: block; /* Changed from 'none' to 'block' */
-    opacity: 1; /* Ensure it's visible */
-    transform: none; /* Remove any transformations */
+  display: none; /* Changed from block */
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+.validation-error.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .form-control.invalid {
@@ -960,14 +976,14 @@
         </div>
 
         <!-- Tabs -->
-        <div class="tabs">
+        <!-- <div class="tabs">
             <div class="tab active" data-tab="dashboard">Dashboard</div>
             <div class="tab" data-tab="appointments">Appointments</div>
             <div class="tab" data-tab="calendar">Calendar</div>
             <div class="tab" data-tab="customers">Customers</div>
             <div class="tab" data-tab="reports">Reports</div>
             <div class="tab" data-tab="settings">Settings</div>
-        </div>
+        </div> -->
 
         <!-- Dashboard View -->
         <div id="dashboard-view" class="tab-content active">
@@ -1177,6 +1193,9 @@
                 </table>
             </div>
         </div>
+        <div id="reports-view" class="tab-content">
+          <!-- Will be dynamically populated -->
+      </div>      
     </div>
 
     <!-- Appointment Modal -->
@@ -1494,6 +1513,9 @@ function showSkeletonLoader(containerId, rows = 5) {
         }
         
         function showToast(message, isError = false) {
+          if (isError && process.env.NODE_ENV === "development") {
+    console.error(message);
+  }
             const toast = document.createElement("div");
             toast.className = `toast ${isError ? "error" : "success"}`;
             toast.innerHTML = `
@@ -1606,6 +1628,22 @@ function clearValidationError(fieldId) {
     if (field) field.classList.remove('invalid');
     if (errorElement) errorElement.style.display = 'none';
 }
+function initReportsView() {
+    const reportsView = document.getElementById('reports-view');
+    reportsView.innerHTML = `
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Reports Dashboard</div>
+            </div>
+            <div class="card-content">
+                <p>Revenue reports, appointment analytics, and performance metrics coming soon</p>
+                <button class="btn" id="export-reports">
+                    <i class="fas fa-file-export"></i> Export Data
+                </button>
+            </div>
+        </div>
+    `;
+}
 
 function setupFieldValidation(fieldId, validator) {
     const field = document.getElementById(fieldId);
@@ -1669,12 +1707,13 @@ function initializeValidation() {
                     case "calendar":
                         renderCalendar();
                         updateCalendarSummary();
+                        setupCalendarEventHandlers(); // ✅ ADD THIS
                         break;
                     case "customers":
                         fetchCustomers();
                         break;
                     case "reports":
-                        // generateReports();
+                    initReportsView();
                         break;
                     case "settings":
                         // loadSettings();
@@ -1684,8 +1723,8 @@ function initializeValidation() {
             
             // ================ AUTHENTICATION HANDLING ================
             onAuthStateChanged(auth, (user) => {
-                if (!user) {
-                    window.location.href = "admin-login.html";
+              if (!user || user.role !== "admin") { // Add role check
+                window.location.href = "admin-login.html";
                 } else {
                     // Show logged-in user's email
                     document.getElementById("user-name").textContent = user.email;
@@ -1727,13 +1766,26 @@ function initializeValidation() {
                     updateCalendarSummary();
                     initChart();
                 } catch (error) {
-                    console.error("Error fetching appointments:", error);
-                    showToast("Failed to fetch appointments", true);
-                } finally {
-                    showLoading(false);
-                }
+        console.error("Error fetching appointments:", error);
+        const errorMsg = error.code 
+            ? `Firebase Error [${error.code}]: ${error.message}`
+            : "Failed to fetch appointments";
+        
+        showToast(errorMsg, true);
+        logErrorToServer(error);
+    }
             }
-            
+            function logErrorToServer(error) {
+    // Send error to backend for logging
+    fetch('/api/log-error', {
+        method: 'POST',
+        body: JSON.stringify({
+            message: error.message,
+            stack: error.stack,
+            timestamp: new Date().toISOString()
+        })
+    });
+}
             // Fetch customers from Firestore
             async function fetchCustomers() {
                 showLoading(true);
@@ -1774,8 +1826,8 @@ function initializeValidation() {
                     await fetchAppointments();
                     document.getElementById('appointment-modal').classList.remove('active');
                 } catch (error) {
-                    console.error("Error saving appointment:", error);
-                    showToast("Failed to save appointment", true);
+                  const action = editingAppointmentId ? "updating" : "creating";
+                  showToast(`Failed ${action} appointment: ${error.message}`, true);
                 } finally {
                     showLoading(false);
                 }
@@ -2011,6 +2063,7 @@ function initializeValidation() {
                         dayApps.forEach(app => {
                             const item = document.createElement("div");
                             item.className = "appointment-item";
+                            item.dataset.id = app.id;
                             const time = app.dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                             item.textContent = `${app.customer.split(" ")[0]} - ${time}`;
                             container.appendChild(item);
@@ -2022,7 +2075,31 @@ function initializeValidation() {
                     calendarGrid.appendChild(dayCell);
                 }
             }
-            
+            function setupCalendarEventHandlers() {
+    document.querySelectorAll('.appointment-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            const appointmentId = e.currentTarget.dataset.id;
+            showAppointmentDetails(appointmentId);
+        });
+    });
+}
+function showAppointmentDetails(id) {
+    const appointment = appointments.find(a => a.id === id); // or use AppState.getAppointments()
+    if (!appointment) return;
+
+    const modalContent = `
+        <h3>Appointment Details</h3>
+        <p><strong>Customer:</strong> ${appointment.customer}</p>
+        <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
+        <p><strong>Equipment:</strong> ${appointment.equipment}</p>
+        <p><strong>Status:</strong> ${statusMap[appointment.status]?.text || 'N/A'}</p>
+        <p><strong>Issue:</strong> ${appointment.issue}</p>
+        <button class="btn" id="edit-details">Edit Appointment</button>
+    `;
+
+    openDetailsModal(modalContent,id);
+}
+         
             function updateCalendarSummary() {
                 const monthlyApps = appointments.filter((app) => {
                     if (!app.dateObj) return false;
@@ -2294,7 +2371,18 @@ function closeAppointmentModal() {
                 document.getElementById("print-schedule").addEventListener("click", () => {
                     window.print();
                 });
-                
+                document.getElementById('save-appointment').addEventListener('click', async function () {
+    const btn = this;
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    const data = collectAppointmentFormData(); // Use your form parsing logic
+    await saveAppointment(data);
+
+    btn.classList.remove('loading');
+    btn.disabled = false;
+});
+
                 // Add appointment button
                 document.getElementById("add-appointment").addEventListener("click", openAddModal);
                 
@@ -2456,6 +2544,31 @@ function closeAppointmentModal() {
             // Start the application
             initialize();
         }
+        function openDetailsModal(content, id) {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            ${content}
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    // Close button
+    modal.querySelector('.close-modal').addEventListener('click', () => {
+        modal.remove();
+    });
+
+    // Edit button logic
+    modal.querySelector('#edit-details')?.addEventListener('click', () => {
+        modal.remove();
+        if (typeof openEditModal === "function") {
+            openEditModal(id); // ✅ ID comes from argument
+        }
+    });
+}
+
     </script>
 </body>
 </html>
