@@ -637,7 +637,7 @@
             border-radius: 20px;
             width: 90%;
             max-width: 600px;
-            max-height: 90vh;
+            max-height: 85vh;
             overflow-y: auto;
             box-shadow: 0 25px 50px var(--dark-shadow);
             border: 1px solid var(--dark-border);
@@ -659,10 +659,14 @@
   flex: 1;
 }
 .validation-error {
-  display: none; /* Changed from block */
-    opacity: 0;
-    transform: translateY(-5px);
-    transition: all 0.3s ease;
+  display: block;
+  color: var(--dark-danger);
+  font-size: 0.8rem;
+  margin-top: -15px;
+  margin-bottom: 10px;
+  opacity: 1;
+  height: auto;
+  transform: none;
 }
 .validation-error.show {
     display: block;
@@ -741,7 +745,35 @@
             gap: 15px;
             margin-top: 25px;
         }
-        
+        .close-sidebar-mobile {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: none;
+  background: none;
+  border: none;
+  color: var(--dark-gray);
+  font-size: 1.5rem;
+  z-index: 10;
+}
+.notification-status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: 8px;
+    background-color: var(--dark-danger); /* Default to disabled (red) */
+}
+.notification-status.enabled {
+    background-color: var(--dark-success); /* Enabled (green) */
+}
+.notification-enabled {
+    background-color: var(--dark-success);
+}
+
+.notification-disabled {
+    background-color: var(--dark-danger);
+}
         /* Responsive Design */
         @media (max-width: 1200px) {
             .sidebar {
@@ -862,7 +894,7 @@
             .mobile-menu-btn {
                 display: block;
                 position: fixed;
-                top: 20px;
+                top: 15px;
                 left: 20px;
                 z-index: 1500;
                 background: var(--dark-accent);
@@ -876,32 +908,48 @@
                 font-size: 1.5rem;
                 box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
             }
+            .calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+  
+  .calendar-day {
+    min-height: 80px;
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+  
+  .appointment-item {
+    font-size: 0.65rem;
+    padding: 4px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .day-number {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+
         }
         
         /* Mobile menu button */
         .mobile-menu-btn {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1500;
-            background: linear-gradient(90deg, var(--dark-accent), #7c3aed);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .mobile-menu-btn:hover {
-            transform: scale(1.1);
-        }
+  background: none !important;
+  box-shadow: none !important;
+  width: auto;
+  height: auto;
+  color: var(--dark-accent);
+}
+
+.mobile-menu-btn:hover {
+  transform: none;
+  color: var(--dark-text);
+}
         .mobile-menu-btn {
   display: block;
   cursor: pointer;
@@ -911,6 +959,34 @@
 @media (min-width: 768px) {
   .mobile-menu-btn {
     display: none;
+  }
+}
+@media (max-width: 576px) {
+  .sidebar.active .brand h2,
+  .sidebar.active .nav-links a span {
+    display: inline-block !important;
+    animation: fadeIn 0.3s ease;
+  }
+  .sidebar.active .nav-links a {
+    justify-content: flex-start;
+    padding: 16px 30px;
+  }
+  .close-sidebar-mobile {
+    display: block;
+  }
+}
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 20px 15px;
+    width: 95%;
+  }
+  
+  .appointment-details {
+    font-size: 0.9rem;
+  }
+  
+  .appointment-details p {
+    margin-bottom: 10px;
   }
 }
     </style>
@@ -937,8 +1013,9 @@
             <h2>Fitness Repair</h2>
         </div>
         <!-- Sidebar -->
-
-  <button class="close-sidebar">&times;</button>
+        <button class="close-sidebar-mobile">
+            <i class="fas fa-times"></i>
+          </button>
 
         <div class="nav-links">
             <a href="#" data-view="dashboard" class="active">
@@ -989,16 +1066,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Tabs -->
-        <!-- <div class="tabs">
-            <div class="tab active" data-tab="dashboard">Dashboard</div>
-            <div class="tab" data-tab="appointments">Appointments</div>
-            <div class="tab" data-tab="calendar">Calendar</div>
-            <div class="tab" data-tab="customers">Customers</div>
-            <div class="tab" data-tab="reports">Reports</div>
-            <div class="tab" data-tab="settings">Settings</div>
-        </div> -->
 
         <!-- Dashboard View -->
         <div id="dashboard-view" class="tab-content active">
@@ -1209,8 +1276,184 @@
             </div>
         </div>
         <div id="reports-view" class="tab-content">
-          <!-- Will be dynamically populated -->
-      </div>      
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Performance Reports</div>
+                    <div class="card-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                </div>
+                
+                <div style="padding: 20px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                        <div class="card">
+                            <div class="card-content" style="font-size: 2.5rem;">$4,280</div>
+                            <div class="card-footer">Monthly Revenue</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-content" style="font-size: 2.5rem;">42</div>
+                            <div class="card-footer">Completed Repairs</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-content" style="font-size: 2.5rem;">78%</div>
+                            <div class="card-footer">Utilization Rate</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="margin-bottom: 20px;">
+                        <div class="card-header">
+                            <div class="card-title">Repair Completion Time</div>
+                        </div>
+                        <div style="height: 300px;">
+                            <canvas id="repairTimeChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Revenue by Equipment Type</div>
+                        </div>
+                        <div style="height: 300px;">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button class="btn">
+                            <i class="fas fa-file-export"></i> Export Report (PDF)
+                        </button>
+                        <button class="btn secondary" style="margin-left: 15px;">
+                            <i class="fas fa-download"></i> Download Data (CSV)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="settings-view" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Account Settings</div>
+                    <div class="card-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                </div>
+                
+                <div style="padding: 20px;">
+                    <form id="settings-form">
+                        <h3 style="margin-bottom: 15px; color: var(--dark-accent);">Profile</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                            <div>
+                                <label>Full Name</label>
+                                <input type="text" id="settings-full-name" class="form-control" placeholder="Enter your name">
+                                <div class="validation-error" id="settings-full-name-error"></div>
+                            </div>
+                            <div>
+                                <label>Email</label>
+                                <input type="email" id="settings-email" class="form-control" placeholder="Enter your email" disabled>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-bottom: 15px; color: var(--dark-accent);">Business Settings</h3>
+                        <div style="margin-bottom: 20px;">
+                            <label>Business Name</label>
+                            <input type="text" id="settings-business-name" class="form-control" placeholder="Enter business name">
+                            <div class="validation-error" id="settings-business-name-error"></div>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label>Business Hours</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div>
+                                    <input type="time" id="settings-start-time" class="form-control">
+                                    <div class="card-footer" style="text-align: center; padding: 5px;">Opening Time</div>
+                                </div>
+                                <div>
+                                    <input type="time" id="settings-end-time" class="form-control">
+                                    <div class="card-footer" style="text-align: center; padding: 5px;">Closing Time</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-bottom: 15px; color: var(--dark-accent);">Notification Preferences</h3>
+                        <div style="margin-bottom: 20px;">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <input type="checkbox" id="email-notifications" checked>
+                                <label for="email-notifications">Email Notifications
+                                <span id="email-notification-status" class="notification-status"></span>
+                                </label>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="sms-notifications">
+                                <label for="sms-notifications">SMS Notifications
+                                <span id="sms-notification-status" class="notification-status"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" id="save-settings" class="btn">
+                                <i class="fas fa-save"></i> Save Settings
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="help-view" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Help Center</div>
+                    <div class="card-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                </div>
+                
+                <div style="padding: 20px;">
+                    <h3 style="margin-bottom: 15px; color: var(--dark-accent);">Frequently Asked Questions</h3>
+                    
+                    <div class="faq-item" style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--dark-border);">
+                        <div style="font-weight: bold; margin-bottom: 5px;">How do I reschedule an appointment?</div>
+                        <div>Go to the Appointments view, click the edit button next to the appointment, and change the date/time.</div>
+                    </div>
+                    
+                    <div class="faq-item" style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--dark-border);">
+                        <div style="font-weight: bold; margin-bottom: 5px;">How do I add a new customer?</div>
+                        <div>Go to the Customers view and click the "Add Customer" button.</div>
+                    </div>
+                    
+                    <div class="faq-item" style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--dark-border);">
+                        <div style="font-weight: bold; margin-bottom: 5px;">How do I print the daily schedule?</div>
+                        <div>In the Appointments view, use the "Print" button at the top right.</div>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--dark-accent);">Contact Support</h3>
+                    
+                    <form id="support-form">
+                        <div style="margin-bottom: 20px;">
+                            <label>Subject</label>
+                            <input type="text" id="support-subject" class="form-control">
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label>Message</label>
+                            <textarea class="form-control" id="support-message" rows="4"></textarea>
+                        </div>
+                        
+                        <button class="btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                    
+                    <div style="margin-top: 30px; background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 10px;">
+                        <h4 style="margin-bottom: 10px;"><i class="fas fa-phone-alt"></i> Phone Support</h4>
+                        <div>1-289-925-7239 (9am-5pm EST)</div>
+                        
+                        <h4 style="margin-top: 20px; margin-bottom: 10px;"><i class="fas fa-envelope"></i> Email Support</h4>
+                        <div>canadianfitnessrepair@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>           
     </div>
 
     <!-- Appointment Modal -->
@@ -1609,14 +1852,14 @@ function showValidationError(fieldId, message) {
     const errorId = `${fieldId}-error`;
     const errorElement = document.getElementById(errorId);
     
-    if (!field || !errorElement) return;
-    
-    field.classList.add('invalid');
-    errorElement.textContent = message;
-    errorElement.style.display = 'block';
-    errorElement.style.opacity = '1'; // Remove any transparency
-    errorElement.style.transform = 'none'; // Remove any transformations
+    if (field && errorElement) {
+        field.classList.add('invalid');
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+        errorElement.style.opacity = '1';
+    }
 }
+
 function showValidationToast(message, isError = true) {
     const toast = document.createElement("div");
     toast.className = `toast ${isError ? "error" : "success"}`;
@@ -1635,13 +1878,29 @@ function showValidationToast(message, isError = true) {
         setTimeout(() => toast.remove(), 300);
     }, 5000);
 }
+// Keep your existing single-field function
 function clearValidationError(fieldId) {
     const field = document.getElementById(fieldId);
     const errorId = `${fieldId}-error`;
     const errorElement = document.getElementById(errorId);
     
     if (field) field.classList.remove('invalid');
-    if (errorElement) errorElement.style.display = 'none';
+    if (errorElement) {
+        errorElement.style.display = 'none';
+        errorElement.textContent = ''; // Clear message text
+    }
+}
+
+// Add this new function to clear ALL validation errors
+function clearAllValidationErrors() {
+    document.querySelectorAll('.validation-error').forEach(el => {
+        el.textContent = '';
+        el.style.display = 'none';
+    });
+    
+    document.querySelectorAll('.form-control').forEach(field => {
+        field.classList.remove('invalid');
+    });
 }
 function initReportsView() {
     const reportsView = document.getElementById('reports-view');
@@ -1660,6 +1919,41 @@ function initReportsView() {
     `;
 }
 
+function initReminderSystem() {
+    // Check for appointments needing reminders
+    checkAppointmentReminders();
+    
+    // Check every hour
+    setInterval(checkAppointmentReminders, 60 * 60 * 1000);
+}
+// Reminder check function
+async function checkAppointmentReminders() {
+    try {
+        const now = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        // Get appointments scheduled for tomorrow
+        const snapshot = await getDocs(query(
+            appointmentsCollection,
+            where('date', '>=', Timestamp.fromDate(tomorrow)),
+            where('date', '<', Timestamp.fromDate(new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000)))
+        ));
+        
+        snapshot.forEach(doc => {
+            const appointment = {
+                id: doc.id,
+                ...doc.data(),
+                dateObj: doc.data().date.toDate()
+            };
+            
+            // Trigger reminder notification
+            triggerNotifications('appointment_reminder', appointment);
+        });
+    } catch (error) {
+        console.error("Error checking reminders:", error);
+    }
+}
 function setupFieldValidation(fieldId, validator) {
     const field = document.getElementById(fieldId);
     if (!field) return;
@@ -1696,46 +1990,60 @@ function initializeValidation() {
 }
             // ================ VIEW MANAGEMENT ================
             function activateView(viewName) {
-                // Update sidebar active state
-                document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.classList.toggle('active', link.dataset.view === viewName);
-                });
-                
-                // Hide all views
-                document.querySelectorAll('.tab-content').forEach(view => {
-                    view.classList.remove('active');
-                });
-                
-                // Show requested view
-                const viewElement = document.getElementById(`${viewName}-view`);
-                if (viewElement) viewElement.classList.add('active');
-                
-                // Initialize view-specific content
-                switch(viewName) {
-                    case "dashboard":
-                        updateStats();
-                        initChart();
-                        break;
-                    case "appointments":
-                        fetchAppointments();
-                        break;
-                    case "calendar":
-                        renderCalendar();
-                        updateCalendarSummary();
-                        setupCalendarEventHandlers(); // ✅ ADD THIS
-                        break;
-                    case "customers":
-                        fetchCustomers();
-                        break;
-                    case "reports":
-                    initReportsView();
-                        break;
-                    case "settings":
-                        // loadSettings();
-                        break;
-                }
-            }
-            
+    // ✅ FIX: Remove active class from ALL sidebar links first
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // ✅ FIX: Add active class ONLY to the current view
+    const currentLink = document.querySelector(`.nav-links a[data-view="${viewName}"]`);
+    if (currentLink) {
+        currentLink.classList.add('active');
+    }
+    
+    // Hide all views
+    document.querySelectorAll('.tab-content').forEach(view => {
+        view.classList.remove('active');
+    });
+    
+    // Show requested view
+    const viewElement = document.getElementById(`${viewName}-view`);
+    if (viewElement) viewElement.classList.add('active');
+    
+    // Initialize view-specific content
+    switch(viewName) {
+        case "dashboard":
+        initReminderSystem();
+            updateStats();
+            initChart();
+            break;
+        case "appointments":
+            fetchAppointments();
+            break;
+        case "calendar":
+            renderCalendar();
+            updateCalendarSummary();
+            setupCalendarEventHandlers();
+            break;
+        case "customers":
+            fetchCustomers();
+            break;
+        case "reports":
+            initReportsView();
+            break;
+        case "settings":
+            loadSettings();
+            break;
+        case "help":
+            initHelpView();
+            break;
+    }
+    
+    // Auto-close sidebar on mobile
+    if (window.innerWidth <= 576) {
+        document.querySelector('.sidebar').classList.remove('active');
+    }
+}           
             // ================ AUTHENTICATION HANDLING ================
             onAuthStateChanged(auth, (user) => {
               if (!user){
@@ -1818,6 +2126,313 @@ function initializeValidation() {
                 }
             }
             
+            function initReportsCharts() {
+    // Repair Time Chart
+    const repairTimeCtx = document.getElementById('repairTimeChart').getContext('2d');
+    new Chart(repairTimeCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Treadmills', 'Ellipticals', 'Bikes', 'Rowers', 'Strength'],
+            datasets: [{
+                label: 'Avg. Repair Time (hours)',
+                data: [3.2, 2.8, 1.5, 2.1, 4.2],
+                backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Hours'
+                    }
+                }
+            }
+        }
+    });
+
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Treadmills', 'Ellipticals', 'Bikes', 'Rowers', 'Strength'],
+            datasets: [{
+                label: 'Revenue by Type',
+                data: [1850, 1200, 650, 430, 150],
+                backgroundColor: [
+                    'rgba(59, 130, 246, 0.7)',
+                    'rgba(46, 204, 113, 0.7)',
+                    'rgba(155, 89, 182, 0.7)',
+                    'rgba(241, 196, 15, 0.7)',
+                    'rgba(230, 126, 34, 0.7)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right'
+                }
+            }
+        }
+    });
+}
+
+// ===== SETTINGS VIEW INITIALIZATION =====
+function updateNotificationStatusIndicators() {
+    const emailEnabled = document.getElementById('email-notifications').checked;
+    const smsEnabled = document.getElementById('sms-notifications').checked;
+    
+    const emailStatus = document.getElementById('email-notification-status');
+    const smsStatus = document.getElementById('sms-notification-status');
+    
+    emailStatus.className = 'notification-status ' + (emailEnabled ? 'enabled' : '');
+    smsStatus.className = 'notification-status ' + (smsEnabled ? 'enabled' : '');
+}
+
+function loadSettings() {
+    // Show loading state
+    const btn = document.getElementById('save-settings');
+    const originalHTML = btn ? btn.innerHTML : '';
+    
+    if (btn) {
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading settings...';
+        btn.disabled = true;
+    }
+
+    // Simulate API call to load settings
+    setTimeout(() => {
+        try {
+            // Set default values
+            document.getElementById('settings-full-name').value = "Admin User";
+            document.getElementById('settings-email').value = "admin@fitnessrepair.com";
+            document.getElementById('settings-business-name').value = "Canadian Fitness Repair";
+            document.getElementById('settings-start-time').value = "08:00";
+            document.getElementById('settings-end-time').value = "18:00";
+            document.getElementById('email-notifications').checked = true;
+            document.getElementById('sms-notifications').checked = false;
+            
+            // Clear any previous validation errors
+            clearAllValidationErrors();
+            updateNotificationStatusIndicators();
+            // Show success message
+            showToast("Settings loaded successfully");
+        } catch (error) {
+            console.error("Error loading settings:", error);
+            showToast("Failed to load settings", true);
+        } finally {
+            // Restore button state
+            if (btn) {
+                btn.innerHTML = '<i class="fas fa-save"></i> Save Settings';
+                btn.disabled = false;
+            }
+        }
+    }, 800);
+}
+
+// Save settings function
+function saveSettings() {
+    const btn = document.getElementById('save-settings');
+    if (!btn) return;
+    
+    const originalHTML = btn.innerHTML;
+    
+    // Show loading state
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    btn.disabled = true;
+    
+    try {
+        // Get form values
+        const fullName = document.getElementById('settings-full-name').value.trim();
+        const businessName = document.getElementById('settings-business-name').value.trim();
+        const startTime = document.getElementById('settings-start-time').value;
+        const endTime = document.getElementById('settings-end-time').value;
+        const emailNotifications = document.getElementById('email-notifications').checked;
+        const smsNotifications = document.getElementById('sms-notifications').checked;
+        
+        // Clear previous errors
+        clearAllValidationErrors();
+        // Update notification status indicators
+        updateNotificationStatusIndicators();
+        
+        // Validate inputs
+        let isValid = true;
+        
+        if (!fullName) {
+            showValidationError('settings-full-name', 'Full name is required');
+            isValid = false;
+        }
+        
+        if (!businessName) {
+            showValidationError('settings-business-name', 'Business name is required');
+            isValid = false;
+        }
+        
+        if (!startTime || !endTime) {
+            showToast("Business hours are required", true);
+            isValid = false;
+        } else if (startTime >= endTime) {
+            showToast("Closing time must be after opening time", true);
+            isValid = false;
+        }
+        
+        if (!isValid) {
+            showToast("Please fix validation errors", true);
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+            return;
+        }
+        
+        // Prepare settings data
+        const settings = {
+            fullName,
+            businessName,
+            startTime,
+            endTime,
+            emailNotifications,
+            smsNotifications,
+            lastUpdated: new Date().toISOString(),
+            emailNotifications: document.getElementById('email-notifications').checked,
+        smsNotifications: document.getElementById('sms-notifications').checked,
+        lastUpdated: new Date().toISOString()
+        };
+        // Store in localStorage
+    localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
+        console.log("Saving settings:", settings);
+        
+        // Simulate saving to backend
+        setTimeout(() => {
+            // Update UI with new business name
+            document.querySelector('.brand h2').textContent = businessName;
+            
+            // Show success
+            showToast("Settings saved successfully!");
+            
+            // Restore button
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+        }, 1200);
+        
+    } catch (error) {
+        console.error("Error during save:", error);
+        showToast("An unexpected error occurred", true);
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+    }
+}
+function checkUpcomingAppointments() {
+    const upcoming = getAppointmentsWithin(24); // Get appointments within 24 hours
+    
+    upcoming.forEach(appointment => {
+        if (settings.emailNotifications) {
+            sendEmailReminder(appointment);
+        }
+        
+        if (settings.smsNotifications) {
+            sendSMSReminder(appointment);
+        }
+    });
+}
+
+// Email notification service
+async function sendEmailNotification(eventType, appointment) {
+    let subject, body;
+    
+    switch(eventType) {
+        case 'appointment_created':
+            subject = "New Appointment Created";
+            body = `You have a new appointment with ${appointment.customer} on ${appointment.dateObj.toLocaleDateString()}`;
+            break;
+        case 'appointment_updated':
+            subject = "Appointment Updated";
+            body = `Appointment with ${appointment.customer} has been updated`;
+            break;
+        case 'appointment_reminder':
+            subject = "Appointment Reminder";
+            body = `Reminder: You have an appointment with ${appointment.customer} tomorrow`;
+            break;
+    }
+    
+    try {
+        await fetch('/api/send-email', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ 
+                recipient: "canadianfitnessrepair@gmail.com",
+                subject,
+                body
+            })
+        });
+    } catch (error) {
+        console.error('Email sending failed:', error);
+    }
+}
+
+// SMS notification service
+async function sendSMSNotification(eventType, appointment) {
+    let message;
+    
+    switch(eventType) {
+        case 'appointment_created':
+            message = `New appt: ${appointment.customer} on ${appointment.dateObj.toLocaleDateString()}`;
+            break;
+        case 'appointment_updated':
+            message = `Updated: ${appointment.customer}'s appt`;
+            break;
+        case 'appointment_reminder':
+            message = `Reminder: Appt with ${appointment.customer} tomorrow`;
+            break;
+    }
+    
+    try {
+        await fetch('/api/send-sms', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ 
+                phoneNumber: "+12899257239", // Admin's phone number
+                message
+            })
+        });
+    } catch (error) {
+        console.error('SMS sending failed:', error);
+    }
+}
+
+// Run this check periodically (e.g., every hour)
+setInterval(checkUpcomingAppointments, 60 * 60 * 1000);
+// ===== HELP VIEW INITIALIZATION =====
+function initHelpView() {
+    // This could fetch FAQs from your backend
+    // For now, we'll just initialize the support form
+    document.getElementById('support-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const subject = document.getElementById('support-subject').value;
+        const message = document.getElementById('support-message').value;
+        
+        if (!subject || !message) {
+            showToast("Please fill all fields", true);
+            return;
+        }
+        
+        // Simulate sending support request
+        showLoading(true);
+        setTimeout(() => {
+            showLoading(false);
+            showToast("Your support request has been submitted!");
+            document.getElementById('support-form').reset();
+        }, 1500);
+    });
+}
+
             // Save (add or update) appointment in Firestore
             async function saveAppointment(data) {
               if (!data.customer) {
@@ -1835,9 +2450,13 @@ function initializeValidation() {
                         const docRef = doc(db, "appointments", editingAppointmentId);
                         await updateDoc(docRef, data);
                         showToast("Appointment updated successfully");
+                        // Trigger update notification
+            triggerNotifications('appointment_updated', data);
                     } else {
                         await addDoc(appointmentsCollection, data);
                         showToast("Appointment added successfully");
+                        // Trigger creation notification
+            triggerNotifications('appointment_created', data);
                     }
                     editingAppointmentId = null;
                     await fetchAppointments();
@@ -1848,6 +2467,7 @@ function initializeValidation() {
                 } finally {
                     showLoading(false);
                 }
+
             }
             
             // Delete appointment from Firestore
@@ -1866,7 +2486,19 @@ function initializeValidation() {
                     showLoading(false);
                 }
             }
-            
+     // Notification trigger function
+function triggerNotifications(eventType, appointmentData) {
+    // Get current settings
+    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+    
+    if (settings.emailNotifications) {
+        sendEmailNotification(eventType, appointmentData);
+    }
+    
+    if (settings.smsNotifications) {
+        sendSMSNotification(eventType, appointmentData);
+    }
+}       
             // Save customer to Firestore
             async function saveCustomer() {
                 showLoading(true);
@@ -2343,6 +2975,19 @@ function closeAppointmentModal() {
                     });
                 });
                 
+                document.querySelectorAll(".nav-links a").forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const view = link.dataset.view;
+                    activateView(view);
+                    
+                    // Auto-close sidebar on mobile
+                    if (window.innerWidth <= 576) {
+                    document.querySelector('.sidebar').classList.remove('active');
+                    }
+                });
+                });
+
                 // Logout button
                 document.querySelector('.nav-links a[data-view="logout"]').addEventListener("click", (e) => {
                     e.preventDefault();
@@ -2431,14 +3076,39 @@ function closeAppointmentModal() {
                 document.getElementById("add-appointment").addEventListener("click", openAddModal);
                 
                 document.getElementById("save-appointment").addEventListener("click", async () => {
-    // Clear previous errors and styling
-    document.querySelectorAll('.validation-error').forEach(el => {
-        el.textContent = '';
-        el.style.display = 'none';
+                // Clear previous errors and styling
+                document.querySelectorAll('.validation-error').forEach(el => {
+                    el.textContent = '';
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.form-control').forEach(field => {
+                    field.classList.remove('invalid');
+                });
+                // Add real-time validation
+                document.querySelectorAll('.form-control').forEach(field => {
+  field.addEventListener('blur', () => {
+    validateField(field);
+  });
+});
+    // Notification preference change listeners
+    document.getElementById('email-notifications')?.addEventListener('change', () => {
+        updateNotificationStatusIndicators();
     });
-    document.querySelectorAll('.form-control').forEach(field => {
-        field.classList.remove('invalid');
+    
+    document.getElementById('sms-notifications')?.addEventListener('change', () => {
+        updateNotificationStatusIndicators();
     });
+
+    function validateField(field) {
+  const errorElement = document.getElementById(`${field.id}-error`);
+  if (!field.value.trim()) {
+    field.classList.add('invalid');
+    errorElement.textContent = 'This field is required';
+  } else {
+    field.classList.remove('invalid');
+    errorElement.textContent = '';
+  }
+}
 
     // Validation helper functions
     const validators = {
@@ -2557,16 +3227,24 @@ function closeAppointmentModal() {
                 // Mobile menu toggle
                 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
                 const sidebar = document.querySelector('.sidebar');
-                
+                // Add mobile close functionality
+                document.querySelector('.close-sidebar-mobile')?.addEventListener('click', () => {
+  document.querySelector('.sidebar').classList.remove('active');
+});
                 mobileMenuBtn.addEventListener('click', () => {
                     sidebar.classList.toggle('active');
                 });
                 
-  // Close sidebar when close button is clicked
-  closeSidebarBtn?.addEventListener('click', () => {
+                // Close sidebar when close button is clicked
+                closeSidebarBtn?.addEventListener('click', () => {
     sidebar.classList.remove('active');
   });
-            }
+                // Add this in setupEventListeners()
+                const saveSettingsBtn = document.getElementById('save-settings');
+                if (saveSettingsBtn) {
+                    saveSettingsBtn.addEventListener('click', saveSettings);
+                }           
+}
             
             // ================ INITIALIZATION ================
             function initialize() {
