@@ -94,7 +94,18 @@
       height: 4px;
       background: linear-gradient(90deg, var(--dark-accent), #8b5cf6);
     }
-    
+    .validation-error {
+  color: #ef4444;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: none;
+}
+
+input.invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+}
+
     .logo {
       display: flex;
       align-items: center;
@@ -424,6 +435,7 @@
             <i class="fas fa-envelope"></i>
             <input type="email" id="email" class="form-control" placeholder="Enter your email address" required autocomplete="username">
           </div>
+          <div class="validation-error" id="email-error"></div> <!-- 🔴 Add this -->
         </div>
         
         <div class="form-group">
@@ -437,6 +449,7 @@
               </button>
             </div>
           </div>
+          <div class="validation-error" id="password-error"></div> <!-- 🔴 Add this -->
         </div>
         
         <div class="remember-forgot">
@@ -480,10 +493,9 @@
   <!-- Firebase Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    // Firebase configuration
+    import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCtz3qjz880jPQBH6jJ5fBY_O86wK1iRzs",
       authDomain: "cfr-tracker.firebaseapp.com",
@@ -493,72 +505,120 @@
       appId: "1:870691427306:web:fc18ec2a33394e7fcf5893",
       measurementId: "G-CMVSQHBQKH"
     };
-
-    // Initialize Firebase
+  
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-
+  
     // DOM elements
     const loginForm = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
     const errorMessage = document.getElementById('errorMessage');
     const loginBtn = document.getElementById('loginBtn');
     const togglePassword = document.getElementById('togglePassword');
-    const passwordInput = document.getElementById('password');
     const forgotPassword = document.getElementById('forgotPassword');
     const rememberCheckbox = document.getElementById('remember');
-
-    // Load saved credentials if "Remember me" was checked
+  
+    // Load saved credentials
     document.addEventListener('DOMContentLoaded', () => {
       const savedEmail = localStorage.getItem('adminEmail');
       const savedRemember = localStorage.getItem('rememberMe');
-      
       if (savedEmail && savedRemember === 'true') {
-        document.getElementById('email').value = savedEmail;
+        emailInput.value = savedEmail;
         rememberCheckbox.checked = true;
       }
     });
-
-    // Toggle password visibility
+  
+    // Password toggle
     togglePassword.addEventListener('click', () => {
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
+      const type = passwordInput.type === 'password' ? 'text' : 'password';
+      passwordInput.type = type;
       togglePassword.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
     });
-
-    // Forgot password
+  
+    // 🔐 Forgot password
     forgotPassword.addEventListener('click', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-
-  if (!email) {
-    errorMessage.querySelector('span').textContent = 'Please enter your email first';
-    errorMessage.classList.add('show');
-    return;
-  }
-
-  try {
-    await sendPasswordResetEmail(auth, email);
-    errorMessage.classList.remove('show');
-    alert(`A password reset link has been sent to ${email}`);
-  } catch (error) {
-    console.error('Reset error:', error);
-    let msg = 'Failed to send reset email';
-    if (error.code === 'auth/user-not-found') {
-      msg = 'No user found with that email address';
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) {
+        errorMessage.querySelector('span').textContent = 'Please enter your email first';
+        errorMessage.classList.add('show');
+        return;
+      }
+      try {
+        await sendPasswordResetEmail(auth, email);
+        errorMessage.classList.remove('show');
+        alert(`A password reset link has been sent to ${email}`);
+      } catch (error) {
+        console.error('Reset error:', error);
+        let msg = 'Failed to send reset email';
+        if (error.code === 'auth/user-not-found') {
+          msg = 'No user found with that email address';
+        }
+        errorMessage.querySelector('span').textContent = msg;
+        errorMessage.classList.add('show');
+      }
+    });
+  
+    // ✅ Step 3: Real-time input validation
+    function validateEmail(email) {
+      return email.includes("@") && email.includes(".");
     }
-    errorMessage.querySelector('span').textContent = msg;
-    errorMessage.classList.add('show');
-  }
-});
-
-
-    // Login form submission
+  
+    function showFieldError(fieldId, message) {
+      const input = document.getElementById(fieldId);
+      const error = document.getElementById(`${fieldId}-error`);
+      input.classList.add("invalid");
+      error.textContent = message;
+      error.style.display = "block";
+    }
+  
+    function clearFieldError(fieldId) {
+      const input = document.getElementById(fieldId);
+      const error = document.getElementById(`${fieldId}-error`);
+      input.classList.remove("invalid");
+      error.textContent = "";
+      error.style.display = "none";
+    }
+  
+    emailInput.addEventListener("input", () => {
+      const value = emailInput.value.trim();
+      if (validateEmail(value)) {
+        clearFieldError("email");
+      } else {
+        showFieldError("email", "Enter a valid email address");
+      }
+    });
+  
+    passwordInput.addEventListener("input", () => {
+      const value = passwordInput.value.trim();
+      if (value.length >= 6) {
+        clearFieldError("password");
+      } else {
+        showFieldError("password", "Password must be at least 6 characters");
+      }
+    });
+  
+    // ✅ Step 4: Login form submission with pre-validation
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      
-      // Save credentials if "Remember me" is checked
+  
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      let valid = true;
+  
+      // Pre-submit validation
+      if (!validateEmail(email)) {
+        showFieldError("email", "Enter a valid email address");
+        valid = false;
+      }
+      if (password.length < 6) {
+        showFieldError("password", "Password must be at least 6 characters");
+        valid = false;
+      }
+      if (!valid) return;
+  
+      // Save credentials
       if (rememberCheckbox.checked) {
         localStorage.setItem('adminEmail', email);
         localStorage.setItem('rememberMe', 'true');
@@ -566,32 +626,29 @@
         localStorage.removeItem('adminEmail');
         localStorage.removeItem('rememberMe');
       }
-      
-      // Show loading state
+  
       loginBtn.classList.add('loading');
       loginBtn.disabled = true;
       errorMessage.classList.remove('show');
-      
+  
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-const userEmail = userCredential.user.email;
-
-if (userEmail !== 'canadianfitnessrepair@gmail.com') {
-  throw new Error('Unauthorized user');
-}
-window.location.href = 'appointment-tracker.html';
-
+        const userEmail = userCredential.user.email;
+  
+        if (userEmail !== 'canadianfitnessrepair@gmail.com') {
+          throw new Error('Unauthorized user');
+        }
+  
+        window.location.href = 'appointment-tracker.html';
       } catch (error) {
-        
         console.error('Login error:', error);
-        
         let errorMsg = 'Invalid email or password';
         if (error.code === 'auth/too-many-requests') {
           errorMsg = 'Too many failed attempts. Account temporarily disabled.';
         } else if (error.code === 'auth/user-not-found') {
           errorMsg = 'No account found with this email';
         }
-        
+  
         errorMessage.querySelector('span').textContent = errorMsg;
         errorMessage.classList.add('show');
         loginForm.classList.add('shake');
@@ -602,5 +659,6 @@ window.location.href = 'appointment-tracker.html';
       }
     });
   </script>
+  
 </body>
 </html>

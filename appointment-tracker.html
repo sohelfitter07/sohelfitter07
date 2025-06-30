@@ -1804,7 +1804,7 @@ function showSkeletonLoader(containerId, rows = 5) {
         }
         
         function showToast(message, isError = false) {
-          if (isError && process.env.NODE_ENV === "development") {
+          if (isError) {
     console.error(message);
   }
             const toast = document.createElement("div");
@@ -3365,6 +3365,7 @@ document.getElementById('admin-phone')?.addEventListener('input', function(e) {
                 // Mobile menu toggle
                 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
                 const sidebar = document.querySelector('.sidebar');
+                const closeSidebarBtn = document.querySelector('.close-sidebar-mobile');
                 // Add mobile close functionality
                 document.querySelector('.close-sidebar-mobile')?.addEventListener('click', () => {
   document.querySelector('.sidebar').classList.remove('active');
@@ -3375,8 +3376,8 @@ document.getElementById('admin-phone')?.addEventListener('input', function(e) {
                 
                 // Close sidebar when close button is clicked
                 closeSidebarBtn?.addEventListener('click', () => {
-    sidebar.classList.remove('active');
-  });
+                    sidebar.classList.remove('active');
+                    });
                 // Add this in setupEventListeners()
                 const saveSettingsBtn = document.getElementById('save-settings');
                 if (saveSettingsBtn) {
