@@ -1409,6 +1409,20 @@
                                 <option value="videotron">Videotron</option>
                             </select>
                         </div>
+                        <h3 style="margin-bottom: 15px; color: var(--dark-accent);">Notification Preferences</h3>
+                        <div style="margin-bottom: 20px;">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <input type="checkbox" id="email-notifications" checked>
+                                <label for="email-notifications">Email Notifications</label>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="sms-notifications">
+                                <label for="sms-notifications">SMS Notifications</label>
+                                <button type="button" id="test-sms-btn" class="btn" style="margin-left: 15px;">
+                                    <i class="fas fa-paper-plane"></i> Test SMS
+                                </button>
+                            </div>
+                        </div>
                         <div class="form-actions">
                             <button type="button" id="save-settings" class="btn">
                                 <i class="fas fa-save"></i> Save Settings
@@ -2242,6 +2256,7 @@ function loadSettings() {
             // Clear any previous validation errors
             clearAllValidationErrors();
             updateNotificationStatusIndicators();
+            loadSettingsFromStorage();
             // Show success message
             showToast("Settings loaded successfully");
         } catch (error) {
@@ -2276,11 +2291,11 @@ function saveSettings() {
         const endTime = document.getElementById('settings-end-time').value;
         const emailNotifications = document.getElementById('email-notifications').checked;
         const smsNotifications = document.getElementById('sms-notifications').checked;
+        const adminPhone = document.getElementById('admin-phone').value.trim();
+        const smsCarrier = document.getElementById('sms-carrier').value;
         
         // Clear previous errors
         clearAllValidationErrors();
-        // Update notification status indicators
-        updateNotificationStatusIndicators();
         
         // Validate inputs
         let isValid = true;
@@ -2295,6 +2310,24 @@ function saveSettings() {
             isValid = false;
         }
         
+          // ✅ ADD PHONE VALIDATION HERE
+          if (adminPhone) {
+            // Validate phone format only if provided
+            if (!/^\d{10}$/.test(adminPhone)) {
+                showValidationError('admin-phone', 'Phone must be 10 digits (no spaces)');
+                isValid = false;
+            }
+        } else if (smsNotifications) {
+            // Require phone if SMS is enabled
+            showValidationError('admin-phone', 'Phone number is required for SMS notifications');
+            isValid = false;
+        }
+        
+        if (smsNotifications && !smsCarrier) {
+            showToast("Please select a mobile carrier for SMS notifications", true);
+            isValid = false;
+        }
+
         if (!startTime || !endTime) {
             showToast("Business hours are required", true);
             isValid = false;
@@ -2305,12 +2338,10 @@ function saveSettings() {
         
         if (!isValid) {
             showToast("Please fix validation errors", true);
-            btn.innerHTML = originalHTML;
-            btn.disabled = false;
             return;
         }
         
-        // Prepare settings data
+        // Prepare settings data - FIXED: removed duplicates
         const settings = {
             fullName,
             businessName,
@@ -2318,34 +2349,25 @@ function saveSettings() {
             endTime,
             emailNotifications,
             smsNotifications,
-            lastUpdated: new Date().toISOString(),
-            emailNotifications: document.getElementById('email-notifications').checked,
-            smsNotifications: document.getElementById('sms-notifications').checked,
-            lastUpdated: new Date().toISOString(),
-            adminPhone: document.getElementById('admin-phone').value.trim(),
-        smsCarrier: document.getElementById('sms-carrier').value,
-        smsNotifications: document.getElementById('sms-notifications').checked
+            adminPhone,
+            smsCarrier,
+            lastUpdated: new Date().toISOString()
         };
-        // Store in localStorage
-    localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
-        console.log("Saving settings:", settings);
         
-        // Simulate saving to backend
-        setTimeout(() => {
-            // Update UI with new business name
-            document.querySelector('.brand h2').textContent = businessName;
-            
-            // Show success
-            showToast("Settings saved successfully!");
-            
-            // Restore button
-            btn.innerHTML = originalHTML;
-            btn.disabled = false;
-        }, 1200);
+        // Store in localStorage
+        localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
+        console.log("Settings saved:", settings);
+        
+        // Update UI immediately
+        document.querySelector('.brand h2').textContent = businessName;
+        showToast("Settings saved successfully!");
+        updateNotificationStatusIndicators();
         
     } catch (error) {
-        console.error("Error during save:", error);
-        showToast("An unexpected error occurred", true);
+        console.error("Error saving settings:", error);
+        showToast("Failed to save settings", true);
+    } finally {
+        // Always restore button state
         btn.innerHTML = originalHTML;
         btn.disabled = false;
     }
@@ -2398,45 +2420,79 @@ async function sendEmailNotification(eventType, appointment) {
     }
 }
 
-// SMS notification service
-// SMS notification service
-async function sendSMSNotification(eventType, appointment) {
-    // Get admin notification settings
+function loadSettingsFromStorage() {
     const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
     
-    // Check if SMS notifications are enabled
-    if (!settings.smsNotifications) {
-        console.log("SMS notifications are disabled");
-        return;
+    // Populate form fields
+    if (settings.fullName) document.getElementById('settings-full-name').value = settings.fullName;
+    if (settings.businessName) document.getElementById('settings-business-name').value = settings.businessName;
+    if (settings.startTime) document.getElementById('settings-start-time').value = settings.startTime;
+    if (settings.endTime) document.getElementById('settings-end-time').value = settings.endTime;
+    if (settings.adminPhone) document.getElementById('admin-phone').value = settings.adminPhone;
+    if (settings.smsCarrier) document.getElementById('sms-carrier').value = settings.smsCarrier;
+    
+    // Checkboxes
+    document.getElementById('email-notifications').checked = !!settings.emailNotifications;
+    document.getElementById('sms-notifications').checked = !!settings.smsNotifications;
+    
+    // Update UI
+    if (settings.businessName) {
+        document.querySelector('.brand h2').textContent = settings.businessName;
     }
     
-    // Ensure we have required information
-    if (!settings.adminPhone || !settings.smsCarrier) {
-        console.error("Missing admin phone or carrier information");
-        return;
-    }
+    updateNotificationStatusIndicators();
+}
 
-    // Format message based on event type
-    let message;
-    switch(eventType) {
-        case 'appointment_created':
-            message = `New appt: ${appointment.customer} on ${appointment.dateObj.toLocaleDateString()}`;
-            break;
-        case 'appointment_updated':
-            message = `Updated: ${appointment.customer}'s appt`;
-            break;
-        case 'appointment_reminder':
-            message = `Reminder: Appt with ${appointment.customer} tomorrow at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
-            break;
-        default:
-            message = `Appointment update: ${appointment.customer}`;
-    }
-    
-    // Truncate message to SMS length limit
-    const smsMessage = message.substring(0, 160);
-    
+// SMS notification service
+async function sendSMSNotification(eventType, appointment) {
     try {
-        // Send via new SMS endpoint
+        // Get admin notification settings
+        const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
+        
+        // Check if SMS notifications are enabled
+        if (eventType !== 'test' && !settings.smsNotifications) {
+            console.log("SMS notifications are disabled");
+            return false;
+        }
+        
+        // Ensure we have required information
+        if (!settings.adminPhone || !settings.smsCarrier) {
+            const errorMsg = "Missing admin phone or carrier information";
+            if (eventType === 'test') {
+                showToast("Cannot send SMS: " + errorMsg, true);
+            }
+            console.error(errorMsg);
+            return false;
+        }
+
+        // Format message based on event type
+        let message;
+        switch(eventType) {
+            case 'appointment_created':
+                message = `📅 New appt: ${appointment.customer} on ${appointment.dateObj.toLocaleDateString()} at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+                break;
+            case 'appointment_updated':
+                message = `🔄 Updated: ${appointment.customer}'s appt on ${appointment.dateObj.toLocaleDateString()}`;
+                break;
+            case 'appointment_reminder':
+                message = `⏰ Reminder: Appt with ${appointment.customer} tomorrow at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+                break;
+            case 'test':
+                message = "✅ Test: Canadian Fitness Repair notifications are working!";
+                break;   
+            default:
+                message = `ℹ️ Appointment update: ${appointment.customer}`;
+        }
+        
+        // Truncate message to SMS length limit
+        const smsMessage = message.substring(0, 160);
+        
+        // Show sending notification for test SMS
+        if (eventType === 'test') {
+            showToast("Sending test SMS...");
+        }
+        
+        // Send via SMS endpoint
         const response = await fetch('/api/send-sms', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -2447,12 +2503,31 @@ async function sendSMSNotification(eventType, appointment) {
             })
         });
         
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error('SMS sending failed:', errorData.error);
+        const result = await response.json();
+        
+        if (response.ok && result.success) {
+            console.log(`[📱 SMS SENT] ${eventType} to ${settings.adminPhone} via ${settings.smsCarrier}`);
+            
+            if (eventType === 'test') {
+                showToast("Test SMS sent successfully! Check your phone.");
+            }
+            return true;
+        } else {
+            const errorMsg = result.error || "Unknown error";
+            console.error('SMS sending failed:', errorMsg);
+            
+            if (eventType === 'test') {
+                showToast(`Failed to send SMS: ${errorMsg}`, true);
+            }
+            return false;
         }
     } catch (error) {
         console.error('Network error sending SMS:', error);
+        
+        if (eventType === 'test') {
+            showToast("Network error sending SMS: " + error.message, true);
+        }
+        return false;
     }
 }
 // Run this check periodically (e.g., every hour)
@@ -3133,6 +3208,20 @@ function closeAppointmentModal() {
                 document.querySelectorAll('.form-control').forEach(field => {
                     field.classList.remove('invalid');
                 });
+                
+                // In setupEventListeners()
+document.getElementById('admin-phone')?.addEventListener('input', function(e) {
+    // Remove non-digit characters
+    let phone = this.value.replace(/\D/g, '');
+    
+    // Limit to 10 characters
+    phone = phone.substring(0, 10);
+    
+    this.value = phone;
+    
+    // Clear error when user types
+    clearValidationError('admin-phone');
+});
                 // Add real-time validation
                 document.querySelectorAll('.form-control').forEach(field => {
   field.addEventListener('blur', () => {
@@ -3295,6 +3384,33 @@ function closeAppointmentModal() {
                 }           
 }
             
+// Add to setupEventListeners()
+document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
+
+function sendTestSMS() {
+    // Get current settings
+    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
+    
+    // Check if settings are saved
+    if (!settings.adminPhone || !settings.smsCarrier) {
+        showToast("Please save your phone and carrier settings first", true);
+        return;
+    }
+    
+    // Create test appointment data
+    const testAppointment = {
+        customer: "Test User",
+        dateObj: new Date(),
+        id: "test-123"
+    };
+    
+    // Show sending notification
+    showToast("Sending test SMS...");
+    
+    // Send test notification
+    sendSMSNotification('test', testAppointment);
+}
+
             // ================ INITIALIZATION ================
             function initialize() {
     setupEventListeners();
