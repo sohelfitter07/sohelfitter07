@@ -1967,11 +1967,12 @@ async function checkAppointmentReminders() {
         tomorrow.setDate(tomorrow.getDate() + 1);
         
         // Get appointments scheduled for tomorrow
-        const snapshot = await getDocs(query(
+        const q = query(
             appointmentsCollection,
             where('date', '>=', Timestamp.fromDate(tomorrow)),
             where('date', '<', Timestamp.fromDate(new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000)))
-        ));
+        );
+        const snapshot = await getDocs(q);
         
         snapshot.forEach(doc => {
             const appointment = {
