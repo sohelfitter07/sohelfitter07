@@ -223,7 +223,19 @@
             display: block;
             animation: fadeIn 0.4s ease;
         }
-        
+        .skeleton {
+    height: 20px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: loading 1.5s infinite;
+    margin: 8px 0;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -1608,6 +1620,8 @@
             updateDoc,
             deleteDoc,
             doc,
+            orderBy,
+            limit,
             Timestamp,
             query,
             where,
@@ -1655,33 +1669,44 @@ let lastFetchTime = 0;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 async function fetchAppointmentsWithCache() {
-  const now = Date.now();
-  if (cachedAppointments && now - lastFetchTime < CACHE_DURATION) {
-    return cachedAppointments;
-  }
-  
-  showLoading(true);
-  try {
-    const snapshot = await getDocs(appointmentsCollection);
-    cachedAppointments = snapshot.docs.map(doc => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        ...data,
-        dateObj: data.date ? data.date.toDate() : new Date()
-      };
-    });
-    lastFetchTime = now;
-    return cachedAppointments;
-  } catch (error) {
-    console.error("Error fetching appointments:", error);
-    showToast("Failed to fetch appointments", true);
-    return [];
-  } finally {
-    showLoading(false);
-  }
+    const now = Date.now();
+    if (cachedAppointments && now - lastFetchTime < CACHE_DURATION) {
+        return cachedAppointments;
+    }
+    
+    showLoading(true);
+    // Show skeleton loader while data is loading
+    showSkeletonLoader('appointments-body', 7);
+    
+    try {
+        // Create optimized query with ordering and limit
+        const q = query(
+            appointmentsCollection,
+            orderBy("date", "desc"),
+            limit(100) // Get only the most recent 100 appointments
+        );
+        
+        const snapshot = await getDocs(q);
+        
+        cachedAppointments = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                ...data,
+                dateObj: data.date ? data.date.toDate() : new Date()
+            };
+        });
+        
+        lastFetchTime = now;
+        return cachedAppointments;
+    } catch (error) {
+        console.error("Error fetching appointments:", error);
+        showToast("Failed to fetch appointments", true);
+        return [];
+    } finally {
+        showLoading(false);
+    }
 }
-
 // ===== ERROR HANDLING FOR FIREBASE =====
 async function initializeFirebaseWithRetry(retries = 3, delay = 2000) {
   try {
@@ -1747,7 +1772,25 @@ function renderCustomersTable() {
   document.getElementById("customer-prev-page").disabled = currentCustomerPage === 1;
   document.getElementById("customer-next-page").disabled = currentCustomerPage >= totalPages;
 }
-
+function showSkeletonLoader(containerId, rows = 5) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    container.innerHTML = '';
+    for (let i = 0; i < rows; i++) {
+        const skeletonRow = document.createElement('tr');
+        skeletonRow.innerHTML = `
+            <td><div class="skeleton"></div></td>
+            <td><div class="skeleton"></div></td>
+            <td><div class="skeleton"></div></td>
+            <td><div class="skeleton"></div></td>
+            <td><div class="skeleton"></div></td>
+            <td><div class="skeleton"></div></td>
+            <td><div class="skeleton"></div></td>
+        `;
+        container.appendChild(skeletonRow);
+    }
+}
 // ===== SEARCH FUNCTIONALITY FOR APPOINTMENTS =====
 function setupAdvancedSearch() {
   const searchInput = document.getElementById('search-appointments');
@@ -2100,34 +2143,32 @@ function initializeValidation() {
             // ================ DATA MANAGEMENT ================
             // Fetch appointments from Firestore
             async function fetchAppointments() {
-    showLoading(true);
     try {
-        const snapshot = await getDocs(appointmentsCollection);
-        appointments = snapshot.docs.map((doc) => {
-            const data = doc.data();
-            return {
-                id: doc.id,
-                ...data,
-                dateObj: data.date ? data.date.toDate() : new Date()
-            };
-        });
-        renderAppointmentsTable();
-        updateStats();
-        renderCalendar();
-        updateCalendarSummary();
-        initChart();
-    } catch (error) {
-        console.error("Error fetching appointments:", error);
-        const errorMsg = error.code 
-            ? `Firebase Error [${error.code}]: ${error.message}`
-            : "Failed to fetch appointments";
-        showToast(errorMsg, true);
-        logErrorToServer(error);
-    } finally {
-        showLoading(false); // ✅ Always hide the spinner
-    }
-}
+        // Get appointments from cache or fresh fetch
+        appointments = await fetchAppointmentsWithCache();
         
+        // Update UI in priority order
+        renderAppointmentsTable(); // First priority
+        updateStats(); // Quick update
+        
+        // Defer heavier operations
+        setTimeout(() => {
+            // Only render calendar if it's visible
+            if (document.getElementById('calendar-view').classList.contains('active')) {
+                renderCalendar();
+                updateCalendarSummary();
+            }
+            
+            // Only render chart if dashboard is visible
+            if (document.getElementById('dashboard-view').classList.contains('active')) {
+                initChart();
+            }
+        }, 50);
+    } catch (error) {
+        console.error("Error in fetchAppointments:", error);
+        showToast("Failed to load appointments", true);
+    }
+}      
             function logErrorToServer(error) {
     // Send error to backend for logging
     fetch('/api/log-error', {
@@ -2436,6 +2477,7 @@ async function saveSettings() {
         btn.disabled = false;
     }
 }
+
 function checkUpcomingAppointments() {
     const upcoming = getAppointmentsWithin(24); // Get appointments within 24 hours
     
@@ -2876,6 +2918,10 @@ function triggerNotifications(eventType, appointmentData) {
             
             // Calendar rendering and summary
             function renderCalendar() {
+                    // Only render if calendar is visible
+    if (!document.getElementById('calendar-view').classList.contains('active')) {
+        return;
+    }
                 const calendarGrid = document.getElementById("calendar-days");
                 calendarGrid.innerHTML = "";
                 
