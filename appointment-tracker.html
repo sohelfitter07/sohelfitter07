@@ -643,6 +643,9 @@
     font-size: 0.85rem;
     margin-top: 5px;
     min-height: 20px;
+    display: block; /* Changed from 'none' to 'block' */
+    opacity: 1; /* Ensure it's visible */
+    transform: none; /* Remove any transformations */
 }
 
 .form-control.invalid {
@@ -1204,6 +1207,7 @@
                 <div style="margin-bottom: 20px;">
                     <label>Equipment</label>
                     <input type="text" id="equipment" class="form-control" placeholder="Enter equipment type">
+                    <div class="validation-error" id="equipment-error"></div>
                 </div>
                 
                 <div style="margin-bottom: 20px;">
@@ -1214,11 +1218,13 @@
                 <div style="margin-bottom: 20px;">
                     <label>Issue Description</label>
                     <textarea id="issue-description" class="form-control" placeholder="Describe the issue"></textarea>
+                    <div class="validation-error" id="issue-description-error"></div>
                 </div>
                 
                 <div style="margin-bottom: 20px;">
                     <label>Repair Notes</label>
                     <textarea id="repair-notes" class="form-control" placeholder="Add repair notes"></textarea>
+                    <div class="validation-error" id="repair-notes-error"></div>
                 </div>
                 
                 <div style="margin-bottom: 20px;">
@@ -1565,6 +1571,8 @@ function showValidationError(fieldId, message) {
     field.classList.add('invalid');
     errorElement.textContent = message;
     errorElement.style.display = 'block';
+    errorElement.style.opacity = '1'; // Remove any transparency
+    errorElement.style.transform = 'none'; // Remove any transformations
 }
 
 function clearValidationError(fieldId) {
@@ -1589,6 +1597,8 @@ function setupFieldValidation(fieldId, validator, errorMessage) {
     field.addEventListener('input', () => {
         if (validator(field.value)) {
             clearValidationError(fieldId);
+        }else {
+            showValidationError(fieldId, errorMessage);
         }
     });
 }
@@ -2256,6 +2266,7 @@ function closeAppointmentModal() {
                 document.getElementById("save-appointment").addEventListener("click", async () => {
     // Clear previous errors
     document.querySelectorAll('.validation-error').forEach(el => {
+      el.textContent = '';
         el.style.display = 'none';
     });
     document.querySelectorAll('.form-control').forEach(field => {
