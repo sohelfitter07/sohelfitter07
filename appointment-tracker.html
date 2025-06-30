@@ -2276,7 +2276,7 @@ function loadSettings() {
 }
 
 // Save settings function
-function saveSettings() {
+async function saveSettings() {
     const btn = document.getElementById('save-settings');
     if (!btn) return;
     
@@ -2313,8 +2313,7 @@ function saveSettings() {
             isValid = false;
         }
         
-          // ✅ ADD PHONE VALIDATION HERE
-          if (adminPhone) {
+        if (adminPhone) {
             // Validate phone format only if provided
             if (!/^\d{10}$/.test(adminPhone)) {
                 showValidationError('admin-phone', 'Phone must be 10 digits (no spaces)');
@@ -2344,7 +2343,7 @@ function saveSettings() {
             return;
         }
         
-        // Prepare settings data - FIXED: removed duplicates
+        // Prepare settings data
         const settings = {
             fullName,
             businessName,
@@ -2359,7 +2358,15 @@ function saveSettings() {
         
         // Store in localStorage
         localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
-        console.log("Settings saved:", settings);
+        
+        // NEW: Save to Firestore
+        const user = auth.currentUser;
+        if (user) {
+            const settingsRef = doc(db, "settings", user.uid);
+            await setDoc(settingsRef, settings, { merge: true });
+        } else {
+            console.warn("User not authenticated. Settings saved locally only.");
+        }
         
         // Update UI immediately
         document.querySelector('.brand h2').textContent = businessName;
@@ -2533,6 +2540,7 @@ async function sendSMSNotification(eventType, appointment) {
         return false;
     }
 }
+
 // Run this check periodically (e.g., every hour)
 setInterval(checkUpcomingAppointments, 60 * 60 * 1000);
 // ===== HELP VIEW INITIALIZATION =====
