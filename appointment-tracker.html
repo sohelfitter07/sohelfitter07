@@ -1772,25 +1772,6 @@ function renderCustomersTable() {
   document.getElementById("customer-prev-page").disabled = currentCustomerPage === 1;
   document.getElementById("customer-next-page").disabled = currentCustomerPage >= totalPages;
 }
-function showSkeletonLoader(containerId, rows = 5) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    
-    container.innerHTML = '';
-    for (let i = 0; i < rows; i++) {
-        const skeletonRow = document.createElement('tr');
-        skeletonRow.innerHTML = `
-            <td><div class="skeleton"></div></td>
-            <td><div class="skeleton"></div></td>
-            <td><div class="skeleton"></div></td>
-            <td><div class="skeleton"></div></td>
-            <td><div class="skeleton"></div></td>
-            <td><div class="skeleton"></div></td>
-            <td><div class="skeleton"></div></td>
-        `;
-        container.appendChild(skeletonRow);
-    }
-}
 // ===== SEARCH FUNCTIONALITY FOR APPOINTMENTS =====
 function setupAdvancedSearch() {
   const searchInput = document.getElementById('search-appointments');
