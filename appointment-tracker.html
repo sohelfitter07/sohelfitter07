@@ -1668,45 +1668,6 @@ let cachedAppointments = null;
 let lastFetchTime = 0;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
-async function fetchAppointmentsWithCache() {
-    const now = Date.now();
-    if (cachedAppointments && now - lastFetchTime < CACHE_DURATION) {
-        return cachedAppointments;
-    }
-    
-    showLoading(true);
-    // Show skeleton loader while data is loading
-    showSkeletonLoader('appointments-body', 7);
-    
-    try {
-        // Create optimized query with ordering and limit
-        const q = query(
-            appointmentsCollection,
-            orderBy("date", "desc"),
-            limit(100) // Get only the most recent 100 appointments
-        );
-        
-        const snapshot = await getDocs(q);
-        
-        cachedAppointments = snapshot.docs.map(doc => {
-            const data = doc.data();
-            return {
-                id: doc.id,
-                ...data,
-                dateObj: data.date ? data.date.toDate() : new Date()
-            };
-        });
-        
-        lastFetchTime = now;
-        return cachedAppointments;
-    } catch (error) {
-        console.error("Error fetching appointments:", error);
-        showToast("Failed to fetch appointments", true);
-        return [];
-    } finally {
-        showLoading(false);
-    }
-}
 // ===== ERROR HANDLING FOR FIREBASE =====
 async function initializeFirebaseWithRetry(retries = 3, delay = 2000) {
   try {
@@ -2123,10 +2084,50 @@ function initializeValidation() {
             
             // ================ DATA MANAGEMENT ================
             // Fetch appointments from Firestore
+            async function fetchAppointmentsWithCache(appointmentsCollection) {
+    const now = Date.now();
+    if (cachedAppointments && now - lastFetchTime < CACHE_DURATION) {
+        return cachedAppointments;
+    }
+    
+    showLoading(true);
+    // Show skeleton loader while data is loading
+    showSkeletonLoader('appointments-body', 7);
+    
+    try {
+        // Create optimized query with ordering and limit
+        const q = query(
+            appointmentsCollection,
+            orderBy("date", "desc"),
+            limit(100) // Get only the most recent 100 appointments
+        );
+        
+        const snapshot = await getDocs(q);
+        
+        cachedAppointments = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                ...data,
+                dateObj: data.date ? data.date.toDate() : new Date()
+            };
+        });
+        
+        lastFetchTime = now;
+        return cachedAppointments;
+    } catch (error) {
+        console.error("Error fetching appointments:", error);
+        showToast("Failed to fetch appointments", true);
+        return [];
+    } finally {
+        showLoading(false);
+    }
+}
+
             async function fetchAppointments() {
     try {
         // Get appointments from cache or fresh fetch
-        appointments = await fetchAppointmentsWithCache();
+        appointments = await fetchAppointmentsWithCache(appointmentsCollection);
         
         // Update UI in priority order
         renderAppointmentsTable(); // First priority
@@ -2150,7 +2151,8 @@ function initializeValidation() {
         showToast("Failed to load appointments", true);
     }
 }      
-            function logErrorToServer(error) {
+            
+function logErrorToServer(error) {
     // Send error to backend for logging
     fetch('/api/log-error', {
         method: 'POST',
@@ -2337,6 +2339,7 @@ async function loadSettings() {
     }
 }
 // Save settings function
+
 async function saveSettings() {
     const btn = document.getElementById('save-settings');
     if (!btn) return;
@@ -2347,14 +2350,9 @@ async function saveSettings() {
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
     btn.disabled = true;
     
-    // Firestore Initialization Check
-    console.log("[DEBUG] Firestore instance:", db);
-    
     try {
         // Authentication State Check
         const user = auth.currentUser;
-        console.log("[DEBUG] Current user:", user);
-        
         if (!user) {
             showToast("You need to be logged in to save settings", true);
             return;
@@ -2386,9 +2384,12 @@ async function saveSettings() {
             isValid = false;
         }
         
+        // CANADIAN PHONE VALIDATION (supports 10-digit format)
         if (adminPhone) {
-            if (!/^\d{10}$/.test(adminPhone)) {
-                showValidationError('admin-phone', 'Phone must be 10 digits (no spaces)');
+            const cleanPhone = adminPhone.replace(/\D/g, '');
+            // Validates 10-digit Canadian numbers (without country code)
+            if (cleanPhone.length !== 10) {
+                showValidationError('admin-phone', 'Canadian phone must be 10 digits (e.g., 4165551234)');
                 isValid = false;
             }
         } else if (smsNotifications) {
@@ -2396,9 +2397,16 @@ async function saveSettings() {
             isValid = false;
         }
         
-        if (smsNotifications && !smsCarrier) {
-            showToast("Please select a mobile carrier for SMS notifications", true);
-            isValid = false;
+        // CANADIAN CARRIER VALIDATION
+        const canadianCarriers = ['rogers', 'fido', 'bell', 'telus', 'koodo', 'virgin', 'freedom', 'chatr', 'public'];
+        if (smsNotifications) {
+            if (!smsCarrier) {
+                showToast("Please select a mobile carrier for SMS notifications", true);
+                isValid = false;
+            } else if (!canadianCarriers.includes(smsCarrier)) {
+                showToast("Selected carrier is not supported in Canada", true);
+                isValid = false;
+            }
         }
 
         if (!startTime || !endTime) {
@@ -2422,20 +2430,29 @@ async function saveSettings() {
             endTime,
             emailNotifications,
             smsNotifications,
-            adminPhone,
+            // Store cleaned Canadian phone number
+            adminPhone: adminPhone.replace(/\D/g, ''),
             smsCarrier,
-            lastUpdated: new Date().toISOString()
+            lastUpdated: new Date().toISOString(),
+            country: "CA" // Add country identifier
         };
         
         // Store in localStorage
         localStorage.setItem('fitnessRepairSettings', JSON.stringify(settings));
         
         // Save to Firestore
-        if (user) {
-            console.log("[DEBUG] Attempting to save to Firestore:", settings);
+        try {
             const settingsRef = doc(db, "settings", user.uid);
             await setDoc(settingsRef, settings, { merge: true });
-            console.log("[DEBUG] Firestore save successful");
+        } catch (firestoreError) {
+            console.error("Firestore save error:", firestoreError);
+            // Special handling for Canadian users
+            if (firestoreError.code === 'permission-denied') {
+                showToast("Permission error. Please contact support.", true);
+            } else {
+                showToast(`Failed to save settings: ${firestoreError.message}`, true);
+            }
+            return;
         }
         
         // Update UI
@@ -2444,21 +2461,13 @@ async function saveSettings() {
         updateNotificationStatusIndicators();
         
     } catch (error) {
-        // Error Logging Enhancement
         console.error("Error saving settings:", error);
-        console.error("Error details:", {
-            code: error.code,
-            message: error.message,
-            stack: error.stack
-        });
-        
         showToast(`Failed to save settings: ${error.message}`, true);
     } finally {
         btn.innerHTML = originalHTML;
         btn.disabled = false;
     }
 }
-
 function checkUpcomingAppointments() {
     const upcoming = getAppointmentsWithin(24); // Get appointments within 24 hours
     
@@ -2556,10 +2565,10 @@ async function sendSMSNotification(eventType, appointment) {
         let message;
         switch(eventType) {
             case 'appointment_created':
-                message = `📅 New appt: ${appointment.customer} on ${appointment.dateObj.toLocaleDateString()} at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+                message = `📅 New appt: ${appointment.customer} on ${appointment.dateObj.toLocaleDateString('en-CA')} at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
                 break;
             case 'appointment_updated':
-                message = `🔄 Updated: ${appointment.customer}'s appt on ${appointment.dateObj.toLocaleDateString()}`;
+                message = `🔄 Updated: ${appointment.customer}'s appt on ${appointment.dateObj.toLocaleDateString('en-CA')}`;
                 break;
             case 'appointment_reminder':
                 message = `⏰ Reminder: Appt with ${appointment.customer} tomorrow at ${appointment.dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
@@ -2579,34 +2588,45 @@ async function sendSMSNotification(eventType, appointment) {
             showToast("Sending test SMS...");
         }
 
-        // NEW: Map carriers to email domains
-        const carrierDomains = {
-            att: "txt.att.net",
-            verizon: "vtext.com",
-            tmobile: "tmomail.net",
-            sprint: "messaging.sprintpcs.com",
-            virgin: "vmobl.com",
-            boost: "sms.myboostmobile.com",
-            cricket: "sms.cricketwireless.net",
-            metro: "mymetropcs.com"
+        // CANADIAN CARRIER GATEWAYS
+        const canadianCarrierGateways = {
+            rogers: "pcs.rogers.com",
+            fido: "fido.ca",
+            bell: "txt.bell.ca",
+            telus: "msg.telus.com",
+            koodo: "msg.koodomobile.com",
+            virgin: "vmobile.ca",
+            freedom: "txt.freedommobile.ca",
+            chatr: "pcs.rogers.com",  // Same as Rogers
+            public: "msg.telus.com"   // Same as Telus
         };
 
         // Get domain for selected carrier
-        const domain = carrierDomains[settings.smsCarrier];
+        const domain = canadianCarrierGateways[settings.smsCarrier];
         if (!domain) {
-            throw new Error("Invalid SMS carrier selected");
+            const errorMsg = `Unsupported Canadian carrier: ${settings.smsCarrier}`;
+            if (eventType === 'test') {
+                showToast(errorMsg, true);
+            }
+            console.error(errorMsg);
+            return false;
         }
 
-        // Format phone number by removing non-numeric characters
+        // Format phone number for Canadian SMS gateway (1 + 10-digit number)
         const cleanPhone = settings.adminPhone.replace(/\D/g, '');
         if (cleanPhone.length !== 10) {
-            throw new Error("Phone number must be 10 digits");
+            const errorMsg = "Canadian phone must be 10 digits";
+            if (eventType === 'test') {
+                showToast(errorMsg, true);
+            }
+            console.error(errorMsg);
+            return false;
         }
 
-        // Create email address for SMS gateway
-        const smsEmail = `${cleanPhone}@${domain}`;
+        // Create email address for SMS gateway (1 + 10 digits)
+        const smsEmail = `1${cleanPhone}@${domain}`;
 
-        // NEW: Send via email-to-SMS gateway
+        // Send via email-to-SMS gateway
         const response = await fetch('/api/send-email', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -2620,7 +2640,7 @@ async function sendSMSNotification(eventType, appointment) {
         const result = await response.json();
         
         if (response.ok && result.success) {
-            console.log(`[📱 SMS SENT] ${eventType} to ${cleanPhone} via ${settings.smsCarrier}`);
+            console.log(`[📱 SMS SENT] ${eventType} to 1${cleanPhone} via ${settings.smsCarrier}`);
             
             if (eventType === 'test') {
                 showToast("Test SMS sent successfully! Check your phone.");
@@ -2631,7 +2651,7 @@ async function sendSMSNotification(eventType, appointment) {
             console.error('SMS sending failed:', errorMsg);
             
             if (eventType === 'test') {
-                showToast(`Failed to send SMS: ${error.message || errorMsg}`, true);
+                showToast(`Failed to send SMS: ${errorMsg}`, true);
             }
             return false;
         }
@@ -2900,9 +2920,9 @@ function triggerNotifications(eventType, appointmentData) {
             // Calendar rendering and summary
             function renderCalendar() {
                     // Only render if calendar is visible
-    if (!document.getElementById('calendar-view').classList.contains('active')) {
-        return;
-    }
+                if (!document.getElementById('calendar-view').classList.contains('active')) {
+                    return;
+                }
                 const calendarGrid = document.getElementById("calendar-days");
                 calendarGrid.innerHTML = "";
                 
@@ -2974,7 +2994,7 @@ function triggerNotifications(eventType, appointmentData) {
         });
     });
 }
-function showAppointmentDetails(id) {
+            function showAppointmentDetails(id) {
     const appointment = appointments.find(a => a.id === id); // or use AppState.getAppointments()
     if (!appointment) return;
 
@@ -3012,7 +3032,12 @@ function showAppointmentDetails(id) {
 }, 50);
 
 }
-         
+            function formatTimestamp(dateObj) {
+    return dateObj.toLocaleString('en-CA', {
+        timeZone: 'America/Toronto',
+        hour12: true
+    });
+}
             function updateCalendarSummary() {
                 const monthlyApps = appointments.filter((app) => {
                     if (!app.dateObj) return false;
@@ -3428,6 +3453,7 @@ document.getElementById('admin-phone')?.addEventListener('input', function(e) {
         const issue = document.getElementById("issue-description").value.trim();
         const status = document.getElementById("appointment-status").value;
         const repairNotes = document.getElementById("repair-notes").value.trim();
+        const timeZone = 'America/Toronto'; // Adjust to your province
 
         const appointmentData = {
             customer: customerName,
