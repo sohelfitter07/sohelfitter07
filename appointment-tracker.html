@@ -1931,21 +1931,156 @@
         
         // ================ HOLIDAY CALENDAR ================
         function getCanadianHolidays(year, province) {
-            const holidays = {
-                NEW_YEAR: new Date(year, 0, 1),
-                CANADA_DAY: new Date(year, 6, 1),
-                // Add more holidays as needed
-            };
-            
-            // Province-specific holidays
-            if (province === 'ON') {
-                holidays.FAMILY_DAY = new Date(year, 1, 17); // Third Monday in February
-            }
-            // Add other province-specific holidays
-            
-            return holidays;
-        }
-        
+    // Helper Functions
+    function adjustToNextMonday(date) {
+        const day = date.getDay();
+        if (day === 0) return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1); // Sunday → next Monday
+        if (day === 6) return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 2); // Saturday → next Monday
+        return date;
+    }
+
+    function getEasterSunday(year) {
+        const a = year % 19;
+        const b = Math.floor(year / 100);
+        const c = year % 100;
+        const d = Math.floor(b / 4);
+        const e = b % 4;
+        const f = Math.floor((b + 8) / 25);
+        const g = Math.floor((b - f + 1) / 3);
+        const h = (19 * a + b - d - g + 15) % 30;
+        const i = Math.floor(c / 4);
+        const k = c % 4;
+        const l = (32 + 2 * e + 2 * i - h - k) % 7;
+        const m = Math.floor((a + 11 * h + 22 * l) / 451);
+        const month = Math.floor((h + l - 7 * m + 114) / 31);
+        const day = ((h + l - 7 * m + 114) % 31) + 1;
+        return new Date(year, month - 1, day);
+    }
+
+    function getGoodFriday(year) {
+        const easter = getEasterSunday(year);
+        const goodFriday = new Date(easter);
+        goodFriday.setDate(easter.getDate() - 2);
+        return goodFriday;
+    }
+
+    function getNthMondayInMonth(n, year, month) {
+        const firstDay = new Date(year, month, 1);
+        const dayOfWeek = firstDay.getDay();
+        const addDays = (dayOfWeek === 1) ? (n - 1) * 7 : (8 - dayOfWeek) % 7 + (n - 1) * 7;
+        return new Date(year, month, 1 + addDays);
+    }
+
+    function getVictoriaDay(year) {
+        const may24 = new Date(year, 4, 24);
+        const dayOfWeek = may24.getDay();
+        const diff = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+        return new Date(year, 4, 24 - diff);
+    }
+
+    function getNearestMonday(year, month, day) {
+        const date = new Date(year, month, day);
+        const dayOfWeek = date.getDay();
+        if (dayOfWeek === 0) return new Date(year, month, day + 1); // Sunday → next Monday
+        return new Date(year, month, day - (dayOfWeek - 1)); // Move to Monday of the same week
+    }
+
+    // Common Federal Holidays (observed nationwide)
+    const holidays = {
+        NEW_YEAR: adjustToNextMonday(new Date(year, 0, 1)), // Jan 1
+        GOOD_FRIDAY: getGoodFriday(year),
+        CANADA_DAY: adjustToNextMonday(new Date(year, 6, 1)), // Jul 1
+        LABOUR_DAY: getNthMondayInMonth(1, year, 8), // First Monday in September
+        THANKSGIVING: getNthMondayInMonth(2, year, 9), // Second Monday in October
+        CHRISTMAS: adjustToNextMonday(new Date(year, 11, 25)), // Dec 25
+    };
+
+    // Province-Specific Holidays
+    switch(province) {
+        case 'AB': // Alberta
+            holidays.FAMILY_DAY = getNthMondayInMonth(3, year, 1); // Third Mon in Feb
+            holidays.VICTORIA_DAY = getVictoriaDay(year);
+            break;
+        case 'BC': // British Columbia
+            holidays.FAMILY_DAY = getNthMondayInMonth(3, year, 1);
+            holidays.BC_DAY = getNthMondayInMonth(1, year, 7); // First Mon in Aug
+            holidays.VICTORIA_DAY = getVictoriaDay(year);
+            break;
+        case 'MB': // Manitoba
+            holidays.LOUIS_RIEL_DAY = getNthMondayInMonth(3, year, 1); // Third Mon in Feb
+            holidays.CIVIC_HOLIDAY = getNthMondayInMonth(1, year, 7); // First Mon in Aug
+            holidays.VICTORIA_DAY = getVictoriaDay(year);
+            break;
+        case 'NB': // New Brunswick
+            holidays.FAMILY_DAY = getNthMondayInMonth(3, year, 1);
+            holidays.NEW_BRUNSWICK_DAY = getNthMondayInMonth(1, year, 7);
+            holidays.BOXING_DAY = adjustToNextMonday(new Date(year, 11, 26)); // Dec 26
+            break;
+        case 'NL': // Newfoundland & Labrador
+            holidays.ST_PATRICKS_DAY = getNearestMonday(year, 2, 17); // Nearest Mon to Mar 17
+            holidays.ST_GEORGES_DAY = getNearestMonday(year, 3, 23); // Nearest Mon to Apr 23
+            holidays.DISCOVERY_DAY = getNearestMonday(year, 5, 24); // Nearest Mon to Jun 24
+            holidays.ORANGEMENS_DAY = getNearestMonday(year, 6, 12); // Nearest Mon to Jul 12
+            holidays.BOXING_DAY = adjustToNextMonday(new Date(year, 11, 26));
+            break;
+        case 'NS': // Nova Scotia
+            holidays.HERITAGE_DAY = getNthMondayInMonth(3, year, 1); // Third Mon in Feb
+            holidays.BOXING_DAY = adjustToNextMonday(new Date(year, 11, 26));
+            break;
+        case 'NT': // Northwest Territories
+            holidays.CIVIC_HOLIDAY = getNthMondayInMonth(1, year, 7);
+            holidays.VICTORIA_DAY = getVictoriaDay(year);
+            holidays.BOXING_DAY = adjustToNextMonday(new Date(year, 11, 26));
+            break;
+        case 'NU': // Nunavut
+            holidays.CIVIC_HOLIDAY = getNthMondayInMonth(1, year, 7);
+            holidays.NUNAVUT_DAY = adjustToNextMonday(new Date(year, 6, 9)); // Jul 9
+            holidays.VICTORIA_DAY = getVictoriaDay(year);
+            holidays.BOXING_DAY = adjustToNextMonday(new Date(year, 11, 26));
+            break;
+        case 'ON': // Ontario
+            holidays.FAMILY_DAY = getNthMondayInMonth(3, year, 1);
+            holidays.CIVIC_HOLIDAY = getNthMondayInMonth(1, year, 7);
+            holidays.BOXING_DAY = adjustToNextMonday(new Date(year, 11, 26));
+            break;
+        case 'PE': // Prince Edward Island
+            holidays.ISLANDER_DAY = getNthMondayInMonth(3, year, 1); // Third Mon in Feb
+            holidays.CIVIC_HOLIDAY = getNthMondayInMonth(1, year, 7);
+            break;
+        case 'QC': // Quebec
+            holidays.NATIONAL_PATRIOTS_DAY = getVictoriaDay(year); // Same as Victoria Day
+            holidays.ST_JEAN_BAPTISTE_DAY = adjustToNextMonday(new Date(year, 5, 24)); // Jun 24
+            break;
+        case 'SK': // Saskatchewan
+            holidays.FAMILY_DAY = getNthMondayInMonth(3, year, 1);
+            holidays.SASKATCHEWAN_DAY = getNthMondayInMonth(1, year, 7);
+            break;
+        case 'YT': // Yukon
+            holidays.DISCOVERY_DAY = getNthMondayInMonth(3, year, 7); // Third Mon in Aug
+            holidays.YUKON_HERITAGE_DAY = new Date(year, 1, 1 + (8 - new Date(year, 1, 1).getDay()) % 7 + 14); // Third Fri in Feb
+            holidays.VICTORIA_DAY = getVictoriaDay(year);
+            holidays.BOXING_DAY = adjustToNextMonday(new Date(year, 11, 26));
+            break;
+    }
+
+    // Conditional Holidays (based on province)
+    const victoriaDayProvinces = ['AB', 'BC', 'MB', 'NT', 'NU', 'ON', 'SK', 'YT'];
+    if (victoriaDayProvinces.includes(province)) {
+        holidays.VICTORIA_DAY = getVictoriaDay(year);
+    }
+
+    const remembranceDayProvinces = ['AB', 'BC', 'MB', 'NT', 'NU', 'PE', 'SK', 'YT', 'NL', 'NB'];
+    if (remembranceDayProvinces.includes(province)) {
+        holidays.REMEMBRANCE_DAY = adjustToNextMonday(new Date(year, 10, 11)); // Nov 11
+    }
+
+    const boxingDayProvinces = ['ON', 'NB', 'NL', 'NS', 'NT', 'NU', 'YT'];
+    if (boxingDayProvinces.includes(province)) {
+        holidays.BOXING_DAY = adjustToNextMonday(new Date(year, 11, 26));
+    }
+
+    return holidays;
+}
         // ================ MAIN APPLICATION ================
         function initApp(auth, db, appointmentsCollection, customersCollection) {
             // ================ GLOBAL STATE ================
@@ -2633,18 +2768,19 @@
         }
         
         try {
-            await fetch('/api/send-email', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ 
-                    recipient: "canadianfitnessrepair@gmail.com",
-                    subject,
-                    body
-                })
-            });
-        } catch (error) {
-            console.error('Email sending failed:', error);
-        }
+    await fetch('https://cfr-backend-1.onrender.com/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            recipient: "canadianfitnessrepair@gmail.com",
+            subject,
+            body
+        })
+    });
+} catch (error) {
+    console.error('Email sending failed:', error);
+}
+
     }
     
     // SMS notification service
