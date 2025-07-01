@@ -3945,22 +3945,23 @@ function validatePhone(phone) {
                 }        
     }
 
-  document.getElementById("lookup-carrier")?.addEventListener("click", () => {
-    const phone = document.getElementById("customer-phone")?.value?.trim();
-    if (!phone) {
-      alert("Please enter a phone number first.");
-      return;
-    }
+    document.getElementById('lookup-carrier')?.addEventListener('click', async () => {
+  const phone = document.getElementById('customer-phone')?.value?.trim();
+  if (!phone) return alert("Please enter a phone number first");
 
-    // Format phone (remove non-digits, no + or spaces)
-    const cleanedPhone = phone.replace(/\D/g, "");
+  try {
+    // 📋 Copy to clipboard
+    await navigator.clipboard.writeText(phone);
+    alert("Phone number copied to clipboard. You can now paste it into the search box.");
 
-    // Construct FreeCarrierLookup URL
-    const url = `https://freecarrierlookup.com/?php=&number=${encodeURIComponent(cleanedPhone)}`;
+    // 🌐 Open freecarrierlookup search page
+    window.open("https://freecarrierlookup.com/", "_blank");
+  } catch (err) {
+    console.error("Clipboard error:", err);
+    alert("Failed to copy phone number.");
+  }
+});
 
-    // Open in new tab
-    window.open(url, "_blank");
-  });
 
 
 
