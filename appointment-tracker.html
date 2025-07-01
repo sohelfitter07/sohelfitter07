@@ -1474,6 +1474,7 @@
                             <button type="button" id="save-settings" class="btn">
                                 <i class="fas fa-save"></i> Save Settings
                             </button>
+                            <button type="button" id="cancel-settings" class="btn secondary">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -3264,18 +3265,25 @@ function validatePhone(phone) {
             
             // Delete customer
             async function deleteCustomer(id) {
-                showLoading(true);
-                try {
-                    await deleteDoc(doc(db, "customers", id));
-                    showToast("Customer deleted successfully");
-                    fetchCustomers();
-                } catch (error) {
-                    showToast("Failed to delete customer", true);
-                    console.error(error);
-                } finally {
-                    showLoading(false);
-                }
-            }
+    const customer = customers.find(c => c.id === id);
+    if (!customer) return;
+
+    const confirmed = confirm(`Delete customer "${customer.name}" and all their appointments?`);
+    if (!confirmed) return;
+
+    showLoading(true);
+    try {
+        await deleteDoc(doc(db, "customers", id));
+        showToast("Customer deleted successfully");
+        fetchCustomers();
+    } catch (error) {
+        showToast("Failed to delete customer", true);
+        console.error(error);
+    } finally {
+        showLoading(false);
+    }
+}
+
             
             // Stats update
             function updateStats() {
@@ -3817,7 +3825,14 @@ function validatePhone(phone) {
                 const saveSettingsBtn = document.getElementById('save-settings');
                 if (saveSettingsBtn) {
                     saveSettingsBtn.addEventListener('click', saveSettings);
-                }           
+                }   
+                const cancelSettingsBtn = document.getElementById('cancel-settings');
+                if (cancelSettingsBtn) {
+                    cancelSettingsBtn.addEventListener('click', () => {
+                        loadSettings(); // Revert form to saved values
+                        showToast("Changes reverted");
+                    });
+                }        
     }
             
     // Add to setupEventListeners()
