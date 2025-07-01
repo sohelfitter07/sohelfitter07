@@ -3933,35 +3933,14 @@ function validatePhone(phone) {
                     });
                 }        
     }
-    document.getElementById('lookup-carrier')?.addEventListener('click', async () => {
-    const phone = document.getElementById('customer-phone')?.value?.trim();
-    if (!phone) return alert("Please enter a phone number first");
+    document.getElementById('lookup-carrier')?.addEventListener('click', () => {
+  const phone = document.getElementById('customer-phone')?.value?.trim();
+  if (!phone) return alert("Please enter a phone number first");
 
-    try {
-      const response = await fetch(`https://freecarrierlookup.com/api/v1/carrier?number=${encodeURIComponent(phone)}`);
-      const data = await response.json();
-
-      if (data?.carrier?.name) {
-        const normalized = data.carrier.name.toLowerCase();
-        const carrierDropdown = document.getElementById('customer-carrier');
-
-        for (let option of carrierDropdown.options) {
-          if (normalized.includes(option.value)) {
-            carrierDropdown.value = option.value;
-            alert(`Carrier detected: ${option.value}`);
-            return;
-          }
-        }
-        alert("Carrier found but not in list: " + data.carrier.name);
-      } else {
-        alert("Carrier not found.");
-      }
-    } catch (err) {
-      console.error("Lookup failed:", err);
-      alert("Error looking up carrier.");
-    }
-  });
-         
+  const searchUrl = `https://freecarrierlookup.com/?number=${encodeURIComponent(phone)}`;
+  window.open(searchUrl, '_blank');
+});
+  
     // Add to setupEventListeners()
     document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
     
