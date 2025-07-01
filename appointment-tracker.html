@@ -1721,7 +1721,13 @@
             const auth = getAuth(app);
             const appointmentsCollection = collection(db, "appointments");
             const customersCollection = collection(db, "customers");
-    
+            // ✅ ADD THIS BELOW 👇
+            document.getElementById("save-settings").addEventListener("click", () => {
+                saveAdminSettings(db);
+            });
+
+            // (OPTIONAL) You can also load settings here
+            loadAdminSettings(db);
             // Start your app logic
             initApp(auth, db, appointmentsCollection, customersCollection);
         })();
@@ -1756,7 +1762,32 @@
     // ===== PAGINATION FOR CUSTOMERS =====
     let currentCustomerPage = 1;
     const customersPerPage = 10;
-    
+
+    import {
+  doc, setDoc, getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+async function saveAdminSettings(db) {
+  const adminSettings = {
+    fullName: document.getElementById("settings-full-name").value.trim(),
+    businessName: document.getElementById("settings-business-name").value.trim(),
+    province: document.getElementById("business-province").value,
+    timeZone: document.getElementById("timezone").value,
+    smsNotifications: document.getElementById("sms-notifications").checked,
+    adminPhone: document.getElementById("admin-phone").value.trim(),
+    smsCarrier: document.getElementById("sms-carrier").value
+  };
+
+  try {
+    await setDoc(doc(db, "settings", "admin"), adminSettings);  // Save to Firebase
+    localStorage.setItem("fitnessRepairSettings", JSON.stringify(adminSettings));  // Save to browser
+    showToast("Settings saved successfully");
+  } catch (error) {
+    console.error("❌ Error saving settings:", error);
+    showToast("Failed to save settings", true);
+  }
+}
+
     async function fetchCustomers() {
       showLoading(true);
       try {
