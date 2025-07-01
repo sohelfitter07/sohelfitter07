@@ -2912,6 +2912,25 @@ function validatePhone(phone) {
         });
     }
     
+    function checkAndShowReminder(appointments) {
+  // 🔁 Only run once per tab session
+  if (sessionStorage.getItem('reminderShown') === 'true') return;
+
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = tomorrow.toLocaleDateString('en-CA');
+
+  const hasReminder = appointments.some(app => {
+    const dateStr = app.dateObj?.toLocaleDateString('en-CA');
+    return dateStr === tomorrowStr && app.reminderEnabled;
+  });
+
+  if (hasReminder) {
+    showToast("📅 Reminder: You have appointments scheduled for tomorrow.");
+    sessionStorage.setItem('reminderShown', 'true');
+  }
+}
+
     // Email notification service
     async function sendEmailNotification(eventType, appointment) {
         let subject, body;
@@ -3073,7 +3092,7 @@ function validatePhone(phone) {
         }
     }
     // Run this check periodically (e.g., every hour)
-    setInterval(checkUpcomingAppointments, 60 * 60 * 1000);
+    // setInterval(checkUpcomingAppointments, 60 * 60 * 1000);
     // ===== HELP VIEW INITIALIZATION =====
     function initHelpView() {
         // This could fetch FAQs from your backend
