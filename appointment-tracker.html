@@ -2991,19 +2991,21 @@
                 }
             }
      // Notification trigger function
-    function triggerNotifications(eventType, appointmentData) {
-        console.log("📨 Sending notification type:", type, data);
-        // Get current settings
-        const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
-        
-        if (settings.emailNotifications) {
-            sendEmailNotification(eventType, appointmentData);
-        }
-        
-        if (settings.smsNotifications) {
-            sendSMSNotification(eventType, appointmentData);
-        }
-    }       
+     function triggerNotifications(eventType, appointmentData) {
+    console.log("📨 Sending notification type:", eventType, appointmentData);
+
+    // Get current settings
+    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+
+    if (settings.emailNotifications) {
+        sendEmailNotification(eventType, appointmentData);
+    }
+
+    if (settings.smsNotifications) {
+        sendSMSNotification(eventType, appointmentData);
+    }
+}
+      
             // Save customer to Firestore
             async function saveCustomer() {
                 showLoading(true);
