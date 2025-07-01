@@ -3886,53 +3886,54 @@ function validatePhone(phone) {
 
     await saveAppointment(appointmentData);
 });
-// ================ EVENT LISTENERS ================
 
-function setupEventListeners() {
-  // Modal controls
-  document.querySelectorAll('.close-modal').forEach(btn => {
-    btn.addEventListener('click', () => {
-      closeAppointmentModal();
-      closeCustomerModal();
-    });
-  });
 
-  document.getElementById("cancel-appointment").addEventListener("click", closeAppointmentModal);
-
-  // Customer modals
-  document.getElementById('add-customer').addEventListener('click', openAddCustomerModal);
-  document.getElementById('save-customer').addEventListener('click', saveCustomer);
-  document.getElementById('cancel-customer').addEventListener('click', closeCustomerModal);
-
-  // Mobile menu toggle
-  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-  const sidebar = document.querySelector('.sidebar');
-  const closeSidebarBtn = document.querySelector('.close-sidebar-mobile');
-
-  mobileMenuBtn.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
-  });
-
-  closeSidebarBtn?.addEventListener('click', () => {
-    sidebar.classList.remove('active');
-  });
-
-  // Settings buttons
-  const saveSettingsBtn = document.getElementById('save-settings');
-  if (saveSettingsBtn) {
-    saveSettingsBtn.addEventListener('click', saveSettings);
-  }
-
-  const cancelSettingsBtn = document.getElementById('cancel-settings');
-  if (cancelSettingsBtn) {
-    cancelSettingsBtn.addEventListener('click', () => {
-      loadSettings();
-      showToast("Changes reverted");
-    });
-  }
-
-  // Lookup Carrier button
-  document.getElementById('lookup-carrier')?.addEventListener('click', async () => {
+                // Modal controls
+                document.querySelectorAll('.close-modal').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        closeAppointmentModal();
+                        closeCustomerModal();
+                    });
+                });
+                
+                document.getElementById("cancel-appointment").addEventListener("click", closeAppointmentModal);
+                
+                // Customer modals
+                document.getElementById('add-customer').addEventListener('click', openAddCustomerModal);
+                document.getElementById('save-customer').addEventListener('click', saveCustomer);
+                document.getElementById('cancel-customer').addEventListener('click', closeCustomerModal);
+                
+                // Mobile menu toggle
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                const sidebar = document.querySelector('.sidebar');
+                const closeSidebarBtn = document.querySelector('.close-sidebar-mobile');
+                // Add mobile close functionality
+                document.querySelector('.close-sidebar-mobile')?.addEventListener('click', () => {
+                    document.querySelector('.sidebar').classList.remove('active');
+                });
+                mobileMenuBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+                
+                // Close sidebar when close button is clicked
+                closeSidebarBtn?.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                });
+                
+                // Add this in setupEventListeners()
+                const saveSettingsBtn = document.getElementById('save-settings');
+                if (saveSettingsBtn) {
+                    saveSettingsBtn.addEventListener('click', saveSettings);
+                }   
+                const cancelSettingsBtn = document.getElementById('cancel-settings');
+                if (cancelSettingsBtn) {
+                    cancelSettingsBtn.addEventListener('click', () => {
+                        loadSettings(); // Revert form to saved values
+                        showToast("Changes reverted");
+                    });
+                }        
+    }
+    document.getElementById('lookup-carrier')?.addEventListener('click', async () => {
     const phone = document.getElementById('customer-phone')?.value?.trim();
     if (!phone) return alert("Please enter a phone number first");
 
@@ -3960,55 +3961,83 @@ function setupEventListeners() {
       alert("Error looking up carrier.");
     }
   });
-
-  // Test SMS button
-  document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
-}
-
-// ================ TEST SMS ================
-
-function sendTestSMS() {
-  const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
-
-  if (!settings.adminPhone || !settings.smsCarrier) {
-    showToast("Please save your phone and carrier settings first", true);
-    return;
-  }
-
-  const testAppointment = {
-    customer: "Test User",
-    dateObj: new Date(),
-    id: "test-123"
-  };
-
-  showToast("Sending test SMS...");
-  sendSMSNotification('test', testAppointment);
-}
-
-// ================ INITIALIZATION ================
-
-function initialize() {
-  setupEventListeners();
-  activateView('dashboard');
-
-  const today = new Date();
-  document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
-
-  const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-  document.getElementById("appointment-time").value = 
-    `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
-
-  initializeValidation();
-
-  setTimeout(() => {
-    document.getElementById('loading-overlay').style.display = 'none';
-  }, 1500);
-}
-
-// Run the app
-initialize();
-            }}
-
- </script>
+         
+    // Add to setupEventListeners()
+    document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
+    
+    function sendTestSMS() {
+        // Get current settings
+        const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
+        
+        // Check if settings are saved
+        if (!settings.adminPhone || !settings.smsCarrier) {
+            showToast("Please save your phone and carrier settings first", true);
+            return;
+        }
+        
+        // Create test appointment data
+        const testAppointment = {
+            customer: "Test User",
+            dateObj: new Date(),
+            id: "test-123"
+        };
+        
+        // Show sending notification
+        showToast("Sending test SMS...");
+        
+        // Send test notification
+        sendSMSNotification('test', testAppointment);
+    }
+    
+            // ================ INITIALIZATION ================
+            function initialize() {
+                setupEventListeners();
+                activateView('dashboard');
+                
+                // Set current date for appointment form
+                const today = new Date();
+                document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
+                
+                const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+                document.getElementById("appointment-time").value = 
+                    `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
+                
+                // Initialize form validation
+                initializeValidation();
+                
+                // Hide loading overlay after 1.5s
+                setTimeout(() => {
+                    document.getElementById('loading-overlay').style.display = 'none';
+                }, 1500);
+            }
+            
+            // Start the application
+            initialize();
+        }
+        function openDetailsModal(content, id) {
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    ${content}
+                </div>
+            `;
+            document.body.appendChild(modal);
+    
+            // Close button
+            modal.querySelector('.close-modal').addEventListener('click', () => {
+                modal.remove();
+            });
+    
+            // Edit button logic
+            modal.querySelector('#edit-details')?.addEventListener('click', () => {
+                modal.remove();
+                if (typeof openEditModal === "function") {
+                    openEditModal(id); // ID comes from argument
+                }
+            });
+        }
+  </script>
 </body>
 </html>
