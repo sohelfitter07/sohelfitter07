@@ -2984,6 +2984,7 @@
 
             // 🔔 Trigger creation notification
             console.log("✅ Saving appointment", data);
+            console.log("🧪 About to call triggerNotifications()", notificationData);
             triggerNotifications('appointment_created', notificationData);
         }
 
