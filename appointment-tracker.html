@@ -2902,18 +2902,27 @@ function validatePhone(phone) {
         }
     }
     function checkUpcomingAppointments() {
-        const upcoming = getAppointmentsWithin(24); // Get appointments within 24 hours
-        
-        upcoming.forEach(appointment => {
-            if (settings.emailNotifications) {
-                sendEmailReminder(appointment);
-            }
-            
-            if (settings.smsNotifications) {
-                sendSMSReminder(appointment);
-            }
-        });
-    }
+  const now = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(now.getDate() + 1);
+
+  const reminderShown = sessionStorage.getItem('adminReminderShown');
+  if (reminderShown) return; // ✅ Already shown during this session
+
+  const upcoming = appointments.filter(app => {
+    const dateObj = app.dateObj || new Date();
+    return (
+      dateObj.toDateString() === tomorrow.toDateString() &&
+      app.status === "scheduled"
+    );
+  });
+
+  if (upcoming.length > 0) {
+    showToast(`📅 Reminder: You have ${upcoming.length} appointment(s) tomorrow`);
+    sessionStorage.setItem('adminReminderShown', 'true'); // ✅ Set flag for session
+  }
+}
+
     
     function checkAndShowReminder(appointments) {
   // 🔁 Only run once per tab session
@@ -3720,7 +3729,11 @@ function validatePhone(phone) {
                 const utilizationRate = Math.min(100, Math.round((monthlyApps.length / (businessDays * 3)) * 100));
                 document.getElementById("summary-utilization").textContent = utilizationRate + "%";
             }
-            
+            window.addEventListener('DOMContentLoaded', async () => {
+  await fetchAppointments(); // ✅ Make sure appointments are loaded
+  checkUpcomingAppointments(); // ✅ Run reminder logic after fetch
+});
+
             // Chart.js setup
             function initChart() {
                 const ctx = document.getElementById("appointmentsChart").getContext("2d");
