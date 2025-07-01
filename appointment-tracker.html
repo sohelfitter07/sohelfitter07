@@ -3933,14 +3933,25 @@ function validatePhone(phone) {
                     });
                 }        
     }
-    document.getElementById('lookup-carrier')?.addEventListener('click', () => {
+    document.getElementById('lookup-carrier')?.addEventListener('click', async () => {
   const phone = document.getElementById('customer-phone')?.value?.trim();
-  if (!phone) return alert("Please enter a phone number first");
+  if (!phone) {
+    alert("Please enter a phone number first.");
+    return;
+  }
 
-  const searchUrl = `https://freecarrierlookup.com/?number=${encodeURIComponent(phone)}`;
-  window.open(searchUrl, '_blank');
+  try {
+    await navigator.clipboard.writeText(phone);
+    alert(`Phone number ${phone} copied to clipboard. Paste it on the site.`);
+
+    // Open FreeCarrierLookup in new tab
+    window.open('https://freecarrierlookup.com', '_blank');
+  } catch (err) {
+    console.error("Clipboard write failed:", err);
+    window.open('https://freecarrierlookup.com', '_blank');
+  }
 });
-  
+
     // Add to setupEventListeners()
     document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
     
