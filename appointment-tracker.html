@@ -3848,6 +3848,13 @@ function validatePhone(phone) {
                 document.getElementById("save-appointment").addEventListener("click", async () => {
     const customerName = document.getElementById("customer-name").value.trim();
     const phone = document.getElementById("customer-phone").value.trim();
+    const email = document.getElementById("customer-email")?.value?.trim() || "";
+        // ✅ Require at least phone or email
+        if (!phone && !email) {
+        alert("Please enter at least a phone number or email address.");
+        return;
+    }
+    
     const dateInput = document.getElementById("appointment-date").value;
     const timeInput = document.getElementById("appointment-time").value;
     const dateObj = new Date(`${dateInput}T${timeInput}`);
@@ -3858,6 +3865,8 @@ function validatePhone(phone) {
     const status = document.getElementById("appointment-status").value;
     const repairNotes = document.getElementById("repair-notes").value.trim();
     
+    const carrier = document.getElementById("customer-carrier")?.value || "";
+    
     const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
     const province = settings.province || 'ON';
     const taxRate = getTaxRate(province);
@@ -3866,6 +3875,8 @@ function validatePhone(phone) {
     const appointmentData = {
         customer: customerName,
         phone,
+        email,
+        carrier,
         equipment,
         date: timestamp,
         basePrice,
@@ -3933,41 +3944,27 @@ function validatePhone(phone) {
                     });
                 }        
     }
-    document.getElementById('lookup-carrier')?.addEventListener('click', async () => {
-    const phone = document.getElementById('customer-phone')?.value?.trim();
-    if (!phone) return alert("Please enter a phone number first");
 
-    const apiKey = "7807089f166748ce89d1c271102b3eed";
-    const url = `https://phonevalidation.abstractapi.com/v1/?api_key=${apiKey}&phone=${encodeURIComponent(phone)}&country_code=CA`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      console.log("📞 Abstract API response:", data);
-
-      const carrier = data.carrier?.toLowerCase();
-      if (!carrier) return alert("Carrier not found.");
-
-      const dropdown = document.getElementById('customer-carrier');
-      let matched = false;
-      for (let option of dropdown.options) {
-        if (carrier.includes(option.value)) {
-          dropdown.value = option.value;
-          alert(`Carrier detected: ${option.value}`);
-          matched = true;
-          break;
-        }
-      }
-
-      if (!matched) {
-        alert(`Carrier detected but not in list: ${carrier}`);
-      }
-    } catch (err) {
-      console.error("Lookup failed:", err);
-      alert("Error looking up carrier.");
+  document.getElementById("lookup-carrier")?.addEventListener("click", () => {
+    const phone = document.getElementById("customer-phone")?.value?.trim();
+    if (!phone) {
+      alert("Please enter a phone number first.");
+      return;
     }
+
+    // Format phone (remove non-digits, no + or spaces)
+    const cleanedPhone = phone.replace(/\D/g, "");
+
+    // Construct FreeCarrierLookup URL
+    const url = `https://freecarrierlookup.com/?php=&number=${encodeURIComponent(cleanedPhone)}`;
+
+    // Open in new tab
+    window.open(url, "_blank");
   });
-    // Add to setupEventListeners()
+
+
+
+  // Add to setupEventListeners()
     document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
     
     function sendTestSMS() {
