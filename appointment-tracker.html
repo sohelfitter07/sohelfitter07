@@ -3963,6 +3963,8 @@ function openEditModal(id) {
     const customerName = document.getElementById("customer-name").value.trim();
     const phone = document.getElementById("customer-phone").value.trim();
     const email = document.getElementById("customer-email")?.value?.trim() || "";
+    // ✅ Normalize carrier to lowercase
+    const carrier = (document.getElementById("customer-carrier")?.value || "").toLowerCase();
         // ✅ Require at least phone or email
         if (!phone && !email) {
         alert("Please enter at least a phone number or email address.");
@@ -3978,9 +3980,6 @@ function openEditModal(id) {
     const issue = document.getElementById("issue-description").value.trim();
     const status = document.getElementById("appointment-status").value;
     const repairNotes = document.getElementById("repair-notes").value.trim();
-    
-    const carrier = document.getElementById("customer-carrier")?.value || "";
-    
     const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
     const province = settings.province || 'ON';
     const taxRate = getTaxRate(province);
