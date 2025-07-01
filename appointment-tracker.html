@@ -3286,21 +3286,29 @@ function validatePhone(phone) {
             class: "",
         };
 
-        const confirmStatus = app.confirmationSentAt
-            ? (app.lastAttemptStatus === "success"
-                ? "✅"
-                : app.lastAttemptStatus === "partial_success"
-                    ? "⚠️"
-                    : "❌")
-            : "⏳";
-
-        const confirmTimestamp = app.confirmationSentAt
-            ? formatTimestamp(app.confirmationSentAt.toDate?.() || new Date())
-            : "";
-
         const isSent = app.confirmationSent;
         const hasChanges = !isSent || app.lastStatusSent !== app.status;
         const canSend = !isSent || hasChanges;
+
+        const confirmTimestamp = app.confirmationSentAt
+            ? formatTimestamp(app.confirmationSentAt.toDate?.() || new Date())
+            : "Not sent yet";
+
+        const confirmStatusEmoji = app.confirmationSentAt
+            ? app.lastAttemptStatus === "success"
+                ? "✅"
+                : app.lastAttemptStatus === "partial_success"
+                    ? "⚠️"
+                    : "❌"
+            : "⏳";
+
+        const deliveryColor = app.lastAttemptStatus === "success"
+            ? "#28a745"
+            : app.lastAttemptStatus === "partial_success"
+                ? "#ffc107"
+                : app.lastAttemptStatus === "failed"
+                    ? "#dc3545"
+                    : "#6c757d"; // ⏳ pending
 
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -3312,19 +3320,26 @@ function validatePhone(phone) {
             <td>$${app.price || 0}</td>
             <td>
                 <div style="display: flex; flex-direction: column; align-items: center;">
-                    ${confirmTimestamp ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
+                    <button 
+                        class="resend-confirmation send-btn" 
+                        data-id="${app.id}" 
+                        title="${confirmTimestamp}" 
+                        ${canSend ? "" : "disabled"}
+                        style="
+                            background: none; 
+                            border: none; 
+                            cursor: pointer; 
+                            font-size: 18px; 
+                            color: ${deliveryColor};
+                        ">
+                        ${confirmStatusEmoji}
+                    </button>
+                    ${app.confirmationSentAt ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
                 </div>
             </td>
             <td class="action-cell">
-                <button class="action-btn send-btn" data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-                <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment">
-                    <i class="fas fa-trash"></i>
-                </button>
+                <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment"><i class="fas fa-edit"></i></button>
+                <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment"><i class="fas fa-trash"></i></button>
             </td>
         `;
 
@@ -3345,7 +3360,7 @@ function validatePhone(phone) {
             const id = btn.dataset.id;
             btn.disabled = true;
             btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-            showToast("Sending confirmation to customer?");
+            showToast("Sending confirmation...");
 
             fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
                 method: "POST",
@@ -3374,6 +3389,8 @@ function validatePhone(phone) {
     document.getElementById("prev-page").disabled = currentPage === 1;
     document.getElementById("next-page").disabled = currentPage >= totalPages;
 }
+
+
 
             // Render customers table
             function renderCustomersTable() {
