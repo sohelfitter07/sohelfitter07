@@ -3442,6 +3442,9 @@ function validatePhone(phone) {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+
+  // ✅ Success toast
+  showToast("✅ Appointments exported as CSV");
 }
 
             function updateCalendarSummary() {
