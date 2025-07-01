@@ -3858,7 +3858,11 @@ function openEditModal(id) {
                 document.getElementById('customer-modal-title').textContent = "Edit Customer";
                 document.getElementById('customer-modal').classList.add('active');
             }
-            
+            async function updateAppointmentField(id, data) {
+  const db = firebase.firestore();
+  await db.collection("appointments").doc(id).update(data);
+}
+           
             function closeCustomerModal() {
                 document.getElementById('customer-modal').classList.remove('active');
             }
