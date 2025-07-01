@@ -1776,6 +1776,8 @@
         // ===== CACHING MECHANISM =====
     let cachedAppointments = null;
     let lastFetchTime = 0;
+    let originalAppointmentData = {};
+
     const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
     
     // ===== ERROR HANDLING FOR FIREBASE =====
@@ -3307,7 +3309,8 @@ function validatePhone(phone) {
 
         const isSent = app.confirmationSent;
         const hasChanges = !isSent || app.lastStatusSent !== app.status;
-        const canSend = !isSent || hasChanges;
+        const canSend = app.needsResend || !app.confirmationSent;
+
 
         const reminderIcon = app.reminderEnabled ? "⏰" : "";
 
@@ -3738,9 +3741,7 @@ function validatePhone(phone) {
             }
             
             // ================ MODAL MANAGEMENT ================
-
-function openEditModal(id) {
-    // Clear existing toasts
+            function openEditModal(id) {
     document.getElementById('toast-container').innerHTML = '';
 
     const app = appointments.find((a) => a.id === id);
@@ -3748,44 +3749,39 @@ function openEditModal(id) {
 
     editingAppointmentId = id;
 
-    // Clear validation errors
-    document.querySelectorAll('.validation-error').forEach(el => {
-        el.style.display = 'none';
-    });
-    document.querySelectorAll('.form-control').forEach(field => {
-        field.classList.remove('invalid');
-    });
+    // 🧠 Store original values to detect changes
+    const dateObj = app.dateObj || new Date();
+    const dateStr = dateObj.toISOString().split("T")[0];
+    const timeStr = dateObj.toTimeString().slice(0, 5);
+    originalAppointmentData = {
+        date: dateStr,
+        time: timeStr,
+        status: app.status || ""
+    };
+
+    // Clear validation & set values
+    document.querySelectorAll('.validation-error').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.form-control').forEach(field => field.classList.remove('invalid'));
 
     document.getElementById("customer-name").value = app.customer;
     document.getElementById("customer-phone").value = app.phone || "";
-
-    // ✅ Add this
     document.getElementById("customer-email").value = app.email || "";
     document.getElementById("customer-carrier").value = app.carrier || "unknown";
-
-    // Use the dateObj for editing
-    const dateObj = app.dateObj || new Date();
-    document.getElementById("appointment-date").value = dateObj.toISOString().split("T")[0];
-
-    // Format time as HH:MM
-    const hours = dateObj.getHours().toString().padStart(2, '0');
-    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
-    document.getElementById("appointment-time").value = `${hours}:${minutes}`;
-
+    document.getElementById("appointment-date").value = dateStr;
+    document.getElementById("appointment-time").value = timeStr;
     document.getElementById("equipment").value = app.equipment || "";
     document.getElementById("appointment-base-price").value = app.basePrice || app.price || 0;
-
-    calculateTax();
-
     document.getElementById("issue-description").value = app.issue || "";
     document.getElementById("repair-notes").value = app.repair_notes || "";
     document.getElementById("appointment-status").value = app.status || "";
 
+    calculateTax();
+
     document.getElementById("modal-title").textContent = "Edit Appointment";
     document.getElementById("save-appointment").textContent = "Update Appointment";
-
     document.getElementById('appointment-modal').classList.add('active');
 }
+
 
             function openAddModal() {
                   // Clear existing toasts
@@ -3973,14 +3969,13 @@ function openEditModal(id) {
     const customerName = document.getElementById("customer-name").value.trim();
     const phone = document.getElementById("customer-phone").value.trim();
     const email = document.getElementById("customer-email")?.value?.trim() || "";
-    // ✅ Normalize carrier to lowercase
     const carrier = (document.getElementById("customer-carrier")?.value || "").toLowerCase();
-        // ✅ Require at least phone or email
-        if (!phone && !email) {
+
+    if (!phone && !email) {
         alert("Please enter at least a phone number or email address.");
         return;
     }
-    
+
     const dateInput = document.getElementById("appointment-date").value;
     const timeInput = document.getElementById("appointment-time").value;
     const dateObj = new Date(`${dateInput}T${timeInput}`);
@@ -3990,10 +3985,17 @@ function openEditModal(id) {
     const issue = document.getElementById("issue-description").value.trim();
     const status = document.getElementById("appointment-status").value;
     const repairNotes = document.getElementById("repair-notes").value.trim();
-    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
     const province = settings.province || 'ON';
     const taxRate = getTaxRate(province);
     const totalPrice = basePrice * (1 + taxRate);
+
+    // 🔍 Compare with original values
+    const hasChanges =
+        editingAppointmentId &&
+        (dateInput !== originalAppointmentData.date ||
+         timeInput !== originalAppointmentData.time ||
+         status !== originalAppointmentData.status);
 
     const appointmentData = {
         customer: customerName,
@@ -4015,7 +4017,7 @@ function openEditModal(id) {
         lastStatusSent: "",
         lastAttemptStatus: "",
         reminderEnabled: false,
-        needsResend: false
+        needsResend: hasChanges  // ✅ flag if changed
     };
 
     await saveAppointment(appointmentData);
