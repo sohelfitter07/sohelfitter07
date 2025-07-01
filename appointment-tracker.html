@@ -2517,34 +2517,41 @@ function validatePhone(phone) {
             }
     
             async function fetchAppointments() {
-                try {
-                    // Get appointments from cache or fresh fetch
-                    appointments = await fetchAppointmentsWithCache();
-                    
-                    // Update UI in priority order
-                    renderAppointmentsTable(); // First priority
-                    updateStats(); // Quick update
-                    
-                    // Defer heavier operations
-                    setTimeout(() => {
-                        // Only render calendar if it's visible
-                        if (document.getElementById('calendar-view').classList.contains('active')) {
-                            renderCalendar();
-                            updateCalendarSummary();
-                        }
-                        
-                        // Only render chart if dashboard is visible
-                        if (document.getElementById('dashboard-view').classList.contains('active')) {
-                            initChart();
-                        }
-                    }, 50);
-                            // ✅ Real-time sync after first load
-                            setupRealtimeListeners(); 
-                } catch (error) {
-                    console.error("Error in fetchAppointments:", error);
-                    showToast("Failed to load appointments", true);
-                }
-            }      
+  try {
+    appointments = await fetchAppointmentsWithCache();
+
+    // 🔔 Reminder for tomorrow — only once per session
+    if (auth?.currentUser && !sessionStorage.getItem(`reminderShown_${auth.currentUser.uid}`)) {
+      const tomorrowReminders = appointments.filter(app =>
+        app.reminderEnabled && app.dateObj && isTomorrow(app.dateObj)
+      );
+
+      if (tomorrowReminders.length > 0) {
+        showToast(`📅 Reminder: You have ${tomorrowReminders.length} appointment(s) for tomorrow.`);
+        sessionStorage.setItem(`reminderShown_${auth.currentUser.uid}`, "true");
+      }
+    }
+
+    renderAppointmentsTable(); 
+    updateStats();
+
+    setTimeout(() => {
+      if (document.getElementById('calendar-view').classList.contains('active')) {
+        renderCalendar();
+        updateCalendarSummary();
+      }
+      if (document.getElementById('dashboard-view').classList.contains('active')) {
+        initChart();
+      }
+    }, 50);
+
+    setupRealtimeListeners();
+  } catch (error) {
+    console.error("Error in fetchAppointments:", error);
+    showToast("Failed to load appointments", true);
+  }
+}
+          
             function setupRealtimeListeners() {
   const appointmentsQuery = query(appointmentsCollection, orderBy("date", "desc"));
   
@@ -3660,6 +3667,17 @@ function validatePhone(phone) {
   // ✅ Success toast
   showToast("✅ Appointments exported as CSV");
 }
+            function isTomorrow(date) {
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(today.getDate() + 1);
+
+                return (
+                    date.getFullYear() === tomorrow.getFullYear() &&
+                    date.getMonth() === tomorrow.getMonth() &&
+                    date.getDate() === tomorrow.getDate()
+                );
+                }
 
             function updateCalendarSummary() {
                 const monthlyApps = appointments.filter((app) => {
