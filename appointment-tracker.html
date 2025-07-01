@@ -1919,59 +1919,8 @@ async function saveAdminSettings(db) {
             }
             return count;
         }
-        
-        // ================ TAX CALCULATION ================
-        function getTaxRate(province) {
-            const taxRates = {
-                'ON': 0.13,  // Ontario HST
-                'QC': 0.14975, // Quebec GST + QST
-                'BC': 0.12,   // British Columbia GST + PST
-                'AB': 0.05,   // Alberta GST
-                'MB': 0.12,   // Manitoba GST + PST
-                'SK': 0.11,   // Saskatchewan GST + PST
-                'NS': 0.15,   // Nova Scotia HST
-                'NB': 0.15,   // New Brunswick HST
-                'NL': 0.15,   // Newfoundland and Labrador HST
-                'PE': 0.15,   // Prince Edward Island HST
-                'NT': 0.05,   // Northwest Territories GST
-                'NU': 0.05,   // Nunavut GST
-                'YT': 0.05    // Yukon GST
-            };
-            return taxRates[province] || 0.13; // Default to Ontario rate
-        }
-    
-        function calculateTax() {
-            const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
-            const province = settings.province || 'ON';
-            const taxRate = getTaxRate(province);
-            
-            const basePrice = parseFloat(document.getElementById('appointment-base-price').value) || 0;
-            const taxAmount = basePrice * taxRate;
-            const totalPrice = basePrice + taxAmount;
-            
-            document.getElementById('appointment-tax-rate').value = (taxRate * 100).toFixed(2) + '%';
-            document.getElementById('appointment-tax-amount').value = taxAmount.toFixed(2);
-            document.getElementById('appointment-price').value = totalPrice.toFixed(2);
-        }
-        
-
-        // Encrypt sensitive data (e.g., phone number)
-        async function encryptData(data) {
-        try {
-            const encoder = new TextEncoder();
-            const dataBuffer = encoder.encode(data);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        } catch (error) {
-            console.error("Encryption failed:", error);
-            return data; // fallback
-        }
-        }
-
-
-        // ================ HOLIDAY CALENDAR ================
-        function getCanadianHolidays(year, province) {
+                // ================ HOLIDAY CALENDAR ================
+                function getCanadianHolidays(year, province) {
     // Helper Functions
     function adjustToNextMonday(date) {
         const day = date.getDay();
@@ -2122,7 +2071,58 @@ async function saveAdminSettings(db) {
 
     return holidays;
 }
-        // ================ MAIN APPLICATION ================
+
+        // ================ TAX CALCULATION ================
+        function getTaxRate(province) {
+            const taxRates = {
+                'ON': 0.13,  // Ontario HST
+                'QC': 0.14975, // Quebec GST + QST
+                'BC': 0.12,   // British Columbia GST + PST
+                'AB': 0.05,   // Alberta GST
+                'MB': 0.12,   // Manitoba GST + PST
+                'SK': 0.11,   // Saskatchewan GST + PST
+                'NS': 0.15,   // Nova Scotia HST
+                'NB': 0.15,   // New Brunswick HST
+                'NL': 0.15,   // Newfoundland and Labrador HST
+                'PE': 0.15,   // Prince Edward Island HST
+                'NT': 0.05,   // Northwest Territories GST
+                'NU': 0.05,   // Nunavut GST
+                'YT': 0.05    // Yukon GST
+            };
+            return taxRates[province] || 0.13; // Default to Ontario rate
+        }
+    
+        function calculateTax() {
+            const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+            const province = settings.province || 'ON';
+            const taxRate = getTaxRate(province);
+            
+            const basePrice = parseFloat(document.getElementById('appointment-base-price').value) || 0;
+            const taxAmount = basePrice * taxRate;
+            const totalPrice = basePrice + taxAmount;
+            
+            document.getElementById('appointment-tax-rate').value = (taxRate * 100).toFixed(2) + '%';
+            document.getElementById('appointment-tax-amount').value = taxAmount.toFixed(2);
+            document.getElementById('appointment-price').value = totalPrice.toFixed(2);
+        }
+        
+
+        // Encrypt sensitive data (e.g., phone number)
+        async function encryptData(data) {
+        try {
+            const encoder = new TextEncoder();
+            const dataBuffer = encoder.encode(data);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        } catch (error) {
+            console.error("Encryption failed:", error);
+            return data; // fallback
+        }
+        }
+
+
+   // ================ MAIN APPLICATION ================
         function initApp(auth, db, appointmentsCollection, customersCollection) {
             // ================ GLOBAL STATE ================
             let appointments = [];
