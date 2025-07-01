@@ -1555,12 +1555,12 @@
                     <div>
                         <label>Date</label>
                         <input type="date" id="appointment-date" class="form-control" required>
-                        <div class="validation-error" id="customer-name-error"></div>
+                        <div class="validation-error" id="appointment-date-error"></div>
                     </div>
                     <div>
                         <label>Time</label>
                         <input type="time" id="appointment-time" class="form-control" required>
-                        <div class="validation-error" id="customer-name-error"></div>
+                        <div class="validation-error" id="appointment-time-error"></div>
                     </div>
                 </div>
                 
@@ -1756,31 +1756,71 @@
     let currentCustomerPage = 1;
     const customersPerPage = 10;
 
-
-async function saveAdminSettings(db) {
-
+    async function saveAdminSettings(db) {
     const rawAdminPhone = document.getElementById("admin-phone").value.trim();
-  const encryptedPhone = await encryptData(rawAdminPhone);
+    const encryptedPhone = await encryptData(rawAdminPhone);
 
-  const adminSettings = {
-    fullName: document.getElementById("settings-full-name").value.trim(),
-    businessName: document.getElementById("settings-business-name").value.trim(),
-    province: document.getElementById("business-province").value,
-    timeZone: document.getElementById("timezone").value,
-    smsNotifications: document.getElementById("sms-notifications").checked,
-    adminPhone: encryptedPhone,
-    smsCarrier: document.getElementById("sms-carrier").value
-  };
+    const fullName = document.getElementById("settings-full-name").value.trim();
+    const businessName = document.getElementById("settings-business-name").value.trim();
+    const province = document.getElementById("business-province").value;
+    const timeZone = document.getElementById("timezone").value;
+    const smsNotifications = document.getElementById("sms-notifications").checked;
+    const smsCarrier = document.getElementById("sms-carrier").value;
 
-  try {
-    await setDoc(doc(db, "settings", "admin"), adminSettings);  // Save to Firebase
-    localStorage.setItem("fitnessRepairSettings", JSON.stringify(adminSettings));  // Save to browser
-    showToast("Settings saved successfully");
-  } catch (error) {
-    console.error("❌ Error saving settings:", error);
-    showToast("Failed to save settings", true);
-  }
+    const gst = parseFloat(document.getElementById("gst-rate").value || 0);
+    const pst = parseFloat(document.getElementById("pst-rate").value || 0);
+
+    // Clear previous errors
+    document.querySelectorAll(".validation-error").forEach(el => {
+        el.textContent = "";
+        el.style.display = "none";
+    });
+    document.querySelectorAll(".form-control").forEach(field => {
+        field.classList.remove("invalid");
+    });
+
+    let isValid = true;
+
+    // Validate required fields
+    if (!fullName) {
+        showValidationError("settings-full-name", "Full name is required");
+        isValid = false;
+    }
+    if (!businessName) {
+        showValidationError("settings-business-name", "Business name is required");
+        isValid = false;
+    }
+
+    // ✅ Validate Canadian phone format
+    if (rawAdminPhone && !validatePhone(rawAdminPhone)) {
+        showValidationError("admin-phone", "Invalid Canadian phone format");
+        isValid = false;
+    }
+
+    if (!isValid) return; // Stop if validation fails
+
+    const adminSettings = {
+        fullName,
+        businessName,
+        province,
+        timeZone,
+        smsNotifications,
+        adminPhone: encryptedPhone,
+        smsCarrier,
+        gst,
+        pst
+    };
+
+    try {
+        await setDoc(doc(db, "settings", "admin"), adminSettings);  // Save to Firebase
+        localStorage.setItem("fitnessRepairSettings", JSON.stringify(adminSettings));  // Save to browser
+        showToast("Settings saved successfully");
+    } catch (error) {
+        console.error("❌ Error saving settings:", error);
+        showToast("Failed to save settings", true);
+    }
 }
+
 
     async function fetchCustomers() {
       showLoading(true);
@@ -2071,7 +2111,12 @@ async function saveAdminSettings(db) {
 
     return holidays;
 }
-
+function validatePhone(phone) {
+  // Remove spaces, dashes, parentheses, and plus
+  const cleanPhone = phone.replace(/[\s\-+()]/g, '');
+  // Match: 1 (optional), valid Canadian area codes and 7-digit numbers
+  return /^1?[2-9]\d{2}[2-9]\d{6}$/.test(cleanPhone);
+}
         // ================ TAX CALCULATION ================
         function getTaxRate(province) {
             const taxRates = {
@@ -2153,7 +2198,8 @@ async function saveAdminSettings(db) {
         validTime: value => /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value),
         validPrice: value => !isNaN(parseFloat(value)) && parseFloat(value) >= 0
     };
-    
+ 
+
     function showValidationError(fieldId, message) {
         const field = document.getElementById(fieldId);
         const errorId = `${fieldId}-error`;
@@ -2441,12 +2487,30 @@ async function saveAdminSettings(db) {
                             initChart();
                         }
                     }, 50);
+                            // ✅ Real-time sync after first load
+                            setupRealtimeListeners(); 
                 } catch (error) {
                     console.error("Error in fetchAppointments:", error);
                     showToast("Failed to load appointments", true);
                 }
             }      
-            
+            function setupRealtimeListeners() {
+  const appointmentsQuery = query(appointmentsCollection, orderBy("date", "desc"));
+  
+  onSnapshot(appointmentsQuery, (snapshot) => {
+    appointments = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      dateObj: doc.data().date.toDate()
+    }));
+    renderAppointmentsTable();
+    updateStats();
+    if (document.getElementById('calendar-view').classList.contains('active')) {
+      renderCalendar();
+    }
+  });
+}
+  
     function logErrorToServer(error) {
         // Send error to backend for logging
         fetch('/api/log-error', {
