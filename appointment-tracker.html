@@ -1539,100 +1539,130 @@
         </div>           
     </div>
 
-    <!-- Appointment Modal -->
-    <div id="appointment-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 id="modal-title"><i class="fas fa-calendar-plus"></i> Add New Appointment</h2>
-            <form id="appointment-form">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                    <div>
-                        <label>Customer Name</label>
-                        <input type="text" id="customer-name" class="form-control" placeholder="Enter customer name" required>
-                        <div class="validation-error" id="customer-name-error"></div>
-                      </div>
-                    <div>
-                        <label>Phone Number</label>
-                        <input type="tel" id="customer-phone" class="form-control" placeholder="Enter phone number">
-                    </div>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                    <div>
-                        <label>Date</label>
-                        <input type="date" id="appointment-date" class="form-control" required>
-                        <div class="validation-error" id="appointment-date-error"></div>
-                    </div>
-                    <div>
-                        <label>Time</label>
-                        <input type="time" id="appointment-time" class="form-control" required>
-                        <div class="validation-error" id="appointment-time-error"></div>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label>Equipment</label>
-                    <input type="text" id="equipment" class="form-control" placeholder="Enter equipment type">
-                    <div class="validation-error" id="equipment-error"></div>
-                </div>
-                
-                <!-- In your appointment-modal -->
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label>Service Price (before tax)</label>
-                    <input type="number" id="appointment-base-price" class="form-control" step="0.01" placeholder="0.00">
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label>Tax</label>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <div>
-                            <input type="text" id="appointment-tax-rate" class="form-control" readonly>
-                            <div class="card-footer" style="text-align: center; padding: 5px;">Rate</div>
-                        </div>
-                        <div>
-                            <input type="number" id="appointment-tax-amount" class="form-control" readonly>
-                            <div class="card-footer" style="text-align: center; padding: 5px;">Amount</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label>Total Price (including tax)</label>
-                    <input type="number" id="appointment-price" class="form-control" readonly>
-                </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label>Issue Description</label>
-                    <textarea id="issue-description" class="form-control" placeholder="Describe the issue"></textarea>
-                    <div class="validation-error" id="issue-description-error"></div>
-                </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label>Repair Notes</label>
-                    <textarea id="repair-notes" class="form-control" placeholder="Add repair notes"></textarea>
-                    <div class="validation-error" id="repair-notes-error"></div>
-                </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label>Status</label>
-                    <select id="appointment-status" class="form-control">
-                        <option value="scheduled">Scheduled</option>
-                        <option value="draft">Draft</option>
-                        <option value="in_progress">In Progress</option>
-                        <option value="needs_parts">Needs Parts</option>
-                        <option value="parts_ordered">Parts Ordered</option>
-                        <option value="repair_completed">Repair Completed</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
-                </div>
-                
-                <div class="form-actions">
-                    <button type="button" id="save-appointment" class="btn">Save Appointment</button>
-                    <button type="button" id="cancel-appointment" class="btn secondary">Cancel</button>
-                </div>
-            </form>
+<!-- Appointment Modal -->
+<div id="appointment-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2 id="modal-title"><i class="fas fa-calendar-plus"></i> Add New Appointment</h2>
+      <form id="appointment-form">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+          <div>
+            <label>Customer Name</label>
+            <input type="text" id="customer-name" class="form-control" placeholder="Enter customer name" required>
+            <div class="validation-error" id="customer-name-error"></div>
+          </div>
+          <div>
+            <label>Phone Number</label>
+            <input type="tel" id="customer-phone" class="form-control" placeholder="Enter phone number">
+          </div>
         </div>
+  
+        <!-- ✅ Email Address Field -->
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label for="customer-email">Email Address</label>
+          <input type="email" id="customer-email" class="form-control" placeholder="example@email.com">
+        </div>
+  
+        <!-- ✅ Carrier Dropdown -->
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label for="customer-carrier">Carrier</label>
+          <select id="customer-carrier" class="form-control">
+            <option value="">-- Select Carrier --</option>
+            <option value="rogers">Rogers</option>
+            <option value="bell">Bell</option>
+            <option value="telus">Telus</option>
+            <option value="fido">Fido</option>
+            <option value="virgin">Virgin</option>
+            <option value="koodo">Koodo</option>
+            <option value="freedom">Freedom</option>
+            <option value="chatr">Chatr</option>
+            <option value="public">Public Mobile</option>
+            <option value="sasktel">SaskTel</option>
+            <option value="videotron">Videotron</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </div>
+  
+        <!-- ✅ Lookup Carrier Button -->
+        <div class="form-group" style="margin-bottom: 20px;">
+          <button type="button" class="btn btn-secondary" id="lookup-carrier">Lookup Carrier</button>
+        </div>
+  
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+          <div>
+            <label>Date</label>
+            <input type="date" id="appointment-date" class="form-control" required>
+            <div class="validation-error" id="appointment-date-error"></div>
+          </div>
+          <div>
+            <label>Time</label>
+            <input type="time" id="appointment-time" class="form-control" required>
+            <div class="validation-error" id="appointment-time-error"></div>
+          </div>
+        </div>
+  
+        <div style="margin-bottom: 20px;">
+          <label>Equipment</label>
+          <input type="text" id="equipment" class="form-control" placeholder="Enter equipment type">
+          <div class="validation-error" id="equipment-error"></div>
+        </div>
+  
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label>Service Price (before tax)</label>
+          <input type="number" id="appointment-base-price" class="form-control" step="0.01" placeholder="0.00">
+        </div>
+  
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label>Tax</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div>
+              <input type="text" id="appointment-tax-rate" class="form-control" readonly>
+              <div class="card-footer" style="text-align: center; padding: 5px;">Rate</div>
+            </div>
+            <div>
+              <input type="number" id="appointment-tax-amount" class="form-control" readonly>
+              <div class="card-footer" style="text-align: center; padding: 5px;">Amount</div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label>Total Price (including tax)</label>
+          <input type="number" id="appointment-price" class="form-control" readonly>
+        </div>
+  
+        <div style="margin-bottom: 20px;">
+          <label>Issue Description</label>
+          <textarea id="issue-description" class="form-control" placeholder="Describe the issue"></textarea>
+          <div class="validation-error" id="issue-description-error"></div>
+        </div>
+  
+        <div style="margin-bottom: 20px;">
+          <label>Repair Notes</label>
+          <textarea id="repair-notes" class="form-control" placeholder="Add repair notes"></textarea>
+          <div class="validation-error" id="repair-notes-error"></div>
+        </div>
+  
+        <div style="margin-bottom: 20px;">
+          <label>Status</label>
+          <select id="appointment-status" class="form-control">
+            <option value="scheduled">Scheduled</option>
+            <option value="draft">Draft</option>
+            <option value="in_progress">In Progress</option>
+            <option value="needs_parts">Needs Parts</option>
+            <option value="parts_ordered">Parts Ordered</option>
+            <option value="repair_completed">Repair Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+  
+        <div class="form-actions">
+          <button type="button" id="save-appointment" class="btn">Save Appointment</button>
+          <button type="button" id="cancel-appointment" class="btn secondary">Cancel</button>
+        </div>
+      </form>
     </div>
+  </div>
 
     <!-- Customer Modal -->
     <div id="customer-modal" class="modal">
