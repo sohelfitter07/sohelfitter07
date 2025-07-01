@@ -2534,6 +2534,9 @@ function validatePhone(phone) {
 
     renderAppointmentsTable(); 
     updateStats();
+        // ✅ Show one-time reminder toast if there's a reminder due tomorrow
+        checkAndShowReminder(appointments);
+
 
     setTimeout(() => {
       if (document.getElementById('calendar-view').classList.contains('active')) {
