@@ -1758,13 +1758,17 @@
 
 
 async function saveAdminSettings(db) {
+
+    const rawAdminPhone = document.getElementById("admin-phone").value.trim();
+  const encryptedPhone = await encryptData(rawAdminPhone);
+
   const adminSettings = {
     fullName: document.getElementById("settings-full-name").value.trim(),
     businessName: document.getElementById("settings-business-name").value.trim(),
     province: document.getElementById("business-province").value,
     timeZone: document.getElementById("timezone").value,
     smsNotifications: document.getElementById("sms-notifications").checked,
-    adminPhone: document.getElementById("admin-phone").value.trim(),
+    adminPhone: encryptedPhone,
     smsCarrier: document.getElementById("sms-carrier").value
   };
 
@@ -1950,6 +1954,22 @@ async function saveAdminSettings(db) {
             document.getElementById('appointment-price').value = totalPrice.toFixed(2);
         }
         
+
+        // Encrypt sensitive data (e.g., phone number)
+        async function encryptData(data) {
+        try {
+            const encoder = new TextEncoder();
+            const dataBuffer = encoder.encode(data);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        } catch (error) {
+            console.error("Encryption failed:", error);
+            return data; // fallback
+        }
+        }
+
+
         // ================ HOLIDAY CALENDAR ================
         function getCanadianHolidays(year, province) {
     // Helper Functions
