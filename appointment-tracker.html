@@ -3732,45 +3732,55 @@ function validatePhone(phone) {
             }
             
             // ================ MODAL MANAGEMENT ================
-            function openEditModal(id) {
-                  // Clear existing toasts
-                document.getElementById('toast-container').innerHTML = '';
-                const app = appointments.find((a) => a.id === id);
-                if (!app) return;
-                
-                editingAppointmentId = id;
-                    // Clear validation errors
-                document.querySelectorAll('.validation-error').forEach(el => {
-                    el.style.display = 'none';
-                });
-                document.querySelectorAll('.form-control').forEach(field => {
-                    field.classList.remove('invalid');
-                });
-                document.getElementById("customer-name").value = app.customer;
-                document.getElementById("customer-phone").value = app.phone || "";
-                
-                // Use the dateObj for editing
-                const dateObj = app.dateObj || new Date();
-                document.getElementById("appointment-date").value = dateObj.toISOString().split("T")[0];
-                
-                // Format time as HH:MM
-                const hours = dateObj.getHours().toString().padStart(2, '0');
-                const minutes = dateObj.getMinutes().toString().padStart(2, '0');
-                document.getElementById("appointment-time").value = `${hours}:${minutes}`;
-                
-                document.getElementById("equipment").value = app.equipment || "";
-                document.getElementById("appointment-base-price").value = app.basePrice || app.price || 0;
-                calculateTax(); // Calculate tax based on base price
-                document.getElementById("issue-description").value = app.issue || "";
-                document.getElementById("repair-notes").value = app.repair_notes || "";
-                document.getElementById("appointment-status").value = app.status || "";
-                
-                document.getElementById("modal-title").textContent = "Edit Appointment";
-                document.getElementById("save-appointment").textContent = "Update Appointment";
-                
-                document.getElementById('appointment-modal').classList.add('active');
-            }
-            
+
+function openEditModal(id) {
+    // Clear existing toasts
+    document.getElementById('toast-container').innerHTML = '';
+
+    const app = appointments.find((a) => a.id === id);
+    if (!app) return;
+
+    editingAppointmentId = id;
+
+    // Clear validation errors
+    document.querySelectorAll('.validation-error').forEach(el => {
+        el.style.display = 'none';
+    });
+    document.querySelectorAll('.form-control').forEach(field => {
+        field.classList.remove('invalid');
+    });
+
+    document.getElementById("customer-name").value = app.customer;
+    document.getElementById("customer-phone").value = app.phone || "";
+
+    // ✅ Add this
+    document.getElementById("customer-email").value = app.email || "";
+    document.getElementById("customer-carrier").value = app.carrier || "unknown";
+
+    // Use the dateObj for editing
+    const dateObj = app.dateObj || new Date();
+    document.getElementById("appointment-date").value = dateObj.toISOString().split("T")[0];
+
+    // Format time as HH:MM
+    const hours = dateObj.getHours().toString().padStart(2, '0');
+    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+    document.getElementById("appointment-time").value = `${hours}:${minutes}`;
+
+    document.getElementById("equipment").value = app.equipment || "";
+    document.getElementById("appointment-base-price").value = app.basePrice || app.price || 0;
+
+    calculateTax();
+
+    document.getElementById("issue-description").value = app.issue || "";
+    document.getElementById("repair-notes").value = app.repair_notes || "";
+    document.getElementById("appointment-status").value = app.status || "";
+
+    document.getElementById("modal-title").textContent = "Edit Appointment";
+    document.getElementById("save-appointment").textContent = "Update Appointment";
+
+    document.getElementById('appointment-modal').classList.add('active');
+}
+
             function openAddModal() {
                   // Clear existing toasts
                 document.getElementById('toast-container').innerHTML = '';
