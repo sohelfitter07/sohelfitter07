@@ -3845,7 +3845,13 @@ function validatePhone(phone) {
         status,
         repair_notes: repairNotes,
         createdAt: Timestamp.now(),
-        createdBy: auth.currentUser.uid
+        createdBy: auth.currentUser.uid,
+        confirmationSent: false,
+        confirmationSentAt: null,
+        lastStatusSent: "",
+        lastAttemptStatus: "",
+        reminderEnabled: false,
+        needsResend: false
     };
 
     await saveAppointment(appointmentData);
