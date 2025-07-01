@@ -1166,6 +1166,9 @@
                 <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                     <input type="text" id="search-appointments" class="form-control" placeholder="Search appointments..." style="min-width: 250px;">
                     <button class="btn" id="print-schedule"><i class="fas fa-print"></i> Print</button>
+                    <button id="export-appointments" class="btn secondary">
+                        <i class="fas fa-file-export"></i> Export CSV
+                      </button>                      
                 </div>
             </div>
             
@@ -3411,7 +3414,36 @@ function validatePhone(phone) {
                     }
                 }, 50);
             }
-            
+            function exportAppointmentsCSV() {
+  if (!appointments || appointments.length === 0) {
+    showToast("No appointments to export", true);
+    return;
+  }
+
+  const headers = ['ID', 'Customer', 'Phone', 'Date', 'Equipment', 'Status', 'Price'];
+  const csvContent = [
+    headers.join(','),
+    ...appointments.map(a => [
+      a.id,
+      `"${a.customer}"`,
+      a.phone || '',
+      a.dateObj?.toISOString() || '',
+      `"${a.equipment}"`,
+      a.status || '',
+      a.price || ''
+    ].join(','))
+  ].join('\n');
+
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `appointments-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
             function updateCalendarSummary() {
                 const monthlyApps = appointments.filter((app) => {
                     if (!app.dateObj) return false;
@@ -3698,7 +3730,8 @@ function validatePhone(phone) {
                 document.getElementById("print-schedule").addEventListener("click", () => {
                     window.print();
                 });
-                
+                document.getElementById('export-appointments').addEventListener('click', exportAppointmentsCSV);
+
                 // Add tax calculation to base price input
                 const basePriceInput = document.getElementById('appointment-base-price');
                 if (basePriceInput) {
