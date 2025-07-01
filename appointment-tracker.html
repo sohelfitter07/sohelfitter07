@@ -3312,7 +3312,6 @@ function validatePhone(phone) {
             <td>$${app.price || 0}</td>
             <td>
                 <div style="display: flex; flex-direction: column; align-items: center;">
-                    <span title="${confirmTimestamp}">${confirmStatus}</span>
                     ${confirmTimestamp ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
                 </div>
             </td>
@@ -3346,7 +3345,7 @@ function validatePhone(phone) {
             const id = btn.dataset.id;
             btn.disabled = true;
             btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-            showToast("Sending confirmation...");
+            showToast("Sending confirmation to customer?");
 
             fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
                 method: "POST",
@@ -3360,15 +3359,11 @@ function validatePhone(phone) {
                     fetchAppointments();
                 } else {
                     showToast("Failed to send confirmation", "error");
-                    btn.disabled = false;
-                    btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
                 }
             })
             .catch((err) => {
                 console.error("Send confirmation error:", err);
                 showToast("Network error while sending", "error");
-                btn.disabled = false;
-                btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
             });
         };
     });
