@@ -2935,7 +2935,23 @@
             }, 1500);
         });
     }
-    
+         // Notification trigger function
+         function triggerNotifications(eventType, appointmentData) {
+        console.log("🔥 triggerNotifications() started");
+    console.log("📨 Sending notification type:", eventType, appointmentData);
+
+    // Get current settings
+    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+
+    if (settings.emailNotifications) {
+        sendEmailNotification(eventType, appointmentData);
+    }
+
+    if (settings.smsNotifications) {
+        sendSMSNotification(eventType, appointmentData);
+    }
+}
+ 
             // Save (add or update) appointment in Firestore
             async function saveAppointment(data) {
     if (!data.customer) {
@@ -2998,23 +3014,7 @@
                     showLoading(false);
                 }
             }
-     // Notification trigger function
-     function triggerNotifications(eventType, appointmentData) {
-        console.log("🔥 triggerNotifications() started");
-    console.log("📨 Sending notification type:", eventType, appointmentData);
-
-    // Get current settings
-    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
-
-    if (settings.emailNotifications) {
-        sendEmailNotification(eventType, appointmentData);
-    }
-
-    if (settings.smsNotifications) {
-        sendSMSNotification(eventType, appointmentData);
-    }
-}
-      
+     
             // Save customer to Firestore
             async function saveCustomer() {
                 showLoading(true);
