@@ -1721,14 +1721,7 @@
             const auth = getAuth(app);
             const appointmentsCollection = collection(db, "appointments");
             const customersCollection = collection(db, "customers");
-            // ✅ ADD THIS BELOW 👇
-            document.getElementById("save-settings").addEventListener("click", () => {
-                saveAdminSettings(db);
-            });
-
-            // (OPTIONAL) You can also load settings here
-            loadAdminSettings(db);
-            // Start your app logic
+           
             initApp(auth, db, appointmentsCollection, customersCollection);
         })();
         // ===== CACHING MECHANISM =====
