@@ -2958,6 +2958,7 @@
                         await addDoc(appointmentsCollection, data);
                         showToast("Appointment added successfully");
                         // Trigger creation notification
+                        console.log("✅ Saving appointment", appointmentData);
             triggerNotifications('appointment_created', data);
                     }
                     editingAppointmentId = null;
@@ -2990,6 +2991,7 @@
             }
      // Notification trigger function
     function triggerNotifications(eventType, appointmentData) {
+        console.log("📨 Sending notification type:", type, data);
         // Get current settings
         const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
         
