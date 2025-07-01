@@ -2768,7 +2768,7 @@
         }
         
         try {
-    await fetch('https://cfr-backend-1.onrender.com/api/send-email', {
+            await fetch('https://cfr-backend-1.onrender.com/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -2871,16 +2871,16 @@
             const smsEmail = `1${cleanPhone}@${domain}`;
     
             // Send via email-to-SMS gateway
-            const response = await fetch('/api/send-email', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ 
-                    recipient: smsEmail,
-                    subject: "CFR Notification",
-                    body: smsMessage
-                })
-            });
-            
+            const response = await fetch('https://cfr-backend-1.onrender.com/api/send-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ 
+        recipient: smsEmail,
+        subject: "CFR Notification",
+        body: smsMessage
+    })
+});
+         
             const result = await response.json();
             
             if (response.ok && result.success) {
