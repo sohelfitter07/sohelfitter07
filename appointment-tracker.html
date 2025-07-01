@@ -2214,6 +2214,7 @@
                 };
                 
                 // Trigger reminder notification
+                console.log("✅ New appointment saved, triggering SMS notification...");
                 triggerNotifications('appointment_reminder', appointment);
             });
         } catch (error) {
@@ -3590,7 +3591,8 @@
                 document.getElementById("add-appointment").addEventListener("click", openAddModal);
                 
                 document.getElementById("save-appointment").addEventListener("click", async () => {
-                // Clear previous errors and styling
+                    console.log("✅ New appointment saved, triggering SMS notification...");
+                    // Clear previous errors and styling
                 document.querySelectorAll('.validation-error').forEach(el => {
                     el.textContent = '';
                     el.style.display = 'none';
