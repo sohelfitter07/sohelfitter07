@@ -2954,19 +2954,19 @@
  
             // Save (add or update) appointment in Firestore
             async function saveAppointment(data) {
-    if (!data.customer) {
-        showToast("Customer name is required", true);
-        return;
-    }
+            if (!data.customer) {
+                showToast("Customer name is required", true);
+                return;
+            }
 
-    if (!data.date || data.date.toDate().toString() === 'Invalid Date') {
-        showToast("Invalid date selected", true);
-        return;
-    }
+            if (!data.date || data.date.toDate().toString() === 'Invalid Date') {
+                showToast("Invalid date selected", true);
+                return;
+            }
 
-    showLoading(true);
+            showLoading(true);
 
-    try {
+            try {
         // 🔧 Create a separate object for notifications only
         const notificationData = { ...data };
         notificationData.dateObj = data.date.toDate?.() || new Date();
@@ -3603,164 +3603,42 @@
                 document.getElementById("add-appointment").addEventListener("click", openAddModal);
                 
                 document.getElementById("save-appointment").addEventListener("click", async () => {
-                    console.log("✅ New appointment saved, triggering SMS notification...");
-                    // Clear previous errors and styling
-                document.querySelectorAll('.validation-error').forEach(el => {
-                    el.textContent = '';
-                    el.style.display = 'none';
-                });
-                document.querySelectorAll('.form-control').forEach(field => {
-                    field.classList.remove('invalid');
-                });
-                
-                // Phone number formatting
-                document.getElementById('admin-phone')?.addEventListener('input', function(e) {
-                    // Remove non-digit characters
-                    let phone = this.value.replace(/\D/g, '');
-                    
-                    // Limit to 10 characters
-                    phone = phone.substring(0, 10);
-                    
-                    this.value = phone;
-                    
-                    // Clear error when user types
-                    clearValidationError('admin-phone');
-                });
-                
-                // Add real-time validation
-                document.querySelectorAll('.form-control').forEach(field => {
-                    field.addEventListener('blur', () => {
-                        validateField(field);
-                    });
-                });
-                
-                // Notification preference change listeners
-                document.getElementById('email-notifications')?.addEventListener('change', () => {
-                    updateNotificationStatusIndicators();
-                });
-                
-                document.getElementById('sms-notifications')?.addEventListener('change', () => {
-                    updateNotificationStatusIndicators();
-                });
+    const customerName = document.getElementById("customer-name").value.trim();
+    const phone = document.getElementById("customer-phone").value.trim();
+    const dateInput = document.getElementById("appointment-date").value;
+    const timeInput = document.getElementById("appointment-time").value;
+    const dateObj = new Date(`${dateInput}T${timeInput}`);
+    const timestamp = Timestamp.fromDate(dateObj);
+    const equipment = document.getElementById("equipment").value.trim();
+    const basePrice = parseFloat(document.getElementById("appointment-base-price").value) || 0;
+    const issue = document.getElementById("issue-description").value.trim();
+    const status = document.getElementById("appointment-status").value;
+    const repairNotes = document.getElementById("repair-notes").value.trim();
     
-                function validateField(field) {
-                    const errorElement = document.getElementById(`${field.id}-error`);
-                    if (!field.value.trim()) {
-                        field.classList.add('invalid');
-                        errorElement.textContent = 'This field is required';
-                    } else {
-                        field.classList.remove('invalid');
-                        errorElement.textContent = '';
-                    }
-                }
-    
-                // Validation helper functions
-                const validators = {
-                    required: value => value.trim() !== '',
-                    validDate: value => !isNaN(Date.parse(value)),
-                    validTime: value => /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value.trim()),
-                    validPrice: value => !isNaN(parseFloat(value)) && parseFloat(value) >= 0
-                };
-    
-                let isValid = true;
-                let firstInvalidField = null;
-                let firstErrorMessage = '';
-    
-                const fieldsToValidate = [
-                    { id: 'customer-name', validator: validators.required, message: 'Customer name is required' },
-                    { id: 'appointment-date', validator: validators.validDate, message: 'Please select a valid date' },
-                    { id: 'appointment-time', validator: validators.validTime, message: 'Please select a valid time' },
-                    { id: 'appointment-base-price', validator: validators.validPrice, message: 'Please enter a valid price' }
-                ];
-    
-                // Validate fields and collect first error
-                fieldsToValidate.forEach(({ id, validator, message }) => {
-                    const field = document.getElementById(id);
-                    if (field && !validator(field.value)) {
-                        field.classList.add('invalid');
-                        if (!firstInvalidField) {
-                            firstInvalidField = field;
-                            firstErrorMessage = message;
-                        }
-                        isValid = false;
-                    }
-                });
-    
-                // Show toast for first error
-                if (!isValid) {
-                    if (firstInvalidField) {
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        showToast(firstErrorMessage, true); // Show specific error toast
-                    }
-                    return;
-                }
-    
-                // Proceed with save if valid...
-                try {
-                    // Authentication check
-                    if (!auth.currentUser) {
-                        showToast("You need to re-authenticate. Redirecting to login...", true);
-                        setTimeout(() => window.location.href = "admin-login.html", 2000);
-                        return;
-                    }
-    
-                    // Collect form data
-                    const customerName = document.getElementById("customer-name").value.trim();
-                    const phone = document.getElementById("customer-phone").value.trim();
-                    const dateInput = document.getElementById("appointment-date").value;
-                    const timeInput = document.getElementById("appointment-time").value;
-                    const dateObj = new Date(`${dateInput}T${timeInput}`);
-                    const timestamp = Timestamp.fromDate(dateObj);
-                    const equipment = document.getElementById("equipment").value.trim();
-                    const basePrice = parseFloat(document.getElementById("appointment-base-price").value) || 0;
-                    const issue = document.getElementById("issue-description").value.trim();
-                    const status = document.getElementById("appointment-status").value;
-                    const repairNotes = document.getElementById("repair-notes").value.trim();
-                    
-                    // Get tax information
-                    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
-                    const province = settings.province || 'ON';
-                    const taxRate = getTaxRate(province);
-                    const totalPrice = basePrice * (1 + taxRate);
-    
-                    const appointmentData = {
-                        customer: customerName,
-                        phone,
-                        equipment,
-                        date: timestamp,
-                        basePrice,
-                        price: totalPrice,
-                        taxRate,
-                        issue,
-                        status,
-                        repair_notes: repairNotes,
-                        createdAt: Timestamp.now(), // Add creation timestamp
-                        createdBy: auth.currentUser.uid // Add creator ID
-                    };
-    
-                    // Show saving notification
-                    showToast("Saving appointment...");
-    
-                    // Save to Firestore
-                    if (editingAppointmentId) {
-                        const docRef = doc(db, "appointments", editingAppointmentId);
-                        await updateDoc(docRef, appointmentData);
-                        showToast("Appointment updated successfully!");
-                    } else {
-                        await addDoc(appointmentsCollection, appointmentData);
-                        showToast("Appointment created successfully!");
-                    }
-    
-                    // Reset and close modal
-                    editingAppointmentId = null;
-                    await fetchAppointments();
-                    document.getElementById('appointment-modal').classList.remove('active');
-                    
-                } catch (error) {
-                    console.error("Error saving appointment:", error);
-                    showToast(`Error saving appointment: ${error.message}`, true);
-                }
-            });         
+    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+    const province = settings.province || 'ON';
+    const taxRate = getTaxRate(province);
+    const totalPrice = basePrice * (1 + taxRate);
+
+    const appointmentData = {
+        customer: customerName,
+        phone,
+        equipment,
+        date: timestamp,
+        basePrice,
+        price: totalPrice,
+        taxRate,
+        issue,
+        status,
+        repair_notes: repairNotes,
+        createdAt: Timestamp.now(),
+        createdBy: auth.currentUser.uid
+    };
+
+    await saveAppointment(appointmentData);
+});
+
+
                 // Modal controls
                 document.querySelectorAll('.close-modal').forEach(btn => {
                     btn.addEventListener('click', () => {
