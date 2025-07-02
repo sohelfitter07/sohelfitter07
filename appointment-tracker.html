@@ -4256,7 +4256,7 @@ document.querySelectorAll('[data-view]').forEach(link => {
         customer: customerName,
         phone,
         email,
-        carrier,
+        carrier: document.getElementById("customer-carrier").value || "unknown", // ADD THIS LINE
         equipment,
         date: timestamp,
         basePrice,
