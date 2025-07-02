@@ -383,12 +383,21 @@
         }
         
         .status-badge {
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            display: inline-block;
-        }
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  display: inline-block;
+}
+
+.status-scheduled { background: #e0f7fa; color: #006064; }
+.status-inprogress { background: #fff3e0; color: #e65100; }
+.status-awaiting { background: #f3e5f5; color: #6a1b9a; }
+.status-arrived { background: #e8f5e9; color: #2e7d32; }
+.status-install { background: #fbe9e7; color: #bf360c; }
+.status-repaired { background: #ede7f6; color: #4527a0; }
+.status-complete { background: #f1f8e9; color: #33691e; }
+.status-cancelled { background: #ffebee; color: #c62828; }
+
         
         .status-scheduled {
             background: rgba(93, 93, 255, 0.15);
@@ -1813,6 +1822,16 @@
     // ===== PAGINATION FOR CUSTOMERS =====
     let currentCustomerPage = 1;
     const customersPerPage = 10;
+    const statusMap = {
+        "Scheduled / Confirmed": { text: "Scheduled / Confirmed", class: "status-scheduled", icon: "📅" },
+        "In Progress": { text: "In Progress", class: "status-inprogress", icon: "🔧" },
+        "Awaiting Parts": { text: "Awaiting Parts", class: "status-awaiting", icon: "⏳" },
+        "Parts Arrived": { text: "Parts Arrived", class: "status-arrived", icon: "📦" },
+        "Scheduled for Parts Installation": { text: "Install Scheduled", class: "status-install", icon: "🛠️" },
+        "Repaired": { text: "Repaired", class: "status-repaired", icon: "✅" },
+        "Completed": { text: "Completed", class: "status-complete", icon: "🏁" },
+        "Cancelled": { text: "Cancelled", class: "status-cancelled", icon: "❌" }
+        };
 
     async function saveAdminSettings(db) {
     const rawAdminPhone = document.getElementById("admin-phone").value.trim();
@@ -3366,7 +3385,11 @@ function validatePhone(phone) {
     <td>${app.customer}</td>
     <td>${app.equipment || ""}</td>
     <td>${formatTimestamp(app.dateObj)}</td>
-    <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
+    <td>
+        <span class="status-badge ${statusInfo.class}" title="${statusInfo.text}">
+            ${statusInfo.icon || ""} ${statusInfo.text}
+        </span>
+    </td>
     <td>$${app.price || 0}</td>
     <td>
         <div style="display: flex; flex-direction: column; align-items: center;">
@@ -3835,6 +3858,7 @@ function validatePhone(phone) {
     document.getElementById("issue-description").value = app.issue || "";
     document.getElementById("repair-notes").value = app.repair_notes || "";
     document.getElementById("appointment-status").value = app.status || "";
+    document.getElementById("reminder-enabled").checked = app.reminderEnabled || false;
     document.getElementById("reminder-enabled").checked = !!app.reminderEnabled;
 
     calculateTax();
@@ -4032,7 +4056,7 @@ function validatePhone(phone) {
     const phone = document.getElementById("customer-phone").value.trim();
     const email = document.getElementById("customer-email")?.value?.trim() || "";
     const carrier = (document.getElementById("customer-carrier")?.value || "").toLowerCase();
-
+                    
     if (!phone && !email) {
         alert("Please enter at least a phone number or email address.");
         return;
