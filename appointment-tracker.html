@@ -1377,6 +1377,40 @@
                 </div>
             </div>
         </div>
+        <!-- Logs View -->
+        <div id="logs-view" class="tab-content">
+            <div class="card">
+            <div class="card-header">
+                <div class="card-title">Activity Logs</div>
+                <div class="card-icon">
+                <i class="fas fa-clipboard-list"></i>
+                </div>
+            </div>
+            <div class="table-container">
+                <table>
+                <thead>
+                    <tr>
+                    <th>Type</th>
+                    <th>Appointment ID</th>
+                    <th>Email</th>
+                    <th>SMS</th>
+                    <th>Status</th>
+                    <th>Timestamp</th>
+                    <th>Error</th>
+                    </tr>
+                </thead>
+                <tbody id="logs-body">
+                    <tr>
+                    <td colspan="7" style="text-align: center; padding: 30px;">
+                        <i class="fas fa-spinner fa-spin"></i> Loading logs...
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+  
         <div id="settings-view" class="tab-content">
             <div class="card">
                 <div class="card-header">
@@ -2465,6 +2499,9 @@ function validatePhone(phone) {
             case "reports":
                 initReportsView();
                 break;
+            case "logs":
+            fetchLogs();
+            break;
             case "settings":
                 loadSettings();
                 break;
@@ -2600,7 +2637,39 @@ function validatePhone(phone) {
     }
   });
 }
-  
+async function fetchLogs() {
+  const logsBody = document.getElementById("logs-body");
+  logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center;"><i class="fas fa-spinner fa-spin"></i> Loading logs...</td></tr>`;
+
+  try {
+    const snapshot = await getDocs(collection(db, "logs"));
+    const rows = [];
+
+    snapshot.forEach(doc => {
+      const log = doc.data();
+      const time = log.timestamp?.toDate?.().toLocaleString() || "N/A";
+
+      rows.push(`
+        <tr>
+          <td>${log.type}</td>
+          <td>${log.appointmentId || "N/A"}</td>
+          <td>${log.emailSent ? "✅" : "❌"}</td>
+          <td>${log.smsSent ? "✅" : "❌"}</td>
+          <td>${log.status || "-"}</td>
+          <td>${time}</td>
+          <td>${log.smsError || "-"}</td>
+        </tr>
+      `);
+    });
+
+    logsBody.innerHTML = rows.length > 0 ? rows.join("") : `
+      <tr><td colspan="7" style="text-align:center;">No logs found.</td></tr>`;
+  } catch (error) {
+    console.error("Failed to fetch logs:", error);
+    logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:red;">Failed to load logs</td></tr>`;
+  }
+}
+
     function logErrorToServer(error) {
         // Send error to backend for logging
         fetch('/api/log-error', {
