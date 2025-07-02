@@ -2697,27 +2697,32 @@ async function fetchLogs() {
   try {
     const logsQuery = query(collection(db, "logs"), orderBy("timestamp", "desc"));
     const snapshot = await getDocs(logsQuery);
+    const logs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-    const rows = [];
+    // Step 1: Collect unique appointment IDs
+    const appointmentIds = [...new Set(logs.map(log => log.appointmentId).filter(Boolean))];
 
-    for (const logDoc of snapshot.docs) {
-      const log = logDoc.data();
-      const time = log.timestamp?.toDate?.().toLocaleString() || "N/A";
-
-      let customerName = "N/A";
-      if (log.appointmentId) {
-        try {
-          const apptSnap = await getDoc(doc(db, "appointments", log.appointmentId));
-          if (apptSnap.exists()) {
-            const apptData = apptSnap.data();
-            customerName = apptData.customer || "Unknown";
-          }
-        } catch (err) {
-          console.warn("Error fetching appointment:", err.message);
+    // Step 2: Fetch appointments in parallel
+    const appointmentMap = {};
+    const fetchPromises = appointmentIds.map(async (id) => {
+      try {
+        const apptSnap = await getDoc(doc(db, "appointments", id));
+        if (apptSnap.exists()) {
+          appointmentMap[id] = apptSnap.data();
         }
+      } catch (err) {
+        console.warn(`❌ Failed to fetch appointment ${id}:`, err.message);
       }
+    });
+    await Promise.all(fetchPromises);
 
-      rows.push(`
+    // Step 3: Render table
+    const rows = logs.map(log => {
+      const time = log.timestamp?.toDate?.().toLocaleString() || "N/A";
+      const appt = appointmentMap[log.appointmentId];
+      const customerName = appt?.customer || "N/A";
+
+      return `
         <tr>
           <td>${log.type}</td>
           <td>${customerName}</td>
@@ -2727,8 +2732,8 @@ async function fetchLogs() {
           <td>${time}</td>
           <td>${log.smsError || "-"}</td>
         </tr>
-      `);
-    }
+      `;
+    });
 
     logsBody.innerHTML = rows.length > 0 ? rows.join("") : `
       <tr><td colspan="7" style="text-align:center;">No logs found.</td></tr>`;
@@ -2737,7 +2742,6 @@ async function fetchLogs() {
     logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:red;">Failed to load logs</td></tr>`;
   }
 }
-
 function logErrorToServer(error) {
         // Send error to backend for logging
         fetch('/api/log-error', {
