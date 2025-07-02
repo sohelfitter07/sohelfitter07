@@ -2401,41 +2401,16 @@ function validatePhone(phone) {
     
     function initReminderSystem() {
         // Check for appointments needing reminders
-        checkAppointmentReminders();
+        // checkAppointmentReminders();
         
         // Check every hour
-        setInterval(checkAppointmentReminders, 60 * 60 * 1000);
+        // setInterval(checkAppointmentReminders, 60 * 60 * 1000);
     }
     
     async function checkAppointmentReminders() {
-        try {
-            const now = new Date();
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            
-            // Get appointments scheduled for tomorrow
-            const q = query(
-                appointmentsCollection,
-                where('date', '>=', Timestamp.fromDate(tomorrow)),
-                where('date', '<', Timestamp.fromDate(new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000)))
-            );
-            const snapshot = await getDocs(q);
-    
-            snapshot.forEach(doc => {
-                const appointment = {
-                    id: doc.id,
-                    ...doc.data(),
-                    dateObj: doc.data().date.toDate()
-                };
-                
-                // Trigger reminder notification
-                console.log("✅ New appointment saved, triggering SMS notification...");
-                triggerNotifications('appointment_reminder', appointment);
-            });
-        } catch (error) {
-            console.error("Error checking reminders:", error);
-        }
-    }
+        console.log("🛑 checkAppointmentReminders() is disabled — server handles reminders now.");
+}
+
     function setupFieldValidation(fieldId, validator) {
         const field = document.getElementById(fieldId);
         if (!field) return;
