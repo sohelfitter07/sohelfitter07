@@ -3337,6 +3337,7 @@ function logErrorToServer(error) {
     // Get current settings
     const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
 
+
     if (settings.emailNotifications) {
         sendEmailNotification(eventType, appointmentData);
     }
