@@ -2386,49 +2386,7 @@ function validatePhone(phone) {
             </div>
         `;
     }
-    async function fetchLogs() {
-  const logsBody = document.getElementById("logs-body");
-  logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Loading...</td></tr>`;
-
-  try {
-    const snapshot = await getDocs(collection(db, "logs"));
-    const rows = [];
-
-    snapshot.forEach(doc => {
-      const log = doc.data();
-      const {
-        type = "unknown",
-        appointmentId = "-",
-        emailSent,
-        smsSent,
-        status = "-",
-        smsError = "",
-        timestamp
-      } = log;
-
-      const timeStr = timestamp?.toDate?.()?.toLocaleString?.() || "-";
-
-      rows.push(`
-        <tr>
-          <td>${type}</td>
-          <td>#${appointmentId}</td>
-          <td>${emailSent ? "✅" : "❌"}</td>
-          <td>${smsSent ? "✅" : "❌"}</td>
-          <td>${status}</td>
-          <td>${smsError || "-"}</td>
-          <td>${timeStr}</td>
-        </tr>
-      `);
-    });
-
-    logsBody.innerHTML = rows.length > 0
-      ? rows.join("")
-      : `<tr><td colspan="7" style="text-align:center;">No logs found.</td></tr>`;
-  } catch (err) {
-    logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: red;">Error loading logs: ${err.message}</td></tr>`;
-  }
-}
-
+    
     function initReminderSystem() {
         // Check for appointments needing reminders
         checkAppointmentReminders();
@@ -2543,7 +2501,7 @@ function validatePhone(phone) {
             case "reports":
                 initReportsView();
                 break;
-            case "logs":                         // ✅ ADD THIS
+                case "logs":                         // ✅ ADD THIS
                 fetchLogs();                     // ✅ Load logs only when Logs tab is opened
                 break;
             case "settings":
