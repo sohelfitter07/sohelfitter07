@@ -1801,7 +1801,7 @@
             onAuthStateChanged,
             signOut,
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    
+        import { collection, getDocs, query, orderBy } from "firebase/firestore"; // Make sure you import `query` and `orderBy`
         async function getFirebaseConfig() {
             try {
                 const response = await fetch(
@@ -2646,9 +2646,11 @@ async function fetchLogs() {
   logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center;"><i class="fas fa-spinner fa-spin"></i> Loading logs...</td></tr>`;
 
   try {
-    const snapshot = await getDocs(collection(db, "logs"));
-    const rows = [];
+    // ✅ Query logs ordered by timestamp descending
+    const logsQuery = query(collection(db, "logs"), orderBy("timestamp", "desc"));
+    const snapshot = await getDocs(logsQuery);
 
+    const rows = [];
     snapshot.forEach(doc => {
       const log = doc.data();
       const time = log.timestamp?.toDate?.().toLocaleString() || "N/A";
@@ -2673,7 +2675,6 @@ async function fetchLogs() {
     logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:red;">Failed to load logs</td></tr>`;
   }
 }
-
     function logErrorToServer(error) {
         // Send error to backend for logging
         fetch('/api/log-error', {
