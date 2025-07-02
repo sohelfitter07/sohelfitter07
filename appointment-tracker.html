@@ -1081,6 +1081,10 @@
                 <i class="fas fa-chart-pie"></i>
                 <span>Reports</span>
             </a>
+            <a href="#" data-view="logs">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Logs</span>
+            </a>
             <a href="#" data-view="settings">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
@@ -1322,6 +1326,7 @@
                 </table>
             </div>
         </div>
+
         <div id="reports-view" class="tab-content">
             <div class="card">
                 <div class="card-header">
@@ -1376,6 +1381,37 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Logs View -->
+        <div id="logs-view" class="tab-content" style="display: none;">
+            <div class="card">
+            <div class="card-header">
+                <div class="card-title">📋 Message Logs</div>
+                <div class="card-icon">
+                <i class="fas fa-envelope-open-text"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <table class="table" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                    <th>Type</th>
+                    <th>Appointment ID</th>
+                    <th>Email Sent</th>
+                    <th>SMS Sent</th>
+                    <th>Status</th>
+                    <th>Error</th>
+                    <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody id="logs-body">
+                    <tr><td colspan="7" style="text-align:center;">Loading logs...</td></tr>
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        
         <div id="settings-view" class="tab-content">
             <div class="card">
                 <div class="card-header">
@@ -1503,6 +1539,7 @@
                 </div>
             </div>
         </div>
+
         <div id="help-view" class="tab-content">
             <div class="card">
                 <div class="card-header">
@@ -2349,7 +2386,49 @@ function validatePhone(phone) {
             </div>
         `;
     }
-    
+    async function fetchLogs() {
+  const logsBody = document.getElementById("logs-body");
+  logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Loading...</td></tr>`;
+
+  try {
+    const snapshot = await getDocs(collection(db, "logs"));
+    const rows = [];
+
+    snapshot.forEach(doc => {
+      const log = doc.data();
+      const {
+        type = "unknown",
+        appointmentId = "-",
+        emailSent,
+        smsSent,
+        status = "-",
+        smsError = "",
+        timestamp
+      } = log;
+
+      const timeStr = timestamp?.toDate?.()?.toLocaleString?.() || "-";
+
+      rows.push(`
+        <tr>
+          <td>${type}</td>
+          <td>#${appointmentId}</td>
+          <td>${emailSent ? "✅" : "❌"}</td>
+          <td>${smsSent ? "✅" : "❌"}</td>
+          <td>${status}</td>
+          <td>${smsError || "-"}</td>
+          <td>${timeStr}</td>
+        </tr>
+      `);
+    });
+
+    logsBody.innerHTML = rows.length > 0
+      ? rows.join("")
+      : `<tr><td colspan="7" style="text-align:center;">No logs found.</td></tr>`;
+  } catch (err) {
+    logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: red;">Error loading logs: ${err.message}</td></tr>`;
+  }
+}
+
     function initReminderSystem() {
         // Check for appointments needing reminders
         checkAppointmentReminders();
@@ -2463,6 +2542,9 @@ function validatePhone(phone) {
                 break;
             case "reports":
                 initReportsView();
+                break;
+            case "logs":                         // ✅ ADD THIS
+                fetchLogs();                     // ✅ Load logs only when Logs tab is opened
                 break;
             case "settings":
                 loadSettings();
@@ -2955,25 +3037,6 @@ function validatePhone(phone) {
   }
 }
     
-    function checkAndShowReminder(appointments) {
-  // 🔁 Only run once per tab session
-  if (sessionStorage.getItem('reminderShown') === 'true') return;
-
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const tomorrowStr = tomorrow.toLocaleDateString('en-CA');
-
-  const hasReminder = appointments.some(app => {
-    const dateStr = app.dateObj?.toLocaleDateString('en-CA');
-    return dateStr === tomorrowStr && app.reminderEnabled;
-  });
-
-  if (hasReminder) {
-    showToast("📅 Reminder: You have appointments scheduled for tomorrow.");
-    sessionStorage.setItem('reminderShown', 'true');
-  }
-}
-
     // Email notification service
     async function sendEmailNotification(eventType, appointment) {
         let subject, body;
@@ -3982,6 +4045,13 @@ function validatePhone(phone) {
                     logout();
                 });
                 
+                document.querySelectorAll('[data-view]').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const view = link.getAttribute('data-view');
+                        activateView(view);
+                    });
+                });
                 // Top tab navigation
                 document.querySelectorAll(".tab").forEach(tab => {
                     tab.addEventListener("click", () => {
