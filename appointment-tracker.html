@@ -1667,7 +1667,11 @@
             <option value="cancelled">Cancelled</option>
           </select>
         </div>
-  
+        <div class="form-actions">
+            <button type="button" id="save-appointment" class="btn">Save Appointment</button>
+            <button type="button" id="cancel-appointment" class="btn secondary">Cancel</button>
+          </div>
+          
         <div class="form-actions">
           <button type="button" id="save-appointment" class="btn">Save Appointment</button>
           <button type="button" id="cancel-appointment" class="btn secondary">Cancel</button>
@@ -3348,37 +3352,35 @@ function validatePhone(phone) {
         const isSent = app.confirmationSent;
         const hasChanges = !isSent || app.lastStatusSent !== app.status;
         const canSend = app.needsResend || !app.confirmationSent;
-
-
-        const reminderIcon = app.reminderEnabled ? "⏰" : "";
-
         const row = document.createElement("tr");
+        const reminderIcon = app.reminderEnabled ? "🕒" : "";
+
         row.innerHTML = `
-            <td>#${app.id}</td>
-            <td>${app.customer}</td>
-            <td>${app.equipment || ""}</td>
-            <td>${formatTimestamp(app.dateObj)}</td>
-            <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
-            <td>$${app.price || 0}</td>
-            <td>
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <span title="${confirmTooltip}" style="font-size: 18px;">${confirmStatus}</span>
-                    ${confirmTimestamp ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
-                    ${reminderIcon ? `<span title="Reminder enabled">${reminderIcon}</span>` : ""}
-                </div>
-            </td>
-            <td class="action-cell">
-                <button class="action-btn send-btn" data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-                <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        `;
+    <td>#${app.id}</td>
+    <td>${app.customer}</td>
+    <td>${app.equipment || ""}</td>
+    <td>${formatTimestamp(app.dateObj)}</td>
+    <td><span class="status-badge ${statusInfo.class}">${statusInfo.text}</span></td>
+    <td>$${app.price || 0}</td>
+    <td>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <span title="${confirmTooltip}" style="font-size: 18px;">${confirmStatus}</span>
+            ${confirmTimestamp ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
+            ${reminderIcon ? `<span title="Reminder enabled">${reminderIcon}</span>` : ""}
+        </div>
+    </td>
+    <td class="action-cell">
+        <button class="action-btn send-btn" data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
+            <i class="fas fa-paper-plane"></i>
+        </button>
+        <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment">
+            <i class="fas fa-edit"></i>
+        </button>
+        <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment">
+            <i class="fas fa-trash"></i>
+        </button>
+    </td>
+`;
 
         tbody.appendChild(row);
     });
@@ -3827,6 +3829,7 @@ function validatePhone(phone) {
     document.getElementById("issue-description").value = app.issue || "";
     document.getElementById("repair-notes").value = app.repair_notes || "";
     document.getElementById("appointment-status").value = app.status || "";
+    document.getElementById("reminder-enabled").checked = !!app.reminderEnabled;
 
     calculateTax();
 
@@ -4049,7 +4052,7 @@ function validatePhone(phone) {
         (dateInput !== originalAppointmentData.date ||
          timeInput !== originalAppointmentData.time ||
          status !== originalAppointmentData.status);
-
+         const reminderEnabled = document.getElementById("reminder-enabled").checked;
     const appointmentData = {
         customer: customerName,
         phone,
@@ -4069,7 +4072,7 @@ function validatePhone(phone) {
         confirmationSentAt: null,
         lastStatusSent: "",
         lastAttemptStatus: "",
-        reminderEnabled: false,
+        reminderEnabled,
         needsResend: hasChanges  // ✅ flag if changed
     };
 
