@@ -1081,7 +1081,11 @@
                 <i class="fas fa-chart-pie"></i>
                 <span>Reports</span>
             </a>
-            
+            <a href="#" data-view="logs">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Logs</span>
+              </a>
+              
             <a href="#" data-view="settings">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
@@ -4051,7 +4055,14 @@ async function fetchLogs() {
                     e.preventDefault();
                     logout();
                 });
-                
+                // View switcher for sidebar links (including logs)
+document.querySelectorAll('[data-view]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const view = link.getAttribute('data-view');
+    activateView(view);
+  });
+});
                 // Top tab navigation
                 document.querySelectorAll(".tab").forEach(tab => {
                     tab.addEventListener("click", () => {
