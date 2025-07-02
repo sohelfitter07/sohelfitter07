@@ -1384,34 +1384,39 @@
         <!-- Logs View -->
         <div id="logs-view" class="tab-content">
             <div class="card">
-            <div class="card-header">
-                <div class="card-title">Activity Logs</div>
-                <div class="card-icon">
-                <i class="fas fa-clipboard-list"></i>
+                <div class="card-header">
+                    <div class="card-title">Activity Logs</div>
+                    <div class="card-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="table-container">
-                <table>
-                <thead>
-                    <tr>
-                    <th>Type</th>
-                    <th>Appointment ID</th>
-                    <th>Email</th>
-                    <th>SMS</th>
-                    <th>Status</th>
-                    <th>Timestamp</th>
-                    <th>Error</th>
-                    </tr>
-                </thead>
-                <tbody id="logs-body">
-                    <tr>
-                    <td colspan="7" style="text-align: center; padding: 30px;">
-                        <i class="fas fa-spinner fa-spin"></i> Loading logs...
-                    </td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
+                <div class="table-container">
+                    <table>
+                    <thead>
+                        <tr>
+                        <th>Type</th>
+                        <th>Appointment ID</th>
+                        <th>Email</th>
+                        <th>SMS</th>
+                        <th>Status</th>
+                        <th>Timestamp</th>
+                        <th>Error</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logs-body">
+                        <tr>
+                        <td colspan="7" style="text-align: center; padding: 30px;">
+                            <i class="fas fa-spinner fa-spin"></i> Loading logs...
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <button id="prev-log-page" class="btn secondary">Previous</button>
+                    <div id="log-page-indicator">Page 1</div>
+                    <button id="next-log-page" class="btn">Next</button>
+                  </div>                  
             </div>
         </div>
   
@@ -1802,52 +1807,74 @@
             signOut,
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-async function fetchLogs() {
+        let allLogs = [];
+        let currentLogPage = 1;
+        const logsPerPage = 20;
+
+        async function fetchLogs() {
   const logsBody = document.getElementById("logs-body");
   logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center;"><i class="fas fa-spinner fa-spin"></i> Loading logs...</td></tr>`;
 
   try {
     const logsQuery = query(collection(db, "logs"), orderBy("timestamp", "desc"));
     const snapshot = await getDocs(logsQuery);
-
-    const rows = [];
+    allLogs = [];
 
     for (const logDoc of snapshot.docs) {
       const log = logDoc.data();
       const time = log.timestamp?.toDate?.().toLocaleString() || "N/A";
-
       let customerName = "N/A";
+
       if (log.appointmentId) {
         try {
           const apptSnap = await getDoc(doc(db, "appointments", log.appointmentId));
           if (apptSnap.exists()) {
-            const apptData = apptSnap.data();
-            customerName = apptData.customer || "Unknown";
+            customerName = apptSnap.data().customer || "Unknown";
           }
         } catch (err) {
           console.warn("Error fetching appointment:", err.message);
         }
       }
 
-      rows.push(`
-        <tr>
-          <td>${log.type}</td>
-          <td>${customerName}</td>
-          <td>${log.emailSent ? "✅" : "❌"}</td>
-          <td>${log.smsSent ? "✅" : "❌"}</td>
-          <td>${log.status || "-"}</td>
-          <td>${time}</td>
-          <td>${log.smsError || "-"}</td>
-        </tr>
-      `);
+      allLogs.push({
+        ...log,
+        customer: customerName,
+        timeStr: time
+      });
     }
 
-    logsBody.innerHTML = rows.length > 0 ? rows.join("") : `
-      <tr><td colspan="7" style="text-align:center;">No logs found.</td></tr>`;
+    renderLogsPage(); // Render page 1
   } catch (error) {
     console.error("Failed to fetch logs:", error);
     logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:red;">Failed to load logs</td></tr>`;
   }
+}
+        function renderLogsPage() {
+  const logsBody = document.getElementById("logs-body");
+  const start = (currentLogPage - 1) * logsPerPage;
+  const pageLogs = allLogs.slice(start, start + logsPerPage);
+
+  const rows = pageLogs.map(log => `
+    <tr>
+      <td>${log.type}</td>
+      <td>${log.customer || "N/A"}</td>
+      <td>${log.emailSent ? "✅" : "❌"}</td>
+      <td>${log.smsSent ? "✅" : "❌"}</td>
+      <td>${log.status || "-"}</td>
+      <td>${log.timeStr || "-"}</td>
+      <td>${log.smsError || "-"}</td>
+    </tr>
+  `);
+
+  logsBody.innerHTML = rows.length > 0
+    ? rows.join("")
+    : `<tr><td colspan="7" style="text-align:center;">No logs found.</td></tr>`;
+
+  // Update pagination UI
+  const totalPages = Math.ceil(allLogs.length / logsPerPage);
+  document.getElementById("log-page-indicator").textContent = `Page ${currentLogPage} of ${totalPages}`;
+  document.getElementById("prev-log-page").disabled = currentLogPage === 1;
+  document.getElementById("next-log-page").disabled = currentLogPage >= totalPages;
 }
 
         async function getFirebaseConfig() {
@@ -3907,6 +3934,20 @@ function logErrorToServer(error) {
             window.addEventListener('DOMContentLoaded', async () => {
   await fetchAppointments(); // ✅ Make sure appointments are loaded
   checkUpcomingAppointments(); // ✅ Run reminder logic after fetch
+});
+            document.getElementById("prev-log-page").addEventListener("click", () => {
+            if (currentLogPage > 1) {
+                currentLogPage--;
+                renderLogsPage();
+            }
+            });
+
+            document.getElementById("next-log-page").addEventListener("click", () => {
+  const totalPages = Math.ceil(allLogs.length / logsPerPage);
+  if (currentLogPage < totalPages) {
+    currentLogPage++;
+    renderLogsPage();
+  }
 });
 
             // Chart.js setup
