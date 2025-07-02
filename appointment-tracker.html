@@ -1811,72 +1811,6 @@
         let currentLogPage = 1;
         const logsPerPage = 20;
 
-        async function fetchLogs() {
-  const logsBody = document.getElementById("logs-body");
-  logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center;"><i class="fas fa-spinner fa-spin"></i> Loading logs...</td></tr>`;
-
-  try {
-    const logsQuery = query(collection(db, "logs"), orderBy("timestamp", "desc"));
-    const snapshot = await getDocs(logsQuery);
-    allLogs = [];
-
-    for (const logDoc of snapshot.docs) {
-      const log = logDoc.data();
-      const time = log.timestamp?.toDate?.().toLocaleString() || "N/A";
-      let customerName = "N/A";
-
-      if (log.appointmentId) {
-        try {
-          const apptSnap = await getDoc(doc(db, "appointments", log.appointmentId));
-          if (apptSnap.exists()) {
-            customerName = apptSnap.data().customer || "Unknown";
-          }
-        } catch (err) {
-          console.warn("Error fetching appointment:", err.message);
-        }
-      }
-
-      allLogs.push({
-        ...log,
-        customer: customerName,
-        timeStr: time
-      });
-    }
-
-    renderLogsPage(); // Render page 1
-  } catch (error) {
-    console.error("Failed to fetch logs:", error);
-    logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:red;">Failed to load logs</td></tr>`;
-  }
-}
-        function renderLogsPage() {
-  const logsBody = document.getElementById("logs-body");
-  const start = (currentLogPage - 1) * logsPerPage;
-  const pageLogs = allLogs.slice(start, start + logsPerPage);
-
-  const rows = pageLogs.map(log => `
-    <tr>
-      <td>${log.type}</td>
-      <td>${log.customer || "N/A"}</td>
-      <td>${log.emailSent ? "✅" : "❌"}</td>
-      <td>${log.smsSent ? "✅" : "❌"}</td>
-      <td>${log.status || "-"}</td>
-      <td>${log.timeStr || "-"}</td>
-      <td>${log.smsError || "-"}</td>
-    </tr>
-  `);
-
-  logsBody.innerHTML = rows.length > 0
-    ? rows.join("")
-    : `<tr><td colspan="7" style="text-align:center;">No logs found.</td></tr>`;
-
-  // Update pagination UI
-  const totalPages = Math.ceil(allLogs.length / logsPerPage);
-  document.getElementById("log-page-indicator").textContent = `Page ${currentLogPage} of ${totalPages}`;
-  document.getElementById("prev-log-page").disabled = currentLogPage === 1;
-  document.getElementById("next-log-page").disabled = currentLogPage >= totalPages;
-}
-
         async function getFirebaseConfig() {
             try {
                 const response = await fetch(
@@ -3122,7 +3056,72 @@ function logErrorToServer(error) {
     sessionStorage.setItem(reminderKey, 'true');
   }
 }
-    
+    async function fetchLogs() {
+  const logsBody = document.getElementById("logs-body");
+  logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center;"><i class="fas fa-spinner fa-spin"></i> Loading logs...</td></tr>`;
+
+  try {
+    const logsQuery = query(collection(db, "logs"), orderBy("timestamp", "desc"));
+    const snapshot = await getDocs(logsQuery);
+    allLogs = [];
+
+    for (const logDoc of snapshot.docs) {
+      const log = logDoc.data();
+      const time = log.timestamp?.toDate?.().toLocaleString() || "N/A";
+      let customerName = "N/A";
+
+      if (log.appointmentId) {
+        try {
+          const apptSnap = await getDoc(doc(db, "appointments", log.appointmentId));
+          if (apptSnap.exists()) {
+            customerName = apptSnap.data().customer || "Unknown";
+          }
+        } catch (err) {
+          console.warn("Error fetching appointment:", err.message);
+        }
+      }
+
+      allLogs.push({
+        ...log,
+        customer: customerName,
+        timeStr: time
+      });
+    }
+
+    renderLogsPage(); // Render page 1
+  } catch (error) {
+    console.error("Failed to fetch logs:", error);
+    logsBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:red;">Failed to load logs</td></tr>`;
+  }
+}
+        function renderLogsPage() {
+            const logsBody = document.getElementById("logs-body");
+            const start = (currentLogPage - 1) * logsPerPage;
+            const pageLogs = allLogs.slice(start, start + logsPerPage);
+
+            const rows = pageLogs.map(log => `
+                <tr>
+                <td>${log.type}</td>
+                <td>${log.customer || "N/A"}</td>
+                <td>${log.emailSent ? "✅" : "❌"}</td>
+                <td>${log.smsSent ? "✅" : "❌"}</td>
+                <td>${log.status || "-"}</td>
+                <td>${log.timeStr || "-"}</td>
+                <td>${log.smsError || "-"}</td>
+                </tr>
+            `);
+
+            logsBody.innerHTML = rows.length > 0
+                ? rows.join("")
+                : `<tr><td colspan="7" style="text-align:center;">No logs found.</td></tr>`;
+
+            // Update pagination UI
+            const totalPages = Math.ceil(allLogs.length / logsPerPage);
+            document.getElementById("log-page-indicator").textContent = `Page ${currentLogPage} of ${totalPages}`;
+            document.getElementById("prev-log-page").disabled = currentLogPage === 1;
+            document.getElementById("next-log-page").disabled = currentLogPage >= totalPages;
+            }
+
     function checkAndShowReminder(appointments) {
   // 🔁 Only run once per tab session
   if (sessionStorage.getItem('reminderShown') === 'true') return;
