@@ -3587,6 +3587,12 @@ function logErrorToServer(error) {
             .then(data => {
                 if (data.success) {
                     showToast("Confirmation sent!");
+                    // ADD THIS SECTION TO SHOW SMS WARNINGS
+                    if (data.warnings && data.warnings.length > 0) {
+                    data.warnings.forEach(warning => {
+                        showToast(warning, true);  // Show as error toast
+                    });
+                    }
                     fetchAppointments();
                 } else {
                     showToast("Failed to send confirmation", "error");
