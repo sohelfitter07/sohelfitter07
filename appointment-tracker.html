@@ -2905,28 +2905,31 @@ function validatePhone(phone) {
             btn.disabled = false;
         }
     }
-    function checkUpcomingAppointments() {
-  const now = new Date();
-  const tomorrow = new Date();
-  tomorrow.setDate(now.getDate() + 1);
+    function checkAndShowReminder(appointments) {
+  const today = new Date();
+  const todayStr = today.toLocaleDateString('en-CA');
+  
+  // Create a unique key for today's reminder check
+  const reminderKey = `reminderShown_${todayStr}`;
+  
+  // Only run once per day per tab session
+  if (sessionStorage.getItem(reminderKey)) return;
 
-  const reminderShown = sessionStorage.getItem('adminReminderShown');
-  if (reminderShown) return; // ✅ Already shown during this session
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  const tomorrowStr = tomorrow.toLocaleDateString('en-CA');
 
-  const upcoming = appointments.filter(app => {
-    const dateObj = app.dateObj || new Date();
-    return (
-      dateObj.toDateString() === tomorrow.toDateString() &&
-      app.status === "scheduled"
-    );
+  const hasReminder = appointments.some(app => {
+    const dateStr = app.dateObj?.toLocaleDateString('en-CA');
+    return dateStr === tomorrowStr && app.reminderEnabled;
   });
 
-  if (upcoming.length > 0) {
-    showToast(`📅 Reminder: You have ${upcoming.length} appointment(s) tomorrow`);
-    sessionStorage.setItem('adminReminderShown', 'true'); // ✅ Set flag for session
+  if (hasReminder) {
+    showToast("📅 Reminder: You have appointments scheduled for tomorrow.");
+    // Set session storage with date-specific key
+    sessionStorage.setItem(reminderKey, 'true');
   }
 }
-
     
     function checkAndShowReminder(appointments) {
   // 🔁 Only run once per tab session
