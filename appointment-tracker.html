@@ -3335,7 +3335,7 @@ function logErrorToServer(error) {
     console.log("📨 Sending notification type:", eventType, appointmentData);
 
     // Get current settings
-    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+    const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
 
 
     if (settings.emailNotifications) {
@@ -3747,7 +3747,7 @@ function logErrorToServer(error) {
                 if (!document.getElementById('calendar-view').classList.contains('active')) {
                     return;
                 }
-                const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+                const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
                 const holidays = getCanadianHolidays(currentYear, settings.province || 'ON');
                 const calendarGrid = document.getElementById("calendar-days");
                 calendarGrid.innerHTML = "";
