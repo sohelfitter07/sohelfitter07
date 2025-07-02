@@ -2060,8 +2060,9 @@
             
             try {
                 // Get timezone from settings or default to Toronto
-                const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+                const settings = window.fitnessRepairSettings || {}
                 const timeZone = settings.timeZone || 'America/Toronto';
+
                 return dateObj.toLocaleString('en-CA', {
                     timeZone: timeZone,
                     hour12: true,
@@ -2846,6 +2847,7 @@ function logErrorToServer(error) {
             
             // 3. Apply settings to form or use defaults
             if (settings) {
+                window.fitnessRepairSettings = settings;
                 document.getElementById('settings-full-name').value = settings.fullName || "Admin User";
                 document.getElementById('settings-business-name').value = settings.businessName || "Canadian Fitness Repair";
                 document.getElementById('settings-start-time').value = settings.startTime || "08:00";
