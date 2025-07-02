@@ -2266,7 +2266,7 @@ function validatePhone(phone) {
         }
     
         function calculateTax() {
-            const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || {});
+            const settings = window.fitnessRepairSettings || {};
             const province = settings.province || 'ON';
             const taxRate = getTaxRate(province);
             
