@@ -4045,13 +4045,6 @@ function validatePhone(phone) {
                     logout();
                 });
                 
-                document.querySelectorAll('[data-view]').forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const view = link.getAttribute('data-view');
-                        activateView(view);
-                    });
-                });
                 // Top tab navigation
                 document.querySelectorAll(".tab").forEach(tab => {
                     tab.addEventListener("click", () => {
