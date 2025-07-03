@@ -1778,6 +1778,29 @@
         </div>
     </div>
 
+    <!-- Preview Message Modal -->
+    <div id="previewModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+        <span class="close-modal" onclick="closePreviewModal()">&times;</span>
+        <h2>📩 Message Preview</h2>
+    
+        <h4>Email Preview</h4>
+        <textarea id="emailPreview" class="form-control" rows="10" readonly></textarea>
+    
+        <h4 style="margin-top: 20px;">SMS Preview</h4>
+        <textarea id="smsPreview" class="form-control" rows="4" readonly></textarea>
+        <small id="smsCharCount" style="color: gray; display: block; margin-top: 4px;">
+            0 / 160 characters
+          </small>          
+        <div style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px;">
+            <button id="editPreviewBtn" class="btn secondary" onclick="enableEditing()">✏️ Edit</button>
+            <button id="savePreviewBtn" class="btn primary" style="display: none;" onclick="saveEditedPreview()">💾 Save Changes</button>
+            <button id="resetPreviewBtn" class="btn danger" disabled>🗑 Reset to Default</button>
+            <button class="btn" onclick="closePreviewModal()">❌ Close</button>
+          </div>          
+        </div>
+    </div>
+  
     <!-- Firebase Script -->
     <script type="module">
         console.log("✅ Admin dashboard initialized");
@@ -1843,7 +1866,9 @@
     let cachedAppointments = null;
     let lastFetchTime = 0;
     let originalAppointmentData = {};
-
+    let currentPreviewAppointment = null;
+    let originalEmail = "";
+    let originalSMS = "";
     const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
     
     // ===== ERROR HANDLING FOR FIREBASE =====
@@ -2152,6 +2177,50 @@
         THANKSGIVING: getNthMondayInMonth(2, year, 9), // Second Monday in October
         CHRISTMAS: adjustToNextMonday(new Date(year, 11, 25)), // Dec 25
     };
+    async function saveEditedPreview() {
+  if (!currentPreviewAppointment) return;
+
+  const email = document.getElementById("emailPreview").value.trim();
+  const sms = document.getElementById("smsPreview").value.trim();
+
+  const docRef = doc(db, "appointments", currentPreviewAppointment.id);
+
+  try {
+    await updateDoc(docRef, {
+      editedEmailBody: email,
+      editedSmsBody: sms
+    });
+
+    showToast("✅ Message saved successfully.");
+    closePreviewModal();
+  } catch (err) {
+    console.error("❌ Failed to save preview:", err);
+    showToast("Failed to save message", "error");
+  }
+}
+function enableEditing() {
+  const emailField = document.getElementById("emailPreview");
+  const smsField = document.getElementById("smsPreview");
+  const saveBtn = document.getElementById("savePreviewBtn");
+
+  emailField.readOnly = false;
+  smsField.readOnly = false;
+  saveBtn.style.display = "inline-block";
+  saveBtn.disabled = true;
+
+  function checkChanges() {
+    const email = emailField.value.trim();
+    const sms = smsField.value.trim();
+    saveBtn.disabled = (email === originalEmail.trim() && sms === originalSMS.trim());
+  }
+
+  emailField.addEventListener("input", checkChanges);
+  smsField.addEventListener("input", checkChanges);
+}
+function updateSMSCharCount() {
+  const sms = document.getElementById("smsPreview").value;
+  document.getElementById("smsCharCount").textContent = `${sms.length} / 160 characters`;
+}
 
     // Province-Specific Holidays
     switch(province) {
@@ -2279,7 +2348,87 @@ function validatePhone(phone) {
             document.getElementById('appointment-price').value = totalPrice.toFixed(2);
         }
         
+        function openPreviewModal(appointment) {
+  currentPreviewAppointment = appointment;
+  const docRef = doc(db, "appointments", appointment.id);
 
+  getDoc(docRef).then(snap => {
+    const data = snap.data();
+    const dateObj = appointment.date.toDate?.() || new Date();
+    const dateStr = dateObj.toLocaleDateString("en-CA");
+    const timeStr = dateObj.toLocaleTimeString("en-CA", { hour: '2-digit', minute: '2-digit' });
+
+    const customer = appointment.customer || "Customer";
+    const equipment = appointment.equipment || "";
+    const issue = appointment.issue || "N/A";
+    const status = appointment.status || "Scheduled";
+    const basePrice = (appointment.basePrice || 0).toFixed(2);
+    const totalPrice = (appointment.price || 0).toFixed(2);
+
+    const defaultEmail = `Hi ${customer},\n\nThis is a confirmation from Canadian Fitness Repair.\n\nYour appointment is scheduled for:\n📅 ${dateStr} at ⏰ ${timeStr}\n\nEquipment: ${equipment}\nIssue: ${issue}\n\nService Price: $${basePrice}\nTotal (incl. tax): $${totalPrice}\nStatus: ${status}\n\nIf you need to reschedule, please contact us at 289-925-7239 or reply to this email.\n\nThank you,\nCanadian Fitness Repair\n📧 canadianfitnessrepair@gmail.com\n📞 289-925-7239\n🌐 https://canadianfitnessrepair.com`;
+
+    const defaultSMS = `Your appointment with Canadian Fitness Repair is on ${dateStr} at ${timeStr}, is confirmed for ${equipment}. Status: ${status}. Call 289-925-7239 for details.`;
+
+    const emailField = document.getElementById("emailPreview");
+    const smsField = document.getElementById("smsPreview");
+
+    originalEmail = data.editedEmailBody || defaultEmail;
+    originalSMS = data.editedSmsBody || defaultSMS;
+
+    emailField.value = originalEmail;
+    smsField.value = originalSMS;
+
+    document.getElementById("resetPreviewBtn").disabled = !(data.editedEmailBody || data.editedSmsBody);
+
+    emailField.readOnly = true;
+    smsField.readOnly = true;
+    document.getElementById("savePreviewBtn").style.display = "none";
+    document.getElementById("smsPreview").addEventListener("input", () => {
+  document.getElementById("smsCharCount").textContent =
+    `${document.getElementById("smsPreview").value.length} / 160 characters`;
+});
+
+    document.getElementById("previewModal").classList.add("active");
+    updateSMSCharCount();  // initialize
+  });
+}
+document.getElementById("edit-email").onclick = () => {
+  document.getElementById("preview-email").readOnly = false;
+  document.getElementById("save-preview-changes").style.display = "inline-block";
+};
+
+document.getElementById("edit-sms").onclick = () => {
+  document.getElementById("preview-sms").readOnly = false;
+  document.getElementById("save-preview-changes").style.display = "inline-block";
+};
+
+function closePreviewModal() {
+  document.getElementById("preview-modal").classList.remove("active");
+}
+
+document.getElementById("close-preview-modal").onclick = closePreviewModal;
+document.getElementById("close-preview-btn").onclick = closePreviewModal;
+
+document.getElementById("save-preview-changes").onclick = async () => {
+  if (!currentPreviewAppointment) return;
+
+  const email = document.getElementById("preview-email").value.trim();
+  const sms = document.getElementById("preview-sms").value.trim();
+
+  const docRef = doc(db, "appointments", currentPreviewAppointment.id);
+
+  try {
+    await updateDoc(docRef, {
+      editedEmailBody: email,
+      editedSmsBody: sms
+    });
+    showToast("✅ Message saved successfully.");
+    closePreviewModal();
+  } catch (err) {
+    console.error("Save preview failed:", err);
+    showToast("Failed to save preview", "error");
+  }
+};
         // Encrypt sensitive data (e.g., phone number)
         async function encryptData(data) {
         try {
@@ -3530,6 +3679,7 @@ function logErrorToServer(error) {
         const canSend = app.needsResend || !app.confirmationSent;
         const row = document.createElement("tr");
         const reminderIcon = app.reminderEnabled ? "🕒" : "";
+        const isEdited = !!(app.editedEmailBody || app.editedSmsBody);
 
         row.innerHTML = `
     <td>#${app.id}</td>
@@ -3542,24 +3692,29 @@ function logErrorToServer(error) {
         </span>
     </td>
     <td>$${app.price || 0}</td>
-    <td>
-        <div style="display: flex; flex-direction: column; align-items: center;">
-            <span title="${confirmTooltip}" style="font-size: 18px;">${confirmStatus}</span>
-            ${confirmTimestamp ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
-            ${reminderIcon ? `<span title="Reminder enabled">${reminderIcon}</span>` : ""}
-        </div>
-    </td>
-    <td class="action-cell">
-        <button class="action-btn send-btn" data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
-            <i class="fas fa-paper-plane"></i>
-        </button>
-        <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment">
-            <i class="fas fa-edit"></i>
-        </button>
-        <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment">
-            <i class="fas fa-trash"></i>
-        </button>
-    </td>
+<td>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <span title="${confirmTooltip}" style="font-size: 18px;">${confirmStatus}</span>
+        ${confirmTimestamp ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
+        ${reminderIcon ? `<span title="Reminder enabled">${reminderIcon}</span>` : ""}
+        ${isEdited ? `<span title="Custom message saved" style="font-size: 13px;">✏️</span>` : ""}
+    </div>
+</td>
+
+   <td class="action-cell">
+    <button class="action-btn send-btn" data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
+        <i class="fas fa-paper-plane"></i>
+    </button>
+    <button class="action-btn preview-btn" data-id="${app.id}" title="Preview Email & SMS">
+        <i class="fas fa-eye"></i>
+    </button>
+    <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment">
+        <i class="fas fa-edit"></i>
+    </button>
+    <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment">
+        <i class="fas fa-trash"></i>
+    </button>
+</td>
 `;
 
         tbody.appendChild(row);
@@ -3607,6 +3762,13 @@ function logErrorToServer(error) {
             });
         };
     });
+
+    tbody.querySelectorAll(".preview-btn").forEach((btn) => {
+    btn.onclick = () => {
+        const appointment = appointments.find(a => a.id === btn.dataset.id);
+        if (appointment) openPreviewModal(appointment);
+    };
+});
 
     // Pagination
     const totalPages = Math.ceil(list.length / appointmentsPerPage);
