@@ -2354,6 +2354,7 @@ function validatePhone(phone) {
 
   getDoc(docRef).then(snap => {
     const data = snap.data();
+
     const dateObj = appointment.date.toDate?.() || new Date();
     const dateStr = dateObj.toLocaleDateString("en-CA");
     const timeStr = dateObj.toLocaleTimeString("en-CA", { hour: '2-digit', minute: '2-digit' });
@@ -2378,20 +2379,24 @@ function validatePhone(phone) {
     emailField.value = originalEmail;
     smsField.value = originalSMS;
 
-    document.getElementById("resetPreviewBtn").disabled = !(data.editedEmailBody || data.editedSmsBody);
+    // Disable reset button if no custom content exists
+    const resetBtn = document.getElementById("resetPreviewBtn");
+    const hasCustom = !!(data.editedEmailBody || data.editedSmsBody);
+    resetBtn.disabled = !hasCustom;
 
+    // Read-only mode by default
     emailField.readOnly = true;
     smsField.readOnly = true;
     document.getElementById("savePreviewBtn").style.display = "none";
-    document.getElementById("smsPreview").addEventListener("input", () => {
-  document.getElementById("smsCharCount").textContent =
-    `${document.getElementById("smsPreview").value.length} / 160 characters`;
-});
 
+    // Show modal
     document.getElementById("previewModal").classList.add("active");
-    updateSMSCharCount();  // initialize
+
+    // Update character count
+    document.getElementById("smsCharCount").textContent = `${smsField.value.length} / 160 characters`;
   });
 }
+
 document.getElementById("edit-email").onclick = () => {
   document.getElementById("preview-email").readOnly = false;
   document.getElementById("save-preview-changes").style.display = "inline-block";
@@ -2408,6 +2413,27 @@ function closePreviewModal() {
 
 document.getElementById("close-preview-modal").onclick = closePreviewModal;
 document.getElementById("close-preview-btn").onclick = closePreviewModal;
+document.getElementById("resetPreviewBtn").onclick = async () => {
+  if (!currentPreviewAppointment) return;
+
+  const confirmed = confirm("Are you sure you want to reset to the default message?");
+  if (!confirmed) return;
+
+  const docRef = doc(db, "appointments", currentPreviewAppointment.id);
+
+  try {
+    await updateDoc(docRef, {
+      editedEmailBody: "",
+      editedSmsBody: ""
+    });
+
+    showToast("✏️ Custom message reset to default.");
+    closePreviewModal();
+  } catch (err) {
+    console.error("Reset preview failed:", err);
+    showToast("Failed to reset message", "error");
+  }
+};
 
 document.getElementById("save-preview-changes").onclick = async () => {
   if (!currentPreviewAppointment) return;
