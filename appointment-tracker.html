@@ -3511,12 +3511,15 @@ function logErrorToServer(error) {
                     : "❌")
             : "⏳";
 
-        const confirmTooltip = {
+            const confirmTooltip = {
             "✅": "Confirmation sent successfully",
-            "⚠️": "Partial success (email sent, SMS failed/skipped)",
+            "⚠️": app.email
+                ? "Partial success (email sent, SMS failed/skipped)"
+                : "Partial success (SMS sent, email missing)",
             "❌": "Failed to send confirmation",
             "⏳": "Confirmation not sent yet"
-        }[confirmStatus];
+            }[confirmStatus];
+
 
         const confirmTimestamp = app.confirmationSentAt
             ? formatTimestamp(app.confirmationSentAt.toDate?.() || new Date())
