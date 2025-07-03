@@ -2398,13 +2398,13 @@ function validatePhone(phone) {
 }
 
 document.getElementById("edit-email").onclick = () => {
-  document.getElementById("preview-email").readOnly = false;
-  document.getElementById("save-preview-changes").style.display = "inline-block";
+  document.getElementById("emailpreview").readOnly = false;
+  document.getElementById("savePreviewBtn").style.display = "inline-block";
 };
 
 document.getElementById("edit-sms").onclick = () => {
   document.getElementById("preview-sms").readOnly = false;
-  document.getElementById("save-preview-changes").style.display = "inline-block";
+  document.getElementById("savePreviewBtn").style.display = "inline-block";
 };
 
 function closePreviewModal() {
@@ -2435,10 +2435,10 @@ document.getElementById("resetPreviewBtn").onclick = async () => {
   }
 };
 
-document.getElementById("save-preview-changes").onclick = async () => {
+document.getElementById("savePreviewBtn").onclick = async () => {
   if (!currentPreviewAppointment) return;
 
-  const email = document.getElementById("preview-email").value.trim();
+  const email = document.getElementById("emailpreview").value.trim();
   const sms = document.getElementById("preview-sms").value.trim();
 
   const docRef = doc(db, "appointments", currentPreviewAppointment.id);
