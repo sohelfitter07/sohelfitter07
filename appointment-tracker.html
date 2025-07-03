@@ -2409,28 +2409,35 @@ function closePreviewModal() {
 }
 
 
-// Reset button
-document.getElementById("resetPreviewBtn").onclick = async () => {
-  if (!currentPreviewAppointment) return;
+document.addEventListener("DOMContentLoaded", () => {
+  // ✅ Now this won't throw if button exists in HTML
+  const resetBtn = document.getElementById("resetPreviewBtn");
+  if (resetBtn) {
+    resetBtn.onclick = async () => {
+      if (!currentPreviewAppointment) return;
 
-  const confirmed = confirm("Are you sure you want to reset to the default message?");
-  if (!confirmed) return;
+      const confirmed = confirm("Are you sure you want to reset to the default message?");
+      if (!confirmed) return;
 
-  const docRef = doc(db, "appointments", currentPreviewAppointment.id);
+      const docRef = doc(db, "appointments", currentPreviewAppointment.id);
 
-  try {
-    await updateDoc(docRef, {
-      editedEmailBody: "",
-      editedSmsBody: ""
-    });
+      try {
+        await updateDoc(docRef, {
+          editedEmailBody: "",
+          editedSmsBody: ""
+        });
 
-    showToast("✏️ Custom message reset to default.");
-    closePreviewModal();
-  } catch (err) {
-    console.error("Reset preview failed:", err);
-    showToast("Failed to reset message", "error");
+        showToast("✏️ Custom message reset to default.");
+        closePreviewModal();
+      } catch (err) {
+        console.error("Reset preview failed:", err);
+        showToast("Failed to reset message", "error");
+      }
+    };
+  } else {
+    console.warn("⚠️ resetPreviewBtn not found in DOM");
   }
-};
+});
 
 // Save button
 document.getElementById("savePreviewBtn").onclick = async () => {
