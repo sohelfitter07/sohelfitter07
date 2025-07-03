@@ -4262,7 +4262,7 @@ document.querySelectorAll('[data-view]').forEach(link => {
         customer: customerName,
         phone,
         email,
-        carrier: document.getElementById("customer-carrier").value || "unknown", // ADD THIS LINE
+        carrier,
         equipment,
         date: timestamp,
         basePrice,
@@ -4280,7 +4280,7 @@ document.querySelectorAll('[data-view]').forEach(link => {
         reminderEnabled,
         needsResend: hasChanges  // ✅ flag if changed
     };
-
+    console.log("📝 Saving appointment:", appointmentData);
     await saveAppointment(appointmentData);
 });
 
