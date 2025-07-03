@@ -2397,15 +2397,12 @@ function validatePhone(phone) {
         }
         
 
-document.getElementById("edit-email").onclick = () => {
-  document.getElementById("emailpreview").readOnly = false;
+        document.getElementById("editPreviewBtn").onclick = () => {
+  document.getElementById("emailPreview").readOnly = false;
+  document.getElementById("smsPreview").readOnly = false;
   document.getElementById("savePreviewBtn").style.display = "inline-block";
 };
 
-document.getElementById("edit-sms").onclick = () => {
-  document.getElementById("preview-sms").readOnly = false;
-  document.getElementById("savePreviewBtn").style.display = "inline-block";
-};
 
 function closePreviewModal() {
   document.getElementById("preview-modal").classList.remove("active");
