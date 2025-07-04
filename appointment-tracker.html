@@ -1833,6 +1833,8 @@
         let allLogs = [];
         let currentLogPage = 1;
         const logsPerPage = 20;
+        let db;
+        let auth, appointmentsCollection;
 
         async function getFirebaseConfig() {
             try {
@@ -1855,9 +1857,10 @@
             }
     
             const app = initializeApp(firebaseConfig);
-            const db = getFirestore(app);
-            const auth = getAuth(app);
-            const appointmentsCollection = collection(db, "appointments");
+             db = getFirestore(app);
+             auth = getAuth(app);
+                appointmentsCollection = collection(db, "appointments");
+
             const customersCollection = collection(db, "customers");
  
             initApp(auth, db, appointmentsCollection, customersCollection);
