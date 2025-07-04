@@ -1975,31 +1975,28 @@
         showToast("Failed to save settings", true);
     }
 }
-async function fetchSMSPreviewTemplate(appointment) {
+async function fetchSMSPreviewTemplate(appointment, type = "confirmation") {
   try {
-    const response = await fetch("https://cfr-backend-1.onrender.com/api/dev/preview-template?type=confirmation&format=sms", {
+    const res = await fetch(`https://cfr-backend-1.onrender.com/api/dev/preview-template?type=${type}&format=sms`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(appointment),
     });
-
-    const text = await response.text();
-    return text;
+    return await res.text();
   } catch (err) {
     console.error("❌ Failed to fetch SMS preview:", err);
     return `Your appointment with Canadian Fitness Repair is on ${appointment.date?.toDate?.()?.toLocaleDateString('en-CA') || '[DATE]'} at ${appointment.date?.toDate?.()?.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' }) || '[TIME]'}. Status: ${appointment.status || 'Scheduled'}. Call 289-925-7239.`;
   }
 }
-async function fetchEmailPreviewTemplate(appointment) {
+
+async function fetchEmailPreviewTemplate(appointment, type = "confirmation") {
   try {
-    const response = await fetch("https://cfr-backend-1.onrender.com/api/dev/preview-template?type=confirmation&format=email", {
+    const res = await fetch(`https://cfr-backend-1.onrender.com/api/dev/preview-template?type=${type}&format=email`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(appointment),
     });
-
-    const text = await response.text();
-    return text;
+    return await res.text();
   } catch (err) {
     console.error("❌ Failed to fetch email preview:", err);
     return `Hi ${appointment.customer || 'Customer'},\n\nYour appointment is scheduled for ${appointment.date?.toDate?.()?.toLocaleDateString('en-CA')} at ${appointment.date?.toDate?.()?.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}. Equipment: ${appointment.equipment || '[Equipment]'}. Issue: ${appointment.issue || '[Issue]'}. Please contact 289-925-7239 to confirm.`;
@@ -2092,8 +2089,14 @@ async function fetchEmailPreviewTemplate(appointment) {
   const snap = await getDoc(docRef);
   const data = snap.data();
 
-  const defaultSMS = await fetchSMSPreviewTemplate(appointment);
-  const defaultEmail = await fetchEmailPreviewTemplate(appointment);
+  // Determine preview type
+  const wasConfirmed = !!appointment.confirmationSent;
+  const lastStatus = appointment.lastStatusSent;
+  const statusChanged = lastStatus && appointment.status !== lastStatus;
+  const previewType = wasConfirmed && statusChanged ? "update" : "confirmation";
+
+  const defaultSMS = await fetchSMSPreviewTemplate(appointment, previewType);
+  const defaultEmail = await fetchEmailPreviewTemplate(appointment, previewType);
 
   const emailField = document.getElementById("emailPreview");
   const smsField = document.getElementById("smsPreview");
@@ -2102,14 +2105,14 @@ async function fetchEmailPreviewTemplate(appointment) {
   originalSMS = data.editedSmsBody || defaultSMS;
 
   // Convert HTML <br> to newlines and strip tags for textarea preview
-function htmlToPlainText(html) {
-  return html
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<\/?[^>]+(>|$)/g, '')
-    .trim();
-}
+  function htmlToPlainText(html) {
+    return html
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/?[^>]+(>|$)/g, '')
+      .trim();
+  }
 
-emailField.value = htmlToPlainText(originalEmail);
+  emailField.value = htmlToPlainText(originalEmail);
   smsField.value = originalSMS;
 
   const resetBtn = document.getElementById("resetPreviewBtn");
@@ -2133,6 +2136,7 @@ emailField.value = htmlToPlainText(originalEmail);
   smsField.removeEventListener("input", updateCharCount); // no duplicate handlers
   smsField.addEventListener("input", updateCharCount);
 }
+
 
 function closePreviewModal() {
         document.getElementById("previewModal").classList.remove("active");
