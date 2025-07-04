@@ -1781,7 +1781,7 @@
     <!-- Preview Message Modal -->
     <div id="previewModal" class="modal">
         <div class="modal-content" style="max-width: 800px;">
-            <span class="close-modal">&times;</span>
+            <span class="close-modal" id="close-preview-icon">&times;</span>
         <h2>📩 Message Preview</h2>
     
         <h4>Email Preview</h4>
@@ -1796,7 +1796,7 @@
             <button id="editPreviewBtn" class="btn secondary" onclick="enableEditing()">✏️ Edit</button>
             <button id="savePreviewBtn" class="btn primary" style="display: none;" onclick="saveEditedPreview()">💾 Save Changes</button>
             <button id="resetPreviewBtn" class="btn danger" disabled>🗑 Reset to Default</button>
-            <button class="btn" onclick="closePreviewModal()">❌ Close</button>
+            <button class="btn" id="close-preview-btn">❌ Close</button>
           </div>          
         </div>
     </div>
@@ -3504,9 +3504,9 @@ function logErrorToServer(error) {
 function closePreviewModal() {
   document.getElementById("previewModal").classList.remove("active");
 }
+document.getElementById("close-preview-icon").addEventListener("click", closePreviewModal);
+document.getElementById("close-preview-btn").addEventListener("click", closePreviewModal);
 
-// Attach to close icon (⨉)
-document.querySelector(".close-modal").addEventListener("click", closePreviewModal);
 
             // Save (add or update) appointment in Firestore
             // Save customer to Firestore
@@ -4133,6 +4133,9 @@ document.querySelector(".close-modal").addEventListener("click", closePreviewMod
     currentLogPage++;
     renderLogsPage();
   }
+});
+            document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector(".close-modal").addEventListener("click", closePreviewModal);
 });
 
             // Chart.js setup
