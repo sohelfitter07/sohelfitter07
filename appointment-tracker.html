@@ -1776,7 +1776,21 @@
                 <input type="text" id="customer-modal-address" class="form-control" placeholder="Enter address">
                 <span id="address-error" class="error-message"></span> <!-- Error message for address -->
             </div>
-            
+
+            <!-- New Equipment Field -->
+            <div style="margin-bottom: 20px;">
+                <label>Equipment</label>
+                <input type="text" id="customer-modal-equipment" class="form-control" placeholder="Enter equipment (e.g., Treadmill)">
+                <span id="equipment-error" class="error-message"></span> <!-- Error message for equipment -->
+            </div>
+
+            <!-- New Last Appointment Field -->
+            <div style="margin-bottom: 20px;">
+                <label>Last Appointment</label>
+                <input type="date" id="customer-modal-last-appointment" class="form-control">
+                <span id="last-appointment-error" class="error-message"></span> <!-- Error message for last appointment -->
+            </div>
+
             <div style="margin-bottom: 20px;">
                 <label>Notes</label>
                 <textarea id="customer-modal-notes" class="form-control" placeholder="Add customer notes"></textarea>
@@ -1791,6 +1805,8 @@
             <div class="form-actions">
                 <button type="button" id="save-customer" class="btn">Save Customer</button>
                 <button type="button" id="cancel-customer" class="btn secondary">Cancel</button>
+                <!-- Reset button to clear form -->
+                <button type="button" id="reset-customer" class="btn secondary">Reset Form</button>
             </div>
         </form>
     </div>
@@ -3572,10 +3588,21 @@ document.getElementById("close-preview-icon").addEventListener("click", closePre
 document.getElementById("close-preview-btn").addEventListener("click", closePreviewModal);
 
 
-// Reset form fields and error messages
 function resetForm() {
+    // Reset the form fields
     document.getElementById('customer-form').reset();
+    
+    // Clear all error messages
     document.querySelectorAll('.error-message').forEach(msg => msg.innerText = '');
+    
+    // Reset modal title to "Add New Customer"
+    document.getElementById('customer-modal-title').textContent = "Add New Customer";
+    
+    // Reset editingCustomerId to null, as it's no longer editing
+    editingCustomerId = null;
+
+    // Optionally, you can close the modal
+    document.getElementById('customer-modal').classList.remove('active');
 }
 
 // Validation functions
@@ -3596,7 +3623,8 @@ async function saveCustomer() {
     const email = document.getElementById('customer-modal-email').value.trim();
     const address = document.getElementById('customer-modal-address').value.trim();
     const notes = document.getElementById('customer-modal-notes').value.trim();
-    
+    const equipment = document.getElementById('customer-modal-equipment').value.trim(); // New field for equipment
+    const lastAppointment = document.getElementById('customer-modal-last-appointment').value.trim(); // New field for last appointment
     // Reset all previous error messages
     document.querySelectorAll('.error-message').forEach(msg => msg.innerText = '');
     
@@ -3637,7 +3665,17 @@ async function saveCustomer() {
         showToast("Please fix the errors before saving.", true);
         return; // Stop execution if the form is invalid
     }
+    // Equipment validation (optional if you require it)
+    if (!equipment) {
+        document.getElementById('equipment-error').innerText = "Equipment is required";
+        isValid = false;
+    }
 
+    // Last Appointment validation (optional if you require it)
+    if (!lastAppointment) {
+        document.getElementById('last-appointment-error').innerText = "Last Appointment date is required";
+        isValid = false;
+    }
     // Show loading state while saving the data
     showLoading(true);
 
@@ -3647,6 +3685,8 @@ async function saveCustomer() {
         email,
         address,
         notes,
+        equipment,           // Include equipment field
+        lastAppointment,     // Include last appointment field
         createdAt: new Date().toISOString()
     };
 
@@ -4421,7 +4461,8 @@ async function saveCustomer() {
                 document.getElementById('customer-modal-email').value = customer.email || '';
                 document.getElementById('customer-modal-address').value = customer.address || '';
                 document.getElementById('customer-modal-notes').value = customer.notes || '';
-                
+                document.getElementById('customer-modal-equipment').value = customer.equipment || '';  // New field for equipment
+                document.getElementById('customer-modal-last-appointment').value = customer.lastAppointment || '';  // New field for last appointment
                 document.getElementById('customer-modal-title').textContent = "Edit Customer";
                 document.getElementById('customer-modal').classList.add('active');
             }
@@ -4694,7 +4735,11 @@ document.querySelectorAll('[data-view]').forEach(link => {
         // Send test notification
         sendSMSNotification('test', testAppointment);
     }
-    
+    document.addEventListener("DOMContentLoaded", function() {
+    // Add event listener for the reset button
+    document.getElementById('reset-customer').addEventListener('click', resetForm);
+});
+
             // ================ INITIALIZATION ================
             function initialize() {
                 setupEventListeners();
