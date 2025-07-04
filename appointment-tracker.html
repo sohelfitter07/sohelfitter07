@@ -2101,7 +2101,15 @@ async function fetchEmailPreviewTemplate(appointment) {
   originalEmail = data.editedEmailBody || defaultEmail;
   originalSMS = data.editedSmsBody || defaultSMS;
 
-  emailField.value = originalEmail;
+  // Convert HTML <br> to newlines and strip tags for textarea preview
+function htmlToPlainText(html) {
+  return html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/?[^>]+(>|$)/g, '')
+    .trim();
+}
+
+emailField.value = htmlToPlainText(originalEmail);
   smsField.value = originalSMS;
 
   const resetBtn = document.getElementById("resetPreviewBtn");
