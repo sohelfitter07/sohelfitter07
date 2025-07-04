@@ -2099,11 +2099,24 @@
     // Show modal
     document.getElementById("previewModal").classList.add("active");
 
-    // Update character count
-    document.getElementById("smsCharCount").textContent = `${smsField.value.length} / 160 characters`;
+    // ✅ Live character counter setup
+    const countLabel = document.getElementById("smsCharCount");
+    const updateCharCount = () => {
+      const len = smsField.value.length;
+      countLabel.textContent = `${len} / 160 characters`;
+      countLabel.style.color = len > 160 ? "red" : "gray";
+    };
+
+    // Initial count
+    updateCharCount();
+
+    // Attach live update listener
+    smsField.removeEventListener("input", updateCharCount); // prevent duplicates
+    smsField.addEventListener("input", updateCharCount);
   });
 }
-        function closePreviewModal() {
+
+function closePreviewModal() {
         document.getElementById("previewModal").classList.remove("active");
         }
         // ================ UTILITY FUNCTIONS ================
