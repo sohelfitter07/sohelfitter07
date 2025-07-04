@@ -3555,60 +3555,91 @@ document.getElementById("close-preview-btn").addEventListener("click", closePrev
 
             // Save (add or update) appointment in Firestore
             // Save customer to Firestore
-            async function saveCustomer() {
-                const name = document.getElementById('customer-modal-name').value.trim();
-                const phone = document.getElementById('customer-modal-phone').value.trim();
-                const email = document.getElementById('customer-modal-email').value.trim();
-                const address = document.getElementById('customer-modal-address').value.trim();
-                const notes = document.getElementById('customer-modal-notes').value.trim();
+           // Helper function to validate email format
+function isValidEmail(email) {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return re.test(email);
+}
 
-                // ✅ Validate required fields
-                if (!name) {
-                    showToast("Full name is required", true);
-                    return;
-                }
-                if (!phone) {
-                    showToast("Phone number is required", true);
-                    return;
-                }
-                if (!email) {
-                    showToast("Email is required", true);
-                    return;
-                }
-                if (!address) {
-                    showToast("Address is required", true);
-                    return;
-                }
+// Helper function to validate phone number format (simple check for digits)
+function isValidPhone(phone) {
+    const re = /^[0-9]{10}$/; // Assuming 10 digit phone numbers (you can adjust this based on your requirements)
+    return re.test(phone);
+}
 
-                showLoading(true);
+// Save (add or update) appointment in Firestore
+async function saveCustomer() {
+    const name = document.getElementById('customer-modal-name').value.trim();
+    const phone = document.getElementById('customer-modal-phone').value.trim();
+    const email = document.getElementById('customer-modal-email').value.trim();
+    const address = document.getElementById('customer-modal-address').value.trim();
+    const notes = document.getElementById('customer-modal-notes').value.trim();
 
-                const customerData = {
-                    name,
-                    phone,
-                    email,
-                    address,
-                    notes,
-                    createdAt: new Date().toISOString()
-                };
+    // ✅ Validate required fields
+    if (!name) {
+        showToast("Full name is required", true);
+        return;
+    }
 
-                try {
-                    if (editingCustomerId) {
-                        await updateDoc(doc(db, "customers", editingCustomerId), customerData);
-                        showToast("Customer updated!");
-                    } else {
-                        await addDoc(customersCollection, customerData);
-                        showToast("Customer added!");
-                    }
+    // Ensure that either phone or email is provided
+    if (!phone && !email) {
+        showToast("Either phone or email is required", true);
+        return;
+    }
 
-                    document.getElementById('customer-modal').classList.remove('active');
-                    fetchCustomers();
-                } catch (error) {
-                    showToast("Failed to save customer", true);
-                    console.error(error);
-                } finally {
-                    showLoading(false);
-                }
-            }
+    // Validate phone number if provided
+    if (phone && !isValidPhone(phone)) {
+        showToast("Valid phone number is required", true);
+        return;
+    }
+
+    // Validate email address if provided
+    if (email && !isValidEmail(email)) {
+        showToast("Valid email is required", true);
+        return;
+    }
+
+    // Ensure address is provided
+    if (!address) {
+        showToast("Address is required", true);
+        return;
+    }
+
+    // Show loading state while saving the data
+    showLoading(true);
+
+    const customerData = {
+        name,
+        phone,
+        email,
+        address,
+        notes,
+        createdAt: new Date().toISOString()
+    };
+
+    try {
+        // Check if we are editing an existing customer or adding a new one
+        if (editingCustomerId) {
+            await updateDoc(doc(db, "customers", editingCustomerId), customerData);
+            showToast("Customer updated!");
+        } else {
+            await addDoc(customersCollection, customerData);
+            showToast("Customer added!");
+        }
+
+        // Close the modal and refresh customer data
+        document.getElementById('customer-modal').classList.remove('active');
+        fetchCustomers();
+    } catch (error) {
+        // Handle errors and show feedback to the user
+        showToast(`Failed to save customer: ${error.message}`, true);
+        console.error(error);
+    } finally {
+        // Hide loading state when operation is complete
+        showLoading(false);
+    }
+}
+
                 
             // Delete appointment from Firestore
             async function deleteAppointment(id) {
