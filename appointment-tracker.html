@@ -1781,7 +1781,7 @@
     <!-- Preview Message Modal -->
     <div id="previewModal" class="modal">
         <div class="modal-content" style="max-width: 800px;">
-        <span class="close-modal" onclick="closePreviewModal()">&times;</span>
+            <span class="close-modal">&times;</span>
         <h2>📩 Message Preview</h2>
     
         <h4>Email Preview</h4>
@@ -2218,12 +2218,6 @@
         if (dayOfWeek === 0) return new Date(year, month, day + 1); // Sunday → next Monday
         return new Date(year, month, day - (dayOfWeek - 1)); // Move to Monday of the same week
     }
-    function closePreviewModal() {
-  document.getElementById("previewModal").classList.remove("active");
-}
-
-// ✅ Make available globally for onclick=""
-window.closePreviewModal = closePreviewModal;
 
     // Common Federal Holidays (observed nationwide)
     const holidays = {
@@ -3507,7 +3501,13 @@ function logErrorToServer(error) {
         sendSMSNotification(eventType, appointmentData);
     }
 }
- 
+function closePreviewModal() {
+  document.getElementById("previewModal").classList.remove("active");
+}
+
+// Attach to close icon (⨉)
+document.querySelector(".close-modal").addEventListener("click", closePreviewModal);
+
             // Save (add or update) appointment in Firestore
             // Save customer to Firestore
             async function saveCustomer() {
