@@ -2103,7 +2103,9 @@
     document.getElementById("smsCharCount").textContent = `${smsField.value.length} / 160 characters`;
   });
 }
-
+        function closePreviewModal() {
+        document.getElementById("previewModal").classList.remove("active");
+        }
         // ================ UTILITY FUNCTIONS ================
         function showLoading(show = true) {
             const loadingElement = document.getElementById('loading-overlay');
@@ -2218,9 +2220,7 @@
         if (dayOfWeek === 0) return new Date(year, month, day + 1); // Sunday → next Monday
         return new Date(year, month, day - (dayOfWeek - 1)); // Move to Monday of the same week
     }
-    function closePreviewModal() {
-  document.getElementById("previewModal").classList.remove("active");
-}
+
     // Common Federal Holidays (observed nationwide)
     const holidays = {
         NEW_YEAR: adjustToNextMonday(new Date(year, 0, 1)), // Jan 1
