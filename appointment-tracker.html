@@ -3587,7 +3587,7 @@ function isValidPhone(phone) {
 
 function isValidEmail(email) {
     // Simple email validation pattern (can be more complex if needed)
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]_]()
+   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 async function saveCustomer() {
     const name = document.getElementById('customer-modal-name').value.trim();
