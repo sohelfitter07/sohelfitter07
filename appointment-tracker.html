@@ -2221,6 +2221,10 @@
     function closePreviewModal() {
   document.getElementById("previewModal").classList.remove("active");
 }
+
+// ✅ Make available globally for onclick=""
+window.closePreviewModal = closePreviewModal;
+
     // Common Federal Holidays (observed nationwide)
     const holidays = {
         NEW_YEAR: adjustToNextMonday(new Date(year, 0, 1)), // Jan 1
