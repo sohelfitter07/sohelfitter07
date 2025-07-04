@@ -1760,7 +1760,7 @@
                 </div>
                 <div>
                     <label>Phone Number</label>
-                    <input type="tel" id="customer-modal-phone" class="form-control" placeholder="Enter phone number (e.g., 555-555-5555)">
+                    <input type="tel" id="customer-modal-phone" class="form-control" placeholder="Enter phone number (e.g., 5555555555)">
                     <span id="phone-error" class="error-message"></span> <!-- Error message for phone -->
                 </div>
             </div>
@@ -3995,7 +3995,7 @@ async function saveCustomer() {
                         <td>${customer.name}</td>
                         <td>${customer.phone}</td>
                         <td>${customer.email || '-'}</td>
-                        <td>${customer.Equipment || '-'}</td>
+                        <td>${customer.equipment || '-'}</td>
                         <td>${customer.lastAppointment || 'Never'}</td>
                         <td class="action-cell">
                             <button class="action-btn edit-btn" data-id="${customer.id}">
