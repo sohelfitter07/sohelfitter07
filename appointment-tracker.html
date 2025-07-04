@@ -1786,7 +1786,7 @@
 
             <!-- New Last Appointment Field -->
             <div style="margin-bottom: 20px;">
-                <label>Last Appointment</label>
+                <label>Last Appointment Date</label>
                 <input type="date" id="customer-modal-last-appointment" class="form-control">
                 <span id="last-appointment-error" class="error-message"></span> <!-- Error message for last appointment -->
             </div>
@@ -3025,7 +3025,11 @@ function logErrorToServer(error) {
             }
         });
     }
-    
+    function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return date.toLocaleDateString(undefined, options);
+}
     // ===== SETTINGS VIEW INITIALIZATION =====
     function updateNotificationStatusIndicators() {
         const emailEnabled = document.getElementById('email-notifications').checked;
@@ -3983,6 +3987,7 @@ async function saveCustomer() {
                 }
                 
                 customers.forEach(customer => {
+                    const lastAppointment = customer.lastAppointment ? formatDate(customer.lastAppointment) : 'Never';
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${customer.name}</td>
