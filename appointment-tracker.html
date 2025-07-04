@@ -3349,7 +3349,7 @@ function logErrorToServer(error) {
     }
     
     // SMS notification service
-    async function sendSMSNotification(eventTclosePreviewpreype, appointment) {
+    async function sendSMSNotification(eventType, appointment) {
         try {
             // Get admin notification settings
             const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
