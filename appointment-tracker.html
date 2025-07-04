@@ -3580,8 +3580,8 @@ function resetForm() {
 
 // Validation functions
 function isValidPhone(phone) {
-    // Example phone validation (can be more complex)
-    const phonePattern = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+    // This regex allows numbers with or without dashes.
+    const phonePattern = /^(\d{3}[-\s]?)?(\d{3}[-\s]?)?(\d{4})$/;
     return phonePattern.test(phone);
 }
 
