@@ -2218,7 +2218,9 @@
         if (dayOfWeek === 0) return new Date(year, month, day + 1); // Sunday → next Monday
         return new Date(year, month, day - (dayOfWeek - 1)); // Move to Monday of the same week
     }
-
+    function closePreviewModal() {
+  document.getElementById("previewModal").classList.remove("active");
+}
     // Common Federal Holidays (observed nationwide)
     const holidays = {
         NEW_YEAR: adjustToNextMonday(new Date(year, 0, 1)), // Jan 1
@@ -2406,10 +2408,6 @@ function validatePhone(phone) {
   document.getElementById("savePreviewBtn").style.display = "inline-block";
 };
 
-
-function closePreviewModal() {
-  document.getElementById("previewModal").classList.remove("active");
-}
 
 
 document.addEventListener("DOMContentLoaded", () => {
