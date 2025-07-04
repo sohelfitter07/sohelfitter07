@@ -3572,56 +3572,69 @@ document.getElementById("close-preview-icon").addEventListener("click", closePre
 document.getElementById("close-preview-btn").addEventListener("click", closePreviewModal);
 
 
-            // Save (add or update) appointment in Firestore
-            // Save customer to Firestore
-           // Helper function to validate email format
-function isValidEmail(email) {
-    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return re.test(email);
+// Reset form fields and error messages
+function resetForm() {
+    document.getElementById('customer-form').reset();
+    document.querySelectorAll('.error-message').forEach(msg => msg.innerText = '');
 }
 
-// Helper function to validate phone number format (simple check for digits)
+// Validation functions
 function isValidPhone(phone) {
-    const re = /^[0-9]{10}$/; // Assuming 10 digit phone numbers (you can adjust this based on your requirements)
-    return re.test(phone);
+    // Example phone validation (can be more complex)
+    const phonePattern = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+    return phonePattern.test(phone);
 }
 
-// Save (add or update) appointment in Firestore
+function isValidEmail(email) {
+    // Simple email validation pattern (can be more complex if needed)
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]_]()
+
 async function saveCustomer() {
     const name = document.getElementById('customer-modal-name').value.trim();
     const phone = document.getElementById('customer-modal-phone').value.trim();
     const email = document.getElementById('customer-modal-email').value.trim();
     const address = document.getElementById('customer-modal-address').value.trim();
     const notes = document.getElementById('customer-modal-notes').value.trim();
-
+    
+    // Reset all previous error messages
+    document.querySelectorAll('.error-message').forEach(msg => msg.innerText = '');
+    
     // ✅ Validate required fields
+    let isValid = true; // Flag to track validity
+
+    // Validate name
     if (!name) {
-        showToast("Full name is required", true);
-        return;
+        document.getElementById('name-error').innerText = "Full name is required";
+        isValid = false;
     }
 
     // Ensure that either phone or email is provided
     if (!phone && !email) {
-        showToast("Either phone or email is required", true);
-        return;
+        document.getElementById('phone-error').innerText = "Either phone or email is required";
+        isValid = false;
     }
 
     // Validate phone number if provided
     if (phone && !isValidPhone(phone)) {
-        showToast("Valid phone number is required", true);
-        return;
+        document.getElementById('phone-error').innerText = "Valid phone number is required";
+        isValid = false;
     }
 
     // Validate email address if provided
     if (email && !isValidEmail(email)) {
-        showToast("Valid email is required", true);
-        return;
+        document.getElementById('email-error').innerText = "Valid email is required";
+        isValid = false;
     }
 
     // Ensure address is provided
     if (!address) {
-        showToast("Address is required", true);
-        return;
+        document.getElementById('address-error').innerText = "Address is required";
+        isValid = false;
+    }
+
+    if (!isValid) {
+        showToast("Please fix the errors before saving.", true);
+        return; // Stop execution if the form is invalid
     }
 
     // Show loading state while saving the data
@@ -3649,6 +3662,7 @@ async function saveCustomer() {
         // Close the modal and refresh customer data
         document.getElementById('customer-modal').classList.remove('active');
         fetchCustomers();
+        resetForm(); // Reset form after successful save
     } catch (error) {
         // Handle errors and show feedback to the user
         showToast(`Failed to save customer: ${error.message}`, true);
@@ -3658,6 +3672,7 @@ async function saveCustomer() {
         showLoading(false);
     }
 }
+
 
                 
             // Delete appointment from Firestore
