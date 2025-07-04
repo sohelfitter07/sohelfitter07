@@ -286,7 +286,15 @@
             font-weight: 600;
             color: var(--dark-text);
         }
-        
+          .error-message {
+        color: red;
+        font-size: 12px;
+    }
+
+    .spinner {
+        font-size: 20px;
+        color: #007bff;
+    }
         .card-icon {
             width: 50px;
             height: 50px;
@@ -1738,45 +1746,56 @@
     </div>
   </div>
 
-    <!-- Customer Modal -->
-    <div id="customer-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 id="customer-modal-title"><i class="fas fa-user-plus"></i> Add New Customer</h2>
-            <form id="customer-form">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                    <div>
-                        <label>Full Name</label>
-                        <input type="text" id="customer-modal-name" class="form-control" placeholder="Enter full name" required>
-                    </div>
-                    <div>
-                        <label>Phone Number</label>
-                        <input type="tel" id="customer-modal-phone" class="form-control" placeholder="Enter phone number" required>
-                    </div>
+<!-- Customer Modal -->
+<div id="customer-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 id="customer-modal-title"><i class="fas fa-user-plus"></i> Add New Customer</h2>
+        <form id="customer-form">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div>
+                    <label>Full Name</label>
+                    <input type="text" id="customer-modal-name" class="form-control" placeholder="Enter full name" required>
+                    <span id="name-error" class="error-message"></span> <!-- Error message for full name -->
                 </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label>Email Address</label>
-                    <input type="email" id="customer-modal-email" class="form-control" placeholder="Enter email address">
+                <div>
+                    <label>Phone Number</label>
+                    <input type="tel" id="customer-modal-phone" class="form-control" placeholder="Enter phone number (e.g., 555-555-5555)">
+                    <span id="phone-error" class="error-message"></span> <!-- Error message for phone -->
                 </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label>Address</label>
-                    <input type="text" id="customer-modal-address" class="form-control" placeholder="Enter address">
-                </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label>Notes</label>
-                    <textarea id="customer-modal-notes" class="form-control" placeholder="Add customer notes"></textarea>
-                </div>
-                
-                <div class="form-actions">
-                    <button type="button" id="save-customer" class="btn">Save Customer</button>
-                    <button type="button" id="cancel-customer" class="btn secondary">Cancel</button>
-                </div>
-            </form>
-        </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label>Email Address</label>
+                <input type="email" id="customer-modal-email" class="form-control" placeholder="Enter email address (e.g., example@domain.com)">
+                <span id="email-error" class="error-message"></span> <!-- Error message for email -->
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label>Address</label>
+                <input type="text" id="customer-modal-address" class="form-control" placeholder="Enter address">
+                <span id="address-error" class="error-message"></span> <!-- Error message for address -->
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label>Notes</label>
+                <textarea id="customer-modal-notes" class="form-control" placeholder="Add customer notes"></textarea>
+                <span id="notes-error" class="error-message"></span> <!-- Error message for notes -->
+            </div>
+            
+            <!-- Loading spinner (hidden initially) -->
+            <div id="loading-spinner" class="spinner" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i> Saving...
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="save-customer" class="btn">Save Customer</button>
+                <button type="button" id="cancel-customer" class="btn secondary">Cancel</button>
+            </div>
+        </form>
     </div>
+</div>
+
 
     <!-- Preview Message Modal -->
     <div id="previewModal" class="modal">
