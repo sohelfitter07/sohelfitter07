@@ -2218,7 +2218,9 @@
         if (dayOfWeek === 0) return new Date(year, month, day + 1); // Sunday → next Monday
         return new Date(year, month, day - (dayOfWeek - 1)); // Move to Monday of the same week
     }
-
+    function closePreviewModal() {
+  document.getElementById("previewModal").classList.remove("active");
+}
     // Common Federal Holidays (observed nationwide)
     const holidays = {
         NEW_YEAR: adjustToNextMonday(new Date(year, 0, 1)), // Jan 1
@@ -3334,7 +3336,7 @@ function logErrorToServer(error) {
     }
     
     // SMS notification service
-    async function sendSMSNotification(eventType, appointment) {
+    async function sendSMSNotification(eventTclosePreviewpreype, appointment) {
         try {
             // Get admin notification settings
             const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
@@ -3501,9 +3503,7 @@ function logErrorToServer(error) {
         sendSMSNotification(eventType, appointmentData);
     }
 }
-function closePreviewModal() {
-  document.getElementById("previewModal").classList.remove("active");
-}
+
 document.getElementById("close-preview-icon").addEventListener("click", closePreviewModal);
 document.getElementById("close-preview-btn").addEventListener("click", closePreviewModal);
 
