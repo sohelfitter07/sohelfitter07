@@ -1859,55 +1859,7 @@
             const auth = getAuth(app);
             const appointmentsCollection = collection(db, "appointments");
             const customersCollection = collection(db, "customers");
-            function openPreviewModal(appointment) {
-  currentPreviewAppointment = appointment;
-  const docRef = doc(db, "appointments", appointment.id);
-
-  getDoc(docRef).then(snap => {
-    const data = snap.data();
-
-    const dateObj = appointment.date.toDate?.() || new Date();
-    const dateStr = dateObj.toLocaleDateString("en-CA");
-    const timeStr = dateObj.toLocaleTimeString("en-CA", { hour: '2-digit', minute: '2-digit' });
-
-    const customer = appointment.customer || "Customer";
-    const equipment = appointment.equipment || "";
-    const issue = appointment.issue || "N/A";
-    const status = appointment.status || "Scheduled";
-    const basePrice = (appointment.basePrice || 0).toFixed(2);
-    const totalPrice = (appointment.price || 0).toFixed(2);
-
-    const defaultEmail = `Hi ${customer},\n\nThis is a confirmation from Canadian Fitness Repair.\n\nYour appointment is scheduled for:\n📅 ${dateStr} at ⏰ ${timeStr}\n\nEquipment: ${equipment}\nIssue: ${issue}\n\nService Price: $${basePrice}\nTotal (incl. tax): $${totalPrice}\nStatus: ${status}\n\nIf you need to reschedule, please contact us at 289-925-7239 or reply to this email.\n\nThank you,\nCanadian Fitness Repair\n📧 canadianfitnessrepair@gmail.com\n📞 289-925-7239\n🌐 https://canadianfitnessrepair.com`;
-
-    const defaultSMS = `Your appointment with Canadian Fitness Repair is on ${dateStr} at ${timeStr}, is confirmed for ${equipment}. Status: ${status}. Call 289-925-7239 for details.`;
-
-    const emailField = document.getElementById("emailPreview");
-    const smsField = document.getElementById("smsPreview");
-
-    originalEmail = data.editedEmailBody || defaultEmail;
-    originalSMS = data.editedSmsBody || defaultSMS;
-
-    emailField.value = originalEmail;
-    smsField.value = originalSMS;
-
-    // Disable reset button if no custom content exists
-    const resetBtn = document.getElementById("resetPreviewBtn");
-    const hasCustom = !!(data.editedEmailBody || data.editedSmsBody);
-    resetBtn.disabled = !hasCustom;
-
-    // Read-only mode by default
-    emailField.readOnly = true;
-    smsField.readOnly = true;
-    document.getElementById("savePreviewBtn").style.display = "none";
-
-    // Show modal
-    document.getElementById("previewModal").classList.add("active");
-
-    // Update character count
-    document.getElementById("smsCharCount").textContent = `${smsField.value.length} / 160 characters`;
-  });
-}
-
+ 
             initApp(auth, db, appointmentsCollection, customersCollection);
         })();
         // ===== CACHING MECHANISM =====
@@ -2100,7 +2052,55 @@
         container.appendChild(skeleton);
       }
     }
-    
+    function openPreviewModal(appointment) {
+  currentPreviewAppointment = appointment;
+  const docRef = doc(db, "appointments", appointment.id);
+
+  getDoc(docRef).then(snap => {
+    const data = snap.data();
+
+    const dateObj = appointment.date.toDate?.() || new Date();
+    const dateStr = dateObj.toLocaleDateString("en-CA");
+    const timeStr = dateObj.toLocaleTimeString("en-CA", { hour: '2-digit', minute: '2-digit' });
+
+    const customer = appointment.customer || "Customer";
+    const equipment = appointment.equipment || "";
+    const issue = appointment.issue || "N/A";
+    const status = appointment.status || "Scheduled";
+    const basePrice = (appointment.basePrice || 0).toFixed(2);
+    const totalPrice = (appointment.price || 0).toFixed(2);
+
+    const defaultEmail = `Hi ${customer},\n\nThis is a confirmation from Canadian Fitness Repair.\n\nYour appointment is scheduled for:\n📅 ${dateStr} at ⏰ ${timeStr}\n\nEquipment: ${equipment}\nIssue: ${issue}\n\nService Price: $${basePrice}\nTotal (incl. tax): $${totalPrice}\nStatus: ${status}\n\nIf you need to reschedule, please contact us at 289-925-7239 or reply to this email.\n\nThank you,\nCanadian Fitness Repair\n📧 canadianfitnessrepair@gmail.com\n📞 289-925-7239\n🌐 https://canadianfitnessrepair.com`;
+
+    const defaultSMS = `Your appointment with Canadian Fitness Repair is on ${dateStr} at ${timeStr}, is confirmed for ${equipment}. Status: ${status}. Call 289-925-7239 for details.`;
+
+    const emailField = document.getElementById("emailPreview");
+    const smsField = document.getElementById("smsPreview");
+
+    originalEmail = data.editedEmailBody || defaultEmail;
+    originalSMS = data.editedSmsBody || defaultSMS;
+
+    emailField.value = originalEmail;
+    smsField.value = originalSMS;
+
+    // Disable reset button if no custom content exists
+    const resetBtn = document.getElementById("resetPreviewBtn");
+    const hasCustom = !!(data.editedEmailBody || data.editedSmsBody);
+    resetBtn.disabled = !hasCustom;
+
+    // Read-only mode by default
+    emailField.readOnly = true;
+    smsField.readOnly = true;
+    document.getElementById("savePreviewBtn").style.display = "none";
+
+    // Show modal
+    document.getElementById("previewModal").classList.add("active");
+
+    // Update character count
+    document.getElementById("smsCharCount").textContent = `${smsField.value.length} / 160 characters`;
+  });
+}
+
         // ================ UTILITY FUNCTIONS ================
         function showLoading(show = true) {
             const loadingElement = document.getElementById('loading-overlay');
