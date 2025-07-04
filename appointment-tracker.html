@@ -1782,7 +1782,8 @@
     <div id="previewModal" class="modal">
         <div class="modal-content" style="max-width: 800px;">
             <span class="close-modal" id="close-preview-icon">&times;</span>
-        <h2>📩 Message Preview</h2>
+            <h2 id="previewModalTitle">📩 Message Preview</h2>
+            <small id="previewTypeLabel" style="color: gray; margin-left: 5px;"></small>            
     
         <h4>Email Preview</h4>
         <textarea id="emailPreview" class="form-control" rows="10" readonly></textarea>
@@ -2094,6 +2095,14 @@ async function fetchEmailPreviewTemplate(appointment, type = "confirmation") {
   const lastStatus = appointment.lastStatusSent;
   const statusChanged = lastStatus && appointment.status !== lastStatus;
   const previewType = wasConfirmed && statusChanged ? "update" : "confirmation";
+
+  // ✅ Show visual preview type label
+const typeLabel = document.getElementById("previewTypeLabel");
+if (typeLabel) {
+  typeLabel.textContent = previewType === "update" ? "Repair Update Preview" : "Confirmation Preview";
+  typeLabel.style.color = previewType === "update" ? "#e67e22" : "#3498db";
+}
+
 
   const defaultSMS = await fetchSMSPreviewTemplate(appointment, previewType);
   const defaultEmail = await fetchEmailPreviewTemplate(appointment, previewType);
