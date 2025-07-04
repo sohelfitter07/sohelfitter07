@@ -3603,10 +3603,11 @@ document.getElementById("close-preview-btn").addEventListener("click", closePrev
                     return;
                 }
 
-                if (!data.phone) {
-                    showToast("Phone number is required", true);
+                if (!data.phone && !data.email) {
+                    showToast("At least one contact (phone or email) is required", true);
                     return;
-                }
+                    }
+
 
                 if (!data.date || data.date.toDate?.().toString() === 'Invalid Date') {
                     showToast("Invalid date/time selected", true);
