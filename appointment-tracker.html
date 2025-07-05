@@ -2057,16 +2057,30 @@
         throw error;
       }
     }
-    function setupStatusCardClickHandlers() {
+function setupStatusCardClickHandlers() {
+    // Select all cards in the grid
     document.querySelectorAll('.card-grid .card').forEach(card => {
         card.addEventListener('click', function() {
+            // Get the status value from the card's data-status attribute
             const status = this.getAttribute('data-status');
+            
+            // Update the global statusFilter variable
             statusFilter = status;
-            document.getElementById('status-filter').value = status;
+            
+            // Set the dropdown value to match the card's status
+            const statusDropdown = document.getElementById('appointment-status');
+            if (statusDropdown) {
+                statusDropdown.value = status;  // Update the dropdown value to the selected status
+            }
+            
+            // Activate the "appointments" view with filtered appointments
             activateView("appointments");
+            fetchAppointments(); // Re-fetch filtered appointments based on the selected status
         });
     });
 }
+
+
     // ===== PAGINATION FOR CUSTOMERS =====
     let currentCustomerPage = 1;
     const customersPerPage = 10;
@@ -3099,6 +3113,7 @@ setTimeout(() => {
 
                 break;
             case "appointments":
+                statusFilter = "All"; // Reset filter to "All"
                 fetchAppointments();
                 break;
             case "calendar":
@@ -3203,25 +3218,52 @@ function appointmentMatchesSearch(appointment, query) {
                 }
             }
     
-            async function fetchAppointments() {
-  try {
-    const allAppointments = await fetchAppointmentsWithCache();
-// Apply status filter
-appointments = statusFilter === "All" 
-      ? allAppointments 
-      : allAppointments.filter(app => app.status === statusFilter);
+async function fetchAppointments() {
+    try {
+        const allAppointments = await fetchAppointmentsWithCache(); // Assuming this function fetches all appointments
+        
+        // Apply status filter (if 'All' is selected, return all appointments)
+        const filteredAppointments = statusFilter === "All" 
+            ? allAppointments 
+            : allAppointments.filter(app => app.status === statusFilter);
 
-    // 🔔 Reminder for tomorrow — only once per session
-    if (auth?.currentUser && !sessionStorage.getItem(`reminderShown_${auth.currentUser.uid}`)) {
-      const tomorrowReminders = appointments.filter(app =>
-        app.reminderEnabled && app.dateObj && isTomorrow(app.dateObj)
-      );
+        // Debugging: Log the filtered appointments
+        console.log("Filtered Appointments:", filteredAppointments);
 
-      if (tomorrowReminders.length > 0) {
-        showToast(`📅 Reminder: You have ${tomorrowReminders.length} appointment(s) for tomorrow.`);
-        sessionStorage.setItem(`reminderShown_${auth.currentUser.uid}`, "true");
-      }
+        // Handle reminders (if applicable)
+        if (auth?.currentUser && !sessionStorage.getItem(`reminderShown_${auth.currentUser.uid}`)) {
+            const tomorrowReminders = filteredAppointments.filter(app =>
+                app.reminderEnabled && app.dateObj && isTomorrow(app.dateObj)
+            );
+
+            if (tomorrowReminders.length > 0) {
+                showToast(`📅 Reminder: You have ${tomorrowReminders.length} appointment(s) for tomorrow.`);
+                sessionStorage.setItem(`reminderShown_${auth.currentUser.uid}`, "true");
+            }
+        }
+
+        // Render the filtered appointments (use the filtered data)
+        renderAppointmentsTable(filteredAppointments);
+        updateStats();
+
+        // Call chart and other necessary initializations
+        setTimeout(() => {
+            if (document.getElementById('calendar-view').classList.contains('active')) {
+                renderCalendar();
+                updateCalendarSummary();
+            }
+            if (document.getElementById('dashboard-view').classList.contains('active')) {
+                initChart();
+            }
+        }, 50);
+
+        setupRealtimeListeners();
+    } catch (error) {
+        console.error("Error in fetchAppointments:", error);
+        showToast("Failed to load appointments", true);
     }
+}
+
 
     renderAppointmentsTable(); 
     updateStats();
@@ -4203,13 +4245,15 @@ async function saveCustomer() {
 
             // ================ RENDERING FUNCTIONS ================
             // Render appointments table
-            function renderAppointmentsTable(list = appointments) {
-                let filteredAppointments = [...appointments];
-    
+function renderAppointmentsTable(list = appointments) {
+    // Create a filtered appointments list based on the status filter and search query
+    let filteredAppointments = [...appointments];
+
+    // Apply status filter
     if (statusFilter !== "All") {
         filteredAppointments = filteredAppointments.filter(app => app.status === statusFilter);
     }
-    
+
     // Apply search filter if needed
     const searchQuery = document.getElementById('search-appointments')?.value.toLowerCase() || '';
     if (searchQuery) {
@@ -4220,10 +4264,11 @@ async function saveCustomer() {
             (app.house_address?.toLowerCase().includes(searchQuery))
         );
     }
-    const tbody = document.getElementById("appointments-body");
-    tbody.innerHTML = "";
 
-    if (list.length === 0) {
+    const tbody = document.getElementById("appointments-body");
+    tbody.innerHTML = ""; // Clear the current table contents
+
+    if (filteredAppointments.length === 0) {
         tbody.innerHTML = `
             <tr>
                 <td colspan="9" style="text-align: center; padding: 30px;">
@@ -4234,9 +4279,11 @@ async function saveCustomer() {
         return;
     }
 
+    // Pagination logic
     const start = (currentPage - 1) * appointmentsPerPage;
-    const pageApps = list.slice(start, start + appointmentsPerPage);
+    const pageApps = filteredAppointments.slice(start, start + appointmentsPerPage); // Paginate filtered appointments
 
+    // Render appointments
     pageApps.forEach((app) => {
         const statusInfo = statusMap[app.status] || {
             text: app.status || "",
@@ -4252,15 +4299,14 @@ async function saveCustomer() {
                     : "❌")
             : "⏳";
 
-            const confirmTooltip = {
+        const confirmTooltip = {
             "✅": "Confirmation sent successfully",
             "⚠️": app.email
                 ? "Partial success (email sent, SMS failed/skipped)"
                 : "Partial success (SMS sent, email missing)",
             "❌": "Failed to send confirmation",
             "⏳": "Confirmation not sent yet"
-            }[confirmStatus];
-
+        }[confirmStatus];
 
         const confirmTimestamp = app.confirmationSentAt
             ? formatTimestamp(app.confirmationSentAt.toDate?.() || new Date())
@@ -4274,45 +4320,44 @@ async function saveCustomer() {
         const isEdited = !!(app.editedEmailBody || app.editedSmsBody);
 
         row.innerHTML = `
-    <td>#${app.id}</td>
-    <td>${app.customer}</td>
-    <td>${app.equipment || ""}</td>
-    <td>${formatTimestamp(app.dateObj)}</td>
-    <td>
-        <span class="status-badge ${statusInfo.class}" title="${statusInfo.text}">
-            ${statusInfo.icon || ""} ${statusInfo.text}
-        </span>
-    </td>
-    <td>$${app.price || 0}</td>
-<td>
-    <div style="display: flex; flex-direction: column; align-items: center;">
-        <span title="${confirmTooltip}" style="font-size: 18px;">${confirmStatus}</span>
-        ${confirmTimestamp ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
-        ${reminderIcon ? `<span title="Reminder enabled">${reminderIcon}</span>` : ""}
-        ${isEdited ? `<span title="Custom message saved" style="font-size: 13px;">✏️</span>` : ""}
-    </div>
-</td>
-
-   <td class="action-cell">
-    <button class="action-btn send-btn" data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
-        <i class="fas fa-paper-plane"></i>
-    </button>
-    <button class="action-btn preview-btn" data-id="${app.id}" title="Preview Email & SMS">
-        <i class="fas fa-eye"></i>
-    </button>
-    <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment">
-        <i class="fas fa-edit"></i>
-    </button>
-    <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment">
-        <i class="fas fa-trash"></i>
-    </button>
-</td>
-`;
+            <td>#${app.id}</td>
+            <td>${app.customer}</td>
+            <td>${app.equipment || ""}</td>
+            <td>${formatTimestamp(app.dateObj)}</td>
+            <td>
+                <span class="status-badge ${statusInfo.class}" title="${statusInfo.text}">
+                    ${statusInfo.icon || ""} ${statusInfo.text}
+                </span>
+            </td>
+            <td>$${app.price || 0}</td>
+            <td>
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <span title="${confirmTooltip}" style="font-size: 18px;">${confirmStatus}</span>
+                    ${confirmTimestamp ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
+                    ${reminderIcon ? `<span title="Reminder enabled">${reminderIcon}</span>` : ""}
+                    ${isEdited ? `<span title="Custom message saved" style="font-size: 13px;">✏️</span>` : ""}
+                </div>
+            </td>
+            <td class="action-cell">
+                <button class="action-btn send-btn" data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <button class="action-btn preview-btn" data-id="${app.id}" title="Preview Email & SMS">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
 
         tbody.appendChild(row);
     });
 
-    // Attach button actions
+    // Attach button actions (same as before)
     tbody.querySelectorAll(".edit-btn").forEach((btn) => {
         btn.onclick = () => openEditModal(btn.dataset.id);
     });
@@ -4337,11 +4382,10 @@ async function saveCustomer() {
             .then(data => {
                 if (data.success) {
                     showToast("Confirmation sent!");
-                    // ADD THIS SECTION TO SHOW SMS WARNINGS
                     if (data.warnings && data.warnings.length > 0) {
-                    data.warnings.forEach(warning => {
-                        showToast(warning, true);  // Show as error toast
-                    });
+                        data.warnings.forEach(warning => {
+                            showToast(warning, true);  // Show as error toast
+                        });
                     }
                     fetchAppointments();
                 } else {
@@ -4356,19 +4400,21 @@ async function saveCustomer() {
     });
 
     tbody.querySelectorAll(".preview-btn").forEach((btn) => {
-    btn.onclick = () => {
-        const appointment = appointments.find(a => a.id === btn.dataset.id);
-        if (appointment) openPreviewModal(appointment);
-    };
-});
+        btn.onclick = () => {
+            const appointment = appointments.find(a => a.id === btn.dataset.id);
+            if (appointment) openPreviewModal(appointment);
+        };
+    });
 
     // Pagination
-    const totalPages = Math.ceil(list.length / appointmentsPerPage);
+    const totalPages = Math.ceil(filteredAppointments.length / appointmentsPerPage);
     document.getElementById("page-indicator").textContent = `Page ${currentPage} of ${totalPages || 1}`;
     document.getElementById("prev-page").disabled = currentPage === 1;
     document.getElementById("next-page").disabled = currentPage >= totalPages;
 }
 
+
+        
             // Render customers table
             function renderCustomersTable() {
                 const tbody = document.getElementById('customers-body');
@@ -4480,24 +4526,37 @@ async function saveCustomer() {
 
             
             // Stats update
-            function updateStats() {
-    const total = appointments.length;
-    const scheduled = appointments.filter(a => a.status === "Scheduled / Confirmed").length;
-    const inProgress = appointments.filter(a => a.status === "In Progress").length;
-    const completed = appointments.filter(a => a.status === "Completed").length;
+function updateStats() {
+    // Check if appointments is defined and not empty
+    if (!appointments || appointments.length === 0) {
+        console.log("No appointments available");
+        return;
+    }
+
+    // Initialize counters
+    let total = 0, scheduled = 0, inProgress = 0, completed = 0;
     
-    // Update counts
+    // Iterate over appointments once and count each status
+    appointments.forEach(app => {
+        total++; // Every appointment counts as a total
+        if (app.status === "Scheduled / Confirmed") scheduled++;
+        if (app.status === "In Progress") inProgress++;
+        if (app.status === "Completed") completed++;
+    });
+
+    // Update counts on the page
     document.getElementById("total-appointments").textContent = total;
     document.getElementById("scheduled-count").textContent = scheduled;
     document.getElementById("inprogress-count").textContent = inProgress;
     document.getElementById("released-count").textContent = completed;
-    
+
     // Update footer text
     document.getElementById('total-appointments-text').textContent = `${total} appointments`;
     document.getElementById('scheduled-text').textContent = `${scheduled} scheduled`;
     document.getElementById('inprogress-text').textContent = `${inProgress} in progress`;
     document.getElementById('completed-text').textContent = `${completed} completed`;
-}     
+}
+  
             // Calendar rendering and summary
             function renderCalendar() {
                 // Only render if calendar is visible
