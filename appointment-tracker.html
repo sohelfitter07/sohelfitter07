@@ -2252,54 +2252,66 @@ function formatCanadianAddress(address) {
     // Address autocomplete with Nominatim
 // Make sure this runs after Leaflet + Geocoder scripts are loaded
 window.addEventListener("DOMContentLoaded", () => {
-  const addressInput = document.getElementById("house-address");
+  const addressInput         = document.getElementById("house-address");
   const suggestionsContainer = document.getElementById("address-suggestions");
-  const loadingIndicator = document.getElementById("geocode-loading");
+  const loadingIndicator     = document.getElementById("geocode-loading");
 
-  if (L.Control.Geocoder && L.Control.Geocoder.nominatim && addressInput) {
-    const geocoder = L.Control.Geocoder.nominatim();
-    let debounceTimer;
+  if (!addressInput || !suggestionsContainer || !loadingIndicator) {
+    console.warn("⚠️ Missing address input or suggestion container.");
+    return;
+  }
 
-    addressInput.addEventListener("input", () => {
-      const query = addressInput.value.trim();
+  let lastQuery     = "";
+  let debounceTimer = null;
 
-      if (!query || query.length < 3) {
-        suggestionsContainer.style.display = "none";
-        return;
-      }
+  addressInput.addEventListener("input", () => {
+    const query = addressInput.value.trim();
 
-      loadingIndicator.style.display = "block";
+    if (query.length < 3 || query === lastQuery) {
+      suggestionsContainer.style.display = "none";
+      return;
+    }
+    lastQuery = query;
 
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        geocoder.geocode(query, (results) => {
-          suggestionsContainer.innerHTML = "";
+    loadingIndicator.style.display = "block";
+    clearTimeout(debounceTimer);
+
+    debounceTimer = setTimeout(() => {
+      fetch(`/api/geocode?q=${encodeURIComponent(query)}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Geocode failed");
+          return res.json();
+        })
+        .then((results) => {
           loadingIndicator.style.display = "none";
+          suggestionsContainer.innerHTML = "";
 
-          if (results.length === 0) {
+          if (!results.length) {
             suggestionsContainer.style.display = "none";
             return;
           }
 
-          results.forEach((result) => {
+          results.forEach((r) => {
             const item = document.createElement("div");
             item.className = "suggestion-item";
-            item.textContent = result.name;
+            item.textContent = r.display_name || r.name;
             item.addEventListener("click", () => {
-              addressInput.value = result.name;
+              addressInput.value = item.textContent;
               suggestionsContainer.style.display = "none";
             });
             suggestionsContainer.appendChild(item);
           });
 
           suggestionsContainer.style.display = "block";
+        })
+        .catch((err) => {
+          console.error("Geocode error:", err);
+          loadingIndicator.style.display = "none";
         });
-      }, 500);
-    });
-  } else {
-    console.error("❌ Leaflet Control Geocoder not loaded or input missing.");
-  }
+    }, 300);
+  });
 });
+
 
 
         
@@ -5214,6 +5226,71 @@ document.querySelectorAll('[data-view]').forEach(link => {
                     });
                 }        
     }
+    window.addEventListener("DOMContentLoaded", () => {
+  // ✅ Declare variables first
+  let lastQuery = "";
+  let debounceTimer = null;
+
+  const houseInput      = document.getElementById("house-address");
+  const suggestionsBox  = document.getElementById("address-suggestions");
+  const loadingSpinner  = document.getElementById("geocode-loading"); // optional
+
+  if (!houseInput || !suggestionsBox) {
+    console.warn("❌ Missing house-address input or suggestions container");
+    return;
+  }
+
+  houseInput.addEventListener("input", (e) => {
+    const q = e.target.value.trim();
+
+    if (q.length < 3 || q === lastQuery) {
+      suggestionsBox.style.display = "none";
+      return;
+    }
+
+    lastQuery = q;
+    clearTimeout(debounceTimer);
+
+    debounceTimer = setTimeout(() => {
+      // optional spinner
+      if (loadingSpinner) loadingSpinner.style.display = "block";
+
+      fetch(`/api/geocode?q=${encodeURIComponent(q)}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Geocode failed");
+          return res.json();
+        })
+        .then((results) => {
+          if (loadingSpinner) loadingSpinner.style.display = "none";
+
+          suggestionsBox.innerHTML = "";
+          if (!results.length) {
+            suggestionsBox.style.display = "none";
+            return;
+          }
+
+          results.forEach((r) => {
+            const item = document.createElement("div");
+            item.className = "suggestion-item";
+            item.textContent = r.display_name || r.name;
+
+            item.addEventListener("click", () => {
+              houseInput.value = item.textContent;
+              suggestionsBox.style.display = "none";
+            });
+
+            suggestionsBox.appendChild(item);
+          });
+
+          suggestionsBox.style.display = "block";
+        })
+        .catch((err) => {
+          console.error("Geocode error:", err);
+          if (loadingSpinner) loadingSpinner.style.display = "none";
+        });
+    }, 300);
+  });
+});
 
     document.getElementById('lookup-carrier')?.addEventListener('click', async () => {
   const phone = document.getElementById('customer-phone')?.value?.trim();
