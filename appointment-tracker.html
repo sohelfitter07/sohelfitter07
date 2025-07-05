@@ -2053,7 +2053,16 @@
         throw error;
       }
     }
-    
+    function setupStatusCardClickHandlers() {
+    document.querySelectorAll('.card-grid .card').forEach(card => {
+        card.addEventListener('click', function() {
+            const status = this.getAttribute('data-status');
+            statusFilter = status;
+            document.getElementById('status-filter').value = status;
+            activateView("appointments");
+        });
+    });
+}
     // ===== PAGINATION FOR CUSTOMERS =====
     let currentCustomerPage = 1;
     const customersPerPage = 10;
@@ -3023,6 +3032,16 @@ document.getElementById("savePreviewBtn").onclick = async () => {
             initReminderSystem();
                 updateStats();
                 initChart();
+                setTimeout(() => {
+                    document.querySelectorAll('.card-grid .card').forEach(card => {
+                        card.addEventListener('click', function() {
+                            const status = this.getAttribute('data-status');
+                            statusFilter = status;
+                            document.getElementById('status-filter').value = status;
+                            activateView("appointments");
+                        });
+                    });
+                }, 100);
                 break;
             case "appointments":
                 fetchAppointments();
@@ -3171,16 +3190,9 @@ appointments = statusFilter === "All"
     showToast("Failed to load appointments", true);
   }
 }
-function setupStatusCardClickHandlers() {
-    document.querySelectorAll('.card-grid .card').forEach(card => {
-        card.addEventListener('click', function() {
-            const status = this.getAttribute('data-status');
-            statusFilter = status;
-            document.getElementById('status-filter').value = status;
-            activateView("appointments");
-        });
-    });
-}
+
+
+
 // Add event listener for manual filter changes
 document.getElementById('status-filter').addEventListener('change', function() {
     // Get the selected status
@@ -5057,7 +5069,17 @@ document.querySelectorAll('[data-view]').forEach(link => {
                         closeCustomerModal();
                     });
                 });
-                
+                document.querySelector('.main-content').addEventListener('click', function(e) {
+    const card = e.target.closest('.card-grid .card');
+    if (card) {
+        const status = card.getAttribute('data-status');
+        if (status) {
+            statusFilter = status;
+            document.getElementById('status-filter').value = status;
+            activateView("appointments");
+        }
+    }
+});
                 document.getElementById("cancel-appointment").addEventListener("click", closeAppointmentModal);
                 
                 // Customer modals
