@@ -1213,17 +1213,9 @@
 
         <!-- Dashboard View -->
         <div id="dashboard-view" class="tab-content active">
-            <div class="filter-controls">
-                <select id="status-filter">
-                    <option value="All">All Appointments</option>
-                    <option value="Scheduled">Scheduled</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Cancelled">Cancelled</option>
-                </select>
-            </div>  
+ 
             <div class="card-grid">
-                <div class="card" id="total-appointments-card">
+                <div class="card" id="total-appointments-card" data-status="All">
                     <div class="card-header">
                         <div class="card-title">Total Appointments</div>
                         <div class="card-icon">
@@ -1236,7 +1228,7 @@
                     </div>
                 </div>
                 
-                <div class="card" id="scheduled-card">
+                <div class="card" id="scheduled-card" data-status="Scheduled / Confirmed">
                     <div class="card-header">
                         <div class="card-title">Scheduled</div>
                         <div class="card-icon">
@@ -1249,7 +1241,7 @@
                     </div>
                 </div>
                 
-                <div class="card" id="inprogress-card">
+                <div class="card" id="inprogress-card" data-status="In Progress">
                     <div class="card-header">
                         <div class="card-title">In Progress</div>
                         <div class="card-icon">
@@ -1262,7 +1254,7 @@
                     </div>
                 </div>
                 
-                <div class="card" id="completed-card">
+                <div class="card" id="completed-card" data-status="Completed">
                     <div class="card-header">
                         <div class="card-title">Completed</div>
                         <div class="card-icon">
@@ -2088,6 +2080,7 @@
     
     // Initialize appointments
     fetchAppointments();
+    setupStatusCardClickHandlers();
 });
     // Clear previous errors
     document.querySelectorAll(".validation-error").forEach(el => {
@@ -3129,7 +3122,16 @@ appointments = statusFilter === "All"
     showToast("Failed to load appointments", true);
   }
 }
-
+function setupStatusCardClickHandlers() {
+    document.querySelectorAll('.card-grid .card').forEach(card => {
+        card.addEventListener('click', function() {
+            const status = this.getAttribute('data-status');
+            statusFilter = status;
+            document.getElementById('status-filter').value = status;
+            activateView("appointments");
+        });
+    });
+}
 // Add event listener for manual filter changes
 document.getElementById('status-filter').addEventListener('change', function() {
     // Get the selected status
