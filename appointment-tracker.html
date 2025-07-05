@@ -3227,7 +3227,9 @@ async function fetchAppointments() {
         if (!Array.isArray(allAppointments)) {
             throw new Error("Fetched data is not an array.");
         }
-
+     // Debug: log the statusFilter and appointment statuses
+        console.log("Current statusFilter:", statusFilter);
+        console.log("Appointments status before filter:", allAppointments.map(app => app.status)); // Logs all statuses
         // Apply status filter (if 'All' is selected, return all appointments)
         const filteredAppointments = statusFilter === "All" 
             ? allAppointments 
