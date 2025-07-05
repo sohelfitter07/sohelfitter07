@@ -1010,7 +1010,7 @@
     }
     
     /* Chart height adjustment */
-    #appointmentsChart {
+    #appointmChart {
         height: 280px !important;
     }
 }
@@ -2456,7 +2456,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const term = this.value.toLowerCase();
         
         if (!term) {
-          entsTable(appointments);
+          renderAppointmentsTable(appointments);
           return;
         }
         
@@ -2467,7 +2467,7 @@ window.addEventListener("DOMContentLoaded", () => {
           (app.status && statusMap[app.status]?.text.toLowerCase().includes(term))
         );
         
-        entsTable(filtered);
+        renderAppointmentsTable(filtered);
       });
     }
     
@@ -3282,7 +3282,7 @@ const filteredAppointments = !allowedStatuses
       ...doc.data(),
       dateObj: doc.data().date.toDate()
     }));
-    entsTable();
+    renderAppointmentsTable();
     updateStats();
     if (document.getElementById('calendar-view').classList.contains('active')) {
       renderCalendar();
