@@ -2391,45 +2391,31 @@ window.addEventListener("DOMContentLoaded", () => {
         }
         
         // Setup address input
-        document.getElementById('house-address').addEventListener('input', function(e) {
-            const query = e.target.value.trim();
-            
-            if (query === lastQuery) return;
-            lastQuery = query;
-            
-            clearTimeout(debounceTimer);
-            
-            if (query.length < 3) {
-                document.getElementById('address-suggestions').style.display = 'none';
-                document.getElementById('geocode-loading').style.display = 'none';
-                return;
-            }
-            
-            debounceTimer = setTimeout(async () => {
-                const suggestions = await getAddressSuggestions(query);
-                displaySuggestions(suggestions);
-            }, 300);
-        });
-        // Setup address input
-        document.getElementById('house-address').addEventListener('input', function(e) {
-            const query = e.target.value.trim();
-            
-            if (query === lastQuery) return;
-            lastQuery = query;
-            
-            clearTimeout(debounceTimer);
-            
-            if (query.length < 3) {
-                document.getElementById('address-suggestions').style.display = 'none';
-                return;
-            }
-            
-            debounceTimer = setTimeout(async () => {
-                const suggestions = await getAddressSuggestions(query);
-                displaySuggestions(suggestions);
-            }, 300);
-        });
-        
+// ✅ Declare variables BEFORE using them
+let lastQuery = "";
+let debounceTimer = null;
+
+// ✅ Setup address input
+document.getElementById('house-address').addEventListener('input', function(e) {
+    const query = e.target.value.trim();
+
+    if (query === lastQuery) return;
+    lastQuery = query;
+
+    clearTimeout(debounceTimer);
+
+    if (query.length < 3) {
+        document.getElementById('address-suggestions').style.display = 'none';
+        document.getElementById('geocode-loading').style.display = 'none';
+        return;
+    }
+
+    debounceTimer = setTimeout(async () => {
+        const suggestions = await getAddressSuggestions(query);
+        displaySuggestions(suggestions);
+    }, 300);
+});
+
         // Hide suggestions when clicking elsewhere
         document.addEventListener('click', function(e) {
             if (!e.target.closest('#house-address') && 
