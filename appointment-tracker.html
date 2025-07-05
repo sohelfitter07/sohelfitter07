@@ -3196,22 +3196,20 @@ appointments = statusFilter === "All"
 
 
 
-// Add event listener for manual filter changes
-document.getElementById('status-filter').addEventListener('change', function() {
-    // Get the selected status
-    const selectedStatus = this.value;
-    
-    // Update URL without reloading the page
-    const url = selectedStatus === 'All' 
-        ? 'appointments.html' 
-        : `appointments.html?status=${encodeURIComponent(selectedStatus)}`;
-    
-    // Update the URL
-    window.history.pushState({}, '', url);
-    
-    // Re-fetch and render appointments
-    fetchAppointments();
+window.addEventListener('DOMContentLoaded', function () {
+    const statusFilter = document.getElementById('status-filter');
+    if (statusFilter) {
+        statusFilter.addEventListener('change', function () {
+            const selectedStatus = this.value;
+            const url = selectedStatus === 'All'
+                ? 'appointments.html'
+                : `appointments.html?status=${encodeURIComponent(selectedStatus)}`;
+            window.history.pushState({}, '', url);
+            fetchAppointments();
+        });
+    }
 });
+
           
             function setupRealtimeListeners() {
   const appointmentsQuery = query(appointmentsCollection, orderBy("date", "desc"));
