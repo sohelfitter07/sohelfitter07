@@ -2094,6 +2094,13 @@ function setupStatusCardClickHandlers() {
         "Completed": { text: "Completed", class: "status-complete", icon: "🏁" },
         "Cancelled": { text: "Cancelled", class: "status-cancelled", icon: "❌" }
         };
+    const statusGroups = {
+  "All": null, // no filtering
+  "Scheduled / Confirmed": ["scheduled"],
+  "In Progress": ["in_progress", "parts_ordered", "needs_parts"],
+  "Completed": ["repair_completed", "released"], // if you use both
+  "Cancelled": ["cancelled"]
+};
 
     async function saveAdminSettings(db) {
     const rawAdminPhone = document.getElementById("admin-phone").value.trim();
@@ -3218,9 +3225,12 @@ async function fetchAppointments() {
         console.log("Current statusFilter:", statusFilter);
         console.log("Appointments status before filter:", allAppointments.map(app => app.status)); // Logs all statuses
         // Apply status filter (if 'All' is selected, return all appointments)
-        const filteredAppointments = statusFilter === "All" 
-            ? allAppointments 
-            : allAppointments.filter(app => app.status === statusFilter);
+const allowedStatuses = statusGroups[statusFilter];
+
+const filteredAppointments = !allowedStatuses
+  ? allAppointments
+  : allAppointments.filter(app => allowedStatuses.includes(app.status));
+
 
         // Debugging: Log the filtered appointments
         console.log("Filtered Appointments:", filteredAppointments);
