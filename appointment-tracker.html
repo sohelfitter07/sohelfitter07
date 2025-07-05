@@ -680,7 +680,16 @@
   padding: 12px;
   animation: pulse 1.5s infinite;
 }
+/* Add to your existing CSS */
+.card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
 .skeleton-cell {
   height: 20px;
   background: #2d3748;
@@ -921,6 +930,43 @@
                 width: 95%;
                 padding: 25px;
             }
+            @media (max-width: 768px) {
+    /* Mobile card layout */
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .card-content {
+        font-size: 1.8rem;
+        margin: 8px 0;
+    }
+    
+    .card-footer {
+        font-size: 0.8rem;
+    }
+    
+    /* Chart height adjustment */
+    #appointmentsChart {
+        height: 280px !important;
+    }
+}
         }
         
         @media (max-width: 576px) {
@@ -1039,6 +1085,13 @@
   .appointment-details p {
     margin-bottom: 10px;
   }
+  .card {
+        padding: 15px;
+    }
+    
+    .card-content {
+        font-size: 1.6rem;
+    }
 }
     </style>
 </head>
@@ -1126,7 +1179,7 @@
         <!-- Dashboard View -->
         <div id="dashboard-view" class="tab-content active">
             <div class="card-grid">
-                <div class="card">
+                <div class="card" id="total-appointments-card">
                     <div class="card-header">
                         <div class="card-title">Total Appointments</div>
                         <div class="card-icon">
@@ -1135,11 +1188,11 @@
                     </div>
                     <div class="card-content" id="total-appointments">0</div>
                     <div class="card-footer">
-                        <i class="fas fa-arrow-up"></i> Loading...
+                        <i class="fas fa-arrow-up"></i> <span id="total-appointments-text">Loading...</span>
                     </div>
                 </div>
                 
-                <div class="card">
+                <div class="card" id="scheduled-card">
                     <div class="card-header">
                         <div class="card-title">Scheduled</div>
                         <div class="card-icon">
@@ -1148,11 +1201,11 @@
                     </div>
                     <div class="card-content" id="scheduled-count">0</div>
                     <div class="card-footer">
-                        <i class="fas fa-plus"></i> Loading...
+                        <i class="fas fa-plus"></i> <span id="scheduled-text">Loading...</span>
                     </div>
                 </div>
                 
-                <div class="card">
+                <div class="card" id="inprogress-card">
                     <div class="card-header">
                         <div class="card-title">In Progress</div>
                         <div class="card-icon">
@@ -1161,11 +1214,11 @@
                     </div>
                     <div class="card-content" id="inprogress-count">0</div>
                     <div class="card-footer">
-                        <i class="fas fa-exclamation-triangle"></i> Loading...
+                        <i class="fas fa-exclamation-triangle"></i><span id="inprogress-text">Loading...</span>
                     </div>
                 </div>
                 
-                <div class="card">
+                <div class="card" id="completed-card">
                     <div class="card-header">
                         <div class="card-title">Completed</div>
                         <div class="card-icon">
@@ -1174,7 +1227,7 @@
                     </div>
                     <div class="card-content" id="released-count">0</div>
                     <div class="card-footer">
-                        <i class="fas fa-arrow-up"></i> Loading...
+                        <i class="fas fa-arrow-up"></i><span id="completed-text">Loading...</span>
                     </div>
                 </div>
             </div>
@@ -4121,12 +4174,23 @@ async function saveCustomer() {
             
             // Stats update
             function updateStats() {
-                document.getElementById("total-appointments").textContent = appointments.length;
-                document.getElementById("scheduled-count").textContent = appointments.filter((a) => a.status === "scheduled").length;
-                document.getElementById("inprogress-count").textContent = appointments.filter((a) => a.status === "in_progress").length;
-                document.getElementById("released-count").textContent = appointments.filter((a) => a.status === "released").length;
-            }
-            
+    const total = appointments.length;
+    const scheduled = appointments.filter(a => a.status === "Scheduled / Confirmed").length;
+    const inProgress = appointments.filter(a => a.status === "In Progress").length;
+    const completed = appointments.filter(a => a.status === "Completed").length;
+    
+    // Update counts
+    document.getElementById("total-appointments").textContent = total;
+    document.getElementById("scheduled-count").textContent = scheduled;
+    document.getElementById("inprogress-count").textContent = inProgress;
+    document.getElementById("released-count").textContent = completed;
+    
+    // Update footer text
+    document.getElementById('total-appointments-text').textContent = `${total} appointments`;
+    document.getElementById('scheduled-text').textContent = `${scheduled} scheduled`;
+    document.getElementById('inprogress-text').textContent = `${inProgress} in progress`;
+    document.getElementById('completed-text').textContent = `${completed} completed`;
+}     
             // Calendar rendering and summary
             function renderCalendar() {
                 // Only render if calendar is visible
@@ -4340,14 +4404,32 @@ async function saveCustomer() {
             document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".close-modal").addEventListener("click", closePreviewModal);
 });
-document.addEventListener('DOMContentLoaded', () => {
-  loadGoogleMapsApi()
-    .then(() => initAutocomplete())
-    .catch(error => {
-      console.error('Google Maps API failed to load:', error);
-    });
-});
+                document.addEventListener('DOMContentLoaded', () => {
+                loadGoogleMapsApi()
+                    .then(() => initAutocomplete())
+                    .catch(error => {
+                    console.error('Google Maps API failed to load:', error);
+                    });
+                });
+                // Dashboard card navigation
+                document.getElementById('total-appointments-card').addEventListener('click', () => {
+                    activateView('appointments');
+                });
 
+                document.getElementById('scheduled-card').addEventListener('click', () => {
+                    activateView('appointments');
+                    // Optional: Filter to show only scheduled appointments
+                });
+
+                document.getElementById('inprogress-card').addEventListener('click', () => {
+                    activateView('appointments');
+                    // Optional: Filter to show only in-progress appointments
+                });
+
+                document.getElementById('completed-card').addEventListener('click', () => {
+                    activateView('appointments');
+                    // Optional: Filter to show only completed appointments
+                });
             // Chart.js setup
             function initChart() {
                 const ctx = document.getElementById("appointmentsChart").getContext("2d");
