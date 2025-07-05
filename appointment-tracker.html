@@ -5179,6 +5179,8 @@ document.querySelectorAll('[data-view]').forEach(link => {
         // Use setInterval to repeatedly check if 'status-filter' exists
         const checkStatusFilter = setInterval(function() {
             const statusFilter = document.getElementById('appointment-status');
+            console.log(statusFilter);  // Add this line for debugging
+
 
             if (statusFilter) {
                 // Stop checking once it's found
