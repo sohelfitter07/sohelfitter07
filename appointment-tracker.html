@@ -89,6 +89,13 @@
             border-radius: 8px;
             display: none;
         }
+        
+        /* Loading indicator for geocoding */
+        .geocode-loading {
+            display: none;
+            text-align: center;
+            padding: 10px;
+        }
         .brand {
             padding: 25px;
             text-align: center;
@@ -1759,6 +1766,14 @@
             <!-- Suggestions dropdown -->
             <div id="address-suggestions" class="suggestions-container"></div>
             
+             <!-- Loading indicator -->
+             <div class="geocode-loading" id="geocode-loading">
+                <i class="fas fa-spinner fa-spin"></i> Searching for addresses...
+            </div>
+
+            <!-- Suggestions dropdown -->
+            <div id="address-suggestions" class="suggestions-container"></div>
+                
             <!-- Map preview -->
             <div id="map-preview"></div>
         </div>
@@ -1968,7 +1983,6 @@
             signOut,
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
         import 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-        import 'https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js';
 
         let allLogs = [];
         let currentLogPage = 1;
@@ -2210,18 +2224,33 @@ function formatCanadianAddress(address) {
             if (!query || query.length < 3) return [];
             
             try {
-                const results = await geocoder.geocode(query, { 
-                    bounded: 1, 
-                    viewbox: [[41.0, -95.0], [83.0, -52.0]], // Canada bounding box
-                    countrycodes: 'ca' 
+                // Show loading indicator
+                document.getElementById('geocode-loading').style.display = 'block';
+                document.getElementById('address-suggestions').style.display = 'none';
+                
+                // Call our backend proxy
+                const response = await fetch('https://cfr-backend-1.onrender.com/api/geocode', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query })
                 });
-                return results;
+                
+                if (!response.ok) {
+                    throw new Error('Geocoding service unavailable');
+                }
+                
+                return await response.json();
             } catch (error) {
                 console.error('Geocoding error:', error);
+                showToast("Address lookup service is currently unavailable", true);
                 return [];
+            } finally {
+                document.getElementById('geocode-loading').style.display = 'none';
             }
-        }
-        
+        }   
+
         function displaySuggestions(suggestions) {
             const container = document.getElementById('address-suggestions');
             container.innerHTML = '';
@@ -2234,7 +2263,7 @@ function formatCanadianAddress(address) {
             suggestions.forEach(suggestion => {
                 const item = document.createElement('div');
                 item.className = 'suggestion-item';
-                item.textContent = suggestion.name;
+                item.textContent = suggestion.display_name;
                 item.onclick = () => {
                     selectSuggestion(suggestion);
                 };
@@ -2242,11 +2271,11 @@ function formatCanadianAddress(address) {
             });
             
             container.style.display = 'block';
-        }
-        
+        }      
+
         function selectSuggestion(suggestion) {
             const addressInput = document.getElementById('house-address');
-            addressInput.value = suggestion.name;
+            addressInput.value = suggestion.display_name;
             
             document.getElementById('address-suggestions').style.display = 'none';
             
@@ -2255,17 +2284,37 @@ function formatCanadianAddress(address) {
             mapPreview.style.display = 'block';
             
             const map = initMap();
-            map.setView(suggestion.center, 16);
+            map.setView([suggestion.lat, suggestion.lon], 16);
             
             if (marker) {
                 map.removeLayer(marker);
             }
             
-            marker = L.marker(suggestion.center).addTo(map)
-                .bindPopup(suggestion.name)
+            marker = L.marker([suggestion.lat, suggestion.lon]).addTo(map)
+                .bindPopup(suggestion.display_name)
                 .openPopup();
         }
         
+        // Setup address input
+        document.getElementById('house-address').addEventListener('input', function(e) {
+            const query = e.target.value.trim();
+            
+            if (query === lastQuery) return;
+            lastQuery = query;
+            
+            clearTimeout(debounceTimer);
+            
+            if (query.length < 3) {
+                document.getElementById('address-suggestions').style.display = 'none';
+                document.getElementById('geocode-loading').style.display = 'none';
+                return;
+            }
+            
+            debounceTimer = setTimeout(async () => {
+                const suggestions = await getAddressSuggestions(query);
+                displaySuggestions(suggestions);
+            }, 300);
+        });
         // Setup address input
         document.getElementById('house-address').addEventListener('input', function(e) {
             const query = e.target.value.trim();
@@ -4631,7 +4680,12 @@ async function saveCustomer() {
                     activateView('appointments');
                     // Optional: Filter to show only in-progress appointments
                 });
-
+                document.addEventListener('click', function(e) {
+            if (!e.target.closest('#house-address') && 
+                !e.target.closest('#address-suggestions')) {
+                document.getElementById('address-suggestions').style.display = 'none';
+            }
+        });
                 document.getElementById('completed-card').addEventListener('click', () => {
                     activateView('appointments');
                     // Optional: Filter to show only completed appointments
