@@ -2228,9 +2228,14 @@ function formatCanadianAddress(address) {
       }
     }
     // Address autocomplete with Nominatim
+    if (L.Control.Geocoder && L.Control.Geocoder.nominatim) {
     let geocoder = L.Control.Geocoder.nominatim();
-        let lastQuery = '';
-        let debounceTimer;
+    let lastQuery = '';
+    let debounceTimer;
+} else {
+    console.error("❌ Leaflet Control Geocoder not loaded correctly.");
+}
+
         
         async function getAddressSuggestions(query) {
             if (!query || query.length < 3) return [];
