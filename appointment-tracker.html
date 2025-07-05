@@ -1181,6 +1181,15 @@
 
         <!-- Dashboard View -->
         <div id="dashboard-view" class="tab-content active">
+            <div class="filter-controls">
+                <select id="status-filter">
+                    <option value="All">All Appointments</option>
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>  
             <div class="card-grid">
                 <div class="card" id="total-appointments-card">
                     <div class="card-header">
@@ -1246,20 +1255,6 @@
                     <canvas id="appointmentsChart"></canvas>
                 </div>
             </div>
-
-            <!-- Add this to your appointments.html -->
-<div class="filter-controls">
-    <select id="status-filter">
-        <option value="All">All Appointments</option>
-        <option value="Scheduled">Scheduled</option>
-        <option value="Completed">Completed</option>
-        <option value="Cancelled">Cancelled</option>
-        <option value="Rescheduled">Rescheduled</option>
-        <option value="No Show">No Show</option>
-    </select>
-    
-    <input type="text" id="search-appointments" placeholder="Search appointments...">
-</div>
         </div>
 
         <!-- Appointments View -->
@@ -2956,8 +2951,8 @@ function appointmentMatchesSearch(appointment, query) {
     appointments = await fetchAppointmentsWithCache();
 // Apply status filter
 appointments = statusFilter === "All" 
-      ? allAppointments 
-      : allAppointments.filter(app => app.status === statusFilter);
+      ? Appointments 
+      : Appointments.filter(app => app.status === statusFilter);
 
     // 🔔 Reminder for tomorrow — only once per session
     if (auth?.currentUser && !sessionStorage.getItem(`reminderShown_${auth.currentUser.uid}`)) {
