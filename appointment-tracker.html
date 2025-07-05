@@ -1246,6 +1246,20 @@
                     <canvas id="appointmentsChart"></canvas>
                 </div>
             </div>
+
+            <!-- Add this to your appointments.html -->
+<div class="filter-controls">
+    <select id="status-filter">
+        <option value="All">All Appointments</option>
+        <option value="Scheduled">Scheduled</option>
+        <option value="Completed">Completed</option>
+        <option value="Cancelled">Cancelled</option>
+        <option value="Rescheduled">Rescheduled</option>
+        <option value="No Show">No Show</option>
+    </select>
+    
+    <input type="text" id="search-appointments" placeholder="Search appointments...">
+</div>
         </div>
 
         <!-- Appointments View -->
@@ -1971,6 +1985,7 @@
     let currentPreviewAppointment = null;
     let originalEmail = "";
     let originalSMS = "";
+    let statusFilter = "All"; // Default filter
     const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
     
     // ===== ERROR HANDLING FOR FIREBASE =====
@@ -2023,7 +2038,20 @@
 
     const gst = parseFloat(document.getElementById("gst-rate").value || 0);
     const pst = parseFloat(document.getElementById("pst-rate").value || 0);
-
+    document.addEventListener('DOMContentLoaded', function() {
+    // Get status filter from URL if exists
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlStatus = urlParams.get('status');
+    
+    if (urlStatus) {
+        statusFilter = urlStatus;
+        // Set the dropdown to match URL filter
+        document.getElementById('status-filter').value = urlStatus;
+    }
+    
+    // Initialize appointments
+    fetchAppointments();
+});
     // Clear previous errors
     document.querySelectorAll(".validation-error").forEach(el => {
         el.textContent = "";
@@ -2032,7 +2060,18 @@
     document.querySelectorAll(".form-control").forEach(field => {
         field.classList.remove("invalid");
     });
-
+// Add click handlers to status cards
+document.querySelectorAll('.card-grid .card').forEach(card => {
+    card.addEventListener('click', function() {
+        const status = this.getAttribute('data-status');
+        
+        // For the "Total Appointments" card, show all appointments
+        const statusParam = status === 'All' ? '' : `?status=${encodeURIComponent(status)}`;
+        
+        // Navigate to appointments page with status filter
+        window.location.href = `appointments.html${statusParam}`;
+    });
+});
     let isValid = true;
 
     // Validate required fields
@@ -2861,7 +2900,15 @@ document.getElementById("savePreviewBtn").onclick = async () => {
                         });
                 }
             }
-            
+            // Helper function for search
+function appointmentMatchesSearch(appointment, query) {
+    return (
+        appointment.customer?.toLowerCase().includes(query) ||
+        appointment.phone?.includes(query) ||
+        appointment.email?.toLowerCase().includes(query) ||
+        appointment.house_address?.toLowerCase().includes(query)
+    );
+}
             // ================ DATA MANAGEMENT ================
             // Fetch appointments from Firestore
             async function fetchAppointmentsWithCache() {
@@ -2907,6 +2954,10 @@ document.getElementById("savePreviewBtn").onclick = async () => {
             async function fetchAppointments() {
   try {
     appointments = await fetchAppointmentsWithCache();
+       // Apply status filter if not "All"
+       if (statusFilter !== "All") {
+        appointments = appointments.filter(app => app.status === statusFilter);
+    }
 
     // 🔔 Reminder for tomorrow — only once per session
     if (auth?.currentUser && !sessionStorage.getItem(`reminderShown_${auth.currentUser.uid}`)) {
@@ -2942,6 +2993,23 @@ document.getElementById("savePreviewBtn").onclick = async () => {
     showToast("Failed to load appointments", true);
   }
 }
+
+// Add event listener for manual filter changes
+document.getElementById('status-filter').addEventListener('change', function() {
+    // Get the selected status
+    const selectedStatus = this.value;
+    
+    // Update URL without reloading the page
+    const url = selectedStatus === 'All' 
+        ? 'appointments.html' 
+        : `appointments.html?status=${encodeURIComponent(selectedStatus)}`;
+    
+    // Update the URL
+    window.history.pushState({}, '', url);
+    
+    // Re-fetch and render appointments
+    fetchAppointments();
+});
           
             function setupRealtimeListeners() {
   const appointmentsQuery = query(appointmentsCollection, orderBy("date", "desc"));
@@ -3932,6 +4000,22 @@ async function saveCustomer() {
             // ================ RENDERING FUNCTIONS ================
             // Render appointments table
             function renderAppointmentsTable(list = appointments) {
+                let filteredAppointments = [...appointments];
+    
+    if (statusFilter !== "All") {
+        filteredAppointments = filteredAppointments.filter(app => app.status === statusFilter);
+    }
+    
+    // Apply search filter if needed
+    const searchQuery = document.getElementById('search-appointments')?.value.toLowerCase() || '';
+    if (searchQuery) {
+        filteredAppointments = filteredAppointments.filter(app => 
+            (app.customer?.toLowerCase().includes(searchQuery)) ||
+            (app.phone?.includes(searchQuery)) ||
+            (app.email?.toLowerCase().includes(searchQuery)) ||
+            (app.house_address?.toLowerCase().includes(searchQuery))
+        );
+    }
     const tbody = document.getElementById("appointments-body");
     tbody.innerHTML = "";
 
@@ -4117,7 +4201,14 @@ async function saveCustomer() {
                     `;
                     tbody.appendChild(row);
                 });
-                
+                // Add click handlers to status cards
+            document.querySelectorAll('.status-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const status = this.getAttribute('data-status');
+                    // Pass status as URL parameter
+                    window.location.href = `appointments.html?status=${encodeURIComponent(status)}`;
+                });
+            });
                 // Attach event listeners to each edit/delete button
                 document.querySelectorAll('.edit-btn').forEach(btn => {
                     btn.addEventListener('click', () => openEditCustomerModal(btn.dataset.id));
@@ -4816,7 +4907,9 @@ document.querySelectorAll('[data-view]').forEach(link => {
                 document.getElementById('add-customer').addEventListener('click', openAddCustomerModal);
                 document.getElementById('save-customer').addEventListener('click', saveCustomer);
                 document.getElementById('cancel-customer').addEventListener('click', closeCustomerModal);
-                
+                document.getElementById('search-appointments').addEventListener('input', function() {
+    renderAppointmentsTable();
+});
                 // Mobile menu toggle
                 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
                 const sidebar = document.querySelector('.sidebar');
