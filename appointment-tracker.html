@@ -2954,10 +2954,10 @@ function appointmentMatchesSearch(appointment, query) {
             async function fetchAppointments() {
   try {
     appointments = await fetchAppointmentsWithCache();
-       // Apply status filter if not "All"
-       if (statusFilter !== "All") {
-        appointments = appointments.filter(app => app.status === statusFilter);
-    }
+// Apply status filter
+appointments = statusFilter === "All" 
+      ? allAppointments 
+      : allAppointments.filter(app => app.status === statusFilter);
 
     // 🔔 Reminder for tomorrow — only once per session
     if (auth?.currentUser && !sessionStorage.getItem(`reminderShown_${auth.currentUser.uid}`)) {
