@@ -2415,6 +2415,7 @@ document.getElementById('house-address').addEventListener('input', function(e) {
         container.appendChild(skeleton);
       }
     }
+
     function showSuggestions(list) {
   const container = document.getElementById("address-suggestions");
   container.innerHTML = ""; // Clear previous results
@@ -2426,22 +2427,30 @@ document.getElementById('house-address').addEventListener('input', function(e) {
 
   list.forEach(result => {
     const item = document.createElement("div");
-    item.className = "suggestion-item"; // ← matches your dark theme CSS
+    item.className = "suggestion-item"; // matches your CSS
     item.textContent = result.display_name;
+
     item.onclick = () => {
       document.getElementById("house-address").value = result.display_name;
       container.style.display = "none";
 
-      // Optional: show map or extract city/postal etc.
-      if (result.lat && result.lon) {
-        showMap(result.lat, result.lon);
+      // Parse lat/lon safely
+      const lat = parseFloat(result.lat);
+      const lon = parseFloat(result.lon);
+
+      if (!isNaN(lat) && !isNaN(lon)) {
+        showMap(lat, lon);
+      } else {
+        console.warn("Invalid coordinates:", result.lat, result.lon);
       }
     };
+
     container.appendChild(item);
   });
 
   container.style.display = "block";
 }
+
 
     async function openPreviewModal(appointment) {
   currentPreviewAppointment = appointment;
