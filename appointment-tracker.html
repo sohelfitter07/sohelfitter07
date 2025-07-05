@@ -2076,7 +2076,6 @@ function setupStatusCardClickHandlers() {
             // Activate the "appointments" view with filtered appointments
             activateView("appointments");
             fetchAppointments();
-            console.log("Appointments structure:", appointments);// Re-fetch filtered appointments based on the selected status
         });
     });
 }
@@ -2450,7 +2449,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const term = this.value.toLowerCase();
         
         if (!term) {
-          renderAppointmentsTable(appointments);
+          entsTable(appointments);
           return;
         }
         
@@ -2461,7 +2460,7 @@ window.addEventListener("DOMContentLoaded", () => {
           (app.status && statusMap[app.status]?.text.toLowerCase().includes(term))
         );
         
-        renderAppointmentsTable(filtered);
+        entsTable(filtered);
       });
     }
     
@@ -3100,18 +3099,6 @@ document.getElementById("savePreviewBtn").onclick = async () => {
             initReminderSystem();
                 updateStats();
                 initChart();
-setTimeout(() => {
-    document.querySelectorAll('.card-grid .card').forEach(card => {
-        card.addEventListener('click', function() {
-            const status = this.getAttribute('data-status');
-            statusFilter = status;
-            // Correct the ID here to appointment-status
-            document.getElementById('appointment-status').value = status;  // <-- Correct ID
-            activateView("appointments");
-        });
-    });
-}, 100);
-
                 break;
             case "appointments":
                 statusFilter = "All"; // Reset filter to "All"
@@ -3251,7 +3238,7 @@ async function fetchAppointments() {
         }
 
         // Render the filtered appointments (use the filtered data)
-        renderAppointmentsTable(filteredAppointments);
+        entsTable(filteredAppointments);
         updateStats();
 
         // Call chart and other necessary initializations
@@ -3285,7 +3272,7 @@ async function fetchAppointments() {
       ...doc.data(),
       dateObj: doc.data().date.toDate()
     }));
-    renderAppointmentsTable();
+    entsTable();
     updateStats();
     if (document.getElementById('calendar-view').classList.contains('active')) {
       renderCalendar();
@@ -4889,6 +4876,10 @@ function updateStats() {
     document.getElementById("save-appointment").textContent = "Update Appointment";
     document.getElementById('appointment-modal').classList.add('active');
 }
+document.addEventListener('DOMContentLoaded', function() {
+    fetchAppointments();
+    setupStatusCardClickHandlers(); // ✅ this is good
+});
 
 
             function openAddModal() {
