@@ -2075,7 +2075,8 @@ function setupStatusCardClickHandlers() {
             
             // Activate the "appointments" view with filtered appointments
             activateView("appointments");
-            fetchAppointments(); // Re-fetch filtered appointments based on the selected status
+            fetchAppointments();
+            console.log("Appointments structure:", appointments);// Re-fetch filtered appointments based on the selected status
         });
     });
 }
@@ -4227,6 +4228,7 @@ async function saveCustomer() {
             // ================ RENDERING FUNCTIONS ================
             // Render appointments table
 function renderAppointmentsTable(list = appointments) {
+    console.log("Appointments list being passed to render:", list); 
     // Create a filtered appointments list based on the status filter and search query
     let filteredAppointments = [...appointments];
 
@@ -4250,6 +4252,7 @@ function renderAppointmentsTable(list = appointments) {
     tbody.innerHTML = ""; // Clear the current table contents
 
     if (filteredAppointments.length === 0) {
+        console.log("No appointments to display."); 
         tbody.innerHTML = `
             <tr>
                 <td colspan="9" style="text-align: center; padding: 30px;">
@@ -5231,7 +5234,7 @@ document.querySelectorAll('[data-view]').forEach(link => {
         // Use setInterval to repeatedly check if 'status-filter' exists
         const checkStatusFilter = setInterval(function() {
             const statusFilter = document.getElementById('appointment-status');
-            console.log(statusFilter);  // Add this line for debugging
+           console.log("Current statusFilter:", statusFilter);  // Add this line for debugging
 
 
             if (statusFilter) {
