@@ -3246,23 +3246,6 @@ appointments = statusFilter === "All"
 
 
 
-window.addEventListener('DOMContentLoaded', function () {
-    const checkStatusFilter = setInterval(function() {
-        const statusFilter = document.getElementById('status-filter');
-        if (statusFilter) {
-            clearInterval(checkStatusFilter); // Stop checking once it's found
-            statusFilter.addEventListener('change', function () {
-                const selectedStatus = this.value;
-                const url = selectedStatus === 'All'
-                    ? 'appointments.html'
-                    : `appointments.html?status=${encodeURIComponent(selectedStatus)}`;
-                window.history.pushState({}, '', url);
-                fetchAppointments();
-            });
-        }
-    }, 100); // Check every 100ms
-});
-
 
           
             function setupRealtimeListeners() {
@@ -5192,6 +5175,30 @@ document.querySelectorAll('[data-view]').forEach(link => {
   }
 });
 
+<!-- At the bottom of your HTML file, just before closing </body> -->
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        // Use setInterval to repeatedly check if 'status-filter' exists
+        const checkStatusFilter = setInterval(function() {
+            const statusFilter = document.getElementById('status-filter');
+
+            if (statusFilter) {
+                // Stop checking once it's found
+                clearInterval(checkStatusFilter); 
+
+                // Add event listener for change event
+                statusFilter.addEventListener('change', function () {
+                    const selectedStatus = this.value;
+                    const url = selectedStatus === 'All'
+                        ? 'appointments.html'
+                        : `appointments.html?status=${encodeURIComponent(selectedStatus)}`;
+                    window.history.pushState({}, '', url);
+                    fetchAppointments(); // Assuming fetchAppointments is defined elsewhere
+                });
+            }
+        }, 100); // Check every 100ms
+    });
+</script>
 
 
 
