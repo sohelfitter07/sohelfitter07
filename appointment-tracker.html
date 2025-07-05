@@ -2252,6 +2252,9 @@ function formatCanadianAddress(address) {
     // Address autocomplete with Nominatim
 // Make sure this runs after Leaflet + Geocoder scripts are loaded
 window.addEventListener("DOMContentLoaded", () => {
+
+    let lastQuery = "";
+    let debounceTimer = null;
   const addressInput         = document.getElementById("house-address");
   const suggestionsContainer = document.getElementById("address-suggestions");
   const loadingIndicator     = document.getElementById("geocode-loading");
@@ -2260,9 +2263,6 @@ window.addEventListener("DOMContentLoaded", () => {
     console.warn("⚠️ Missing address input or suggestion container.");
     return;
   }
-
-  let lastQuery     = "";
-  let debounceTimer = null;
 
   addressInput.addEventListener("input", () => {
     const query = addressInput.value.trim();
