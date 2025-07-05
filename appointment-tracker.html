@@ -3220,8 +3220,13 @@ function appointmentMatchesSearch(appointment, query) {
     
 async function fetchAppointments() {
     try {
-        const allAppointments = await fetchAppointmentsWithCache(); // Assuming this function fetches all appointments
+        const allAppointments = await fetchAppointmentsWithCache(); // Get all appointments (cached or fresh)
         
+        // Check if the data is valid
+        if (!Array.isArray(allAppointments)) {
+            throw new Error("Fetched data is not an array.");
+        }
+
         // Apply status filter (if 'All' is selected, return all appointments)
         const filteredAppointments = statusFilter === "All" 
             ? allAppointments 
@@ -3262,30 +3267,6 @@ async function fetchAppointments() {
         console.error("Error in fetchAppointments:", error);
         showToast("Failed to load appointments", true);
     }
-}
-
-
-    renderAppointmentsTable(); 
-    updateStats();
-        // ✅ Show one-time reminder toast if there's a reminder due tomorrow
-        checkAndShowReminder(appointments);
-
-
-    setTimeout(() => {
-      if (document.getElementById('calendar-view').classList.contains('active')) {
-        renderCalendar();
-        updateCalendarSummary();
-      }
-      if (document.getElementById('dashboard-view').classList.contains('active')) {
-        initChart();
-      }
-    }, 50);
-
-    setupRealtimeListeners();
-  } catch (error) {
-    console.error("Error in fetchAppointments:", error);
-    showToast("Failed to load appointments", true);
-  }
 }
 
 
