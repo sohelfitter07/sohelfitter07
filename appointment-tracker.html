@@ -5667,7 +5667,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Reset form and set default values
                 document.getElementById("appointment-form").reset();
                     // ✅ Clear house address separately
-    document.getElementById("house-address-input").value = "";
+                document.getElementById("house-address-input").value = "";
+                    // ✅ Clear distance display
+                document.getElementById('gomaps-distance').textContent = '0';
                 // Clear validation errors
                 document.querySelectorAll('.validation-error').forEach(el => {
                     el.style.display = 'none';
