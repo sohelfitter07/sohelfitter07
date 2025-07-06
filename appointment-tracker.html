@@ -1184,6 +1184,18 @@
   margin-top: 5px;
   display: block;
 }
+@media (max-width: 768px) {
+  .card {
+    padding: 0.75rem;      /* less padding */
+    font-size: 0.9rem;     /* smaller font */
+  }
+  .card .card-header .card-title {
+    font-size: 1.1rem;     /* adjust title font smaller */
+  }
+  .card .card-icon i {
+    font-size: 1.2rem;     /* smaller icon */
+  }
+}
     </style>
 </head>
 <body>
@@ -1216,10 +1228,6 @@
             <a href="#" data-view="dashboard" class="active">
                 <i class="fas fa-chart-line"></i>
                 <span>Dashboard</span>
-            </a>
-            <a href="#" data-view="appointments">
-                <i class="fas fa-calendar-check"></i>
-                <span>Appointments</span>
             </a>
             <a href="#" data-view="calendar">
                 <i class="fas fa-calendar-alt"></i>
@@ -1270,7 +1278,7 @@
         <!-- Dashboard View -->
         <div id="dashboard-view" class="tab-content active">
  
-            <div class="card-grid">
+            <div class="card-grid grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="card" id="total-appointments-card" data-status="All">
                   <div class="card-header">
                     <div class="card-title">Total Appointments</div>
