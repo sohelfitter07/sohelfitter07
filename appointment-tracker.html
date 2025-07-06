@@ -3630,7 +3630,7 @@ function appointmentMatchesSearch(appointment, query) {
         appointment.customer?.toLowerCase().includes(query) ||
         appointment.phone?.includes(query) ||
         appointment.email?.toLowerCase().includes(query) ||
-        appointment.house_address?.toLowerCase().includes(query)
+        appointment.houseAddress?.toLowerCase().includes(query)
     );
 }
             // ================ DATA MANAGEMENT ================
@@ -4705,7 +4705,7 @@ async function saveCustomer() {
             (app.customer?.toLowerCase().includes(searchQuery)) ||
             (app.phone?.includes(searchQuery)) ||
             (app.email?.toLowerCase().includes(searchQuery)) ||
-            (app.house_address?.toLowerCase().includes(searchQuery))
+            (app.houseAddress?.toLowerCase().includes(searchQuery))
         );
     }
 
@@ -4764,7 +4764,7 @@ async function saveCustomer() {
         const reminderIcon = app.reminderEnabled ? "🕒" : "";
         const isEdited = !!(app.editedEmailBody || app.editedSmsBody);
         // FIXED: Add unique address to each row
-        const encodedAddress = app.house_address ? encodeURIComponent(app.house_address) : '';
+        const encodedAddress = app.houseAddress ? encodeURIComponent(app.houseAddress) : '';
         // ADDED: Directions button column
         row.innerHTML = `
             <td>#${app.id}</td>
@@ -5630,7 +5630,7 @@ document.querySelectorAll('[data-view]').forEach(link => {
          timeInput !== originalAppointmentData.time ||
          status !== originalAppointmentData.status);
          const reminderEnabled = document.getElementById("reminder-enabled").checked;
-    const appointmentData = {
+        const appointmentData = {
         customer: customerName,
         phone,
         email,
