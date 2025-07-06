@@ -5428,15 +5428,15 @@ function updateStats() {
     ];
 
     const statusColors = [
-        "rgba(93, 93, 255, 0.7)",   // Scheduled / Confirmed
-        "rgba(52, 152, 219, 0.7)",  // In Progress
-        "rgba(241, 196, 15, 0.7)",  // Awaiting Parts
-        "rgba(155, 89, 182, 0.7)",  // Parts Arrived
-        "rgba(255, 193, 7, 0.7)",  // Scheduled for Parts Installation
-        "rgba(230, 126, 34, 0.7)",  // Repaired
-        "rgba(39, 174, 96, 0.7)",   // Completed
-        "rgba(231, 76, 60, 0.7)"    // Cancelled
-    ];
+    "rgba(93, 93, 255, 0.7)",    // Scheduled / Confirmed (blue)
+    "rgba(52, 152, 219, 0.7)",   // In Progress (light blue)
+    "rgba(241, 196, 15, 0.7)",   // Awaiting Parts (yellow)
+    "rgba(155, 89, 182, 0.7)",   // Parts Arrived (purple)
+    "rgba(0, 168, 150, 0.7)",    // Scheduled for Parts Installation (teal)
+    "rgba(230, 126, 34, 0.7)",   // Repaired (orange)
+    "rgba(39, 174, 96, 0.7)",    // Completed (green)
+    "rgba(231, 76, 60, 0.7)"     // Cancelled (red)
+];
 
     const statusBorderColors = statusColors.map(color => color.replace("0.7", "1"));
 
