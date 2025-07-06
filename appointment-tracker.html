@@ -3051,7 +3051,39 @@ document.getElementById("savePreviewBtn").onclick = async () => {
     const destination = addressInput.value.trim();
     fetchRouteInfo(destination);
   });
-    
+  async function validateAddress(address) {
+  if (!address) return false;
+
+  const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+  const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.status === "OK" && data.results.length > 0) {
+      // Optionally, you can check result types or components here
+      return true;  // Valid address
+    } else {
+      return false; // Invalid address
+    }
+  } catch (error) {
+    console.error("Validation error:", error);
+    return false;
+  }
+}
+
+// Use this on input blur or form submit
+document.getElementById("house-address-input").addEventListener("blur", async function () {
+  const errorDiv = document.getElementById("house-address-error");
+  const isValid = await validateAddress(this.value);
+  if (!isValid) {
+    errorDiv.textContent = "Please enter a valid address.";
+  } else {
+    errorDiv.textContent = "";
+  }
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   const apiKey = document.getElementById("gomaps-widget").dataset.apiKey;
   const originAddress = document.getElementById("gomaps-widget").dataset.distanceFrom;
