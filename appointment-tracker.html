@@ -5310,8 +5310,10 @@ async function saveCustomer() {
                     <h3>Appointment Details</h3>
                     <p><strong>Customer:</strong> ${appointment.customer}</p>
                     <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
+                    <p><strong>Phone:</strong> ${appointment.phone || 'N/A'}</p>
+                    <p><strong>Address:</strong> ${appointment.houseAddress || 'N/A'}</p>
                     <p><strong>Equipment:</strong> ${appointment.equipment}</p>
-                    <p><strong>Status:</strong> ${statusMap[appointment.status]?.text || 'N/A'}</p>
+                    <p><strong>Status:</strong> ${statusMap[appointment.status]?.text || appointment.status || 'N/A'}</p>
                     <p><strong>Issue:</strong> ${appointment.issue}</p>
                     <p><strong>Base Price:</strong> $${(appointment.basePrice || 0).toFixed(2)}</p>
                     <p><strong>Tax:</strong> $${((appointment.price || 0) - (appointment.basePrice || 0)).toFixed(2)}</p>
