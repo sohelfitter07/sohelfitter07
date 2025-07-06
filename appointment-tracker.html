@@ -2304,13 +2304,7 @@ document.getElementById('house-address').addEventListener('input', function(e) {
     }, 300);
 });
 
-        // Hide suggestions when clicking elsewhere
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('#house-address') && 
-                !e.target.closest('#address-suggestions')) {
-                document.getElementById('address-suggestions').style.display = 'none';
-            }
-        });
+
     function renderCustomersTable() {
       const tbody = document.getElementById('customers-body');
       tbody.innerHTML = '';
