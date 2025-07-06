@@ -1324,17 +1324,34 @@
                 </div>
             </div>
             
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Appointments Overview</div>
-                    <div class="card-icon">
-                        <i class="fas fa-chart-bar"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Appointment Status Distribution Chart -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Appointments Status Overview</div>
+                        <div class="card-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                    <div style="height: 350px;">
+                        <canvas id="appointmentsStatusChart"></canvas>
                     </div>
                 </div>
-                <div style="height: 350px;">
-                    <canvas id="appointmentsChart"></canvas>
+            
+                <!-- Appointments Per Day Chart -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Appointments This Month</div>
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                    </div>
+                    <div style="height: 350px;">
+                        <canvas id="appointmentsPerDayChart"></canvas>
+                    </div>
                 </div>
             </div>
+            
         </div>
 
         <!-- Appointments View -->
@@ -3738,7 +3755,7 @@ async function fetchAppointments() {
 
 
 function renderAppointmentsChart() {
-    const ctx = document.getElementById('appointmentsChart').getContext('2d');
+    const ctx = document.getElementById("appointmentsPerDayChart").getContext("2d");
 
     if (appointmentsChartInstance) {
         appointmentsChartInstance.destroy();
@@ -5374,37 +5391,48 @@ function updateStats() {
             
                 // Chart.js setup
                 function initChart() {
-    const ctx = document.getElementById("appointmentsChart").getContext("2d");
+    const ctx = document.getElementById("appointmentsStatusChart").getContext("2d");
 
-    if (appointmentsChartInstance) {
-        appointmentsChartInstance.destroy();
+    if (chartInstance) {
+        chartInstance.destroy();
     }
 
-    const counts = {
-        scheduled: appointments.filter(a => a.status === "Scheduled / Confirmed").length,
-        in_progress: appointments.filter(a => a.status === "In Progress").length,
-        completed: appointments.filter(a => a.status === "Completed").length,
-        cancelled: appointments.filter(a => a.status === "Cancelled").length,
-    };
+    const statusLabels = [
+        "Scheduled / Confirmed",
+        "In Progress",
+        "Awaiting Parts",
+        "Parts Arrived",
+        "Scheduled for Parts Installation",
+        "Repaired",
+        "Completed",
+        "Cancelled"
+    ];
+
+    const statusColors = [
+        "rgba(93, 93, 255, 0.7)",   // Scheduled / Confirmed
+        "rgba(52, 152, 219, 0.7)",  // In Progress
+        "rgba(241, 196, 15, 0.7)",  // Awaiting Parts
+        "rgba(155, 89, 182, 0.7)",  // Parts Arrived
+        "rgba(46, 204, 113, 0.7)",  // Scheduled for Parts Installation
+        "rgba(230, 126, 34, 0.7)",  // Repaired
+        "rgba(39, 174, 96, 0.7)",   // Completed
+        "rgba(231, 76, 60, 0.7)"    // Cancelled
+    ];
+
+    const statusBorderColors = statusColors.map(color => color.replace("0.7", "1"));
+
+    const counts = statusLabels.map(status => 
+        appointments.filter(a => a.status === status).length
+    );
 
     chartInstance = new Chart(ctx, {
         type: "doughnut",
         data: {
-            labels: ["Scheduled", "In Progress", "Completed", "Cancelled"],
+            labels: statusLabels,
             datasets: [{
-                data: Object.values(counts),
-                backgroundColor: [
-                    "rgba(93, 93, 255, 0.7)",
-                    "rgba(52, 152, 219, 0.7)",
-                    "rgba(46, 204, 113, 0.7)",
-                    "rgba(231, 76, 60, 0.7)",
-                ],
-                borderColor: [
-                    "rgba(93, 93, 255, 1)",
-                    "rgba(52, 152, 219, 1)",
-                    "rgba(46, 204, 113, 1)",
-                    "rgba(231, 76, 60, 1)",
-                ],
+                data: counts,
+                backgroundColor: statusColors,
+                borderColor: statusBorderColors,
                 borderWidth: 1,
             }],
         },
@@ -5426,6 +5454,8 @@ function updateStats() {
         },
     });
 }
+
+
 
             // ================ MODAL MANAGEMENT ================
             function openEditModal(id) {
