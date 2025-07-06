@@ -1346,14 +1346,15 @@
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                     </div>
-                      <!-- Add month navigation here -->
-                    <div style="margin: 10px 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                        <button id="prevMonthBtn" class="btn">← Previous</button>
-                        <span id="monthYearLabel" style="font-weight: bold; color: #333;"></span>
-                        <button id="nextMonthBtn" class="btn">Next →</button>
-                    </div>
+                    <!-- Month label on top -->
+                    <div id="monthYearLabel" style="text-align: center; font-weight: bold; font-size: 1.2rem; margin: 10px 0; color: #333;"></div>
                     <div style="height: 350px;">
                         <canvas id="appointmentsPerDayChart"></canvas>
+                    </div>
+                    <!-- Buttons below the chart -->
+                    <div style="margin: 10px 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <button id="prevMonthBtn" class="btn">← Previous</button>
+                        <button id="nextMonthBtn" class="btn">Next →</button>
                     </div>
                 </div>
             </div>
@@ -5484,14 +5485,17 @@ function changeMonth(offset) {
     currentYear++;
   }
   updateMonthYearLabel();
-  renderAppointmentsChart();
+  renderAppointmentsChart(); // your function that draws chart for currentYear/currentMonth
 }
 
 prevMonthBtn.addEventListener('click', () => changeMonth(-1));
 nextMonthBtn.addEventListener('click', () => changeMonth(1));
 
-updateMonthYearLabel(); // show initial label
-renderAppointmentsChart(); // initial chart render
+// Initialize label and chart on load, but **only after appointments data is ready**
+function initAppointmentsView() {
+  updateMonthYearLabel();
+  renderAppointmentsChart();
+}
 
 
 
