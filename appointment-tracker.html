@@ -6,11 +6,7 @@
     <title>Admin Dashboard - Canadian Fitness Repair</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <!-- ✅ Leaflet Geocoder JS – ADD THIS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<!-- Leaflet Geocoder CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="https://cdn.geomap.pro/widget.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -86,21 +82,7 @@
             background: var(--dark-hover);
         }
         
-        /* Map container for preview */
-        #map-preview {
-            height: 200px;
-            width: 100%;
-            margin-top: 10px;
-            border-radius: 8px;
-            display: none;
-        }
-        
-        /* Loading indicator for geocoding */
-        .geocode-loading {
-            display: none;
-            text-align: center;
-            padding: 10px;
-        }
+      
         .brand {
             padding: 25px;
             text-align: center;
@@ -1762,23 +1744,31 @@
           <button type="button" class="btn btn-secondary" id="lookup-carrier">Lookup Carrier</button>
         </div>
         
-        <div style="margin-bottom: 20px; position: relative;">
-            <label>House Address</label>
-            <input type="text" id="house-address" class="form-control" 
-                   placeholder="Enter house address" required>
-            <div class="validation-error" id="house-address-error"></div>
-            
-            <!-- Suggestions dropdown -->
-            <div id="address-suggestions" class="suggestions-container"></div>
-            
-             <!-- Loading indicator -->
-             <div class="geocode-loading" id="geocode-loading">
-                <i class="fas fa-spinner fa-spin"></i> Searching for addresses...
-            </div>
-                
-            <!-- Map preview -->
-            <div id="map-preview"></div>
-        </div>
+<!-- Geomap.pro Autocomplete + Map + Distance -->
+<div style="margin-bottom: 20px; position: relative;">
+    <label for="house-address">House Address</label>
+  
+    <!-- Geomap container -->
+    <div id="geomap-pro"
+         data-api-key="YOUR_API_KEY"
+         data-label="Enter house address"
+         data-map="true"
+         data-map-height="200px"
+         data-distance-from="22 Canary Grass Blvd, Hamilton, Ontario, L0R 1P0"
+         data-output-id="house-address"
+         style="margin-bottom: 10px;">
+    </div>
+  
+    <!-- Hidden field that Geomap fills on selection -->
+    <input type="hidden" id="house-address" name="houseAddress" required>
+  
+    <!-- Validation error message -->
+    <div class="validation-error" id="house-address-error"></div>
+  
+    <!-- Optional: Show distance -->
+    <p><strong>Distance:</strong> <span id="geomap-distance">0</span> km</p>
+  </div>
+  
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
           <div>
@@ -2247,30 +2237,6 @@ function formatCanadianAddress(address) {
       }
     }
 
-async function getAddressSuggestions(query) {
-    if (!query || query.length < 3) return [];
-
-    try {
-        // Show loading indicator
-        document.getElementById('geocode-loading').style.display = 'block';
-        document.getElementById('address-suggestions').style.display = 'none';
-
-        // ✅ Use GET with query parameter
-        const response = await fetch(`https://cfr-backend-1.onrender.com/api/geocode?q=${encodeURIComponent(query)}`);
-
-        if (!response.ok) {
-            throw new Error('Geocoding service unavailable');
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Geocoding error:', error);
-        showToast("Address lookup service is currently unavailable", true);
-        return [];
-    } finally {
-        document.getElementById('geocode-loading').style.display = 'none';
-    }
-}
 
 
         
@@ -2297,28 +2263,7 @@ async function getAddressSuggestions(query) {
             container.style.display = 'block';
         }      
 
-        function selectSuggestion(suggestion) {
-            const addressInput = document.getElementById('house-address');
-            addressInput.value = suggestion.display_name;
-            
-            document.getElementById('address-suggestions').style.display = 'none';
-            
-            // Show map preview
-            const mapPreview = document.getElementById('map-preview');
-            mapPreview.style.display = 'block';
-            
-            const map = initMap();
-            map.setView([suggestion.lat, suggestion.lon], 16);
-            
-            if (marker) {
-                map.removeLayer(marker);
-            }
-            
-            marker = L.marker([suggestion.lat, suggestion.lon]).addTo(map)
-                .bindPopup(suggestion.display_name)
-                .openPopup();
-        }
-        
+   
         // Setup address input
 // ✅ Declare variables BEFORE using them
 let lastQuery = "";
@@ -4720,7 +4665,21 @@ function updateStats() {
                 renderLogsPage();
             }
             });
+            document.addEventListener("geomap:address-selected", function (e) {
+    const result = e.detail;
 
+    // Fill hidden input with selected address
+    document.getElementById("house-address").value = result.full_address;
+
+    // Optional: display distance
+    if (result.distance_km !== undefined) {
+      document.getElementById("geomap-distance").textContent = result.distance_km.toFixed(2);
+    }
+
+    // Clear validation error
+    const errorBox = document.getElementById("house-address-error");
+    if (errorBox) errorBox.textContent = "";
+  });
             document.getElementById("next-log-page").addEventListener("click", () => {
   const totalPages = Math.ceil(allLogs.length / logsPerPage);
   if (currentLogPage < totalPages) {
@@ -5193,71 +5152,6 @@ document.querySelectorAll('[data-view]').forEach(link => {
                     });
                 }        
     }
-    window.addEventListener("DOMContentLoaded", () => {
-  // ✅ Declare variables first
-  let lastQuery = "";
-  let debounceTimer = null;
-
-  const houseInput      = document.getElementById("house-address");
-  const suggestionsBox  = document.getElementById("address-suggestions");
-  const loadingSpinner  = document.getElementById("geocode-loading"); // optional
-
-  if (!houseInput || !suggestionsBox) {
-    console.warn("❌ Missing house-address input or suggestions container");
-    return;
-  }
-
-  houseInput.addEventListener("input", (e) => {
-    const q = e.target.value.trim();
-
-    if (q.length < 3 || q === lastQuery) {
-      suggestionsBox.style.display = "none";
-      return;
-    }
-
-    lastQuery = q;
-    clearTimeout(debounceTimer);
-
-    debounceTimer = setTimeout(() => {
-      // optional spinner
-      if (loadingSpinner) loadingSpinner.style.display = "block";
-
-      fetch(`/api/geocode?q=${encodeURIComponent(q)}`)
-        .then((res) => {
-          if (!res.ok) throw new Error("Geocode failed");
-          return res.json();
-        })
-        .then((results) => {
-          if (loadingSpinner) loadingSpinner.style.display = "none";
-
-          suggestionsBox.innerHTML = "";
-          if (!results.length) {
-            suggestionsBox.style.display = "none";
-            return;
-          }
-
-          results.forEach((r) => {
-            const item = document.createElement("div");
-            item.className = "suggestion-item";
-            item.textContent = r.display_name || r.name;
-
-            item.addEventListener("click", () => {
-              houseInput.value = item.textContent;
-              suggestionsBox.style.display = "none";
-            });
-
-            suggestionsBox.appendChild(item);
-          });
-
-          suggestionsBox.style.display = "block";
-        })
-        .catch((err) => {
-          console.error("Geocode error:", err);
-          if (loadingSpinner) loadingSpinner.style.display = "none";
-        });
-    }, 300);
-  });
-});
 
     document.getElementById('lookup-carrier')?.addEventListener('click', async () => {
   const phone = document.getElementById('customer-phone')?.value?.trim();
