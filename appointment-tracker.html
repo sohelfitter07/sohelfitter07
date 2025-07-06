@@ -5205,8 +5205,8 @@ function updateStats() {
                 
                 const businessDays = getBusinessDays(currentMonth, currentYear);
                 const monthlyRevenue = monthlyApps
-    .filter((a) => ["released", "repair_completed"].includes(a.status))
-    .reduce((sum, a) => sum + (parseFloat(a.price) || 0), 0);
+                .filter((a) => ["repair_completed"].includes(a.status))
+                .reduce((sum, a) => sum + (parseFloat(a.price) || 0), 0);
                 
                 document.getElementById("summary-total").textContent = monthlyApps.length;
                 document.getElementById("summary-days").textContent = businessDays;
