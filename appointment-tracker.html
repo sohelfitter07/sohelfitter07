@@ -1347,7 +1347,7 @@
                         </div>
                     </div>
                     <!-- Month label on top -->
-                    <div id="monthYearLabel" style="text-align: center; font-weight: bold; font-size: 1.2rem; margin: 10px 0; color: #333;"></div>
+                    <div id="monthYearLabel" style="text-align: center; font-weight: bolder; font-size: 1.5rem; margin: 10px 0; color: #fff;"></div>
                     <div style="height: 350px;">
                         <canvas id="appointmentsPerDayChart"></canvas>
                     </div>
@@ -3715,6 +3715,10 @@ async function fetchAppointments() {
         if (!Array.isArray(allAppointments)) {
             throw new Error("Fetched data is not an array.");
         }
+        allAppointments.forEach(app => {
+            app.dateObj = new Date(app.date);
+        });
+
      // Debug: log the statusFilter and appointment statuses
         console.log("Current statusFilter:", statusFilter);
         console.log("Appointments status before filter:", allAppointments.map(app => app.status)); // Logs all statuses
@@ -5493,6 +5497,8 @@ nextMonthBtn.addEventListener('click', () => changeMonth(1));
 
 // Initialize label and chart on load, but **only after appointments data is ready**
 function initAppointmentsView() {
+    currentYear = new Date().getFullYear();
+    currentMonth = new Date().getMonth();
   updateMonthYearLabel();
   renderAppointmentsChart();
 }
