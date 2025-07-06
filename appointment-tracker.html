@@ -4767,7 +4767,7 @@ async function saveCustomer() {
         const encodedAddress = app.houseAddress ? encodeURIComponent(app.houseAddress) : '';
         // ADDED: Directions button column
         row.innerHTML = `
-            
+            <td>#${app.id}</td>
             <td>${app.customer}</td>
             <td>${app.equipment || ""}</td>
             <td>${formatTimestamp(app.dateObj)}</td>
