@@ -5126,7 +5126,7 @@ function updateStats() {
                     <p><strong>Issue:</strong> ${appointment.issue}</p>
                     <p><strong>Base Price:</strong> $${(appointment.basePrice || 0).toFixed(2)}</p>
                     <p><strong>Tax:</strong> $${((appointment.price || 0) - (appointment.basePrice || 0)).toFixed(2)}</p>
-                    <p><strong>Total Price:</strong> $${(appointment.price || 0).toFixed(2)}</p>
+                    <p><strong>Total Price:</strong> $${totalPrice.toFixed(2)}</p>
                     <button class="btn" id="edit-details">Edit Appointment</button>
                 `;
     
