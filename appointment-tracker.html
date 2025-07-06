@@ -2839,8 +2839,9 @@ function validatePhone(phone) {
             const taxRate = getTaxRate(province);
             
             const basePrice = parseFloat(document.getElementById('appointment-base-price').value) || 0;
-            const taxAmount = basePrice * taxRate;
-            const totalPrice = basePrice + taxAmount;
+            const taxAmount = Number((basePrice * taxRate).toFixed(2));
+const totalPrice = Number((basePrice + taxAmount).toFixed(2));
+
             
             document.getElementById('appointment-tax-rate').value = (taxRate * 100).toFixed(2) + '%';
             document.getElementById('appointment-tax-amount').value = taxAmount.toFixed(2);
