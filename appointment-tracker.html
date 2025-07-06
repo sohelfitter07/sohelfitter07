@@ -3072,6 +3072,74 @@ document.getElementById("savePreviewBtn").onclick = async () => {
     return false;
   }
 }
+async function formatAddress(rawAddress) {
+  const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+  const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(rawAddress)}&key=${apiKey}`;
+  
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (data.status === "OK" && data.results.length > 0) {
+    // Use the first formatted address
+    return data.results[0].formatted_address;
+  }
+  return null; // no valid address found
+}
+async function getAddressSuggestions(query) {
+  const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+  const url = `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(query)}&key=${apiKey}`;
+  
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (data.status === "OK") {
+    return data.predictions; // array of suggested places
+  }
+  return [];
+}
+
+// Show suggestions in a dropdown under input
+const inputEl = document.getElementById("house-address-input");
+const suggestionsEl = document.createElement("ul");
+suggestionsEl.style.position = "absolute";
+suggestionsEl.style.background = "white";
+suggestionsEl.style.border = "1px solid #ccc";
+suggestionsEl.style.zIndex = "1000";
+inputEl.parentNode.appendChild(suggestionsEl);
+
+inputEl.addEventListener("input", async () => {
+  const query = inputEl.value;
+  if (query.length < 3) {
+    suggestionsEl.innerHTML = "";
+    return;
+  }
+  const suggestions = await getAddressSuggestions(query);
+  
+  if (suggestions.length === 0) {
+    suggestionsEl.innerHTML = "<li>No suggestions found</li>";
+    return;
+  }
+  
+  suggestionsEl.innerHTML = suggestions.map(s => `<li style="padding:5px; cursor:pointer;">${s.description}</li>`).join("");
+  
+  // Add click handler on suggestions
+  Array.from(suggestionsEl.children).forEach((li, idx) => {
+    li.onclick = () => {
+      inputEl.value = suggestions[idx].description;
+      suggestionsEl.innerHTML = "";
+      inputEl.focus();
+    };
+  });
+});
+
+// When input loses focus or selection made:
+document.getElementById("house-address-input").addEventListener("blur", async () => {
+  const input = document.getElementById("house-address-input");
+  const formatted = await formatAddress(input.value);
+  if (formatted) {
+    input.value = formatted;
+  }
+});
 
 // Use this on input blur or form submit
 document.getElementById("house-address-input").addEventListener("blur", async function () {
