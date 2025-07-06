@@ -5205,12 +5205,12 @@ function updateStats() {
                 
                 const businessDays = getBusinessDays(currentMonth, currentYear);
                 const monthlyRevenue = monthlyApps
-                    .filter((a) => a.status === "released")
-                    .reduce((sum, a) => sum + (a.price || 0), 0);
+    .filter((a) => ["released", "repair_completed"].includes(a.status))
+    .reduce((sum, a) => sum + (parseFloat(a.price) || 0), 0);
                 
                 document.getElementById("summary-total").textContent = monthlyApps.length;
                 document.getElementById("summary-days").textContent = businessDays;
-                document.getElementById("summary-revenue").textContent = `$${monthlyRevenue}`;
+                document.getElementById("summary-revenue").textContent = `$${monthlyRevenue.toFixed(2)}`;
                 
                 const utilizationRate = Math.min(100, Math.round((monthlyApps.length / (businessDays * 3)) * 100));
                 document.getElementById("summary-utilization").textContent = utilizationRate + "%";
