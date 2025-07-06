@@ -5382,7 +5382,10 @@ async function saveCustomer() {
                     <p><strong>Tax:</strong> $${((appointment.price || 0) - (appointment.basePrice || 0)).toFixed(2)}</p>
                     <p><strong>Total Price:</strong> $${totalPrice.toFixed(2)}</p>
                     <br>
+                    <div style="display: flex; gap: 10px;">
                     <button class="btn" id="edit-details">Edit Appointment</button>
+                    <button class="btn" id="close-details">Close</button>
+                    </div>
                 `;
     
                 openDetailsModal(modalContent, id);
@@ -5391,19 +5394,24 @@ async function saveCustomer() {
                     const btn = document.getElementById('edit-details');
                     if (btn) {
                         btn.addEventListener('click', () => {
-                            // Manually close the Appointment Details modal
                             const detailsModal = document.querySelector('.modal-overlay.active');
                             if (detailsModal) {
                                 detailsModal.classList.remove('active');
                             }
-    
-                            // Switch to the Appointments view tab
                             activateView("appointments");
-    
-                            // Wait for view to load, then open the edit form
                             setTimeout(() => {
                                 openEditModal(id);
                             }, 100);
+                        });
+                    }
+
+                    const closeBtn = document.getElementById('close-details');
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', () => {
+                            const detailsModal = document.querySelector('.modal-overlay.active');
+                            if (detailsModal) {
+                                detailsModal.classList.remove('active');
+                            }
                         });
                     }
                 }, 50);
