@@ -2237,26 +2237,25 @@
       }
     }
     function setupStatusCardClickHandlers() {
-    document.querySelectorAll('.card-grid .card').forEach(card => {
+    document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('click', function() {
-            // Get status from data attribute
             const status = this.getAttribute('data-status');
 
-            // If status is 'All', clear the filter to show all appointments
-            statusFilter = (status === 'All') ? '' : status;
+            // Store globally what to filter
+            statusFilter = status;
 
-            // Update dropdown (if exists)
+            // Sync dropdown if present
             const statusDropdown = document.getElementById('appointment-status');
             if (statusDropdown) {
-                statusDropdown.value = statusFilter || 'All'; // Keep dropdown synced
+                statusDropdown.value = statusFilter;
             }
 
-            // Activate the appointments view and fetch filtered appointments
             activateView("appointments");
             fetchAppointments();
         });
     });
 }
+
 
 
 
@@ -3775,36 +3774,37 @@ function appointmentMatchesSearch(appointment, query) {
                 }
             }
     
-async function fetchAppointments() {
+            async function fetchAppointments() {
     try {
-        const allAppointments = await fetchAppointmentsWithCache(); // Get all appointments (cached or fresh)
-        
-        // Check if the data is valid
+        const allAppointments = await fetchAppointmentsWithCache();
+
         if (!Array.isArray(allAppointments)) {
             throw new Error("Fetched data is not an array.");
         }
 
-appointments = allAppointments.map(app => ({
-    ...app,
-    dateObj: new Date(app.date)
-}));
+        appointments = allAppointments.map(app => ({
+            ...app,
+            dateObj: new Date(app.date)
+        }));
 
-
-     // Debug: log the statusFilter and appointment statuses
+        // Debug
         console.log("Current statusFilter:", statusFilter);
-        console.log("Appointments status before filter:", allAppointments.map(app => app.status)); // Logs all statuses
-        // Apply status filter (if 'All' is selected, return all appointments)
-        const allowedStatuses = statusGroups[statusFilter];
+        console.log("Appointments status before filter:", allAppointments.map(app => app.status));
 
-        const filteredAppointments = !allowedStatuses
-        ? allAppointments
-        : allAppointments.filter(app => allowedStatuses.includes(app.status));
+        // Determine allowed statuses
+        let allowedStatuses = [];
+        if (statusFilter && statusFilter !== "All") {
+            allowedStatuses = statusGroups[statusFilter] || [statusFilter];
+        }
 
+        const filteredAppointments =
+            allowedStatuses.length === 0
+                ? allAppointments
+                : allAppointments.filter(app => allowedStatuses.includes(app.status));
 
-        // Debugging: Log the filtered appointments
         console.log("Filtered Appointments:", filteredAppointments);
 
-        // Handle reminders (if applicable)
+        // Reminder toast if applicable
         if (auth?.currentUser && !sessionStorage.getItem(`reminderShown_${auth.currentUser.uid}`)) {
             const tomorrowReminders = filteredAppointments.filter(app =>
                 app.reminderEnabled && app.dateObj && isTomorrow(app.dateObj)
@@ -3816,22 +3816,22 @@ appointments = allAppointments.map(app => ({
             }
         }
 
-        // Render the filtered appointments (use the filtered data)
-       renderAppointmentsTable(filteredAppointments);
+        // Render the filtered appointments
+        renderAppointmentsTable(filteredAppointments);
         updateStats();
 
-        // Call chart and other necessary initializations
+        // Initialize charts and summaries
         setTimeout(() => {
-    if (document.getElementById('calendar-view').classList.contains('active')) {
-        renderCalendar();
-        updateCalendarSummary();
-    }
-    if (document.getElementById('dashboard-view').classList.contains('active')) {
-        initChart();
-        renderAppointmentsChart();      // <-- Added to ensure bar chart loads immediately
-        updateMonthYearLabel();         // <-- Ensures label shows current month immediately
-    }
-}, 50);
+            if (document.getElementById('calendar-view').classList.contains('active')) {
+                renderCalendar();
+                updateCalendarSummary();
+            }
+            if (document.getElementById('dashboard-view').classList.contains('active')) {
+                initChart();
+                renderAppointmentsChart();
+                updateMonthYearLabel();
+            }
+        }, 50);
 
         setupRealtimeListeners();
     } catch (error) {
