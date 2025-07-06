@@ -5388,7 +5388,8 @@ function updateStats() {
     document.getElementById("appointment-status").value = app.status || "";
     document.getElementById("reminder-enabled").checked = app.reminderEnabled || false;
     document.getElementById("reminder-enabled").checked = !!app.reminderEnabled;
-    document.getElementById("house-address-input").value = appointment.houseAddress || "";
+    document.getElementById("house-address-input").value = app.houseAddress || "";
+
 
     calculateTax();
 
