@@ -1451,6 +1451,7 @@
                             <th>Confirm</th>
                             <th>Actions</th>
                             <th>Directions</th>
+                            <th>Distance</th>
                         </tr>
                     </thead>
                     <tbody id="appointments-body">
@@ -4970,6 +4971,9 @@ async function saveCustomer() {
                     <i class="fas fa-map-marked-alt"></i>
                 </button>
             </td>
+                <td>
+      ${app.distanceFromShopKm ? `${app.distanceFromShopKm} km` : 'N/A'}
+    </td>
         `;
 
         tbody.appendChild(row);
