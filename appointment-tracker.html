@@ -5633,6 +5633,7 @@ function initAppointmentsView() {
     document.getElementById("reminder-enabled").checked = app.reminderEnabled || false;
     document.getElementById("reminder-enabled").checked = !!app.reminderEnabled;
     document.getElementById("house-address-input").value = app.houseAddress || "";
+    document.getElementById('gomaps-distance').textContent = app.distanceFromShopKm || '0';
 
 
     calculateTax();
@@ -5641,6 +5642,7 @@ function initAppointmentsView() {
     document.getElementById("save-appointment").textContent = "Update Appointment";
     document.getElementById('appointment-modal').classList.add('active');
 }
+
 document.addEventListener('DOMContentLoaded', function() {
     fetchAppointments();
     setupStatusCardClickHandlers(); // ✅ this is good
