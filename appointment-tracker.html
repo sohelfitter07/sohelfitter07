@@ -1283,141 +1283,145 @@
 
         <!-- Dashboard View -->
         <div id="dashboard-view" class="tab-content active">
+
             <div class="grid grid-cols-4 gap-4">
-                <div class="card" id="total-appointments-card" data-status="All">
-                  <div class="card-header">
-                    <div class="card-title">Total Appointments</div>
-                    <div class="card-icon"><i class="fas fa-calendar"></i></div>
-                  </div>
-                  <div class="card-content" id="total-appointments">0</div>
-                  <div class="card-footer">
-                    <i class="fas fa-arrow-up"></i> <span id="total-appointments-text">Loading...</span>
-                  </div>
+            <div class="card" id="total-appointments-card" data-status="All">
+                <div class="card-header">
+                <div class="card-title">Total Appointments</div>
+                <div class="card-icon"><i class="fas fa-calendar"></i></div>
                 </div>
-              
-                <div class="card" id="scheduled-card" data-status="Scheduled / Confirmed">
-                  <div class="card-header">
-                    <div class="card-title">Scheduled</div>
-                    <div class="card-icon"><i class="fas fa-clock"></i></div>
-                  </div>
-                  <div class="card-content" id="scheduled-count">0</div>
-                  <div class="card-footer">
-                    <i class="fas fa-plus"></i> <span id="scheduled-text">Loading...</span>
-                  </div>
-                </div>
-              
-                <div class="card" id="inprogress-card" data-status="In Progress">
-                  <div class="card-header">
-                    <div class="card-title">In Progress</div>
-                    <div class="card-icon"><i class="fas fa-tools"></i></div>
-                  </div>
-                  <div class="card-content" id="inprogress-count">0</div>
-                  <div class="card-footer">
-                    <i class="fas fa-exclamation-triangle"></i><span id="inprogress-text">Loading...</span>
-                  </div>
-                </div>
-              
-                <div class="card" id="awaiting-parts-card" data-status="Awaiting Parts">
-                  <div class="card-header">
-                    <div class="card-title">Awaiting Parts</div>
-                    <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
-                  </div>
-                  <div class="card-content" id="awaiting-parts-count">0</div>
-                  <div class="card-footer">
-                    <i class="fas fa-clock"></i><span id="awaiting-parts-text">Loading...</span>
-                  </div>
-                </div>
-              
-                <div class="card" id="parts-arrived-card" data-status="Parts Arrived">
-                  <div class="card-header">
-                    <div class="card-title">Parts Arrived</div>
-                    <div class="card-icon"><i class="fas fa-box-open"></i></div>
-                  </div>
-                  <div class="card-content" id="parts-arrived-count">0</div>
-                  <div class="card-footer">
-                    <i class="fas fa-truck"></i><span id="parts-arrived-text">Loading...</span>
-                  </div>
-                </div>
-              
-                <div class="card" id="scheduled-installation-card" data-status="Scheduled for Parts Installation">
-                  <div class="card-header">
-                    <div class="card-title">Scheduled for Parts Installation</div>
-                    <div class="card-icon"><i class="fas fa-tools"></i></div>
-                  </div>
-                  <div class="card-content" id="scheduled-installation-count">0</div>
-                  <div class="card-footer">
-                    <i class="fas fa-calendar-check"></i><span id="scheduled-installation-text">Loading...</span>
-                  </div>
-                </div>
-              
-                <div class="card" id="repaired-card" data-status="Repaired">
-                  <div class="card-header">
-                    <div class="card-title">Repaired</div>
-                    <div class="card-icon"><i class="fas fa-wrench"></i></div>
-                  </div>
-                  <div class="card-content" id="repaired-count">0</div>
-                  <div class="card-footer">
-                    <i class="fas fa-check"></i><span id="repaired-text">Loading...</span>
-                  </div>
-                </div>
-              
-                <div class="card" id="completed-card" data-status="Completed">
-                  <div class="card-header">
-                    <div class="card-title">Completed</div>
-                    <div class="card-icon"><i class="fas fa-check-circle"></i></div>
-                  </div>
-                  <div class="card-content" id="completed-count">0</div>
-                  <div class="card-footer">
-                    <i class="fas fa-arrow-up"></i><span id="completed-text">Loading...</span>
-                  </div>
-                </div>
-              
-                <div class="card" id="cancelled-card" data-status="Cancelled">
-                  <div class="card-header">
-                    <div class="card-title">Cancelled</div>
-                    <div class="card-icon"><i class="fas fa-times-circle"></i></div>
-                  </div>
-                  <div class="card-content" id="cancelled-count">0</div>
-                  <div class="card-footer">
-                    <i class="fas fa-ban"></i><span id="cancelled-text">Loading...</span>
-                  </div>
+                <div class="card-content" id="total-appointments">0</div>
+                <div class="card-footer">
+                <i class="fas fa-arrow-up"></i> <span id="total-appointments-text">Loading...</span>
                 </div>
             </div>
-         <!-- Appointment Status Distribution Chart -->
-          <div>
+        
+            <div class="card" id="scheduled-card" data-status="Scheduled / Confirmed">
+                <div class="card-header">
+                <div class="card-title">Scheduled</div>
+                <div class="card-icon"><i class="fas fa-clock"></i></div>
+                </div>
+                <div class="card-content" id="scheduled-count">0</div>
+                <div class="card-footer">
+                <i class="fas fa-plus"></i> <span id="scheduled-text">Loading...</span>
+                </div>
+            </div>
+        
+            <div class="card" id="inprogress-card" data-status="In Progress">
+                <div class="card-header">
+                <div class="card-title">In Progress</div>
+                <div class="card-icon"><i class="fas fa-tools"></i></div>
+                </div>
+                <div class="card-content" id="inprogress-count">0</div>
+                <div class="card-footer">
+                <i class="fas fa-exclamation-triangle"></i><span id="inprogress-text">Loading...</span>
+                </div>
+            </div>
+        
+            <div class="card" id="awaiting-parts-card" data-status="Awaiting Parts">
+                <div class="card-header">
+                <div class="card-title">Awaiting Parts</div>
+                <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
+                </div>
+                <div class="card-content" id="awaiting-parts-count">0</div>
+                <div class="card-footer">
+                <i class="fas fa-clock"></i><span id="awaiting-parts-text">Loading...</span>
+                </div>
+            </div>
+        
+            <div class="card" id="parts-arrived-card" data-status="Parts Arrived">
+                <div class="card-header">
+                <div class="card-title">Parts Arrived</div>
+                <div class="card-icon"><i class="fas fa-box-open"></i></div>
+                </div>
+                <div class="card-content" id="parts-arrived-count">0</div>
+                <div class="card-footer">
+                <i class="fas fa-truck"></i><span id="parts-arrived-text">Loading...</span>
+                </div>
+            </div>
+        
+            <div class="card" id="scheduled-installation-card" data-status="Scheduled for Parts Installation">
+                <div class="card-header">
+                <div class="card-title">Scheduled for Parts Installation</div>
+                <div class="card-icon"><i class="fas fa-tools"></i></div>
+                </div>
+                <div class="card-content" id="scheduled-installation-count">0</div>
+                <div class="card-footer">
+                <i class="fas fa-calendar-check"></i><span id="scheduled-installation-text">Loading...</span>
+                </div>
+            </div>
+        
+            <div class="card" id="repaired-card" data-status="Repaired">
+                <div class="card-header">
+                <div class="card-title">Repaired</div>
+                <div class="card-icon"><i class="fas fa-wrench"></i></div>
+                </div>
+                <div class="card-content" id="repaired-count">0</div>
+                <div class="card-footer">
+                <i class="fas fa-check"></i><span id="repaired-text">Loading...</span>
+                </div>
+            </div>
+        
+            <div class="card" id="completed-card" data-status="Completed">
+                <div class="card-header">
+                <div class="card-title">Completed</div>
+                <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                </div>
+                <div class="card-content" id="completed-count">0</div>
+                <div class="card-footer">
+                <i class="fas fa-arrow-up"></i><span id="completed-text">Loading...</span>
+                </div>
+            </div>
+        
+            <div class="card" id="cancelled-card" data-status="Cancelled">
+                <div class="card-header">
+                <div class="card-title">Cancelled</div>
+                <div class="card-icon"><i class="fas fa-times-circle"></i></div>
+                </div>
+                <div class="card-content" id="cancelled-count">0</div>
+                <div class="card-footer">
+                <i class="fas fa-ban"></i><span id="cancelled-text">Loading...</span>
+                </div>
+            </div>
+            </div> <!-- end grid -->
+        
+            <!-- Charts Section -->
+            <div>
             <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Appointments Status Overview</div>
-                            <div class="card-icon">
-                                <i class="fas fa-chart-pie"></i>
-                            </div>
-                        </div>
-                        <div style="height: 350px;">
-                            <canvas id="appointmentsStatusChart"></canvas>
-                        </div>
+                <div class="card-header">
+                <div class="card-title">Appointments Status Overview</div>
+                <div class="card-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                </div>
+                <div style="height: 350px;">
+                <canvas id="appointmentsStatusChart"></canvas>
+                </div>
             </div>
-            <!-- Appointments Per Day Chart -->
+        
             <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Appointments This Month</div>
-                            <div class="card-icon">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                        </div>
-                        <!-- Month label on top -->
-                        <div id="monthYearLabel" style="text-align: center; font-weight: bolder; font-size: 1.5rem; margin: 10px 0; color: #fff;"></div>
-                        <div style="height: 350px;">
-                            <canvas id="appointmentsPerDayChart"></canvas>
-                        </div>
-                        <!-- Buttons below the chart -->
-                        <div style="margin: 10px 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                            <button id="prevMonthBtn" class="btn">← Previous</button>
-                            <button id="nextMonthBtn" class="btn">Next →</button>
-                        </div>
+                <div class="card-header">
+                <div class="card-title">Appointments This Month</div>
+                <div class="card-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                </div>
+        
+                <div id="monthYearLabel" style="text-align: center; font-weight: bolder; font-size: 1.5rem; margin: 10px 0; color: #fff;"></div>
+        
+                <div style="height: 350px;">
+                <canvas id="appointmentsPerDayChart"></canvas>
+                </div>
+        
+                <div style="margin: 10px 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <button id="prevMonthBtn" class="btn">← Previous</button>
+                <button id="nextMonthBtn" class="btn">Next →</button>
+                </div>
             </div>
-        </div>
-            
-        </div>
+            </div> <!-- end charts section -->
+        
+        </div> <!-- end dashboard-view -->
+  
 
         <!-- Appointments View -->
         <div id="appointments-view" class="tab-content">
