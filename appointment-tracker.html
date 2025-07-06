@@ -5196,40 +5196,41 @@ function updateStats() {
                 );
                 }
 
-            function updateCalendarSummary() {
-                // Inside your updateCalendarSummary() function
-            const completedAppointments = appointments.filter(app => {
-                const appDate = app.dateObj;
-                return appDate.getMonth() === currentMonth && 
-                    appDate.getFullYear() === currentYear &&
-                    app.status === "Completed"; // Use the exact status string
-            });
+                function updateCalendarSummary() {
+    // Get appointments for current month
+    const monthlyApps = appointments.filter(app => {
+        const appDate = app.dateObj;
+        return appDate.getMonth() === currentMonth && 
+               appDate.getFullYear() === currentYear;
+    });
 
-            // Calculate total revenue
-            const totalRevenue = completedAppointments.reduce((sum, app) => {
-                // Handle different price formats
-                const price = typeof app.price === 'string' ? 
-                    parseFloat(app.price.replace(/[^0-9.]/g, '')) : 
-                    app.price;
-                    
-                return sum + (price || 0);
-            }, 0);
+    // Get completed appointments using consistent status filter
+    const completedAppointments = monthlyApps.filter(app => 
+        app.status === "Completed"  // Use the same status string everywhere
+    );
 
-                const businessDays = getBusinessDays(currentMonth, currentYear);
-                const monthlyRevenue = monthlyApps
-                .filter((a) => ["repair_completed"].includes(a.status))
-                .reduce((sum, a) => sum + (parseFloat(a.price) || 0), 0);
-                
-                document.getElementById("summary-total").textContent = monthlyApps.length;
-                document.getElementById("summary-days").textContent = businessDays;
-                document.getElementById('summary-revenue').textContent = `$${totalRevenue.toFixed(2)}`;
-                document.getElementById('monthly-revenue').textContent = `$${totalRevenue.toFixed(2)}`;
-                document.getElementById('monthly-released').textContent = completedAppointments.length;
-                
-                const utilizationRate = Math.min(100, Math.round((monthlyApps.length / (businessDays * 3)) * 100));
-                document.getElementById("summary-utilization").textContent = utilizationRate + "%";
-            }
+    // Calculate total revenue
+    const totalRevenue = completedAppointments.reduce((sum, app) => {
+        // Handle different price formats
+        const price = typeof app.price === 'string' ? 
+            parseFloat(app.price.replace(/[^0-9.]/g, '')) : 
+            app.price;
             
+        return sum + (price || 0);
+    }, 0);
+
+    const businessDays = getBusinessDays(currentMonth, currentYear);
+    
+    // Update all elements consistently
+    document.getElementById("summary-total").textContent = monthlyApps.length;
+    document.getElementById("summary-days").textContent = businessDays;
+    document.getElementById('summary-revenue').textContent = `$${totalRevenue.toFixed(2)}`;
+    document.getElementById('monthly-revenue').textContent = `$${totalRevenue.toFixed(2)}`;
+    document.getElementById('monthly-released').textContent = completedAppointments.length;
+    
+    const utilizationRate = Math.min(100, Math.round((monthlyApps.length / (businessDays * 3)) * 100);
+    document.getElementById("summary-utilization").textContent = utilizationRate + "%";
+}
             
             
             window.addEventListener('DOMContentLoaded', async () => {
