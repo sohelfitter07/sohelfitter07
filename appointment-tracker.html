@@ -2050,7 +2050,14 @@
     let originalSMS = "";
     let statusFilter = "All"; // Default filter
     const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-    
+    // Your fixed base address (starting point)
+    const baseAddress = "22 Canary Grass Blvd, Hamilton, Ontario, L0R 1P0";
+
+    const apiKey = document.getElementById('gomaps-widget').dataset.apiKey;
+    const routeMapDiv = document.getElementById('route-map');
+
+    let routeMap;
+    let routeLine;
     // ===== ERROR HANDLING FOR FIREBASE =====
     async function initializeFirebaseWithRetry(retries = 3, delay = 2000) {
       try {
@@ -3000,7 +3007,106 @@ document.getElementById("savePreviewBtn").onclick = async () => {
         setupFieldValidation('appointment-time', validators.validTime, 'Please select a valid time');
         setupFieldValidation('appointment-price', validators.validPrice, 'Please enter a valid price');
     }
-            // ================ VIEW MANAGEMENT ================
+          
+    // GoogleMaps 
+    const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+  const baseAddress = "22 Canary Grass Blvd, Hamilton, Ontario, L0R 1P0";
+
+  async function fetchRouteInfo(destination) {
+    if (!destination) {
+      document.getElementById("gomaps-distance").textContent = "0";
+      return;
+    }
+
+    const url = `https://maps.gomaps.pro/maps/api/directions/json?origin=${encodeURIComponent(baseAddress)}&destination=${encodeURIComponent(destination)}&units=metric&key=${apiKey}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status !== "OK") {
+        throw new Error("Directions API error: " + data.status);
+      }
+
+      // Sum distance from all legs
+      const distanceMeters = data.routes[0].legs.reduce((acc, leg) => acc + leg.distance.value, 0);
+      const distanceKm = (distanceMeters / 1000).toFixed(2);
+
+      document.getElementById("gomaps-distance").textContent = distanceKm;
+    } catch (error) {
+      console.error("Error fetching directions:", error);
+      document.getElementById("gomaps-distance").textContent = "N/A";
+    }
+  }
+
+  // Listen for user input changes (on blur or change)
+  const addressInput = document.getElementById("house-address-input");
+
+  addressInput.addEventListener("change", () => {
+    const destination = addressInput.value.trim();
+    fetchRouteInfo(destination);
+  });
+
+  // Optional: also fetch on blur (user leaves input)
+  addressInput.addEventListener("blur", () => {
+    const destination = addressInput.value.trim();
+    fetchRouteInfo(destination);
+  });
+    
+document.addEventListener("DOMContentLoaded", function () {
+  const apiKey = document.getElementById("gomaps-widget").dataset.apiKey;
+  const originAddress = document.getElementById("gomaps-widget").dataset.distanceFrom;
+  const houseInput = document.getElementById("house-address-input");
+  const distanceDisplay = document.getElementById("gomaps-distance");
+
+  async function fetchDirections(destination) {
+    const url = `https://maps.gomaps.pro/maps/api/directions/json?origin=${encodeURIComponent(originAddress)}&destination=${encodeURIComponent(destination)}&units=metric&key=${apiKey}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status === "OK" && data.routes && data.routes.length > 0) {
+        const route = data.routes[0];
+        // Calculate total distance from all legs (in meters)
+        const totalMeters = route.legs.reduce((sum, leg) => sum + leg.distance.value, 0);
+        const distanceKm = (totalMeters / 1000).toFixed(2);
+        distanceDisplay.textContent = distanceKm;
+
+        // Now update the map using GoMaps Pro's own JS render method
+        // (assuming gomaps pro exposes a method to draw routes on the widget container)
+        // This part depends on their SDK, so if you have their JS SDK or docs,
+        // you might do something like:
+        //
+        // GoMapsPro.renderRoute('gomaps-widget', route);
+        //
+        // But if not exposed, their widget may automatically handle it after setting the input.
+      } else {
+        distanceDisplay.textContent = "N/A";
+        console.warn("No routes found or error:", data.status);
+      }
+    } catch (err) {
+      console.error("Directions fetch error:", err);
+      distanceDisplay.textContent = "N/A";
+    }
+  }
+
+  // Trigger directions fetch when user finishes typing or leaves the input
+  houseInput.addEventListener("change", () => {
+    const destination = houseInput.value.trim();
+    if (destination.length > 0) {
+      fetchDirections(destination);
+    } else {
+      distanceDisplay.textContent = "0";
+    }
+  });
+});
+
+    
+    
+    
+    
+    // ================ VIEW MANAGEMENT ================
             function activateView(viewName) {
         // Remove active class from ALL sidebar links first
         document.querySelectorAll('.nav-links a').forEach(link => {
