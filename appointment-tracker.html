@@ -2264,20 +2264,23 @@
       }
     }
     function setupStatusCardClickHandlers() {
-    document.querySelectorAll('#dashboard-view .card').forEach(card => {
+    const cards = document.querySelectorAll('#dashboard-view .card');
+    console.log("Cards found for click handlers:", cards.length);
+
+    cards.forEach(card => {
         card.addEventListener('click', function() {
             const status = this.getAttribute('data-status');
-            statusFilter = statusMap[status] || "";
+            console.log("Card clicked:", status);
 
-            console.log("Card clicked:", status, "Mapped to:", statusFilter);
+            // If you want to map statuses, make sure statusMap is defined correctly
+            statusFilter = statusMap ? (statusMap[status] || "") : status;
 
-            // Update dropdown if applicable
+            // Sync dropdown if exists
             const statusDropdown = document.getElementById('appointment-status');
             if (statusDropdown) {
                 statusDropdown.value = statusFilter || 'All';
             }
 
-            // Switch view and fetch appointments
             activateView("appointments");
             fetchAppointments();
         });
