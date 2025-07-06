@@ -5843,12 +5843,14 @@ document.querySelectorAll('[data-view]').forEach(link => {
     const phone = document.getElementById("customer-phone").value.trim();
     const email = document.getElementById("customer-email")?.value?.trim() || "";
     const houseAddress = document.getElementById("house-address-input").value.trim();
+
     if (!houseAddress) {
         showValidationError('house-address-input', 'House address is required');
         return;
-        }
+    }
+
     const carrier = (document.getElementById("customer-carrier")?.value || "").toLowerCase();
-                    
+
     if (!phone && !email) {
         alert("Please enter at least a phone number or email address.");
         return;
@@ -5863,27 +5865,32 @@ document.querySelectorAll('[data-view]').forEach(link => {
     const issue = document.getElementById("issue-description").value.trim();
     const status = document.getElementById("appointment-status").value;
     const repairNotes = document.getElementById("repair-notes").value.trim();
+
     const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
     const province = settings.province || 'ON';
     const taxRate = getTaxRate(province);
     const totalPrice = parseFloat((basePrice * (1 + taxRate)).toFixed(2));
 
+    const reminderEnabled = document.getElementById("reminder-enabled").checked;
+
+    // ✅ NEW: Capture GoMaps calculated distance
+    const distanceKm = parseFloat(document.getElementById("gomaps-distance").textContent) || 0;
 
     // 🔍 Compare with original values
     const hasChanges =
         editingAppointmentId &&
         (dateInput !== originalAppointmentData.date ||
-         timeInput !== originalAppointmentData.time ||
-         status !== originalAppointmentData.status);
-         const reminderEnabled = document.getElementById("reminder-enabled").checked;
-       
-         const appointmentData = {
+            timeInput !== originalAppointmentData.time ||
+            status !== originalAppointmentData.status);
+
+    const appointmentData = {
         customer: customerName,
         phone,
         email,
         carrier,
         equipment,
-        houseAddress: houseAddress,
+        houseAddress,
+        distanceFromShopKm: distanceKm, // ✅ SAVE DISTANCE TO FIRESTORE
         date: timestamp,
         basePrice,
         price: totalPrice,
@@ -5898,9 +5905,11 @@ document.querySelectorAll('[data-view]').forEach(link => {
         lastStatusSent: "",
         lastAttemptStatus: "",
         reminderEnabled,
-        needsResend: hasChanges  // ✅ flag if changed
+        needsResend: hasChanges // ✅ flag if changed
     };
+
     console.log("📝 Saving appointment:", appointmentData);
+
     await saveAppointment(appointmentData);
 });
 
