@@ -5318,27 +5318,75 @@ async function saveCustomer() {
                 const totalPrice = price;  // Adjust if you calculate tax or discounts
                 
                 const modalContent = `
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                    <i class="fas fa-info-circle" style="color: #007bff; font-size: 1.3rem;"></i>
-                    <h3 style="margin: 0; font-weight: 600; flex-grow: 1;">Appointment Details</h3>
-                    
-                    <a 
-                        href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(appointment.houseAddress || '')}" 
-                        target="_blank" 
-                        title="Get Directions"
-                        style="text-decoration: none; color: #007bff; font-weight: 600; display: flex; align-items: center; gap: 4px;"
-                    >
-                        <i class="fas fa-location-arrow"></i> Directions
-                    </a>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <i class="fas fa-info-circle" style="color: #007bff; font-size: 1.4rem;"></i>
+    <h3 style="margin: 0; font-weight: 600;">Appointment Details</h3>
+  </div>
 
-                    <a 
-                        href="tel:${appointment.phone || ''}" 
-                        title="Call Customer"
-                        style="text-decoration: none; color: #007bff; font-weight: 600; display: flex; align-items: center; gap: 4px;"
-                    >
-                        <i class="fas fa-phone"></i> Call
-                    </a>
-                    </div>
+  <div style="display: flex; gap: 10px; align-items: center;">
+    <a 
+      href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(appointment.houseAddress || '')}" 
+      target="_blank"
+      title="Get Directions"
+      style="
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: background-color 0.3s;
+      "
+      onmouseover="this.style.backgroundColor='#0056b3'"
+      onmouseout="this.style.backgroundColor='#007bff'"
+    >
+      <i class="fas fa-location-arrow"></i> Directions
+    </a>
+
+    <a 
+      href="tel:${appointment.phone || ''}" 
+      title="Call Customer"
+      style="
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background-color: #28a745;
+        color: white;
+        border-radius: 4px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: background-color 0.3s;
+      "
+      onmouseover="this.style.backgroundColor='#1e7e34'"
+      onmouseout="this.style.backgroundColor='#28a745'"
+    >
+      <i class="fas fa-phone"></i> Call
+    </a>
+
+    <button 
+      class="modal-close-button" 
+      title="Close"
+      style="
+        margin-left: 12px;
+        background: transparent;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+      "
+      onclick="document.querySelector('.modal-overlay.active').classList.remove('active')"
+    >
+      &times;
+    </button>
+  </div>
+</div>
                     <p><strong>Customer:</strong> ${appointment.customer}</p>
                     <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
                     <p><strong>Phone:</strong> ${appointment.phone || 'N/A'}</p>
@@ -5349,6 +5397,7 @@ async function saveCustomer() {
                     <p><strong>Base Price:</strong> $${(appointment.basePrice || 0).toFixed(2)}</p>
                     <p><strong>Tax:</strong> $${((appointment.price || 0) - (appointment.basePrice || 0)).toFixed(2)}</p>
                     <p><strong>Total Price:</strong> $${totalPrice.toFixed(2)}</p>
+                    <br>
                     <button class="btn" id="edit-details">Edit Appointment</button>
                 `;
     
