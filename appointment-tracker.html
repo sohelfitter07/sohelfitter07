@@ -1284,106 +1284,107 @@
         <!-- Dashboard View -->
         <div id="dashboard-view" class="tab-content active">
  
-            <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
-                <div class="card" id="total-appointments-card" data-status="All">
-                  <div class="card-header">
-                    <div class="card-title">Total Appointments</div>
-                    <div class="card-icon"><i class="fas fa-calendar"></i></div>
+            <div class="grid grid-cols-2 gap-4 card-grid">
+                <div class="card h-40 md:h-56" id="total-appointments-card" data-status="All">
+                  <div class="card-header flex justify-between items-center px-4 py-2">
+                    <div class="card-title text-sm md:text-base font-semibold">Total Appointments</div>
+                    <div class="card-icon text-lg md:text-xl"><i class="fas fa-calendar"></i></div>
                   </div>
-                  <div class="card-content" id="total-appointments">0</div>
-                  <div class="card-footer">
+                  <div class="card-content text-lg md:text-3xl px-4" id="total-appointments">0</div>
+                  <div class="card-footer text-xs md:text-sm px-4 py-1 flex items-center gap-1">
                     <i class="fas fa-arrow-up"></i> <span id="total-appointments-text">Loading...</span>
                   </div>
                 </div>
               
-                <div class="card" id="scheduled-card" data-status="Scheduled / Confirmed">
-                  <div class="card-header">
-                    <div class="card-title">Scheduled</div>
-                    <div class="card-icon"><i class="fas fa-clock"></i></div>
+                <div class="card h-40 md:h-56" id="scheduled-card" data-status="Scheduled / Confirmed">
+                  <div class="card-header flex justify-between items-center px-4 py-2">
+                    <div class="card-title text-sm md:text-base font-semibold">Scheduled</div>
+                    <div class="card-icon text-lg md:text-xl"><i class="fas fa-clock"></i></div>
                   </div>
-                  <div class="card-content" id="scheduled-count">0</div>
-                  <div class="card-footer">
+                  <div class="card-content text-lg md:text-3xl px-4" id="scheduled-count">0</div>
+                  <div class="card-footer text-xs md:text-sm px-4 py-1 flex items-center gap-1">
                     <i class="fas fa-plus"></i> <span id="scheduled-text">Loading...</span>
                   </div>
                 </div>
               
-                <div class="card" id="inprogress-card" data-status="In Progress">
-                  <div class="card-header">
-                    <div class="card-title">In Progress</div>
-                    <div class="card-icon"><i class="fas fa-tools"></i></div>
+                <div class="card h-40 md:h-56" id="inprogress-card" data-status="In Progress">
+                  <div class="card-header flex justify-between items-center px-4 py-2">
+                    <div class="card-title text-sm md:text-base font-semibold">In Progress</div>
+                    <div class="card-icon text-lg md:text-xl"><i class="fas fa-tools"></i></div>
                   </div>
-                  <div class="card-content" id="inprogress-count">0</div>
-                  <div class="card-footer">
+                  <div class="card-content text-lg md:text-3xl px-4" id="inprogress-count">0</div>
+                  <div class="card-footer text-xs md:text-sm px-4 py-1 flex items-center gap-1">
                     <i class="fas fa-exclamation-triangle"></i><span id="inprogress-text">Loading...</span>
                   </div>
                 </div>
               
-                <div class="card" id="awaiting-parts-card" data-status="Awaiting Parts">
-                  <div class="card-header">
-                    <div class="card-title">Awaiting Parts</div>
-                    <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
+                <div class="card h-40 md:h-56" id="awaiting-parts-card" data-status="Awaiting Parts">
+                  <div class="card-header flex justify-between items-center px-4 py-2">
+                    <div class="card-title text-sm md:text-base font-semibold">Awaiting Parts</div>
+                    <div class="card-icon text-lg md:text-xl"><i class="fas fa-hourglass-half"></i></div>
                   </div>
-                  <div class="card-content" id="awaiting-parts-count">0</div>
-                  <div class="card-footer">
+                  <div class="card-content text-lg md:text-3xl px-4" id="awaiting-parts-count">0</div>
+                  <div class="card-footer text-xs md:text-sm px-4 py-1 flex items-center gap-1">
                     <i class="fas fa-clock"></i><span id="awaiting-parts-text">Loading...</span>
                   </div>
                 </div>
               
-                <div class="card" id="parts-arrived-card" data-status="Parts Arrived">
-                  <div class="card-header">
-                    <div class="card-title">Parts Arrived</div>
-                    <div class="card-icon"><i class="fas fa-box-open"></i></div>
+                <div class="card h-40 md:h-56" id="parts-arrived-card" data-status="Parts Arrived">
+                  <div class="card-header flex justify-between items-center px-4 py-2">
+                    <div class="card-title text-sm md:text-base font-semibold">Parts Arrived</div>
+                    <div class="card-icon text-lg md:text-xl"><i class="fas fa-box-open"></i></div>
                   </div>
-                  <div class="card-content" id="parts-arrived-count">0</div>
-                  <div class="card-footer">
+                  <div class="card-content text-lg md:text-3xl px-4" id="parts-arrived-count">0</div>
+                  <div class="card-footer text-xs md:text-sm px-4 py-1 flex items-center gap-1">
                     <i class="fas fa-truck"></i><span id="parts-arrived-text">Loading...</span>
                   </div>
                 </div>
               
-                <div class="card" id="scheduled-installation-card" data-status="Scheduled for Parts Installation">
-                  <div class="card-header">
-                    <div class="card-title">Scheduled for Parts Installation</div>
-                    <div class="card-icon"><i class="fas fa-tools"></i></div>
+                <div class="card h-40 md:h-56" id="scheduled-installation-card" data-status="Scheduled for Parts Installation">
+                  <div class="card-header flex justify-between items-center px-4 py-2">
+                    <div class="card-title text-sm md:text-base font-semibold">Scheduled for Parts Installation</div>
+                    <div class="card-icon text-lg md:text-xl"><i class="fas fa-tools"></i></div>
                   </div>
-                  <div class="card-content" id="scheduled-installation-count">0</div>
-                  <div class="card-footer">
+                  <div class="card-content text-lg md:text-3xl px-4" id="scheduled-installation-count">0</div>
+                  <div class="card-footer text-xs md:text-sm px-4 py-1 flex items-center gap-1">
                     <i class="fas fa-calendar-check"></i><span id="scheduled-installation-text">Loading...</span>
                   </div>
                 </div>
               
-                <div class="card" id="repaired-card" data-status="Repaired">
-                  <div class="card-header">
-                    <div class="card-title">Repaired</div>
-                    <div class="card-icon"><i class="fas fa-wrench"></i></div>
+                <div class="card h-40 md:h-56" id="repaired-card" data-status="Repaired">
+                  <div class="card-header flex justify-between items-center px-4 py-2">
+                    <div class="card-title text-sm md:text-base font-semibold">Repaired</div>
+                    <div class="card-icon text-lg md:text-xl"><i class="fas fa-wrench"></i></div>
                   </div>
-                  <div class="card-content" id="repaired-count">0</div>
-                  <div class="card-footer">
+                  <div class="card-content text-lg md:text-3xl px-4" id="repaired-count">0</div>
+                  <div class="card-footer text-xs md:text-sm px-4 py-1 flex items-center gap-1">
                     <i class="fas fa-check"></i><span id="repaired-text">Loading...</span>
                   </div>
                 </div>
               
-                <div class="card" id="completed-card" data-status="Completed">
-                  <div class="card-header">
-                    <div class="card-title">Completed</div>
-                    <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="card h-40 md:h-56" id="completed-card" data-status="Completed">
+                  <div class="card-header flex justify-between items-center px-4 py-2">
+                    <div class="card-title text-sm md:text-base font-semibold">Completed</div>
+                    <div class="card-icon text-lg md:text-xl"><i class="fas fa-check-circle"></i></div>
                   </div>
-                  <div class="card-content" id="completed-count">0</div>
-                  <div class="card-footer">
+                  <div class="card-content text-lg md:text-3xl px-4" id="completed-count">0</div>
+                  <div class="card-footer text-xs md:text-sm px-4 py-1 flex items-center gap-1">
                     <i class="fas fa-arrow-up"></i><span id="completed-text">Loading...</span>
                   </div>
                 </div>
               
-                <div class="card" id="cancelled-card" data-status="Cancelled">
-                  <div class="card-header">
-                    <div class="card-title">Cancelled</div>
-                    <div class="card-icon"><i class="fas fa-times-circle"></i></div>
+                <div class="card h-40 md:h-56" id="cancelled-card" data-status="Cancelled">
+                  <div class="card-header flex justify-between items-center px-4 py-2">
+                    <div class="card-title text-sm md:text-base font-semibold">Cancelled</div>
+                    <div class="card-icon text-lg md:text-xl"><i class="fas fa-times-circle"></i></div>
                   </div>
-                  <div class="card-content" id="cancelled-count">0</div>
-                  <div class="card-footer">
+                  <div class="card-content text-lg md:text-3xl px-4" id="cancelled-count">0</div>
+                  <div class="card-footer text-xs md:text-sm px-4 py-1 flex items-center gap-1">
                     <i class="fas fa-ban"></i><span id="cancelled-text">Loading...</span>
                   </div>
                 </div>
               </div>
+              
               
             
               <div class="grid grid-cols-2-xs grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
