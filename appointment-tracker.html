@@ -5318,9 +5318,26 @@ async function saveCustomer() {
                 const totalPrice = price;  // Adjust if you calculate tax or discounts
                 
                 const modalContent = `
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                     <i class="fas fa-info-circle" style="color: #007bff; font-size: 1.3rem;"></i>
-                    <h3 style="margin: 0; font-weight: 600;">Appointment Details</h3>
+                    <h3 style="margin: 0; font-weight: 600; flex-grow: 1;">Appointment Details</h3>
+                    
+                    <a 
+                        href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(appointment.houseAddress || '')}" 
+                        target="_blank" 
+                        title="Get Directions"
+                        style="text-decoration: none; color: #007bff; font-weight: 600; display: flex; align-items: center; gap: 4px;"
+                    >
+                        <i class="fas fa-location-arrow"></i> Directions
+                    </a>
+
+                    <a 
+                        href="tel:${appointment.phone || ''}" 
+                        title="Call Customer"
+                        style="text-decoration: none; color: #007bff; font-weight: 600; display: flex; align-items: center; gap: 4px;"
+                    >
+                        <i class="fas fa-phone"></i> Call
+                    </a>
                     </div>
                     <p><strong>Customer:</strong> ${appointment.customer}</p>
                     <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
