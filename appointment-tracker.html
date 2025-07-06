@@ -5622,7 +5622,7 @@ document.querySelectorAll('[data-view]').forEach(link => {
     const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
     const province = settings.province || 'ON';
     const taxRate = getTaxRate(province);
-    const totalPrice = basePrice * (1 + taxRate);
+    const totalPrice = parseFloat((basePrice * (1 + taxRate)).toFixed(2));
 
 
     // 🔍 Compare with original values
