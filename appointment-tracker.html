@@ -2291,31 +2291,6 @@ function formatCanadianAddress(address) {
         }      
 
    
-        // Setup address input
-// ✅ Declare variables BEFORE using them
-let lastQuery = "";
-let debounceTimer = null;
-
-// ✅ Setup address input
-document.getElementById('house-address').addEventListener('input', function(e) {
-    const query = e.target.value.trim();
-
-    if (query === lastQuery) return;
-    lastQuery = query;
-
-    clearTimeout(debounceTimer);
-
-    if (query.length < 3) {
-        document.getElementById('address-suggestions').style.display = 'none';
-        return;
-    }
-
-    debounceTimer = setTimeout(async () => {
-        const suggestions = await getAddressSuggestions(query);
-        showSuggestions(suggestions);
-    }, 300);
-});
-
 
     function renderCustomersTable() {
       const tbody = document.getElementById('customers-body');
