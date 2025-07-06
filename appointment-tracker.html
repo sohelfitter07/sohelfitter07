@@ -3350,7 +3350,149 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-    
+document.addEventListener("DOMContentLoaded", () => {
+  const baseAddress = "22 Canary Grass Blvd, Hamilton, Ontario, L0R 1P0";
+  const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+
+  const inputEl = document.getElementById("house-address-input");
+  const suggestionsEl = document.getElementById("address-suggestions");
+  const errorDiv = document.getElementById("house-address-error");
+  const distanceDisplay = document.getElementById("gomaps-distance");
+
+  let debounceTimer;
+
+  // Debounced autocomplete
+  inputEl.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+    const query = inputEl.value.trim();
+
+    if (query.length < 3) {
+      suggestionsEl.style.display = "none";
+      suggestionsEl.innerHTML = "";
+      return;
+    }
+
+    debounceTimer = setTimeout(async () => {
+      try {
+        // Add Ontario + Canada restriction in components param
+        const url = `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(query)}&components=country:ca|administrative_area:ON&key=${apiKey}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.status !== "OK" || !data.predictions.length) {
+          suggestionsEl.style.display = "none";
+          suggestionsEl.innerHTML = "";
+          return;
+        }
+
+        suggestionsEl.innerHTML = data.predictions.map(prediction => 
+          `<li style="padding: 8px 12px; cursor: pointer; border-bottom: 1px solid #eee;">${prediction.description}</li>`
+        ).join("");
+        suggestionsEl.style.display = "block";
+
+        Array.from(suggestionsEl.children).forEach((li, index) => {
+          li.addEventListener("mouseenter", () => li.style.backgroundColor = "#f0f0f0");
+          li.addEventListener("mouseleave", () => li.style.backgroundColor = "transparent");
+          li.addEventListener("click", () => {
+            inputEl.value = data.predictions[index].description;
+            suggestionsEl.style.display = "none";
+            suggestionsEl.innerHTML = "";
+            inputEl.focus();
+            errorDiv.textContent = "";
+
+            fetchRouteInfo(inputEl.value);
+          });
+        });
+      } catch (err) {
+        console.error("Autocomplete error:", err);
+        suggestionsEl.style.display = "none";
+        suggestionsEl.innerHTML = "";
+      }
+    }, 300);
+  });
+
+  // Hide suggestions if click outside
+  document.addEventListener("click", e => {
+    if (!suggestionsEl.contains(e.target) && e.target !== inputEl) {
+      suggestionsEl.style.display = "none";
+      suggestionsEl.innerHTML = "";
+    }
+  });
+
+  // Validate and format on blur
+  inputEl.addEventListener("blur", async () => {
+    const rawAddress = inputEl.value.trim();
+    if (!rawAddress) return;
+
+    const formatted = await formatAddress(rawAddress);
+    if (formatted) inputEl.value = formatted;
+
+    const isValid = await validateAddress(inputEl.value);
+    if (!isValid) {
+      errorDiv.textContent = "Please enter a valid address.";
+    } else {
+      errorDiv.textContent = "";
+      fetchRouteInfo(inputEl.value);
+    }
+  });
+
+  // Fetch route info when input changes (change event)
+  inputEl.addEventListener("change", () => {
+    const destination = inputEl.value.trim();
+    if (destination.length > 0) fetchRouteInfo(destination);
+    else distanceDisplay.textContent = "0";
+  });
+
+  async function fetchRouteInfo(destination) {
+    if (!destination) {
+      distanceDisplay.textContent = "0";
+      return;
+    }
+
+    const url = `https://maps.gomaps.pro/maps/api/directions/json?origin=${encodeURIComponent(baseAddress)}&destination=${encodeURIComponent(destination)}&units=metric&key=${apiKey}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status !== "OK") throw new Error("Directions API error: " + data.status);
+
+      const distanceMeters = data.routes[0].legs.reduce((acc, leg) => acc + leg.distance.value, 0);
+      distanceDisplay.textContent = (distanceMeters / 1000).toFixed(2);
+    } catch (err) {
+      console.error("Error fetching directions:", err);
+      distanceDisplay.textContent = "N/A";
+    }
+  }
+
+  async function validateAddress(address) {
+    if (!address) return false;
+
+    const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data.status === "OK" && data.results.length > 0;
+    } catch {
+      return false;
+    }
+  }
+
+  async function formatAddress(rawAddress) {
+    if (!rawAddress) return null;
+
+    const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(rawAddress)}&key=${apiKey}`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.status === "OK" && data.results.length > 0) return data.results[0].formatted_address;
+      return null;
+    } catch {
+      return null;
+    }
+  }
+});
+
     
     
     
