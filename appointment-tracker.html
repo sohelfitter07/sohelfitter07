@@ -4720,12 +4720,7 @@ function updateStats() {
                     activateView('appointments');
                     // Optional: Filter to show only in-progress appointments
                 });
-                document.addEventListener('click', function(e) {
-            if (!e.target.closest('#house-address') && 
-                !e.target.closest('#address-suggestions')) {
-                document.getElementById('address-suggestions').style.display = 'none';
-            }
-        });
+
                 document.getElementById('completed-card').addEventListener('click', () => {
                     activateView('appointments');
                     // Optional: Filter to show only completed appointments
