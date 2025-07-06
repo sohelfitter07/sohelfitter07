@@ -3033,54 +3033,7 @@ document.getElementById("savePreviewBtn").onclick = async () => {
   const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
 
 
-
-inputEl.addEventListener("input", async () => {
-  const query = inputEl.value.trim();
-  if (query.length < 3) {
-    suggestionsEl.style.display = "none";
-    suggestionsEl.innerHTML = "";
-    return;
-  }
-
-  try {
-    const response = await fetch(`https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(query)}&key=${apiKey}`);
-    const data = await response.json();
-
-    if (data.status === "OK" && data.predictions.length > 0) {
-      suggestionsEl.innerHTML = data.predictions.map(prediction =>
-        `<li style="padding: 8px; cursor: pointer;">${prediction.description}</li>`
-      ).join("");
-      suggestionsEl.style.display = "block";
-
-      Array.from(suggestionsEl.children).forEach((li, index) => {
-        li.addEventListener("click", () => {
-          inputEl.value = data.predictions[index].description;
-          suggestionsEl.style.display = "none";
-          suggestionsEl.innerHTML = "";
-          inputEl.focus();
-
-          // Optionally call your route update or validation here, e.g.:
-          // updateRoute();
-        });
-      });
-    } else {
-      suggestionsEl.innerHTML = "<li style='padding: 8px;'>No suggestions found</li>";
-      suggestionsEl.style.display = "block";
-    }
-  } catch (err) {
-    console.error("Autocomplete error:", err);
-    suggestionsEl.style.display = "none";
-    suggestionsEl.innerHTML = "";
-  }
-});
-
-document.addEventListener("click", (e) => {
-  if (!inputEl.contains(e.target) && !suggestionsEl.contains(e.target)) {
-    suggestionsEl.style.display = "none";
-    suggestionsEl.innerHTML = "";
-  }
-});
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
   const inputEl = document.getElementById("house-address-input");
   const suggestionsEl = document.getElementById("address-suggestions");
 
@@ -3152,6 +3105,53 @@ document.addEventListener("DOMContentLoaded", () => {
       suggestionsEl.innerHTML = "";
     }
   });
+});
+
+inputEl.addEventListener("input", async () => {
+  const query = inputEl.value.trim();
+  if (query.length < 3) {
+    suggestionsEl.style.display = "none";
+    suggestionsEl.innerHTML = "";
+    return;
+  }
+
+  try {
+    const response = await fetch(`https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(query)}&key=${apiKey}`);
+    const data = await response.json();
+
+    if (data.status === "OK" && data.predictions.length > 0) {
+      suggestionsEl.innerHTML = data.predictions.map(prediction =>
+        `<li style="padding: 8px; cursor: pointer;">${prediction.description}</li>`
+      ).join("");
+      suggestionsEl.style.display = "block";
+
+      Array.from(suggestionsEl.children).forEach((li, index) => {
+        li.addEventListener("click", () => {
+          inputEl.value = data.predictions[index].description;
+          suggestionsEl.style.display = "none";
+          suggestionsEl.innerHTML = "";
+          inputEl.focus();
+
+          // Optionally call your route update or validation here, e.g.:
+          // updateRoute();
+        });
+      });
+    } else {
+      suggestionsEl.innerHTML = "<li style='padding: 8px;'>No suggestions found</li>";
+      suggestionsEl.style.display = "block";
+    }
+  } catch (err) {
+    console.error("Autocomplete error:", err);
+    suggestionsEl.style.display = "none";
+    suggestionsEl.innerHTML = "";
+  }
+});
+
+document.addEventListener("click", (e) => {
+  if (!inputEl.contains(e.target) && !suggestionsEl.contains(e.target)) {
+    suggestionsEl.style.display = "none";
+    suggestionsEl.innerHTML = "";
+  }
 });
 
   async function fetchRouteInfo(destination) {
