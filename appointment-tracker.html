@@ -3569,6 +3569,7 @@ document.addEventListener("DOMContentLoaded", () => {
             initReminderSystem();
                 updateStats();
                 initChart();
+                renderAppointmentsChart();
                 break;
             case "appointments":
                 fetchAppointments();
@@ -3687,11 +3688,11 @@ async function fetchAppointments() {
         console.log("Current statusFilter:", statusFilter);
         console.log("Appointments status before filter:", allAppointments.map(app => app.status)); // Logs all statuses
         // Apply status filter (if 'All' is selected, return all appointments)
-const allowedStatuses = statusGroups[statusFilter];
+        const allowedStatuses = statusGroups[statusFilter];
 
-const filteredAppointments = !allowedStatuses
-  ? allAppointments
-  : allAppointments.filter(app => allowedStatuses.includes(app.status));
+        const filteredAppointments = !allowedStatuses
+        ? allAppointments
+        : allAppointments.filter(app => allowedStatuses.includes(app.status));
 
 
         // Debugging: Log the filtered appointments
@@ -3732,6 +3733,55 @@ const filteredAppointments = !allowedStatuses
 }
 
 
+function renderAppointmentsChart() {
+    // Get appointments for current month
+    const monthlyApps = appointments.filter(app => {
+        const appDate = app.dateObj;
+        return appDate.getMonth() === currentMonth && 
+               appDate.getFullYear() === currentYear;
+    });
+
+    // Count appointments per day
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const dayCounts = new Array(daysInMonth).fill(0);
+
+    monthlyApps.forEach(app => {
+        const day = app.dateObj.getDate();
+        dayCounts[day - 1] += 1;
+    });
+
+    const labels = Array.from({ length: daysInMonth }, (_, i) => `Day ${i + 1}`);
+
+    const ctx = document.getElementById('appointmentsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Appointments',
+                data: dayCounts,
+                backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Appointments This Month'
+                },
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 1 }
+                }
+            }
+        }
+    });
+}
 
 
           
