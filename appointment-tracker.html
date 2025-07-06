@@ -2165,6 +2165,31 @@
         let marker = null;
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth(); // 0-based: 0 = Jan, 11 = Dec
+            // ===== PAGINATION FOR CUSTOMERS =====
+        let currentCustomerPage = 1;
+        const customersPerPage = 10;
+        const statusMap = {
+            "Scheduled / Confirmed": { text: "Scheduled / Confirmed", class: "status-scheduled", icon: "📅" },
+            "In Progress": { text: "In Progress", class: "status-inprogress", icon: "🔧" },
+            "Awaiting Parts": { text: "Awaiting Parts", class: "status-awaiting", icon: "⏳" },
+            "Parts Arrived": { text: "Parts Arrived", class: "status-arrived", icon: "📦" },
+            "Scheduled for Parts Installation": { text: "Install Scheduled", class: "status-install", icon: "🛠️" },
+            "Repaired": { text: "Repaired", class: "status-repaired", icon: "✅" },
+            "Completed": { text: "Completed", class: "status-complete", icon: "🏁" },
+            "Cancelled": { text: "Cancelled", class: "status-cancelled", icon: "❌" }
+            };
+        const statusGroups = {
+  "All": null,
+  "Scheduled / Confirmed": ["Scheduled / Confirmed"],
+  "In Progress": ["In Progress"],
+  "Awaiting Parts": ["Awaiting Parts"],
+  "Parts Arrived": ["Parts Arrived"],
+  "Scheduled for Parts Installation": ["Scheduled for Parts Installation"],
+  "Repaired": ["Repaired"],
+  "Completed": ["Completed"],
+  "Cancelled": ["Cancelled"]
+};
+
         async function getFirebaseConfig() {
             try {
                 const response = await fetch(
@@ -2256,34 +2281,6 @@
     });
 }
 
-
-
-
-
-    // ===== PAGINATION FOR CUSTOMERS =====
-    let currentCustomerPage = 1;
-    const customersPerPage = 10;
-    const statusMap = {
-        "Scheduled / Confirmed": { text: "Scheduled / Confirmed", class: "status-scheduled", icon: "📅" },
-        "In Progress": { text: "In Progress", class: "status-inprogress", icon: "🔧" },
-        "Awaiting Parts": { text: "Awaiting Parts", class: "status-awaiting", icon: "⏳" },
-        "Parts Arrived": { text: "Parts Arrived", class: "status-arrived", icon: "📦" },
-        "Scheduled for Parts Installation": { text: "Install Scheduled", class: "status-install", icon: "🛠️" },
-        "Repaired": { text: "Repaired", class: "status-repaired", icon: "✅" },
-        "Completed": { text: "Completed", class: "status-complete", icon: "🏁" },
-        "Cancelled": { text: "Cancelled", class: "status-cancelled", icon: "❌" }
-        };
-        const statusGroups = {
-  "All": null,
-  "Scheduled / Confirmed": ["Scheduled / Confirmed"],
-  "In Progress": ["In Progress"],
-  "Awaiting Parts": ["Awaiting Parts"],
-  "Parts Arrived": ["Parts Arrived"],
-  "Scheduled for Parts Installation": ["Scheduled for Parts Installation"],
-  "Repaired": ["Repaired"],
-  "Completed": ["Completed"],
-  "Cancelled": ["Cancelled"]
-};
 
     async function saveAdminSettings(db) {
     const rawAdminPhone = document.getElementById("admin-phone").value.trim();
