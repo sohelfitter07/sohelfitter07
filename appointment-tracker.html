@@ -46,7 +46,14 @@
         html {
             scroll-behavior: smooth;
         }
-        
+        .action-btn.directions-btn {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4CAF50;
+}
+
+.action-btn.directions-btn:hover {
+    background: rgba(76, 175, 80, 0.2);
+}
         /* Sidebar */
         .sidebar {
             width: var(--sidebar-width);
@@ -1355,6 +1362,7 @@
                             <th>Date & Time</th>
                             <th>Status</th>
                             <th>Price</th>
+                            <th>Directions</th>
                             <th>Confirm</th>
                             <th>Actions</th>
                         </tr>
@@ -4680,7 +4688,7 @@ async function saveCustomer() {
 
             // ================ RENDERING FUNCTIONS ================
             // Render appointments table
-function renderAppointmentsTable(list = appointments) {
+            function renderAppointmentsTable(list = appointments) {
     console.log("Appointments list being passed to render:", list); 
     // Create a filtered appointments list based on the status filter and search query
     let filteredAppointments = [...appointments];
@@ -4708,7 +4716,7 @@ function renderAppointmentsTable(list = appointments) {
         console.log("No appointments to display."); 
         tbody.innerHTML = `
             <tr>
-                <td colspan="9" style="text-align: center; padding: 30px;">
+                <td colspan="10" style="text-align: center; padding: 30px;">
                     No appointments found
                 </td>
             </tr>
@@ -4756,6 +4764,7 @@ function renderAppointmentsTable(list = appointments) {
         const reminderIcon = app.reminderEnabled ? "🕒" : "";
         const isEdited = !!(app.editedEmailBody || app.editedSmsBody);
 
+        // ADDED: Directions button column
         row.innerHTML = `
             <td>#${app.id}</td>
             <td>${app.customer}</td>
@@ -4789,12 +4798,18 @@ function renderAppointmentsTable(list = appointments) {
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
+            <!-- NEW DIRECTIONS COLUMN -->
+            <td>
+                <button class="action-btn directions-btn" data-address="${app.house_address || ''}" title="Get Directions">
+                    <i class="fas fa-map-marked-alt"></i>
+                </button>
+            </td>
         `;
 
         tbody.appendChild(row);
     });
 
-    // Attach button actions (same as before)
+    // Attach button actions
     tbody.querySelectorAll(".edit-btn").forEach((btn) => {
         btn.onclick = () => openEditModal(btn.dataset.id);
     });
@@ -4842,6 +4857,19 @@ function renderAppointmentsTable(list = appointments) {
             if (appointment) openPreviewModal(appointment);
         };
     });
+    
+    // ADDED: Directions button handler
+    tbody.querySelectorAll(".directions-btn").forEach(btn => {
+        btn.onclick = () => {
+            const address = btn.dataset.address;
+            if (address) {
+                // Open Google Maps with destination set to appointment address
+                window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`, '_blank');
+            } else {
+                showToast('No address available for this appointment', true);
+            }
+        };
+    });
 
     // Pagination
     const totalPages = Math.ceil(filteredAppointments.length / appointmentsPerPage);
@@ -4849,8 +4877,6 @@ function renderAppointmentsTable(list = appointments) {
     document.getElementById("prev-page").disabled = currentPage === 1;
     document.getElementById("next-page").disabled = currentPage >= totalPages;
 }
-
-
         
             // Render customers table
             function renderCustomersTable() {
@@ -5834,7 +5860,7 @@ document.querySelectorAll('[data-view]').forEach(link => {
                 }
             });
         }
-  </script>
+    </script>
   <script src="https://cdn.gomaps.pro/autocomplete/gomaps-autocomplete.min.js"></script>
 </body>
 </html>
