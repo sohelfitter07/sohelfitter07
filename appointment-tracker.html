@@ -5286,13 +5286,14 @@ async function saveCustomer() {
                         
                         dayCell.appendChild(container);
                     }
-                    
                     calendarGrid.appendChild(dayCell);
                 }
+                setupCalendarEventHandlers();
             }
             function setupCalendarEventHandlers() {
                 document.querySelectorAll('.appointment-item').forEach(item => {
                     item.addEventListener('click', (e) => {
+                        e.stopPropagation(); 
                         const appointmentId = e.currentTarget.dataset.id;
                         showAppointmentDetails(appointmentId);
                     });
