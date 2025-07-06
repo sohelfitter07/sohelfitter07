@@ -5228,7 +5228,7 @@ function updateStats() {
     document.getElementById('monthly-revenue').textContent = `$${totalRevenue.toFixed(2)}`;
     document.getElementById('monthly-released').textContent = completedAppointments.length;
     
-    const utilizationRate = Math.min(100, Math.round((monthlyApps.length / (businessDays * 3)) * 100);
+    const utilizationRate = Math.min(100, Math.round((monthlyApps.length / (businessDays * 3)) * 100));
     document.getElementById("summary-utilization").textContent = utilizationRate + "%";
 }
             
