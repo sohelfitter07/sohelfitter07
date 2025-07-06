@@ -5204,6 +5204,21 @@ document.querySelectorAll('[data-view]').forEach(link => {
         }, 100); // Check every 100ms
     });
 
+    document.addEventListener("DOMContentLoaded", () => {
+  if (typeof GoMaps !== "undefined") {
+    GoMaps.init({
+      widgetId: "gomaps-widget",
+      apiKey: "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c",
+      outputId: "house-address-input",
+      distanceFrom: "22 Canary Grass Blvd, Hamilton, Ontario, L0R 1P0",
+      mapHeight: "200px",
+      showMap: true,
+      label: "Start typing your address..."
+    });
+  } else {
+    console.error("GoMaps script not loaded");
+  }
+});
 
 
   // Add to setupEventListeners()
