@@ -5318,9 +5318,9 @@ async function saveCustomer() {
                 const totalPrice = price;  // Adjust if you calculate tax or discounts
                 
                 const modalContent = `
-                    <div class="modal-header">
-                        <i class="fas fa-info-circle" style="color:#007bff; margin-right: 8px;"></i>
-                        <h3>Appointment Details</h3>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                    <i class="fas fa-info-circle" style="color: #007bff; font-size: 1.3rem;"></i>
+                    <h3 style="margin: 0; font-weight: 600;">Appointment Details</h3>
                     </div>
                     <p><strong>Customer:</strong> ${appointment.customer}</p>
                     <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
