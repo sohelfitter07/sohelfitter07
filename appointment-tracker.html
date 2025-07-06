@@ -536,7 +536,7 @@
         .appointment-item:hover {
             background: rgba(59, 130, 246, 0.25);
         }
-        #house-address.invalid {
+        #house-address-input.invalid {
   border-color: var(--dark-danger);
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
 }
@@ -2372,7 +2372,7 @@ function formatCanadianAddress(address) {
     item.textContent = result.display_name;
 
     item.onclick = () => {
-      document.getElementById("house-address").value = result.display_name;
+      document.getElementById("house-address-input").value = result.display_name;
       container.style.display = "none";
 
       // Parse lat/lon safely
@@ -4665,7 +4665,7 @@ function updateStats() {
     const result = e.detail;
 
     // Fill hidden input with selected address
-    document.getElementById("house-address").value = result.full_address;
+    document.getElementById("house-address-input").value = result.full_address;
 
     // Optional: display distance
     if (result.distance_km !== undefined) {
@@ -5031,9 +5031,9 @@ document.querySelectorAll('[data-view]').forEach(link => {
     const customerName = document.getElementById("customer-name").value.trim();
     const phone = document.getElementById("customer-phone").value.trim();
     const email = document.getElementById("customer-email")?.value?.trim() || "";
-    const houseAddress = document.getElementById("house-address").value.trim();
+    const houseAddress = document.getElementById("house-address-input").value.trim();
     if (!houseAddress) {
-        showValidationError('house-address', 'House address is required');
+        showValidationError('house-address-input', 'House address is required');
         return;
         }
     const carrier = (document.getElementById("customer-carrier")?.value || "").toLowerCase();
