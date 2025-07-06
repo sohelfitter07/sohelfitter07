@@ -3588,10 +3588,12 @@ document.addEventListener("DOMContentLoaded", () => {
         switch(viewName) {
             case "dashboard":
             initReminderSystem();
-                updateStats();
-                initChart();
+            updateStats();
+            fetchAppointments().then(() => {
+                initChart();              // init chart after appointments loaded
                 renderAppointmentsChart();
-                break;
+            });
+            break;
             case "appointments":
                 fetchAppointments();
                 break;
