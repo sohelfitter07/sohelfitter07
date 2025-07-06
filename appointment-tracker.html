@@ -3715,9 +3715,12 @@ async function fetchAppointments() {
         if (!Array.isArray(allAppointments)) {
             throw new Error("Fetched data is not an array.");
         }
-        allAppointments.forEach(app => {
-            app.dateObj = new Date(app.date);
-        });
+
+appointments = allAppointments.map(app => ({
+    ...app,
+    dateObj: new Date(app.date)
+}));
+
 
      // Debug: log the statusFilter and appointment statuses
         console.log("Current statusFilter:", statusFilter);
@@ -3751,14 +3754,16 @@ async function fetchAppointments() {
 
         // Call chart and other necessary initializations
         setTimeout(() => {
-            if (document.getElementById('calendar-view').classList.contains('active')) {
-                renderCalendar();
-                updateCalendarSummary();
-            }
-            if (document.getElementById('dashboard-view').classList.contains('active')) {
-                initChart();
-            }
-        }, 50);
+    if (document.getElementById('calendar-view').classList.contains('active')) {
+        renderCalendar();
+        updateCalendarSummary();
+    }
+    if (document.getElementById('dashboard-view').classList.contains('active')) {
+        initChart();
+        renderAppointmentsChart();      // <-- Added to ensure bar chart loads immediately
+        updateMonthYearLabel();         // <-- Ensures label shows current month immediately
+    }
+}, 50);
 
         setupRealtimeListeners();
     } catch (error) {
