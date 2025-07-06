@@ -1272,57 +1272,105 @@
  
             <div class="card-grid">
                 <div class="card" id="total-appointments-card" data-status="All">
-                    <div class="card-header">
-                        <div class="card-title">Total Appointments</div>
-                        <div class="card-icon">
-                            <i class="fas fa-calendar"></i>
-                        </div>
-                    </div>
-                    <div class="card-content" id="total-appointments">0</div>
-                    <div class="card-footer">
-                        <i class="fas fa-arrow-up"></i> <span id="total-appointments-text">Loading...</span>
-                    </div>
+                  <div class="card-header">
+                    <div class="card-title">Total Appointments</div>
+                    <div class="card-icon"><i class="fas fa-calendar"></i></div>
+                  </div>
+                  <div class="card-content" id="total-appointments">0</div>
+                  <div class="card-footer">
+                    <i class="fas fa-arrow-up"></i> <span id="total-appointments-text">Loading...</span>
+                  </div>
                 </div>
-                
+              
                 <div class="card" id="scheduled-card" data-status="Scheduled / Confirmed">
-                    <div class="card-header">
-                        <div class="card-title">Scheduled</div>
-                        <div class="card-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                    </div>
-                    <div class="card-content" id="scheduled-count">0</div>
-                    <div class="card-footer">
-                        <i class="fas fa-plus"></i> <span id="scheduled-text">Loading...</span>
-                    </div>
+                  <div class="card-header">
+                    <div class="card-title">Scheduled</div>
+                    <div class="card-icon"><i class="fas fa-clock"></i></div>
+                  </div>
+                  <div class="card-content" id="scheduled-count">0</div>
+                  <div class="card-footer">
+                    <i class="fas fa-plus"></i> <span id="scheduled-text">Loading...</span>
+                  </div>
                 </div>
-                
+              
                 <div class="card" id="inprogress-card" data-status="In Progress">
-                    <div class="card-header">
-                        <div class="card-title">In Progress</div>
-                        <div class="card-icon">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                    </div>
-                    <div class="card-content" id="inprogress-count">0</div>
-                    <div class="card-footer">
-                        <i class="fas fa-exclamation-triangle"></i><span id="inprogress-text">Loading...</span>
-                    </div>
+                  <div class="card-header">
+                    <div class="card-title">In Progress</div>
+                    <div class="card-icon"><i class="fas fa-tools"></i></div>
+                  </div>
+                  <div class="card-content" id="inprogress-count">0</div>
+                  <div class="card-footer">
+                    <i class="fas fa-exclamation-triangle"></i><span id="inprogress-text">Loading...</span>
+                  </div>
                 </div>
-                
+              
+                <div class="card" id="awaiting-parts-card" data-status="Awaiting Parts">
+                  <div class="card-header">
+                    <div class="card-title">Awaiting Parts</div>
+                    <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
+                  </div>
+                  <div class="card-content" id="awaiting-parts-count">0</div>
+                  <div class="card-footer">
+                    <i class="fas fa-clock"></i><span id="awaiting-parts-text">Loading...</span>
+                  </div>
+                </div>
+              
+                <div class="card" id="parts-arrived-card" data-status="Parts Arrived">
+                  <div class="card-header">
+                    <div class="card-title">Parts Arrived</div>
+                    <div class="card-icon"><i class="fas fa-box-open"></i></div>
+                  </div>
+                  <div class="card-content" id="parts-arrived-count">0</div>
+                  <div class="card-footer">
+                    <i class="fas fa-truck"></i><span id="parts-arrived-text">Loading...</span>
+                  </div>
+                </div>
+              
+                <div class="card" id="scheduled-installation-card" data-status="Scheduled for Parts Installation">
+                  <div class="card-header">
+                    <div class="card-title">Scheduled for Parts Installation</div>
+                    <div class="card-icon"><i class="fas fa-tools"></i></div>
+                  </div>
+                  <div class="card-content" id="scheduled-installation-count">0</div>
+                  <div class="card-footer">
+                    <i class="fas fa-calendar-check"></i><span id="scheduled-installation-text">Loading...</span>
+                  </div>
+                </div>
+              
+                <div class="card" id="repaired-card" data-status="Repaired">
+                  <div class="card-header">
+                    <div class="card-title">Repaired</div>
+                    <div class="card-icon"><i class="fas fa-wrench"></i></div>
+                  </div>
+                  <div class="card-content" id="repaired-count">0</div>
+                  <div class="card-footer">
+                    <i class="fas fa-check"></i><span id="repaired-text">Loading...</span>
+                  </div>
+                </div>
+              
                 <div class="card" id="completed-card" data-status="Completed">
-                    <div class="card-header">
-                        <div class="card-title">Completed</div>
-                        <div class="card-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                    </div>
-                    <div class="card-content" id="released-count">0</div>
-                    <div class="card-footer">
-                        <i class="fas fa-arrow-up"></i><span id="completed-text">Loading...</span>
-                    </div>
+                  <div class="card-header">
+                    <div class="card-title">Completed</div>
+                    <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                  </div>
+                  <div class="card-content" id="completed-count">0</div>
+                  <div class="card-footer">
+                    <i class="fas fa-arrow-up"></i><span id="completed-text">Loading...</span>
+                  </div>
                 </div>
-            </div>
+              
+                <div class="card" id="cancelled-card" data-status="Cancelled">
+                  <div class="card-header">
+                    <div class="card-title">Cancelled</div>
+                    <div class="card-icon"><i class="fas fa-times-circle"></i></div>
+                  </div>
+                  <div class="card-content" id="cancelled-count">0</div>
+                  <div class="card-footer">
+                    <i class="fas fa-ban"></i><span id="cancelled-text">Loading...</span>
+                  </div>
+                </div>
+              </div>
+              
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Appointment Status Distribution Chart -->
@@ -2173,28 +2221,29 @@
         throw error;
       }
     }
-function setupStatusCardClickHandlers() {
-    // Select all cards in the grid
+    function setupStatusCardClickHandlers() {
     document.querySelectorAll('.card-grid .card').forEach(card => {
         card.addEventListener('click', function() {
-            // Get the status value from the card's data-status attribute
+            // Get status from data attribute
             const status = this.getAttribute('data-status');
-            
-            // Update the global statusFilter variable
-            statusFilter = status;
-            
-            // Set the dropdown value to match the card's status
+
+            // If status is 'All', clear the filter to show all appointments
+            statusFilter = (status === 'All') ? '' : status;
+
+            // Update dropdown (if exists)
             const statusDropdown = document.getElementById('appointment-status');
             if (statusDropdown) {
-                statusDropdown.value = status;  // Update the dropdown value to the selected status
+                statusDropdown.value = statusFilter || 'All'; // Keep dropdown synced
             }
-            
-            // Activate the "appointments" view with filtered appointments
+
+            // Activate the appointments view and fetch filtered appointments
             activateView("appointments");
             fetchAppointments();
         });
     });
 }
+
+
 
 
     // ===== PAGINATION FOR CUSTOMERS =====
@@ -2210,13 +2259,17 @@ function setupStatusCardClickHandlers() {
         "Completed": { text: "Completed", class: "status-complete", icon: "🏁" },
         "Cancelled": { text: "Cancelled", class: "status-cancelled", icon: "❌" }
         };
-    const statusGroups = {
-        "All": null, // no filtering
-        "Scheduled / Confirmed": ["scheduled"],
-        "In Progress": ["in_progress", "parts_ordered", "needs_parts"],
-        "Completed": ["repair_completed", "released"], // if you use both
-        "Cancelled": ["cancelled"]
-        };
+        const statusGroups = {
+  "All": null,
+  "Scheduled / Confirmed": ["Scheduled / Confirmed"],
+  "In Progress": ["In Progress"],
+  "Awaiting Parts": ["Awaiting Parts"],
+  "Parts Arrived": ["Parts Arrived"],
+  "Scheduled for Parts Installation": ["Scheduled for Parts Installation"],
+  "Repaired": ["Repaired"],
+  "Completed": ["Completed"],
+  "Cancelled": ["Cancelled"]
+};
 
     async function saveAdminSettings(db) {
     const rawAdminPhone = document.getElementById("admin-phone").value.trim();
@@ -5012,14 +5065,7 @@ async function saveCustomer() {
                     `;
                     tbody.appendChild(row);
                 });
-                // Add click handlers to status cards
-            document.querySelectorAll('.status-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const status = this.getAttribute('data-status');
-                    // Pass status as URL parameter
-                    window.location.href = `appointments.html?status=${encodeURIComponent(status)}`;
-                });
-            });
+
                 // Attach event listeners to each edit/delete button
                 document.querySelectorAll('.edit-btn').forEach(btn => {
                     btn.addEventListener('click', () => openEditCustomerModal(btn.dataset.id));
@@ -5087,36 +5133,57 @@ async function saveCustomer() {
 
             
             // Stats update
-function updateStats() {
-    // Check if appointments is defined and not empty
+            function updateStats() {
     if (!appointments || appointments.length === 0) {
         console.log("No appointments available");
+        // Clear counts to 0 for all cards
+        const ids = [
+            "total-appointments",
+            "scheduled-count",
+            "inprogress-count",
+            "awaiting-parts-count",
+            "parts-arrived-count",
+            "scheduled-installation-count",
+            "repaired-count",
+            "completed-count",
+            "cancelled-count"
+        ];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = "0";
+        });
         return;
     }
 
-    // Initialize counters
-    let total = 0, scheduled = 0, inProgress = 0, completed = 0;
-    
-    // Iterate over appointments once and count each status
+    // Count each status
+    const statusCountMap = {};
     appointments.forEach(app => {
-        total++; // Every appointment counts as a total
-        if (app.status === "Scheduled / Confirmed") scheduled++;
-        if (app.status === "In Progress") inProgress++;
-        if (app.status === "Completed") completed++;
+        statusCountMap[app.status] = (statusCountMap[app.status] || 0) + 1;
     });
 
-    // Update counts on the page
-    document.getElementById("total-appointments").textContent = total;
-    document.getElementById("scheduled-count").textContent = scheduled;
-    document.getElementById("inprogress-count").textContent = inProgress;
-    document.getElementById("released-count").textContent = completed;
+    // Total appointments
+    document.getElementById("total-appointments").textContent = appointments.length;
+    document.getElementById('total-appointments-text').textContent = `${appointments.length} appointments`;
 
-    // Update footer text
-    document.getElementById('total-appointments-text').textContent = `${total} appointments`;
-    document.getElementById('scheduled-text').textContent = `${scheduled} scheduled`;
-    document.getElementById('inprogress-text').textContent = `${inProgress} in progress`;
-    document.getElementById('completed-text').textContent = `${completed} completed`;
+    // Update counts for each status card
+    function updateCard(status, countId, textId, textSuffix) {
+        const count = statusCountMap[status] || 0;
+        const countEl = document.getElementById(countId);
+        const textEl = document.getElementById(textId);
+        if (countEl) countEl.textContent = count;
+        if (textEl) textEl.textContent = `${count} ${textSuffix}`;
+    }
+
+    updateCard("Scheduled / Confirmed", "scheduled-count", "scheduled-text", "scheduled");
+    updateCard("In Progress", "inprogress-count", "inprogress-text", "in progress");
+    updateCard("Awaiting Parts", "awaiting-parts-count", "awaiting-parts-text", "awaiting parts");
+    updateCard("Parts Arrived", "parts-arrived-count", "parts-arrived-text", "parts arrived");
+    updateCard("Scheduled for Parts Installation", "scheduled-installation-count", "scheduled-installation-text", "scheduled for installation");
+    updateCard("Repaired", "repaired-count", "repaired-text", "repaired");
+    updateCard("Completed", "completed-count", "completed-text", "completed");
+    updateCard("Cancelled", "cancelled-count", "cancelled-text", "cancelled");
 }
+
   
             // Calendar rendering and summary
             function renderCalendar() {
@@ -5315,7 +5382,10 @@ function updateStats() {
     }, 0);
 
     const businessDays = getBusinessDays(currentMonth, currentYear);
-    
+    // Call it after DOM is loaded:
+document.addEventListener('DOMContentLoaded', () => {
+    setupStatusCardClickHandlers();
+});
     // Update all elements consistently
     document.getElementById("summary-total").textContent = monthlyApps.length;
     document.getElementById("summary-days").textContent = businessDays;
