@@ -1346,6 +1346,12 @@
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                     </div>
+                      <!-- Add month navigation here -->
+                    <div style="margin: 10px 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <button id="prevMonthBtn" class="btn">← Previous</button>
+                        <span id="monthYearLabel" style="font-weight: bold; color: #333;"></span>
+                        <button id="nextMonthBtn" class="btn">Next →</button>
+                    </div>
                     <div style="height: 350px;">
                         <canvas id="appointmentsPerDayChart"></canvas>
                     </div>
@@ -2093,7 +2099,8 @@
         let auth, appointmentsCollection;
         let map = null;
         let marker = null;
-
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth(); // 0-based: 0 = Jan, 11 = Dec
         async function getFirebaseConfig() {
             try {
                 const response = await fetch(
@@ -5456,6 +5463,35 @@ function updateStats() {
         },
     });
 }
+
+const monthYearLabel = document.getElementById('monthYearLabel');
+const prevMonthBtn = document.getElementById('prevMonthBtn');
+const nextMonthBtn = document.getElementById('nextMonthBtn');
+
+function updateMonthYearLabel() {
+  const date = new Date(currentYear, currentMonth);
+  const options = { year: 'numeric', month: 'long' };
+  monthYearLabel.textContent = date.toLocaleDateString(undefined, options);
+}
+
+function changeMonth(offset) {
+  currentMonth += offset;
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  } else if (currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+  updateMonthYearLabel();
+  renderAppointmentsChart();
+}
+
+prevMonthBtn.addEventListener('click', () => changeMonth(-1));
+nextMonthBtn.addEventListener('click', () => changeMonth(1));
+
+updateMonthYearLabel(); // show initial label
+renderAppointmentsChart(); // initial chart render
 
 
 
