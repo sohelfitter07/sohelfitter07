@@ -1801,7 +1801,7 @@
         
         <div style="margin-bottom: 20px; position: relative;">
             <label for="house-address-input">House Address</label>
-          
+            
             <!-- Visible input for user typing -->
             <input
               type="text"
@@ -1813,44 +1813,22 @@
               autocomplete="off"
               style="margin-bottom: 10px; padding: 8px; width: 100%; box-sizing: border-box;"
             />
-            <ul id="address-suggestions" style="
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 14px;
-          "></ul>          
-
-          
-            <!-- GoMaps widget container: just for the map & autocomplete UI -->
-            <div
-            id="gomaps-widget"
-            data-api-key="AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c"
-            data-label="Start typing your address..."
-            data-map="true"
-            data-map-height="200px"
-            data-distance-from="22 Canary Grass Blvd, Hamilton, Ontario, L0R 1P0"
-            data-output-id="house-address-input"
-            style="margin-bottom: 10px;"
-          ></div>
-          
-            <div class="validation-error" id="house-address-error"></div>
-          
+            
+            <!-- Suggestions container - simplified and improved -->
+            <div id="address-suggestions" class="suggestions-container"></div>
+            
+            <!-- Map container - essential for showing location -->
+            <div id="map-preview" style="height: 200px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"></div>
+            
+            <!-- Distance display -->
             <p>
-              <strong>Distance:</strong> <span id="gomaps-distance" style="color: inherit;">0</span> km
+              <strong>Distance:</strong> 
+              <span id="gomaps-distance" style="color: inherit; font-weight: bold;">0</span> km
+              from our location
             </p>
+            
+            <!-- Validation error -->
+            <div class="validation-error" id="house-address-error"></div>
           </div>
           
           
