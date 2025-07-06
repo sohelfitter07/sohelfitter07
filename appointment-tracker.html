@@ -5302,7 +5302,10 @@ async function saveCustomer() {
             function showAppointmentDetails(id) {
                 const appointment = appointments.find(a => a.id === id);
                 if (!appointment) return;
-    
+                const basePrice = appointment.basePrice || 0;
+                const price = appointment.price || basePrice;
+                const totalPrice = price;  // Adjust if you calculate tax or discounts
+                
                 const modalContent = `
                     <h3>Appointment Details</h3>
                     <p><strong>Customer:</strong> ${appointment.customer}</p>
