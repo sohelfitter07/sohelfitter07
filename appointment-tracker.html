@@ -2117,6 +2117,7 @@
     const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
     // Your fixed base address (starting point)
     const baseAddress = "22 Canary Grass Blvd, Hamilton, Ontario, L0R 1P0";
+    let appointmentsChartInstance = null;
 
     const apiKey = document.getElementById('gomaps-widget').dataset.apiKey;
     const routeMapDiv = document.getElementById('route-map');
@@ -3734,26 +3735,27 @@ async function fetchAppointments() {
 
 
 function renderAppointmentsChart() {
-    // Get appointments for current month
-    const monthlyApps = appointments.filter(app => {
-        const appDate = app.dateObj;
-        return appDate.getMonth() === currentMonth && 
-               appDate.getFullYear() === currentYear;
-    });
+    const ctx = document.getElementById('appointmentsChart').getContext('2d');
 
-    // Count appointments per day
+    if (appointmentsChartInstance) {
+        appointmentsChartInstance.destroy();
+    }
+
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const labels = Array.from({ length: daysInMonth }, (_, i) => `Day ${i + 1}`);
     const dayCounts = new Array(daysInMonth).fill(0);
 
+    const monthlyApps = appointments.filter(app => {
+        const appDate = app.dateObj;
+        return appDate.getMonth() === currentMonth &&
+               appDate.getFullYear() === currentYear;
+    });
     monthlyApps.forEach(app => {
         const day = app.dateObj.getDate();
-        dayCounts[day - 1] += 1;
+        dayCounts[day - 1]++;
     });
 
-    const labels = Array.from({ length: daysInMonth }, (_, i) => `Day ${i + 1}`);
-
-    const ctx = document.getElementById('appointmentsChart').getContext('2d');
-    new Chart(ctx, {
+    appointmentsChartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
@@ -3766,10 +3768,14 @@ function renderAppointmentsChart() {
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
-                    text: 'Appointments This Month'
+                    text: 'Appointments This Month',
+                    color: '#e5e7eb',
+                    font: { size: 16 }
                 },
                 legend: { display: false }
             },
@@ -3782,7 +3788,6 @@ function renderAppointmentsChart() {
         }
     });
 }
-
 
           
             function setupRealtimeListeners() {
