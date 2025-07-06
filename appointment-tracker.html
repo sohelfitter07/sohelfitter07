@@ -2169,18 +2169,20 @@
         let currentCustomerPage = 1;
         const customersPerPage = 10;
         const statusMap = {
-            "Scheduled / Confirmed": { text: "Scheduled / Confirmed", class: "status-scheduled", icon: "📅" },
-            "In Progress": { text: "In Progress", class: "status-inprogress", icon: "🔧" },
-            "Awaiting Parts": { text: "Awaiting Parts", class: "status-awaiting", icon: "⏳" },
-            "Parts Arrived": { text: "Parts Arrived", class: "status-arrived", icon: "📦" },
-            "Scheduled for Parts Installation": { text: "Install Scheduled", class: "status-install", icon: "🛠️" },
-            "Repaired": { text: "Repaired", class: "status-repaired", icon: "✅" },
-            "Completed": { text: "Completed", class: "status-complete", icon: "🏁" },
-            "Cancelled": { text: "Cancelled", class: "status-cancelled", icon: "❌" }
-            };
-        const statusGroups = {
+    "All": "All",
+    "Scheduled / Confirmed": "Scheduled",
+    "In Progress": "In Progress",
+    "Awaiting Parts": "Awaiting Parts",
+    "Parts Arrived": "Parts Arrived",
+    "Scheduled for Parts Installation": "Scheduled for Parts Installation",
+    "Repaired": "Repaired",
+    "Completed": "Completed",
+    "Cancelled": "Cancelled"
+};
+
+            const statusGroups = {
             "All": null,
-            "Scheduled / Confirmed": ["Scheduled", "Confirmed"],
+            "Scheduled": ["Scheduled", "Confirmed"],
             "In Progress": ["In Progress"],
             "Awaiting Parts": ["Awaiting Parts"],
             "Parts Arrived": ["Parts Arrived"],
@@ -2262,19 +2264,20 @@
       }
     }
     function setupStatusCardClickHandlers() {
-    document.querySelectorAll('.card').forEach(card => {
+    document.querySelectorAll('#dashboard-view .card').forEach(card => {
         card.addEventListener('click', function() {
             const status = this.getAttribute('data-status');
+            statusFilter = statusMap[status] || "";
 
-            // Store globally what to filter
-            statusFilter = status;
+            console.log("Card clicked:", status, "Mapped to:", statusFilter);
 
-            // Sync dropdown if present
+            // Update dropdown if applicable
             const statusDropdown = document.getElementById('appointment-status');
             if (statusDropdown) {
-                statusDropdown.value = statusFilter;
+                statusDropdown.value = statusFilter || 'All';
             }
 
+            // Switch view and fetch appointments
             activateView("appointments");
             fetchAppointments();
         });
@@ -3779,27 +3782,29 @@ function appointmentMatchesSearch(appointment, query) {
             throw new Error("Fetched data is not an array.");
         }
 
+        // Attach dateObj for easy sorting/filtering
         appointments = allAppointments.map(app => ({
             ...app,
             dateObj: new Date(app.date)
         }));
 
-        // Debug
-        console.log("Current statusFilter:", statusFilter);
-        console.log("Appointments status before filter:", allAppointments.map(app => app.status));
+        // 🩺 Debug
+        console.log("✅ Current statusFilter:", statusFilter);
+        console.log("✅ All appointment statuses:", allAppointments.map(app => app.status));
 
         // Determine allowed statuses
-        let allowedStatuses = [];
+        let allowedStatuses = null; // null = no filter
+
         if (statusFilter && statusFilter !== "All") {
             allowedStatuses = statusGroups[statusFilter] || [statusFilter];
         }
 
         const filteredAppointments =
-            allowedStatuses.length === 0
+            allowedStatuses === null
                 ? allAppointments
                 : allAppointments.filter(app => allowedStatuses.includes(app.status));
 
-        console.log("Filtered Appointments:", filteredAppointments);
+        console.log("✅ Filtered Appointments:", filteredAppointments);
 
         // Reminder toast if applicable
         if (auth?.currentUser && !sessionStorage.getItem(`reminderShown_${auth.currentUser.uid}`)) {
@@ -3813,11 +3818,11 @@ function appointmentMatchesSearch(appointment, query) {
             }
         }
 
-        // Render the filtered appointments
+        // Render appointments
         renderAppointmentsTable(filteredAppointments);
         updateStats();
 
-        // Initialize charts and summaries
+        // Initialize charts/calendar if active
         setTimeout(() => {
             if (document.getElementById('calendar-view').classList.contains('active')) {
                 renderCalendar();
@@ -3831,8 +3836,9 @@ function appointmentMatchesSearch(appointment, query) {
         }, 50);
 
         setupRealtimeListeners();
+
     } catch (error) {
-        console.error("Error in fetchAppointments:", error);
+        console.error("❌ Error in fetchAppointments:", error);
         showToast("Failed to load appointments", true);
     }
 }
