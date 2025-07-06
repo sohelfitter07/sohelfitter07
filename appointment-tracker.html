@@ -5477,6 +5477,8 @@ function updateMonthYearLabel() {
   const date = new Date(currentYear, currentMonth);
   const options = { year: 'numeric', month: 'long' };
   monthYearLabel.textContent = date.toLocaleDateString(undefined, options);
+monthYearLabel.style.color = "#ffffff";
+monthYearLabel.style.fontWeight = "bold";
 }
 
 function changeMonth(offset) {
