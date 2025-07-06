@@ -5388,6 +5388,7 @@ function updateStats() {
     document.getElementById("appointment-status").value = app.status || "";
     document.getElementById("reminder-enabled").checked = app.reminderEnabled || false;
     document.getElementById("reminder-enabled").checked = !!app.reminderEnabled;
+    document.getElementById("house-address-input").value = appointment.houseAddress || "";
 
     calculateTax();
 
@@ -5630,7 +5631,8 @@ document.querySelectorAll('[data-view]').forEach(link => {
          timeInput !== originalAppointmentData.time ||
          status !== originalAppointmentData.status);
          const reminderEnabled = document.getElementById("reminder-enabled").checked;
-        const appointmentData = {
+       
+         const appointmentData = {
         customer: customerName,
         phone,
         email,
