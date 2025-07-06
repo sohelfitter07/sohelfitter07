@@ -2183,12 +2183,12 @@ function setupStatusCardClickHandlers() {
         "Cancelled": { text: "Cancelled", class: "status-cancelled", icon: "❌" }
         };
     const statusGroups = {
-  "All": null, // no filtering
-  "Scheduled / Confirmed": ["scheduled"],
-  "In Progress": ["in_progress", "parts_ordered", "needs_parts"],
-  "Completed": ["repair_completed", "released"], // if you use both
-  "Cancelled": ["cancelled"]
-};
+        "All": null, // no filtering
+        "Scheduled / Confirmed": ["scheduled"],
+        "In Progress": ["in_progress", "parts_ordered", "needs_parts"],
+        "Completed": ["repair_completed", "released"], // if you use both
+        "Cancelled": ["cancelled"]
+        };
 
     async function saveAdminSettings(db) {
     const rawAdminPhone = document.getElementById("admin-phone").value.trim();
@@ -5197,12 +5197,24 @@ function updateStats() {
                 }
 
             function updateCalendarSummary() {
-                const monthlyApps = appointments.filter((app) => {
-                    if (!app.dateObj) return false;
-                    const d = app.dateObj;
-                    return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
-                });
-                
+                // Inside your updateCalendarSummary() function
+            const completedAppointments = appointments.filter(app => {
+                const appDate = app.dateObj;
+                return appDate.getMonth() === currentMonth && 
+                    appDate.getFullYear() === currentYear &&
+                    app.status === "Completed"; // Use the exact status string
+            });
+
+            // Calculate total revenue
+            const totalRevenue = completedAppointments.reduce((sum, app) => {
+                // Handle different price formats
+                const price = typeof app.price === 'string' ? 
+                    parseFloat(app.price.replace(/[^0-9.]/g, '')) : 
+                    app.price;
+                    
+                return sum + (price || 0);
+            }, 0);
+
                 const businessDays = getBusinessDays(currentMonth, currentYear);
                 const monthlyRevenue = monthlyApps
                 .filter((a) => ["repair_completed"].includes(a.status))
@@ -5210,11 +5222,16 @@ function updateStats() {
                 
                 document.getElementById("summary-total").textContent = monthlyApps.length;
                 document.getElementById("summary-days").textContent = businessDays;
-                document.getElementById("summary-revenue").textContent = `$${monthlyRevenue.toFixed(2)}`;
+                document.getElementById('summary-revenue').textContent = `$${totalRevenue.toFixed(2)}`;
+                document.getElementById('monthly-revenue').textContent = `$${totalRevenue.toFixed(2)}`;
+                document.getElementById('monthly-released').textContent = completedAppointments.length;
                 
                 const utilizationRate = Math.min(100, Math.round((monthlyApps.length / (businessDays * 3)) * 100));
                 document.getElementById("summary-utilization").textContent = utilizationRate + "%";
             }
+            
+            
+            
             window.addEventListener('DOMContentLoaded', async () => {
   await fetchAppointments(); // ✅ Make sure appointments are loaded
   checkUpcomingAppointments(); // ✅ Run reminder logic after fetch
