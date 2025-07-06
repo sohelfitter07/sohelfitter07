@@ -1005,7 +1005,18 @@
         height: 40px;
         font-size: 1.2rem;
     }
-    
+    .modal-header {
+  display: flex;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #007bff;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.3rem;
+}
+
     .card-content {
         font-size: 1.8rem;
         margin: 8px 0;
@@ -5307,7 +5318,10 @@ async function saveCustomer() {
                 const totalPrice = price;  // Adjust if you calculate tax or discounts
                 
                 const modalContent = `
-                    <h3>Appointment Details</h3>
+                    <div class="modal-header">
+                        <i class="fas fa-info-circle" style="color:#007bff; margin-right: 8px;"></i>
+                        <h3>Appointment Details</h3>
+                    </div>
                     <p><strong>Customer:</strong> ${appointment.customer}</p>
                     <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
                     <p><strong>Phone:</strong> ${appointment.phone || 'N/A'}</p>
