@@ -887,6 +887,14 @@
 .notification-disabled {
     background-color: var(--dark-danger);
 }
+.btn-second {
+    background-color: #6c757d; /* Bootstrap secondary gray */
+    color: white;
+}
+.btn-second:hover {
+    background-color: #5a6268;
+}
+
         /* Responsive Design */
         @media (max-width: 1200px) {
             .sidebar {
@@ -5384,11 +5392,11 @@ async function saveCustomer() {
                     <br>
                     <div style="display: flex; gap: 10px;">
                     <button class="btn" id="edit-details">Edit Appointment</button>
-                    <button class="btn" id="close-details">Close</button>
+                    <button class="btn btn-second" id="close-details">Close</button>
                     </div>
                 `;
     
-                openDetailsModal(modalContent, id);
+                openDetailsModal(modalContent, id, true);
                 // Attach the edit logic AFTER the modal opens
                 setTimeout(() => {
                     const btn = document.getElementById('edit-details');
@@ -6188,30 +6196,37 @@ document.querySelectorAll('[data-view]').forEach(link => {
             // Start the application
             initialize();
         }
-        function openDetailsModal(content, id) {
-            const modal = document.createElement('div');
-            modal.className = 'modal active';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    ${content}
-                </div>
-            `;
-            document.body.appendChild(modal);
-    
-            // Close button
-            modal.querySelector('.close-modal').addEventListener('click', () => {
-                modal.remove();
-            });
-    
-            // Edit button logic
-            modal.querySelector('#edit-details')?.addEventListener('click', () => {
-                modal.remove();
-                if (typeof openEditModal === "function") {
-                    openEditModal(id); // ID comes from argument
-                }
-            });
+        function openDetailsModal(content, id, hideDefaultClose = false) {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+
+    modal.innerHTML = `
+        <div class="modal-content">
+            ${hideDefaultClose ? '' : '<span class="close-modal">&times;</span>'}
+            ${content}
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Close button (if present)
+    if (!hideDefaultClose) {
+        modal.querySelector('.close-modal')?.addEventListener('click', () => {
+            modal.remove();
+        });
+    }
+
+    // Edit button logic
+    modal.querySelector('#edit-details')?.addEventListener('click', () => {
+        modal.remove();
+        if (typeof openEditModal === "function") {
+            openEditModal(id);
         }
+    });
+
+    // New close button logic you added will be handled in your modal content code as before
+}
+
     </script>
   <script src="https://cdn.gomaps.pro/autocomplete/gomaps-autocomplete.min.js"></script>
 </body>
