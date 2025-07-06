@@ -4763,7 +4763,8 @@ async function saveCustomer() {
         const row = document.createElement("tr");
         const reminderIcon = app.reminderEnabled ? "🕒" : "";
         const isEdited = !!(app.editedEmailBody || app.editedSmsBody);
-
+        // FIXED: Add unique address to each row
+        const encodedAddress = app.house_address ? encodeURIComponent(app.house_address) : '';
         // ADDED: Directions button column
         row.innerHTML = `
             <td>#${app.id}</td>
@@ -4798,9 +4799,12 @@ async function saveCustomer() {
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
-            <!-- NEW DIRECTIONS COLUMN -->
+            <!-- FIXED: Pass appointment-specific address -->
             <td>
-                <button class="action-btn directions-btn" data-address="${app.house_address || ''}" title="Get Directions">
+                <button class="action-btn directions-btn" 
+                        data-id="${app.id}" 
+                        data-address="${encodedAddress}" 
+                        title="Get Directions">
                     <i class="fas fa-map-marked-alt"></i>
                 </button>
             </td>
@@ -4859,18 +4863,17 @@ async function saveCustomer() {
     });
     
     // ADDED: Directions button handler
-    tbody.querySelectorAll(".directions-btn").forEach(btn => {
+  // FIXED: Directions button handler with proper data binding
+  tbody.querySelectorAll(".directions-btn").forEach(btn => {
         btn.onclick = () => {
             const address = btn.dataset.address;
             if (address) {
-                // Open Google Maps with destination set to appointment address
-                window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`, '_blank');
+                window.open(`https://www.google.com/maps/dir/?api=1&destination=${address}`, '_blank');
             } else {
                 showToast('No address available for this appointment', true);
             }
         };
     });
-
     // Pagination
     const totalPages = Math.ceil(filteredAppointments.length / appointmentsPerPage);
     document.getElementById("page-indicator").textContent = `Page ${currentPage} of ${totalPages || 1}`;
