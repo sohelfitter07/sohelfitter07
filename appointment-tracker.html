@@ -1220,6 +1220,57 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+@media (max-width: 480px) {
+  /* Make table and elements block-level */
+  #appointments-view table,
+  #appointments-view thead,
+  #appointments-view tbody,
+  #appointments-view th,
+  #appointments-view td,
+  #appointments-view tr {
+    display: block;
+  }
+  
+  /* Hide table headers on mobile */
+  #appointments-view thead tr {
+    display: none;
+  }
+  
+  /* Style each row as a card */
+  #appointments-view tbody tr {
+    margin-bottom: 1rem;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+  }
+  
+  /* Style each cell */
+  #appointments-view tbody td {
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+  }
+  
+  /* Label before each cell */
+  #appointments-view tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    font-weight: 600;
+    color: #444;
+    white-space: nowrap;
+  }
+  
+  /* Remove border on last cell */
+  #appointments-view tbody td:last-child {
+    border-bottom: 0;
+  }
+}
 
     </style>
 </head>
@@ -5074,54 +5125,53 @@ async function saveCustomer() {
         const encodedAddress = app.houseAddress ? encodeURIComponent(app.houseAddress) : '';
         // ADDED: Directions button column
         row.innerHTML = `
-            <td>#${app.id}</td>
-            <td>${app.customer}</td>
-            <td>${app.equipment || ""}</td>
-            <td>${formatTimestamp(app.dateObj)}</td>
-            <td>
-                <span class="status-badge ${statusInfo.class}" title="${statusInfo.text}">
-                    ${statusInfo.icon || ""} ${statusInfo.text}
-                </span>
-            </td>
-            <td>$${(Number(app.price) || 0).toFixed(2)}</td>
-            <td>
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <span title="${confirmTooltip}" style="font-size: 18px;">${confirmStatus}</span>
-                    ${confirmTimestamp ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
-                    ${reminderIcon ? `<span title="Reminder enabled">${reminderIcon}</span>` : ""}
-                    ${isEdited ? `<span title="Custom message saved" style="font-size: 13px;">✏️</span>` : ""}
-                </div>
-            </td>
-            <td class="action-cell">
-                <button class="action-btn send-btn" data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-                <button class="action-btn preview-btn" data-id="${app.id}" title="Preview Email & SMS">
-                    <i class="fas fa-eye"></i>
-                </button>
-                <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment">
-                    <i class="fas fa-trash"></i>
-                </button>
-                <button class="action-btn details-btn" data-id="${app.id}" title="View Details">
-                    <i class="fas fa-info-circle"></i>
-                </button>
-            </td>
-            <!-- FIXED: Pass appointment-specific address -->
-            <td>
-                <button class="action-btn directions-btn" 
-                        data-id="${app.id}" 
-                        data-address="${encodedAddress}" 
-                        title="Get Directions">
-                    <i class="fas fa-map-marked-alt"></i>
-                </button>
-            </td>
-                <td>
-      ${app.distanceFromShopKm ? `${app.distanceFromShopKm} km` : 'N/A'}
-    </td>
-        `;
+  <td data-label="ID">#${app.id}</td>
+  <td data-label="Customer">${app.customer}</td>
+  <td data-label="Equipment">${app.equipment || ""}</td>
+  <td data-label="Date & Time">${formatTimestamp(app.dateObj)}</td>
+  <td data-label="Status">
+    <span class="status-badge ${statusInfo.class}" title="${statusInfo.text}">
+      ${statusInfo.icon || ""} ${statusInfo.text}
+    </span>
+  </td>
+  <td data-label="Price">$${(Number(app.price) || 0).toFixed(2)}</td>
+  <td data-label="Confirm">
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <span title="${confirmTooltip}" style="font-size: 18px;">${confirmStatus}</span>
+      ${confirmTimestamp ? `<small style="font-size: 11px; color: #ccc;">${confirmTimestamp}</small>` : ""}
+      ${reminderIcon ? `<span title="Reminder enabled">${reminderIcon}</span>` : ""}
+      ${isEdited ? `<span title="Custom message saved" style="font-size: 13px;">✏️</span>` : ""}
+    </div>
+  </td>
+  <td data-label="Actions" class="action-cell">
+    <button class="action-btn send-btn" data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
+      <i class="fas fa-paper-plane"></i>
+    </button>
+    <button class="action-btn preview-btn" data-id="${app.id}" title="Preview Email & SMS">
+      <i class="fas fa-eye"></i>
+    </button>
+    <button class="action-btn edit-btn" data-id="${app.id}" aria-label="Edit appointment">
+      <i class="fas fa-edit"></i>
+    </button>
+    <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment">
+      <i class="fas fa-trash"></i>
+    </button>
+    <button class="action-btn details-btn" data-id="${app.id}" title="View Details">
+      <i class="fas fa-info-circle"></i>
+    </button>
+  </td>
+  <td data-label="Directions">
+    <button class="action-btn directions-btn" 
+            data-id="${app.id}" 
+            data-address="${encodedAddress}" 
+            title="Get Directions">
+      <i class="fas fa-map-marked-alt"></i>
+    </button>
+  </td>
+  <td data-label="Distance">
+    ${app.distanceFromShopKm ? `${app.distanceFromShopKm} km` : 'N/A'}
+  </td>
+`;
 
         tbody.appendChild(row);
     });
