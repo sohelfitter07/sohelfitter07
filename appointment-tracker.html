@@ -5416,43 +5416,32 @@ async function saveCustomer() {
                 `;
     
                 openDetailsModal(modalContent, id, true);
+                // Attach the edit logic AFTER the modal opens
+                setTimeout(() => {
+                    const btn = document.getElementById('edit-details');
+                    if (btn) {
+                        btn.addEventListener('click', () => {
+                            const detailsModal = document.querySelector('.modal.active');
+                            if (detailsModal) {
+                                detailsModal.remove();  // Remove modal element completely
+                            }
+                            activateView("appointments");
+                            setTimeout(() => {
+                                openEditModal(id);
+                            }, 500);
+                        });
+                    }
 
-// Attach the edit logic AFTER the modal opens
-setTimeout(() => {
-    const btn = document.getElementById('edit-details');
-    if (btn) {
-        btn.addEventListener('click', () => {
-            const detailsModal = document.querySelector('.modal.active');
-            if (detailsModal) {
-                detailsModal.remove();  // Remove modal element completely
-            }
-
-            activateView("appointments");
-
-            // ✅ Use MutationObserver to wait for edit modal to exist
-            const observer = new MutationObserver((mutations, obs) => {
-                const modal = document.getElementById("appointment-modal");
-                if (modal) {
-                    openEditModal(id);
-                    obs.disconnect(); // stop observing once found
-                }
-            });
-
-            observer.observe(document.body, { childList: true, subtree: true });
-        });
-    }
-
-    const closeBtn = document.getElementById('close-details');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            const detailsModal = document.querySelector('.modal.active');
-            if (detailsModal) {
-                detailsModal.remove();  // Remove modal element completely
-            }
-        });
-    }
-}, 50);
-
+                    const closeBtn = document.getElementById('close-details');
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', () => {
+                            const detailsModal = document.querySelector('.modal.active');
+                            if (detailsModal) {
+                                detailsModal.remove();  // Remove modal element completely
+                            }
+                        });
+                    }
+                }, 50);
             }
             function exportAppointmentsCSV() {
   if (!appointments || appointments.length === 0) {
