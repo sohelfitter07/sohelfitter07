@@ -5423,7 +5423,7 @@ async function saveCustomer() {
                         btn.addEventListener('click', () => {
                             const detailsModal = document.querySelector('.modal.active');
                             if (detailsModal) {
-                                detailsModal.classList.remove('active');
+                                detailsModal.remove();  // Remove modal element completely
                             }
                             activateView("appointments");
                             setTimeout(() => {
@@ -5437,7 +5437,7 @@ async function saveCustomer() {
                         closeBtn.addEventListener('click', () => {
                             const detailsModal = document.querySelector('.modal.active');
                             if (detailsModal) {
-                                detailsModal.classList.remove('active');
+                                detailsModal.remove();  // Remove modal element completely
                             }
                         });
                     }
