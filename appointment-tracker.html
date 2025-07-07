@@ -1219,8 +1219,56 @@
   .grid-cols-2-xs {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
+}  .button-group {
+    margin-bottom: 25px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
 
+  /* Base button styles */
+  .btn {
+    flex: 1 1 auto;       /* Buttons share available space */
+    min-width: 160px;     /* Minimum width for usability */
+    padding: 12px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Specific colors */
+  #add-customer {
+    background-color: #007bff;
+    color: white;
+  }
+  #add-customer:hover {
+    background-color: #0056b3;
+  }
+  #backfill-customers-btn {
+    background-color: #ff9800;
+    color: white;
+  }
+  #backfill-customers-btn:hover {
+    background-color: #cc7a00;
+  }
+
+  /* Responsive: On screens smaller than 480px, stack buttons vertically */
+  @media (max-width: 479px) {
+    .button-group {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn {
+      width: 100%;
+      min-width: unset;
+    }
+  }
     </style>
 </head>
 <body>
@@ -5581,16 +5629,15 @@ document.getElementById('backfill-customers-btn').addEventListener('click', asyn
     const basePrice = appointment.basePrice || 0;
     const price = appointment.price || basePrice;
     const totalPrice = price;
-
     const modalContent = `
   <style>
-    /* Base styles (your existing ones) */
+    /* Modal background assumed #1F2937 from your card */
     .modal-header {
       display: flex; 
       align-items: center; 
       justify-content: space-between; 
       margin-bottom: 20px;
-      border-bottom: 2px solid #2980b9;
+      border-bottom: 2px solid #3b82f6; /* lighter blue accent */
       padding-bottom: 12px;
     }
     .modal-header-left {
@@ -5599,14 +5646,14 @@ document.getElementById('backfill-customers-btn').addEventListener('click', asyn
       gap: 14px;
     }
     .modal-header-left i {
-      color: #2980b9; 
+      color: #3b82f6;  /* lighter blue */
       font-size: 1.6rem;
     }
     .modal-header-left h3 {
       margin: 0; 
       font-weight: 700; 
       font-size: 1.8rem; 
-      color: #34495e;
+      color: #e0e7ff; /* very light blueish white */
     }
     .modal-header-right {
       display: flex; 
@@ -5623,34 +5670,37 @@ document.getElementById('backfill-customers-btn').addEventListener('click', asyn
       text-decoration: none; 
       font-size: 1rem; 
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
     }
     .btn-directions {
-      background-color: #2980b9;
+      background-color: #3b82f6; /* blue */
       color: white;
     }
     .btn-directions:hover {
-      background-color: #1c5980;
-      box-shadow: 0 6px 20px rgba(28, 89, 128, 0.8);
+      background-color: #2563eb; /* darker blue */
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.8);
     }
     .btn-call {
-      background-color: #27ae60;
+      background-color: #22c55e; /* bright green */
       color: white;
     }
     .btn-call:hover {
-      background-color: #1f8f4a;
-      box-shadow: 0 6px 20px rgba(31, 143, 74, 0.8);
+      background-color: #15803d; /* dark green */
+      box-shadow: 0 6px 20px rgba(21, 128, 61, 0.8);
     }
-    .modal-content p {
+    .modal-content {
       font-family: 'Helvetica Neue', Arial, sans-serif; 
-      color: #2c3e50; 
+      color: #d1d5db; /* light gray for text on dark */
       font-size: 1.1rem; 
       line-height: 1.6;
+    }
+    .modal-content p {
       margin: 6px 0;
     }
     .modal-content strong {
-      color: #2980b9;
+      color: #3b82f6; /* lighter blue for strong text */
     }
     .modal-actions {
       display: flex; 
@@ -5661,41 +5711,43 @@ document.getElementById('backfill-customers-btn').addEventListener('click', asyn
     }
     .btn-primary {
       padding: 12px 26px;
-      background-color: #2980b9;
+      background-color: #3b82f6;
       color: white;
       border: none;
       border-radius: 10px;
       font-weight: 700;
       font-size: 1.1rem;
       cursor: pointer;
-      box-shadow: 0 5px 18px rgba(41, 128, 185, 0.6);
+      box-shadow: 0 5px 18px rgba(59, 130, 246, 0.6);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       flex: 1 1 auto;
       min-width: 140px;
       text-align: center;
+      user-select: none;
     }
     .btn-primary:hover {
-      background-color: #1c5980;
-      box-shadow: 0 7px 22px rgba(28, 89, 128, 0.8);
+      background-color: #2563eb;
+      box-shadow: 0 7px 22px rgba(37, 99, 235, 0.8);
     }
     .btn-secondary {
       padding: 12px 26px;
-      background-color: #6c757d;
-      color: white;
+      background-color: #374151; /* dark gray */
+      color: #d1d5db;
       border: none;
       border-radius: 10px;
       font-weight: 700;
       font-size: 1.1rem;
       cursor: pointer;
-      box-shadow: 0 5px 18px rgba(108, 117, 125, 0.5);
+      box-shadow: 0 5px 18px rgba(55, 65, 81, 0.5);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       flex: 1 1 auto;
       min-width: 140px;
       text-align: center;
+      user-select: none;
     }
     .btn-secondary:hover {
-      background-color: #5a6268;
-      box-shadow: 0 7px 22px rgba(90, 98, 104, 0.7);
+      background-color: #1f2937; /* same as background, but can adjust */
+      box-shadow: 0 7px 22px rgba(31, 41, 55, 0.7);
     }
 
     /* Responsive for screens < 380px */
@@ -5716,7 +5768,7 @@ document.getElementById('backfill-customers-btn').addEventListener('click', asyn
         font-size: 0.9rem;
         padding: 6px 10px;
       }
-      .modal-content p {
+      .modal-content {
         font-size: 1rem;
       }
       .modal-actions {
@@ -5770,6 +5822,7 @@ document.getElementById('backfill-customers-btn').addEventListener('click', asyn
   </div>
 `;
 
+ 
     openDetailsModal(modalContent, id);
 }
 
