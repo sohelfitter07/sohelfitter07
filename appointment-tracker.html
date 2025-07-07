@@ -4789,92 +4789,113 @@ async function saveCustomer() {
             }
   
           // Save (add or update) appointment in Firestore
-            async function saveAppointment(data) {
-                // ✅ Validate required fields
-                if (!data.customer) {
-                    showToast("Customer name is required", true);
-                    return;
-                }
+          async function saveAppointment(data) {
+    // ✅ Validate required fields
+    if (!data.customer) {
+        showToast("Customer name is required", true);
+        return;
+    }
 
-                if (!data.phone && !data.email) {
-                    showToast("At least one contact (phone or email) is required", true);
-                    return;
-                    }
+    if (!data.phone && !data.email) {
+        showToast("At least one contact (phone or email) is required", true);
+        return;
+    }
 
+    if (!data.date || data.date.toDate?.().toString() === 'Invalid Date') {
+        showToast("Invalid date/time selected", true);
+        return;
+    }
 
-                if (!data.date || data.date.toDate?.().toString() === 'Invalid Date') {
-                    showToast("Invalid date/time selected", true);
-                    return;
-                }
+    if (!data.equipment) {
+        showToast("Equipment is required", true);
+        return;
+    }
 
-                if (!data.equipment) {
-                    showToast("Equipment is required", true);
-                    return;
-                }
+    if (data.basePrice == null || isNaN(data.basePrice)) {
+        showToast("Base price is required", true);
+        return;
+    }
 
-                if (data.basePrice == null || isNaN(data.basePrice)) {
-                    showToast("Base price is required", true);
-                    return;
-                }
+    if (data.price == null || isNaN(data.price)) {
+        showToast("Total price is required", true);
+        return;
+    }
 
-                if (data.price == null || isNaN(data.price)) {
-                    showToast("Total price is required", true);
-                    return;
-                }
+    if (!data.issue) {
+        showToast("Issue description is required", true);
+        return;
+    }
 
-                if (!data.issue) {
-                    showToast("Issue description is required", true);
-                    return;
-                }
+    if (!data.status) {
+        showToast("Appointment status is required", true);
+        return;
+    }
 
-                if (!data.status) {
-                    showToast("Appointment status is required", true);
-                    return;
-                }
-                if (!data.houseAddress) {
-                    showToast("House address is required", true);
-                    return;
-                }
+    if (!data.houseAddress) {
+        showToast("House address is required", true);
+        return;
+    }
 
+    showLoading(true);
 
-                showLoading(true);
+    try {
+        // 🔧 Create a separate object for notifications only
+        const notificationData = { ...data };
+        notificationData.dateObj = data.date.toDate?.() || new Date();
 
-                try {
-                    // 🔧 Create a separate object for notifications only
-                    const notificationData = { ...data };
-                    notificationData.dateObj = data.date.toDate?.() || new Date();
+        if (editingAppointmentId) {
+            // Update existing appointment
+            const docRef = doc(db, "appointments", editingAppointmentId);
+            await updateDoc(docRef, data);
+            showToast("Appointment updated successfully");
+        } else {
+            // Add new appointment
+            await addDoc(appointmentsCollection, data);
+            showToast("Appointment added successfully");
+        }
 
-                    if (editingAppointmentId) {
-                        const docRef = doc(db, "appointments", editingAppointmentId);
-                        await updateDoc(docRef, data);
-                        showToast("Appointment updated successfully");
-                        await addOrUpdateCustomerFromAppointment(data); 
-                        showToast("Customer Data updated successfully");
-                        // 🔔 Trigger update notification
-                        triggerNotifications('appointment_updated', notificationData);
-                    } else {
-                        await addDoc(appointmentsCollection, data);
-                        showToast("Appointment added successfully");
-                        await addOrUpdateCustomerFromAppointment(data); 
-                        showToast("Customer Data updated successfully");
-                        // 🔔 Trigger creation notification
-                        console.log("✅ Saving appointment", data);
-                        console.log("🧪 About to call triggerNotifications()", notificationData);
-                        triggerNotifications('appointment_created', notificationData);
-                    }
+        // Now update the customer's lastAppointment
+        const customersQuery = query(customersCollection, where("name", "==", data.customer));
+        const customerSnapshot = await getDocs(customersQuery);
 
-                    editingAppointmentId = null;
-                    await fetchAppointments();
-                    document.getElementById('appointment-modal').classList.remove('active');
+        if (!customerSnapshot.empty) {
+            // Update existing customer lastAppointment
+            const customerDoc = customerSnapshot.docs[0];
+            const customerRef = doc(db, "customers", customerDoc.id);
+            await updateDoc(customerRef, {
+                lastAppointment: data.date // ensure this is a Firestore Timestamp or Date
+            });
+        } else {
+            // Optionally, add new customer if none exists
+            await addDoc(customersCollection, {
+                name: data.customer,
+                phone: data.phone || '',
+                email: data.email || '',
+                equipment: data.equipment || '',
+                lastAppointment: data.date,
+                houseAddress: data.houseAddress || ''
+            });
+        }
 
-                } catch (error) {
-                    const action = editingAppointmentId ? "updating" : "creating";
-                    showToast(`Failed ${action} appointment: ${error.message}`, true);
-                    console.error("❌ Error:", error);
-                } finally {
-                    showLoading(false);
-                }
-            }
+        // Trigger notifications
+        if (editingAppointmentId) {
+            triggerNotifications('appointment_updated', notificationData);
+        } else {
+            triggerNotifications('appointment_created', notificationData);
+        }
+
+        editingAppointmentId = null;
+        await fetchAppointments();
+        document.getElementById('appointment-modal').classList.remove('active');
+
+    } catch (error) {
+        const action = editingAppointmentId ? "updating" : "creating";
+        showToast(`Failed ${action} appointment: ${error.message}`, true);
+        console.error("❌ Error:", error);
+    } finally {
+        showLoading(false);
+    }
+}
 
             // ================ RENDERING FUNCTIONS ================
             // Render appointments table
