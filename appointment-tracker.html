@@ -5415,33 +5415,42 @@ async function saveCustomer() {
                     </div>
                 `;
     
-                openDetailsModal(modalContent, id, true);
-                // Attach the edit logic AFTER the modal opens
-                setTimeout(() => {
-                    const btn = document.getElementById('edit-details');
-                    if (btn) {
-                        btn.addEventListener('click', () => {
-                            const detailsModal = document.querySelector('.modal.active');
-                            if (detailsModal) {
-                                detailsModal.remove();  // Remove modal element completely
-                            }
-                            activateView("appointments");
-                            setTimeout(() => {
-                                openEditModal(id);
-                            }, 500);
-                        });
-                    }
+                function openDetailsModal(content, id, removeDefaultClose = false) {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.innerHTML = `
+        <div class="modal-content">
+            ${content}
+        </div>
+    `;
+    document.body.appendChild(modal);
 
-                    const closeBtn = document.getElementById('close-details');
-                    if (closeBtn) {
-                        closeBtn.addEventListener('click', () => {
-                            const detailsModal = document.querySelector('.modal.active');
-                            if (detailsModal) {
-                                detailsModal.remove();  // Remove modal element completely
-                            }
-                        });
-                    }
-                }, 50);
+    // ✅ Attach the close button click handler here, immediately
+    const closeBtn = modal.querySelector('#close-details');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.remove();
+        });
+    }
+
+    // If you are using an X close icon, attach its listener here as well:
+    if (!removeDefaultClose) {
+        const closeIcon = document.createElement('span');
+        closeIcon.textContent = '×';
+        closeIcon.className = 'close-modal';
+        closeIcon.style.position = 'absolute';
+        closeIcon.style.top = '10px';
+        closeIcon.style.right = '15px';
+        closeIcon.style.fontSize = '1.5rem';
+        closeIcon.style.cursor = 'pointer';
+        modal.querySelector('.modal-content').appendChild(closeIcon);
+
+        closeIcon.addEventListener('click', () => {
+            modal.remove();
+        });
+    }
+}
+
             }
             function exportAppointmentsCSV() {
   if (!appointments || appointments.length === 0) {
