@@ -4670,40 +4670,58 @@ function resetForm() {
 function showCustomerDetailsModal(customer) {
     const modalContent = `
   <div style="
-    padding: 20px; 
-    max-width: 400px; 
-    font-family: Arial, sans-serif; 
-    color: #333;
+  padding: 20px; 
+  max-width: 400px; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  color: #222;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+">
+  <h3 style="
+    margin: 0 0 20px 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #004085;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 10px;
   ">
-    <h3 style="
-      margin: 0 0 15px 0;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #007bff;
-      border-bottom: 2px solid #007bff;
-      padding-bottom: 8px;
-    ">
-      Customer Details
-    </h3>
-    <p><strong>Name:</strong> ${customer.name}</p>
-    <p><strong>Phone:</strong> ${customer.phone || 'N/A'}</p>
-    <p><strong>Email:</strong> ${customer.email || 'N/A'}</p>
-    <p><strong>Equipment:</strong> ${customer.equipment || 'N/A'}</p>
-    <p><strong>Last Appointment:</strong> ${customer.lastAppointment ? formatDate(customer.lastAppointment) : 'Never'}</p>
-    <button id="close-customer-modal" class="btn" style="
-      margin-top: 15px;
-      padding: 10px 20px;
-      background-color: #6c757d;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s;
-    " onmouseover="this.style.backgroundColor='#5a6268'" onmouseout="this.style.backgroundColor='#6c757d'">
-      Close
-    </button>
-  </div>
+    Customer Details
+  </h3>
+
+  <p style="margin: 8px 0; font-size: 1.05rem;">
+    <strong style="color: #007bff;">Name:</strong> <span style="color:#333;">${customer.name}</span>
+  </p>
+  <p style="margin: 8px 0; font-size: 1.05rem;">
+    <strong style="color: #007bff;">Phone:</strong> <span style="color:#555;">${customer.phone || 'N/A'}</span>
+  </p>
+  <p style="margin: 8px 0; font-size: 1.05rem;">
+    <strong style="color: #007bff;">Email:</strong> <span style="color:#555;">${customer.email || 'N/A'}</span>
+  </p>
+  <p style="margin: 8px 0; font-size: 1.05rem;">
+    <strong style="color: #007bff;">Equipment:</strong> <span style="color:#555;">${customer.equipment || 'N/A'}</span>
+  </p>
+  <p style="margin: 8px 0 20px 0; font-size: 1.05rem;">
+    <strong style="color: #007bff;">Last Appointment:</strong> <span style="color:#555;">${customer.lastAppointment ? formatDate(customer.lastAppointment) : 'Never'}</span>
+  </p>
+
+  <button id="close-customer-modal" style="
+    padding: 10px 22px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+    transition: background-color 0.3s ease;
+  " 
+  onmouseover="this.style.backgroundColor='#0056b3'; this.style.boxShadow='0 6px 20px rgba(0, 86, 179, 0.6)';" 
+  onmouseout="this.style.backgroundColor='#007bff'; this.style.boxShadow='0 4px 15px rgba(0, 123, 255, 0.4)';">
+    Close
+  </button>
+</div>
+
 `;
 
     openModal(modalContent);
