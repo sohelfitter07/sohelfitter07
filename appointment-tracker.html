@@ -5418,7 +5418,7 @@ function showAppointmentDetails(id) {
         </div>
     `;
 
-    openDetailsModal(modalContent, id, true);
+    openDetailsModal(modalContent, id);
 }
 
             function exportAppointmentsCSV() {
@@ -6194,6 +6194,10 @@ document.querySelectorAll('[data-view]').forEach(link => {
             initialize();
         }
         function openDetailsModal(content, id) {
+  // Remove any existing modal first (optional)
+  const existingModal = document.querySelector('.modal.active');
+  if (existingModal) existingModal.remove();
+
   const modal = document.createElement('div');
   modal.className = 'modal active';
   modal.innerHTML = `
@@ -6203,7 +6207,7 @@ document.querySelectorAll('[data-view]').forEach(link => {
   `;
   document.body.appendChild(modal);
 
-  // Close button listener
+  // Close button listener - remove modal immediately
   const closeBtn = modal.querySelector('#close-details');
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
@@ -6215,25 +6219,18 @@ document.querySelectorAll('[data-view]').forEach(link => {
   const editBtn = modal.querySelector('#edit-details');
   if (editBtn) {
     editBtn.addEventListener('click', () => {
+      // Remove details modal immediately
       modal.remove();
 
+      // If you have a function to switch views, call it (optional)
       if (typeof activateView === 'function') {
         activateView('appointments');
       }
 
-      // Wait for edit modal to appear, then open it
-      const observer = new MutationObserver((mutations, obs) => {
-        const editModal = document.getElementById('appointment-modal');
-        if (editModal) {
-          openEditModal(id);
-          obs.disconnect();
-        }
-      });
-
-      observer.observe(document.body, { childList: true, subtree: true });
-
-      // Optional: stop observing after 3 seconds if modal never appears
-      setTimeout(() => observer.disconnect(), 3000);
+      // Open edit modal after a short delay to ensure DOM updates
+      setTimeout(() => {
+        openEditModal(id);
+      }, 100); // 100ms is usually enough
     });
   }
 }
