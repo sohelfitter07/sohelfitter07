@@ -5415,33 +5415,22 @@ async function saveCustomer() {
                     </div>
                 `;
     
-                openDetailsModal(modalContent, id, true);
-                // Attach the edit logic AFTER the modal opens
                 setTimeout(() => {
-                    const btn = document.getElementById('edit-details');
-                    if (btn) {
-                        btn.addEventListener('click', () => {
-                            const detailsModal = document.querySelector('.modal.active');
-                            if (detailsModal) {
-                                detailsModal.remove();  // Remove modal element completely
-                            }
-                            activateView("appointments");
-                            setTimeout(() => {
-                                openEditModal(id);
-                            }, 500);
-                        });
-                    }
+    const btn = document.getElementById('edit-details');
+    if (btn) {
+        btn.addEventListener('click', () => {
+            const detailsModal = document.querySelector('.modal.active');
+            if (detailsModal) {
+                detailsModal.remove();
+            }
+            activateView("appointments");
+            setTimeout(() => {
+                openEditModal(id);
+            }, 500);
+        });
+    }
+}, 50);
 
-                    const closeBtn = document.getElementById('close-details');
-                    if (closeBtn) {
-                        closeBtn.addEventListener('click', () => {
-                            const detailsModal = document.querySelector('.modal.active');
-                            if (detailsModal) {
-                                detailsModal.remove();  // Remove modal element completely
-                            }
-                        });
-                    }
-                }, 50);
             }
             function exportAppointmentsCSV() {
   if (!appointments || appointments.length === 0) {
