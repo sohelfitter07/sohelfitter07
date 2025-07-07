@@ -4896,6 +4896,47 @@ async function saveCustomer() {
         showLoading(false);
     }
 }
+async function backfillCustomersFromAppointments() {
+    showLoading(true);
+    try {
+        // Fetch all appointments
+        const snapshot = await getDocs(appointmentsCollection);
+        const appointmentsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        let createdCount = 0;
+
+        for (const app of appointmentsList) {
+            if (!app.customer) continue; // skip if no customer name
+
+            // Check if customer already exists
+            const customerQuery = query(customersCollection, where("name", "==", app.customer));
+            const customerSnap = await getDocs(customerQuery);
+
+            if (customerSnap.empty) {
+                // Customer does not exist, create
+                await addDoc(customersCollection, {
+                    name: app.customer,
+                    phone: app.phone || '',
+                    email: app.email || '',
+                    equipment: app.equipment || '',
+                    houseAddress: app.houseAddress || '',
+                    lastAppointment: app.date || null
+                });
+                createdCount++;
+                console.log(`✅ Created customer for: ${app.customer}`);
+            } else {
+                console.log(`ℹ️ Customer already exists: ${app.customer}`);
+            }
+        }
+
+        showToast(`Backfill complete: ${createdCount} customers added.`);
+    } catch (error) {
+        console.error("❌ Error during backfill:", error);
+        showToast("Error during backfill", true);
+    } finally {
+        showLoading(false);
+        await fetchCustomers(); // Refresh customer table
+    }
+}
 
             // ================ RENDERING FUNCTIONS ================
             // Render appointments table
