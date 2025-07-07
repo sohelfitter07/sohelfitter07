@@ -5418,31 +5418,30 @@ async function saveCustomer() {
                 openDetailsModal(modalContent, id, true);
                 // Attach the edit logic AFTER the modal opens
                 setTimeout(() => {
-  const btn = document.getElementById('edit-details');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      activateView("appointments");
-      setTimeout(() => {
-        openEditModal(id);
-        // Now remove the details modal after edit modal opened
-        const detailsModal = document.querySelector('.modal.active');
-        if (detailsModal) {
-          detailsModal.remove();
-        }
-      }, 150); // Slightly longer delay for view to switch properly
-    });
-  }
+                    const btn = document.getElementById('edit-details');
+                    if (btn) {
+                        btn.addEventListener('click', () => {
+                            const detailsModal = document.querySelector('.modal.active');
+                            if (detailsModal) {
+                                detailsModal.remove();  // Remove modal element completely
+                            }
+                            activateView("appointments");
+                            setTimeout(() => {
+                                openEditModal(id);
+                            }, 100);
+                        });
+                    }
 
-  const closeBtn = document.getElementById('close-details');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      const detailsModal = document.querySelector('.modal.active');
-      if (detailsModal) {
-        detailsModal.remove();
-      }
-    });
-  }
-}, 50);
+                    const closeBtn = document.getElementById('close-details');
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', () => {
+                            const detailsModal = document.querySelector('.modal.active');
+                            if (detailsModal) {
+                                detailsModal.remove();  // Remove modal element completely
+                            }
+                        });
+                    }
+                }, 50);
             }
             function exportAppointmentsCSV() {
   if (!appointments || appointments.length === 0) {
@@ -5713,26 +5712,13 @@ function initAppointmentsView() {
 
 
             // ================ MODAL MANAGEMENT ================
-            function openEditModal(id, retryCount = 0) {
+            function openEditModal(id) {
     document.getElementById('toast-container').innerHTML = '';
 
     const app = appointments.find((a) => a.id === id);
     if (!app) return;
 
     editingAppointmentId = id;
-
-    const requiredElement = document.getElementById("customer-name");
-
-    // Check if the modal elements are available
-    if (!requiredElement) {
-        if (retryCount < 10) { // Retry up to 10 times (1 second max)
-            console.log(`Edit modal not ready, retrying... (${retryCount + 1})`);
-            setTimeout(() => openEditModal(id, retryCount + 1), 100);
-        } else {
-            console.error("Edit modal could not be opened. Elements not found after multiple attempts.");
-        }
-        return;
-    }
 
     // 🧠 Store original values to detect changes
     const dateObj = app.dateObj || new Date();
@@ -5759,9 +5745,11 @@ function initAppointmentsView() {
     document.getElementById("issue-description").value = app.issue || "";
     document.getElementById("repair-notes").value = app.repair_notes || "";
     document.getElementById("appointment-status").value = app.status || "";
+    document.getElementById("reminder-enabled").checked = app.reminderEnabled || false;
     document.getElementById("reminder-enabled").checked = !!app.reminderEnabled;
     document.getElementById("house-address-input").value = app.houseAddress || "";
     document.getElementById('gomaps-distance').textContent = app.distanceFromShopKm || '0';
+
 
     calculateTax();
 
