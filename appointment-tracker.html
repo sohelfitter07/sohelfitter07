@@ -1219,56 +1219,8 @@
   .grid-cols-2-xs {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}  .button-group {
-    margin-bottom: 25px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+}
 
-  /* Base button styles */
-  .btn {
-    flex: 1 1 auto;       /* Buttons share available space */
-    min-width: 160px;     /* Minimum width for usability */
-    padding: 12px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 6px;
-    border: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-  }
-
-  /* Specific colors */
-  #add-customer {
-    background-color: #007bff;
-    color: white;
-  }
-  #add-customer:hover {
-    background-color: #0056b3;
-  }
-  #backfill-customers-btn {
-    background-color: #ff9800;
-    color: white;
-  }
-  #backfill-customers-btn:hover {
-    background-color: #cc7a00;
-  }
-
-  /* Responsive: On screens smaller than 480px, stack buttons vertically */
-  @media (max-width: 479px) {
-    .button-group {
-      flex-direction: column;
-      gap: 12px;
-    }
-    .btn {
-      width: 100%;
-      min-width: unset;
-    }
-  }
     </style>
 </head>
 <body>
