@@ -1563,6 +1563,10 @@
                 <button id="add-customer" class="btn">
                     <i class="fas fa-user-plus"></i> Add Customer
                 </button>
+                        <!-- Place it here, next to Add Customer -->
+        <button id="backfill-customers-btn" class="btn" style="background-color: #ff9800; color: white; margin-left: 10px;">
+            <i class="fas fa-database"></i> Backfill Customers from Appointments
+        </button>
             </div>
             
             <div class="table-container">
@@ -5207,7 +5211,60 @@ async function saveCustomer() {
     }
 }
 
-  
+// Place this near your other Firestore functions
+async function backfillCustomersFromAppointments() {
+    showLoading(true);
+    try {
+        console.log("🚀 Starting backfill...");
+        const snapshot = await getDocs(appointmentsCollection);
+        let createdCount = 0;
+        let skippedCount = 0;
+
+        for (const docSnap of snapshot.docs) {
+            const app = docSnap.data();
+            if (!app.customer) continue;
+
+            const customersQuery = query(customersCollection, where("name", "==", app.customer));
+            const customerSnapshot = await getDocs(customersQuery);
+
+            if (!customerSnapshot.empty) {
+                console.log(`✅ Customer exists for ${app.customer}, skipping.`);
+                skippedCount++;
+                continue;
+            }
+
+            await addDoc(customersCollection, {
+                name: app.customer,
+                phone: app.phone || '',
+                email: app.email || '',
+                equipment: app.equipment || '',
+                houseAddress: app.houseAddress || '',
+                lastAppointment: app.date || null
+            });
+            console.log(`✅ Created customer for ${app.customer}`);
+            createdCount++;
+        }
+
+        showToast(`Backfill complete: Created ${createdCount}, Skipped ${skippedCount}`);
+        console.log(`🎉 Backfill complete: Created ${createdCount}, Skipped ${skippedCount}`);
+    } catch (error) {
+        console.error("❌ Backfill error:", error);
+        showToast(`Backfill failed: ${error.message}`, true);
+    } finally {
+        showLoading(false);
+    }
+}
+document.getElementById('backfill-customers-btn').addEventListener('click', async () => {
+  if (confirm("Are you sure you want to backfill customers from appointments? This may create duplicates if run multiple times.")) {
+    try {
+      await backfillCustomersFromAppointments();
+    } catch (error) {
+      console.error("Backfill failed:", error);
+      alert("Backfill failed. Check console for details.");
+    }
+  }
+});
+
             // Stats update
             function updateStats() {
     if (!appointments || appointments.length === 0) {
