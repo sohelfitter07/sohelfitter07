@@ -5318,41 +5318,9 @@ async function saveCustomer() {
                     });
                 });
             }
-            function openDetailsModal(content, id, removeDefaultClose = false) {
-    const modal = document.createElement('div');
-    modal.className = 'modal active';
-    modal.innerHTML = `
-        <div class="modal-content">
-            ${content}
-        </div>
-    `;
-    document.body.appendChild(modal);
+     
 
-    // Attach Edit button listener
-    const editBtn = modal.querySelector('#edit-details');
-    if (editBtn) {
-        editBtn.addEventListener('click', () => {
-            modal.remove();
-            if (typeof activateView === 'function') {
-                activateView('appointments');
-            }
-            setTimeout(() => {
-                openEditModal(id);
-            }, 500);
-        });
-    }
-
-    // Attach Close button listener
-    const closeBtn = modal.querySelector('#close-details');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            modal.remove();
-        });
-    }
-}
-
-
-function showAppointmentDetails(id) {
+            function showAppointmentDetails(id) {
     const appointment = appointments.find(a => a.id === id);
     if (!appointment) return;
     const basePrice = appointment.basePrice || 0;
