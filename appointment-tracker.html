@@ -6135,33 +6135,7 @@ document.querySelectorAll('[data-view]').forEach(link => {
     // Add event listener for the reset button
     document.getElementById('reset-customer').addEventListener('click', resetForm);
 });
-
-            // ================ INITIALIZATION ================
-            function initialize() {
-                setupEventListeners();
-                activateView('dashboard');
-                
-                // Set current date for appointment form
-                const today = new Date();
-                document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
-                
-                const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-                document.getElementById("appointment-time").value = 
-                    `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
-                
-                // Initialize form validation
-                initializeValidation();
-                
-                // Hide loading overlay after 1.5s
-                setTimeout(() => {
-                    document.getElementById('loading-overlay').style.display = 'none';
-                }, 1500);
-            }
-            
-            // Start the application
-            initialize();
-        }
-        function openDetailsModal(content, id) {
+function openDetailsModal(content, id) {
   // Remove any existing modal first (optional)
   const existingModal = document.querySelector('.modal.active');
   if (existingModal) existingModal.remove();
@@ -6202,6 +6176,32 @@ document.querySelectorAll('[data-view]').forEach(link => {
     });
   }
 }
+
+            // ================ INITIALIZATION ================
+            function initialize() {
+                setupEventListeners();
+                activateView('dashboard');
+                
+                // Set current date for appointment form
+                const today = new Date();
+                document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
+                
+                const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+                document.getElementById("appointment-time").value = 
+                    `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
+                
+                // Initialize form validation
+                initializeValidation();
+                
+                // Hide loading overlay after 1.5s
+                setTimeout(() => {
+                    document.getElementById('loading-overlay').style.display = 'none';
+                }, 1500);
+            }
+            
+            // Start the application
+            initialize();
+        }
 
     </script>
   <script src="https://cdn.gomaps.pro/autocomplete/gomaps-autocomplete.min.js"></script>
