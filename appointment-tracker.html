@@ -5392,7 +5392,27 @@ async function saveCustomer() {
                     <br>
                     <div style="display: flex; gap: 10px;">
                     <button class="btn" id="edit-details">Edit Appointment</button>
-                    <button class="btn btn-second" id="close-details">Close</button>
+                    <button
+  id="close-details"
+  style="
+    padding: 12px 22px;
+    background-color: #6c757d;  /* Medium gray */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  "
+  onmouseover="this.style.backgroundColor='#5a6268'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.3)';"
+  onmouseout="this.style.backgroundColor='#6c757d'; this.style.boxShadow='0 4px 15px rgba(0, 0, 0, 0.2)';"
+>
+  Close
+</button>
                     </div>
                 `;
     
@@ -5402,7 +5422,7 @@ async function saveCustomer() {
                     const btn = document.getElementById('edit-details');
                     if (btn) {
                         btn.addEventListener('click', () => {
-                            const detailsModal = document.querySelector('.modal-overlay.active');
+                            const detailsModal = document.querySelector('.modal.active');
                             if (detailsModal) {
                                 detailsModal.classList.remove('active');
                             }
@@ -5416,7 +5436,7 @@ async function saveCustomer() {
                     const closeBtn = document.getElementById('close-details');
                     if (closeBtn) {
                         closeBtn.addEventListener('click', () => {
-                            const detailsModal = document.querySelector('.modal-overlay.active');
+                            const detailsModal = document.querySelector('.modal.active');
                             if (detailsModal) {
                                 detailsModal.classList.remove('active');
                             }
