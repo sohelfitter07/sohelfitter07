@@ -1220,6 +1220,13 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+@media (max-width: 480px) {
+  #add-customer,
+  #backfill-customers-btn {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+}
 
     </style>
 </head>
@@ -1559,14 +1566,14 @@
 
         <!-- Customers View -->
         <div id="customers-view" class="tab-content">
-            <div style="margin-bottom: 25px;">
+            <div style="margin-bottom: 25px; display: flex; flex-wrap: wrap; gap: 10px;">
                 <button id="add-customer" class="btn">
                     <i class="fas fa-user-plus"></i> Add Customer
                 </button>
-                <button id="backfill-customers-btn" class="btn" style="background-color: #ff9800; color: white; margin-left: 10px;">
+                <button id="backfill-customers-btn" class="btn" style="background-color: #ff9800; color: white;">
                     <i class="fas fa-database"></i> Backfill Customers from Appointments
                 </button>
-            </div>
+            </div>            
             
             <div class="table-container">
                 <table>
