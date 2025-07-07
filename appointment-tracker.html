@@ -4986,6 +4986,9 @@ async function saveCustomer() {
                 <button class="action-btn delete-btn" data-id="${app.id}" aria-label="Delete appointment">
                     <i class="fas fa-trash"></i>
                 </button>
+                <button class="action-btn details-btn" data-id="${app.id}" title="View Details">
+                    <i class="fas fa-info-circle"></i>
+                </button>
             </td>
             <!-- FIXED: Pass appointment-specific address -->
             <td>
@@ -5045,6 +5048,13 @@ async function saveCustomer() {
             });
         };
     });
+
+    tbody.querySelectorAll(".details-btn").forEach((btn) => {
+    btn.onclick = () => {
+        showAppointmentDetails(btn.dataset.id);
+    };
+});
+
 
     tbody.querySelectorAll(".preview-btn").forEach((btn) => {
         btn.onclick = () => {
