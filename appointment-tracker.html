@@ -5415,22 +5415,33 @@ async function saveCustomer() {
                     </div>
                 `;
     
+                openDetailsModal(modalContent, id, true);
+                // Attach the edit logic AFTER the modal opens
                 setTimeout(() => {
-    const btn = document.getElementById('edit-details');
-    if (btn) {
-        btn.addEventListener('click', () => {
-            const detailsModal = document.querySelector('.modal.active');
-            if (detailsModal) {
-                detailsModal.remove();
-            }
-            activateView("appointments");
-            setTimeout(() => {
-                openEditModal(id);
-            }, 500);
-        });
-    }
-}, 50);
+                    const btn = document.getElementById('edit-details');
+                    if (btn) {
+                        btn.addEventListener('click', () => {
+                            const detailsModal = document.querySelector('.modal.active');
+                            if (detailsModal) {
+                                detailsModal.remove();  // Remove modal element completely
+                            }
+                            activateView("appointments");
+                            setTimeout(() => {
+                                openEditModal(id);
+                            }, 500);
+                        });
+                    }
 
+                    const closeBtn = document.getElementById('close-details');
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', () => {
+                            const detailsModal = document.querySelector('.modal.active');
+                            if (detailsModal) {
+                                detailsModal.remove();  // Remove modal element completely
+                            }
+                        });
+                    }
+                }, 50);
             }
             function exportAppointmentsCSV() {
   if (!appointments || appointments.length === 0) {
@@ -6204,40 +6215,35 @@ document.querySelectorAll('[data-view]').forEach(link => {
             // Start the application
             initialize();
         }
-        function openDetailsModal(content, id, removeDefaultClose = false) {
+        function openDetailsModal(content, id, hideDefaultClose = false) {
     const modal = document.createElement('div');
     modal.className = 'modal active';
+
     modal.innerHTML = `
         <div class="modal-content">
+            ${hideDefaultClose ? '' : '<span class="close-modal">&times;</span>'}
             ${content}
         </div>
     `;
+
     document.body.appendChild(modal);
 
-    // ✅ Attach the close button click handler here, immediately
-    const closeBtn = modal.querySelector('#close-details');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
+    // Close button (if present)
+    if (!hideDefaultClose) {
+        modal.querySelector('.close-modal')?.addEventListener('click', () => {
             modal.remove();
         });
     }
 
-    // If you are using an X close icon, attach its listener here as well:
-    if (!removeDefaultClose) {
-        const closeIcon = document.createElement('span');
-        closeIcon.textContent = '×';
-        closeIcon.className = 'close-modal';
-        closeIcon.style.position = 'absolute';
-        closeIcon.style.top = '10px';
-        closeIcon.style.right = '15px';
-        closeIcon.style.fontSize = '1.5rem';
-        closeIcon.style.cursor = 'pointer';
-        modal.querySelector('.modal-content').appendChild(closeIcon);
+    // Edit button logic
+    modal.querySelector('#edit-details')?.addEventListener('click', () => {
+        modal.remove();
+        if (typeof openEditModal === "function") {
+            openEditModal(id);
+        }
+    });
 
-        closeIcon.addEventListener('click', () => {
-            modal.remove();
-        });
-    }
+    // New close button logic you added will be handled in your modal content code as before
 }
 
     </script>
