@@ -5713,13 +5713,26 @@ function initAppointmentsView() {
 
 
             // ================ MODAL MANAGEMENT ================
-            function openEditModal(id) {
+            function openEditModal(id, retryCount = 0) {
     document.getElementById('toast-container').innerHTML = '';
 
     const app = appointments.find((a) => a.id === id);
     if (!app) return;
 
     editingAppointmentId = id;
+
+    const requiredElement = document.getElementById("customer-name");
+
+    // Check if the modal elements are available
+    if (!requiredElement) {
+        if (retryCount < 10) { // Retry up to 10 times (1 second max)
+            console.log(`Edit modal not ready, retrying... (${retryCount + 1})`);
+            setTimeout(() => openEditModal(id, retryCount + 1), 100);
+        } else {
+            console.error("Edit modal could not be opened. Elements not found after multiple attempts.");
+        }
+        return;
+    }
 
     // 🧠 Store original values to detect changes
     const dateObj = app.dateObj || new Date();
@@ -5746,11 +5759,9 @@ function initAppointmentsView() {
     document.getElementById("issue-description").value = app.issue || "";
     document.getElementById("repair-notes").value = app.repair_notes || "";
     document.getElementById("appointment-status").value = app.status || "";
-    document.getElementById("reminder-enabled").checked = app.reminderEnabled || false;
     document.getElementById("reminder-enabled").checked = !!app.reminderEnabled;
     document.getElementById("house-address-input").value = app.houseAddress || "";
     document.getElementById('gomaps-distance').textContent = app.distanceFromShopKm || '0';
-
 
     calculateTax();
 
