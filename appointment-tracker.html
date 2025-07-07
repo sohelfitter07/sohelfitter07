@@ -1563,10 +1563,9 @@
                 <button id="add-customer" class="btn">
                     <i class="fas fa-user-plus"></i> Add Customer
                 </button>
-                        <!-- Place it here, next to Add Customer -->
-        <button id="backfill-customers-btn" class="btn" style="background-color: #ff9800; color: white; margin-left: 10px;">
-            <i class="fas fa-database"></i> Backfill Customers from Appointments
-        </button>
+                <button id="backfill-customers-btn" class="btn" style="background-color: #ff9800; color: white; margin-left: 10px;">
+                    <i class="fas fa-database"></i> Backfill Customers from Appointments
+                </button>
             </div>
             
             <div class="table-container">
@@ -5224,15 +5223,28 @@ async function backfillCustomersFromAppointments() {
             const app = docSnap.data();
             if (!app.customer) continue;
 
-            const customersQuery = query(customersCollection, where("name", "==", app.customer));
-            const customerSnapshot = await getDocs(customersQuery);
+            // Check if customer already exists by email or phone
+            let customerExists = false;
 
-            if (!customerSnapshot.empty) {
+            if (app.email) {
+                const emailQuery = query(customersCollection, where("email", "==", app.email));
+                const emailSnap = await getDocs(emailQuery);
+                if (!emailSnap.empty) customerExists = true;
+            }
+
+            if (!customerExists && app.phone) {
+                const phoneQuery = query(customersCollection, where("phone", "==", app.phone));
+                const phoneSnap = await getDocs(phoneQuery);
+                if (!phoneSnap.empty) customerExists = true;
+            }
+
+            if (customerExists) {
                 console.log(`✅ Customer exists for ${app.customer}, skipping.`);
                 skippedCount++;
                 continue;
             }
 
+            // Create customer
             await addDoc(customersCollection, {
                 name: app.customer,
                 phone: app.phone || '',
@@ -5254,6 +5266,8 @@ async function backfillCustomersFromAppointments() {
         showLoading(false);
     }
 }
+
+
 document.getElementById('backfill-customers-btn').addEventListener('click', async () => {
   if (confirm("Are you sure you want to backfill customers from appointments? This may create duplicates if run multiple times.")) {
     try {
