@@ -6215,35 +6215,41 @@ document.querySelectorAll('[data-view]').forEach(link => {
             // Start the application
             initialize();
         }
-        function openDetailsModal(content, id, hideDefaultClose = false) {
-    const modal = document.createElement('div');
-    modal.className = 'modal active';
+        function openDetailsModal(content, id) {
+  const modal = document.createElement('div');
+  modal.className = 'modal active';
+  modal.innerHTML = `
+    <div class="modal-content">
+      ${content}
+    </div>
+  `;
+  document.body.appendChild(modal);
 
-    modal.innerHTML = `
-        <div class="modal-content">
-            ${hideDefaultClose ? '' : '<span class="close-modal">&times;</span>'}
-            ${content}
-        </div>
-    `;
-
-    document.body.appendChild(modal);
-
-    // Close button (if present)
-    if (!hideDefaultClose) {
-        modal.querySelector('.close-modal')?.addEventListener('click', () => {
-            modal.remove();
-        });
-    }
-
-    // Edit button logic
-    modal.querySelector('#edit-details')?.addEventListener('click', () => {
-        modal.remove();
-        if (typeof openEditModal === "function") {
-            openEditModal(id);
-        }
+  // Close button listener
+  const closeBtn = modal.querySelector('#close-details');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modal.remove();
     });
+  }
 
-    // New close button logic you added will be handled in your modal content code as before
+  // Edit button listener
+  const editBtn = modal.querySelector('#edit-details');
+  if (editBtn) {
+    editBtn.addEventListener('click', () => {
+      modal.remove();
+      activateView('appointments');
+      // Use MutationObserver to wait for the edit modal to be ready
+      const observer = new MutationObserver((mutations, obs) => {
+        const editModal = document.getElementById('appointment-modal');
+        if (editModal) {
+          openEditModal(id);
+          obs.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+  }
 }
 
     </script>
