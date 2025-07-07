@@ -2510,6 +2510,7 @@ function formatCanadianAddress(address) {
       document.getElementById("customer-prev-page").disabled = currentCustomerPage === 1;
       document.getElementById("customer-next-page").disabled = currentCustomerPage >= totalPages;
     }
+
     // ===== SEARCH FUNCTIONALITY FOR APPOINTMENTS =====
     function setupAdvancedSearch() {
       const searchInput = document.getElementById('search-appointments');
@@ -5125,14 +5126,16 @@ async function saveCustomer() {
                 }
                 
                 customers.forEach(customer => {
-                    const lastAppointment = customer.lastAppointment ? formatDate(customer.lastAppointment) : 'Never';
+                    const lastAppointment = customer.lastAppointment 
+        ? formatDate(customer.lastAppointment.toDate ? customer.lastAppointment.toDate() : new Date(customer.lastAppointment))
+        : 'Never';
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${customer.name}</td>
                         <td>${customer.phone}</td>
                         <td>${customer.email || '-'}</td>
                         <td>${customer.equipment || '-'}</td>
-                        <td>${customer.lastAppointment || 'Never'}</td>
+                        <td>${lastAppointment}</td>
                         <td class="action-cell">
                             <button class="action-btn edit-btn" data-id="${customer.id}">
                                 <i class="fas fa-edit"></i>
