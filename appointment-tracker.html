@@ -5318,131 +5318,109 @@ async function saveCustomer() {
                     });
                 });
             }
-            function showAppointmentDetails(id) {
-                const appointment = appointments.find(a => a.id === id);
-                if (!appointment) return;
-                const basePrice = appointment.basePrice || 0;
-                const price = appointment.price || basePrice;
-                const totalPrice = price;  // Adjust if you calculate tax or discounts
-                
-                const modalContent = `
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <i class="fas fa-info-circle" style="color: #007bff; font-size: 1.4rem;"></i>
-                        <h3 style="margin: 0; font-weight: 600;">Appointment Details</h3>
-                    </div>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <a 
-                        href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(appointment.houseAddress || '')}" 
-                        target="_blank"
-                        title="Get Directions"
-                        style="
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 6px;
-                            padding: 6px 12px;
-                            background-color: #007bff;
-                            color: white;
-                            border-radius: 4px;
-                            font-weight: 600;
-                            text-decoration: none;
-                            font-size: 0.9rem;
-                            transition: background-color 0.3s;
-                        "
-                        onmouseover="this.style.backgroundColor='#0056b3'"
-                        onmouseout="this.style.backgroundColor='#007bff'"
-                        >
-                        <i class="fas fa-location-arrow"></i> Directions
-                        </a>
+            function openDetailsModal(content, id, removeDefaultClose = false) {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.innerHTML = `
+        <div class="modal-content">
+            ${content}
+        </div>
+    `;
+    document.body.appendChild(modal);
 
-                        <a 
-                        href="tel:${appointment.phone || ''}" 
-                        title="Call Customer"
-                        style="
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 6px;
-                            padding: 6px 12px;
-                            background-color: #28a745;
-                            color: white;
-                            border-radius: 4px;
-                            font-weight: 600;
-                            text-decoration: none;
-                            font-size: 0.9rem;
-                            transition: background-color 0.3s;
-                        "
-                        onmouseover="this.style.backgroundColor='#1e7e34'"
-                        onmouseout="this.style.backgroundColor='#28a745'"
-                        >
-                        <i class="fas fa-phone"></i> Call
-                        </a>
-                    </div>
-                    </div>
-                    <p><strong>Customer:</strong> ${appointment.customer}</p>
-                    <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
-                    <p><strong>Phone:</strong> ${appointment.phone || 'N/A'}</p>
-                    <p><strong>Address:</strong> ${appointment.houseAddress || 'N/A'}</p>
-                    <p><strong>Equipment:</strong> ${appointment.equipment}</p>
-                    <p><strong>Status:</strong> ${statusMap[appointment.status]?.text || appointment.status || 'N/A'}</p>
-                    <p><strong>Issue:</strong> ${appointment.issue}</p>
-                    <p><strong>Base Price:</strong> $${(appointment.basePrice || 0).toFixed(2)}</p>
-                    <p><strong>Tax:</strong> $${((appointment.price || 0) - (appointment.basePrice || 0)).toFixed(2)}</p>
-                    <p><strong>Total Price:</strong> $${totalPrice.toFixed(2)}</p>
-                    <br>
-                    <div style="display: flex; gap: 10px;">
-                    <button class="btn" id="edit-details">Edit Appointment</button>
-                    <button
-                    id="close-details"
-                    style="
-                        padding: 12px 22px;
-                        background-color: #6c757d;  /* Medium gray */
-                        color: white;
-                        border: none;
-                        border-radius: 10px;
-                        cursor: pointer;
-                        font-weight: 500;
-                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-                        transition: background-color 0.3s, box-shadow 0.3s;
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 8px;
-                    "
-                    onmouseover="this.style.backgroundColor='#5a6268'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.3)';"
-                    onmouseout="this.style.backgroundColor='#6c757d'; this.style.boxShadow='0 4px 15px rgba(0, 0, 0, 0.2)';"
-                    >
-                    Close
-                    </button>
-                    </div>
-                `;
-    
-                openDetailsModal(modalContent, id, true);
-                // Attach the edit logic AFTER the modal opens
-                setTimeout(() => {
-                    const btn = document.getElementById('edit-details');
-                    if (btn) {
-                        btn.addEventListener('click', () => {
-                            const detailsModal = document.querySelector('.modal.active');
-                            if (detailsModal) {
-                                detailsModal.remove();  // Remove modal element completely
-                            }
-                            activateView("appointments");
-                            setTimeout(() => {
-                                openEditModal(id);
-                            }, 500);
-                        });
-                    }
-
-                    const closeBtn = document.getElementById('close-details');
-                    if (closeBtn) {
-                        closeBtn.addEventListener('click', () => {
-                            const detailsModal = document.querySelector('.modal.active');
-                            if (detailsModal) {
-                                detailsModal.remove();  // Remove modal element completely
-                            }
-                        });
-                    }
-                }, 50);
+    // Attach Edit button listener
+    const editBtn = modal.querySelector('#edit-details');
+    if (editBtn) {
+        editBtn.addEventListener('click', () => {
+            modal.remove();
+            if (typeof activateView === 'function') {
+                activateView('appointments');
             }
+            setTimeout(() => {
+                openEditModal(id);
+            }, 500);
+        });
+    }
+
+    // Attach Close button listener
+    const closeBtn = modal.querySelector('#close-details');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.remove();
+        });
+    }
+}
+
+
+function showAppointmentDetails(id) {
+    const appointment = appointments.find(a => a.id === id);
+    if (!appointment) return;
+    const basePrice = appointment.basePrice || 0;
+    const price = appointment.price || basePrice;
+    const totalPrice = price;
+
+    const modalContent = `
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-info-circle" style="color: #007bff; font-size: 1.4rem;"></i>
+                <h3 style="margin: 0; font-weight: 600;">Appointment Details</h3>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(appointment.houseAddress || '')}" target="_blank" title="Get Directions"
+                   style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background-color: #007bff; color: white; border-radius: 4px; font-weight: 600; text-decoration: none; font-size: 0.9rem; transition: background-color 0.3s;"
+                   onmouseover="this.style.backgroundColor='#0056b3'"
+                   onmouseout="this.style.backgroundColor='#007bff'">
+                    <i class="fas fa-location-arrow"></i> Directions
+                </a>
+
+                <a href="tel:${appointment.phone || ''}" title="Call Customer"
+                   style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background-color: #28a745; color: white; border-radius: 4px; font-weight: 600; text-decoration: none; font-size: 0.9rem; transition: background-color 0.3s;"
+                   onmouseover="this.style.backgroundColor='#1e7e34'"
+                   onmouseout="this.style.backgroundColor='#28a745'">
+                    <i class="fas fa-phone"></i> Call
+                </a>
+            </div>
+        </div>
+        <p><strong>Customer:</strong> ${appointment.customer}</p>
+        <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
+        <p><strong>Phone:</strong> ${appointment.phone || 'N/A'}</p>
+        <p><strong>Address:</strong> ${appointment.houseAddress || 'N/A'}</p>
+        <p><strong>Equipment:</strong> ${appointment.equipment}</p>
+        <p><strong>Status:</strong> ${statusMap[appointment.status]?.text || appointment.status || 'N/A'}</p>
+        <p><strong>Issue:</strong> ${appointment.issue}</p>
+        <p><strong>Base Price:</strong> $${(appointment.basePrice || 0).toFixed(2)}</p>
+        <p><strong>Tax:</strong> $${((appointment.price || 0) - (appointment.basePrice || 0)).toFixed(2)}</p>
+        <p><strong>Total Price:</strong> $${totalPrice.toFixed(2)}</p>
+        <br>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn" id="edit-details">Edit Appointment</button>
+            <button
+                id="close-details"
+                style="
+                    padding: 12px 22px;
+                    background-color: #6c757d;
+                    color: white;
+                    border: none;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                    transition: background-color 0.3s, box-shadow 0.3s;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                "
+                onmouseover="this.style.backgroundColor='#5a6268'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.3)';"
+                onmouseout="this.style.backgroundColor='#6c757d'; this.style.boxShadow='0 4px 15px rgba(0, 0, 0, 0.2)';"
+            >
+                Close
+            </button>
+        </div>
+    `;
+
+    openDetailsModal(modalContent, id, true);
+}
+
             function exportAppointmentsCSV() {
   if (!appointments || appointments.length === 0) {
     showToast("No appointments to export", true);
@@ -6238,8 +6216,12 @@ document.querySelectorAll('[data-view]').forEach(link => {
   if (editBtn) {
     editBtn.addEventListener('click', () => {
       modal.remove();
-      activateView('appointments');
-      // Use MutationObserver to wait for the edit modal to be ready
+
+      if (typeof activateView === 'function') {
+        activateView('appointments');
+      }
+
+      // Wait for edit modal to appear, then open it
       const observer = new MutationObserver((mutations, obs) => {
         const editModal = document.getElementById('appointment-modal');
         if (editModal) {
@@ -6247,7 +6229,11 @@ document.querySelectorAll('[data-view]').forEach(link => {
           obs.disconnect();
         }
       });
+
       observer.observe(document.body, { childList: true, subtree: true });
+
+      // Optional: stop observing after 3 seconds if modal never appears
+      setTimeout(() => observer.disconnect(), 3000);
     });
   }
 }
