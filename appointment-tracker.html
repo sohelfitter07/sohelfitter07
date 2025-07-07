@@ -5583,63 +5583,192 @@ document.getElementById('backfill-customers-btn').addEventListener('click', asyn
     const totalPrice = price;
 
     const modalContent = `
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <i class="fas fa-info-circle" style="color: #007bff; font-size: 1.4rem;"></i>
-                <h3 style="margin: 0; font-weight: 600;">Appointment Details</h3>
-            </div>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(appointment.houseAddress || '')}" target="_blank" title="Get Directions"
-                   style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background-color: #007bff; color: white; border-radius: 4px; font-weight: 600; text-decoration: none; font-size: 0.9rem; transition: background-color 0.3s;"
-                   onmouseover="this.style.backgroundColor='#0056b3'"
-                   onmouseout="this.style.backgroundColor='#007bff'">
-                    <i class="fas fa-location-arrow"></i> Directions
-                </a>
+  <style>
+    /* Base styles (your existing ones) */
+    .modal-header {
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      margin-bottom: 20px;
+      border-bottom: 2px solid #2980b9;
+      padding-bottom: 12px;
+    }
+    .modal-header-left {
+      display: flex; 
+      align-items: center; 
+      gap: 14px;
+    }
+    .modal-header-left i {
+      color: #2980b9; 
+      font-size: 1.6rem;
+    }
+    .modal-header-left h3 {
+      margin: 0; 
+      font-weight: 700; 
+      font-size: 1.8rem; 
+      color: #34495e;
+    }
+    .modal-header-right {
+      display: flex; 
+      gap: 12px; 
+      align-items: center;
+    }
+    .btn-link {
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      padding: 8px 14px; 
+      border-radius: 8px; 
+      font-weight: 700; 
+      text-decoration: none; 
+      font-size: 1rem; 
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-directions {
+      background-color: #2980b9;
+      color: white;
+    }
+    .btn-directions:hover {
+      background-color: #1c5980;
+      box-shadow: 0 6px 20px rgba(28, 89, 128, 0.8);
+    }
+    .btn-call {
+      background-color: #27ae60;
+      color: white;
+    }
+    .btn-call:hover {
+      background-color: #1f8f4a;
+      box-shadow: 0 6px 20px rgba(31, 143, 74, 0.8);
+    }
+    .modal-content p {
+      font-family: 'Helvetica Neue', Arial, sans-serif; 
+      color: #2c3e50; 
+      font-size: 1.1rem; 
+      line-height: 1.6;
+      margin: 6px 0;
+    }
+    .modal-content strong {
+      color: #2980b9;
+    }
+    .modal-actions {
+      display: flex; 
+      gap: 14px; 
+      justify-content: flex-end;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      padding: 12px 26px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 5px 18px rgba(41, 128, 185, 0.6);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      flex: 1 1 auto;
+      min-width: 140px;
+      text-align: center;
+    }
+    .btn-primary:hover {
+      background-color: #1c5980;
+      box-shadow: 0 7px 22px rgba(28, 89, 128, 0.8);
+    }
+    .btn-secondary {
+      padding: 12px 26px;
+      background-color: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 5px 18px rgba(108, 117, 125, 0.5);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      flex: 1 1 auto;
+      min-width: 140px;
+      text-align: center;
+    }
+    .btn-secondary:hover {
+      background-color: #5a6268;
+      box-shadow: 0 7px 22px rgba(90, 98, 104, 0.7);
+    }
 
-                <a href="tel:${appointment.phone || ''}" title="Call Customer"
-                   style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background-color: #28a745; color: white; border-radius: 4px; font-weight: 600; text-decoration: none; font-size: 0.9rem; transition: background-color 0.3s;"
-                   onmouseover="this.style.backgroundColor='#1e7e34'"
-                   onmouseout="this.style.backgroundColor='#28a745'">
-                    <i class="fas fa-phone"></i> Call
-                </a>
-            </div>
-        </div>
-        <p><strong>Customer:</strong> ${appointment.customer}</p>
-        <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
-        <p><strong>Phone:</strong> ${appointment.phone || 'N/A'}</p>
-        <p><strong>Address:</strong> ${appointment.houseAddress || 'N/A'}</p>
-        <p><strong>Equipment:</strong> ${appointment.equipment}</p>
-        <p><strong>Status:</strong> ${statusMap[appointment.status]?.text || appointment.status || 'N/A'}</p>
-        <p><strong>Issue:</strong> ${appointment.issue}</p>
-        <p><strong>Base Price:</strong> $${(appointment.basePrice || 0).toFixed(2)}</p>
-        <p><strong>Tax:</strong> $${((appointment.price || 0) - (appointment.basePrice || 0)).toFixed(2)}</p>
-        <p><strong>Total Price:</strong> $${totalPrice.toFixed(2)}</p>
-        <br>
-        <div style="display: flex; gap: 10px;">
-            <button class="btn" id="edit-details">Edit Appointment</button>
-            <button
-                id="close-details"
-                style="
-                    padding: 12px 22px;
-                    background-color: #6c757d;
-                    color: white;
-                    border: none;
-                    border-radius: 10px;
-                    cursor: pointer;
-                    font-weight: 500;
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-                    transition: background-color 0.3s, box-shadow 0.3s;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                "
-                onmouseover="this.style.backgroundColor='#5a6268'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.3)';"
-                onmouseout="this.style.backgroundColor='#6c757d'; this.style.boxShadow='0 4px 15px rgba(0, 0, 0, 0.2)';"
-            >
-                Close
-            </button>
-        </div>
-    `;
+    /* Responsive for screens < 380px */
+    @media (max-width: 379px) {
+      .modal-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .modal-header-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .modal-header-left h3 {
+        font-size: 1.4rem;
+      }
+      .btn-link {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+      }
+      .modal-content p {
+        font-size: 1rem;
+      }
+      .modal-actions {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .btn-primary, .btn-secondary {
+        min-width: 100%;
+        font-size: 1rem;
+        padding: 10px;
+      }
+    }
+  </style>
+
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <i class="fas fa-info-circle"></i>
+      <h3>Appointment Details</h3>
+    </div>
+    <div class="modal-header-right">
+      <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(appointment.houseAddress || '')}" target="_blank" title="Get Directions"
+         class="btn-link btn-directions"
+      >
+        <i class="fas fa-location-arrow"></i> Directions
+      </a>
+
+      <a href="tel:${appointment.phone || ''}" title="Call Customer"
+         class="btn-link btn-call"
+      >
+        <i class="fas fa-phone"></i> Call
+      </a>
+    </div>
+  </div>
+
+  <div class="modal-content">
+    <p><strong>Customer:</strong> ${appointment.customer}</p>
+    <p><strong>Date:</strong> ${formatTimestamp(appointment.dateObj)}</p>
+    <p><strong>Phone:</strong> ${appointment.phone || 'N/A'}</p>
+    <p><strong>Address:</strong> ${appointment.houseAddress || 'N/A'}</p>
+    <p><strong>Equipment:</strong> ${appointment.equipment || 'N/A'}</p>
+    <p><strong>Status:</strong> ${statusMap[appointment.status]?.text || appointment.status || 'N/A'}</p>
+    <p><strong>Issue:</strong> ${appointment.issue || 'N/A'}</p>
+    <p><strong>Base Price:</strong> $${(appointment.basePrice || 0).toFixed(2)}</p>
+    <p><strong>Tax:</strong> $${((appointment.price || 0) - (appointment.basePrice || 0)).toFixed(2)}</p>
+    <p><strong>Total Price:</strong> $${totalPrice.toFixed(2)}</p>
+  </div>
+
+  <div class="modal-actions">
+    <button id="edit-details" class="btn-primary">Edit Appointment</button>
+    <button id="close-details" class="btn-secondary">Close</button>
+  </div>
+`;
 
     openDetailsModal(modalContent, id);
 }
