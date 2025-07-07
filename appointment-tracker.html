@@ -4848,13 +4848,15 @@ async function saveCustomer() {
                         const docRef = doc(db, "appointments", editingAppointmentId);
                         await updateDoc(docRef, data);
                         showToast("Appointment updated successfully");
-
+                        await addOrUpdateCustomerFromAppointment(data); 
+                        showToast("Customer Data updated successfully");
                         // 🔔 Trigger update notification
                         triggerNotifications('appointment_updated', notificationData);
                     } else {
                         await addDoc(appointmentsCollection, data);
                         showToast("Appointment added successfully");
-
+                        await addOrUpdateCustomerFromAppointment(data); 
+                        showToast("Customer Data updated successfully");
                         // 🔔 Trigger creation notification
                         console.log("✅ Saving appointment", data);
                         console.log("🧪 About to call triggerNotifications()", notificationData);
@@ -5236,8 +5238,50 @@ async function saveCustomer() {
     updateCard("Completed", "completed-count", "completed-text", "completed");
     updateCard("Cancelled", "cancelled-count", "cancelled-text", "cancelled");
 }
+            async function addOrUpdateCustomerFromAppointment(appointment) {
+  try {
+    const customersRef = collection(db, "customers");
 
-  
+    // Try to find existing customer by phone or email
+    let q;
+    if (appointment.phone) {
+      q = query(customersRef, where("phone", "==", appointment.phone));
+    } else if (appointment.email) {
+      q = query(customersRef, where("email", "==", appointment.email));
+    } else {
+      // No contact info, so skip updating customers
+      return;
+    }
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      // Found existing customer — update it
+      const customerDoc = querySnapshot.docs[0];
+      await updateDoc(customerDoc.ref, {
+        name: appointment.customer,
+        phone: appointment.phone,
+        email: appointment.email,
+        equipment: appointment.equipment,
+        lastAppointment: appointment.date.toDate?.() || new Date(),
+      });
+      console.log("Updated existing customer");
+    } else {
+      // No customer found — create new one
+      await addDoc(customersRef, {
+        name: appointment.customer,
+        phone: appointment.phone,
+        email: appointment.email,
+        equipment: appointment.equipment,
+        lastAppointment: appointment.date.toDate?.() || new Date(),
+      });
+      console.log("Added new customer");
+    }
+  } catch (error) {
+    console.error("Error adding/updating customer:", error);
+  }
+}
+
             // Calendar rendering and summary
             function renderCalendar() {
                 // Only render if calendar is visible
