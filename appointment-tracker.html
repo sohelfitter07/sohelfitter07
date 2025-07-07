@@ -4667,6 +4667,43 @@ function resetForm() {
     document.getElementById('customer-modal').classList.remove('active');
 }
 
+function showCustomerDetailsModal(customer) {
+    const modalContent = `
+        <div style="padding: 20px; max-width: 400px;">
+            <h3>Customer Details</h3>
+            <p><strong>Name:</strong> ${customer.name}</p>
+            <p><strong>Phone:</strong> ${customer.phone || 'N/A'}</p>
+            <p><strong>Email:</strong> ${customer.email || 'N/A'}</p>
+            <p><strong>Equipment:</strong> ${customer.equipment || 'N/A'}</p>
+            <p><strong>Last Appointment:</strong> ${customer.lastAppointment ? formatDate(customer.lastAppointment) : 'Never'}</p>
+            <button id="close-customer-modal" class="btn" style="margin-top: 15px;">Close</button>
+        </div>
+    `;
+    openModal(modalContent);
+
+    document.getElementById('close-customer-modal').addEventListener('click', () => {
+        closeModal();
+    });
+}
+
+function openModal(content) {
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.innerHTML = `
+        <div class="modal-content">
+            ${content}
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+function closeModal() {
+    const modal = document.querySelector('.modal.active');
+    if (modal) modal.remove();
+}
+
+
+
 // Validation functions
 function isValidPhone(phone) {
     // This regex allows numbers with or without dashes.
@@ -5137,6 +5174,9 @@ async function saveCustomer() {
                         <td>${customer.equipment || '-'}</td>
                         <td>${lastAppointment}</td>
                         <td class="action-cell">
+                            <button class="action-btn view-btn" data-id="${customer.id}" title="View Customer Details">
+                                <i class="fas fa-eye"></i>
+                            </button>
                             <button class="action-btn edit-btn" data-id="${customer.id}">
                                 <i class="fas fa-edit"></i>
                             </button>
@@ -5151,6 +5191,17 @@ async function saveCustomer() {
                 // Attach event listeners to each edit/delete button
                 document.querySelectorAll('.edit-btn').forEach(btn => {
                     btn.addEventListener('click', () => openEditCustomerModal(btn.dataset.id));
+                });
+                document.querySelectorAll('.view-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.dataset.id;
+                        const customer = customers.find(c => c.id === id);
+                        if (!customer) {
+                            alert("Customer not found");
+                            return;
+                        }
+                        showCustomerDetailsModal(customer);
+                    });
                 });
                 document.querySelectorAll('.delete-btn').forEach(btn => {
                     btn.addEventListener('click', () => {
