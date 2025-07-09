@@ -2983,18 +2983,6 @@ function validatePhone(phone) {
 };
 
 
-// Function to open the default SMS app with prefilled message
-function openSmsApp(phoneNumber, smsBody) {
-    const encodedMessage = encodeURIComponent(smsBody);
-    const smsUrl = `sms:${phoneNumber}?body=${encodedMessage}`;
-
-    // Open the SMS app
-    window.location.href = smsUrl;
-
-    // Show a toast for the SMS action
-    showToast('SMS prepared. Please review and send it.', 'info');
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   // ✅ Now this won't throw if button exists in HTML
   const resetBtn = document.getElementById("resetPreviewBtn");
@@ -6631,6 +6619,7 @@ function openDetailsModal(content, id) {
             
             // Start the application
             initialize();
+            }
     </script>
   <script src="https://cdn.gomaps.pro/autocomplete/gomaps-autocomplete.min.js"></script>
 </body>
