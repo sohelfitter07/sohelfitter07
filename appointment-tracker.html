@@ -2491,36 +2491,7 @@ function formatCanadianAddress(address) {
             container.style.display = 'block';
         }      
 
-            
-
-    // Count each status
-    const statusCountMap = {};
-    appointments.forEach(app => {
-        statusCountMap[app.status] = (statusCountMap[app.status] || 0) + 1;
-    });
-
-    // Total appointments
-    document.getElementById("total-appointments").textContent = appointments.length;
-    document.getElementById('total-appointments-text').textContent = `${appointments.length} appointments`;
-
-    // Update counts for each status card
-    function updateCard(status, countId, textId, textSuffix) {
-        const count = statusCountMap[status] || 0;
-        const countEl = document.getElementById(countId);
-        const textEl = document.getElementById(textId);
-        if (countEl) countEl.textContent = count;
-        if (textEl) textEl.textContent = `${count} ${textSuffix}`;
-    }
-
-    updateCard("Scheduled / Confirmed", "scheduled-count", "scheduled-text", "scheduled");
-    updateCard("In Progress", "inprogress-count", "inprogress-text", "in progress");
-    updateCard("Awaiting Parts", "awaiting-parts-count", "awaiting-parts-text", "awaiting parts");
-    updateCard("Parts Arrived", "parts-arrived-count", "parts-arrived-text", "parts arrived");
-    updateCard("Scheduled for Parts Installation", "scheduled-installation-count", "scheduled-installation-text", "scheduled for installation");
-    updateCard("Repaired", "repaired-count", "repaired-text", "repaired");
-    updateCard("Completed", "completed-count", "completed-text", "completed");
-    updateCard("Cancelled", "cancelled-count", "cancelled-text", "cancelled");
-
+   
 
     function renderCustomersTable() {
       const tbody = document.getElementById('customers-body');
@@ -2873,7 +2844,6 @@ function enableEditing() {
   emailField.addEventListener("input", checkChanges);
   smsField.addEventListener("input", checkChanges);
 }
-
 function updateSMSCharCount() {
   const sms = document.getElementById("smsPreview").value;
   document.getElementById("smsCharCount").textContent = `${sms.length} / 160 characters`;
@@ -3011,6 +2981,7 @@ function validatePhone(phone) {
   document.getElementById("smsPreview").readOnly = false;
   document.getElementById("savePreviewBtn").style.display = "inline-block";
 };
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -3156,39 +3127,7 @@ document.getElementById("savePreviewBtn").onclick = async () => {
             errorElement.textContent = ''; // Clear message text
         }
     }
-    function isTomorrow(date) {
-    const now = new Date();
-    const tomorrow = new Date(now);
-    tomorrow.setDate(now.getDate() + 1);
-
-    return (
-        date.getFullYear() === tomorrow.getFullYear() &&
-        date.getMonth() === tomorrow.getMonth() &&
-        date.getDate() === tomorrow.getDate()
-    );
-}
-   // Stats update
-            function updateStats() {
-    if (!appointments || appointments.length === 0) {
-        console.log("No appointments available");
-        // Clear counts to 0 for all cards
-        const ids = [
-            "total-appointments",
-            "scheduled-count",
-            "inprogress-count",
-            "awaiting-parts-count",
-            "parts-arrived-count",
-            "scheduled-installation-count",
-            "repaired-count",
-            "completed-count",
-            "cancelled-count"
-        ];
-        ids.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = "0";
-        });
-        return;
-    }
+    
     function clearAllValidationErrors() {
         document.querySelectorAll('.validation-error').forEach(el => {
             el.textContent = '';
@@ -5161,7 +5100,7 @@ async function saveCustomer() {
                 </div>
             </td>
             <td class="action-cell">
-                <button class="action-btn " data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
+                <button class="action-btn send-btn" data-id="${app.id}" title="Send Confirmation" ${canSend ? '' : 'disabled'}>
                     <i class="fas fa-paper-plane"></i>
                 </button>
                 <button class="action-btn preview-btn" data-id="${app.id}" title="Preview Email & SMS">
@@ -5203,94 +5142,38 @@ async function saveCustomer() {
         btn.onclick = () => deleteAppointment(btn.dataset.id);
     });
 
-    // tbody.querySelectorAll(".send-btn").forEach((btn) => {
-    //     btn.onclick = () => {
-    //         const id = btn.dataset.id;
-    //         btn.disabled = true;
-    //         btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-    //         showToast("Sending confirmation to customer...");
+    tbody.querySelectorAll(".send-btn").forEach((btn) => {
+        btn.onclick = () => {
+            const id = btn.dataset.id;
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+            showToast("Sending confirmation to customer...");
 
-    //         fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
-    //             method: "POST",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify({ appointmentId: id, type: "confirmation" })
-    //         })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data.success) {
-    //                 showToast("Confirmation sent!");
-    //                 if (data.warnings && data.warnings.length > 0) {
-    //                     data.warnings.forEach(warning => {
-    //                         showToast(warning, true);  // Show as error toast
-    //                     });
-    //                 }
-    //                 fetchAppointments();
-    //             } else {
-    //                 showToast("Failed to send confirmation", "error");
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             console.error("Send confirmation error:", err);
-    //             showToast("Network error while sending", "error");
-    //         });
-    //     };
-    // });
-
-tbody.querySelectorAll(".send-btn").forEach((btn) => {
-    // Check if the user is on mobile or desktop
-    const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
-
-    if (!isMobile) {
-        btn.disabled = true;
-        btn.innerHTML = "SMS not available on desktop";
-        return; // ❗ Exit here to avoid setting onclick
-    }
-
-    btn.onclick = () => {
-        const id = btn.dataset.id;
-        btn.disabled = true;
-        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-        showToast("Sending confirmation...");
-
-        fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ appointmentId: id, type: "confirmation" })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                showToast("Confirmation sent!");
-
-                if (data.warnings?.length) {
-                    data.warnings.forEach(warning => {
-                        showToast(warning, true);
-                    });
+            fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ appointmentId: id, type: "confirmation" })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    showToast("Confirmation sent!");
+                    if (data.warnings && data.warnings.length > 0) {
+                        data.warnings.forEach(warning => {
+                            showToast(warning, true);  // Show as error toast
+                        });
+                    }
+                    fetchAppointments();
+                } else {
+                    showToast("Failed to send confirmation", "error");
                 }
-
-                // ✅ Open SMS app only if mobile
-                if (data.smsBody && data.phoneNumber) {
-                    openSmsApp(data.phoneNumber, data.smsBody);
-                }
-
-                fetchAppointments();
-            } else {
-                showToast("Failed to send confirmation", "error");
-                btn.disabled = false;
-                btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
-            }
-        })
-        .catch((err) => {
-            console.error("Send confirmation error:", err);
-            showToast("Network error while sending", "error");
-            btn.disabled = false;
-            btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
-        });
-    };
-});
-
-
-
+            })
+            .catch((err) => {
+                console.error("Send confirmation error:", err);
+                showToast("Network error while sending", "error");
+            });
+        };
+    });
 
     tbody.querySelectorAll(".details-btn").forEach((btn) => {
     btn.onclick = () => {
@@ -5389,7 +5272,38 @@ tbody.querySelectorAll(".send-btn").forEach((btn) => {
                         }
                     });
                 });
+                tbody.querySelectorAll(".send-btn").forEach((btn) => {
+    btn.onclick = () => {
+        const id = btn.dataset.id;
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+        showToast("Sending confirmation...");
 
+        fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ appointmentId: id, type: "confirmation" })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                showToast("Confirmation sent!");
+                fetchAppointments();
+            } else {
+                showToast("Failed to send confirmation", "error");
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+            }
+        })
+        .catch((err) => {
+            console.error("Send confirmation error:", err);
+            showToast("Network error while sending", "error");
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+        });
+    };
+});
+            }
             
             // Delete customer
             async function deleteCustomer(id) {
@@ -5481,7 +5395,57 @@ document.getElementById('backfill-customers-btn').addEventListener('click', asyn
   }
 });
 
+            // Stats update
+            function updateStats() {
+    if (!appointments || appointments.length === 0) {
+        console.log("No appointments available");
+        // Clear counts to 0 for all cards
+        const ids = [
+            "total-appointments",
+            "scheduled-count",
+            "inprogress-count",
+            "awaiting-parts-count",
+            "parts-arrived-count",
+            "scheduled-installation-count",
+            "repaired-count",
+            "completed-count",
+            "cancelled-count"
+        ];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = "0";
+        });
+        return;
+    }
 
+    // Count each status
+    const statusCountMap = {};
+    appointments.forEach(app => {
+        statusCountMap[app.status] = (statusCountMap[app.status] || 0) + 1;
+    });
+
+    // Total appointments
+    document.getElementById("total-appointments").textContent = appointments.length;
+    document.getElementById('total-appointments-text').textContent = `${appointments.length} appointments`;
+
+    // Update counts for each status card
+    function updateCard(status, countId, textId, textSuffix) {
+        const count = statusCountMap[status] || 0;
+        const countEl = document.getElementById(countId);
+        const textEl = document.getElementById(textId);
+        if (countEl) countEl.textContent = count;
+        if (textEl) textEl.textContent = `${count} ${textSuffix}`;
+    }
+
+    updateCard("Scheduled / Confirmed", "scheduled-count", "scheduled-text", "scheduled");
+    updateCard("In Progress", "inprogress-count", "inprogress-text", "in progress");
+    updateCard("Awaiting Parts", "awaiting-parts-count", "awaiting-parts-text", "awaiting parts");
+    updateCard("Parts Arrived", "parts-arrived-count", "parts-arrived-text", "parts arrived");
+    updateCard("Scheduled for Parts Installation", "scheduled-installation-count", "scheduled-installation-text", "scheduled for installation");
+    updateCard("Repaired", "repaired-count", "repaired-text", "repaired");
+    updateCard("Completed", "completed-count", "completed-text", "completed");
+    updateCard("Cancelled", "cancelled-count", "cancelled-text", "cancelled");
+}
             async function addOrUpdateCustomerFromAppointment(appointment) {
   try {
     const customersRef = collection(db, "customers");
@@ -6539,13 +6503,7 @@ document.querySelectorAll('[data-view]').forEach(link => {
 
   // Add to setupEventListeners()
     document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
-    // ✅ Function to open SMS app
-function openSmsApp(phoneNumber, smsBody) {
-    const encodedMessage = encodeURIComponent(smsBody);
-    const smsUrl = `sms:${phoneNumber}?body=${encodedMessage}`;
-    window.location.href = smsUrl;
-    showToast('SMS prepared. Please review and send it.', 'info');
-}
+    
     function sendTestSMS() {
         // Get current settings
         const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
@@ -6639,7 +6597,8 @@ function openDetailsModal(content, id) {
             
             // Start the application
             initialize();
-            }}
+        }
+
     </script>
   <script src="https://cdn.gomaps.pro/autocomplete/gomaps-autocomplete.min.js"></script>
 </body>
