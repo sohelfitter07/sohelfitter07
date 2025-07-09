@@ -3127,7 +3127,18 @@ document.getElementById("savePreviewBtn").onclick = async () => {
             errorElement.textContent = ''; // Clear message text
         }
     }
-    
+    function isTomorrow(date) {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+
+    return (
+        date.getFullYear() === tomorrow.getFullYear() &&
+        date.getMonth() === tomorrow.getMonth() &&
+        date.getDate() === tomorrow.getDate()
+    );
+}
+
     function clearAllValidationErrors() {
         document.querySelectorAll('.validation-error').forEach(el => {
             el.textContent = '';
