@@ -2571,21 +2571,6 @@ async function fetchSMSPreviewTemplate(appointment, type = "confirmation") {
   }
 }
 
-async function fetchEmailPreviewTemplate(appointment, type = "confirmation") {
-  try {
-    const res = await fetch(`https://cfr-backend-1.onrender.com/api/dev/preview-template?type=${type}&format=email`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(appointment),
-    });
-    const html = await res.text();
-    console.log("✅ Email preview loaded:", html);
-    return html;
-  } catch (err) {
-    console.error("❌ Failed to fetch email preview:", err);
-    return `Hi ${appointment.customer || 'Customer'},\n\nYour appointment is scheduled for ${appointment.date?.toDate?.()?.toLocaleDateString('en-CA')} at ${appointment.date?.toDate?.()?.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}. Equipment: ${appointment.equipment || '[Equipment]'}. Issue: ${appointment.issue || '[Issue]'}. Please contact 289-925-7239 to confirm.`;
-  }
-}
 
     // ===== SEARCH FUNCTIONALITY FOR APPOINTMENTS =====
     function setupAdvancedSearch() {
