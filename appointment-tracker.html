@@ -2491,28 +2491,7 @@ function formatCanadianAddress(address) {
             container.style.display = 'block';
         }      
 
-               // Stats update
-            function updateStats() {
-    if (!appointments || appointments.length === 0) {
-        console.log("No appointments available");
-        // Clear counts to 0 for all cards
-        const ids = [
-            "total-appointments",
-            "scheduled-count",
-            "inprogress-count",
-            "awaiting-parts-count",
-            "parts-arrived-count",
-            "scheduled-installation-count",
-            "repaired-count",
-            "completed-count",
-            "cancelled-count"
-        ];
-        ids.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = "0";
-        });
-        return;
-    }
+            
 
     // Count each status
     const statusCountMap = {};
@@ -3188,7 +3167,28 @@ document.getElementById("savePreviewBtn").onclick = async () => {
         date.getDate() === tomorrow.getDate()
     );
 }
-
+   // Stats update
+            function updateStats() {
+    if (!appointments || appointments.length === 0) {
+        console.log("No appointments available");
+        // Clear counts to 0 for all cards
+        const ids = [
+            "total-appointments",
+            "scheduled-count",
+            "inprogress-count",
+            "awaiting-parts-count",
+            "parts-arrived-count",
+            "scheduled-installation-count",
+            "repaired-count",
+            "completed-count",
+            "cancelled-count"
+        ];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = "0";
+        });
+        return;
+    }
     function clearAllValidationErrors() {
         document.querySelectorAll('.validation-error').forEach(el => {
             el.textContent = '';
