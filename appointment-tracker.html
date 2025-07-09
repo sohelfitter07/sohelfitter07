@@ -2844,13 +2844,7 @@ function enableEditing() {
   emailField.addEventListener("input", checkChanges);
   smsField.addEventListener("input", checkChanges);
 }
-                    // ✅ Opens SMS app with pre-filled message
-function openSmsApp(phoneNumber, smsBody) {
-    const encodedMessage = encodeURIComponent(smsBody);
-    const smsUrl = `sms:${phoneNumber}?body=${encodedMessage}`;
-    window.location.href = smsUrl;
-    showToast('SMS prepared. Please review and send it.', 'info');
-}
+
 function updateSMSCharCount() {
   const sms = document.getElementById("smsPreview").value;
   document.getElementById("smsCharCount").textContent = `${sms.length} / 160 characters`;
@@ -6534,7 +6528,13 @@ document.querySelectorAll('[data-view]').forEach(link => {
 
   // Add to setupEventListeners()
     document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
-    
+    // ✅ Function to open SMS app
+function openSmsApp(phoneNumber, smsBody) {
+    const encodedMessage = encodeURIComponent(smsBody);
+    const smsUrl = `sms:${phoneNumber}?body=${encodedMessage}`;
+    window.location.href = smsUrl;
+    showToast('SMS prepared. Please review and send it.', 'info');
+}
     function sendTestSMS() {
         // Get current settings
         const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
