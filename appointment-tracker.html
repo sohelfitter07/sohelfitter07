@@ -4873,7 +4873,18 @@ async function saveCustomer() {
         showLoading(false);
     }
 }
-              
+              // Helper to open default SMS app with prefilled message
+function openSmsApp(phoneNumber, smsBody) {
+  const encodedMessage = encodeURIComponent(smsBody);
+  const smsUrl = `sms:${phoneNumber}?body=${encodedMessage}`;
+
+  // Redirect browser to open SMS app
+  window.location.href = smsUrl;
+
+  // Show info toast to user
+  showToast('SMS prepared. Please review and send it.', 'info');
+}
+
             // Delete appointment from Firestore
             async function deleteAppointment(id) {
                 if (!confirm("Are you sure you want to delete this appointment?")) return;
@@ -5143,37 +5154,61 @@ async function saveCustomer() {
     });
 
     tbody.querySelectorAll(".send-btn").forEach((btn) => {
-        btn.onclick = () => {
-            const id = btn.dataset.id;
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-            showToast("Sending confirmation to customer...");
+  // Detect mobile devices via user agent
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
 
-            fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ appointmentId: id, type: "confirmation" })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    showToast("Confirmation sent!");
-                    if (data.warnings && data.warnings.length > 0) {
-                        data.warnings.forEach(warning => {
-                            showToast(warning, true);  // Show as error toast
-                        });
-                    }
-                    fetchAppointments();
-                } else {
-                    showToast("Failed to send confirmation", "error");
-                }
-            })
-            .catch((err) => {
-                console.error("Send confirmation error:", err);
-                showToast("Network error while sending", "error");
-            });
-        };
+  if (!isMobile) {
+    btn.disabled = true;
+    btn.innerHTML = "SMS not available on desktop";
+    showToast("SMS functionality is only available on mobile.");
+    return; // skip attaching onclick for desktop
+  }
+
+  btn.onclick = () => {
+    const id = btn.dataset.id;
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+    showToast("Sending confirmation...");
+
+    fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ appointmentId: id, type: "confirmation" })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        showToast("Confirmation sent!");
+
+        if (data.warnings && data.warnings.length > 0) {
+          data.warnings.forEach(warning => {
+            showToast(warning, true);  // Show warnings as error toasts
+          });
+        }
+
+        // Open SMS app if backend sends smsBody and phoneNumber
+        if (data.smsBody && data.phoneNumber) {
+          openSmsApp(data.phoneNumber, data.smsBody);
+        }
+
+        fetchAppointments(); // Refresh appointment list
+      } else {
+        showToast("Failed to send confirmation", "error");
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+      }
+    })
+    .catch(err => {
+      console.error("Send confirmation error:", err);
+      showToast("Network error while sending", "error");
+      btn.disabled = false;
+      btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
     });
+  };
+});
+
+
+
 
     tbody.querySelectorAll(".details-btn").forEach((btn) => {
     btn.onclick = () => {
