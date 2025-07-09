@@ -2433,6 +2433,20 @@ Questions? Call 289-925-7239`;
   }
 }
 
+async function fetchSMSPreviewTemplate(appointment, type = "confirmation") {
+  try {
+    const res = await fetch(`https://cfr-backend-1.onrender.com/api/dev/preview-template?type=${type}&format=sms`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(appointment),
+    });
+    return await res.text();
+  } catch (err) {
+    console.error("❌ Failed to fetch SMS preview:", err);
+    return "Failed to load SMS preview.";
+  }
+}
+
 async function fetchEmailPreviewTemplate(appointment, type = "confirmation") {
   try {
     const res = await fetch(`https://cfr-backend-1.onrender.com/api/dev/preview-template?type=${type}&format=email`, {
@@ -2443,30 +2457,7 @@ async function fetchEmailPreviewTemplate(appointment, type = "confirmation") {
     return await res.text();
   } catch (err) {
     console.error("❌ Failed to fetch email preview:", err);
-
-    const customerName = appointment.customer || "Customer";
-    const dateStr = appointment.date?.toDate?.()?.toLocaleDateString('en-CA') || "[DATE]";
-    const timeStr = appointment.date?.toDate?.()?.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' }) || "[TIME]";
-
-    return `
-Hi ${customerName},
-
-🛠️ Your service appointment with Canadian Fitness Repair is scheduled for:
-
-📅 ${dateStr} at ${timeStr}  
-🔧 Equipment: ${appointment.equipment || '[Equipment]'}  
-📍 Issue: ${appointment.issue || '[Issue]'}  
-📊 Status: ${appointment.status || 'Scheduled'}
-
-If you have any questions or need to reschedule, contact us at:
-
-📞 289-925-7239  
-📧 canadianfitnessrepair@gmail.com  
-🌐 https://canadianfitnessrepair.com
-
-Thanks,  
-Canadian Fitness Repair
-    `.trim();
+    return "Failed to load email preview.";
   }
 }
 
@@ -2555,21 +2546,7 @@ function formatCanadianAddress(address) {
       document.getElementById("customer-prev-page").disabled = currentCustomerPage === 1;
       document.getElementById("customer-next-page").disabled = currentCustomerPage >= totalPages;
     }
-async function fetchSMSPreviewTemplate(appointment, type = "confirmation") {
-  try {
-    const res = await fetch(`https://cfr-backend-1.onrender.com/api/dev/preview-template?type=${type}&format=sms`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(appointment),
-    });
-    const text = await res.text();
-    console.log("✅ SMS preview loaded:", text);
-    return text;
-  } catch (err) {
-    console.error("❌ Failed to fetch SMS preview:", err);
-    return `Your appointment with Canadian Fitness Repair is on ${appointment.date?.toDate?.()?.toLocaleDateString('en-CA') || '[DATE]'} at ${appointment.date?.toDate?.()?.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' }) || '[TIME]'}. Status: ${appointment.status || 'Scheduled'}. Call 289-925-7239.`;
-  }
-}
+
 
 
     // ===== SEARCH FUNCTIONALITY FOR APPOINTMENTS =====
@@ -2783,6 +2760,81 @@ function closePreviewModal() {
     </iframe>
   `;
   mapContainer.style.display = "block";
+}
+function getGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 18) return 'Good afternoon';
+  return 'Good evening';
+}
+
+function generateEmailBody(appointment, type) {
+  const greeting = getGreeting();
+  const { customer, equipment, issue, dateObj, status, totalPrice } = appointment;
+
+  const dateStr = dateObj.toLocaleDateString("en-CA");
+  const timeStr = dateObj.toLocaleTimeString("en-CA", { hour: "2-digit", minute: "2-digit" });
+
+  let emailBody = "";
+
+  if (type === "confirmation") {
+    emailBody = `
+      <p>${greeting}, ${customer},</p>
+      <p>This is a <strong>service appointment booking confirmation</strong> from <strong>Canadian Fitness Repair</strong>.</p>
+      <p><strong>Appointment Details:</strong></p>
+      <p>📅 <strong>Date:</strong> ${dateStr}<br>⏰ <strong>Time:</strong> ${timeStr}<br>🔧 <strong>Equipment:</strong> ${equipment}<br>📝 <strong>Issue:</strong> ${issue}<br>💵 <strong>Total:</strong> $${totalPrice} (includes 13% Ontario tax)<br>📌 <strong>Status:</strong> ${status}</p>
+      <p>If you need to reschedule, please contact us <strong>at least 24 hours in advance</strong> by replying to this email or calling <strong>289-925-7239</strong>.</p>
+      <p>To help us prepare, please send clear photos of your <strong>${equipment}</strong>, especially any labels showing the <strong>part number</strong>, <strong>model number</strong>, or <strong>serial number</strong>. You can reply to this email or text us — whichever is more convenient for you.</p>
+      <p>Thank you!<br><br>– <strong>Canadian Fitness Repair</strong><br>📧 canadianfitnessrepair@gmail.com<br>📞 289-925-7239<br>🌐 <a href="https://canadianfitnessrepair.com">canadianfitnessrepair.com</a></p>
+    `;
+  } else if (type === "update") {
+    emailBody = `
+      <p>${greeting}, ${customer},</p>
+      <p>We’d like to update you regarding your repair with <strong>Canadian Fitness Repair</strong>.</p>
+      <p><strong>Equipment:</strong> ${equipment}<br><strong>New Status:</strong> ${status}</p>
+      <p>If you have any questions or need clarification, feel free to reply to this email or call us at <strong>289-925-7239</strong>.</p>
+      <p>Thank you!<br><br>– <strong>Canadian Fitness Repair</strong><br>📧 canadianfitnessrepair@gmail.com<br>📞 289-925-7239<br>🌐 <a href="https://canadianfitnessrepair.com">canadianfitnessrepair.com</a></p>
+    `;
+  }
+
+  return emailBody;
+}
+function generateSMSBody(appointment, type) {
+  const greeting = getGreeting();
+  const { customer, equipment, status, dateObj, totalPrice, issue } = appointment;
+
+  const dateStr = dateObj.toLocaleDateString("en-CA");
+  const timeStr = dateObj.toLocaleTimeString("en-CA", { hour: "2-digit", minute: "2-digit" });
+
+  if (type === "confirmation") {
+    return `
+${greeting}, ${customer},
+Your service appointment with Canadian Fitness Repair is confirmed:
+📅 ${dateStr} at ${timeStr}
+🔧 Equipment: ${equipment}
+📝 Issue: ${issue}
+💵 Total: $${totalPrice} (includes 13% ON tax)
+📌 Status: ${status}
+Please notify us 24 hours in advance if you need to reschedule: 289-925-7239
+To help us prepare, please send photos of your equipment labels (part, model, serial numbers).
+– Canadian Fitness Repair
+canadianfitnessrepair.com
+canadianfitnessrepair@gmail.com
+    `.trim();
+  } else if (type === "update") {
+    return `
+${greeting}, ${customer},
+Repair update from Canadian Fitness Repair:
+🔧 Equipment: ${equipment}
+📌 New Status: ${status}
+Questions? Reply or call 289-925-7239
+– Canadian Fitness Repair
+canadianfitnessrepair.com
+canadianfitnessrepair@gmail.com
+    `.trim();
+  }
+
+  return "";
 }
 
 
