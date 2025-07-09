@@ -2410,7 +2410,7 @@ document.querySelectorAll('.card-grid .card').forEach(card => {
         showToast("Failed to save settings", true);
     }
 }
-async function fetchSMSPreviewTemplate(appointment, type = "confirmation") {
+async function MSPreviewTemplate(appointment, type = "confirmation") {
   try {
     const res = await fetch(`https://cfr-backend-1.onrender.com/api/dev/preview-template?type=${type}&format=sms`, {
       method: "POST",
@@ -2653,8 +2653,12 @@ if (typeLabel) {
 }
 
 
-  const defaultSMS = await fetchSMSPreviewTemplate(appointment, previewType);
-  const defaultEmail = await fetchEmailPreviewTemplate(appointment, previewType);
+const defaultSMS = await fetchSMSPreviewTemplate(appointment, previewType);
+console.log("✅ SMS preview loaded:", defaultSMS);
+
+const defaultEmail = await fetchEmailPreviewTemplate(appointment, previewType);
+console.log("✅ Email preview loaded:", defaultEmail);
+
 
   const emailField = document.getElementById("emailPreview");
   const smsField = document.getElementById("smsPreview");
