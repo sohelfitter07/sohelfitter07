@@ -2416,7 +2416,16 @@ async function fetchSMSPreviewTemplate(appointment, type = "confirmation") {
     return await res.text();
   } catch (err) {
     console.error("❌ Failed to fetch SMS preview:", err);
-    return `Your appointment with Canadian Fitness Repair is on ${appointment.date?.toDate?.()?.toLocaleDateString('en-CA') || '[DATE]'} at ${appointment.date?.toDate?.()?.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' }) || '[TIME]'}. Status: ${appointment.status || 'Scheduled'}. Call 289-925-7239.`;
+    
+    const dateStr = appointment.date?.toDate?.()?.toLocaleDateString('en-CA') || '[DATE]';
+    const timeStr = appointment.date?.toDate?.()?.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' }) || '[TIME]';
+
+    return `📅 Appointment with Canadian Fitness Repair on ${dateStr} at ${timeStr}.
+🛠️ Equipment: ${appointment.equipment || '[Equipment]'}
+🔧 Issue: ${appointment.issue || '[Issue]'}
+📍 Status: ${appointment.status || 'Scheduled'}
+
+Questions? Call 289-925-7239`;
   }
 }
 
@@ -2430,9 +2439,34 @@ async function fetchEmailPreviewTemplate(appointment, type = "confirmation") {
     return await res.text();
   } catch (err) {
     console.error("❌ Failed to fetch email preview:", err);
-    return `Hi ${appointment.customer || 'Customer'},\n\nYour appointment is scheduled for ${appointment.date?.toDate?.()?.toLocaleDateString('en-CA')} at ${appointment.date?.toDate?.()?.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}. Equipment: ${appointment.equipment || '[Equipment]'}. Issue: ${appointment.issue || '[Issue]'}. Please contact 289-925-7239 to confirm.`;
+
+    const customerName = appointment.customer || "Customer";
+    const dateStr = appointment.date?.toDate?.()?.toLocaleDateString('en-CA') || "[DATE]";
+    const timeStr = appointment.date?.toDate?.()?.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' }) || "[TIME]";
+
+    return `
+Hi ${customerName},
+
+🛠️ Your service appointment with Canadian Fitness Repair is scheduled for:
+
+📅 ${dateStr} at ${timeStr}  
+🔧 Equipment: ${appointment.equipment || '[Equipment]'}  
+📍 Issue: ${appointment.issue || '[Issue]'}  
+📊 Status: ${appointment.status || 'Scheduled'}
+
+If you have any questions or need to reschedule, contact us at:
+
+📞 289-925-7239  
+📧 canadianfitnessrepair@gmail.com  
+🌐 https://canadianfitnessrepair.com
+
+Thanks,  
+Canadian Fitness Repair
+    `.trim();
   }
 }
+
+
 function initMap() {
             if (!map) {
                 map = L.map('map-preview').setView([43.6532, -79.3832], 13); // Default to Toronto
