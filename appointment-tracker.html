@@ -2983,6 +2983,17 @@ function validatePhone(phone) {
 };
 
 
+// Function to open the default SMS app with prefilled message
+function openSmsApp(phoneNumber, smsBody) {
+    const encodedMessage = encodeURIComponent(smsBody);
+    const smsUrl = `sms:${phoneNumber}?body=${encodedMessage}`;
+
+    // Open the SMS app
+    window.location.href = smsUrl;
+
+    // Show a toast for the SMS action
+    showToast('SMS prepared. Please review and send it.', 'info');
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   // ✅ Now this won't throw if button exists in HTML
@@ -5142,38 +5153,96 @@ async function saveCustomer() {
         btn.onclick = () => deleteAppointment(btn.dataset.id);
     });
 
-    tbody.querySelectorAll(".send-btn").forEach((btn) => {
-        btn.onclick = () => {
-            const id = btn.dataset.id;
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-            showToast("Sending confirmation to customer...");
+    // tbody.querySelectorAll(".send-btn").forEach((btn) => {
+    //     btn.onclick = () => {
+    //         const id = btn.dataset.id;
+    //         btn.disabled = true;
+    //         btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+    //         showToast("Sending confirmation to customer...");
 
-            fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ appointmentId: id, type: "confirmation" })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    showToast("Confirmation sent!");
-                    if (data.warnings && data.warnings.length > 0) {
-                        data.warnings.forEach(warning => {
-                            showToast(warning, true);  // Show as error toast
-                        });
-                    }
-                    fetchAppointments();
-                } else {
-                    showToast("Failed to send confirmation", "error");
+    //         fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify({ appointmentId: id, type: "confirmation" })
+    //         })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 showToast("Confirmation sent!");
+    //                 if (data.warnings && data.warnings.length > 0) {
+    //                     data.warnings.forEach(warning => {
+    //                         showToast(warning, true);  // Show as error toast
+    //                     });
+    //                 }
+    //                 fetchAppointments();
+    //             } else {
+    //                 showToast("Failed to send confirmation", "error");
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.error("Send confirmation error:", err);
+    //             showToast("Network error while sending", "error");
+    //         });
+    //     };
+    // });
+
+tbody.querySelectorAll(".send-btn").forEach((btn) => {
+    // Check if the user is on mobile or desktop
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
+
+    // Disable the button if on desktop
+    if (!isMobile) {
+        btn.disabled = true;
+        btn.innerHTML = "SMS not available on desktop";
+        showToast("SMS functionality is only available on mobile.");
+        return;
+    }
+
+    btn.onclick = () => {
+        const id = btn.dataset.id;
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+        showToast("Sending confirmation...");
+
+        fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ appointmentId: id, type: "confirmation" })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                showToast("Confirmation sent!");
+
+                // If there are warnings, show them as error toasts
+                if (data.warnings && data.warnings.length > 0) {
+                    data.warnings.forEach(warning => {
+                        showToast(warning, true);  // Show as error toast
+                    });
                 }
-            })
-            .catch((err) => {
-                console.error("Send confirmation error:", err);
-                showToast("Network error while sending", "error");
-            });
-        };
-    });
+
+                // If SMS data is available, open the SMS app
+                if (data.smsBody && data.phoneNumber) {
+                    openSmsApp(data.phoneNumber, data.smsBody);
+                }
+
+                fetchAppointments();  // Refresh appointments list
+            } else {
+                showToast("Failed to send confirmation", "error");
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+            }
+        })
+        .catch((err) => {
+            console.error("Send confirmation error:", err);
+            showToast("Network error while sending", "error");
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+        });
+    };
+});
+
+
 
     tbody.querySelectorAll(".details-btn").forEach((btn) => {
     btn.onclick = () => {
@@ -5272,38 +5341,7 @@ async function saveCustomer() {
                         }
                     });
                 });
-                tbody.querySelectorAll(".send-btn").forEach((btn) => {
-    btn.onclick = () => {
-        const id = btn.dataset.id;
-        btn.disabled = true;
-        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-        showToast("Sending confirmation...");
 
-        fetch("https://cfr-backend-1.onrender.com/api/send-confirmation", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ appointmentId: id, type: "confirmation" })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                showToast("Confirmation sent!");
-                fetchAppointments();
-            } else {
-                showToast("Failed to send confirmation", "error");
-                btn.disabled = false;
-                btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
-            }
-        })
-        .catch((err) => {
-            console.error("Send confirmation error:", err);
-            showToast("Network error while sending", "error");
-            btn.disabled = false;
-            btn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
-        });
-    };
-});
-            }
             
             // Delete customer
             async function deleteCustomer(id) {
