@@ -2772,8 +2772,15 @@ function generateEmailBody(appointment, type) {
   const greeting = getGreeting();
   const { customer, equipment, issue, dateObj, status, totalPrice } = appointment;
 
-  const dateStr = dateObj.toLocaleDateString("en-CA");
-  const timeStr = dateObj.toLocaleTimeString("en-CA", { hour: "2-digit", minute: "2-digit" });
+  // Check for missing required fields
+  if (!customer || !equipment || !status) {
+    console.warn("⚠️ Missing required fields in appointment:", { customer, equipment, status });
+    return "Error: Missing required fields.";
+  }
+
+  // Validate dateObj
+  const dateStr = dateObj && !isNaN(dateObj) ? dateObj.toLocaleDateString("en-CA") : "Invalid date";
+  const timeStr = dateObj && !isNaN(dateObj) ? dateObj.toLocaleTimeString("en-CA", { hour: "2-digit", minute: "2-digit" }) : "Invalid time";
 
   let emailBody = "";
 
@@ -2782,7 +2789,7 @@ function generateEmailBody(appointment, type) {
       <p>${greeting}, ${customer},</p>
       <p>This is a <strong>service appointment booking confirmation</strong> from <strong>Canadian Fitness Repair</strong>.</p>
       <p><strong>Appointment Details:</strong></p>
-      <p>📅 <strong>Date:</strong> ${dateStr}<br>⏰ <strong>Time:</strong> ${timeStr}<br>🔧 <strong>Equipment:</strong> ${equipment}<br>📝 <strong>Issue:</strong> ${issue}<br>💵 <strong>Total:</strong> $${totalPrice} (includes 13% Ontario tax)<br>📌 <strong>Status:</strong> ${status}</p>
+      <p>📅 <strong>Date:</strong> ${dateStr}<br>⏰ <strong>Time:</strong> ${timeStr}<br>🔧 <strong>Equipment:</strong> ${equipment}<br>📝 <strong>Issue:</strong> ${issue || "N/A"}<br>💵 <strong>Total:</strong> $${totalPrice || "0.00"} (includes 13% Ontario tax)<br>📌 <strong>Status:</strong> ${status}</p>
       <p>If you need to reschedule, please contact us <strong>at least 24 hours in advance</strong> by replying to this email or calling <strong>289-925-7239</strong>.</p>
       <p>To help us prepare, please send clear photos of your <strong>${equipment}</strong>, especially any labels showing the <strong>part number</strong>, <strong>model number</strong>, or <strong>serial number</strong>. You can reply to this email or text us — whichever is more convenient for you.</p>
       <p>Thank you!<br><br>– <strong>Canadian Fitness Repair</strong><br>📧 canadianfitnessrepair@gmail.com<br>📞 289-925-7239<br>🌐 <a href="https://canadianfitnessrepair.com">canadianfitnessrepair.com</a></p>
@@ -2799,12 +2806,20 @@ function generateEmailBody(appointment, type) {
 
   return emailBody;
 }
+
 function generateSMSBody(appointment, type) {
   const greeting = getGreeting();
   const { customer, equipment, status, dateObj, totalPrice, issue } = appointment;
 
-  const dateStr = dateObj.toLocaleDateString("en-CA");
-  const timeStr = dateObj.toLocaleTimeString("en-CA", { hour: "2-digit", minute: "2-digit" });
+  // Check for missing required fields
+  if (!customer || !equipment || !status) {
+    console.warn("⚠️ Missing required fields in appointment:", { customer, equipment, status });
+    return "Error: Missing required fields.";
+  }
+
+  // Validate dateObj
+  const dateStr = dateObj && !isNaN(dateObj) ? dateObj.toLocaleDateString("en-CA") : "Invalid date";
+  const timeStr = dateObj && !isNaN(dateObj) ? dateObj.toLocaleTimeString("en-CA", { hour: "2-digit", minute: "2-digit" }) : "Invalid time";
 
   if (type === "confirmation") {
     return `
@@ -2812,8 +2827,8 @@ ${greeting}, ${customer},
 Your service appointment with Canadian Fitness Repair is confirmed:
 📅 ${dateStr} at ${timeStr}
 🔧 Equipment: ${equipment}
-📝 Issue: ${issue}
-💵 Total: $${totalPrice} (includes 13% ON tax)
+📝 Issue: ${issue || "N/A"}
+💵 Total: $${totalPrice || "0.00"} (includes 13% ON tax)
 📌 Status: ${status}
 Please notify us 24 hours in advance if you need to reschedule: 289-925-7239
 To help us prepare, please send photos of your equipment labels (part, model, serial numbers).
@@ -2836,6 +2851,7 @@ canadianfitnessrepair@gmail.com
 
   return "";
 }
+
 
 
         function getBusinessDays(month, year) {
