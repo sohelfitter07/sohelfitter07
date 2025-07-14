@@ -1664,26 +1664,7 @@ function showStep(step) {
   }
 }
 
-// Next button handler
-document.querySelector('.next-step').addEventListener('click', () => {
-  if (validateStep(currentStep)) {
-    if (currentStep < totalSteps) {
-      currentStep++;
-      showStep(currentStep);
-    } else {
-      // On last step, next button becomes "Complete"
-      document.getElementById('save-appointment').click();
-    }
-  }
-});
 
-// Previous button handler
-document.querySelector('.prev-step').addEventListener('click', () => {
-  if (currentStep > 1) {
-    currentStep--;
-    showStep(currentStep);
-  }
-});
 
 // Step validation
 function validateStep(step) {
@@ -4680,7 +4661,26 @@ document.querySelectorAll('[data-view]').forEach(link => {
     alert("Failed to copy phone number.");
   }
 });
+// Next button handler
+document.querySelector('.next-step').addEventListener('click', () => {
+  if (validateStep(currentStep)) {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      showStep(currentStep);
+    } else {
+      // On last step, next button becomes "Complete"
+      document.getElementById('save-appointment').click();
+    }
+  }
+});
 
+// Previous button handler
+document.querySelector('.prev-step').addEventListener('click', () => {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+  }
+});
     window.addEventListener('DOMContentLoaded', function () {
         // Use setInterval to repeatedly check if 'status-filter' exists
         const checkStatusFilter = setInterval(function() {
