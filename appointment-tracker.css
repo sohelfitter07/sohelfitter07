@@ -68,6 +68,21 @@
             overflow-y: auto;
             display: none;
         }
+        /* Larger touch targets */
+.action-btn {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Swipe navigation */
+.calendar-grid {
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+}
+
+.calendar-day {
+  scroll-snap-align: start;
+}
         
         .suggestion-item {
             padding: 10px;

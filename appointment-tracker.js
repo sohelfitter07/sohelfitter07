@@ -26,6 +26,7 @@ console.log("✅ Admin dashboard initialized");
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
         let allLogs = [];
+        let currentPage = 1;
         let currentLogPage = 1;
         const logsPerPage = 20;
         let db;
@@ -1718,6 +1719,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
                 }
             }
+      
+                const pageSize = 10;
             function getPage(items, page = 1, size = 10) {
     const start = (page - 1) * size;
     return items.slice(start, start + size);
@@ -1746,7 +1749,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 }
-
 
             // Helper function for search
 function appointmentMatchesSearch(appointment, query) {
@@ -1800,8 +1802,6 @@ function appointmentMatchesSearch(appointment, query) {
             }
     
             async function fetchAppointments() {
-                let currentPage = 1;
-                const pageSize = 10;
     try {
         const allAppointments = await fetchAppointmentsWithCache();
 
