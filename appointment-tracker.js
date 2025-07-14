@@ -35,7 +35,9 @@ console.log("✅ Admin dashboard initialized");
         let marker = null;
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth(); // 0-based: 0 = Jan, 11 = Dec
-            // ===== PAGINATION FOR CUSTOMERS =====
+// ===== PAGINATION FOR CUSTOMERS =====
+            let currentStep = 1;
+        const totalSteps = 4;
         let currentCustomerPage = 1;
         const customersPerPage = 10;
         const statusMap = {
@@ -48,9 +50,8 @@ console.log("✅ Admin dashboard initialized");
     "Repaired": "Repaired",
     "Completed": "Completed",
     "Cancelled": "Cancelled"
-};
-
-            const statusGroups = {
+            };
+        const statusGroups = {
             "All": null,
             "Scheduled": ["Scheduled", "Confirmed"],
             "In Progress": ["In Progress"],
@@ -60,7 +61,17 @@ console.log("✅ Admin dashboard initialized");
             "Repaired": ["Repaired"],
             "Completed": ["Completed"],
             "Cancelled": ["Cancelled"]
-        };
+};
+        const customerNameInput = document.getElementById('customer-name');
+const customerPhoneInput = document.getElementById('customer-phone');
+const customerEmailInput = document.getElementById('customer-email');
+
+// Sample customer data (replace with your actual customer data)
+const customers = [
+  { id: 1, name: "John Smith", phone: "4165551234", email: "john@example.com" },
+  { id: 2, name: "Sarah Johnson", phone: "6475555678", email: "sarah@example.com" },
+  // Add more customers
+];
 
         async function getFirebaseConfig() {
             try {
@@ -156,8 +167,6 @@ console.log("✅ Admin dashboard initialized");
         });
     });
 }
-
-
     async function saveAdminSettings(db) {
     const rawAdminPhone = document.getElementById("admin-phone").value.trim();
     const encryptedPhone = await encryptData(rawAdminPhone);
@@ -330,11 +339,6 @@ function formatCanadianAddress(address) {
         showLoading(false);
       }
     }
-
-
-
-        
-
         function displaySuggestions(suggestions) {
             const container = document.getElementById('address-suggestions');
             container.innerHTML = '';
@@ -356,8 +360,6 @@ function formatCanadianAddress(address) {
             
             container.style.display = 'block';
         }      
-
-   
 
     function renderCustomersTable() {
       const tbody = document.getElementById('customers-body');
@@ -383,8 +385,6 @@ function formatCanadianAddress(address) {
       document.getElementById("customer-prev-page").disabled = currentCustomerPage === 1;
       document.getElementById("customer-next-page").disabled = currentCustomerPage >= totalPages;
     }
-
-
 
     // ===== SEARCH FUNCTIONALITY FOR APPOINTMENTS =====
     function setupAdvancedSearch() {
@@ -1631,7 +1631,144 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+// Show specific step
+function showStep(step) {
+  // Hide all steps
+  document.querySelectorAll('.form-step').forEach(el => {
+    el.classList.remove('active');
+  });
+  
+  // Show current step
+  document.getElementById(`step-${step}`).classList.add('active');
+  
+  // Update progress bar
+  document.getElementById('form-progress').style.width = `${(step/totalSteps)*100}%`;
+  
+  // Update step indicator
+  document.getElementById('step-indicator').textContent = `Step ${step} of ${totalSteps}`;
+  
+  // Update navigation buttons
+  const prevBtn = document.querySelector('.prev-step');
+  const nextBtn = document.querySelector('.next-step');
+  
+  prevBtn.disabled = (step === 1);
+  nextBtn.textContent = (step === totalSteps) ? 'Review Complete' : 'Next';
+  
+  // Move form actions to last step
+  const formActions = document.querySelector('.form-actions');
+  if (step === totalSteps) {
+    document.getElementById('step-4').appendChild(formActions);
+    buildConfirmationSummary();
+  } else {
+    document.getElementById('appointment-form').appendChild(formActions);
+  }
+}
 
+// Next button handler
+document.querySelector('.next-step').addEventListener('click', () => {
+  if (validateStep(currentStep)) {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      showStep(currentStep);
+    } else {
+      // On last step, next button becomes "Complete"
+      document.getElementById('save-appointment').click();
+    }
+  }
+});
+
+// Previous button handler
+document.querySelector('.prev-step').addEventListener('click', () => {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+  }
+});
+
+// Step validation
+function validateStep(step) {
+  let isValid = true;
+  
+  if (step === 1) {
+    const nameField = document.getElementById('customer-name');
+    if (!nameField.value.trim()) {
+      showValidationError(nameField, 'Customer name is required');
+      isValid = false;
+    }
+  }
+  
+  if (step === 2) {
+    const dateField = document.getElementById('appointment-date');
+    if (!dateField.value) {
+      showValidationError(dateField, 'Date is required');
+      isValid = false;
+    }
+    
+    const timeField = document.getElementById('appointment-time');
+    if (!timeField.value) {
+      showValidationError(timeField, 'Time is required');
+      isValid = false;
+    }
+    
+    const addressField = document.getElementById('house-address-input');
+    if (!addressField.value.trim()) {
+      showValidationError(addressField, 'Address is required');
+      isValid = false;
+    }
+  }
+  
+  return isValid;
+}
+
+// Build confirmation summary
+function buildConfirmationSummary() {
+  const summary = document.getElementById('confirmation-summary');
+  const date = document.getElementById('appointment-date').value;
+  const time = document.getElementById('appointment-time').value;
+  
+  summary.innerHTML = `
+    <div class="summary-item">
+      <strong>Customer:</strong> ${document.getElementById('customer-name').value}
+    </div>
+    <div class="summary-item">
+      <strong>Contact:</strong> ${document.getElementById('customer-phone').value || 'N/A'} | 
+      ${document.getElementById('customer-email').value || 'N/A'}
+    </div>
+    <div class="summary-item">
+      <strong>When:</strong> ${date} at ${time}
+    </div>
+    <div class="summary-item">
+      <strong>Where:</strong> ${document.getElementById('house-address-input').value}
+      <br><small>Distance: ${document.getElementById('gomaps-distance').textContent} km</small>
+    </div>
+    <div class="summary-item">
+      <strong>Equipment:</strong> ${document.getElementById('equipment').value || 'N/A'}
+    </div>
+    <div class="summary-item">
+      <strong>Total Price:</strong> $${document.getElementById('appointment-price').value || '0.00'}
+    </div>
+  `;
+}
+
+// Initialize form on modal open
+document.getElementById('add-appointment').addEventListener('click', () => {
+  currentStep = 1;
+  showStep(1);
+});
+
+// Helper function to show validation errors
+function showValidationError(field, message) {
+  const errorId = `${field.id}-error`;
+  const errorElement = document.getElementById(errorId);
+  
+  if (errorElement) {
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+  }
+  
+  field.classList.add('invalid');
+  field.focus();
+}
     
     // ================ VIEW MANAGEMENT ================
             function activateView(viewName) {
@@ -3356,7 +3493,60 @@ function openSmsApp(phoneNumber, smsBody) {
         showLoading(false);
     }
 }
+customerNameInput.addEventListener('input', function() {
+  const value = this.value.toLowerCase();
+  if (value.length < 2) return;
+  
+  const matches = customers.filter(customer => 
+    customer.name.toLowerCase().includes(value)
+  );
+  
+  showCustomerSuggestions(matches);
+});
 
+function showCustomerSuggestions(customers) {
+  // Remove existing suggestions if any
+  const existingList = document.getElementById('customer-suggestions');
+  if (existingList) existingList.remove();
+  
+  if (customers.length === 0) return;
+  
+  const suggestions = document.createElement('ul');
+  suggestions.id = 'customer-suggestions';
+  suggestions.style.position = 'absolute';
+  suggestions.style.background = 'var(--dark-card)';
+  suggestions.style.border = '1px solid var(--dark-border)';
+  suggestions.style.borderRadius = '8px';
+  suggestions.style.zIndex = '1000';
+  suggestions.style.width = customerNameInput.offsetWidth + 'px';
+  
+  customers.forEach(customer => {
+    const item = document.createElement('li');
+    item.textContent = customer.name;
+    item.style.padding = '10px';
+    item.style.cursor = 'pointer';
+    item.style.borderBottom = '1px solid var(--dark-border)';
+    
+    item.addEventListener('click', () => {
+      customerNameInput.value = customer.name;
+      customerPhoneInput.value = customer.phone || '';
+      customerEmailInput.value = customer.email || '';
+      suggestions.remove();
+    });
+    
+    suggestions.appendChild(item);
+  });
+  
+  customerNameInput.parentNode.appendChild(suggestions);
+}
+
+// Close suggestions when clicking elsewhere
+document.addEventListener('click', (e) => {
+  if (!e.target.matches('#customer-name, #customer-suggestions *')) {
+    const suggestions = document.getElementById('customer-suggestions');
+    if (suggestions) suggestions.remove();
+  }
+});
 // Place this near your other Firestore functions
 async function backfillCustomersFromAppointments() {
     showLoading(true);

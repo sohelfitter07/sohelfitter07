@@ -79,7 +79,46 @@
   scroll-snap-type: x mandatory;
   overflow-x: auto;
 }
+/* Add to your existing CSS */
+.form-step {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
 
+.form-step.active {
+  display: block;
+}
+#customer-suggestions {
+  max-height: 200px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#customer-suggestions li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--dark-border);
+  transition: background 0.2s;
+}
+
+#customer-suggestions li:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+#customer-suggestions li:last-child {
+  border-bottom: none;
+}
+#confirmation-summary .summary-item {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--dark-border);
+}
+
+#confirmation-summary .summary-item:last-child {
+  border-bottom: none;
+}
 .calendar-day {
   scroll-snap-align: start;
 }
