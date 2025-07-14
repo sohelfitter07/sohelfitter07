@@ -1843,11 +1843,17 @@ function showValidationError(field, message) {
     const start = (page - 1) * size;
     return items.slice(start, start + size);
             }
-            function renderPaginationControls(totalItems) {
+function renderPaginationControls(totalItems) {
     const totalPages = Math.ceil(totalItems / pageSize);
     const info = document.getElementById('pagination-info');
     const prev = document.getElementById('prev-page');
     const next = document.getElementById('next-page');
+
+    // 💥 Safety check to prevent errors if any element is missing
+    if (!info || !prev || !next) {
+        console.warn('⚠️ Pagination controls not found in DOM. Skipping rendering.');
+        return;
+    }
 
     info.textContent = `Page ${currentPage} of ${totalPages}`;
     prev.disabled = currentPage <= 1;
@@ -1867,6 +1873,7 @@ function showValidationError(field, message) {
         }
     };
 }
+
 
             // Helper function for search
 function appointmentMatchesSearch(appointment, query) {
