@@ -95,7 +95,16 @@
   padding: 0;
   margin: 0;
 }
+.form-step {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateX(20px);
+  opacity: 0;
+}
 
+.form-step.active {
+  transform: translateX(0);
+  opacity: 1;
+}
 #customer-suggestions li {
   padding: 10px;
   cursor: pointer;
@@ -1272,5 +1281,15 @@
   #backfill-customers-btn {
     flex: 1 1 100%;
     text-align: center;
+  }
+}
+@media (max-width: 768px) {
+  .form-step {
+    padding: 15px;
+  }
+  
+  #step-navigation {
+    flex-direction: column;
+    gap: 10px;
   }
 }
