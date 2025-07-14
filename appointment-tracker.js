@@ -1718,6 +1718,36 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
                 }
             }
+            function getPage(items, page = 1, size = 10) {
+    const start = (page - 1) * size;
+    return items.slice(start, start + size);
+            }
+            function renderPaginationControls(totalItems) {
+    const totalPages = Math.ceil(totalItems / pageSize);
+    const info = document.getElementById('pagination-info');
+    const prev = document.getElementById('prev-page');
+    const next = document.getElementById('next-page');
+
+    info.textContent = `Page ${currentPage} of ${totalPages}`;
+    prev.disabled = currentPage <= 1;
+    next.disabled = currentPage >= totalPages;
+
+    prev.onclick = () => {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchAppointments(); // reload current page
+        }
+    };
+
+    next.onclick = () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            fetchAppointments();
+        }
+    };
+}
+
+
             // Helper function for search
 function appointmentMatchesSearch(appointment, query) {
     return (
@@ -1770,6 +1800,8 @@ function appointmentMatchesSearch(appointment, query) {
             }
     
             async function fetchAppointments() {
+                let currentPage = 1;
+                const pageSize = 10;
     try {
         const allAppointments = await fetchAppointmentsWithCache();
 
@@ -1814,7 +1846,9 @@ function appointmentMatchesSearch(appointment, query) {
         }
 
         // Render appointments
-        renderAppointmentsTable(filteredAppointments);
+        const currentPageData = getPage(filteredAppointments, currentPage, pageSize);
+            renderAppointmentsTable(currentPageData);
+            renderPaginationControls(filteredAppointments.length); // Coming next
         updateStats();
 
         // Initialize charts/calendar if active
