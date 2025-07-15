@@ -899,10 +899,12 @@ function updateSMSCharCount() {
     return holidays;
 }
 function validatePhone(phone) {
-  // Remove spaces, dashes, parentheses, and plus
-  const cleanPhone = phone.replace(/[\s\-+()]/g, '');
-  // Match: 1 (optional), valid Canadian area codes and 7-digit numbers
+  const cleanPhone = phone.replace(/\D/g, ''); // Remove all non-digit characters
   return /^1?[2-9]\d{2}[2-9]\d{6}$/.test(cleanPhone);
+}
+
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
         // ================ TAX CALCULATION ================
         function getTaxRate(province) {
@@ -3024,113 +3026,147 @@ function openSmsApp(phoneNumber, smsBody) {
             }
   
           // Save (add or update) appointment in Firestore
-          async function saveAppointment(data) {
-    // ✅ Validate required fields
-    if (!data.customer) {
-        showToast("Customer name is required", true);
-        return;
+async function saveAppointment() {
+  // === Collect Form Data ===
+  const customer = document.getElementById('customer-name').value.trim();
+  const phone = document.getElementById('customer-phone').value.trim();
+  const email = document.getElementById('customer-email').value.trim();
+  const dateStr = document.getElementById('appointment-date').value;
+  const timeStr = document.getElementById('appointment-time').value;
+  const equipment = document.getElementById('equipment').value.trim();
+  const basePrice = parseFloat(document.getElementById('appointment-base-price').value) || 0;
+  const price = parseFloat(document.getElementById('appointment-price').value) || 0;
+  const issue = document.getElementById('issue-description').value.trim();
+  const status = document.getElementById('appointment-status').value;
+  const reminderEnabled = document.getElementById('reminder-enabled').checked;
+  const houseAddress = document.getElementById('house-address-input').value.trim();
+  const distanceFromShopKm = parseFloat(document.getElementById('gomaps-distance').textContent) || 0;
+  const repairNotes = document.getElementById('repair-notes')?.value.trim() || '';
+  const carrier = document.getElementById('customer-carrier')?.value || '';
+
+  // === Combine date & time ===
+  const dateTime = new Date(`${dateStr}T${timeStr}:00`);
+
+  // === Prepare Firestore data object ===
+  const data = {
+    customer,
+    phone,
+    email,
+    date: Timestamp.fromDate(dateTime),
+    equipment,
+    basePrice,
+    price,
+    issue,
+    status,
+    reminderEnabled,
+    houseAddress,
+    distanceFromShopKm,
+    repairNotes,
+    carrier
+  };
+
+  // === VALIDATION ===
+  if (!data.customer) {
+    showToast("Customer name is required", true);
+    return;
+  }
+
+  if (!data.phone && !data.email) {
+    showToast("At least one contact (phone or email) is required", true);
+    return;
+  }
+
+  if (!data.date || data.date.toDate?.().toString() === 'Invalid Date') {
+    showToast("Invalid date/time selected", true);
+    return;
+  }
+
+  if (!data.equipment) {
+    showToast("Equipment is required", true);
+    return;
+  }
+
+  if (data.basePrice == null || isNaN(data.basePrice)) {
+    showToast("Base price is required", true);
+    return;
+  }
+
+  if (data.price == null || isNaN(data.price)) {
+    showToast("Total price is required", true);
+    return;
+  }
+
+  if (!data.issue) {
+    showToast("Issue description is required", true);
+    return;
+  }
+
+  if (!data.status) {
+    showToast("Appointment status is required", true);
+    return;
+  }
+
+  if (!data.houseAddress) {
+    showToast("House address is required", true);
+    return;
+  }
+
+  // === SUBMIT DATA ===
+  showLoading(true);
+
+  try {
+    const notificationData = { ...data, dateObj: data.date.toDate() };
+
+    if (editingAppointmentId) {
+      // 🔄 Update existing appointment
+      const docRef = doc(db, "appointments", editingAppointmentId);
+      await updateDoc(docRef, data);
+      showToast("Appointment updated successfully");
+    } else {
+      // ➕ Add new appointment
+      await addDoc(appointmentsCollection, data);
+      showToast("Appointment added successfully");
     }
 
-    if (!data.phone && !data.email) {
-        showToast("At least one contact (phone or email) is required", true);
-        return;
+    // === Customer last appointment sync ===
+    const customersQuery = query(customersCollection, where("name", "==", data.customer));
+    const customerSnapshot = await getDocs(customersQuery);
+
+    if (!customerSnapshot.empty) {
+      const customerDoc = customerSnapshot.docs[0];
+      const customerRef = doc(db, "customers", customerDoc.id);
+      await updateDoc(customerRef, {
+        lastAppointment: data.date
+      });
+    } else {
+      await addDoc(customersCollection, {
+        name: data.customer,
+        phone: data.phone || '',
+        email: data.email || '',
+        equipment: data.equipment || '',
+        lastAppointment: data.date,
+        houseAddress: data.houseAddress || ''
+      });
     }
 
-    if (!data.date || data.date.toDate?.().toString() === 'Invalid Date') {
-        showToast("Invalid date/time selected", true);
-        return;
-    }
+    // === Trigger notifications ===
+    triggerNotifications(
+      editingAppointmentId ? 'appointment_updated' : 'appointment_created',
+      notificationData
+    );
 
-    if (!data.equipment) {
-        showToast("Equipment is required", true);
-        return;
-    }
-
-    if (data.basePrice == null || isNaN(data.basePrice)) {
-        showToast("Base price is required", true);
-        return;
-    }
-
-    if (data.price == null || isNaN(data.price)) {
-        showToast("Total price is required", true);
-        return;
-    }
-
-    if (!data.issue) {
-        showToast("Issue description is required", true);
-        return;
-    }
-
-    if (!data.status) {
-        showToast("Appointment status is required", true);
-        return;
-    }
-
-    if (!data.houseAddress) {
-        showToast("House address is required", true);
-        return;
-    }
-
-    showLoading(true);
-
-    try {
-        // 🔧 Create a separate object for notifications only
-        const notificationData = { ...data };
-        notificationData.dateObj = data.date.toDate?.() || new Date();
-
-        if (editingAppointmentId) {
-            // Update existing appointment
-            const docRef = doc(db, "appointments", editingAppointmentId);
-            await updateDoc(docRef, data);
-            showToast("Appointment updated successfully");
-        } else {
-            // Add new appointment
-            await addDoc(appointmentsCollection, data);
-            showToast("Appointment added successfully");
-        }
-
-        // Now update the customer's lastAppointment
-        const customersQuery = query(customersCollection, where("name", "==", data.customer));
-        const customerSnapshot = await getDocs(customersQuery);
-
-        if (!customerSnapshot.empty) {
-            // Update existing customer lastAppointment
-            const customerDoc = customerSnapshot.docs[0];
-            const customerRef = doc(db, "customers", customerDoc.id);
-            await updateDoc(customerRef, {
-                lastAppointment: data.date // ensure this is a Firestore Timestamp or Date
-            });
-        } else {
-            // Optionally, add new customer if none exists
-            await addDoc(customersCollection, {
-                name: data.customer,
-                phone: data.phone || '',
-                email: data.email || '',
-                equipment: data.equipment || '',
-                lastAppointment: data.date,
-                houseAddress: data.houseAddress || ''
-            });
-        }
-
-        // Trigger notifications
-        if (editingAppointmentId) {
-            triggerNotifications('appointment_updated', notificationData);
-        } else {
-            triggerNotifications('appointment_created', notificationData);
-        }
-
-        editingAppointmentId = null;
-        await fetchAppointments();
-        document.getElementById('appointment-modal').classList.remove('active');
-
-    } catch (error) {
-        const action = editingAppointmentId ? "updating" : "creating";
-        showToast(`Failed ${action} appointment: ${error.message}`, true);
-        console.error("❌ Error:", error);
-    } finally {
-        showLoading(false);
-    }
+    editingAppointmentId = null;
+    await fetchAppointments();
+    document.getElementById('appointment-modal')?.classList.remove('active');
+  } catch (error) {
+    const action = editingAppointmentId ? "updating" : "creating";
+    showToast(`Failed ${action} appointment: ${error.message}`, true);
+    console.error("❌ Error:", error);
+  } finally {
+    showLoading(false);
+  }
 }
+
 
             // ================ RENDERING FUNCTIONS ================
             // Render appointments table
@@ -4263,102 +4299,119 @@ function initAppointmentsView() {
 
 
             // ================ MODAL MANAGEMENT ================
-            function openEditModal(id) {
-    document.getElementById('toast-container').innerHTML = '';
+function openEditModal(id) {
+  document.getElementById('toast-container').innerHTML = '';
 
-    const app = appointments.find((a) => a.id === id);
-    if (!app) return;
+  const app = appointments.find((a) => a.id === id);
+  if (!app) return;
 
-    editingAppointmentId = id;
+  editingAppointmentId = id;
 
-    // 🧠 Store original values to detect changes
-    const dateObj = app.dateObj || new Date();
-    const dateStr = dateObj.toISOString().split("T")[0];
-    const timeStr = dateObj.toTimeString().slice(0, 5);
-    originalAppointmentData = {
-        date: dateStr,
-        time: timeStr,
-        status: app.status || ""
-    };
+  // 🧠 Store original values to detect changes
+  const dateObj = app.dateObj || new Date();
+  const dateStr = dateObj.toISOString().split("T")[0];
+  const timeStr = dateObj.toTimeString().slice(0, 5);
+  originalAppointmentData = {
+    date: dateStr,
+    time: timeStr,
+    status: app.status || ""
+  };
 
-    // Clear validation & set values
-    document.querySelectorAll('.validation-error').forEach(el => el.style.display = 'none');
-    document.querySelectorAll('.form-control').forEach(field => field.classList.remove('invalid'));
+  // Clear validation & set values
+  document.querySelectorAll('.validation-error').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.form-control').forEach(field => field.classList.remove('invalid'));
 
-    document.getElementById("customer-name").value = app.customer;
-    document.getElementById("customer-phone").value = app.phone || "";
-    document.getElementById("customer-email").value = app.email || "";
-    document.getElementById("customer-carrier").value = app.carrier || "unknown";
-    document.getElementById("appointment-date").value = dateStr;
-    document.getElementById("appointment-time").value = timeStr;
-    document.getElementById("equipment").value = app.equipment || "";
-    document.getElementById("appointment-base-price").value = app.basePrice || app.price || 0;
-    document.getElementById("issue-description").value = app.issue || "";
-    document.getElementById("repair-notes").value = app.repair_notes || "";
-    document.getElementById("appointment-status").value = app.status || "";
-    document.getElementById("reminder-enabled").checked = app.reminderEnabled || false;
-    document.getElementById("reminder-enabled").checked = !!app.reminderEnabled;
-    document.getElementById("house-address-input").value = app.houseAddress || "";
-    document.getElementById('gomaps-distance').textContent = app.distanceFromShopKm || '0';
+  document.getElementById("customer-name").value = app.customer;
+  document.getElementById("customer-phone").value = app.phone || "";
+  document.getElementById("customer-email").value = app.email || "";
+  document.getElementById("customer-carrier").value = app.carrier || "unknown";
+  document.getElementById("appointment-date").value = dateStr;
+  document.getElementById("appointment-time").value = timeStr;
+  document.getElementById("equipment").value = app.equipment || "";
+  document.getElementById("appointment-base-price").value = app.basePrice || app.price || 0;
+  document.getElementById("issue-description").value = app.issue || "";
+  document.getElementById("repair-notes").value = app.repair_notes || "";
+  document.getElementById("appointment-status").value = app.status || "";
+  document.getElementById("reminder-enabled").checked = !!app.reminderEnabled;
+  document.getElementById("house-address-input").value = app.houseAddress || "";
+  document.getElementById('gomaps-distance').textContent = app.distanceFromShopKm || '0';
 
+  calculateTax();
 
-    calculateTax();
+  document.getElementById("modal-title").textContent = "Edit Appointment";
+  document.getElementById("save-appointment").textContent = "Update Appointment";
 
-    document.getElementById("modal-title").textContent = "Edit Appointment";
-    document.getElementById("save-appointment").textContent = "Update Appointment";
-    document.getElementById('appointment-modal').classList.add('active');
+  // ✅ Set up click handler fresh
+  const saveBtn = document.getElementById("save-appointment");
+  saveBtn.onclick = null;
+  saveBtn.onclick = () => saveAppointment();
+
+  document.getElementById('appointment-modal').classList.add('active');
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     fetchAppointments();
     setupStatusCardClickHandlers(); // ✅ this is good
 });
 
+function openAddModal() {
+  // Clear existing toasts
+  document.getElementById('toast-container').innerHTML = '';
 
-            function openAddModal() {
-                  // Clear existing toasts
-                document.getElementById('toast-container').innerHTML = '';
-                  // Clear validation states
-                const fields = document.querySelectorAll('#appointment-form .form-control');
-                fields.forEach(field => {
-                    field.classList.remove('invalid');
-                    const errorId = `${field.id}-error`;
-                    const errorElement = document.getElementById(errorId);
-                    if (errorElement) errorElement.textContent = '';
-                });
-                editingAppointmentId = null;
-                
-                // Reset form and set default values
-                document.getElementById("appointment-form").reset();
-                    // ✅ Clear house address separately
-                document.getElementById("house-address-input").value = "";
-                    // ✅ Clear distance display
-                document.getElementById('gomaps-distance').textContent = '0';
-                // Clear validation errors
-                document.querySelectorAll('.validation-error').forEach(el => {
-                    el.style.display = 'none';
-                });
-                document.querySelectorAll('.form-control').forEach(field => {
-                    field.classList.remove('invalid');
-                });
-                
-                const today = new Date();
-                document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
-                
-                const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
-                document.getElementById("appointment-time").value = 
-                    `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
-                
-                document.getElementById("appointment-base-price").value = 150;
-                calculateTax(); // Calculate initial tax
-                
-                // Update modal title
-                document.getElementById("modal-title").innerHTML = 
-                    '<i class="fas fa-calendar-plus"></i> Add New Appointment';
-                
-                // Show modal
-                document.getElementById('appointment-modal').classList.add('active');
-            }        
+  // Clear validation states
+  const fields = document.querySelectorAll('#appointment-form .form-control');
+  fields.forEach(field => {
+    field.classList.remove('invalid');
+    const errorId = `${field.id}-error`;
+    const errorElement = document.getElementById(errorId);
+    if (errorElement) errorElement.textContent = '';
+  });
+
+  editingAppointmentId = null;
+
+  // Reset form and set default values
+  document.getElementById("appointment-form").reset();
+
+  // ✅ Clear house address separately
+  document.getElementById("house-address-input").value = "";
+
+  // ✅ Clear distance display
+  document.getElementById('gomaps-distance').textContent = '0';
+
+  // Clear validation errors
+  document.querySelectorAll('.validation-error').forEach(el => {
+    el.textContent = "";
+    el.style.display = 'none';
+  });
+
+  document.querySelectorAll('.form-control').forEach(field => {
+    field.classList.remove('invalid');
+  });
+
+  const today = new Date();
+  document.getElementById("appointment-date").value = today.toISOString().split("T")[0];
+
+  const nextHour = new Date(today.getTime() + 60 * 60 * 1000);
+  document.getElementById("appointment-time").value =
+    `${nextHour.getHours().toString().padStart(2, "0")}:${nextHour.getMinutes().toString().padStart(2, "0")}`;
+
+  document.getElementById("appointment-base-price").value = 120;
+  calculateTax(); // Calculate initial tax
+
+  // Update modal title
+  document.getElementById("modal-title").innerHTML =
+    '<i class="fas fa-calendar-plus"></i> Add New Appointment';
+  document.getElementById("save-appointment").textContent = "Save Appointment";
+
+  // ✅ Set up click handler for save button (fresh each time)
+  const saveBtn = document.getElementById("save-appointment");
+  saveBtn.onclick = null; // remove any previous handlers
+  saveBtn.onclick = saveAppointment;
+
+  // Show modal
+  document.getElementById('appointment-modal').classList.add('active');
+}       
                 
     function closeAppointmentModal() {
                 document.getElementById('appointment-modal').classList.remove('active');
@@ -4680,7 +4733,8 @@ document.querySelector('.next-step').addEventListener('click', () => {
     }
   }
 });
-
+// Add to initApp function
+document.getElementById('save-appointment').addEventListener('click', saveAppointment);
 // Previous button handler
 document.querySelector('.prev-step').addEventListener('click', () => {
   if (currentStep > 1) {
@@ -4731,7 +4785,18 @@ document.querySelector('.prev-step').addEventListener('click', () => {
 
   // Add to setupEventListeners()
     document.getElementById('test-sms-btn')?.addEventListener('click', sendTestSMS);
-    
+    // Add to initApp function
+document.getElementById('customer-phone').addEventListener('blur', function() {
+    if (this.value && !validatePhone(this.value)) {
+        showValidationError('customer-phone', 'Invalid Canadian phone format');
+    }
+});
+
+document.getElementById('customer-email').addEventListener('blur', function() {
+    if (this.value && !validateEmail(this.value)) {
+        showValidationError('customer-email', 'Invalid email format');
+    }
+});
     function sendTestSMS() {
         // Get current settings
         const settings = JSON.parse(localStorage.getItem('fitnessRepairSettings') || '{}');
