@@ -4377,7 +4377,7 @@ function openAddModal() {
   document.getElementById("house-address-input").value = "";
 
   // ✅ Clear distance display
-  document.getElementById('gomaps-distance').textContent = distanceKm;
+  document.getElementById('gomaps-distance').textContent = '0';
 document.getElementById('distance-value').value = distanceKm;        // hidden input for form data
   // Clear validation errors
   document.querySelectorAll('.validation-error').forEach(el => {
