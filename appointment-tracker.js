@@ -3040,7 +3040,7 @@ async function saveAppointment() {
   const status = document.getElementById('appointment-status').value;
   const reminderEnabled = document.getElementById('reminder-enabled').checked;
   const houseAddress = document.getElementById('house-address-input').value.trim();
-  const distanceFromShopKm = parseFloat(document.getElementById('gomaps-distance').textContent) || 0;
+  const distanceFromShopKm = parseFloat(document.getElementById('distance-value').value) || 0;
   const repairNotes = document.getElementById('repair-notes')?.value.trim() || '';
   const carrier = document.getElementById('customer-carrier')?.value || '';
 
@@ -4377,8 +4377,8 @@ function openAddModal() {
   document.getElementById("house-address-input").value = "";
 
   // ✅ Clear distance display
-  document.getElementById('gomaps-distance').textContent = '0';
-
+  document.getElementById('gomaps-distance').textContent = distanceKm;
+document.getElementById('distance-value').value = distanceKm;        // hidden input for form data
   // Clear validation errors
   document.querySelectorAll('.validation-error').forEach(el => {
     el.textContent = "";
