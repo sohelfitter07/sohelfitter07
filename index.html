@@ -445,7 +445,7 @@
 .swiper-slide {
   position: relative;
   width: 100%;
-  min-height: 600px;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1312,6 +1312,41 @@
       .form-link:hover i {
         transform: translateX(5px);
       }
+      @media (max-width: 768px) {
+  .swiper-slide {
+    min-height: 50vh;
+  }
+  .slide-content {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+  .custom-hero, .hero {
+    padding: 5rem 1rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .swiper-slide {
+    min-height: 40vh;
+  }
+  .slide-content h1 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+  .slide-content p {
+    font-size: 1rem;
+  }
+  .c-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+  .custom-hero, .hero {
+    padding: 3rem 1rem 1rem;
+  }
+  .word-item {
+    font-size: clamp(2rem, 5vw, 4rem);
+  }
+}
+
     </style>
   </head>
   <body>
