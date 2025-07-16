@@ -45,7 +45,10 @@
   
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /></noscript>
-  
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+/>
     <!-- Local Stylesheets -->
     <link href="headerfooter.css" rel="stylesheet" />
     <link href="whatsapp.css" rel="stylesheet" />
@@ -427,6 +430,133 @@
         animation: spin 8s linear infinite;
         z-index: 1;
       }
+      /* ─────────────────────────────
+   SWIPER Carousel Styles
+───────────────────────────── */
+.hero-carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.swiper-slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 500px;
+  overflow: hidden;
+}
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  filter: brightness(0.5);
+}
+.slide-content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  max-width: 800px;
+  padding: 1rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+.slide-content h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.slide-content p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.c-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #0073e6;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+.c-button:hover {
+  background: #005bb5;
+}
+
+/* ─────────────────────────────
+   Custom Hero Slide (First Slide)
+───────────────────────────── */
+.custom-hero {
+  background: linear-gradient(to bottom right, #004488, #0066aa);
+  padding: 3rem 1rem;
+  color: #fff;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  z-index: 1;
+  position: relative;
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Word Animation (vertical) */
+.word-animation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  padding: 1rem 0;
+  height: 120px;
+  overflow: hidden;
+}
+#wordWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 2s ease;
+  height: 120px;
+}
+.word-item {
+  font-size: clamp(3rem, 5vw, 6rem);
+  font-weight: bolder;
+  color: var(--accent-color, #ffc107);
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+}
+
+/* ─────────────────────────────
+   Swiper Navigation + Pagination
+───────────────────────────── */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+}
+.swiper-pagination-bullet {
+  background-color: white;
+  opacity: 0.7;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* ─────────────────────────────
+   Basic Fade Animation
+───────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
       @keyframes spin {
         0% {
           transform: rotate(0deg);
@@ -1159,7 +1289,7 @@
     </noscript>
     <div id="header"></div>
     <main>
-      <section class="hero">
+<!--       <section class="hero">
         <h1>GTA's #1 Fitness Repair Service</h1>
         <p>
           Expert repair, installation and maintenance for all fitness equipment
@@ -1179,7 +1309,80 @@
         >
           Schedule Service Today
         </a>
-      </section>
+      </section> -->
+      <section class="hero-carousel swiper-container">
+  <div class="swiper-wrapper">
+    <!-- 🔹 Your Original Hero Section as Slide 1 -->
+    <div class="swiper-slide">
+      <div class="custom-hero">
+        <h1>GTA's #1 Fitness Repair Service</h1>
+        <p>Expert repair, installation and maintenance for all fitness equipment</p>
+        <div class="word-animation">
+          <div id="wordWrapper">
+            <div class="word-item">Repair</div>
+            <div class="word-item">Installation</div>
+            <div class="word-item">Maintenance</div>
+            <div class="word-item">Relocation</div>
+            <div class="word-item">Project</div>
+          </div>
+        </div>
+        <a class="c-button" href="https://canadianfitnessrepair.com/get-quote.html">Schedule Service Today</a>
+      </div>
+    </div>
+
+    <!-- 🔹 Additional Carousel Slides (from previous step) -->
+    <div class="swiper-slide">
+      <img src="images/treadmill.jpg" alt="Treadmill Repair" class="hero-img" />
+      <div class="slide-content">
+        <h1>Expert Treadmill Repairs in the GTA</h1>
+        <p>We fix belt issues, motor problems, noisy rollers—same-day appointments.</p>
+        <a class="c-button" href="get-quote.html">Schedule Treadmill Repair</a>
+      </div>
+    </div>
+
+    <!-- Elliptical Slide -->
+    <div class="swiper-slide">
+      <img src="images/elliptical.jpg" alt="Elliptical Repair" class="hero-img" />
+      <div class="slide-content">
+        <h1>Elliptical Not Running Smooth? We Can Help.</h1>
+        <p>From resistance issues to drive malfunctions—we’ll get it working like new.</p>
+        <a class="c-button" href="get-quote.html">Book Elliptical Service</a>
+      </div>
+    </div>
+    <!-- Bike Slide -->
+    <div class="swiper-slide">
+      <img src="images/bike.jpg" alt="Bike Repair" class="hero-img" />
+      <div class="slide-content">
+        <h1>Reliable Bike Repairs for Every Brand</h1>
+        <p>We handle pedals, sensors, resistance systems & more—spin, upright, recumbent.</p>
+        <a class="c-button" href="get-quote.html">Fix My Bike Today</a>
+      </div>
+    </div>
+    <!-- Stepper Slide -->
+    <div class="swiper-slide">
+      <img src="images/stepper.jpg" alt="Stepper Repair" class="hero-img" />
+      <div class="slide-content">
+        <h1>Step Machines Giving You Trouble?</h1>
+        <p>We specialize in stairclimber & stepper repair with fast diagnostics.</p>
+        <a class="c-button" href="get-quote.html">Request Stepper Repair</a>
+      </div>
+    </div>
+    <!-- Cable Machine Slide -->
+    <div class="swiper-slide">
+      <img src="images/cable-machine.jpg" alt="Cable Machine Repair" class="hero-img" />
+      <div class="slide-content">
+        <h1>Cable Snapped or Pulley Jammed?</h1>
+        <p>We fix cable machines, weight stacks, pulleys & strength systems.</p>
+        <a class="c-button" href="get-quote.html">Book Weight Machine Repair</a>
+      </div>
+  </div>
+  </div>
+
+  <!-- Optional Navigation -->
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</section>
       <section class="brand-section">
         <h2 class="brand-title">Trusted by Professionals Worldwide</h2>
         <div class="brand-carousel-container">
@@ -1589,5 +1792,41 @@
     <script defer="" src="whatsapp.js"></script>
     <script defer="" src="headerfooter.js"></script>
     <script src="whatsapp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script>
+  // ─── Swiper Initialization ────────────────────────
+  const swiper = new Swiper('.swiper-container', {
+    loop: true,
+    autoplay: {
+      delay: 6000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    },
+    effect: 'slide',
+    speed: 600,
+    grabCursor: true,
+    touchEventsTarget: 'container'
+  });
+
+  // ─── Word Animation Logic ──────────────────────────
+  const words = document.querySelectorAll(".word-item");
+  const wordWrapper = document.getElementById("wordWrapper");
+  const wordHeight = 120; // must match .word-item height
+  let wordIndex = 0;
+
+  function cycleWords() {
+    wordIndex = (wordIndex + 1) % words.length;
+    wordWrapper.style.transform = `translateY(-${wordIndex * wordHeight}px)`;
+  }
+
+  setInterval(cycleWords, 2000); // scroll every 2 seconds
+</script>
   </body>
 </html>
