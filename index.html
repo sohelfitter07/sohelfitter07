@@ -438,8 +438,8 @@
   height: 100%;
   position: relative;
 }
-      .hero-carousel {
-  background-color: var(--bg-color);
+.hero-carousel {
+  background-color: var(--bg-color); /* light background */
   color: var(--text-color);
   min-height: 600px;
   display: flex;
@@ -447,6 +447,7 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
+  padding: 2rem;
 }
 
 .swiper-slide {
@@ -484,17 +485,20 @@
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
 }
+/* Use accent color for buttons and highlights */
 .c-button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
   padding: 0.75rem 1.5rem;
-  background-color: #0073e6;
-  color: #fff;
   border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s ease;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
 .c-button:hover {
-  background: #005bb5;
+  background-color: #4a4ad1; /* slightly darker */
 }
 
 /* ─────────────────────────────
@@ -532,12 +536,12 @@
 .word-item {
   font-size: clamp(3rem, 5vw, 6rem);
   font-weight: bolder;
-  color: var(--accent-color, #ffc107);
+   color: var(--accent-color);
   height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+  text-shadow: 0 0 10px rgba(93, 93, 255, 0.4);
 }
 
 /* ─────────────────────────────
