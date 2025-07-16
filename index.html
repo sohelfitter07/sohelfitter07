@@ -430,124 +430,130 @@
         animation: spin 8s linear infinite;
         z-index: 1;
       }
-/* ─────────────────────────────
-   SWIPER Carousel Styles
-───────────────────────────── */
 .hero-carousel {
   width: 100%;
-  min-height: 300px;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  min-height: 600px; /* adjust if you want taller */
+  color: var(--text-color, #fff);
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
   padding: 0;
 }
 
 .swiper-slide {
   position: relative;
+  width: 100%;
+  min-height: 600px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 600px;
-  width: 100%;
   overflow: hidden;
-}
-.swiper-slide {
-background-size: cover;
-        background-position: center;
-}
-
-.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  filter: brightness(0.35);
-}
-
-/* Slide content for image-based slides */
-.slide-content {
-  position: relative;
-  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #fff;
+}
+
+/* Gradient overlay + background images for each slide */
+.hero-slide {
+  position: relative;
+}
+
+/* Overlay using a pseudo-element */
+.hero-slide::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7));
+  z-index: 1;
+}
+
+/* Content above overlay */
+.slide-content, .custom-hero {
+  position: relative;
+  z-index: 2;
   max-width: 800px;
   padding: 2rem;
-  animation: fadeInUp 0.8s ease-out;
   box-sizing: border-box;
 }
 
+/* Specific backgrounds for each slide */
+.hero {
+  background-image:
+    linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)),
+    url("/images/herobckgnd.webp");
+  min-height: 80vh;
+  color: #5d5dff;
+  padding: 10rem 2rem 3rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.slide-treadmill {
+  background-image: url("/images/treadmill.jpg");
+}
+
+.slide-elliptical {
+  background-image: url("/images/elliptical.jpg");
+}
+
+.slide-bike {
+  background-image: url("/images/bike.jpg");
+}
+
+.slide-stepper {
+  background-image: url("/images/stepper.jpg");
+}
+
+/* Remove overlay from the hero slide (optional) */
+/* If you want the gradient only on other slides, you can tweak that */
+
+.hero-slide:not(.hero)::before {
+  background: linear-gradient(rgba(21,23,25,0.85), rgba(21,23,25,0.7));
+}
+
+/* Text styling */
 .slide-content h1 {
   font-size: clamp(2rem, 5vw, 3rem);
   margin-bottom: 1rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
 .slide-content p {
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
   opacity: 0.9;
+  text-shadow: 0 1px 5px rgba(0,0,0,0.4);
 }
 
-/* ─────────────────────────────
-   Custom Hero Slide (First Slide)
-───────────────────────────── */
-.custom-hero {
-   background-color: var(--bg-color);
-  padding: 3rem 1rem;
-  color: #fff;
-  width: 100%;
-  height: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  animation: fadeInUp 1s ease-out;
-  box-sizing: border-box;
+.custom-hero h1 {
+  font-size: clamp(3rem, 5vw, 5rem);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.5;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
-/* Word Animation (vertical text scroll) */
-.word-animation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem 0;
-  padding: 1rem 0;
-  height: 120px;
-  overflow: hidden;
+.custom-hero p {
+  font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+  max-width: 800px;
+  margin-bottom: 1rem;
+  color: var(--light-text, #ccc);
+  text-shadow: 0 1px 5px rgba(0,0,0,0.4);
 }
 
-#wordWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 2s ease;
-  height: 120px;
-}
-
-.word-item {
-  font-size: clamp(3rem, 5vw, 6rem);
-  font-weight: bolder;
-  color: var(--accent-color);
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-shadow: 0 0 10px rgba(93, 93, 255, 0.4);
-}
-
-/* ─────────────────────────────
-   Call-to-Action Button
-───────────────────────────── */
+/* Button styling */
 .c-button {
   text-decoration: none;
-  background-color: var(--theme-color); /* BLUE */
+  background-color: var(--theme-color, #5d5dff);
   color: #fff;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -557,44 +563,36 @@ background-size: cover;
   cursor: pointer;
   transition: background-color 0.3s ease;
   display: inline-block;
+  z-index: 2;
+  position: relative;
 }
 
 .c-button:hover {
-  background-color: #4a4ad1; /* Slightly darker blue */
+  background-color: #4a4ad1;
+}
+      /* Existing styles here... */
+
+/* Background images for each slide */
+.slide-treadmill {
+  background-image: url("/images/treadmill.jpg");
 }
 
-/* ─────────────────────────────
-   Swiper Navigation + Pagination
-───────────────────────────── */
-.swiper-button-next,
-.swiper-button-prev {
-  color: #ffffff;
-  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.4));
+.slide-elliptical {
+  background-image: url("/images/elliptical.jpg");
 }
 
-.swiper-pagination-bullet {
-  background-color: white;
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
+.slide-bike {
+  background-image: url("/images/bike.jpg");
 }
 
-.swiper-pagination-bullet-active {
-  opacity: 1;
+.slide-stepper {
+  background-image: url("/images/stepper.jpg");
 }
 
-/* ─────────────────────────────
-   Basic Fade Animation
-───────────────────────────── */
-@keyframes fadeInUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.slide-cable-machine {
+  background-image: url("/images/cable-machine.jpg");
 }
+
 
       @keyframes spin {
         0% {
@@ -1349,11 +1347,12 @@ background-size: cover;
           Schedule Service Today
         </a>
       </section> -->
-      <section class="hero-carousel swiper-container">
+   <section class="hero-carousel swiper-container">
   <div class="swiper-wrapper">
-    <!-- 🔹 Your Original Hero Section as Slide 1 -->
-    <div class="swiper-slide">
-      <div class="custom-hero hero">
+
+    <!-- Slide 1 -->
+    <div class="swiper-slide hero-slide hero">
+      <div class="custom-hero">
         <h1>GTA's #1 Fitness Repair Service</h1>
         <p>Expert repair, installation and maintenance for all fitness equipment</p>
         <div class="word-animation">
@@ -1369,9 +1368,8 @@ background-size: cover;
       </div>
     </div>
 
-    <!-- 🔹 Additional Carousel Slides (from previous step) -->
-    <div class="swiper-slide">
-      <img src="images/treadmill.jpg" alt="Treadmill Repair" class="hero-img" />
+    <!-- Slide 2 -->
+    <div class="swiper-slide hero-slide slide-treadmill">
       <div class="slide-content">
         <h1>Expert Treadmill Repairs in the GTA</h1>
         <p>We fix belt issues, motor problems, noisy rollers—same-day appointments.</p>
@@ -1379,49 +1377,50 @@ background-size: cover;
       </div>
     </div>
 
-    <!-- Elliptical Slide -->
-    <div class="swiper-slide">
-      <img src="images/elliptical.jpg" alt="Elliptical Repair" class="hero-img" />
+    <!-- Slide 3 -->
+    <div class="swiper-slide hero-slide slide-elliptical">
       <div class="slide-content">
         <h1>Elliptical Not Running Smooth? We Can Help.</h1>
         <p>From resistance issues to drive malfunctions—we’ll get it working like new.</p>
         <a class="c-button" href="get-quote.html">Book Elliptical Service</a>
       </div>
     </div>
-    <!-- Bike Slide -->
-    <div class="swiper-slide">
-      <img src="images/bike.jpg" alt="Bike Repair" class="hero-img" />
+
+    <!-- Slide 4 -->
+    <div class="swiper-slide hero-slide slide-bike">
       <div class="slide-content">
         <h1>Reliable Bike Repairs for Every Brand</h1>
         <p>We handle pedals, sensors, resistance systems & more—spin, upright, recumbent.</p>
         <a class="c-button" href="get-quote.html">Fix My Bike Today</a>
       </div>
     </div>
-    <!-- Stepper Slide -->
-    <div class="swiper-slide">
-      <img src="images/stepper.jpg" alt="Stepper Repair" class="hero-img" />
+
+    <!-- Slide 5 -->
+    <div class="swiper-slide hero-slide slide-stepper">
       <div class="slide-content">
         <h1>Step Machines Giving You Trouble?</h1>
         <p>We specialize in stairclimber & stepper repair with fast diagnostics.</p>
         <a class="c-button" href="get-quote.html">Request Stepper Repair</a>
       </div>
     </div>
-    <!-- Cable Machine Slide -->
-    <div class="swiper-slide">
-      <img src="images/cable-machine.jpg" alt="Cable Machine Repair" class="hero-img" />
+
+    <!-- Slide 6: Cable Machine -->
+    <div class="swiper-slide hero-slide slide-cable-machine">
       <div class="slide-content">
         <h1>Cable Snapped or Pulley Jammed?</h1>
         <p>We fix cable machines, weight stacks, pulleys & strength systems.</p>
         <a class="c-button" href="get-quote.html">Book Weight Machine Repair</a>
       </div>
-  </div>
+    </div>
+
   </div>
 
-  <!-- Optional Navigation -->
+  <!-- Swiper pagination and navigation -->
   <div class="swiper-pagination"></div>
   <div class="swiper-button-prev"></div>
   <div class="swiper-button-next"></div>
 </section>
+
       <section class="brand-section">
         <h2 class="brand-title">Trusted by Professionals Worldwide</h2>
         <div class="brand-carousel-container">
