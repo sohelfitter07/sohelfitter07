@@ -430,24 +430,20 @@
         animation: spin 8s linear infinite;
         z-index: 1;
       }
-      /* ─────────────────────────────
+/* ─────────────────────────────
    SWIPER Carousel Styles
 ───────────────────────────── */
 .hero-carousel {
   width: 100%;
-  height: 100%;
-  position: relative;
-}
-.hero-carousel {
-  background-color: var(--bg-color); /* light background */
-  color: var(--text-color);
   min-height: 600px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 2rem;
+  padding: 0;
 }
 
 .swiper-slide {
@@ -456,9 +452,11 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 500px;
+  min-height: 600px;
+  width: 100%;
   overflow: hidden;
 }
+
 .hero-img {
   width: 100%;
   height: 100%;
@@ -467,25 +465,30 @@
   z-index: 0;
   top: 0;
   left: 0;
-  filter: brightness(0.5);
+  filter: brightness(0.4);
 }
+
+/* Slide content for image-based slides */
 .slide-content {
   position: relative;
   z-index: 1;
   color: #fff;
   max-width: 800px;
-  padding: 1rem;
+  padding: 2rem;
   animation: fadeInUp 0.8s ease-out;
-}
-.slide-content h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-.slide-content p {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
+  box-sizing: border-box;
 }
 
+.slide-content h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.slide-content p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
 
 /* ─────────────────────────────
    Custom Hero Slide (First Slide)
@@ -494,21 +497,18 @@
   background: linear-gradient(to bottom right, #004488, #0066aa);
   padding: 3rem 1rem;
   color: #fff;
-  width: 100%;        /* keep full width */
-  height: 600px;      /* match hero-carousel height */
-  max-width: none;    /* remove max-width */
-  margin: 0;          /* remove horizontal centering margin */
-  z-index: 1;
-  position: relative;
-  display: flex;      /* flex for centering */
+  width: 100%;
+  height: 600px;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   animation: fadeInUp 1s ease-out;
-  box-sizing: border-box; /* ensure padding included in width */
+  box-sizing: border-box;
 }
 
-/* Word Animation (vertical) */
+/* Word Animation (vertical text scroll) */
 .word-animation {
   display: flex;
   align-items: center;
@@ -518,6 +518,7 @@
   height: 120px;
   overflow: hidden;
 }
+
 #wordWrapper {
   display: flex;
   flex-direction: column;
@@ -525,10 +526,11 @@
   transition: transform 2s ease;
   height: 120px;
 }
+
 .word-item {
   font-size: clamp(3rem, 5vw, 6rem);
   font-weight: bolder;
-   color: var(--accent-color);
+  color: var(--accent-color);
   height: 120px;
   display: flex;
   align-items: center;
@@ -537,16 +539,41 @@
 }
 
 /* ─────────────────────────────
+   Call-to-Action Button
+───────────────────────────── */
+.c-button {
+  text-decoration: none;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+.c-button:hover {
+  background-color: #4a4ad1;
+}
+
+/* ─────────────────────────────
    Swiper Navigation + Pagination
 ───────────────────────────── */
 .swiper-button-next,
 .swiper-button-prev {
-  color: white;
+  color: #ffffff;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.4));
 }
+
 .swiper-pagination-bullet {
   background-color: white;
-  opacity: 0.7;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
 }
+
 .swiper-pagination-bullet-active {
   opacity: 1;
 }
@@ -564,6 +591,7 @@
     opacity: 1;
   }
 }
+
       @keyframes spin {
         0% {
           transform: rotate(0deg);
