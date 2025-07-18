@@ -3,25 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Canadian Fitness Repair</title>
+    <title>Treadmill Repair Hamilton | 24/7 Emergency Service | Canadian Fitness Repair</title>
+    <meta name="description" content="24/7 Treadmill Repair Hamilton ➤ Emergency Same-Day Service ✅ Certified Technicians ❌ No Extra Fees ⭐ 4.9/5 Rated. Serving Ancaster, Dundas, Burlington">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <style>
         :root {
-            --dark-bg: #121826;
-            --dark-card: #1f2937;
-            --dark-border: #374151;
-            --dark-text: #e5e7eb;
-            --dark-accent: #3b82f6;
-            --dark-hover: #4b5563;
-            --dark-success: #10b981;
-            --dark-warning: #f59e0b;
-            --dark-danger: #ef4444;
-            --dark-gray: #9ca3af;
-            --dark-highlight: #1e40af;
-            --dark-shadow: rgba(0, 0, 0, 0.4);
-            --sidebar-width: 260px;
-            --header-height: 70px;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #dc2626;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --accent: #f97316;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --transition: all 0.3s ease;
         }
         
@@ -29,1439 +24,1102 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
         
         body {
-            background-color: var(--dark-bg);
-            color: var(--dark-text);
-            min-height: 100vh;
+            background-color: #0f172a;
+            color: var(--light);
             overflow-x: hidden;
+            line-height: 1.6;
         }
         
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
-        /* Sidebar */
-        .sidebar {
-            width: var(--sidebar-width);
-            background: var(--dark-card);
-            height: 100vh;
+        /* Header Styles */
+        header {
+            background: rgba(15, 23, 42, 0.95);
             position: fixed;
-            overflow-y: auto;
-            transition: var(--transition);
-            z-index: 100;
-            border-right: 1px solid var(--dark-border);
-            box-shadow: 0 0 20px var(--dark-shadow);
-            transform: translateX(-100%);
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .sidebar.active {
-            transform: translateX(0);
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
         }
         
-        .brand {
-            padding: 25px;
-            text-align: center;
-            border-bottom: 1px solid var(--dark-border);
+        .logo {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
+            gap: 10px;
         }
         
-        .brand h2 {
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo-text {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(90deg, var(--dark-accent), #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--light);
         }
         
-        .brand i {
-            font-size: 1.8rem;
-            color: var(--dark-accent);
+        .logo-text span {
+            color: var(--primary);
         }
         
-        .nav-links {
-            padding: 20px 0;
-        }
-        
-        .nav-links a {
+        nav ul {
             display: flex;
-            align-items: center;
-            padding: 16px 30px;
-            color: var(--dark-gray);
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: var(--light);
             text-decoration: none;
-            transition: var(--transition);
-            border-left: 4px solid transparent;
             font-weight: 500;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
         }
         
-        .nav-links a:hover, .nav-links a.active {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--dark-accent);
-            border-left: 4px solid var(--dark-accent);
+        nav a:hover {
+            color: var(--primary);
         }
         
-        .nav-links a i {
-            margin-right: 15px;
-            font-size: 1.2rem;
-            width: 24px;
-            text-align: center;
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
             transition: var(--transition);
         }
         
-        .nav-links a.active i, .nav-links a:hover i {
-            transform: scale(1.1);
+        nav a:hover::after {
+            width: 100%;
         }
         
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 25px;
-            padding-top: 90px;
-        }
-        
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--header-height);
-            background: rgba(31, 41, 55, 0.8);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px var(--dark-shadow);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 30px;
-            z-index: 90;
-            border-bottom: 1px solid var(--dark-border);
-        }
-        
-        .header h2 {
-            font-weight: 600;
-            font-size: 1.4rem;
-            background: linear-gradient(90deg, var(--dark-accent), #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .header-right {
+        .contact-header {
             display: flex;
             align-items: center;
             gap: 20px;
         }
         
-        .user-info {
+        .phone-link {
             display: flex;
             align-items: center;
-            gap: 15px;
-        }
-        
-        .user-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--dark-accent), #7c3aed);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-        
-        .tabs {
-            display: flex;
-            background: var(--dark-card);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px var(--dark-shadow);
-            margin-bottom: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .tab {
-            padding: 16px 25px;
-            cursor: pointer;
-            font-weight: 500;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--light);
+            text-decoration: none;
             transition: var(--transition);
-            text-align: center;
-            flex: 1;
-            color: var(--dark-gray);
+        }
+        
+        .phone-link:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #b91c1c;
+            box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+        }
+        
+        /* Hero Section with Swiper Carousel */
+        .hero-section {
+            height: 100vh;
+            margin-top: 70px;
             position: relative;
             overflow: hidden;
         }
         
-        .tab.active {
-            background: linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
-            color: var(--dark-accent);
+        .swiper {
+            width: 100%;
+            height: 100%;
         }
         
-        .tab.active::after {
+        .swiper-slide {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.6) 100%);
+            z-index: 1;
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .slide-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slide-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .slide-1 {
+            background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+        }
+        
+        .slide-2 {
+            background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+        }
+        
+        .slide-3 {
+            background-image: url('https://images.unsplash.com/photo-1519505907962-0a6cb0167c73?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+        }
+        
+        .slide-4 {
+            background-image: url('https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+        }
+        
+        .slide-5 {
+            background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+        }
+        
+        .swiper-pagination-bullet {
+            background: var(--light);
+            opacity: 0.5;
+            width: 12px;
+            height: 12px;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: var(--primary);
+            opacity: 1;
+        }
+        
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 1.2rem;
+        }
+        
+        /* Trust Badges */
+        .trust-badges {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Services Section */
+        .services-section {
+            padding: 100px 0;
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: 100px 0;
+            background: var(--dark);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-card {
+            padding: 30px;
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+        
+        /* Testimonials */
+        .testimonials-section {
+            padding: 100px 0;
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 5rem;
+            color: var(--primary);
+            opacity: 0.1;
+            font-family: serif;
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .testimonial-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 1rem;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            line-height: 1.7;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .cta-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        /* Footer */
+        footer {
+            background: #020617;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--dark-accent), #8b5cf6);
-        }
-        
-        .tab-content {
-            display: none;
-            padding: 30px;
-            background: var(--dark-card);
-            border-radius: 16px;
-            box-shadow: 0 8px 30px var(--dark-shadow);
-            margin-bottom: 35px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 35px;
-        }
-        
-        .card {
-            background: linear-gradient(145deg, rgba(31, 41, 55, 0.7), rgba(17, 24, 39, 0.7));
-            border-radius: 16px;
-            padding: 25px;
-            transition: var(--transition);
-            border: 1px solid var(--dark-border);
-            box-shadow: 0 8px 20px var(--dark-shadow);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--dark-accent), #8b5cf6);
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark-text);
-        }
-        
-        .card-icon {
             width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-col p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .contact-info {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background: rgba(59, 130, 246, 0.15);
-            color: var(--dark-accent);
+            flex-direction: column;
+            gap: 15px;
         }
         
-        .card-content {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--dark-text);
-            margin: 10px 0;
+        .contact-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
         }
         
-        .card-footer {
-            font-size: 0.9rem;
-            color: var(--dark-gray);
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
         }
         
-        .card-footer i {
-            color: var(--dark-success);
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
         }
         
-        .table-container {
-            overflow-x: auto;
-            border-radius: 12px;
-            border: 1px solid var(--dark-border);
-            box-shadow: 0 4px 15px var(--dark-shadow);
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 800px;
-        }
-        
-        th, td {
-            padding: 18px 20px;
-            text-align: left;
-            border-bottom: 1px solid var(--dark-border);
-        }
-        
-        th {
-            background-color: rgba(31, 41, 55, 0.8);
-            font-weight: 600;
-            color: var(--dark-accent);
-            position: sticky;
-            top: 0;
-        }
-        
-        tr {
-            transition: var(--transition);
-        }
-        
-        tr:hover {
-            background: rgba(59, 130, 246, 0.05);
-        }
-        
-        .action-btn {
-            background: rgba(59, 130, 246, 0.1);
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 8px;
-            transition: var(--transition);
-            color: var(--dark-accent);
-            width: 36px;
-            height: 36px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .action-btn:hover {
-            background: rgba(59, 130, 246, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .action-btn.delete-btn {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--dark-danger);
-        }
-        
-        .action-btn.delete-btn:hover {
-            background: rgba(239, 68, 68, 0.2);
-        }
-        
-        .status-badge {
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            display: inline-block;
-        }
-        
-        .status-scheduled {
-            background: rgba(93, 93, 255, 0.15);
-            color: #5d5dff;
-        }
-        
-        .status-draft {
-            background: rgba(149, 165, 166, 0.15);
-            color: #95a5a6;
-        }
-        
-        .status-released {
-            background: rgba(46, 204, 113, 0.15);
-            color: #2ecc71;
-        }
-        
-        .status-inprogress {
-            background: rgba(52, 152, 219, 0.15);
-            color: #3498db;
-        }
-        
-        .status-cancelled {
-            background: rgba(231, 76, 60, 0.15);
-            color: #e74c3c;
-        }
-        
-        .status-warning {
-            background: rgba(243, 156, 18, 0.15);
-            color: #f39c12;
-        }
-        
-        /* Calendar */
-        .calendar-header {
+        .social-links {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-        
-        .calendar-nav {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 12px;
+            gap: 15px;
             margin-top: 20px;
         }
         
-        .calendar-day-header {
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
             text-align: center;
-            padding: 15px 10px;
-            font-weight: 600;
-            background: var(--dark-card);
-            border-radius: 12px;
-            color: var(--dark-accent);
-            border: 1px solid var(--dark-border);
-        }
-        
-        .calendar-day {
-            min-height: 120px;
-            background: linear-gradient(145deg, rgba(31, 41, 55, 0.7), rgba(17, 24, 39, 0.7));
-            border-radius: 12px;
-            padding: 15px;
-            border: 1px solid var(--dark-border);
-            box-shadow: 0 4px 10px var(--dark-shadow);
-            transition: var(--transition);
-        }
-        
-        .calendar-day:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-        }
-        
-        .calendar-day.empty {
-            background: transparent;
-            box-shadow: none;
-            border: none;
-        }
-        
-        .day-number {
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--dark-text);
-            font-size: 1.1rem;
-        }
-        
-        .appointment-item {
-            background: rgba(59, 130, 246, 0.15);
-            padding: 8px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            font-size: 0.8rem;
-            color: var(--dark-accent);
-            cursor: pointer;
-            transition: var(--transition);
-            border-left: 3px solid var(--dark-accent);
-        }
-        
-        .appointment-item:hover {
-            background: rgba(59, 130, 246, 0.25);
-        }
-        
-        .btn {
-            padding: 12px 22px;
-            background: linear-gradient(90deg, var(--dark-accent), #7c3aed);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .btn.secondary {
-            background: var(--dark-card);
-            color: var(--dark-gray);
-            box-shadow: 0 4px 15px var(--dark-shadow);
-        }
-        
-        .btn.secondary:hover {
-            background: var(--dark-hover);
-            color: var(--dark-text);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Toast notifications */
-        .toast {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            padding: 18px 28px;
-            border-radius: 12px;
-            background: var(--dark-card);
-            color: white;
-            z-index: 1000;
-            box-shadow: 0 8px 25px var(--dark-shadow);
-            opacity: 0;
-            transform: translateY(-30px);
-            transition: var(--transition);
-            border: 1px solid var(--dark-border);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            max-width: 350px;
-        }
-        
-        .toast.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .toast.error {
-            border-left: 4px solid var(--dark-danger);
-        }
-        
-        .toast.success {
-            border-left: 4px solid var(--dark-success);
-        }
-        
-        .toast i {
-            font-size: 1.4rem;
-        }
-        
-        .toast.success i {
-            color: var(--dark-success);
-        }
-        
-        .toast.error i {
-            color: var(--dark-danger);
-        }
-        
-        /* Loading overlay */
-        #loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(18, 24, 38, 0.95);
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 1.2rem;
-            flex-direction: column;
-            display: none;
-        }
-        
-        #loading-overlay .spinner {
-            font-size: 3.5rem;
-            margin-bottom: 25px;
-            animation: spin 1.2s linear infinite;
-            color: var(--dark-accent);
-        }
-        
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Modal Styling */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: var(--dark-card);
-            border-radius: 20px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px var(--dark-shadow);
-            border: 1px solid var(--dark-border);
-            position: relative;
-            padding: 35px;
-            animation: modalIn 0.4s ease;
-        }
-        
-        @keyframes modalIn {
-            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            font-size: 1.8rem;
-            color: var(--dark-gray);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .close-modal:hover {
-            color: var(--dark-danger);
-            transform: rotate(90deg);
-        }
-        
-        .modal h2 {
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-            color: var(--dark-text);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .modal h2 i {
-            color: var(--dark-accent);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 14px 18px;
-            background: var(--dark-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 10px;
-            color: var(--dark-text);
-            font-size: 1rem;
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--dark-accent);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-        }
-        
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-        
-        /* Mobile sidebar header */
-        .mobile-sidebar-header {
-            display: none;
-            padding: 20px;
-            border-bottom: 1px solid var(--dark-border);
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .mobile-close-btn {
-            background: none;
-            border: none;
-            color: var(--dark-gray);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        .mobile-user-info {
-            display: none;
-            padding: 20px;
-            border-bottom: 1px solid var(--dark-border);
-            align-items: center;
-            gap: 15px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--gray);
+            font-size: 0.9rem;
         }
         
         /* Responsive Design */
-        @media (max-width: 1200px) {
-            .sidebar {
-                width: 80px;
-            }
-            
-            .sidebar .brand h2, .sidebar .nav-links a span {
-                display: none;
-            }
-            
-            .sidebar .brand {
-                padding: 25px 15px;
-                justify-content: center;
-            }
-            
-            .sidebar .nav-links a {
-                justify-content: center;
-                padding: 18px 15px;
-            }
-            
-            .sidebar .nav-links a i {
-                margin-right: 0;
-                font-size: 1.4rem;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-        }
-        
         @media (max-width: 992px) {
-            .card-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .slide-content h1 {
+                font-size: 2.8rem;
             }
             
-            .tabs {
-                flex-wrap: wrap;
-            }
-            
-            .tab {
-                flex: 1 0 33%;
+            .slide-content p {
+                font-size: 1.2rem;
             }
         }
         
         @media (max-width: 768px) {
-            .header {
-                padding: 0 20px;
+            .header-container {
                 flex-direction: column;
-                height: auto;
-                padding: 15px 0;
+                gap: 15px;
             }
             
-            .header h2 {
-                margin-bottom: 15px;
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
-            .main-content {
-                padding: 20px 15px;
-                padding-top: 110px;
+            .contact-header {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tabs {
+            .hero-btns {
                 flex-direction: column;
+                align-items: center;
             }
             
-            .tab {
-                flex: 1;
+            .slide-content h1 {
+                font-size: 2.2rem;
             }
             
-            .calendar-grid {
-                grid-template-columns: repeat(7, minmax(40px, 1fr));
-                gap: 8px;
+            .trust-badges {
+                position: static;
+                margin-top: 30px;
             }
             
-            .calendar-day {
-                min-height: 90px;
-                padding: 10px;
-            }
-            
-            .appointment-item {
-                padding: 6px;
-                font-size: 0.7rem;
-            }
-            
-            .modal-content {
-                width: 95%;
-                padding: 25px;
+            .section-title h2 {
+                font-size: 2rem;
             }
         }
         
         @media (max-width: 576px) {
-            .header .user-info {
-                display: none;
+            .slide-content h1 {
+                font-size: 1.8rem;
             }
             
-            .mobile-sidebar-header {
-                display: flex;
+            .section-title h2 {
+                font-size: 1.8rem;
             }
             
-            .mobile-user-info {
-                display: flex;
-            }
-            
-            .calendar-grid {
-                grid-template-columns: repeat(7, minmax(35px, 1fr));
-                gap: 5px;
-            }
-            
-            .calendar-day {
-                min-height: 70px;
-                padding: 8px;
-            }
-            
-            .day-number {
-                font-size: 0.9rem;
-            }
-            
-            .appointment-item {
-                display: none;
-            }
-            
-            .calendar-day:hover .appointment-item {
-                display: block;
-            }
-            
-            .calendar-day-header {
-                padding: 10px 5px;
-                font-size: 0.8rem;
-            }
-            
-            .calendar-header {
+            .cta-btns {
                 flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
+                align-items: center;
             }
-            
-            .calendar-nav {
-                align-self: flex-end;
-            }
-        }
-        
-        /* Mobile menu button */
-        .mobile-menu-btn {
-            display: block;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1500;
-            background: linear-gradient(90deg, var(--dark-accent), #7c3aed);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .mobile-menu-btn:hover {
-            transform: scale(1.1);
-        }
-        
-        /* Calendar day popup */
-        .calendar-day-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--dark-card);
-            border-radius: 16px;
-            padding: 25px;
-            z-index: 2000;
-            width: 90%;
-            max-width: 400px;
-            max-height: 80vh;
-            overflow-y: auto;
-            border: 1px solid var(--dark-accent);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            display: none;
-        }
-        
-        .calendar-day-popup.active {
-            display: block;
-            animation: popupIn 0.3s ease;
-        }
-        
-        @keyframes popupIn {
-            from { opacity: 0; transform: translate(-50%, -40%); }
-            to { opacity: 1; transform: translate(-50%, -50%); }
-        }
-        
-        .popup-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .popup-close {
-            background: none;
-            border: none;
-            color: var(--dark-gray);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        .popup-appointments {
-            max-height: 60vh;
-            overflow-y: auto;
-            padding-right: 10px;
         }
     </style>
 </head>
 <body>
-    <!-- Mobile Menu Button -->
-    <div class="mobile-menu-btn">
-        <i class="fas fa-bars"></i>
-    </div>
-    
-    <!-- Loading Overlay -->
-    <div id="loading-overlay">
-        <div class="spinner"><i class="fas fa-spinner"></i></div>
-        <div>Loading dashboard...</div>
-    </div>
-    
-    <!-- Toast Container -->
-    <div id="toast-container"></div>
-    
-    <!-- Calendar Day Popup -->
-    <div class="calendar-day-popup">
-        <div class="popup-header">
-            <h3 id="popup-date">Appointments</h3>
-            <button class="popup-close"><i class="fas fa-times"></i></button>
+    <!-- Header Section -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-text">Canadian<span>Fitness</span></div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#services"><i class="fas fa-tools"></i> Services</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Coverage</a></li>
+                    <li><a href="#"><i class="fas fa-dollar-sign"></i> Pricing</a></li>
+                    <li><a href="#"><i class="fas fa-phone-alt"></i> Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="contact-header">
+                <a href="tel:+12899257239" class="phone-link">
+                    <i class="fas fa-phone-alt"></i> +1 (289) 925-7239
+                </a>
+                <a href="get-quote.html" class="btn">Get Quote</a>
+            </div>
         </div>
-        <div class="popup-appointments" id="popup-appointments">
-            <!-- Appointments will be populated here -->
-        </div>
-    </div>
-    
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="mobile-sidebar-header">
-            <h3>Fitness Repair</h3>
-            <button class="mobile-close-btn"><i class="fas fa-times"></i></button>
+    </header>
+
+    <!-- Hero Section with Swiper Carousel -->
+    <section class="hero-section">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <!-- Slide 1: Treadmill -->
+                <div class="swiper-slide slide-1">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <h1>Treadmill Repair Experts</h1>
+                        <p>24/7 emergency service for all treadmill brands in Hamilton & surrounding areas</p>
+                        <div class="hero-btns">
+                            <a href="tel:+12899257239" class="btn btn-secondary">Call Now: (289) 925-7239</a>
+                            <a href="get-quote.html" class="btn">Request Service</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2: Elliptical -->
+                <div class="swiper-slide slide-2">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <h1>Elliptical Machine Specialists</h1>
+                        <p>Fix stride issues, resistance problems, and electronic failures</p>
+                        <div class="hero-btns">
+                            <a href="tel:+12899257239" class="btn btn-secondary">Call Now: (289) 925-7239</a>
+                            <a href="get-quote.html" class="btn">Request Service</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3: Exercise Bike -->
+                <div class="swiper-slide slide-3">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <h1>Exercise Bike Repair</h1>
+                        <p>Professional service for stationary bikes, spin bikes, and recumbent bikes</p>
+                        <div class="hero-btns">
+                            <a href="tel:+12899257239" class="btn btn-secondary">Call Now: (289) 925-7239</a>
+                            <a href="get-quote.html" class="btn">Request Service</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 4: Strength Equipment -->
+                <div class="swiper-slide slide-4">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <h1>Strength Equipment Service</h1>
+                        <p>Repair and maintenance for cable machines, weight stacks, and more</p>
+                        <div class="hero-btns">
+                            <a href="tel:+12899257239" class="btn btn-secondary">Call Now: (289) 925-7239</a>
+                            <a href="get-quote.html" class="btn">Request Service</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 5: Commercial Equipment -->
+                <div class="swiper-slide slide-5">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <h1>Commercial Gym Solutions</h1>
+                        <p>Service contracts for fitness centers, hotels, and corporate gyms</p>
+                        <div class="hero-btns">
+                            <a href="tel:+12899257239" class="btn btn-secondary">Call Now: (289) 925-7239</a>
+                            <a href="get-quote.html" class="btn">Request Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Swiper navigation -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
         </div>
         
-        <div class="mobile-user-info">
-            <div class="user-avatar">A</div>
-            <div>
-                <div id="mobile-user-name">admin@fitnessrepair.com</div>
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+            <div class="badge">
+                <i class="fas fa-bolt"></i> Same Day Service
+            </div>
+            <div class="badge">
+                <i class="fas fa-user-tie"></i> Certified Technicians
+            </div>
+            <div class="badge">
+                <i class="fas fa-star"></i> 4.9/5 Rated
+            </div>
+            <div class="badge">
+                <i class="fas fa-shield-alt"></i> 90-Day Warranty
             </div>
         </div>
-        
-        <div class="brand">
-            <i class="fas fa-dumbbell"></i>
-            <h2>Fitness Repair</h2>
-        </div>
-        <div class="nav-links">
-            <a href="#" data-view="dashboard" class="active">
-                <i class="fas fa-chart-line"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="#" data-view="appointments">
-                <i class="fas fa-calendar-check"></i>
-                <span>Appointments</span>
-            </a>
-            <a href="#" data-view="calendar">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Calendar</span>
-            </a>
-            <a href="#" data-view="customers">
-                <i class="fas fa-users"></i>
-                <span>Customers</span>
-            </a>
-            <a href="#" data-view="reports">
-                <i class="fas fa-chart-pie"></i>
-                <span>Reports</span>
-            </a>
-            <a href="#" data-view="settings">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
-            <a href="#" data-view="help">
-                <i class="fas fa-question-circle"></i>
-                <span>Help Center</span>
-            </a>
-            <a href="#" data-view="logout">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </div>
+    </section>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="header">
-            <h2><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
-            <div class="header-right">
-                <div class="user-info">
-                    <div class="user-avatar">A</div>
-                    <div>
-                        <div id="user-name">admin@fitnessrepair.com</div>
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Repair Services</h2>
+                <p>Comprehensive solutions for all your fitness equipment needs</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-running"></i>
                     </div>
+                    <h3>Treadmill Repair</h3>
+                    <p>Motor issues, belt replacements, incline fixes, control panel repairs for all treadmill brands.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shoe-prints"></i>
+                    </div>
+                    <h3>Elliptical Repair</h3>
+                    <p>Stride adjustment, noise fixes, resistance and console repairs for ellipticals.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bicycle"></i>
+                    </div>
+                    <h3>Exercise Bike Repair</h3>
+                    <p>Pedal, crank, resistance unit, and display repairs for upright and spin bikes.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Strength Equipment</h3>
+                    <p>Cables, pulleys, adjustment knobs, and upholstery repair for gym strength machines.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Preventative Maintenance</h3>
+                    <p>Routine maintenance including belt lubrication, motor cleaning, alignment and inspection.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Commercial Service</h3>
+                    <p>Onsite service contracts and same-day repairs for fitness clubs, condos, and hotels.</p>
+                    <a href="#" class="btn">Learn More</a>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Tabs -->
-        <div class="tabs">
-            <div class="tab active" data-tab="dashboard">Dashboard</div>
-            <div class="tab" data-tab="appointments">Appointments</div>
-            <div class="tab" data-tab="calendar">Calendar</div>
-            <div class="tab" data-tab="customers">Customers</div>
-            <div class="tab" data-tab="reports">Reports</div>
-            <div class="tab" data-tab="settings">Settings</div>
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1500+</div>
+                    <div class="stat-text">Repairs Completed</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-text">Satisfaction Rate</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">12+</div>
+                    <div class="stat-text">Years Experience</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-text">Happy Clients</div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Dashboard View -->
-        <div id="dashboard-view" class="tab-content active">
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Total Appointments</div>
-                        <div class="card-icon">
-                            <i class="fas fa-calendar"></i>
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Client Testimonials</h2>
+                <p>What our customers say about our service</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Michael Johnson</h4>
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-content" id="total-appointments">42</div>
-                    <div class="card-footer">
-                        <i class="fas fa-arrow-up"></i> 12% from last month
+                    <p class="testimonial-text">
+                        "Canadian Fitness Repair saved our downtown Hamilton gym! When our treadmills broke down, they responded quickly and had us back in business within hours. Their technicians are true professionals serving the entire GTHA region."
+                    </p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Sarah Thompson</h4>
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "The maintenance plan they created for our Ancaster home gym has been invaluable. Our equipment runs like new, and we've avoided costly repairs. Highly recommend their service to all Hamilton area residents!"
+                    </p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>David Chen</h4>
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Their relocation service made moving our Burlington commercial gym equipment seamless. Everything arrived safely and was set up perfectly. Couldn't be happier with their Halton Region service!"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Need Emergency Repair Service?</h2>
+                <p>We offer 24/7 emergency service for all fitness equipment. Call us now or request a callback.</p>
+                <div class="cta-btns">
+                    <a href="tel:+12899257239" class="btn btn-secondary">
+                        <i class="fas fa-phone-alt"></i> Call Now: (289) 925-7239
+                    </a>
+                    <a href="get-quote.html" class="btn">
+                        <i class="fas fa-calendar-alt"></i> Schedule Service
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Canadian Fitness Repair</h3>
+                    <p>Professional fitness equipment repair service serving Hamilton and surrounding areas. 24/7 emergency service available.</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+1 (289) 925-7239</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>service@canadianfitnessrepair.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Serving Hamilton, Burlington, Oakville, Mississauga, and Niagara Region</span>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Scheduled</div>
-                        <div class="card-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                    </div>
-                    <div class="card-content" id="scheduled-count">18</div>
-                    <div class="card-footer">
-                        <i class="fas fa-plus"></i> 3 new today
-                    </div>
+                <div class="footer-col">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Treadmill Repair</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Elliptical Repair</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Exercise Bike Repair</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Strength Equipment</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Preventative Maintenance</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Commercial Service</a></li>
+                    </ul>
                 </div>
                 
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">In Progress</div>
-                        <div class="card-icon">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                    </div>
-                    <div class="card-content" id="inprogress-count">9</div>
-                    <div class="card-footer">
-                        <i class="fas fa-exclamation-triangle"></i> 2 need parts
-                    </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Service Areas</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                    </ul>
                 </div>
                 
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Completed</div>
-                        <div class="card-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                    </div>
-                    <div class="card-content" id="released-count">15</div>
-                    <div class="card-footer">
-                        <i class="fas fa-arrow-up"></i> $3,750 revenue
+                <div class="footer-col">
+                    <h3>Business Hours</h3>
+                    <p>Monday - Friday: 6:00 AM - 11:00 PM</p>
+                    <p>Saturday: 9:00 AM - 10:00 PM</p>
+                    <p>Sunday: 9:00 AM - 10:00 PM</p>
+                    <p>24/7 Emergency Service Available</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-yelp"></i></a>
                     </div>
                 </div>
             </div>
             
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Appointments Overview</div>
-                    <div class="card-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                </div>
-                <div style="height: 350px;">
-                    <canvas id="appointmentsChart"></canvas>
-                </div>
+            <div class="copyright">
+                <p>&copy; 2023 Canadian Fitness Repair. All Rights Reserved. | Serving Hamilton and surrounding areas</p>
             </div>
         </div>
+    </footer>
 
-        <!-- Calendar View -->
-        <div id="calendar-view" class="tab-content">
-            <div class="calendar-header">
-                <h2 id="current-month-year">June 2024</h2>
-                <div class="calendar-nav">
-                    <button id="prev-month" class="btn secondary"><i class="fas fa-chevron-left"></i> Prev</button>
-                    <button id="next-month" class="btn">Next <i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-            
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Month Summary</div>
-                        <div class="card-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                        <div>
-                            <div class="card-content" id="summary-total">42</div>
-                            <div class="card-footer">Total Appointments</div>
-                        </div>
-                        <div>
-                            <div class="card-content" id="summary-days">21</div>
-                            <div class="card-footer">Business Days</div>
-                        </div>
-                        <div>
-                            <div class="card-content" id="summary-revenue">$3,750</div>
-                            <div class="card-footer">Revenue</div>
-                        </div>
-                        <div>
-                            <div class="card-content" id="summary-utilization">78%</div>
-                            <div class="card-footer">Utilization</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Performance Metrics</div>
-                        <div class="card-icon">
-                            <i class="fas fa-tachometer-alt"></i>
-                        </div>
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-                        <div>
-                            <div class="card-content" id="current-appointments">9</div>
-                            <div class="card-footer">Current</div>
-                        </div>
-                        <div>
-                            <div class="card-content" id="monthly-released">15</div>
-                            <div class="card-footer">Completed</div>
-                        </div>
-                        <div>
-                            <div class="card-content" id="monthly-revenue">$3,750</div>
-                            <div class="card-footer">Revenue</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="calendar-grid" id="calendar-days">
-                <div class="calendar-day-header">Sun</div>
-                <div class="calendar-day-header">Mon</div>
-                <div class="calendar-day-header">Tue</div>
-                <div class="calendar-day-header">Wed</div>
-                <div class="calendar-day-header">Thu</div>
-                <div class="calendar-day-header">Fri</div>
-                <div class="calendar-day-header">Sat</div>
-                
-                <!-- Empty days for start of month -->
-                <div class="calendar-day empty"></div>
-                <div class="calendar-day empty"></div>
-                <div class="calendar-day empty"></div>
-                <div class="calendar-day empty"></div>
-                
-                <!-- Calendar days -->
-                <div class="calendar-day">
-                    <div class="day-number">1</div>
-                    <div class="appointment-item">John - 10:00 AM</div>
-                    <div class="appointment-item">Sarah - 2:30 PM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">2</div>
-                    <div class="appointment-item">Mike - 9:00 AM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">3</div>
-                    <div class="appointment-item">GymPro - 11:00 AM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">4</div>
-                    <div class="appointment-item">Lisa - 3:00 PM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">5</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">6</div>
-                    <div class="appointment-item">Robert - 1:00 PM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">7</div>
-                    <div class="appointment-item">Fitness Center - 10:30 AM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">8</div>
-                    <div class="appointment-item">Mark - 2:00 PM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">9</div>
-                    <div class="appointment-item">Treadmill Repair</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">10</div>
-                    <div class="appointment-item">Elliptical Maint.</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">11</div>
-                    <div class="appointment-item">Weight Machine</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">12</div>
-                    <div class="appointment-item">Anna - 11:00 AM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">13</div>
-                    <div class="appointment-item">David - 3:30 PM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">14</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">15</div>
-                    <div class="appointment-item">Gym Service</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">16</div>
-                    <div class="appointment-item">Sarah - 9:00 AM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">17</div>
-                    <div class="appointment-item">Mike - 1:00 PM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">18</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">19</div>
-                    <div class="appointment-item">Bike Repair</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">20</div>
-                    <div class="appointment-item">Rower Maint.</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">21</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">22</div>
-                    <div class="appointment-item">John - 10:00 AM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">23</div>
-                    <div class="appointment-item">Lisa - 2:30 PM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">24</div>
-                    <div class="appointment-item">Robert - 11:00 AM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">25</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">26</div>
-                    <div class="appointment-item">Fitness Center</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">27</div>
-                    <div class="appointment-item">Mark - 3:00 PM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">28</div>
-                    <div class="appointment-item">Anna - 1:30 PM</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">29</div>
-                </div>
-                <div class="calendar-day">
-                    <div class="day-number">30</div>
-                    <div class="appointment-item">David - 10:00 AM</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // Toggle sidebar
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.add('active');
-        });
-        
-        document.querySelector('.mobile-close-btn').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.remove('active');
-        });
-        
-        // Tab switching
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                // Remove active class from all tabs
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked tab
-                this.classList.add('active');
-                
-                // Hide all tab content
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                // Show the corresponding tab content
-                const tabId = this.getAttribute('data-tab');
-                document.getElementById(`${tabId}-view`).classList.add('active');
-            });
-        });
-        
-        // Calendar navigation
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"];
-        
-        let currentMonth = new Date().getMonth();
-        let currentYear = new Date().getFullYear();
-        
-        document.getElementById('prev-month').addEventListener('click', function() {
-            currentMonth--;
-            if (currentMonth < 0) {
-                currentMonth = 11;
-                currentYear--;
-            }
-            updateCalendarHeader();
-        });
-        
-        document.getElementById('next-month').addEventListener('click', function() {
-            currentMonth++;
-            if (currentMonth > 11) {
-                currentMonth = 0;
-                currentYear++;
-            }
-            updateCalendarHeader();
-        });
-        
-        function updateCalendarHeader() {
-            document.getElementById('current-month-year').textContent = 
-                `${monthNames[currentMonth]} ${currentYear}`;
-        }
-        
-        // Initialize Chart.js
-        const ctx = document.getElementById('appointmentsChart').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: 'Appointments',
-                    data: [35, 42, 38, 45, 47, 42, 50, 48, 46, 52, 49, 55],
-                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
-                    borderColor: 'rgba(59, 130, 246, 1)',
-                    borderWidth: 1
-                }]
+        // Initialize Swiper
+        const swiper = new Swiper('.swiper', {
+            loop: true,
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false,
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        },
-                        ticks: {
-                            color: '#e5e7eb'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            color: '#e5e7eb'
-                        }
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            effect: 'fade',
+            speed: 1000,
+            grabCursor: true,
+            touchEventsTarget: 'container'
+        });
+        
+        // Add scroll animation to stats
+        document.addEventListener('DOMContentLoaded', function() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const statsSection = document.querySelector('.stats-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        statNumbers.forEach((stat, index) => {
+                            const target = parseInt(stat.textContent.replace('+', ''));
+                            let count = 0;
+                            const duration = 2000;
+                            const increment = target / (duration / 16);
+                            
+                            const updateCount = () => {
+                                count += increment;
+                                if (count < target) {
+                                    stat.textContent = Math.ceil(count) + (stat.textContent.includes('+') ? '+' : '');
+                                    setTimeout(updateCount, 16);
+                                } else {
+                                    stat.textContent = target + (stat.textContent.includes('+') ? '+' : '');
+                                }
+                            };
+                            
+                            setTimeout(updateCount, index * 300);
+                        });
+                        observer.unobserve(statsSection);
                     }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#e5e7eb'
-                        }
-                    }
-                }
-            }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(statsSection);
         });
-        
-        // Calendar day popup
-        document.querySelectorAll('.calendar-day:not(.empty)').forEach(day => {
-            day.addEventListener('click', function() {
-                const dayNumber = this.querySelector('.day-number').textContent;
-                const monthYear = document.getElementById('current-month-year').textContent;
-                document.getElementById('popup-date').textContent = `${monthYear} ${dayNumber}`;
-                
-                // Clear previous appointments
-                const popupAppointments = document.getElementById('popup-appointments');
-                popupAppointments.innerHTML = '';
-                
-                // Add appointments to popup
-                const appointments = this.querySelectorAll('.appointment-item');
-                if (appointments.length > 0) {
-                    appointments.forEach(app => {
-                        const appElement = document.createElement('div');
-                        appElement.className = 'appointment-item';
-                        appElement.textContent = app.textContent;
-                        popupAppointments.appendChild(appElement);
-                    });
-                } else {
-                    popupAppointments.innerHTML = '<div class="no-appointments">No appointments scheduled</div>';
-                }
-                
-                // Show popup
-                document.querySelector('.calendar-day-popup').classList.add('active');
-            });
-        });
-        
-        // Close popup
-        document.querySelector('.popup-close').addEventListener('click', function() {
-            document.querySelector('.calendar-day-popup').classList.remove('active');
-        });
-        
-        // Close popup when clicking outside
-        document.addEventListener('click', function(event) {
-            const popup = document.querySelector('.calendar-day-popup');
-            if (popup.classList.contains('active') && 
-                !event.target.closest('.calendar-day-popup') && 
-                !event.target.closest('.calendar-day')) {
-                popup.classList.remove('active');
-            }
-        });
-        
-        // Simulate loading
-        setTimeout(() => {
-            document.getElementById('loading-overlay').style.display = 'none';
-        }, 1500);
     </script>
 </body>
 </html>
