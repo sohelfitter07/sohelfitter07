@@ -76,12 +76,10 @@
   },
   "telephone": "+1-289-925-7239",
   "areaServed": [
-    "Hamilton",
-    "Toronto",
-    "Oakville",
-    "Burlington",
-    "Mississauga"
-  ],
+  "Hamilton", "Ancaster", "Dundas", "Stoney Creek",
+  "Waterdown", "Binbrook", "Burlington", "Oakville",
+  "Mississauga", "Toronto"
+],
   "sameAs": [
     "https://www.facebook.com/CanadianFitnessRepair",
     "https://www.instagram.com/canadianfitnessrepair"
@@ -674,7 +672,82 @@
   .city-card p {
       color: var(--light-text);
   }
-  
+  /* ===== City-Specific Blurbs ===== */
+.city-blurb {
+  background: rgba(93, 93, 255, 0.04);
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border-left: 4px solid var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+.city-blurb:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(93, 93, 255, 0.1);
+}
+
+.city-blurb h3 {
+  margin-bottom: 1rem;
+  color: var(--theme-color);
+  font-size: 1.4rem;
+}
+
+.city-blurb a {
+  color: var(--accent-color);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.city-blurb p {
+  line-height: 1.6;
+  color: var(--light-text);
+}
+
+.city-blurb:not(:last-child)::after {
+  content: "🏙️";
+  display: block;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 2rem auto 0;
+  opacity: 0.4;
+}
+.emergency-note {
+  background: linear-gradient(90deg, #fff4f2 0%, #ffe6e1 100%);
+  border-left: 5px solid #e74c3c;
+  padding: 1.25rem 2rem;
+  margin: 2.5rem 0;
+  font-weight: 600;
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.15);
+  color: #c0392b;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 6px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.emergency-note i {
+  font-size: 1.6rem;
+  color: #e74c3c;
+  flex-shrink: 0;
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Subtle glowing pulse effect */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(231, 76, 60, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(231, 76, 60, 0.9);
+  }
+}
+
+
+
   /* ===== Responsive Adjustments ===== */
   @media (max-width: 767px) {
       body {
@@ -794,7 +867,7 @@
 
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon"><i class="ri-treadmill-line"></i></div>
+                    <div class="service-icon"><i class="ri-walk-line"></i></div>
                     <h3>Treadmill Repairs</h3>
                     <p>Motor replacements, belt repairs, deck restoration, and electronic diagnostics for all treadmill brands. Specializing in NordicTrack, ProForm, and Life Fitness models.</p>
                 </div>
@@ -838,113 +911,143 @@
             </div>
         </section>
 
-        <section class="neighborhoods-section">
-            <h2 class="section-title">Hamilton Areas We Serve</h2>
-            <p class="intro-text">We provide comprehensive fitness equipment repair services throughout Hamilton and surrounding regions:</p>
-            <div class="neighborhood-grid">
-                <div class="neighborhood-item">Downtown Hamilton</div>
-                <div class="neighborhood-item">Hamilton Mountain</div>
-                <div class="neighborhood-item">Ancaster</div>
-                <div class="neighborhood-item">Dundas</div>
-                <div class="neighborhood-item">Stoney Creek</div>
-                <div class="neighborhood-item">Waterdown</div>
-                <div class="neighborhood-item">Binbrook</div>
-                <div class="neighborhood-item">Westdale</div>
-                <div class="neighborhood-item">East Hamilton</div>
-                <div class="neighborhood-item">West Hamilton</div>
-                <div class="neighborhood-item">Grimsby</div>
-                <div class="neighborhood-item">Burlington</div>
-            </div>
-            <!-- Map remains unchanged -->
-            <p><i class="ri-flashlight-line"></i> Same-day service available in Central Hamilton & Hamilton Mountain</p>
-        </section>
+<section class="neighborhoods-section">
+  <h2 class="section-title">Hamilton Areas We Serve</h2>
+  <p class="intro-text">We provide comprehensive fitness equipment repair services throughout Hamilton and surrounding regions:</p>
+  <div class="neighborhood-grid">
+    <div class="neighborhood-item">Downtown Hamilton</div>
+    <div class="neighborhood-item">Hamilton Mountain</div>
+    <div class="neighborhood-item">Ancaster</div>
+    <div class="neighborhood-item">Dundas</div>
+    <div class="neighborhood-item">Stoney Creek</div>
+    <div class="neighborhood-item">Waterdown</div>
+    <div class="neighborhood-item">Binbrook</div>
+    <div class="neighborhood-item">Westdale</div>
+    <div class="neighborhood-item">East Hamilton</div>
+    <div class="neighborhood-item">West Hamilton</div>
+    <div class="neighborhood-item">Grimsby</div>
+    <div class="neighborhood-item">Burlington</div>
+  </div>
+ <div class="emergency-note">
+  <i class="ri-flashlight-line"></i>
+  Same-day treadmill, elliptical, exercise bike and cable machine repair across Hamilton — including <strong>Hamilton Mountain</strong> & <strong>Central Hamilton.</strong> No travel fees.
+</div>
 
-        <section class="city-content">
-            <h2 class="section-title">Common Fitness Equipment Problems We Fix</h2>
-            <div class="repair-problems">
-                <div class="problem-card">
-                    <h3><i class="ri-error-warning-line"></i> Treadmill Issues</h3>
-                    <ul>
-                        <li>Belt slipping or fraying</li>
-                        <li>Motor failure or overheating</li>
-                        <li>Incline mechanism failure</li>
-                        <li>Console error messages</li>
-                        <li>Deck damage or warping</li>
-                    </ul>
-                </div>
-                <div class="problem-card">
-                    <h3><i class="ri-error-warning-line"></i> Elliptical Problems</h3>
-                    <ul>
-                        <li>Resistance system failure</li>
-                        <li>Drive train grinding noise</li>
-                        <li>Pedal bearing wear</li>
-                        <li>Console power issues</li>
-                        <li>Uneven stride motion</li>
-                    </ul>
-                </div>
-                <div class="problem-card">
-                    <h3><i class="ri-error-warning-line"></i> Exercise Bike Faults</h3>
-                    <ul>
-                        <li>Pedal crank failure</li>
-                        <li>Magnetic resistance issues</li>
-                        <li>Seat adjustment problems</li>
-                        <li>Console display failure</li>
-                        <li>Flywheel noise</li>
-                    </ul>
-                </div>
-            </div>
 
-            <h2 class="section-title">Why Hamilton Chooses Our Repair Service</h2>
-            <div>
-                <div class="benefit-item">
-                    <div class="benefit-number">1</div>
-                    <div class="benefit-content">
-                        <h3>Factory-Trained Technicians</h3>
-                        <p>Our team holds certifications from NordicTrack, Life Fitness, and Precor with specialized training in Hamilton's unique climate challenges.</p>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-number">2</div>
-                    <div class="benefit-content">
-                        <h3>Same-Day Parts Replacement</h3>
-                        <p>We maintain Canada's largest inventory of fitness equipment parts in Hamilton, including hard-to-find NordicTrack motors and ProForm controllers.</p>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-number">3</div>
-                    <div class="benefit-content">
-                        <h3>Brand-Specific Diagnostics</h3>
-                        <p>Specialized diagnostic tools for all major brands including Life Fitness, Technogym, and Sole Fitness with proprietary software access.</p>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-number">4</div>
-                    <div class="benefit-content">
-                        <h3>Commercial Gym Expertise</h3>
-                        <p>Preferred service provider for 12+ Hamilton fitness centers with specialized knowledge of high-use equipment maintenance.</p>
-                    </div>
-                </div>
-            </div>
+  <!-- 🌍 City-Specific Blurbs -->
+  <div class="city-blurb">
+    <h3>Expert Fitness Equipment Repairs in <a href="ancaster.html">Ancaster</a></h3>
+    <p>Whether you're near Meadowlands or Mohawk Meadows, our Ancaster team delivers fast treadmill, elliptical, and bike repairs. Clients trust us in Spring Valley and near Hamilton Golf Club for in-home service without travel fees.</p>
+  </div>
 
-            <h3 style="text-align:center;margin:2rem 0 1rem;">Hamilton Homeowners & Gym Owners Say</h3>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="rating">★★★★★</div>
-                    <p>"Our NordicTrack treadmill on Hamilton Mountain stopped working in -20°C weather. Canadian Fitness Repair came same-day and fixed it! True local heroes."</p>
-                    <p><strong>Mike J.</strong> | Hamilton Mountain</p>
-                </div>
-                <div class="testimonial-card">
-                    <div class="rating">★★★★★</div>
-                    <p>"As a downtown gym owner near Jackson Square, I rely on their expertise. They understand Hamilton's unique challenges with humidity and power surges."</p>
-                    <p><strong>Sarah T.</strong> | Downtown Fitness Center</p>
-                </div>
-                <div class="testimonial-card">
-                    <div class="rating">★★★★★</div>
-                    <p>"Fixed my ProForm elliptical when three other companies couldn't diagnose the problem. Their knowledge of fitness electronics is unmatched in Hamilton."</p>
-                    <p><strong>Robert K.</strong> | Ancaster Resident</p>
-                </div>
-            </div>
-        </section>
+  <div class="city-blurb">
+    <h3><a href="dundas.html">Dundas</a> Treadmill & Elliptical Repair</h3>
+    <p>We proudly serve Dundas, from Governor's Road to University Plaza. Whether you're a homeowner or managing a fitness studio, we repair NordicTrack, Sole, and Life Fitness equipment with fast, reliable turnaround.</p>
+  </div>
+
+  <div class="city-blurb">
+    <h3>Reliable Repairs in <a href="stoney-creek.html">Stoney Creek</a></h3>
+    <p>From Heritage Green to Battlefield Park, we offer emergency treadmill and elliptical repair with no travel fee. Our local techs fix most equipment on the first visit, including repairs in Fifty Point and Winona.</p>
+  </div>
+
+  <div class="city-blurb">
+    <h3><a href="treadmill-repair-burlington.html">Burlington's</a> Go-To Treadmill Repair Team</h3>
+    <p>Serving Appleby, Tyandaga, and Aldershot, we offer expert fitness equipment service throughout Burlington. From squeaky belts to console failures, we fix it all — fast and guaranteed for 90 days.</p>
+  </div>
+
+  <div class="city-blurb">
+    <h3>Oakville Home Gym Equipment Service</h3>
+    <p>We specialize in high-end repairs in <a href="treadmill-repair-oakville.html">Oakville</a>, including Glen Abbey and Joshua Creek. Expect discreet, professional service for NordicTrack, Technogym, and Peloton equipment in luxury home gyms.</p>
+  </div>
+</section>
+
+<section class="city-content">
+  <h2 class="section-title">Common Fitness Equipment Problems We Fix</h2>
+  <div class="repair-problems">
+    <div class="problem-card">
+      <h3><i class="ri-error-warning-line"></i> Treadmill Issues</h3>
+      <ul>
+        <li>Belt slipping or fraying</li>
+        <li>Motor failure or overheating</li>
+        <li>Incline mechanism failure</li>
+        <li>Console error messages</li>
+        <li>Deck damage or warping</li>
+      </ul>
+    </div>
+    <div class="problem-card">
+      <h3><i class="ri-error-warning-line"></i> Elliptical Problems</h3>
+      <ul>
+        <li>Resistance system failure</li>
+        <li>Drive train grinding noise</li>
+        <li>Pedal bearing wear</li>
+        <li>Console power issues</li>
+        <li>Uneven stride motion</li>
+      </ul>
+    </div>
+    <div class="problem-card">
+      <h3><i class="ri-error-warning-line"></i> Exercise Bike Faults</h3>
+      <ul>
+        <li>Pedal crank failure</li>
+        <li>Magnetic resistance issues</li>
+        <li>Seat adjustment problems</li>
+        <li>Console display failure</li>
+        <li>Flywheel noise</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section-title">Why Hamilton Chooses Our Repair Service</h2>
+  <div>
+    <div class="benefit-item">
+      <div class="benefit-number">1</div>
+      <div class="benefit-content">
+        <h3>Factory-Trained Technicians</h3>
+        <p>Our team holds certifications from NordicTrack, Life Fitness, and Precor with specialized training in Hamilton's unique climate challenges.</p>
+      </div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-number">2</div>
+      <div class="benefit-content">
+        <h3>Same-Day Parts Replacement</h3>
+        <p>We maintain Canada's largest inventory of fitness equipment parts in Hamilton, including hard-to-find NordicTrack motors and ProForm controllers.</p>
+      </div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-number">3</div>
+      <div class="benefit-content">
+        <h3>Brand-Specific Diagnostics</h3>
+        <p>Specialized diagnostic tools for all major brands including Life Fitness, Technogym, and Sole Fitness with proprietary software access.</p>
+      </div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-number">4</div>
+      <div class="benefit-content">
+        <h3>Commercial Gym Expertise</h3>
+        <p>Preferred service provider for 12+ Hamilton fitness centers with specialized knowledge of high-use equipment maintenance.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="text-align:center;margin:2rem 0 1rem;">Hamilton Homeowners & Gym Owners Say</h3>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="rating">★★★★★</div>
+      <p>"Our NordicTrack treadmill on Hamilton Mountain stopped working in -20°C weather. Canadian Fitness Repair came same-day and fixed it! True local heroes."</p>
+      <p><strong>Mike J.</strong> | Hamilton Mountain</p>
+    </div>
+    <div class="testimonial-card">
+      <div class="rating">★★★★★</div>
+      <p>"As a downtown gym owner near Jackson Square, I rely on their expertise. They understand Hamilton's unique challenges with humidity and power surges."</p>
+      <p><strong>Sarah T.</strong> | Downtown Fitness Center</p>
+    </div>
+    <div class="testimonial-card">
+      <div class="rating">★★★★★</div>
+      <p>"Fixed my ProForm elliptical when three other companies couldn't diagnose the problem. Their knowledge of fitness electronics is unmatched in Hamilton."</p>
+      <p><strong>Robert K.</strong> | Ancaster Resident</p>
+    </div>
+  </div>
+</section>
+
 
         <!-- FAQ Section (Updated Questions) -->
         <section class="faq-section">
@@ -986,6 +1089,55 @@
                         <p>Yes, this is a common issue we fix daily in Hamilton homes. Usually caused by power board failure or console issues - both repairable with same-day service in most cases.</p>
                     </div>
                 </div>
+                <div class="faq-item">
+  <div class="faq-question">
+    Do you repair treadmills in Ancaster homes?
+    <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+  </div>
+  <div class="faq-answer">
+    <p>Yes — we serve all Ancaster neighborhoods including Meadowlands and Spring Valley. We repair NordicTrack, Sole, and Life Fitness treadmills in both home gyms and commercial spaces.</p>
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">
+    Can I book an elliptical repair in Dundas?
+    <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+  </div>
+  <div class="faq-answer">
+    <p>Absolutely. Our technicians regularly fix ellipticals and bikes in Dundas, especially near King Street West and McMaster Innovation Park. Same-day service is available.</p>
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">
+    Do you offer emergency fitness equipment repair in Stoney Creek?
+    <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+  </div>
+  <div class="faq-answer">
+    <p>Yes — we provide 24/7 emergency repair in Stoney Creek, from Heritage Green to Battlefield Park. No travel fee. Just call (289) 925‑7239 for fast support.</p>
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">
+    Can you fix a treadmill in Burlington's Roseland area?
+    <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+  </div>
+  <div class="faq-answer">
+    <p>Yes, we offer in-home treadmill and elliptical repair across Burlington — including Roseland, Appleby, and Brant Hills. Most parts are stocked for same-day repair.</p>
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">
+    Do you service Oakville luxury home gyms?
+    <span class="faq-toggle"><i class="ri-arrow-down-s-line"></i></span>
+  </div>
+  <div class="faq-answer">
+    <p>Definitely. We handle treadmill, elliptical, and Peloton repairs in Oakville, including Old Oakville, Glen Abbey, and Joshua Creek. We specialize in quiet, no-mess repairs for high-end homes.</p>
+  </div>
+</div>
             </div>
         </section>
 
