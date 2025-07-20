@@ -322,245 +322,334 @@
         overflow-x: hidden;
         line-height: 1.6;
         padding-top: 120px;
-      } /* Hero Section */
-      .hero {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 10rem 2rem 3rem 1rem;
-        background: linear-gradient(
-            rgba(21, 23, 25, 0.4),
-            rgba(21, 23, 25, 0.2)
-          ),
-          url("/images/herobckgnd.webp");
-        background-size: cover;
-        background-position: center;
-        min-height: 80vh;
-        color: #5d5dff;
-        position: relative;
-      }
-      .hero::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100px;
-        background: linear-gradient(transparent, var(--bg-color));
-      }
-      .hero h1 {
-        font-size: clamp(3rem, 5vw, 5rem);
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        line-height: 1.5;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-      }
-      .hero p {
-        font-size: clamp(1.25rem, 3.5vw, 1.75rem);
-        max-width: 800px;
-        margin-bottom: 1rem;
-        color: var(--light-text);
-      }
-      .word-animation {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 1rem 0;
-        padding: 1rem 0;
-        height: 120px;
-        overflow: hidden;
-      }
-      #wordWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transition: transform 2s ease;
-        height: 120px;
-      }
-      .word-item {
-        font-size: clamp(3rem, 5vw, 6rem);
-        font-weight: bolder;
-        color: var(--accent-color);
-        height: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
-      } /* Stats Section */
-      .stats {
-        display: flex;
-        justify-content: space-around;
-        padding: 4rem 2rem;
-        background-color: var(--card-bg);
-        flex-wrap: wrap;
-        gap: 2rem;
-      }
-      .stat-item {
-        text-align: center;
-        min-width: 180px;
-      }
-      .stat-number {
-        font-size: 3rem;
-        font-weight: 700;
-        color: var(--theme-color);
-        margin-bottom: 0.5rem;
-      }
-      .stat-label {
-        font-size: 1.1rem;
-        color: var(--light-text);
-      } /* Decorative elements */
-      .palm-icon {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        font-size: clamp(1.5rem, 4vw, 2.5rem);
-        color: rgba(255, 255, 255, 0.7);
-        transform: rotate(-15deg);
-        z-index: 1;
-      }
-      .sun-icon {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: clamp(1.5rem, 4vw, 2.5rem);
-        color: rgba(255, 255, 255, 0.7);
-        animation: spin 8s linear infinite;
-        z-index: 1;
-      }
-.hero-carousel {
-  width: 100%;
-  min-height: 70vh; /* adjust if you want taller */
-  color: var(--text-color, #fff);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.swiper-slide {
-  position: relative;
-  width: 100%;
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #fff;
-}
-
-/* Gradient overlay + background images for each slide */
-.hero-slide {
-  position: relative;
-}
-
-/* Overlay using a pseudo-element */
-.hero-slide::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7));
-  z-index: 1;
-}
-
-/* Content above overlay */
-.slide-content, .custom-hero {
-  position: relative;
-  z-index: 2;
-  max-width: 800px;
-  padding: 2rem;
-  box-sizing: border-box;
-}
-
-/* Specific backgrounds for each slide */
+      } 
+     /* Hero Section */
 .hero {
-  background-image:
-    linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)),
-    url("/images/herobckgnd.webp");
-  min-height: 80vh;
-  color: #5d5dff;
-  padding: 10rem 2rem 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 85vh;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(92, 92, 253, 0.1), transparent 60%),
+                radial-gradient(circle at bottom left, rgba(92, 92, 253, 0.1), transparent 60%);
+    z-index: -1;
+}
+
+.hero-content {
+    max-width: 900px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-tag {
+    display: inline-block;
+    background: rgba(92, 92, 253, 0.15); /* light blue tag background */
+    color: var(--secondary);
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    color: var(--theme-color);
+    font-weight: 800;
+}
+
+.hero h1 span {
+    color: var(--secondary);
+}
+
+.hero p {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+.word-animation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+    padding: 1rem 0;
+    height: 120px;
+    overflow: hidden;
+}
+
+#wordWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 2s ease;
+    height: 120px;
+}
+
+.word-item {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: bolder;
+    color: var(--accent-color);
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 15px rgba(92, 92, 253, 0.4); /* blue glow */
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+    min-width: 220px;
+}
+
+.btn-primary {
+    background: #5C5CFD;
+    color: white;
+    box-shadow: 0 4px 15px rgba(92, 92, 253, 0.4);
+}
+
+.btn-primary:hover {
+    background: #4848e0;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(92, 92, 253, 0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background: rgba(92, 92, 253, 0.1);
+    transform: translateY(-3px);
+}
+
+.hero-btn i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+      /* Stats Section */
+.stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  margin: 3rem auto;
+  max-width: 1200px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.stat-item {
   text-align: center;
+  min-width: 160px;
+  flex: 1 1 200px;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Services Section */
+.services {
+  padding: 6rem 2rem;
+  position: relative;
+  background: var(--background, #0f172a);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+}
+
+.section-tag {
+  display: inline-block;
+  background: rgba(249, 115, 22, 0.2);
+  color: var(--secondary);
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: 1.5rem;
+  color: white;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--secondary);
+  border-radius: 2px;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: var(--gray);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 2.5rem;
+  transition: all 0.4s ease;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  position: relative;
+  text-align: center;
 }
 
-.slide-treadmill {
-  background-image: url("/images/treadmill.jpg");
-          background-size: cover;
-        background-position: center;
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--secondary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
 }
 
-.slide-elliptical {
-  background-image: url("/images/elliptical.jpg");
-          background-size: cover;
-        background-position: center;
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-.slide-bike {
-  background-image: url("/images/bike.jpg");
-          background-size: cover;
-        background-position: center;
+.service-card:hover::before {
+  transform: scaleX(1);
 }
 
-.slide-stepper {
-  background-image: url("/images/stepper.jpg");
-          background-size: cover;
-        background-position: center;
-}
-.slide-cable-machine{
-  background-image: url("/images/cable-machine.jpg");
-          background-size: cover;
-        background-position: center;
-}
-
-/* Remove overlay from the hero slide (optional) */
-/* If you want the gradient only on other slides, you can tweak that */
-
-.hero-slide:not(.hero)::before {
-  background: linear-gradient(rgba(21,23,25,0.85), rgba(21,23,25,0.7));
-}
-
-/* Text styling */
-.slide-content h1 {
-  font-size: clamp(2rem, 5vw, 3rem);
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-}
-
-.slide-content p {
-  font-size: 1.2rem;
+.service-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: rgba(37, 99, 235, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: var(--secondary);
   margin-bottom: 1.5rem;
-  opacity: 0.9;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
 }
 
-.custom-hero h1 {
-  font-size: clamp(3rem, 5vw, 5rem);
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  line-height: 1.5;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+.service-card:hover .service-icon {
+  background: rgba(249, 115, 22, 0.2);
+  transform: scale(1.1);
 }
 
-.custom-hero p {
-  font-size: clamp(1.25rem, 3.5vw, 1.75rem);
-  max-width: 800px;
+.service-card h3 {
+  font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--light-text, #ccc);
-  text-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.service-card p {
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.service-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--secondary);
+  font-weight: 600;
+  text-decoration: none;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.service-link:hover {
+  gap: 1rem;
 }
 
 /* Button styling */
@@ -570,11 +659,11 @@
   color: #fff;
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   display: inline-block;
   z-index: 2;
   position: relative;
@@ -582,31 +671,10 @@
 
 .c-button:hover {
   background-color: #4a4ad1;
-}
-      /* Existing styles here... */
-
-/* Background images for each slide */
-.slide-treadmill {
-  background-image: url("/images/treadmill.jpg");
+  transform: scale(1.05);
 }
 
-.slide-elliptical {
-  background-image: url("/images/elliptical.jpg");
-}
-
-.slide-bike {
-  background-image: url("/images/bike.jpg");
-}
-
-.slide-stepper {
-  background-image: url("/images/stepper.jpg");
-}
-
-.slide-cable-machine {
-  background-image: url("/images/cable-machine.jpg");
-}
-
-
+ 
       @keyframes spin {
         0% {
           transform: rotate(0deg);
@@ -1208,7 +1276,7 @@
 
 .equipment-item {
   background: #f5f5f5;           /* very light pink */
-  color: #c0392b;                /* deep red */
+  color: var(--accent-color);                /* deep red */
   font-weight: 600;
   font-size: 1rem;
   padding: 0.5rem 1.25rem;
@@ -1221,7 +1289,7 @@
 
 .equipment-item:hover,
 .equipment-item:focus {
-  background: #c0392b;
+  background: var(--accent-color);
   color: #fff;
   box-shadow: 0 4px 12px rgba(192, 57, 43, 0.35);
   outline: none;
@@ -1405,22 +1473,22 @@
     </noscript>
     <div id="header"></div>
     <main>
-      <section class="hero">
-  <h1>GTA’s #1 Choice for Fitness Equipment Repair</h1>
-  <p>
-    Trusted experts providing fast, reliable repair, installation, and maintenance for all fitness machines.
-  </p>
-  <div class="word-animation" aria-live="polite" aria-atomic="true" aria-relevant="additions removals">
-    <div id="wordWrapper">
-      <div class="word-item">Repair</div>
-      <div class="word-item">Installation</div>
-      <div class="word-item">Maintenance</div>
-      <div class="word-item">Relocation</div>
-      <div class="word-item">Projects</div>
-    </div>
-  </div>
-
-  <!-- New equipment types list -->
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-tag">24/7 Emergency Service</span>
+                <h1>GTA's #1 Expert <span>Fitness Equipment</span> Repair & Maintenance</h1>
+                <p>Serving Hamilton and the Greater Toronto Area with certified technicians, same-day service, and a 100% satisfaction guarantee.</p>
+                <div class="word-animation">
+                    <div id="wordWrapper">
+                        <div class="word-item">Repair</div>
+                        <div class="word-item">Installation</div>
+                        <div class="word-item">Maintenance</div>
+                        <div class="word-item">Relocation</div>
+                        <div class="word-item">Project</div>
+                    </div>
+                </div>
+                  <!-- New equipment types list -->
 <div class="equipment-types" aria-label="Equipment types we service">
   <span class="equipment-item" tabindex="0">
     <i class="ri-stethoscope-line" aria-hidden="true"></i> Treadmill
@@ -1435,17 +1503,36 @@
     <i class="ri-weight-line" aria-hidden="true"></i> Cable Machine
   </span>
 </div>
+                <div class="hero-buttons">
+                    <a href="tel:+12899257239" class="hero-btn btn-primary">
+                        <i class="fas fa-phone-alt"></i> Call Now: (289) 925-7239
+                    </a>
+                    <a href="https://canadianfitnessrepair.com/get-quote.html" class="hero-btn btn-secondary">
+                        <i class="fas fa-calendar-check"></i> Schedule Service
+                    </a>
+                </div>
+            </div>
+        </section>
 
-
-
-
-  <a class="c-button" href="https://canadianfitnessrepair.com/get-quote.html">
-    Schedule Your Service Today
-  </a>
-</section>
-
-
-
+                <!-- Stats Section -->
+        <section class="stats">
+            <div class="stat-item">
+                <div class="stat-number" data-count="1500">0</div>
+                <div class="stat-label">Repairs Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="98">0</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="12">0</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="500">0</div>
+                <div class="stat-label">Happy Clients</div>
+            </div>
+        </section>
       <section class="brand-section">
         <h2 class="brand-title">Trusted by Professionals Worldwide</h2>
         <div class="brand-carousel-container">
@@ -1605,14 +1692,94 @@
           </div>
         </div>
       </section>
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <div class="section-header">
+                <span class="hero-tag">What We Offer</span>
+                <h2 class="section-title">Our Professional Services</h2>
+                <p class="section-subtitle">Comprehensive solutions for all your fitness equipment needs</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>Treadmill Repair</h3>
+                    <p>Motor issues, belt replacements, incline fixes, control panel repairs for all treadmill brands.</p>
+                    <a href="treadmill-repair.html" class="service-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-walking"></i>
+                    </div>
+                    <h3>Elliptical Repair</h3>
+                    <p>Stride adjustment, noise fixes, resistance and console repairs for ellipticals.</p>
+                    <a href="elliptical-repair.html" class="service-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bicycle"></i>
+                    </div>
+                    <h3>Exercise Bike Repair</h3>
+                    <p>Pedal, crank, resistance unit, and display repairs for upright and spin bikes.</p>
+                    <a href="bike-repair.html" class="service-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3>Rower Repair</h3>
+                    <p>Rowing machine fixes including belt/chain tension, seat wheels, and resistance settings.</p>
+                    <a href="rower-repair.html" class="service-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Strength Equipment</h3>
+                    <p>Cables, pulleys, adjustment knobs, and upholstery repair for gym strength machines.</p>
+                    <a href="cablemachine-repair.html" class="service-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Preventative Maintenance</h3>
+                    <p>Routine maintenance including belt lubrication, motor cleaning, alignment and inspection.</p>
+                    <a href="preventative-maintenance.html" class="service-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
       <section class="repair-process">
         <div class="container">
-          <h2 class="section-title">How Our Repair Process Works</h2>
-          <p class="process-intro">
+          <div class="section-header">
+            <h2 class="section-title">How Our Repair Process Works</h2>
+          <p class="section-subtitle">
             At Canadian Fitness Repair, we've streamlined our repair process to
             ensure maximum convenience and efficiency for our customers. Here's
             what you can expect when you choose our expert service:
           </p>
+          </div>
           <div class="process-steps">
             <div class="step-card">
               <div class="step-number">1</div>
@@ -1711,24 +1878,7 @@
           </div>
         </div>
       </section>
-      <section class="stats">
-        <div class="stat-item">
-          <div class="stat-number" data-count="1500">0</div>
-          <div class="stat-label">Repairs Completed</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-count="98">0</div>
-          <div class="stat-label">Satisfaction Rate</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-count="12">0</div>
-          <div class="stat-label">Years Experience</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-count="500">0</div>
-          <div class="stat-label">Happy Clients</div>
-        </div>
-      </section>
+
       <section class="testimonials">
         <h2 class="section-title">Client Testimonials</h2>
         <div class="testimonials-grid">
@@ -1802,6 +1952,7 @@
           </div>
         </div>
       </section>
+
       <section class="cta">
         <h2>Ready to Get Your Equipment Back in Shape?</h2>
         <p>
@@ -1813,6 +1964,7 @@
           Call Now: +1 289 925 7239
         </a>
       </section>
+
       <section>
         <div class="whatsapp-widget" id="whatsappWidget">
           <div class="widget-header">
@@ -1848,6 +2000,7 @@
           <i class="fab fa-whatsapp"> </i>
         </div>
       </section>
+
     </main>
     <div id="footer"></div>
     <script defer="" src="menu.js"></script>
@@ -1879,17 +2032,17 @@
   });
 
   // ─── Word Animation Logic ──────────────────────────
-  const words = document.querySelectorAll(".word-item");
-  const wordWrapper = document.getElementById("wordWrapper");
-  const wordHeight = 120; // must match .word-item height
-  let wordIndex = 0;
-
-  function cycleWords() {
-    wordIndex = (wordIndex + 1) % words.length;
-    wordWrapper.style.transform = `translateY(-${wordIndex * wordHeight}px)`;
-  }
-
-  setInterval(cycleWords, 2000); // scroll every 2 seconds
+              const words = document.querySelectorAll(".word-item");
+            const wordWrapper = document.getElementById("wordWrapper");
+            const wordHeight = 120;
+            let wordIndex = 0;
+            
+            function cycleWords() {
+                wordIndex = (wordIndex + 1) % words.length;
+                wordWrapper.style.transform = `translateY(-${wordIndex * wordHeight}px)`;
+            }
+            
+            setInterval(cycleWords, 2000);
 </script>
   </body>
 </html>
