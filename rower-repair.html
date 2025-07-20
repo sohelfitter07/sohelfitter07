@@ -18,20 +18,9 @@
     <meta name="ICBM" content="43.2250, -79.8660">
     <link rel="canonical" href="https://www.canadianfitnessrepair.com/rower-repair.html">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
-    <link rel="stylesheet" href="headerfooter.css">
-    <link rel="stylesheet" href="whatsapp.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --theme-color: #5d5dff;
-            --accent-color: #ff6b6b;
-            --bg-color: #151719;
-            --card-bg: #1f2126;
-            --text-color: #ffffff;
-            --light-text: #c0c0c0;
-            --border-radius: 12px;
-            --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            --transition: all 0.3s ease;
-        }
+
         
         body {
             font-family: "Segoe UI", Roboto, sans-serif;
@@ -41,7 +30,7 @@
             min-height: 100vh;
             overflow-x: hidden;
             transition: var(--transition);
-            padding-top: 80px;
+            padding-top: 10rem;
         }
         
         .container {
@@ -56,7 +45,7 @@
             margin: 0 auto;
             padding: 120px 20px 80px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+     
             gap: 40px;
             align-items: center;
         }
@@ -518,12 +507,166 @@
             margin: 0 auto 40px;
         }
         
+        /* WhatsApp Widget */
+        .whatsapp-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .widget-header {
+            background: #25D366;
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .whatsapp-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .header-text {
+            flex-grow: 1;
+        }
+        
+        .header-text h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .header-text p {
+            margin: 3px 0 0;
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chat-content {
+            padding: 15px;
+            height: 250px;
+            overflow-y: auto;
+        }
+        
+        .message {
+            padding: 10px 15px;
+            border-radius: 18px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            font-size: 0.9rem;
+        }
+        
+        .message.received {
+            background: #f0f0f0;
+            color: #333;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message.sent {
+            background: #DCF8C6;
+            color: #333;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .action-area {
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 20px;
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .floating-btn.pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+        
         /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .hero-container {
+                padding: 100px 20px 60px;
+            }
+            
+            .hero-image {
+                height: 350px;
+            }
+            
+            .step-details {
+                width: 180px;
+                left: -30px;
+            }
+        }
+        
         @media (max-width: 992px) {
             .hero-container {
                 grid-template-columns: 1fr;
                 text-align: center;
-                padding-top: 90px;
+                padding-top: 150px;
+                padding-bottom: 40px;
             }
             
             .hero-content {
@@ -558,6 +701,14 @@
             .step {
                 margin-bottom: 70px;
             }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .cta-title {
+                font-size: 2.2rem;
+            }
         }
         
         @media (max-width: 768px) {
@@ -569,8 +720,46 @@
                 font-size: 2.3rem;
             }
             
-            .section-title {
-                font-size: 2rem;
+            .hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .brand-logo {
+                min-width: 140px;
+                padding: 15px 25px;
+            }
+            
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-card {
+                padding: 25px;
+            }
+            
+            .step {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .step-details {
+                top: 120px;
+                width: 150px;
+                left: -25px;
+                font-size: 0.85rem;
+            }
+            
+            .testimonial {
+                padding: 25px;
+            }
+            
+            .cta-section {
+                padding: 70px 0;
+            }
+            
+            .whatsapp-widget {
+                width: 320px;
             }
         }
         
@@ -583,18 +772,200 @@
                 font-size: 1.1rem;
             }
             
+            .location-tag {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .brand-logos {
+                gap: 15px;
+            }
+            
+            .brand-logo {
+                min-width: 120px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .step {
-                width: 100px;
-                height: 100px;
+                width: 90px;
+                height: 90px;
+                margin-bottom: 80px;
+            }
+            
+            .step-number {
+                font-size: 1.8rem;
+            }
+            
+            .step-title {
+                font-size: 0.8rem;
             }
             
             .step-details {
-                width: 150px;
-                left: -25px;
+                top: 110px;
+                width: 130px;
+                left: -20px;
+                font-size: 0.8rem;
+            }
+            
+            .cta-title {
+                font-size: 1.8rem;
+            }
+            
+            .cta-subtitle {
+                font-size: 1rem;
+            }
+            
+            .whatsapp-widget {
+                width: 100%;
+                max-width: 320px;
+                right: 10px;
+                left: 10px;
+                margin: 0 auto;
+            }
+            
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-container {
+                padding: 150px 15px 30px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-image {
+                height: 250px;
+            }
+            
+            .cta-buttons {
+                gap: 10px;
+            }
+            
+            .cta-primary, .cta-secondary {
+                padding: 14px 20px;
+                font-size: 1rem;
+            }
+            
+            .service-icon {
+                font-size: 3rem;
+            }
+            
+            .service-card h3 {
+                font-size: 1.6rem;
+            }
+            
+            .problem-icon {
+                font-size: 2.2rem;
+            }
+            
+            .problem-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .process-steps {
+                gap: 20px;
+            }
+            
+            .step {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 70px;
+            }
+            
+            .step-number {
+                font-size: 1.6rem;
+            }
+            
+            .step-title {
+                font-size: 0.75rem;
+            }
+            
+            .step-details {
+                top: 100px;
+                width: 120px;
+                font-size: 0.75rem;
+            }
+            
+            .testimonial {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 375px) {
+            .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .location-tag {
+                font-size: 0.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .service-card {
+                padding: 20px;
+            }
+            
+            .service-card h3 {
+                font-size: 1.5rem;
+            }
+            
+            .service-features li {
+                font-size: 0.95rem;
+            }
+            
+            .problem-card {
+                padding: 20px;
+            }
+            
+            .step {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 60px;
+            }
+            
+            .step-number {
+                font-size: 1.5rem;
+            }
+            
+            .step-title {
+                font-size: 0.7rem;
+            }
+            
+            .step-details {
+                top: 90px;
+                width: 110px;
+                font-size: 0.7rem;
             }
         }
     </style>
-    
+      <link href="whatsapp.css" rel="stylesheet" />
+      <link href="headerfooter.css" rel="stylesheet" />
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
@@ -688,9 +1059,8 @@
     </script>
 </head>
 <body>
-    <!-- Header (will be loaded from external file) -->
+
     <div id="header"></div>
-    
     <main>
         <!-- HERO SECTION -->
         <section class="hero">
@@ -721,8 +1091,7 @@
                     </div>
                 </div>
                 
-                <div class="hero-image" style="background-image: url('https://images.unsplash.com/photo-1599745784675-0f1a0e4e6b6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80')">
-                </div>
+
             </div>
         </section>
         
@@ -964,45 +1333,43 @@
         </section>
     </main>
     
-    <!-- Footer (will be loaded from external file) -->
     <div id="footer"></div>
-    
-    <!-- WhatsApp Widget -->
-    <section>
-        <div class="whatsapp-widget" id="whatsappWidget">
-            <div class="widget-header">
-                <div class="whatsapp-icon">
-                    <i class="fab fa-whatsapp"> </i>
-                </div>
-                <div class="header-text">
-                    <h3>Canadian Fitness Repair</h3>
-                    <p>Typically replies instantly</p>
-                </div>
-                <button class="close-btn" id="closeBtn">&times;</button>
-            </div>
-            <div class="chat-content" id="chatContent">
-                <div class="message received">
-                    Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your rowing machine today?
-                </div>
-                <div class="message received">
-                    We specialize in repairing Concept2, WaterRower, Hydrow, and all major rower brands. Let us know what you need help with!
-                </div>
-                <div class="message sent">Great!.</div>
-            </div>
-            <div class="action-area">
-                <button class="whatsapp-btn" id="whatsappBtn">
-                    <i class="fab fa-whatsapp"> </i>
-                    Chat on WhatsApp
-                </button>
-            </div>
-        </div>
-        <div class="floating-btn pulse" id="floatingBtn">
-            <i class="fab fa-whatsapp"> </i>
-        </div>
-    </section>
-    
-    <!-- External Scripts -->
     <script src="menu.js"></script>
+    <section>
+      <div class="whatsapp-widget" id="whatsappWidget">
+        <div class="widget-header">
+          <div class="whatsapp-icon">
+            <i class="fab fa-whatsapp"> </i>
+          </div>
+          <div class="header-text">
+            <h3>Canadian Fitness Repair</h3>
+            <p>Typically replies instantly</p>
+          </div>
+          <button class="close-btn" id="closeBtn">&times;</button>
+        </div>
+        <div class="chat-content" id="chatContent">
+          <div class="message received">
+            Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we
+            help you with your fitness equipment today?
+          </div>
+          <div class="message received">
+            We specialize in repairing treadmills, ellipticals, exercise bikes,
+            and strength training equipment. Let us know what you need help
+            with!
+          </div>
+          <div class="message sent">Great!.</div>
+        </div>
+        <div class="action-area">
+          <button class="whatsapp-btn" id="whatsappBtn">
+            <i class="fab fa-whatsapp"> </i>
+            Chat on WhatsApp
+          </button>
+        </div>
+      </div>
+      <div class="floating-btn pulse" id="floatingBtn">
+        <i class="fab fa-whatsapp"> </i>
+      </div>
+    </section>
     <script src="whatsapp.js"></script>
 </body>
 </html>

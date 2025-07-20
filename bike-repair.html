@@ -68,23 +68,17 @@
       onload="this.media='all'"
       rel="stylesheet"
     />
+        <link href="whatsapp.css" rel="stylesheet" />
     <link href="headerfooter.css" rel="stylesheet" />
-    <link href="whatsapp.css" rel="stylesheet" />
     <style>
-      /* Theme Variables */
-      :root {
-        --theme-color: #5d5dff;
-        --accent-color: #ff6b6b;
-        --bg-color: #151719;
-        --card-bg: #1f2126;
-        --text-color: #f0f0f0;
-        --light-text: #a0a0b0;
-        --border-radius: 12px;
-        --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-        --transition: all 0.3s ease;
+  
+      /* Reset & Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-      
-      /* Main Styles */
+
       body {
         font-family: "Segoe UI", Roboto, sans-serif;
         background-color: var(--bg-color);
@@ -93,146 +87,155 @@
         min-height: 100vh;
         overflow-x: hidden;
         transition: var(--transition);
-        padding-top: 80px;
+        padding: 10rem 0 3rem 0;
       }
-      
+
       .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 15px;
       }
-      
-      /* Hero Section */
-      .hero-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 120px 20px 80px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-        align-items: center;
-      }
-      
-      .hero-content {
-        z-index: 2;
-      }
-      
-      .hero-title {
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        background: linear-gradient(to right, var(--theme-color), var(--accent-color));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 20px;
-        line-height: 1.2;
-      }
-      
-      .hero-subtitle {
-        font-size: clamp(1.2rem, 3vw, 1.5rem);
-        color: var(--light-text);
-        margin-bottom: 30px;
-        max-width: 600px;
-      }
-      
-      .hero-image {
-        position: relative;
-        border-radius: var(--border-radius);
-        overflow: hidden;
-        box-shadow: var(--box-shadow);
-        height: 400px;
-        background-size: cover;
-        background-position: center;
-      }
-      
-      .location-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin: 25px 0 35px;
-      }
-      
-      .location-tag {
-        background: rgba(93, 93, 255, 0.1);
-        color: var(--theme-color);
-        padding: 8px 18px;
-        border-radius: 30px;
-        font-weight: 600;
-        border: 1px solid var(--theme-color);
-        font-size: 0.9rem;
-      }
-      
-      .cta-buttons {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-      }
-      
-      .cta-primary {
-        background: linear-gradient(135deg, var(--theme-color), var(--accent-color));
-        color: #fff;
-        padding: 16px 35px;
-        border-radius: 30px;
-        font-weight: 700;
-        font-size: 1.1rem;
-        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.6);
-        transition: var(--transition);
-        min-width: 220px;
-        text-align: center;
+
+      a {
         text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
+        color: inherit;
       }
-      
-      .cta-secondary {
-        background: transparent;
-        color: var(--theme-color);
-        padding: 16px 35px;
-        border-radius: 30px;
-        font-weight: 700;
-        font-size: 1.1rem;
-        border: 2px solid var(--theme-color);
-        transition: var(--transition);
-        min-width: 220px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
+
+      ul {
+        list-style: none;
       }
-      
-      .cta-primary:hover, .cta-secondary:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(93, 93, 255, 0.35);
+
+      img {
+        max-width: 100%;
+        height: auto;
       }
-      
-      /* Brand Section */
-      .brand-section {
-        background: rgba(31, 33, 38, 0.5);
+
+      section {
         padding: 60px 0;
       }
-      
-      .brand-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-      
+
       .section-title {
         text-align: center;
         font-size: 2.2rem;
         margin-bottom: 40px;
         color: var(--theme-color);
       }
-      
+
+     /* Hero Section */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 1rem;
+    background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)), 
+                url("https://images.unsplash.com/photo-1593079831268-3381b0db4a77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80");
+    background-size: cover;
+    background-position: center;
+    min-height: 60vh;
+    color: #5d5dff;
+    position: relative;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(transparent, var(--bg-color));
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    padding-top: 0;
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 3.5vw, 1.5rem);
+    max-width: 800px;
+    margin-bottom: 1rem;
+    color: var(--light-text);
+  }
+
+  .location-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .location-tag {
+    background: rgba(93, 93, 255, 0.1);
+    color: var(--theme-color);
+    padding: 6px 15px;
+    border-radius: 30px;
+    font-weight: 600;
+    border: 1px solid var(--theme-color);
+    font-size: 0.9rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+
+  .cta-buttons a {
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 14px 25px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    min-width: 200px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transform: translateY(0);
+    will-change: transform, background-color, box-shadow;
+  }
+
+  .cta-buttons a:hover {
+    background-color: var(--theme-color);
+    box-shadow: 0 6px 20px rgba(93, 93, 255, 0.5);
+    transform: translateY(-3px);
+  }
+
+      /* Brand Section */
+      .brand-section {
+        background: rgba(31, 33, 38, 0.5);
+        padding: 60px 0;
+      }
+
+      .brand-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
       .brand-logos {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         gap: 30px;
       }
-      
+
       .brand-logo {
         background: var(--card-bg);
         border-radius: var(--border-radius);
@@ -244,23 +247,23 @@
         border: 1px solid rgba(93, 93, 255, 0.2);
         transition: var(--transition);
       }
-      
+
       .brand-logo:hover {
         transform: translateY(-5px);
         box-shadow: var(--box-shadow);
       }
-      
+
       /* Services Section */
       .services-section {
         padding: 80px 0;
       }
-      
+
       .service-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: 30px;
       }
-      
+
       .service-card {
         background: var(--card-bg);
         border-radius: var(--border-radius);
@@ -271,31 +274,30 @@
         display: flex;
         flex-direction: column;
       }
-      
+
       .service-card:hover {
         transform: translateY(-10px);
         box-shadow: 0 15px 30px rgba(93, 93, 255, 0.3);
         border-color: var(--theme-color);
       }
-      
+
       .service-icon {
         font-size: 3.5rem;
         color: var(--theme-color);
         margin-bottom: 20px;
       }
-      
+
       .service-card h3 {
         font-size: 1.8rem;
         margin-bottom: 20px;
         color: var(--theme-color);
       }
-      
+
       .service-features {
-        list-style: none;
         margin: 25px 0;
         flex-grow: 1;
       }
-      
+
       .service-features li {
         padding: 12px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -303,14 +305,14 @@
         align-items: center;
         gap: 12px;
       }
-      
+
       .service-features li:before {
         content: "✓";
         color: var(--accent-color);
         font-weight: bold;
         font-size: 1.2rem;
       }
-      
+
       .service-button {
         background: rgba(93, 93, 255, 0.1);
         color: var(--theme-color);
@@ -318,30 +320,29 @@
         border-radius: 30px;
         font-weight: 600;
         text-align: center;
-        text-decoration: none;
         border: 1px solid var(--theme-color);
         transition: var(--transition);
         margin-top: 15px;
         display: block;
       }
-      
+
       .service-button:hover {
         background: var(--theme-color);
         color: white;
       }
-      
+
       /* Problem Section */
       .problem-section {
         background: rgba(31, 33, 38, 0.5);
         padding: 80px 0;
       }
-      
+
       .problem-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
       }
-      
+
       .problem-card {
         background: var(--card-bg);
         border-radius: var(--border-radius);
@@ -351,19 +352,19 @@
         display: flex;
         flex-direction: column;
       }
-      
+
       .problem-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 25px rgba(93, 93, 255, 0.3);
         border-color: var(--accent-color);
       }
-      
+
       .problem-icon {
         font-size: 2.5rem;
         color: var(--accent-color);
         margin-bottom: 15px;
       }
-      
+
       .problem-card h3 {
         color: var(--accent-color);
         margin-bottom: 15px;
@@ -372,12 +373,12 @@
         gap: 12px;
         font-size: 1.5rem;
       }
-      
+
       .problem-description {
         margin-bottom: 20px;
         flex-grow: 1;
       }
-      
+
       .problem-solution {
         background: rgba(255, 107, 107, 0.1);
         border-left: 3px solid var(--accent-color);
@@ -385,18 +386,18 @@
         border-radius: 0 8px 8px 0;
         font-size: 0.95rem;
       }
-      
+
       /* Process Section */
       .process-section {
         padding: 80px 0;
       }
-      
+
       .process-container {
         max-width: 900px;
         margin: 0 auto;
         position: relative;
       }
-      
+
       .process-container:before {
         content: "";
         position: absolute;
@@ -407,14 +408,14 @@
         background: linear-gradient(90deg, var(--theme-color), var(--accent-color));
         z-index: 1;
       }
-      
+
       .process-steps {
         display: flex;
         justify-content: space-between;
         position: relative;
         z-index: 2;
       }
-      
+
       .step {
         background: var(--card-bg);
         border-radius: 50%;
@@ -429,27 +430,27 @@
         position: relative;
         transition: var(--transition);
       }
-      
+
       .step:hover {
         transform: scale(1.1);
         box-shadow: 0 10px 25px rgba(93, 93, 255, 0.3);
         border-color: var(--accent-color);
       }
-      
+
       .step-number {
         font-size: 2.2rem;
         font-weight: 800;
         color: var(--accent-color);
         margin-bottom: 5px;
       }
-      
+
       .step-title {
         font-size: 0.9rem;
         font-weight: 600;
         color: var(--theme-color);
         max-width: 100px;
       }
-      
+
       .step-details {
         position: absolute;
         top: 140px;
@@ -459,25 +460,25 @@
         font-size: 0.9rem;
         color: var(--light-text);
       }
-      
+
       /* Testimonial Section */
       .testimonial-section {
         padding: 80px 0;
         background: rgba(31, 33, 38, 0.5);
       }
-      
+
       .testimonial-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
       }
-      
+
       .testimonial-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
       }
-      
+
       .testimonial {
         background: var(--card-bg);
         padding: 35px;
@@ -486,12 +487,12 @@
         border: 1px solid rgba(93, 93, 255, 0.2);
         transition: var(--transition);
       }
-      
+
       .testimonial:hover {
         transform: translateY(-10px);
         box-shadow: 0 15px 30px rgba(93, 93, 255, 0.3);
       }
-      
+
       .testimonial:before {
         content: '"';
         position: absolute;
@@ -502,20 +503,20 @@
         font-family: serif;
         line-height: 1;
       }
-      
+
       .testimonial-content {
         margin-top: 30px;
         font-style: italic;
         position: relative;
         z-index: 2;
       }
-      
+
       .client {
         display: flex;
         align-items: center;
         margin-top: 25px;
       }
-      
+
       .client-avatar {
         width: 50px;
         height: 50px;
@@ -527,236 +528,257 @@
         font-size: 1.5rem;
         color: white;
       }
-      
+
       .client-info {
         margin-left: 15px;
       }
-      
+
       .client-name {
         font-weight: 700;
         color: var(--theme-color);
       }
-      
+
       .client-location {
         color: var(--light-text);
         font-size: 0.9rem;
       }
-      
+
       .rating {
         color: #ffc107;
         margin-top: 5px;
       }
-      
+
       /* CTA Section */
       .cta-section {
         padding: 100px 0;
         background: linear-gradient(135deg, #1a1c20, #2a2c33);
         text-align: center;
       }
-      
+
       .cta-title {
         font-size: 2.5rem;
         color: white;
         margin-bottom: 20px;
       }
-      
+
       .cta-subtitle {
         font-size: 1.2rem;
         color: var(--light-text);
         max-width: 700px;
         margin: 0 auto 40px;
       }
+
       
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 12px rgba(37, 211, 102, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+        }
+      }
+
       /* Responsive Design */
-      @media (max-width: 992px) {
+      @media (min-width: 1200px) {
         .hero-container {
-            grid-template-columns: 1fr;
-            text-align: center;
-            padding-top: 90px;
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 1199px) {
+        .hero-container {
+          grid-template-columns: 1fr;
+          text-align: center;
         }
         
         .hero-content {
-            order: 2;
+          order: 2;
         }
         
         .hero-image {
-            order: 1;
-            height: 300px;
-            margin: 0 auto;
-            max-width: 600px;
+          order: 1;
+          height: 300px;
+          margin: 0 auto;
+          max-width: 600px;
         }
         
         .location-tags {
-            justify-content: center;
+          justify-content: center;
         }
         
         .cta-buttons {
-            justify-content: center;
+          justify-content: center;
         }
-        
+      }
+
+      @media (max-width: 992px) {
         .process-steps {
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 40px;
         }
         
         .process-container:before {
-            display: none;
+          display: none;
         }
         
         .step {
-            margin-bottom: 70px;
-        }
-      }
-      
-      @media (max-width: 768px) {
-        .cta-buttons a {
-            min-width: 100%;
-        }
-        
-        .hero-title {
-            font-size: 2.3rem;
+          margin-bottom: 70px;
         }
         
         .section-title {
-            font-size: 2rem;
+          font-size: 2rem;
         }
       }
-      
-      @media (max-width: 576px) {
+
+      @media (max-width: 768px) {
+        .cta-buttons a {
+          min-width: 100%;
+        }
+        
         .hero-title {
-            font-size: 2rem;
+          font-size: 2.3rem;
         }
         
-        .hero-subtitle {
-            font-size: 1.1rem;
-        }
-        
-        .step {
-            width: 100px;
-            height: 100px;
+        .hero {
+          padding-top: 80px;
         }
         
         .step-details {
-            width: 150px;
-            left: -25px;
+          width: 180px;
+          left: -30px;
+        }
+        
+        .whatsapp-widget {
+          width: 300px;
         }
       }
-        @media (max-width: 992px) {
-      body {
-        padding-top: 0;
-      }
-      
-      .hero-container {
-        padding: 60px 20px 40px !important;
-      }
-    }
 
-    @media (max-width: 576px) {
-      .hero-container {
-        padding: 40px 15px 30px !important;
+      @media (max-width: 576px) {
+        body {
+          padding: 8rem 0 3rem 0;
+        }
+        
+        .hero-title {
+          font-size: 2rem;
+        }
+        
+        .hero-subtitle {
+          font-size: 1.1rem;
+        }
+        
+        .step {
+          width: 100px;
+          height: 100px;
+        }
+        
+        .step-details {
+          width: 150px;
+          left: -25px;
+          font-size: 0.85rem;
+        }
+        
+        .cta-title {
+          font-size: 2rem;
+        }
+        
+        .cta-subtitle {
+          font-size: 1rem;
+        }
+        
+        .service-card, .problem-card {
+          padding: 25px;
+        }
+        
+        .testimonial {
+          padding: 25px;
+        }
+        
+        .whatsapp-widget {
+          width: 280px;
+          right: 15px;
+          bottom: 15px;
+        }
       }
-      
-      .hero-title {
-        font-size: 1.8rem !important;
+
+      @media (max-width: 480px) {
+        .hero-container {
+          padding: 80px 15px 50px;
+        }
+        
+        .location-tag {
+          padding: 6px 12px;
+          font-size: 0.8rem;
+        }
+        
+        .cta-primary, .cta-secondary {
+          padding: 14px 20px;
+          font-size: 1rem;
+        }
+        
+        .step {
+          width: 80px;
+          height: 80px;
+        }
+        
+        .step-number {
+          font-size: 1.8rem;
+        }
+        
+        .step-title {
+          font-size: 0.8rem;
+          max-width: 70px;
+        }
+        
+        .step-details {
+          top: 100px;
+          width: 130px;
+          left: -25px;
+        }
+        
+        .brand-logo {
+          padding: 15px 20px;
+          min-width: 120px;
+        }
+        
+        .whatsapp-widget {
+          width: 260px;
+        }
       }
-    }
+
+      @media (max-width: 360px) {
+        .hero-title {
+          font-size: 1.8rem;
+        }
+        
+        .service-grid, .problem-grid, .testimonial-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .step {
+          width: 70px;
+          height: 70px;
+        }
+        
+        .step-details {
+          width: 120px;
+          left: -25px;
+        }
+      }
     </style>
-
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "serviceType": "Exercise Bike Repair & Maintenance",
-        "name": "24/7 Emergency Exercise Bike Repair in Hamilton & GTA",
-        "description": "Certified technicians offering residential and commercial exercise bike repair, resistance system diagnostics, pedal replacement, console troubleshooting, and maintenance services in Hamilton, Burlington, Oakville, Mississauga, and the GTA.",
-        "provider": {
-          "@type": "LocalBusiness",
-          "name": "Canadian Fitness Repair",
-          "url": "https://www.canadianfitnessrepair.com",
-          "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
-          "image": [
-            "https://www.canadianfitnessrepair.com/images/service-van.jpg",
-            "https://www.canadianfitnessrepair.com/images/technician-bike-repair.jpg"
-          ],
-          "description": "Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "22 Canary Grass Blvd",
-            "addressLocality": "Hamilton",
-            "addressRegion": "Ontario",
-            "postalCode": "L0R 1P0",
-            "addressCountry": "CA"
-          },
-          "telephone": "+1-289-925-7239",
-          "priceRange": "$$",
-          "areaServed": [
-            "Hamilton",
-            "Toronto",
-            "Oakville",
-            "Burlington",
-            "Mississauga"
-          ],
-          "sameAs": [
-            "https://www.facebook.com/CanadianFitnessRepair",
-            "https://www.instagram.com/canadianfitnessrepair"
-          ]
-        },
-        "areaServed": [
-          {
-            "@type": "Place",
-            "name": "Hamilton"
-          },
-          {
-            "@type": "Place",
-            "name": "Burlington"
-          },
-          {
-            "@type": "Place",
-            "name": "Oakville"
-          },
-          {
-            "@type": "Place",
-            "name": "Mississauga"
-          },
-          {
-            "@type": "Place",
-            "name": "Toronto"
-          },
-          {
-            "@type": "Place",
-            "name": "Brampton"
-          },
-          {
-            "@type": "Place",
-            "name": "Niagara"
-          }
-        ],
-        "offers": {
-          "@type": "Offer",
-          "priceCurrency": "CAD",
-          "price": "89.00",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "price": 89.0,
-            "priceCurrency": "CAD",
-            "description": "Flat rate exercise bike diagnostic and minor repair. Parts and labor extra."
-          },
-          "availability": "https://schema.org/InStock",
-          "url": "https://www.canadianfitnessrepair.com/exercise-bike-repair.html"
-        }
-      }
-    </script>
 </head>
 <body>
-    <div id="header"></div>
+<div id="header"></div>
 
     <main>
         <!-- HERO SECTION -->
         <section class="hero">
-            <div class="hero-container">
-                <div class="hero-content">
+
+                <div class="hero">
                     <h1 class="hero-title">Professional Exercise Bike Repair in Hamilton & GTA</h1>
                     <p class="hero-subtitle">24/7 emergency service for stationary bikes, spin bikes, and cycling machines. Certified technicians serving all major brands.</p>
                     
@@ -781,10 +803,7 @@
                         </a>
                     </div>
                 </div>
-                
-                <div class="hero-image" style="background-image: url('https://images.unsplash.com/photo-1599745781933-7cdbb437f902?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80')">
-                </div>
-            </div>
+
         </section>
         
         <!-- BRAND SECTION -->
@@ -1024,46 +1043,46 @@
             </div>
         </section>
     </main>
+        <section>
+            <div class="whatsapp-widget" id="whatsappWidget">
+                <div class="widget-header">
+                    <div class="whatsapp-icon">
+                        <i class="fab fa-whatsapp"> </i>
+                    </div>
+                    <div class="header-text">
+                        <h3>Canadian Fitness Repair</h3>
+                        <p>Typically replies instantly</p>
+                    </div>
+                    <button class="close-btn" id="closeBtn">&times;</button>
+                </div>
+                <div class="chat-content" id="chatContent">
+                    <div class="message received">
+                        Hi there! 👋 Need help with your elliptical? We specialize in
+                        emergency elliptical repairs throughout Hamilton.
+                    </div>
+                    <div class="message received">
+                        What issues are you experiencing with your elliptical? We can help
+                        with noise, resistance, display problems and more!
+                    </div>
+                    <div class="message sent">Great!.</div>
+                </div>
+                <div class="action-area">
+                    <button class="whatsapp-btn" id="whatsappBtn">
+                        <i class="fab fa-whatsapp"> </i>
+                        Chat on WhatsApp
+                    </button>
+                </div>
+            </div>
+            <div class="floating-btn pulse" id="floatingBtn">
+                <i class="fab fa-whatsapp"> </i>
+            </div>
+        </section>
     
     <div id="footer"></div>
-    
-    <!-- External Scripts -->
     <script src="menu.js"></script>
+    <script src="animations.js"></script>
     <script src="whatsapp.js"></script>
-    
-    <!-- WhatsApp Widget -->
-    <section>
-      <div class="whatsapp-widget" id="whatsappWidget">
-        <div class="widget-header">
-          <div class="whatsapp-icon">
-            <i class="fab fa-whatsapp"> </i>
-          </div>
-          <div class="header-text">
-            <h3>Canadian Fitness Repair</h3>
-            <p>Typically replies instantly</p>
-          </div>
-          <button class="close-btn" id="closeBtn">&times;</button>
-        </div>
-        <div class="chat-content" id="chatContent">
-          <div class="message received">
-            Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we
-            help you with your exercise bike today?
-          </div>
-          <div class="message received">
-            We specialize in repairing stationary bikes, spin bikes, and cycling equipment. Let us know what you need help with!
-          </div>
-          <div class="message sent">Great!.</div>
-        </div>
-        <div class="action-area">
-          <button class="whatsapp-btn" id="whatsappBtn">
-            <i class="fab fa-whatsapp"> </i>
-            Chat on WhatsApp
-          </button>
-        </div>
-      </div>
-      <div class="floating-btn pulse" id="floatingBtn">
-        <i class="fab fa-whatsapp"> </i>
-      </div>
-    </section>
+
+
 </body>
 </html>
