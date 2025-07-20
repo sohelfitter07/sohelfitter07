@@ -6,493 +6,643 @@
     <title>Treadmill Repair Hamilton | 24/7 Emergency Service | Canadian Fitness Repair</title>
     <meta name="description" content="24/7 Treadmill Repair Hamilton ➤ Emergency Same-Day Service ✅ Certified Technicians ❌ No Extra Fees ⭐ 4.9/5 Rated. Serving Ancaster, Dundas, Burlington">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         :root {
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
-            --secondary: #dc2626;
+            --secondary: #f97316;
             --dark: #0f172a;
             --light: #f8fafc;
             --gray: #94a3b8;
-            --accent: #f97316;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --transition: all 0.3s ease;
+            --card-bg: #1e293b;
+            --border: rgba(255, 255, 255, 0.1);
+            --success: #22c55e;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, sans-serif;
         }
         
         body {
-            background-color: #0f172a;
-            color: var(--light);
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #020617;
+            color: #e2e8f0;
             line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 80px;
         }
         
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header Styles */
-        header {
+        /* Header */
+        #header {
             background: rgba(15, 23, 42, 0.95);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .header-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
         }
         
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo img {
-            height: 40px;
-        }
-        
-        .logo-text {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--light);
+            color: white;
         }
         
-        .logo-text span {
-            color: var(--primary);
+        .logo span {
+            color: var(--secondary);
         }
         
-        nav ul {
+        .nav-links {
             display: flex;
-            list-style: none;
-            gap: 30px;
+            gap: 1.5rem;
         }
         
-        nav a {
-            color: var(--light);
+        .nav-links a {
+            color: var(--gray);
             text-decoration: none;
             font-weight: 500;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            position: relative;
+            transition: color 0.3s ease;
         }
         
-        nav a:hover {
-            color: var(--primary);
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
-        }
-        
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        .contact-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .phone-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            color: var(--light);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .phone-link:hover {
-            color: var(--primary);
-        }
-        
-        .btn {
-            display: inline-block;
-            background: var(--primary);
+        .nav-links a:hover {
             color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
         }
         
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
-        }
-        
-        .btn-secondary {
-            background: var(--secondary);
-            box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            background: #b91c1c;
-            box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
-        }
-        
-        /* Hero Section with Swiper Carousel */
-        .hero-section {
-            height: 100vh;
-            margin-top: 70px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .swiper {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .swiper-slide {
-            position: relative;
+        /* Hero Section with Original Animation */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 3rem;
+            background: linear-gradient(rgba(21, 23, 25, 0.4), rgba(21, 23, 25, 0.2)), 
+                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
+            min-height: 90vh;
+            color: #5d5dff;
+            position: relative;
+        }
+        
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(transparent, var(--dark));
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 5vw, 5rem);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.5;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+        
+        .hero p {
+            font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+            max-width: 800px;
+            margin-bottom: 1rem;
+            color: #cbd5e1;
+        }
+        
+        .word-animation {
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 1rem 0;
+            padding: 1rem 0;
+            height: 120px;
             overflow: hidden;
         }
         
-        .slide-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.6) 100%);
-            z-index: 1;
+        #wordWrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 2s ease;
+            height: 120px;
         }
         
-        .slide-content {
-            position: relative;
+        .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            font-weight: bolder;
+            color: var(--secondary);
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+        }
+        
+        .c-button {
+            text-decoration: none;
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
             z-index: 2;
+            position: relative;
+            margin-top: 1rem;
+        }
+        
+        .c-button:hover {
+            background-color: #e05a00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(249, 115, 22, 0.4);
+        }
+        
+        /* Brand Carousel */
+        .brand-section {
+            background: rgba(30, 30, 46, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 3rem 0;
+            position: relative;
+            border-radius: 20px;
+            border: 1px solid rgba(93, 93, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            margin: 2rem auto;
+            width: 95%;
+        }
+        
+        .brand-title {
             text-align: center;
-            max-width: 800px;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            font-weight: 500;
             padding: 0 20px;
         }
         
-        .slide-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            text-transform: uppercase;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        .brand-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            margin: 12px auto 0;
+            border-radius: 3px;
         }
         
-        .slide-content p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .brand-carousel-container {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
         }
         
-        .hero-btns {
+        .brand-track-wrapper {
+            overflow: hidden;
+            padding: 15px 0;
+        }
+        
+        .brand-track {
             display: flex;
-            gap: 20px;
+            animation: brand-scroll 40s linear infinite;
+            gap: clamp(15px, 2.5vw, 25px);
+            padding: 10px 0;
+            width: max-content;
+        }
+        
+        .brand-track:hover {
+            animation-play-state: paused;
+        }
+        
+        .brand-card {
+            background: rgba(25, 25, 40, 0.9);
+            border-radius: 16px;
+            padding: clamp(15px, 2vw, 25px) clamp(15px, 1.5vw, 20px);
+            width: clamp(140px, 18vw, 200px);
+            height: clamp(100px, 15vw, 140px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            margin-top: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 126, 95, 0.2);
+            position: relative;
+            overflow: hidden;
         }
         
-        .slide-1 {
-            background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+        .brand-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        .slide-2 {
-            background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+        .brand-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(255, 126, 95, 0.3);
+            background: rgba(35, 35, 55, 0.95);
+            border-color: rgba(255, 126, 95, 0.4);
         }
         
-        .slide-3 {
-            background-image: url('https://images.unsplash.com/photo-1519505907962-0a6cb0167c73?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
-        }
-        
-        .slide-4 {
-            background-image: url('https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
-        }
-        
-        .slide-5 {
-            background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
-        }
-        
-        .swiper-pagination-bullet {
-            background: var(--light);
-            opacity: 0.5;
-            width: 12px;
-            height: 12px;
-        }
-        
-        .swiper-pagination-bullet-active {
-            background: var(--primary);
+        .brand-card:hover::before {
             opacity: 1;
         }
         
-        .swiper-button-next, .swiper-button-prev {
-            color: var(--light);
-            background: rgba(255, 255, 255, 0.1);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-        }
-        
-        .swiper-button-next:hover, .swiper-button-prev:hover {
-            background: var(--primary);
-            transform: scale(1.1);
-        }
-        
-        .swiper-button-next::after, .swiper-button-prev::after {
-            font-size: 1.2rem;
-        }
-        
-        /* Trust Badges */
-        .trust-badges {
-            position: absolute;
-            bottom: 40px;
-            left: 0;
-            right: 0;
-            z-index: 3;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .badge {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            border-radius: 30px;
+        .brand-logo {
+            height: clamp(35px, 6vw, 50px);
+            margin-bottom: clamp(8px, 1.5vw, 15px);
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .brand-name {
+            font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+            color: #b0b0d0;
+            text-align: center;
             font-weight: 500;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .brand-card:hover .brand-name {
+            opacity: 1;
+            color: #ffffff;
+        }
+        
+        @keyframes brand-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Brand-specific styles */
+        .nordictrack {
+            font-family: "Segoe UI", Roboto, sans-serif, "Oswald", sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(0, 200, 255, 0.8);
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+        
+        .proform {
+            font-family: "Segoe UI", Roboto, sans-serif, "Montserrat", sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+            color: #ff5252;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+        
+        .bowflex {
+            font-family: "Segoe UI", Roboto, sans-serif, "Roboto", sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #ffb74d;
+            letter-spacing: -0.5px;
+        }
+        
+        .lifefitness {
+            font-family: "Segoe UI", Roboto, sans-serif, "Montserrat", sans-serif;
+            font-weight: 700;
+            font-size: clamp(1rem, 2.2vw, 1.4rem);
+            color: #4caf50;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .precor {
+            font-family: "Segoe UI", Roboto, sans-serif, "Roboto", sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #2196f3;
+            letter-spacing: -1px;
+        }
+        
+        .matrix {
+            font-family: "Segoe UI", Roboto, sans-serif, "Montserrat", sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+            color: #f44336;
+            letter-spacing: -1px;
+        }
+        
+        .solefitness {
+            font-family: "Segoe UI", Roboto, sans-serif, "Roboto", sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
+            color: #9c27b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .horizon {
+            font-family: "Segoe UI", Roboto, sans-serif, "Montserrat", sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #ff9800;
+            letter-spacing: -0.5px;
+        }
+        
+        .cybex {
+            font-family: "Segoe UI", Roboto, sans-serif, "Oswald", sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+            color: #00bcd4;
+            letter-spacing: -1px;
+        }
+        
+        .schwinn {
+            font-family: "Segoe UI", Roboto, sans-serif, "Roboto", sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+            color: #e91e63;
+            letter-spacing: -1px;
+        }
+        
+        .nautilus {
+            font-family: "Segoe UI", Roboto, sans-serif, "Montserrat", sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+            color: #3f51b5;
+            letter-spacing: -0.5px;
+        }
+        
+        .technogym {
+            font-family: "Segoe UI", Roboto, sans-serif, "Roboto", sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.1rem, 2.3vw, 1.45rem);
+            color: #ff5722;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .truefitness {
+            font-family: "Segoe UI", Roboto, sans-serif, "Montserrat", sans-serif;
+            font-weight: 700;
+            font-size: clamp(1rem, 2.1vw, 1.35rem);
+            color: #8bc34a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .spiritfitness {
+            font-family: "Segoe UI", Roboto, sans-serif, "Roboto", sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
+            color: #c5a17d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .octanefitness {
+            font-family: "Segoe UI", Roboto, sans-serif, "Montserrat", sans-serif;
+            font-weight: 800;
+            font-size: clamp(1rem, 2.1vw, 1.35rem);
+            color: #ff4081;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         /* Services Section */
-        .services-section {
-            padding: 100px 0;
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
-            background-size: cover;
-            background-attachment: fixed;
+        .services {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: var(--dark);
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary);
             position: relative;
-            display: inline-block;
+            padding-bottom: 1rem;
         }
         
-        .section-title h2::after {
-            content: '';
+        .section-title::after {
+            content: "";
             position: absolute;
-            bottom: -10px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 100px;
             height: 4px;
-            background: var(--primary);
+            background: var(--secondary);
             border-radius: 2px;
-        }
-        
-        .section-title p {
-            max-width: 700px;
-            margin: 20px auto 0;
-            font-size: 1.1rem;
-            color: var(--gray);
         }
         
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .service-card {
             background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(93, 93, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--secondary);
+            transition: all 0.3s ease;
         }
         
         .service-card:hover {
             transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.2);
+        }
+        
+        .service-card:hover::before {
+            height: 100%;
         }
         
         .service-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+            color: var(--secondary);
         }
         
         .service-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
+            color: white;
         }
         
         .service-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
             color: var(--gray);
-            margin-bottom: 20px;
         }
         
         /* Stats Section */
-        .stats-section {
-            padding: 100px 0;
-            background: var(--dark);
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            flex-wrap: wrap;
+            gap: 2rem;
         }
         
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
+        .stat-item {
             text-align: center;
-        }
-        
-        .stat-card {
-            padding: 30px;
+            min-width: 180px;
         }
         
         .stat-number {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 10px;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
         }
         
-        .stat-text {
-            font-size: 1.2rem;
+        .stat-label {
+            font-size: 1.1rem;
             color: var(--gray);
         }
         
         /* Testimonials */
-        .testimonials-section {
-            padding: 100px 0;
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
+        .testimonials {
+            padding: 5rem 2rem;
+            background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.9)), 
+                        url("https://images.unsplash.com/photo-1519505907962-0a6cb0167c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80");
             background-size: cover;
-            background-attachment: fixed;
+            background-position: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .testimonials::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(21, 23, 25, 0.85);
         }
         
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
         
         .testimonial-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
         
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 5rem;
-            color: var(--primary);
-            opacity: 0.1;
-            font-family: serif;
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(93, 93, 255, 0.1);
         }
         
         .testimonial-header {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
         
         .testimonial-avatar {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: var(--primary);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            margin-right: 15px;
+            margin-right: 1rem;
+            color: white;
         }
         
         .testimonial-info h4 {
             font-size: 1.2rem;
-            margin-bottom: 5px;
+            margin-bottom: 0.25rem;
+            color: white;
         }
         
         .testimonial-stars {
-            color: #fbbf24;
-            font-size: 1rem;
+            color: gold;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
         }
         
         .testimonial-text {
             font-style: italic;
-            line-height: 1.7;
+            line-height: 1.6;
+            color: var(--gray);
         }
         
         /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        .cta {
+            padding: 6rem 2rem;
             text-align: center;
+            background: linear-gradient(135deg, var(--primary), #3a3aff);
             position: relative;
             overflow: hidden;
         }
         
-        .cta-section::before {
-            content: '';
+        .cta::before {
+            content: "";
             position: absolute;
             top: -50%;
             left: -50%;
@@ -502,75 +652,44 @@
             transform: rotate(30deg);
         }
         
-        .cta-content {
+        .cta h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
             position: relative;
-            z-index: 2;
+            z-index: 1;
+            color: white;
+        }
+        
+        .cta p {
             max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .cta-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .cta-content p {
+            margin: 0 auto 2.5rem;
             font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-        
-        .cta-btns {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
+            position: relative;
+            z-index: 1;
+            color: #e0f2fe;
         }
         
         /* Footer */
-        footer {
-            background: #020617;
-            padding: 60px 0 30px;
+        .footer {
+            background: var(--dark);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--gray);
         }
         
-        .footer-grid {
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            gap: 2rem;
+            text-align: left;
         }
         
-        .footer-col h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--primary);
-        }
-        
-        .footer-col p {
-            color: var(--gray);
-            margin-bottom: 15px;
-            line-height: 1.7;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .contact-item {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
         }
         
         .footer-links {
@@ -578,111 +697,213 @@
         }
         
         .footer-links li {
-            margin-bottom: 12px;
+            margin-bottom: 0.8rem;
         }
         
         .footer-links a {
             color: var(--gray);
             text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            transition: color 0.3s ease;
         }
         
         .footer-links a:hover {
-            color: var(--primary);
-            transform: translateX(5px);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-        
-        .social-link:hover {
-            background: var(--primary);
-            transform: translateY(-5px);
+            color: white;
         }
         
         .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--gray);
+        }
+        
+        /* WhatsApp Widget */
+        .whatsapp-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 300px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .widget-header {
+            background: #25d366;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+        }
+        
+        .whatsapp-icon {
+            font-size: 2rem;
+        }
+        
+        .header-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .header-text p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            margin-left: auto;
+            cursor: pointer;
+        }
+        
+        .chat-content {
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .message {
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            max-width: 80%;
             font-size: 0.9rem;
         }
         
-        /* Responsive Design */
+        .received {
+            background: #f0f2f5;
+            color: #333;
+            align-self: flex-start;
+        }
+        
+        .sent {
+            background: #d9fdd3;
+            color: #333;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        
+        .action-area {
+            padding: 1rem;
+            background: #f0f2f5;
+        }
+        
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #128c7e;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 999;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive Styles */
         @media (max-width: 992px) {
-            .slide-content h1 {
-                font-size: 2.8rem;
+            .hero h1 {
+                padding-top: 1rem;
+                font-size: 3rem;
             }
             
-            .slide-content p {
-                font-size: 1.2rem;
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            .word-item {
+                font-size: 4.5rem;
             }
         }
         
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 15px;
+            .nav-links {
+                display: none;
             }
             
-            nav ul {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
+            .hero {
+                padding: 9rem 1rem 1rem;
             }
             
-            .contact-header {
-                gap: 10px;
-                flex-wrap: wrap;
-                justify-content: center;
+            .hero h1 {
+                padding-top: 1rem;
+                font-size: 1.8rem;
             }
             
-            .hero-btns {
-                flex-direction: column;
-                align-items: center;
+            .word-item {
+                font-size: 3rem;
             }
             
-            .slide-content h1 {
-                font-size: 2.2rem;
+            .word-animation {
+                margin: 1rem 0;
+                padding: 1rem 0;
+                height: 120px;
             }
             
-            .trust-badges {
-                position: static;
-                margin-top: 30px;
+            #wordWrapper {
+                height: 80px;
             }
             
-            .section-title h2 {
-                font-size: 2rem;
+            .word-item {
+                height: 80px;
+            }
+            
+            .word-animation {
+                height: 80px;
+            }
+            
+            .service-card, .testimonial-card {
+                padding: 1.5rem;
+            }
+            
+            .brand-card {
+                min-width: 100px;
+                height: 80px;
             }
         }
         
-        @media (max-width: 576px) {
-            .slide-content h1 {
-                font-size: 1.8rem;
-            }
-            
-            .section-title h2 {
-                font-size: 1.8rem;
-            }
-            
-            .cta-btns {
+        @media (max-width: 480px) {
+            .stats {
                 flex-direction: column;
                 align-items: center;
             }
@@ -690,240 +911,288 @@
     </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <div class="logo-text">Canadian<span>Fitness</span></div>
-            </div>
-            
-            <nav>
-                <ul>
-                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="#services"><i class="fas fa-tools"></i> Services</a></li>
-                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Coverage</a></li>
-                    <li><a href="#"><i class="fas fa-dollar-sign"></i> Pricing</a></li>
-                    <li><a href="#"><i class="fas fa-phone-alt"></i> Contact</a></li>
-                </ul>
-            </nav>
-            
-            <div class="contact-header">
-                <a href="tel:+12899257239" class="phone-link">
-                    <i class="fas fa-phone-alt"></i> +1 (289) 925-7239
-                </a>
-                <a href="get-quote.html" class="btn">Get Quote</a>
-            </div>
+    <div id="header">
+        <div class="logo">Canadian<span>Fitness</span>Repair</div>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#brands">Brands</a>
+            <a href="#process">Process</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
         </div>
-    </header>
+    </div>
+    
+    <main>
+        <!-- Hero Section with Original Animation -->
+        <section class="hero">
+            <h1>GTA's #1 Fitness Repair Service</h1>
+            <p>Expert repair, installation and maintenance for all fitness equipment</p>
+            <div class="word-animation">
+                <div id="wordWrapper">
+                    <div class="word-item">Repair</div>
+                    <div class="word-item">Installation</div>
+                    <div class="word-item">Maintenance</div>
+                    <div class="word-item">Relocation</div>
+                    <div class="word-item">Project</div>
+                </div>
+            </div>
+            <a class="c-button" href="https://canadianfitnessrepair.com/get-quote.html">
+                Schedule Service Today
+            </a>
+        </section>
 
-    <!-- Hero Section with Swiper Carousel -->
-    <section class="hero-section">
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                <!-- Slide 1: Treadmill -->
-                <div class="swiper-slide slide-1">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-content">
-                        <h1>Treadmill Repair Experts</h1>
-                        <p>24/7 emergency service for all treadmill brands in Hamilton & surrounding areas</p>
-                        <div class="hero-btns">
-                            <a href="tel:+12899257239" class="btn btn-secondary">Call Now: (289) 925-7239</a>
-                            <a href="get-quote.html" class="btn">Request Service</a>
+        <!-- Brand Carousel -->
+        <section class="brand-section" id="brands">
+            <h2 class="brand-title">Trusted by Professionals Worldwide</h2>
+            <div class="brand-carousel-container">
+                <div class="brand-track-wrapper">
+                    <div class="brand-track">
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nordictrack">NORDICTRACK</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Slide 2: Elliptical -->
-                <div class="swiper-slide slide-2">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-content">
-                        <h1>Elliptical Machine Specialists</h1>
-                        <p>Fix stride issues, resistance problems, and electronic failures</p>
-                        <div class="hero-btns">
-                            <a href="tel:+12899257239" class="btn btn-secondary">Call Now: (289) 925-7239</a>
-                            <a href="get-quote.html" class="btn">Request Service</a>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="proform">PROFORM</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Slide 3: Exercise Bike -->
-                <div class="swiper-slide slide-3">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-content">
-                        <h1>Exercise Bike Repair</h1>
-                        <p>Professional service for stationary bikes, spin bikes, and recumbent bikes</p>
-                        <div class="hero-btns">
-                            <a href="tel:+12899257239" class="btn btn-secondary">Call Now: (289) 925-7239</a>
-                            <a href="get-quote.html" class="btn">Request Service</a>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="bowflex">BOWFLEX</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Slide 4: Strength Equipment -->
-                <div class="swiper-slide slide-4">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-content">
-                        <h1>Strength Equipment Service</h1>
-                        <p>Repair and maintenance for cable machines, weight stacks, and more</p>
-                        <div class="hero-btns">
-                            <a href="tel:+12899257239" class="btn btn-secondary">Call Now: (289) 925-7239</a>
-                            <a href="get-quote.html" class="btn">Request Service</a>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="lifefitness">LIFE FITNESS</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Slide 5: Commercial Equipment -->
-                <div class="swiper-slide slide-5">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-content">
-                        <h1>Commercial Gym Solutions</h1>
-                        <p>Service contracts for fitness centers, hotels, and corporate gyms</p>
-                        <div class="hero-btns">
-                            <a href="tel:+12899257239" class="btn btn-secondary">Call Now: (289) 925-7239</a>
-                            <a href="get-quote.html" class="btn">Request Service</a>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="precor">PRECOR</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="matrix">MATRIX</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="solefitness">SOLE FITNESS</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="horizon">HORIZON</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="cybex">CYBEX</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="schwinn">SCHWINN</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nautilus">NAUTILUS</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="technogym">TECHNOGYM</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="truefitness">TRUE FITNESS</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="spiritfitness">SPIRIT FITNESS</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="octanefitness">OCTANE FITNESS</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nordictrack">NORDICTRACK</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="proform">PROFORM</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="bowflex">BOWFLEX</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="lifefitness">LIFE FITNESS</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="precor">PRECOR</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="matrix">MATRIX</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="solefitness">SOLE FITNESS</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="horizon">HORIZON</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="cybex">CYBEX</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="schwinn">SCHWINN</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="nautilus">NAUTILUS</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="technogym">TECHNOGYM</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="truefitness">TRUE FITNESS</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="spiritfitness">SPIRIT FITNESS</div>
+                            </div>
+                        </div>
+                        <div class="brand-card">
+                            <div class="brand-logo">
+                                <div class="octanefitness">OCTANE FITNESS</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Swiper navigation -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-        </div>
-        
-        <!-- Trust Badges -->
-        <div class="trust-badges">
-            <div class="badge">
-                <i class="fas fa-bolt"></i> Same Day Service
-            </div>
-            <div class="badge">
-                <i class="fas fa-user-tie"></i> Certified Technicians
-            </div>
-            <div class="badge">
-                <i class="fas fa-star"></i> 4.9/5 Rated
-            </div>
-            <div class="badge">
-                <i class="fas fa-shield-alt"></i> 90-Day Warranty
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section class="services-section" id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Repair Services</h2>
-                <p>Comprehensive solutions for all your fitness equipment needs</p>
-            </div>
-            
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <h2 class="section-title">Our Professional Services</h2>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-running"></i>
+                        <i class="ri-run-line"></i>
                     </div>
                     <h3>Treadmill Repair</h3>
                     <p>Motor issues, belt replacements, incline fixes, control panel repairs for all treadmill brands.</p>
-                    <a href="#" class="btn">Learn More</a>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-shoe-prints"></i>
+                        <i class="ri-bike-line"></i>
                     </div>
                     <h3>Elliptical Repair</h3>
                     <p>Stride adjustment, noise fixes, resistance and console repairs for ellipticals.</p>
-                    <a href="#" class="btn">Learn More</a>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-bicycle"></i>
+                        <i class="ri-bike-line"></i>
                     </div>
                     <h3>Exercise Bike Repair</h3>
                     <p>Pedal, crank, resistance unit, and display repairs for upright and spin bikes.</p>
-                    <a href="#" class="btn">Learn More</a>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-dumbbell"></i>
+                        <i class="ri-water-flash-line"></i>
+                    </div>
+                    <h3>Rower Repair</h3>
+                    <p>Rowing machine fixes including belt/chain tension, seat wheels, and resistance settings.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="ri-weight-line"></i>
                     </div>
                     <h3>Strength Equipment</h3>
                     <p>Cables, pulleys, adjustment knobs, and upholstery repair for gym strength machines.</p>
-                    <a href="#" class="btn">Learn More</a>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-tools"></i>
+                        <i class="ri-settings-3-line"></i>
                     </div>
                     <h3>Preventative Maintenance</h3>
                     <p>Routine maintenance including belt lubrication, motor cleaning, alignment and inspection.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3>Commercial Service</h3>
-                    <p>Onsite service contracts and same-day repairs for fitness clubs, condos, and hotels.</p>
-                    <a href="#" class="btn">Learn More</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">1500+</div>
-                    <div class="stat-text">Repairs Completed</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-number">98%</div>
-                    <div class="stat-text">Satisfaction Rate</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-number">12+</div>
-                    <div class="stat-text">Years Experience</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-number">500+</div>
-                    <div class="stat-text">Happy Clients</div>
-                </div>
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="stat-item">
+                <div class="stat-number" data-count="1500">0</div>
+                <div class="stat-label">Repairs Completed</div>
             </div>
-        </div>
-    </section>
+            <div class="stat-item">
+                <div class="stat-number" data-count="98">0</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="12">0</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="500">0</div>
+                <div class="stat-label">Happy Clients</div>
+            </div>
+        </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Client Testimonials</h2>
-                <p>What our customers say about our service</p>
-            </div>
-            
+        <!-- Testimonials -->
+        <section class="testimonials" id="testimonials">
+            <h2 class="section-title">Client Testimonials</h2>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-header">
                         <div class="testimonial-avatar">
-                            <i class="fas fa-user"></i>
+                            <i class="ri-user-3-line"> </i>
                         </div>
                         <div class="testimonial-info">
                             <h4>Michael Johnson</h4>
                             <div class="testimonial-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
                             </div>
                         </div>
                     </div>
@@ -931,20 +1200,19 @@
                         "Canadian Fitness Repair saved our downtown Hamilton gym! When our treadmills broke down, they responded quickly and had us back in business within hours. Their technicians are true professionals serving the entire GTHA region."
                     </p>
                 </div>
-                
                 <div class="testimonial-card">
                     <div class="testimonial-header">
                         <div class="testimonial-avatar">
-                            <i class="fas fa-user"></i>
+                            <i class="ri-user-3-line"> </i>
                         </div>
                         <div class="testimonial-info">
                             <h4>Sarah Thompson</h4>
                             <div class="testimonial-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
                             </div>
                         </div>
                     </div>
@@ -952,20 +1220,19 @@
                         "The maintenance plan they created for our Ancaster home gym has been invaluable. Our equipment runs like new, and we've avoided costly repairs. Highly recommend their service to all Hamilton area residents!"
                     </p>
                 </div>
-                
                 <div class="testimonial-card">
                     <div class="testimonial-header">
                         <div class="testimonial-avatar">
-                            <i class="fas fa-user"></i>
+                            <i class="ri-user-3-line"> </i>
                         </div>
                         <div class="testimonial-info">
                             <h4>David Chen</h4>
                             <div class="testimonial-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
+                                <i class="ri-star-fill"> </i>
                             </div>
                         </div>
                     </div>
@@ -974,151 +1241,152 @@
                     </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Need Emergency Repair Service?</h2>
-                <p>We offer 24/7 emergency service for all fitness equipment. Call us now or request a callback.</p>
-                <div class="cta-btns">
-                    <a href="tel:+12899257239" class="btn btn-secondary">
-                        <i class="fas fa-phone-alt"></i> Call Now: (289) 925-7239
-                    </a>
-                    <a href="get-quote.html" class="btn">
-                        <i class="fas fa-calendar-alt"></i> Schedule Service
-                    </a>
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <h2>Ready to Get Your Equipment Back in Shape?</h2>
+            <p>
+                Contact us today for a free consultation and quote. Our expert technicians are ready to help!
+            </p>
+            <a class="c-button" href="tel:+12899257239">
+                <i class="ri-phone-line"> </i>
+                Call Now: +1 289 925 7239
+            </a>
+        </section>
+        
+        <!-- WhatsApp Widget -->
+        <div class="whatsapp-widget" id="whatsappWidget">
+            <div class="widget-header">
+                <div class="whatsapp-icon">
+                    <i class="fab fa-whatsapp"> </i>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
+                <div class="header-text">
                     <h3>Canadian Fitness Repair</h3>
-                    <p>Professional fitness equipment repair service serving Hamilton and surrounding areas. 24/7 emergency service available.</p>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone-alt"></i>
-                            <span>+1 (289) 925-7239</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>service@canadianfitnessrepair.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Serving Hamilton, Burlington, Oakville, Mississauga, and Niagara Region</span>
-                        </div>
-                    </div>
+                    <p>Typically replies instantly</p>
                 </div>
-                
-                <div class="footer-col">
-                    <h3>Our Services</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Treadmill Repair</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Elliptical Repair</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Exercise Bike Repair</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Strength Equipment</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Preventative Maintenance</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Commercial Service</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Service Areas</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Business Hours</h3>
-                    <p>Monday - Friday: 6:00 AM - 11:00 PM</p>
-                    <p>Saturday: 9:00 AM - 10:00 PM</p>
-                    <p>Sunday: 9:00 AM - 10:00 PM</p>
-                    <p>24/7 Emergency Service Available</p>
-                    
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-yelp"></i></a>
-                    </div>
-                </div>
+                <button class="close-btn" id="closeBtn">&times;</button>
             </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 Canadian Fitness Repair. All Rights Reserved. | Serving Hamilton and surrounding areas</p>
+            <div class="chat-content" id="chatContent">
+                <div class="message received">
+                    Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
+                </div>
+                <div class="message received">
+                    We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with!
+                </div>
+                <div class="message sent">Great!.</div>
             </div>
+            <div class="action-area">
+                <button class="whatsapp-btn" id="whatsappBtn">
+                    <i class="fab fa-whatsapp"> </i>
+                    Chat on WhatsApp
+                </button>
+            </div>
+        </div>
+        <div class="floating-btn pulse" id="floatingBtn">
+            <i class="fab fa-whatsapp"> </i>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Treadmill Repair</a></li>
+                    <li><a href="#">Elliptical Repair</a></li>
+                    <li><a href="#">Exercise Bike Repair</a></li>
+                    <li><a href="#">Rower Repair</a></li>
+                    <li><a href="#">Strength Equipment</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Locations</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Hamilton</a></li>
+                    <li><a href="#">Burlington</a></li>
+                    <li><a href="#">Oakville</a></li>
+                    <li><a href="#">Mississauga</a></li>
+                    <li><a href="#">Niagara Region</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><a href="tel:+12899257239">+1 (289) 925-7239</a></li>
+                    <li><a href="mailto:info@canadianfitnessrepair.com">info@canadianfitnessrepair.com</a></li>
+                    <li><a href="#">24/7 Emergency Service</a></li>
+                    <li><a href="#">Schedule Online</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Canadian Fitness Repair. All rights reserved.
         </div>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
     <script>
-        // Initialize Swiper
-        const swiper = new Swiper('.swiper', {
-            loop: true,
-            autoplay: {
-                delay: 6000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            effect: 'fade',
-            speed: 1000,
-            grabCursor: true,
-            touchEventsTarget: 'container'
-        });
+        // Hero Word Animation
+        const words = document.querySelectorAll(".word-item");
+        const wordWrapper = document.getElementById("wordWrapper");
+        const wordHeight = 120;
+        let wordIndex = 0;
         
-        // Add scroll animation to stats
+        function cycleWords() {
+            wordIndex = (wordIndex + 1) % words.length;
+            wordWrapper.style.transform = `translateY(-${wordIndex * wordHeight}px)`;
+        }
+        
+        setInterval(cycleWords, 2000);
+        
+        // WhatsApp Widget
         document.addEventListener('DOMContentLoaded', function() {
+            const floatingBtn = document.getElementById('floatingBtn');
+            const whatsappWidget = document.getElementById('whatsappWidget');
+            const closeBtn = document.getElementById('closeBtn');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            
+            floatingBtn.addEventListener('click', function() {
+                whatsappWidget.style.display = 'block';
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                whatsappWidget.style.display = 'none';
+            });
+            
+            whatsappBtn.addEventListener('click', function() {
+                window.open('https://wa.me/12899257239', '_blank');
+            });
+            
+            // Stats Counter Animation
             const statNumbers = document.querySelectorAll('.stat-number');
-            const statsSection = document.querySelector('.stats-section');
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        statNumbers.forEach((stat, index) => {
-                            const target = parseInt(stat.textContent.replace('+', ''));
-                            let count = 0;
-                            const duration = 2000;
-                            const increment = target / (duration / 16);
-                            
-                            const updateCount = () => {
-                                count += increment;
-                                if (count < target) {
-                                    stat.textContent = Math.ceil(count) + (stat.textContent.includes('+') ? '+' : '');
-                                    setTimeout(updateCount, 16);
-                                } else {
-                                    stat.textContent = target + (stat.textContent.includes('+') ? '+' : '');
-                                }
-                            };
-                            
-                            setTimeout(updateCount, index * 300);
-                        });
-                        observer.unobserve(statsSection);
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-count'));
+                let count = 0;
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                
+                const updateCount = () => {
+                    if (count < target) {
+                        count += increment;
+                        stat.textContent = Math.ceil(count);
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        stat.textContent = target;
                     }
-                });
-            }, { threshold: 0.5 });
-            
-            observer.observe(statsSection);
+                };
+                
+                // Start counting when element is in viewport
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        updateCount();
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.5 });
+                
+                observer.observe(stat);
+            });
         });
     </script>
 </body>
