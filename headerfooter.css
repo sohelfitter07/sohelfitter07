@@ -761,6 +761,9 @@ footer {
   .quotetext {
     font-size: 0.5rem;
   }
+  .c-button {
+  padding: 0.8rem 0.8rem;
+}
 }
 .footertop-middle {
   flex: 1;
