@@ -962,3 +962,114 @@ footer {
     padding-bottom: 20px;
   }
 }
+/* ===== Professional Logo Styles ===== */
+.logo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 70px; /* Fixed container height */
+}
+
+.header-logo {
+    height: 65px; /* Optimal height */
+    width: auto;
+    transition: var(--transition);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Logo scaling on hover */
+.logo-wrapper:hover .header-logo {
+    transform: scale(1.03);
+}
+
+.tagline {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    font-style: italic;
+    margin-top: 2px;
+    padding: 2px 8px;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 4px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-align: center;
+    align-self: center;
+    white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (min-width: 1025px) {
+    .logo-container {
+        height: 75px;
+    }
+    .header-logo {
+        height: 70px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .logo-container {
+        height: 60px;
+    }
+    .header-logo {
+        height: 55px;
+    }
+    .tagline {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .logo-container {
+        height: 55px;
+    }
+    .header-logo {
+        height: 50px;
+    }
+    .tagline {
+        font-size: 0.7rem;
+        padding: 2px 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-container {
+        height: 50px;
+    }
+    .header-logo {
+        height: 45px;
+    }
+    .tagline {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .logo-container {
+        height: 45px;
+    }
+    .header-logo {
+        height: 40px;
+    }
+    .tagline {
+        font-size: 0.6rem;
+    }
+}
+
+/* Header layout adjustments */
+#navlogo {
+    flex: 0 0 auto;
+    min-width: unset;
+    margin-right: 20px;
+}
+
+#navbottom {
+    align-items: center;
+    padding: 10px 5%;
+}
