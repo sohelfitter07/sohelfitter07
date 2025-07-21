@@ -1,253 +1,897 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-<!-- Favicon Universal Support -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-
-<!-- Apple/Safari Support -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      window.addEventListener("load", function () {
-        if ("requestIdleCallback" in window) {
-          requestIdleCallback(loadGTag);
-        } else {
-          setTimeout(loadGTag, 500);
-        }
-      });
-
-      function loadGTag() {
-        var script = document.createElement("script");
-        script.src = "https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01";
-        script.async = true;
-        document.head.appendChild(script);
-        gtag("js", new Date());
-        gtag("config", "G-E1WR6TZG01");
-      }
-    </script>
+<head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>Preventative Maintenance | Canadian Fitness Repair</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link href="whatsapp.css" rel="stylesheet" />
+    <meta content="Expert preventative maintenance services for fitness equipment in Hamilton, Toronto, Oakville. Extend equipment lifespan, reduce repair costs." name="description" />
+    <meta content="fitness equipment maintenance, treadmill service Hamilton, elliptical maintenance Toronto, gym equipment servicing, preventative care, fitness repair Oakville" name="keywords" />
+    <meta content="Preventative Maintenance | Canadian Fitness Repair" property="og:title" />
+    <meta content="Professional preventative maintenance services to keep your fitness equipment running like new." property="og:description" />
+    <meta content="https://www.canadianfitnessrepair.com/images/maintenance-hero.jpg" property="og:image" />
+    <meta content="https://www.canadianfitnessrepair.com/preventative-maintenance.html" property="og:url" />
+    <meta content="website" property="og:type" />
+    <meta content="en_CA" property="og:locale" />
+    <link href="https://www.canadianfitnessrepair.com/preventative-maintenance.html" rel="canonical" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <style>
-      /* Include your existing CSS here */
-      body {
-        font-family: "Segoe UI", Roboto, sans-serif "Roboto", sans-serif;
-        background-color: #151719;
-        color: #fff;
-        margin: 0;
-        padding: 0;
-      }
-      a {
-        color: #5d5dff;
-        text-decoration: none;
-      }
-      .hero {
-        background: #5d5dff;
-        padding: 4rem 2rem;
-        text-align: center;
-        color: white;
-      }
-      .hero h1 {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-      }
-      .hero p {
-        font-size: 1.2rem;
-      }
-      .service-content {
-        padding: 2rem;
-        max-width: 1000px;
-        margin: auto;
-      }
-      .service-content h2 {
-        color: #5d5dff;
-        font-size: 2rem;
-        margin-top: 2rem;
-      }
-      .service-content p {
-        line-height: 1.6;
-      }
-      .service-grid {
-        display: grid;
-        gap: 2rem;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        margin-top: 2rem;
-      }
-      .service-item {
-        background: #1f2125;
-        padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      }
-      .service-item h3 {
-        color: #5d5dff;
-        margin-bottom: 0.5rem;
-      }
-      .cta {
-        text-align: center;
-        background: #1f2125;
-        padding: 3rem 2rem;
-        margin-top: 3rem;
-      }
-      .c-button {
-        background: #5d5dff;
-        color: #fff;
-        padding: 0.75rem 1.5rem;
-        border: none;
-        border-radius: 8px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-      .c-button:hover {
-        background: #4343e3;
-      }
+        :root {
+            --bg-color: #151719;
+            --card-bg: #1f2125;
+            --theme-color: #5d5dff;
+            --accent-color: #ff6b6b;
+            --text-color: #ffffff;
+            --light-text: #a0a0b0;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 0;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #2a2c33 0%, #151719 100%);
+            text-align: center;
+            padding: 14rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(93, 93, 255, 0.15), transparent 70%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero-section h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #a0a0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(93, 93, 255, 0.4);
+        }
+        
+        .hero-section p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--light-text);
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+        
+        .stat-item {
+            background: rgba(93, 93, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            min-width: 180px;
+            border: 1px solid rgba(93, 93, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-item .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--theme-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-item .label {
+            font-size: 1rem;
+            color: var(--light-text);
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 4rem 0 2.5rem;
+            color: var(--theme-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--theme-color), var(--accent-color));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .service-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(93, 93, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(93, 93, 255, 0.3);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--theme-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+        
+        .service-card p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .service-features {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+        
+        .service-features li {
+            margin-bottom: 0.8rem;
+            color: var(--light-text);
+            position: relative;
+        }
+        
+        .service-features li::before {
+            content: "✓";
+            color: var(--theme-color);
+            font-weight: bold;
+            position: absolute;
+            left: -1.5rem;
+        }
+        
+        .pricing-section {
+            background: linear-gradient(135deg, #1a1c22 0%, #151719 100%);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            margin: 4rem 0;
+            border: 1px solid rgba(93, 93, 255, 0.15);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .pricing-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border: 1px solid rgba(93, 93, 255, 0.1);
+            transition: var(--transition);
+        }
+        
+        .pricing-card.popular {
+            border: 1px solid var(--theme-color);
+            transform: scale(1.03);
+            position: relative;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--theme-color);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+        
+        .price {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--theme-color);
+            margin: 1.5rem 0;
+        }
+        
+        .price span {
+            font-size: 1.2rem;
+            color: var(--light-text);
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+        }
+        
+        .pricing-features li i {
+            color: var(--theme-color);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .testimonials-section {
+            margin: 5rem 0;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            border-left: 4px solid var(--theme-color);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--light-text);
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: "";
+            font-size: 4rem;
+            position: absolute;
+            top: -20px;
+            left: -15px;
+            color: rgba(93, 93, 255, 0.2);
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--theme-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #1a1c22 0%, #0f1114 100%);
+            margin: 4rem 0 0;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(93, 93, 255, 0.1);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.2rem;
+            color: var(--light-text);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--theme-color), var(--accent-color));
+            color: #fff;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(93, 93, 255, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(93, 93, 255, 0.6);
+        }
+        
+        .whatsapp-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 350px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            z-index: 1000;
+            display: none;
+            border: 1px solid rgba(93, 93, 255, 0.2);
+        }
+        
+        .widget-header {
+            background: var(--theme-color);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .whatsapp-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--theme-color);
+        }
+        
+        .header-text {
+            flex-grow: 1;
+            padding-left: 15px;
+            color: white;
+        }
+        
+        .header-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+        }
+        
+        .header-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .chat-content {
+            padding: 15px;
+            height: 250px;
+            overflow-y: auto;
+        }
+        
+        .message {
+            padding: 10px 15px;
+            border-radius: 18px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            font-size: 0.95rem;
+        }
+        
+        .received {
+            background: rgba(93, 93, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .sent {
+            background: rgba(93, 93, 255, 0.3);
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .action-area {
+            padding: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .whatsapp-btn {
+            width: 100%;
+            padding: 12px;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #128C7E;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-section p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .hero-section {
+                padding: 8rem 1.5rem 3rem;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-container {
+                gap: 1rem;
+            }
+            
+            .stat-item {
+                min-width: 140px;
+                padding: 1rem;
+            }
+            
+            .stat-item .number {
+                font-size: 2rem;
+            }
+            
+            .pricing-section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .cta-section {
+                padding: 3rem 1.5rem;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            
+            .whatsapp-widget {
+                width: 90%;
+                right: 5%;
+                bottom: 80px;
+            }
+        }
     </style>
-    <link
-      href="https://www.canadianfitnessrepair.com/preventative-maintenance.html"
-      rel="canonical"
-    />
-    <link href="whatsapp.css" rel="stylesheet" />
-    <link
-      href="https://www.canadianfitnessrepair.com/preventative-maintenance.html"
-      rel="canonical"
-    />
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Canadian Fitness Repair",
-  "url": "https://www.canadianfitnessrepair.com",
-  "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
-  "image": [
-    "https://www.canadianfitnessrepair.com/images/service-van.jpg",
-    "https://www.canadianfitnessrepair.com/images/technician-working.jpg"
-  ],
-  "description": "Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "22 Canary Grass Blvd",
-    "addressLocality": "Hamilton",
-    "addressRegion": "Ontario",
-    "postalCode": "L0R 1P0",
-    "addressCountry": "CA"
-  },
-  "telephone": "+1-289-925-7239",
-  "areaServed": [
-    "Hamilton",
-    "Toronto",
-    "Oakville",
-    "Burlington",
-    "Mississauga"
-  ],
-  "sameAs": [
-    "https://www.facebook.com/CanadianFitnessRepair",
-    "https://www.instagram.com/canadianfitnessrepair"
-  ]
-}
-</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Fitness Equipment Maintenance",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Canadian Fitness Repair",
+        "url": "https://www.canadianfitnessrepair.com",
+        "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
+        "image": "https://www.canadianfitnessrepair.com/images/maintenance-service.jpg",
+        "description": "Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "22 Canary Grass Blvd",
+          "addressLocality": "Hamilton",
+          "addressRegion": "Ontario",
+          "postalCode": "L0R 1P0",
+          "addressCountry": "CA"
+        },
+        "telephone": "+1-289-925-7239",
+        "areaServed": [
+          "Hamilton", "Toronto", "Oakville", "Burlington", "Mississauga"
+        ],
+        "sameAs": [
+          "https://www.facebook.com/CanadianFitnessRepair",
+          "https://www.instagram.com/canadianfitnessrepair"
+        ]
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Preventative Maintenance Plans",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Residential Maintenance Package",
+            "price": "149",
+            "priceCurrency": "CAD",
+            "description": "Annual maintenance for home fitness equipment"
+          },
+          {
+            "@type": "Offer",
+            "name": "Commercial Maintenance Package",
+            "price": "449",
+            "priceCurrency": "CAD",
+            "description": "Quarterly maintenance for commercial gym equipment"
+          }
+        ]
+      }
+    }
+    </script>
+      <link href="headerfooter.css" rel="stylesheet"/>
+  <link href="whatsapp.css" rel="stylesheet"/>
 </head>
-  <body>
-    <section class="hero">
-      <h1>Preventative Maintenance</h1>
-      <p>Scheduled tune-ups to keep your fitness equipment running like new.</p>
-    </section>
-    <section class="service-content">
-      <p>
-        Our preventative maintenance service is designed to minimize downtime,
-        reduce repair costs, and keep your fitness equipment operating safely
-        and efficiently. Whether you run a commercial gym or have a treadmill at
-        home, regular maintenance ensures everything runs smoothly.
-      </p>
-      <h2>Included Services</h2>
-      <div class="service-grid">
-        <div class="service-item">
-          <h3>
-            <i class="ri-calendar-check-line"> </i>
-            Custom Maintenance Schedules
-          </h3>
-          <p>
-            Tailored service intervals based on your equipment usage and type to
-            ensure optimal performance.
-          </p>
+<body>
+    <div id="header">
+  </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Preventative Maintenance Services</h1>
+            <p>Proactive care to extend the life of your fitness equipment and prevent costly repairs</p>
+            
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="number">40%</div>
+                    <div class="label">Repair Cost Reduction</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">5+</div>
+                    <div class="label">Years Extended Lifespan</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">98%</div>
+                    <div class="label">Downtime Prevention</div>
+                </div>
+            </div>
+            
+            <a href="#pricing" class="cta-button">
+                <i class="ri-calendar-check-line"></i> Schedule Maintenance
+            </a>
         </div>
-        <div class="service-item">
-          <h3>
-            <i class="ri-shield-check-line"> </i>
-            Lubrication &amp; Belt Tensioning
-          </h3>
-          <p>
-            We check and adjust belts, apply lubrication, and reduce wear and
-            friction on critical components.
-          </p>
-        </div>
-        <div class="service-item">
-          <h3>
-            <i class="ri-settings-3-line"> </i>
-            Calibration &amp; Optimization
-          </h3>
-          <p>
-            We test incline, resistance, speed and adjust the system to factory
-            specs for smooth operation.
-          </p>
-        </div>
-      </div>
     </section>
-    <section class="cta">
-      <h2>Book Preventative Maintenance Now</h2>
-      <p>
-        Stay ahead of problems. Regular maintenance saves you money and extends
-        the life of your machines.
-      </p>
-      <a class="c-button" href="get-quote.html"> Get a Quote </a>
-    </section>
-    <section>
-      <div class="whatsapp-widget" id="whatsappWidget">
+
+    <div class="main-container">
+        <!-- Service Grid -->
+        <h2 class="section-title">Our Maintenance Services</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="ri-calendar-check-line"></i>
+                </div>
+                <h3>Scheduled Maintenance Plans</h3>
+                <p>Customized maintenance schedules based on your equipment usage and environment. We'll handle everything from lubrication to electronic diagnostics.</p>
+                <ul class="service-features">
+                    <li>Quarterly, bi-annual, or annual options</li>
+                    <li>Usage-based customization</li>
+                    <li>Priority scheduling</li>
+                    <li>Digital maintenance records</li>
+                </ul>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="ri-settings-3-line"></i>
+                </div>
+                <h3>Performance Optimization</h3>
+                <p>Keep your equipment running at peak performance with our comprehensive tuning and calibration service.</p>
+                <ul class="service-features">
+                    <li>Belt tension adjustment</li>
+                    <li>Motor calibration</li>
+                    <li>Incline/decline accuracy</li>
+                    <li>Speed calibration</li>
+                    <li>Electronic diagnostics</li>
+                </ul>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="ri-shield-check-line"></i>
+                </div>
+                <h3>Safety Inspections</h3>
+                <p>Comprehensive safety checks to ensure your equipment meets manufacturer specifications and operates safely.</p>
+                <ul class="service-features">
+                    <li>Structural integrity assessment</li>
+                    <li>Electrical safety testing</li>
+                    <li>Emergency stop verification</li>
+                    <li>Wear component evaluation</li>
+                    <li>Safety certification</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Pricing Section -->
+        <div id="pricing" class="pricing-section">
+            <h2 class="section-title">Maintenance Plans & Pricing</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: var(--light-text);">
+                Choose the perfect maintenance plan for your home or commercial fitness equipment. All plans include priority service and 10% discount on parts.
+            </p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Residential Basic</h3>
+                    <div class="price">$149<span>/year</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="ri-check-line"></i> Annual comprehensive inspection</li>
+                        <li><i class="ri-check-line"></i> Lubrication & belt tensioning</li>
+                        <li><i class="ri-check-line"></i> Calibration of key functions</li>
+                        <li><i class="ri-check-line"></i> Electronic diagnostics</li>
+                        <li><i class="ri-check-line"></i> 1 Equipment covered</li>
+                        <li><i class="ri-close-line"></i> Quarterly check-ups</li>
+                    </ul>
+                    <a href="get-quote.html" class="cta-button">Choose Plan</a>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Residential Premium</h3>
+                    <div class="price">$249<span>/year</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="ri-check-line"></i> Bi-annual comprehensive inspection</li>
+                        <li><i class="ri-check-line"></i> Lubrication & belt tensioning</li>
+                        <li><i class="ri-check-line"></i> Full calibration</li>
+                        <li><i class="ri-check-line"></i> Advanced electronic diagnostics</li>
+                        <li><i class="ri-check-line"></i> Up to 3 equipment covered</li>
+                        <li><i class="ri-check-line"></i> Priority service scheduling</li>
+                    </ul>
+                    <a href="get-quote.html" class="cta-button">Choose Plan</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Commercial</h3>
+                    <div class="price">$449<span>/quarter</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="ri-check-line"></i> Quarterly maintenance</li>
+                        <li><i class="ri-check-line"></i> Unlimited equipment</li>
+                        <li><i class="ri-check-line"></i> Full calibration & optimization</li>
+                        <li><i class="ri-check-line"></i> Emergency service included</li>
+                        <li><i class="ri-check-line"></i> Digital maintenance reports</li>
+                        <li><i class="ri-check-line"></i> Staff training sessions</li>
+                    </ul>
+                    <a href="get-quote.html" class="cta-button">Choose Plan</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Testimonials -->
+        <div class="testimonials-section">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Canadian Fitness Repair's maintenance plan saved our gym over $12,000 in repair costs last year. Their proactive approach prevents issues before they become problems."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MT</div>
+                        <div class="author-info">
+                            <h4>Mark Thompson</h4>
+                            <p>Gym Owner, Hamilton</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "I've been using their residential maintenance plan for 3 years. My treadmill runs like new and I've avoided any major breakdowns. Worth every penny!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SL</div>
+                        <div class="author-info">
+                            <h4>Sarah Lewis</h4>
+                            <p>Home Gym User, Oakville</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The commercial maintenance package has reduced our equipment downtime by 95%. Their technicians are knowledgeable and always on time."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RJ</div>
+                        <div class="author-info">
+                            <h4>Robert Johnson</h4>
+                            <p>Fitness Manager, Toronto</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Final CTA -->
+    <div class="cta-section">
+        <h2>Ready to Protect Your Investment?</h2>
+        <p>Join hundreds of satisfied customers who trust Canadian Fitness Repair to keep their equipment running smoothly year after year.</p>
+        <a href="tel:+12899257239" class="cta-button">
+            <i class="ri-phone-line"></i> Call Now: (289) 925-7239
+        </a>
+    </div>
+    
+    <!-- WhatsApp Widget -->
+    <div class="whatsapp-widget" id="whatsappWidget">
         <div class="widget-header">
-          <div class="whatsapp-icon">
-            <i class="fab fa-whatsapp"> </i>
-          </div>
-          <div class="header-text">
-            <h3>Canadian Fitness Repair</h3>
-            <p>Typically replies instantly</p>
-          </div>
-          <button class="close-btn" id="closeBtn">&times;</button>
+            <div class="whatsapp-icon">
+                <i class="ri-whatsapp-line"></i>
+            </div>
+            <div class="header-text">
+                <h3>Canadian Fitness Repair</h3>
+                <p>Typically replies instantly</p>
+            </div>
+            <button class="close-btn" id="closeBtn">&times;</button>
         </div>
         <div class="chat-content" id="chatContent">
-          <div class="message received">
-            Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we
-            help you with your fitness equipment today?
-          </div>
-          <div class="message received">
-            We specialize in repairing treadmills, ellipticals, exercise bikes,
-            and strength training equipment. Let us know what you need help
-            with!
-          </div>
-          <div class="message sent">Great!.</div>
+            <div class="message received">
+                Hi there! 👋 Thanks for your interest in our preventative maintenance services. How can we help you today?
+            </div>
+            <div class="message received">
+                We offer maintenance plans for both residential and commercial fitness equipment throughout Hamilton and the GTA.
+            </div>
+            <div class="message sent">
+                I'd like more information about your maintenance packages.
+            </div>
         </div>
         <div class="action-area">
-          <button class="whatsapp-btn" id="whatsappBtn">
-            <i class="fab fa-whatsapp"> </i>
-            Chat on WhatsApp
-          </button>
+            <button class="whatsapp-btn" id="whatsappBtn">
+                <i class="ri-whatsapp-line"></i> Chat on WhatsApp
+            </button>
         </div>
-      </div>
-      <div class="floating-btn pulse" id="floatingBtn">
-        <i class="fab fa-whatsapp"> </i>
-      </div>
-    </section>
-    <script src="whatsapp.js"></script>
-  </body>
+    </div>
+    <div class="floating-btn pulse" id="floatingBtn">
+        <i class="ri-whatsapp-line"></i>
+    </div>
+      <div id="footer">
+  </div>
+    <script>
+        // WhatsApp Widget Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const floatingBtn = document.getElementById('floatingBtn');
+            const whatsappWidget = document.getElementById('whatsappWidget');
+            const closeBtn = document.getElementById('closeBtn');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            
+            floatingBtn.addEventListener('click', function() {
+                whatsappWidget.style.display = 'block';
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                whatsappWidget.style.display = 'none';
+            });
+            
+            whatsappBtn.addEventListener('click', function() {
+                window.open('https://wa.me/12899257239', '_blank');
+            });
+        });
+    </script>
+    <script src="menu.js">
+  </script>
+  <script src="animations.js">
+  </script>
+  <script src="whatsapp.js">
+  </script>
+  <script src="headerfooter.js">
+  </script>
+</body>
 </html>
