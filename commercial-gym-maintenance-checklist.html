@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commercial Gym Maintenance Checklist | Canadian Fitness Repair</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --theme-color: #5d5dff;
+            --accent-color: #ff6b6b;
+            --bg-color: #151719;
+            --card-bg: #1f2126;
+            --text-color: #e0e0e0;
+            --light-text: #a0a0a0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(93, 93, 255, 0.1);
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        
+        .logo {
+            max-width: 180px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0,0,0,0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+        
+        /* Checklist Styles */
+        .checklist-container {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            page-break-inside: avoid;
+        }
+        
+        .section-header {
+            background: linear-gradient(90deg, var(--theme-color), #6d6dff);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1));
+        }
+        
+        .section-header i {
+            font-size: 1.8rem;
+            z-index: 1;
+        }
+        
+        .section-header h2 {
+            z-index: 1;
+        }
+        
+        .tasks {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .task-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(93, 93, 255, 0.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(93, 93, 255, 0.2);
+            border-color: rgba(93, 93, 255, 0.3);
+        }
+        
+        .task-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .task-header i {
+            font-size: 2rem;
+            color: var(--theme-color);
+            margin-right: 15px;
+            background: rgba(93, 93, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+        
+        .task-title {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--text-color);
+        }
+        
+        .task-list {
+            list-style: none;
+        }
+        
+        .task-item {
+            padding: 12px 0;
+            display: flex;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .task-checkbox {
+            margin-right: 15px;
+            margin-top: 5px;
+            accent-color: var(--theme-color);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .brand-section {
+            background: rgba(93, 93, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 35px;
+            border-left: 4px solid var(--theme-color);
+        }
+        
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .brand-item {
+            background: rgba(93, 93, 255, 0.15);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .brand-item:hover {
+            background: rgba(93, 93, 255, 0.25);
+            transform: translateY(-3px);
+        }
+        
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 50px 0 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 16px 40px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+            color: white;
+            box-shadow: 0 5px 20px rgba(93, 93, 255, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #4a4ad1, #2f2fe6);
+            box-shadow: 0 8px 25px rgba(93, 93, 255, 0.6);
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            color: var(--theme-color);
+            border: 2px solid var(--theme-color);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(93, 93, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 30px;
+            background: rgba(0,0,0,0.3);
+            color: var(--light-text);
+            margin-top: 40px;
+        }
+        
+        .footer a {
+            color: var(--theme-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                color: #000;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                background: white;
+            }
+            
+            .header {
+                background: #5d5dff;
+                color: white;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            
+            .actions, .footer {
+                display: none;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .checklist-container {
+                padding: 20px;
+                background: white;
+            }
+            
+            .task-card {
+                background: white !important;
+                border: 1px solid #ddd;
+                color: #000;
+            }
+            
+            .task-title {
+                color: #000;
+            }
+            
+            .brand-section {
+                background: #f5f5f5 !important;
+                color: #000;
+            }
+            
+            .brand-item {
+                background: #e0e0e0 !important;
+                color: #000;
+            }
+            
+            .section-header {
+                background: #5d5dff !important;
+                color: white;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .checklist-container {
+                padding: 25px;
+            }
+            
+            .tasks {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .contact-item {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 25px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .task-title {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 14px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- Logo Placeholder -->
+ <img src="images/Canadian Fitness Repair Logo.png" alt="Canadian Fitness Repair" class="logo">
+            <h1>Commercial Gym Maintenance Checklist</h1>
+            <p>Prevent equipment downtime and extend the life of your fitness machines with our professional maintenance guide</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="ri-phone-line"></i>
+                    <span>(289) 925-7239</span>
+                </div>
+                <div class="contact-item">
+                    <i class="ri-map-pin-line"></i>
+                    <span>Serving Hamilton & GTA</span>
+                </div>
+                <div class="contact-item">
+                    <i class="ri-calendar-line"></i>
+                    <span>Updated: July 2025</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-container">
+            <div class="section">
+                <div class="section-header">
+                    <i class="ri-calendar-check-line"></i>
+                    <h2>Daily Maintenance Tasks</h2>
+                </div>
+                
+                <div class="tasks">
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-run-line"></i>
+                            <h3 class="task-title">Treadmills</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Inspect safety clips and emergency stop</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Wipe down console, handrails, and surfaces</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Check belt alignment and tension</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Listen for unusual noises during operation</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-loop-left-line"></i>
+                            <h3 class="task-title">Ellipticals</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Clean stride rails and wheels</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Check pedal tightness and alignment</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Test all resistance levels</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Verify console functions properly</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-bike-line"></i>
+                            <h3 class="task-title">Exercise Bikes</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Inspect pedals and crank arms</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Check seat adjustment mechanism</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Test resistance system</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Wipe down handles and seat</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-weight-line"></i>
+                            <h3 class="task-title">Strength Equipment</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Inspect cables for fraying or damage</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Check pulley alignment and function</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Test all adjustment mechanisms</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Wipe down upholstery and handles</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <i class="ri-calendar-line"></i>
+                    <h2>Weekly Maintenance Tasks</h2>
+                </div>
+                
+                <div class="tasks">
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-tools-line"></i>
+                            <h3 class="task-title">Cardio Equipment</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Lubricate treadmill belts (if required)</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Vacuum motor vents and air intakes</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Check drive belt tension</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Inspect power cords and connections</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-focus-line"></i>
+                            <h3 class="task-title">Strength Equipment</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Lubricate guide rods on weight stacks</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Check pin and selector mechanisms</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Inspect cable ends and attachments</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Tighten all bolts and fasteners</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-flashlight-line"></i>
+                            <h3 class="task-title">General Facility</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Test emergency stop functions</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Check first aid kits and AED</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Inspect flooring for damage</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Verify all safety signs are visible</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <i class="ri-calendar-2-line"></i>
+                    <h2>Monthly Maintenance Tasks</h2>
+                </div>
+                
+                <div class="tasks">
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-settings-3-line"></i>
+                            <h3 class="task-title">Preventative Maintenance</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Calibrate electronic consoles</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Check and adjust belt alignment</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Inspect drive belts and motors</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Test incline/decline mechanisms</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-focus-2-line"></i>
+                            <h3 class="task-title">Deep Cleaning</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Deep clean upholstery</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Clean under and around equipment</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Sanitize high-touch surfaces</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Clean air vents and cooling fans</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <i class="ri-calendar-event-line"></i>
+                    <h2>Quarterly Professional Service</h2>
+                </div>
+                
+                <div class="tasks">
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-user-star-line"></i>
+                            <h3 class="task-title">Schedule with Canadian Fitness Repair</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Comprehensive equipment inspection</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Professional calibration</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Preventative parts replacement</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Performance optimization</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="brand-section">
+                    <h3>Brand-Specific Maintenance Intervals</h3>
+                    <p>Recommended professional service frequencies for major brands:</p>
+                    
+                    <div class="brand-grid">
+                        <div class="brand-item">Life Fitness</div>
+                        <div class="brand-item">Precor</div>
+                        <div class="brand-item">Matrix</div>
+                        <div class="brand-item">Technogym</div>
+                        <div class="brand-item">Cybex</div>
+                        <div class="brand-item">Hammer Strength</div>
+                        <div class="brand-item">Star Trac</div>
+                        <div class="brand-item">True Fitness</div>
+                    </div>
+                    
+                    <p style="margin-top: 20px; font-weight: 500;"><i class="ri-phone-line"></i> Call (289) 925-7239 for brand-specific maintenance schedules</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <i class="ri-map-pin-line"></i>
+                    <h2>Hamilton Seasonal Considerations</h2>
+                </div>
+                
+                <div class="tasks">
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-snowy-line"></i>
+                            <h3 class="task-title">Winter Maintenance</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Increase lubrication frequency</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Monitor humidity levels</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Check for condensation on electronics</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Ensure proper heating in equipment areas</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-header">
+                            <i class="ri-sun-line"></i>
+                            <h3 class="task-title">Summer Maintenance</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Ensure proper ventilation</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Monitor equipment temperatures</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Increase cleaning frequency</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox">
+                                <span>Check air conditioning systems</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button id="printBtn" class="btn btn-primary">
+                    <i class="ri-printer-line"></i> Print Checklist
+                </button>
+                <button id="savePdfBtn" class="btn btn-secondary">
+                    <i class="ri-download-line"></i> Save as PDF
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Canadian Fitness Repair | Serving Hamilton, Burlington, Oakville & GTA</p>
+            <p><i class="ri-phone-line"></i> (289) 925-7239 | <i class="ri-mail-line"></i> canadianfitnessrepair@gmail.com</p>
+            <p style="margin-top: 20px;">© 2025 Canadian Fitness Repair. All rights reserved.</p>
+            <p style="margin-top: 15px;"><a href="https://www.canadianfitnessrepair.com">www.canadianfitnessrepair.com</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // Print functionality
+        document.getElementById('printBtn').addEventListener('click', function() {
+            window.print();
+        });
+        
+        // Save as PDF functionality
+        document.getElementById('savePdfBtn').addEventListener('click', function() {
+            window.print();
+        });
+        
+        // Add today's date to the checklist
+        window.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const dateString = today.toLocaleDateString('en-CA', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Create date element
+            const dateElement = document.createElement('div');
+            dateElement.className = 'contact-item';
+            dateElement.innerHTML = `<i class="ri-calendar-line"></i> ${dateString}`;
+            
+            // Add to contact info
+            document.querySelector('.contact-info').appendChild(dateElement);
+        });
+    </script>
+</body>
+</html>
