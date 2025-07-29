@@ -696,6 +696,74 @@
       outline: 2px solid var(--secondary) !important;
       box-shadow: 0 0 10px rgba(76, 175, 80, 0.5) !important;
     }
+    /* Responsive Form Adjustments */
+@media (max-width: 992px) {
+  .removal-form {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .removal-form {
+    padding: 1rem;
+  }
+  
+  .equipment-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.8rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .removal-form {
+    padding: 0.8rem;
+    margin: 1rem;
+  }
+  
+  .equipment-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .equipment-option {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  
+  .form-group label {
+    font-size: 0.95rem;
+  }
+  
+  .submit-btn {
+    padding: 0.9rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .equipment-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .submit-btn {
+    font-size: 0.95rem;
+  }
+}
   </style>
   
   <!-- JSON-LD Schema Markup -->
