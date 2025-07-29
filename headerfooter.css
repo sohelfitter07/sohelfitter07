@@ -254,6 +254,11 @@ body.has-banner {
 .dropdown:hover .dropdown-toggle-icon i {
   transform: rotate(180deg);
 }
+.dropdown:hover .dropdown-content {
+  max-height: 80vh; /* Use viewport height instead of fixed pixel value */
+  overflow-y: auto; /* Add scrollbar if needed */
+  padding: 10px 0;
+}
 .c-button {
   appearance: none;
   cursor: pointer;
@@ -1075,4 +1080,17 @@ footer {
 #navbottom {
     align-items: center;
     padding: 10px 2% 10px 2%;
+}
+/* Mobile dropdown fix */
+@media (max-width: 767px) {
+  .dropdown.active .dropdown-content {
+    max-height: 60vh; /* More space for mobile */
+    position: static; /* Proper positioning */
+    overflow-y: auto; /* Scrollable on small screens */
+  }
+  
+  /* Mobile dropdown arrow rotation */
+  .dropdown.active .dropdown-toggle-icon i {
+    transform: rotate(180deg);
+  }
 }
