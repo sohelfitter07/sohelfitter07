@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canadian Fitness Repair - Service Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            padding: 20px;
+        }
+        .report-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .header {
+            background: #5D5DFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        .header h2 {
+            font-size: 22px;
+            font-weight: 400;
+        }
+        .content-section {
+            padding: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        .section-title {
+            color: #5D5DFF;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #5D5DFF;
+            font-size: 20px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .info-item {
+            margin-bottom: 12px;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 3px;
+        }
+        .service-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .service-list li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .service-list li:before {
+            content: "•";
+            color: #5D5DFF;
+            position: absolute;
+            left: -15px;
+            font-size: 18px;
+        }
+        .signature-area {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+        .signature-line {
+            width: 250px;
+            height: 1px;
+            background: #333;
+            margin: 30px 0 5px;
+        }
+        .payment-receipt {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .payment-item {
+            padding: 8px 0;
+        }
+        .total-amount {
+            font-weight: bold;
+            font-size: 18px;
+            color: black;
+;
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .report-container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="header">
+            <h1>CANADIAN FITNESS REPAIR</h1>
+            <h2>Service Completion Report</h2>
+        </div>
+        
+        <div class="content-section">
+            <h3 class="section-title">Client Information</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Name</div>
+                    <div>Susan Jacques-Bennett</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Phone</div>
+                    <div>(905) 234-6682</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email</div>
+                    <div>sjacques-bennett@westlandinsurance.ca</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Address</div>
+                    <div>15192 Argyll Road, Georgetown, Ontaio L7G 5J4</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Client Type</div>
+                    <div>Individual</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h3 class="section-title">Equipment Details</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Manufacturer</div>
+                    <div>Horizon Fitness</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Model</div>
+                    <div>Elite 4.0T Treadmill</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Serial Number</div>
+                    <div>Not Recorded</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h3 class="section-title">Service Details</h3>
+            <div class="info-item">
+                <div class="info-label">Service Type</div>
+                <div>Maintenance Tune-Up & Lubrication</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">Service Performed</div>
+                <ul class="service-list">
+                    <li>Diagnosed dry walking belt requiring lubrication</li>
+                    <li>Applied specialized treadmill belt lubricant</li>
+                    <li>Performed full mechanical tune-up and calibration</li>
+                    <li>Cleaned inside hood and around power board</li>
+                    <li>Removed debris from motor area</li>
+                    <li>Tested all functions and safety features</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h3 class="section-title">Payment Receipt</h3>
+            <div class="payment-receipt">
+                <div class="payment-grid">
+                    <div class="payment-item">
+                        <div class="info-label">Service Description</div>
+                    </div>
+                    <div class="payment-item" style="text-align: right;">
+                        <div class="info-label">Amount</div>
+                    </div>
+                    
+                    <div class="payment-item">Treadmill Maintenance Service</div>
+                    <div class="payment-item" style="text-align: right;">$100.00</div>
+                    
+                    <div class="payment-item">Belt Lubrication</div>
+                    <div class="payment-item" style="text-align: right;">$20.00</div>
+                    
+                    <div class="payment-item" style="border-top: 1px solid #ddd; padding-top: 15px; margin-top: 5px;">
+                        <strong>Total</strong>
+                    </div>
+                    <div class="payment-item total-amount" style="border-top: 1px solid #ddd; padding-top: 15px; margin-top: 5px; text-align: right;">
+                        $120.00
+                    </div>
+                </div>
+                
+                <div class="info-item" style="margin-top: 20px;">
+                    <div class="info-label">Payment Method</div>
+                    <div>E-transfer</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Transaction ID</div>
+                    <div>CFR-2025-0821-9876</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Payment Date</div>
+                    <div>August 10, 2025</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h3 class="section-title">Service Completion</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Date of Completion</div>
+                    <div>August 10, 2025</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Start Time</div>
+                    <div>12:30 PM</div>
+                </div>
+            </div>
+            
+            <div class="info-item" style="margin-top: 15px;">
+                <div class="info-label">Client Follow-Up</div>
+                <div>
+                    <p>All systems were tested and confirmed operational at the time of service. Susan Jacques-Bennett was informed of the completed work.</p>
+                    <p>The client reported satisfaction with the service. No return visit is currently scheduled.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h3 class="section-title">Prepared By</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Company</div>
+                    <div>Canadian Fitness Repair</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Technician Contact</div>
+                    <div>(289) 925-7239</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Website</div>
+                    <div>www.canadianfitnessrepair.ca</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Report Date</div>
+                    <div>August 11, 2025</div>
+                </div>
+            </div>
+            
+            <div class="signature-area">
+                <div>Technician Name:</div>
+                <div style="text-decoration: underline;">Sam</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="logo">CANADIAN FITNESS REPAIR</div>
+            <div>Quality Service Guaranteed</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📞</span>
+                    <span>(289) 925-7239</span>
+                </div>
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>canadianfitnessrepair@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>🌐</span>
+                    <span>www.canadianfitnessrepair.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
