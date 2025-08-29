@@ -768,85 +768,98 @@
   
   <!-- JSON-LD Schema Markup -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Equipment Removal",
-    "provider": {
-      "@type": "LocalBusiness",
-      "name": "Canadian Fitness Repair",
-      "image": "https://www.canadianfitnessrepair.com/images/logo.png",
-      "telephone": "+1-289-925-7239",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Service Area Business",
-        "addressLocality": "Hamilton",
-        "addressRegion": "ON",
-        "postalCode": "L8E 5R9",
-        "addressCountry": "CA"
-      }
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Equipment Removal",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Canadian Fitness Repair",
+    "image": "https://www.canadianfitnessrepair.com/images/logo.png",
+    "telephone": "+1-289-925-7239",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Service Area Business",
+      "addressLocality": "Hamilton",
+      "addressRegion": "ON",
+      "postalCode": "L8E 5R9",
+      "addressCountry": "CA"
+    }
+  },
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "43.2557",
+      "longitude": "-79.8711"
     },
-    "areaServed": {
-      "@type": "GeoCircle",
-      "geoMidpoint": {
-        "@type": "GeoCoordinates",
-        "latitude": "43.2557",
-        "longitude": "-79.8711"
-      },
-      "geoRadius": "80000"
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Equipment Removal Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Treadmill Removal",
-            "description": "Professional removal and disposal of residential and commercial treadmills"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Elliptical Removal",
-            "description": "Safe removal of elliptical machines from homes and commercial spaces"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Exercise Bike Removal",
-            "description": "Removal of all types of stationary bikes including spin bikes and recumbents"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Strength Equipment Removal",
-            "description": "Removal of weight machines, cable systems, benches, and free weights"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Full Gym Clearance",
-            "description": "Complete removal of all equipment from home gyms and commercial facilities"
-          }
+    "geoRadius": "80000"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Equipment Removal Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Treadmill Removal",
+          "description": "Professional removal and disposal of residential and commercial treadmills"
         }
-      ]
-    },
-    "serviceOutput": {
-      "@type": "Product",
-      "name": "Recycled Materials"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Elliptical Removal",
+          "description": "Safe removal of elliptical machines from homes and commercial spaces"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Exercise Bike Removal",
+          "description": "Removal of all types of stationary bikes including spin bikes and recumbents"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Strength Equipment Removal",
+          "description": "Removal of weight machines, cable systems, benches, and free weights"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Full Gym Clearance",
+          "description": "Complete removal of all equipment from home gyms and commercial facilities"
+        }
+      }
+    ]
+  },
+  "serviceOutput": {
+    "@type": "Product",
+    "name": "Recycled Materials",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "CAD",
+      "price": "N/A",  // Adjust if pricing for recycled materials exists
+      "availability": "https://schema.org/InStock", 
+      "url": "https://www.canadianfitnessrepair.com/equipment-removal.html",
+      "itemCondition": "https://schema.org/NewCondition",
+      "seller": {
+        "@type": "Organization",
+        "name": "Canadian Fitness Repair"
+      }
     }
   }
-  </script>
+}
+</script>
+
 </head>
 <body>
   <div id="header"></div>
