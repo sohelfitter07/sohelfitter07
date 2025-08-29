@@ -844,16 +844,26 @@
   "serviceOutput": {
     "@type": "Product",
     "name": "Recycled Materials",
+    "image": "https://www.canadianfitnessrepair.com/images/recycled-materials.jpg",  // Add a relevant image URL
+    "description": "Materials recycled from fitness equipment removals for eco-friendly disposal.",
     "offers": {
       "@type": "Offer",
       "priceCurrency": "CAD",
-      "price": "0.00",  // Set this as 0.00 or remove it if price is not applicable
+      "price": "0.00",  // Keep 0.00 or adjust as needed
       "availability": "https://schema.org/InStock",
       "url": "https://www.canadianfitnessrepair.com/equipment-removal.html",
       "itemCondition": "https://schema.org/NewCondition",
       "seller": {
         "@type": "Organization",
         "name": "Canadian Fitness Repair"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": "Shipping not applicable"
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "returnPolicyCategory": "https://schema.org/NonRefundable"
       }
     }
   }
