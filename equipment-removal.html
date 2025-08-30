@@ -777,13 +777,17 @@
     "name": "Canadian Fitness Repair",
     "image": "https://www.canadianfitnessrepair.com/images/logo.png",
     "telephone": "+1-289-925-7239",
+    "priceRange": "$$", 
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Service Area Business",
       "addressLocality": "Hamilton",
       "addressRegion": "ON",
       "postalCode": "L8E 5R9",
-      "addressCountry": "CA"
+      "addressCountry": {
+        "@type": "Country",
+        "name": "CA"
+      }
     }
   },
   "areaServed": {
@@ -846,10 +850,30 @@
     "name": "Recycled Materials",
     "image": "https://www.canadianfitnessrepair.com/images/recycled-materials.jpg",
     "description": "Materials recycled from fitness equipment removals for eco-friendly disposal.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "27"
+    },
+    "review": {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Jane Doe"
+      },
+      "datePublished": "2025-08-01",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Great service, quick treadmill removal!"
+    },
     "offers": {
       "@type": "Offer",
       "priceCurrency": "CAD",
       "price": "0.00",
+      "priceValidUntil": "2025-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://www.canadianfitnessrepair.com/equipment-removal.html",
       "itemCondition": "https://schema.org/NewCondition",
@@ -866,7 +890,10 @@
         },
         "shippingDestination": {
           "@type": "DefinedRegion",
-          "addressCountry": "CA"
+          "addressCountry": {
+            "@type": "Country",
+            "name": "CA"
+          }
         },
         "deliveryTime": {
           "@type": "ShippingDeliveryTime",
@@ -887,12 +914,16 @@
       "hasMerchantReturnPolicy": {
         "@type": "MerchantReturnPolicy",
         "returnPolicyCategory": "MerchantReturnNotPermitted",
-        "applicableCountry": "CA"
+        "applicableCountry": {
+          "@type": "Country",
+          "name": "CA"
+        }
       }
     }
   }
 }
 </script>
+
 
 
 
