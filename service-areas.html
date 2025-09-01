@@ -106,7 +106,17 @@
       window.addEventListener("mousemove", loadGTM, { once: true });
       window.addEventListener("touchstart", loadGTM, { once: true });
     </script>
-       <style>
+    <style>
+        :root {
+          --bg-color: #151719;
+          --card-bg: #1e2023;
+          --text-color: #e1e1e1;
+          --light-text: #a0a0a0;
+          --theme-color: #5d5dff;
+          --accent-color: #ff6b6b;
+          --transition: all 0.3s ease;
+        }
+        
         body {
           font-family: "Segoe UI", Roboto, sans-serif;
           background-color: var(--bg-color);
@@ -121,6 +131,28 @@
           max-width: 1200px;
           margin: 0 auto;
           padding: 0 20px;
+        }
+        
+        .c-button {
+          display: inline-block;
+          padding: 1rem 2rem;
+          background-color: var(--theme-color);
+          color: white;
+          text-decoration: none;
+          border-radius: 50px;
+          font-weight: 600;
+          transition: var(--transition);
+          border: none;
+          cursor: pointer;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          margin-top: 1rem;
+        }
+        
+        .c-button:hover {
+          background-color: var(--accent-color);
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
         }
         
         /* Hero Section */
@@ -158,6 +190,23 @@
         .highlight {
           color: var(--accent-color);
           font-weight: 700;
+        }
+        
+        .hamilton-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(93, 93, 255, 0.2);
+          color: var(--theme-color);
+          padding: 0.75rem 1.5rem;
+          border-radius: 50px;
+          margin-top: 1.5rem;
+          font-weight: 600;
+          border: 2px solid var(--theme-color);
+        }
+        
+        .hamilton-badge i {
+          color: var(--accent-color);
         }
         
         /* Map Section */
@@ -210,82 +259,17 @@
           margin: 20px auto;
         }
         
-        .map-center {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 20px;
-          height: 20px;
-          background: #ff0000;
-          border-radius: 50%;
-          border: 3px solid white;
-          box-shadow: 0 0 0 4px #ff0000;
-          z-index: 10;
+        .google-map-container {
+          width: 100%;
+          height: 100%;
+          border-radius: 12px;
+          overflow: hidden;
         }
         
-        .map-center::after {
-          content: "Hamilton";
-          position: absolute;
-          top: -40px;
-          left: 50%;
-          transform: translateX(-50%);
-          background: white;
-          padding: 5px 15px;
-          border-radius: 30px;
-          font-weight: 600;
-          color: var(--bg-color);
-          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-          white-space: nowrap;
-        }
-        
-        .map-radius {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 70%;
-          height: 70%;
-          border: 2px dashed var(--theme-color);
-          border-radius: 50%;
-          opacity: 0.7;
-        }
-        
-        .map-radius-label {
-          position: absolute;
-          top: 50%;
-          right: 15%;
-          transform: translateY(-50%);
-          background: var(--accent-color);
-          padding: 8px 15px;
-          border-radius: 30px;
-          font-weight: 600;
-          color: white;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        
-        .city-marker {
-          position: absolute;
-          width: 10px;
-          height: 10px;
-          background: var(--theme-color);
-          border-radius: 50%;
-          border: 2px solid white;
-          box-shadow: 0 0 0 2px var(--theme-color);
-          z-index: 5;
-        }
-        
-        .city-label {
-          position: absolute;
-          font-size: 14px;
-          font-weight: 500;
-          color: white;
-          background: rgba(26, 42, 108, 0.8);
-          padding: 5px 12px;
-          border-radius: 20px;
-          white-space: nowrap;
-          z-index: 5;
-          backdrop-filter: blur(5px);
+        .google-map-container iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
         }
         
         .map-key {
@@ -315,6 +299,66 @@
         
         .secondary-service {
           background: var(--accent-color);
+        }
+        
+        /* Postal Code Section */
+        .postal-code-section {
+          padding: 5rem 0;
+          background: var(--card-bg);
+        }
+        
+        .postal-code-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 2rem;
+          margin-top: 2rem;
+        }
+        
+        .postal-code-group {
+          background: rgba(30, 30, 46, 0.7);
+          border-radius: 16px;
+          padding: 25px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+          border: 1px solid rgba(93, 93, 255, 0.1);
+          transition: var(--transition);
+        }
+        
+        .postal-code-group:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 30px rgba(93, 93, 255, 0.2);
+        }
+        
+        .postal-code-group h3 {
+          color: var(--theme-color);
+          margin-bottom: 20px;
+          padding-bottom: 10px;
+          border-bottom: 2px solid var(--accent-color);
+          font-size: 1.5rem;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        
+        .postal-code-group h3 i {
+          color: var(--accent-color);
+        }
+        
+        .postal-code-list {
+          list-style: none;
+        }
+        
+        .postal-code-list li {
+          margin-bottom: 12px;
+          padding: 10px;
+          background: rgba(93, 93, 255, 0.1);
+          border-radius: 8px;
+          border-left: 4px solid var(--accent-color);
+        }
+        
+        .postal-code-list strong {
+          color: var(--theme-color);
+          display: block;
+          margin-bottom: 0.5rem;
         }
         
         /* Cities List */
@@ -388,75 +432,6 @@
         .city-list a:hover::before {
           transform: translateX(5px);
         }
-  /* Grid background */
-  .map-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      linear-gradient(rgba(93, 93, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(93, 93, 255, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  
-  /* Regional grouping */
-  .region-group {
-    position: absolute;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    z-index: 4;
-    max-width: 200px;
-  }
-  
-  .region-title {
-    font-weight: 600;
-    color: #ffcc00;
-    margin-bottom: 8px;
-    font-size: 1.1rem;
-    text-align: center;
-  }
-  
-  .region-cities {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    font-size: 0.9rem;
-  }
-  
-  .region-cities span {
-    padding: 4px 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  /* Pulsing animation for Hamilton */
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-  }
-  
-  .map-center {
-    animation: pulse 2s infinite;
-  }
-  
-  /* City label hover effects */
-  .city-label {
-    transition: all 0.3s ease;
-  }
-  
-  .city-label:hover {
-    background: #ffcc00;
-    color: #1a2a6c;
-    transform: scale(1.05);
-    z-index: 20;
-  }
         
         /* Service Information */
         .service-info {
@@ -535,11 +510,6 @@
           color: rgba(255, 255, 255, 0.9);
         }
         
-        .c-button {
-          text-decoration: none;
-        }
-  
-        
         /* WhatsApp Widget */
         .whatsapp-widget {
           /* Styles from your existing whatsapp.css */
@@ -579,213 +549,6 @@
             gap: 15px;
           }
         }
-      </style>
-    <style>
-      /* Additions to existing styles */
-      .map-visual {
-        position: relative;
-        height: 600px; /* Increased height for better spacing */
-        background: #0f1429;
-        border-radius: 12px;
-        overflow: hidden;
-        margin: 20px auto;
-      }
-      
-      /* New grid background */
-      .map-grid {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: 
-          linear-gradient(rgba(93, 93, 255, 0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(93, 93, 255, 0.05) 1px, transparent 1px);
-        background-size: 40px 40px;
-        z-index: 1;
-      }
-      
-      /* Enhanced region groups */
-      .region-group {
-        position: absolute;
-        padding: 15px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        z-index: 4;
-        max-width: 200px;
-        transition: all 0.3s ease;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      }
-      
-      .region-group:hover {
-        background: rgba(255, 255, 255, 0.15);
-        transform: scale(1.05);
-        box-shadow: 0 12px 25px rgba(93, 93, 255, 0.3);
-      }
-      
-      .region-title {
-        font-weight: 600;
-        color: #ffcc00;
-        margin-bottom: 10px;
-        font-size: 1.2rem;
-        text-align: center;
-        padding-bottom: 5px;
-        border-bottom: 1px solid rgba(255, 204, 0, 0.3);
-      }
-      
-      .region-cities {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        font-size: 0.95rem;
-      }
-      
-      .region-cities span {
-        padding: 6px 10px;
-        background: rgba(26, 42, 108, 0.6);
-        border-radius: 8px;
-        text-align: center;
-        transition: all 0.3s ease;
-      }
-      
-      .region-cities span:hover {
-        background: rgba(58, 123, 213, 0.8);
-        transform: translateX(5px);
-      }
-      
-      /* Pulsing animation for Hamilton */
-      @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-        70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-      }
-      
-      .map-center {
-        animation: pulse 2s infinite;
-      }
-      
-      /* Floating animation */
-      @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-8px); }
-        100% { transform: translateY(0px); }
-      }
-      
-      .floating {
-        animation: float 4s ease-in-out infinite;
-      }
-      
-      /* Enhanced radius label */
-      .map-radius-label {
-        position: absolute;
-        top: 15%;
-        left: 85%;
-        transform: translate(-50%, -50%);
-        background: rgba(255, 255, 255, 0.9);
-        padding: 10px 20px;
-        border-radius: 30px;
-        font-weight: 600;
-        color: #1a2a6c;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        font-size: 1.1rem;
-        z-index: 10;
-      }
-      
-      /* Improved city markers */
-      .city-marker {
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        background: var(--theme-color);
-        border-radius: 50%;
-        border: 2px solid white;
-        box-shadow: 0 0 0 3px var(--theme-color);
-        z-index: 5;
-      }
-      
-      .city-label {
-        position: absolute;
-        font-size: 1.1rem;
-        font-weight: 500;
-        color: white;
-        background: rgba(26, 42, 108, 0.9);
-        padding: 8px 16px;
-        border-radius: 30px;
-        white-space: nowrap;
-        z-index: 5;
-        backdrop-filter: blur(5px);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        transition: all 0.3s ease;
-      }
-      
-      .city-label:hover {
-        background: #ffcc00;
-        color: #1a2a6c;
-        transform: scale(1.1);
-        z-index: 20;
-      }
-      
-      /* Responsive adjustments */
-      @media (max-width: 992px) {
-        .map-visual {
-          height: 500px;
-        }
-      }
-      
-      @media (max-width: 768px) {
-        .map-visual {
-          height: 450px;
-        }
-        
-        .map-radius-label {
-          top: 10%;
-          left: 80%;
-          font-size: 1rem;
-          padding: 8px 15px;
-        }
-        
-        .region-group {
-          max-width: 160px;
-          padding: 12px;
-        }
-        
-        .region-title {
-          font-size: 1.1rem;
-        }
-      }
-      
-      @media (max-width: 480px) {
-        .map-visual {
-          height: 400px;
-        }
-        
-        .map-radius-label {
-          top: 8%;
-          left: 75%;
-          font-size: 0.9rem;
-          padding: 6px 12px;
-        }
-        
-        .region-group {
-          max-width: 140px;
-          padding: 10px;
-        }
-        
-        .region-title {
-          font-size: 1rem;
-        }
-        
-        .region-cities {
-          font-size: 0.85rem;
-        }
-        
-        .city-label {
-          font-size: 1rem;
-          padding: 6px 12px;
-        }
-      }
     </style>
 </head>
 <body>
@@ -800,6 +563,9 @@
         <section class="service-hero">
             <h1>Our Service Coverage Area</h1>
             <p>Canadian Fitness Repair provides mobile repair services throughout Hamilton and all surrounding communities within a <span class="highlight">60km radius</span>. Our certified technicians come directly to your home or business.</p>
+            <span class="hamilton-badge">
+              <i class="ri-map-pin-fill"></i> We're based in Hamilton, serving the GTA and beyond!
+            </span>
             <a class="c-button" href="tel:+12899257239">
                 <i class="ri-phone-line"></i> Call Now: (289) 925-7239
             </a>
@@ -812,231 +578,264 @@
                 <div class="map-container">
                     <p>Our technicians service all locations within the shaded region on the map below. This covers Hamilton and surrounding cities within approximately 60km.</p>
     
-    <div class="map-visual">
-        <div class="map-grid"></div>
-        <div class="map-center"></div>
-        <div class="map-radius"></div>
-        <div class="map-radius-label floating">60km Service Radius</div>
-        
-        <!-- Enhanced Regional Groups -->
-        <div class="region-group floating" style="top: 25%; left: 25%;">
-            <div class="region-title">Southwest Ontario</div>
-            <div class="region-cities">
-                <span>Guelph</span>
-                <span>Waterloo</span>
-                <span>Brantford</span>
-                <span>Cambridge</span>
+                    <div class="map-visual">
+                        <div class="google-map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d186518.3953639664!2d-80.1624821001467!3d43.38949902648381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882c9c2a3,0x1e882e0c4d1d4b2a!2sHamilton%2C%20ON!5e0!3m2!1sen!2sca!4v1653000000000!5m2!1sen!2sca" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+    
+                    <div class="map-key">
+                        <div class="key-item">
+                            <div class="key-color primary-service"></div>
+                            <span>Primary Service Area (Hamilton + 20km)</span>
+                        </div>
+                        <div class="key-item">
+                            <div class="key-color secondary-service"></div>
+                            <span>Extended Service Area (20-60km from Hamilton)</span>
+                        </div>
+                    </div>
+    
+                    <p>Whether you're in downtown Hamilton, Burlington, Oakville, or anywhere in between, we come to you for fast, reliable fitness equipment repairs.</p>
+                </div>
             </div>
-        </div>
-        
-        <div class="region-group floating" style="top: 25%; left: 75%;">
-            <div class="region-title">Greater Toronto</div>
-            <div class="region-cities">
-                <span>Brampton</span>
-                <span>Etobicoke</span>
-                <span>Georgesville</span>
-                <span>Lalton Hills</span>
+        </section>
+
+        <!-- Postal Code Section -->
+        <section class="postal-code-section">
+            <div class="container">
+                <h2 class="section-title">Postal Codes We Serve</h2>
+                <p>We service these postal code areas throughout the Greater Toronto Area and surrounding regions:</p>
+                
+                <div class="postal-code-grid">
+                    <div class="postal-code-group">
+                        <h3><i class="ri-map-pin-line"></i> Hamilton & Area</h3>
+                        <ul class="postal-code-list">
+                            <li><strong>Central Hamilton</strong> L8E, L8H, L8J, L8K, L8L</li>
+                            <li><strong>East Hamilton</strong> L8M, L8N, L8P, L8R</li>
+                            <li><strong>West Hamilton</strong> L8S, L8T, L8V, L8W</li>
+                            <li><strong>Mountain</strong> L9A, L9B, L9C</li>
+                            <li><strong>Outskirts</strong> L9G, L9H, L9K</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="postal-code-group">
+                        <h3><i class="ri-map-pin-line"></i> Burlington & Area</h3>
+                        <ul class="postal-code-list">
+                            <li><strong>Central Burlington</strong> L7L, L7M</li>
+                            <li><strong>North Burlington</strong> L7N, L7P</li>
+                            <li><strong>South Burlington</strong> L7R, L7S, L7T</li>
+                            <li><strong>Aldershot</strong> L7T</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="postal-code-group">
+                        <h3><i class="ri-map-pin-line"></i> Oakville & Area</h3>
+                        <ul class="postal-code-list">
+                            <li><strong>East Oakville</strong> L6H, L6J</li>
+                            <li><strong>Central Oakville</strong> L6K, L6L</li>
+                            <li><strong>West Oakville</strong> L6M</li>
+                            <li><strong>Bronte</strong> L6L, L6M</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="postal-code-group">
+                        <h3><i class="ri-map-pin-line"></i> Mississauga & Area</h3>
+                        <ul class="postal-code-list">
+                            <li><strong>Northeast Mississauga</strong> L4T, L4W, L4X</li>
+                            <li><strong>Northwest Mississauga</strong> L4Y, L4Z, L5A</li>
+                            <li><strong>Southeast Mississauga</strong> L5B, L5C, L5E</li>
+                            <li><strong>Southwest Mississauga</strong> L5G, L5H, L5J, L5K</li>
+                            <li><strong>Central Mississauga</strong> L5L, L5M, L5N, L5R</li>
+                            <li><strong>Airport Area</strong> L5V, L5W</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="postal-code-group">
+                        <h3><i class="ri-map-pin-line"></i> Niagara Region</h3>
+                        <ul class="postal-code-list">
+                            <li><strong>St. Catharines</strong> L2R, L2S, L2T</li>
+                            <li><strong>Niagara Falls</strong> L2E, L2G, L2H, L2J</li>
+                            <li><strong>Welland</strong> L3B, L3C</li>
+                            <li><strong>Grimsby</strong> L3M</li>
+                            <li><strong>Niagara-on-the-Lake</strong> L0S</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="postal-code-group">
+                        <h3><i class="ri-map-pin-line"></i> Other Areas</h3>
+                        <ul class="postal-code-list">
+                            <li><strong>Brantford</strong> N3R, N3S, N3T, N3V</li>
+                            <li><strong>Cambridge</strong> N1R, N1S, N1T, N3C, N3E</li>
+                            <li><strong>Guelph</strong> N1E, N1G, N1H, N1K, N1L</li>
+                            <li><strong>Kitchener/Waterloo</strong> N2A, N2B, N2C, N2E, N2G, N2H, N2K, N2M, N2N, N2P, N2R</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 2rem; text-align: center;">
+                    <strong>Don't see your postal code?</strong> We serve a wide area - 
+                    <a href="contact.html" style="color: var(--accent-color);">Contact us</a> 
+                    to check if we service your location!
+                </p>
             </div>
-        </div>
+        </section>
         
-        <div class="region-group floating" style="top: 70%; left: 25%;">
-            <div class="region-title">Hamilton Area</div>
-            <div class="region-cities">
-                <span>Sydney Creek</span>
-                <span>Vineland</span>
-                <span>Beansville</span>
-                <span>Waterdown</span>
+        <!-- Cities List -->
+        <section class="cities-section">
+            <div class="container">
+                <h2 class="section-title">Cities We Serve</h2>
+                <div class="cities-container">
+                    <div class="city-group">
+                        <h3>Hamilton Region</h3>
+                        <ul class="city-list">
+                            <li><a href="treadmill-repair-hamilton.html">Hamilton</a></li>
+                            <li><a href="ancaster.html">Ancaster</a></li>
+                            <li><a href="dundas.html">Dundas</a></li>
+                            <li><a href="stoney-creek.html">Stoney Creek</a></li>
+                            <li><a href="treadmill-repair-waterdown.html">Waterdown</a></li>
+                            <li><a href="treadmill-repair-binbrook.html">Binbrook</a></li>
+                            <li><a href="treadmill-repair-hamilton.html">Carlisle</a></li>
+                            <li><a href="treadmill-repair-hamilton.html">Freelton</a></li>
+                            <li><a href="treadmill-repair-hamilton.html">Lynden</a></li>
+                            <li><a href="treadmill-repair-hamilton.html">Milton</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="city-group">
+                        <h3>Niagara Region</h3>
+                        <ul class="city-list">
+                            <li><a href="treadmill-repair-stcatharines.html">St. Catharines</a></li>
+                            <li><a href="treadmill-repair-niagara.html">Niagara Falls</a></li>
+                            <li><a href="treadmill-repair-welland.html">Welland</a></li>
+                            <li><a href="grimsby.html">Grimsby</a></li>
+                            <li><a href="grimsby.html">Beamsville</a></li>
+                            <li><a href="grimsby.html">Vineland</a></li>
+                            <li><a href="grimsby.html">Jordan</a></li>
+                            <li><a href="treadmill-repair-niagara.html">Niagara-on-the-Lake</a></li>
+                            <li><a href="treadmill-repair-niagara.html">Port Colborne</a></li>
+                            <li><a href="treadmill-repair-niagara.html">Fort Erie</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="city-group">
+                        <h3>Greater Toronto Area</h3>
+                        <ul class="city-list">
+                            <li><a href="treadmill-repair-burlington.html">Burlington</a></li>
+                            <li><a href="treadmill-repair-oakville.html">Oakville</a></li>
+                            <li><a href="treadmill-repair-mississauga.html">Mississauga</a></li>
+                            <li><a href="treadmill-repair-brampton.html">Brampton</a></li>
+                            <li><a href="treadmill-repair-mississauga.html">Halton Hills</a></li>
+                            <li><a href="treadmill-repair-oakville.html">Georgetown</a></li>
+                            <li><a href="treadmill-repair-mississauga.html">Milton</a></li>
+                            <li><a href="treadmill-repair-mississauga.html">Etobicoke</a></li>
+                            <li><a href="treadmill-repair-toronto.html">Toronto (West End)</a></li>
+                            <li><a href="treadmill-repair-toronto.html">Vaughan</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="city-group">
+                        <h3>Southwestern Ontario</h3>
+                        <ul class="city-list">
+                            <li><a href="treadmill-repair-cambridge.html">Brantford</a></li>
+                            <li><a href="treadmill-repair-cambridge.html">Cambridge</a></li>
+                            <li><a href="treadmill-repair-kitchener.html">Kitchener</a></li>
+                            <li><a href="treadmill-repair-london.html">Waterloo</a></li>
+                            <li><a href="treadmill-repair-cambridge.html">Guelph</a></li>
+                            <li><a href="treadmill-repair-london.html">London</a></li>
+                            <li><a href="treadmill-repair-burlington.html">Woodstock</a></li>
+                            <li><a href="treadmill-repair-cambridge.html">Ingersoll</a></li>
+                            <li><a href="treadmill-repair-hamilton.html">Ayr</a></li>
+                            <li><a href="treadmill-repair-hamilton.html">New Hamburg</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
         
-        <div class="region-group floating" style="top: 70%; left: 75%;">
-            <div class="region-title">Niagara Region</div>
-            <div class="region-cities">
-                <span>Niagara Falls</span>
-                <span>Welland</span>
-                <span>Grimsby</span>
-                <span>St. Catharines</span>
+        <!-- Service Information -->
+        <section class="service-info">
+            <div class="container">
+                <h2 class="section-title">Service Coverage Details</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <i class="ri-map-pin-line"></i>
+                        <h4>Service Radius</h4>
+                        <p>We service all locations within a 60km radius of Hamilton, including both residential and commercial properties.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <i class="ri-time-line"></i>
+                        <h4>Same-Day Service</h4>
+                        <p>For locations within 30km of Hamilton, we offer same-day emergency service for most repair needs.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <i class="ri-car-line"></i>
+                        <h4>Travel Fees</h4>
+                        <p>No travel fees within 20km of Hamilton. Standard travel fees apply beyond 20km.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <i class="ri-building-line"></i>
+                        <h4>Commercial Accounts</h4>
+                        <p>Special service agreements available for commercial clients with multiple locations.</p>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
         
-        <!-- Key City Markers -->
-        <div class="city-marker" style="top: 50%; left: 50%;"></div>
-        <div class="city-label" style="top: 45%; left: 50%;">Hamilton</div>
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Need Fitness Equipment Repair?</h2>
+                <p>Our certified technicians are ready to help you with any fitness equipment repair needs throughout Hamilton and surrounding areas.</p>
+                <a href="tel:+12899257239" class="c-button">
+                    <i class="ri-phone-line"></i> Call Now: (289) 925-7239
+                </a>
+            </div>
+        </section>
         
-        <div class="city-marker" style="top: 30%; left: 65%;"></div>
-        <div class="city-label" style="top: 25%; left: 65%;">Brampton</div>
-        
-        <div class="city-marker" style="top: 65%; left: 55%;"></div>
-        <div class="city-label" style="top: 60%; left: 55%;">Niagara Falls</div>
-    </div>
+        <!-- WhatsApp Widget -->
+        <section>
+            <div class="whatsapp-widget" id="whatsappWidget">
+                <div class="widget-header">
+                    <div class="whatsapp-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="header-text">
+                        <h3>Canadian Fitness Repair</h3>
+                        <p>Typically replies instantly</p>
+                    </div>
+                    <button class="close-btn" id="closeBtn">&times;</button>
+                </div>
+                <div class="chat-content" id="chatContent">
+                    <div class="message received">
+                        Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
+                    </div>
+                    <div class="message received">
+                        We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with!
+                    </div>
+                    <div class="message sent">Great!.</div>
+                </div>
+                <div class="action-area">
+                    <button class="whatsapp-btn" id="whatsappBtn">
+                        <i class="fab fa-whatsapp"></i>
+                        Chat on WhatsApp
+                    </button>
+                </div>
+            </div>
+            <div class="floating-btn pulse" id="floatingBtn">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+        </section>
+    </main>
     
-    <div class="map-key">
-        <div class="key-item">
-            <div class="key-color primary-service"></div>
-            <span>Primary Service Area (Hamilton + 20km)</span>
-        </div>
-        <div class="key-item">
-            <div class="key-color secondary-service"></div>
-            <span>Extended Service Area (20-60km from Hamilton)</span>
-        </div>
-    </div>
-    
-    <p>Whether you're in downtown Hamilton, Burlington, Oakville, or anywhere in between, we come to you for fast, reliable fitness equipment repairs.</p>
-</div>
-</div>
-</section>
-
-<!-- Cities List -->
-<section class="cities-section">
-<div class="container">
-<h2 class="section-title">Cities We Serve</h2>
-<div class="cities-container">
-    <div class="city-group">
-        <h3>Hamilton Region</h3>
-        <ul class="city-list">
-            <li><a href="treadmill-repair-hamilton.html">Hamilton</a></li>
-            <li><a href="ancaster.html">Ancaster</a></li>
-            <li><a href="dundas.html">Dundas</a></li>
-            <li><a href="stoney-creek.html">Stoney Creek</a></li>
-            <li><a href="treadmill-repair-waterdown.html">Waterdown</a></li>
-            <li><a href="treadmill-repair-binbrook.html">Binbrook</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Carlisle</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Freelton</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Lynden</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Milton</a></li>
-        </ul>
-    </div>
-    
-    <div class="city-group">
-        <h3>Niagara Region</h3>
-        <ul class="city-list">
-            <li><a href="treadmill-repair-stcatharines.html">St. Catharines</a></li>
-            <li><a href="treadmill-repair-niagara.html">Niagara Falls</a></li>
-            <li><a href="treadmill-repair-welland.html">Welland</a></li>
-            <li><a href="grimsby.html">Grimsby</a></li>
-            <li><a href="grimsby.html">Beamsville</a></li>
-            <li><a href="grimsby.html">Vineland</a></li>
-            <li><a href="grimsby.html">Jordan</a></li>
-            <li><a href="treadmill-repair-niagara.html">Niagara-on-the-Lake</a></li>
-            <li><a href="treadmill-repair-niagara.html">Port Colborne</a></li>
-            <li><a href="treadmill-repair-niagara.html">Fort Erie</a></li>
-        </ul>
-    </div>
-    
-    <div class="city-group">
-        <h3>Greater Toronto Area</h3>
-        <ul class="city-list">
-            <li><a href="treadmill-repair-burlington.html">Burlington</a></li>
-            <li><a href="treadmill-repair-oakville.html">Oakville</a></li>
-            <li><a href="treadmill-repair-mississauga.html">Mississauga</a></li>
-            <li><a href="treadmill-repair-brampton.html">Brampton</a></li>
-            <li><a href="treadmill-repair-mississauga.html">Halton Hills</a></li>
-            <li><a href="treadmill-repair-oakville.html">Georgetown</a></li>
-            <li><a href="treadmill-repair-mississauga.html">Milton</a></li>
-            <li><a href="treadmill-repair-mississauga.html">Etobicoke</a></li>
-            <li><a href="treadmill-repair-toronto.html">Toronto (West End)</a></li>
-            <li><a href="treadmill-repair-toronto.html">Vaughan</a></li>
-        </ul>
-    </div>
-    
-    <div class="city-group">
-        <h3>Southwestern Ontario</h3>
-        <ul class="city-list">
-            <li><a href="treadmill-repair-cambridge.html">Brantford</a></li>
-            <li><a href="treadmill-repair-cambridge.html">Cambridge</a></li>
-            <li><a href="treadmill-repair-kitchener.html">Kitchener</a></li>
-            <li><a href="treadmill-repair-london.html">Waterloo</a></li>
-            <li><a href="treadmill-repair-cambridge.html">Guelph</a></li>
-            <li><a href="treadmill-repair-london.html">London</a></li>
-            <li><a href="treadmill-repair-burlington.html">Woodstock</a></li>
-            <li><a href="treadmill-repair-cambridge.html">Ingersoll</a></li>
-            <li><a href="treadmill-repair-hamilton.html">Ayr</a></li>
-            <li><a href="treadmill-repair-hamilton.html">New Hamburg</a></li>
-        </ul>
-    </div>
-</div>
-</div>
-</section>
-
-<!-- Service Information -->
-<section class="service-info">
-<div class="container">
-<h2 class="section-title">Service Coverage Details</h2>
-<div class="info-grid">
-    <div class="info-card">
-        <i class="ri-map-pin-line"></i>
-        <h4>Service Radius</h4>
-        <p>We service all locations within a 60km radius of Hamilton, including both residential and commercial properties.</p>
-    </div>
-    
-    <div class="info-card">
-        <i class="ri-time-line"></i>
-        <h4>Same-Day Service</h4>
-        <p>For locations within 30km of Hamilton, we offer same-day emergency service for most repair needs.</p>
-    </div>
-    
-    <div class="info-card">
-        <i class="ri-car-line"></i>
-        <h4>Travel Fees</h4>
-        <p>No travel fees within 20km of Hamilton. Standard travel fees apply beyond 20km.</p>
-    </div>
-    
-    <div class="info-card">
-        <i class="ri-building-line"></i>
-        <h4>Commercial Accounts</h4>
-        <p>Special service agreements available for commercial clients with multiple locations.</p>
-    </div>
-</div>
-</div>
-</section>
-
-<!-- Call to Action -->
-<section class="cta-section">
-<div class="container">
-<h2>Need Fitness Equipment Repair?</h2>
-<p>Our certified technicians are ready to help you with any fitness equipment repair needs throughout Hamilton and surrounding areas.</p>
-<a href="tel:+12899257239" class="c-button">
-    <i class="ri-phone-line"></i> Call Now: (289) 925-7239
-</a>
-</div>
-</section>
-
-<!-- WhatsApp Widget -->
-<section>
-<div class="whatsapp-widget" id="whatsappWidget">
-<div class="widget-header">
-    <div class="whatsapp-icon">
-        <i class="fab fa-whatsapp"></i>
-    </div>
-    <div class="header-text">
-        <h3>Canadian Fitness Repair</h3>
-        <p>Typically replies instantly</p>
-    </div>
-    <button class="close-btn" id="closeBtn">&times;</button>
-</div>
-<div class="chat-content" id="chatContent">
-    <div class="message received">
-        Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
-    </div>
-    <div class="message received">
-        We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with!
-    </div>
-    <div class="message sent">Great!.</div>
-</div>
-<div class="action-area">
-    <button class="whatsapp-btn" id="whatsappBtn">
-        <i class="fab fa-whatsapp"></i>
-        Chat on WhatsApp
-    </button>
-</div>
-</div>
-<div class="floating-btn pulse" id="floatingBtn">
-<i class="fab fa-whatsapp"></i>
-</div>
-</section>
-</main>
-
-<div id="footer"></div>
+    <div id="footer"></div>
     <script defer src="menu.js"></script>
     <script defer src="animations.js"></script>
     <script defer src="whatsapp.js"></script>
@@ -1061,47 +860,6 @@
             
             whatsappBtn.addEventListener('click', function() {
                 window.open('https://wa.me/12899257239', '_blank');
-            });
-        });
-    </script>
-    <script>
-        // City marker hover effects
-        document.addEventListener('DOMContentLoaded', function() {
-          const markers = document.querySelectorAll('.city-marker');
-          
-          markers.forEach(marker => {
-            marker.addEventListener('mouseover', function() {
-              const label = this.nextElementSibling;
-              label.style.backgroundColor = '#ffcc00';
-              label.style.color = '#1a2a6c';
-              label.style.transform = 'scale(1.1)';
-            });
-            
-            marker.addEventListener('mouseout', function() {
-              const label = this.nextElementSibling;
-              label.style.backgroundColor = 'rgba(26, 42, 108, 0.9)';
-              label.style.color = 'white';
-              label.style.transform = 'scale(1)';
-            });
-          });
-        });
-    </script>    
-    <script>
-        // Add this script at the bottom of your existing scripts
-        document.addEventListener('DOMContentLoaded', function() {
-            // Region group hover effects
-            const regions = document.querySelectorAll('.region-group');
-            
-            regions.forEach(region => {
-                region.addEventListener('mouseover', function() {
-                    this.style.transform = 'scale(1.05)';
-                    this.style.boxShadow = '0 12px 25px rgba(255, 204, 0, 0.4)';
-                });
-                
-                region.addEventListener('mouseout', function() {
-                    this.style.transform = 'scale(1)';
-                    this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.2)';
-                });
             });
         });
     </script>
