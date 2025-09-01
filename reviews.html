@@ -65,9 +65,14 @@
     line-height: 1.6;
   }
 
+  /* Header adjustment for fixed header */
+  main {
+    padding-top: 80px;
+  }
+
   /* Reviews Section */
   .reviews {
-    padding: 5rem 2rem;
+    padding: 5rem 2rem 5rem 2rem;
     background-color: var(--card-bg);
   }
 
@@ -210,7 +215,7 @@
 
   /* New carousel styles */
   .reviews-section {
-    padding: 5rem 2rem 5rem 2rem;
+    padding: 2rem 1rem 5rem 1rem;
     background-color: var(--card-bg);
     position: relative;
     overflow: hidden;
@@ -296,16 +301,21 @@
   .google-reviews-summary {
     background: linear-gradient(135deg, #5757eb, #3b3be7);
     color: white;
-    padding: 15rem 2rem 3rem 2rem;
+    padding: 9rem 1rem 3rem 1rem;
     text-align: center;
     margin-bottom: 3rem;
-    border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   }
   
   .google-reviews-summary h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
     margin-bottom: 1rem;
+  }
+  
+  .google-reviews-summary > p {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    max-width: 800px;
+    margin: 0 auto 1.5rem auto;
   }
   
   .rating-badge {
@@ -318,6 +328,7 @@
     font-weight: bold;
     margin: 1rem 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   }
   
   .rating-badge .stars {
@@ -344,6 +355,8 @@
     border-radius: 50px;
     font-weight: 600;
     transition: all 0.3s ease;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    white-space: nowrap;
   }
   
   .google-btn:hover {
@@ -370,14 +383,14 @@
   .google-reviews-widget h3 {
     color: white;
     margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 4vw, 1.5rem);
   }
   
   .google-reviews-embed {
     background: #5858EB;
     border-radius: 8px;
     padding: 2rem;
-    min-height: 300px;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -387,13 +400,15 @@
   .google-reviews-embed p {
     margin-bottom: 1.5rem;
     color: white;
+    text-align: center;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   }
   
   /* NEW: Trust Indicators */
   .trust-indicators {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1rem;
     margin: 2rem 0;
     flex-wrap: wrap;
   }
@@ -402,26 +417,36 @@
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.1);
-    padding: 1rem;
+    padding: 0.8rem;
     border-radius: 8px;
+    font-size: clamp(0.9rem, 2vw, 1rem);
   }
   
   .trust-item i {
-    font-size: 2rem;
-    margin-right: 1rem;
+    font-size: 1.5rem;
+    margin-right: 0.8rem;
     color: var(--accent-color);
   }
   
   /* Responsive adjustments */
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
     .review-card {
-      flex: 0 0 calc(50% - 1rem); /* Two cards per view */
+      flex: 0 0 calc(50% - 1rem); /* Two cards per view on tablets */
     }
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
+    main {
+      padding-top: 70px;
+    }
+    
+    .google-reviews-summary {
+      padding: 6rem 1rem 2rem 1rem;
+    }
+    
     .review-card {
-      flex: 0 0 100%; /* One card per view */
+      flex: 0 0 100%; /* One card per view on mobile */
+      min-width: 250px;
     }
 
     .carousel-arrow {
@@ -438,10 +463,6 @@
       right: 5px;
     }
     
-    .google-reviews-summary {
-      padding: 9rem 1rem 2rem 1rem;
-    }
-    
     .google-reviews-actions {
       flex-direction: column;
       align-items: center;
@@ -450,26 +471,92 @@
     .trust-indicators {
       flex-direction: column;
       align-items: center;
+      gap: 0.8rem;
     }
-  }
-
-  @media (max-width: 767px) {
-    .reviews {
-      padding: 3rem 1.5rem;
-    }
-
-    .reviews-section {
-      padding: 10rem 2rem 3rem 2rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .review-card {
-      padding: 1.5rem;
+    
+    .trust-item {
+      width: 100%;
+      max-width: 250px;
+      justify-content: center;
     }
     
     .google-reviews-widget {
       padding: 1.5rem;
+      margin: 2rem 1rem;
+    }
+    
+    .google-reviews-embed {
+      padding: 1.5rem;
+      min-height: 180px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .reviews-section {
+      padding: 2rem 0.5rem 3rem 0.5rem;
+    }
+    
+    .review-card {
+      padding: 1.5rem;
+    }
+    
+    .review-header {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .review-avatar {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+    
+    .google-reviews-summary {
+      padding: 5rem 0.5rem 2rem 0.5rem;
+    }
+    
+    .rating-badge {
+      padding: 0.4rem 1rem;
+    }
+    
+    .google-btn {
+      padding: 0.7rem 1.2rem;
+      width: 100%;
+      max-width: 280px;
+      justify-content: center;
+    }
+    
+    .carousel-arrow {
+      width: 35px;
+      height: 35px;
+    }
+    
+    .google-reviews-widget {
+      padding: 1rem;
+    }
+    
+    .google-reviews-embed {
+      padding: 1rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .google-reviews-summary h2 {
+      font-size: 1.5rem;
+    }
+    
+    .rating-badge {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .trust-item {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .trust-item i {
+      margin-right: 0;
+      margin-bottom: 0.5rem;
     }
   }
 </style>
@@ -569,7 +656,7 @@
     <div class="google-reviews-widget">
       <h3>Live Google Reviews</h3>
       <div class="google-reviews-embed">
-        <p>⭐ <strong>We're rated 4.9/5 on Google</strong></p>
+        <p>⭐ <strong>We're rated 5/5 on Google</strong></p>
         <p>See what our customers are saying about us on Google</p>
         <a href="https://search.google.com/local/writereview?placeid=ChIJnbf4O2X1-iYR3dBjFBk2GHE" class="google-btn" target="_blank">
           <i class="fab fa-google"></i> View All Google Reviews
@@ -787,210 +874,6 @@
         Jun 8, 2024
        </div>
       </div>
-      <div class="review-card">
-       <div class="review-header">
-        <div class="review-avatar">
-         <i class="ri-user-3-line">
-         </i>
-        </div>
-        <div class="review-info">
-         <h4>
-          Thomas Baker
-         </h4>
-         <div class="review-stars">
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-         </div>
-        </div>
-       </div>
-       <div class="review-service">
-        Weight Machine Repair in Brantford
-       </div>
-       <p class="review-text">
-        "The cable snapped on my Brantford weight machine. CFR had the exact replacement part and installed it perfectly. Quick response and fair pricing. Best fitness equipment repair near Hamilton!"
-       </p>
-       <div class="review-date">
-        Jul 19, 2024
-       </div>
-      </div>
-      <div class="review-card">
-       <div class="review-header">
-        <div class="review-avatar">
-         <i class="ri-user-3-line">
-         </i>
-        </div>
-        <div class="review-info">
-         <h4>
-          Lisa Anderson
-         </h4>
-         <div class="review-stars">
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-         </div>
-        </div>
-       </div>
-       <div class="review-service">
-        Residential Relocation in Grimsby
-       </div>
-       <p class="review-text">
-        "Moving from Grimsby to Hamilton was stressful, but CFR handled my expensive fitness equipment with care. They disassembled and reassembled everything perfectly. Worth every penny for peace of mind in the Niagara region!"
-       </p>
-       <div class="review-date">
-        Aug 3, 2024
-       </div>
-      </div>
-      <div class="review-card">
-       <div class="review-header">
-        <div class="review-avatar">
-         <i class="ri-user-3-line">
-         </i>
-        </div>
-        <div class="review-info">
-         <h4>
-          Mark Davis
-         </h4>
-         <div class="review-stars">
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-         </div>
-        </div>
-       </div>
-       <div class="review-service">
-        Commercial Maintenance in Cambridge
-       </div>
-       <p class="review-text">
-        "As a Cambridge gym owner, equipment downtime costs me money. CFR's preventative maintenance program keeps everything running smoothly. Their technicians are certified and always on time. Highly recommended for KW area gyms!"
-       </p>
-       <div class="review-date">
-        Sep 15, 2024
-       </div>
-      </div>
-      <div class="review-card">
-       <div class="review-header">
-        <div class="review-avatar">
-         <i class="ri-user-3-line">
-         </i>
-        </div>
-        <div class="review-info">
-         <h4>
-          Amanda Wilson
-         </h4>
-         <div class="review-stars">
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-         </div>
-        </div>
-       </div>
-       <div class="review-service">
-        Treadmill Repair in Hamilton Mountain
-       </div>
-       <p class="review-text">
-        "My 5-year-old Hamilton Mountain treadmill stopped working. CFR not only repaired it but upgraded some components. Now it runs better than when new! Excellent service for Hamilton residents!"
-       </p>
-       <div class="review-date">
-        Oct 2, 2024
-       </div>
-      </div>
-      <div class="review-card">
-       <div class="review-header">
-        <div class="review-avatar">
-         <i class="ri-user-3-line">
-         </i>
-        </div>
-        <div class="review-info">
-         <h4>
-          James Taylor
-         </h4>
-         <div class="review-stars">
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-         </div>
-        </div>
-       </div>
-       <div class="review-service">
-        Residential Setup in Binbrook
-       </div>
-       <p class="review-text">
-        "Bought a new elliptical online but couldn't assemble it. CFR came to my Binbrook home and set it up perfectly in under an hour. Fantastic service for Hamilton's surrounding communities!"
-       </p>
-       <div class="review-date">
-        Nov 7, 2024
-       </div>
-      </div>
-      <div class="review-card">
-       <div class="review-header">
-        <div class="review-avatar">
-         <i class="ri-user-3-line">
-         </i>
-        </div>
-        <div class="review-info">
-         <h4>
-          Patricia Moore
-         </h4>
-         <div class="review-stars">
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-          <i class="ri-star-fill">
-          </i>
-         </div>
-        </div>
-       </div>
-       <div class="review-service">
-        Commercial Repair &amp; Relocation in Milton
-       </div>
-       <p class="review-text">
-        "We moved our Milton corporate fitness center to a new building. CFR handled everything - disassembly, transport, reassembly and calibration. Everything works perfectly. Amazing service for Halton Region businesses!"
-       </p>
-       <div class="review-date">
-        Dec 12, 2024
-       </div>
-      </div>
      </div>
      <button class="carousel-arrow right">
       <i class="ri-arrow-right-s-line">
@@ -1149,6 +1032,7 @@
         const cardWidth = 300;
         const gap = 32;
         if (containerWidth <= 767) return 1;
+        if (containerWidth <= 1024) return 2;
         return Math.floor(containerWidth / (cardWidth + gap));
       }
 
