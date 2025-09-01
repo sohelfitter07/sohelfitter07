@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
+<head>
 <!-- Favicon Universal Support -->
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -292,6 +292,126 @@
     transition: transform 0.3s ease;
   }
 
+  /* NEW: Google Reviews Summary Section */
+  .google-reviews-summary {
+    background: linear-gradient(135deg, #1a73e8, #4285f4);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .google-reviews-summary h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .rating-badge {
+    display: inline-flex;
+    align-items: center;
+    background: white;
+    color: #1a73e8;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-weight: bold;
+    margin: 1rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rating-badge .stars {
+    color: #ffbc00;
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  .google-reviews-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .google-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    background: white;
+    color: #1a73e8;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .google-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .google-btn i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  /* NEW: Google Reviews Widget */
+  .google-reviews-widget {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 3rem auto;
+    max-width: 1000px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .google-reviews-widget h3 {
+    color: #1a73e8;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+  
+  .google-reviews-embed {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 2rem;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .google-reviews-embed p {
+    margin-bottom: 1.5rem;
+    color: #5f6368;
+  }
+  
+  /* NEW: Trust Indicators */
+  .trust-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+  }
+  
+  .trust-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .trust-item i {
+    font-size: 2rem;
+    margin-right: 1rem;
+    color: var(--accent-color);
+  }
+  
   /* Responsive adjustments */
   @media (max-width: 1024px) {
     .review-card {
@@ -317,6 +437,20 @@
     .carousel-arrow.right {
       right: 5px;
     }
+    
+    .google-reviews-summary {
+      padding: 2rem 1rem;
+    }
+    
+    .google-reviews-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .trust-indicators {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   @media (max-width: 767px) {
@@ -331,6 +465,10 @@
 
   @media (max-width: 480px) {
     .review-card {
+      padding: 1.5rem;
+    }
+    
+    .google-reviews-widget {
       padding: 1.5rem;
     }
   }
@@ -371,7 +509,12 @@
   "sameAs": [
     "https://www.facebook.com/CanadianFitnessRepair",
     "https://www.instagram.com/canadianfitnessrepair"
-  ]
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "142"
+  }
 }
 </script>
 </head>
@@ -379,6 +522,41 @@
   <div id="header">
   </div>
   <main>
+   <!-- NEW: Google Reviews Summary Section -->
+   <section class="google-reviews-summary">
+     <h2>Rated 4.9/5 by Our Customers</h2>
+     <p>Join 142+ satisfied customers who trust Canadian Fitness Repair</p>
+     
+     <div class="rating-badge">
+       <span class="stars">★★★★★</span>
+       <span>4.9/5 from 142+ Reviews</span>
+     </div>
+     
+     <div class="trust-indicators">
+       <div class="trust-item">
+         <i class="ri-checkbox-circle-fill"></i>
+         <span>Verified Reviews</span>
+       </div>
+       <div class="trust-item">
+         <i class="ri-user-voice-fill"></i>
+         <span>Real Customers</span>
+       </div>
+       <div class="trust-item">
+         <i class="ri-map-pin-2-fill"></i>
+         <span>Serving Hamilton & GTA</span>
+       </div>
+     </div>
+     
+     <div class="google-reviews-actions">
+       <a href="https://search.google.com/local/reviews?placeid=ChIJkY6qg4GaLIgR-ZXQ0DLG5a0" class="google-btn" target="_blank">
+         <i class="fab fa-google"></i> Read Our Google Reviews
+       </a>
+       <a href="https://g.page/r/CbNlRc5Zg4qUEBM/review" class="google-btn" target="_blank">
+         <i class="ri-pencil-fill"></i> Leave a Review
+       </a>
+     </div>
+   </section>
+   
    <section class="reviews-section">
     <h2 class="section-title">
      Customer Reviews
@@ -386,6 +564,19 @@
     <p>
      Hear what our satisfied customers have to say about our fitness equipment repair, relocation, and maintenance services
     </p>
+    
+    <!-- NEW: Google Reviews Widget -->
+    <div class="google-reviews-widget">
+      <h3>Live Google Reviews</h3>
+      <div class="google-reviews-embed">
+        <p>⭐ <strong>We're rated 4.9/5 on Google</strong></p>
+        <p>See what our customers are saying about us on Google</p>
+        <a href="https://search.google.com/local/reviews?placeid=ChIJkY6qg4GaLIgR-ZXQ0DLG5a0" class="google-btn" target="_blank">
+          <i class="fab fa-google"></i> View All Google Reviews
+        </a>
+      </div>
+    </div>
+    
     <div class="reviews-container">
      <button class="carousel-arrow left">
       <i class="ri-arrow-left-s-line">
