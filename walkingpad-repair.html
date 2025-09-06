@@ -134,18 +134,21 @@
       }
 
       /* Hero Section */
-      .hero {
-        background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.9)), url("https://s3.springbeetle.eu/prod-eu-s3/trantor/attachments/FR/Under-Desk%20Walking%20Pads%20The%20Future%20of%20Active%20Work%20Life.png");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        min-height: 80vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        padding: 5rem 5rem;
-      }
+.hero {
+  background: 
+    linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.9)), 
+    url("https://s3.springbeetle.eu/prod-eu-s3/trantor/attachments/FR/Under-Desk%20Walking%20Pads%20The%20Future%20of%20Active%20Work%20Life.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 5rem 2rem; /* Reduced horizontal padding for mobile */
+  overflow: hidden; /* Prevents any potential overflow */
+}
       .hero::after {
         content: "";
         position: absolute;
@@ -679,6 +682,12 @@
           font-size: 1rem;
         }
       }
+      @media (max-width: 768px) {
+  .hero {
+    background-attachment: scroll; /* Change to scroll on mobile */
+    padding: 3rem 1rem; /* Further reduce padding on mobile */
+  }
+}
     </style>
   </head>
   <body>
