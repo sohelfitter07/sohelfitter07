@@ -1,1 +1,779 @@
+[file name]: pcb-repair.html
+[file content begin]
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Favicon Universal Support -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
+    <!-- Apple/Safari Support -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>Motor Control PCB Repair | Treadmill & Gym Equipment Electronics Service</title>
+    <meta name="description" content="Professional PCB repair for treadmill and elliptical motor control boards. We service all major brands with same-day support across Hamilton & GTA.">
+    <meta name="keywords" content="PCB repair, motor control board repair, treadmill PCB repair, elliptical circuit board repair, fitness equipment PCB service, gym machine electronics repair, treadmill controller repair, treadmill motor controller replacement">
+  
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Professional PCB Repair Service for Fitness Equipment | Canadian Fitness Repair" />
+    <meta property="og:description" content="Expert PCB and motor control board repair for treadmills, ellipticals, and all fitness equipment. Fast service with 90-day warranty." />
+    <meta property="og:image" content="https://www.canadianfitnessrepair.com/images/pcb-repair-service.jpg" />
+    <meta property="og:url" content="https://www.canadianfitnessrepair.com/pcb-repair.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
+  
+    <!-- Preload -->
+    <link rel="preload" href="/images/herobckgnd.webp" as="image" />
+  
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="canonical" href="https://canadianfitnessrepair.com/pcb-repair.html" />
+
+    <!-- Fonts & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" /></noscript>
+  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /></noscript>
+
+    <!-- Local Stylesheets -->
+    <link href="headerfooter.css" rel="stylesheet" />
+    <link href="whatsapp.css" rel="stylesheet" />
+  
+    <!-- JSON-LD Schema for PCB Repair Service -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "PCB Repair for Fitness Equipment",
+      "serviceType": "Repair",
+      "description": "Motor control board and electronic PCB repairs for treadmills, ellipticals, and other gym equipment.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Canadian Fitness Repair",
+        "url": "https://www.canadianfitnessrepair.com"
+      },
+      "@type": "Service",
+      "serviceType": "PCB Repair",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Canadian Fitness Repair",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Hamilton",
+          "addressRegion": "ON",
+          "addressCountry": "CA"
+        }
+      },
+      "areaServed": ["Hamilton", "Burlington", "Oakville", "Mississauga", "GTA"],
+      "description": "Professional PCB and motor control board repair service for fitness equipment including treadmills, ellipticals, exercise bikes and more.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "PCB Repair Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Treadmill PCB Repair",
+              "description": "Diagnosis and repair of treadmill motor control boards and console PCBs"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Elliptical PCB Repair",
+              "description": "Repair of elliptical machine control boards and power management systems"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Exercise Bike PCB Repair",
+              "description": "Repair of electronic control systems for stationary bikes"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
+    <style>
+      /* Inherit main styles from homepage */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: #1B1C27;
+        color: #ffffff;
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.6;
+        padding-top: 120px;
+      }
+
+      /* PCB Hero Section */
+      .pcb-hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 6rem 2rem 4rem;
+        position: relative;
+        overflow: hidden;
+        min-height: 60vh;
+        background: linear-gradient(rgba(27, 28, 39, 0.9), rgba(27, 28, 39, 0.9)), 
+                    url('https://images.unsplash.com/photo-1581094288338-231b058b38b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
+        background-size: cover;
+        background-position: center;
+      }
+
+      .pcb-hero-content {
+        max-width: 900px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .pcb-hero-tag {
+        display: inline-block;
+        background: rgba(92, 92, 253, 0.15);
+        color: #5C5CFD;
+        padding: 0.5rem 1.5rem;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .pcb-hero h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+        color: white;
+        font-weight: 800;
+      }
+
+      .pcb-hero h1 span {
+        color: #5C5CFD;
+      }
+
+      .pcb-hero p {
+        font-size: clamp(1.1rem, 3vw, 1.3rem);
+        max-width: 700px;
+        margin: 0 auto 2rem;
+        color: #cbd5e1;
+        line-height: 1.7;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+
+      .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.8rem 1.8rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+      }
+
+      .btn-primary {
+        background-color: #5C5CFD;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: #4b4bdf;
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: white;
+        border: 2px solid #5C5CFD;
+      }
+
+      .btn-secondary:hover {
+        background-color: rgba(92, 92, 253, 0.1);
+        transform: translateY(-2px);
+      }
+
+      /* Common Faults Section */
+      .common-faults {
+        padding: 5rem 2rem;
+        background-color: #252734;
+      }
+
+      .section-header {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 4rem;
+      }
+
+      .section-tag {
+        display: inline-block;
+        background: rgba(92, 92, 253, 0.2);
+        color: #5C5CFD;
+        padding: 0.5rem 1.5rem;
+        border-radius: 30px;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        margin-bottom: 1.5rem;
+        color: white;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: #5C5CFD;
+        border-radius: 2px;
+      }
+
+      .section-subtitle {
+        color: #cbd5e1;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .faults-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .fault-card {
+        background: #1B1C27;
+        border-radius: 12px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+        border-left: 4px solid #5C5CFD;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .fault-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(92, 92, 253, 0.15);
+      }
+
+      .fault-icon {
+        font-size: 2.5rem;
+        color: #5C5CFD;
+        margin-bottom: 1rem;
+      }
+
+      .fault-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        color: white;
+      }
+
+      .fault-card p {
+        color: #cbd5e1;
+        line-height: 1.6;
+      }
+
+      /* Why Choose Us Section */
+      .why-choose {
+        padding: 5rem 2rem;
+        background-color: #1B1C27;
+      }
+
+      .stats-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 3rem auto 0;
+      }
+
+      .stat-box {
+        text-align: center;
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #5C5CFD;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-text {
+        font-size: 1.1rem;
+        color: #cbd5e1;
+      }
+
+      /* PCB Repair Process Section */
+      .pcb-process {
+        padding: 5rem 2rem;
+        background-color: #252734;
+      }
+
+      .process-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .step-card {
+        background: #1B1C27;
+        border-radius: 12px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(93, 93, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .step-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2);
+      }
+
+      .step-number {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 3rem;
+        font-weight: 700;
+        color: rgba(93, 93, 255, 0.1);
+        z-index: 1;
+      }
+
+      .step-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .step-content h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        color: #5C5CFD;
+      }
+
+      .step-content p {
+        color: #cbd5e1;
+        line-height: 1.6;
+      }
+
+      .step-icon {
+        margin-top: 1.5rem;
+        font-size: 2.5rem;
+        color: #5C5CFD;
+        transition: all 0.3s ease;
+      }
+
+      .step-card:hover .step-icon {
+        color: #ff7e5f;
+        transform: scale(1.1);
+      }
+
+      /* Brands Section */
+      .brands-section {
+        padding: 5rem 2rem;
+        background-color: #1B1C27;
+        text-align: center;
+      }
+
+      .brands-carousel {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2.5rem;
+        max-width: 1200px;
+        margin: 3rem auto 0;
+      }
+
+      .brand-logo {
+        height: 60px;
+        opacity: 0.7;
+        transition: all 0.3s ease;
+        filter: grayscale(100%) brightness(200%);
+      }
+
+      .brand-logo:hover {
+        opacity: 1;
+        filter: grayscale(0%) brightness(100%);
+        transform: scale(1.05);
+      }
+
+      /* CTA Section */
+      .pcb-cta {
+        padding: 6rem 2rem;
+        text-align: center;
+        background: linear-gradient(135deg, #5C5CFD, #3a3aff);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .pcb-cta::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0) 70%
+        );
+        transform: rotate(30deg);
+      }
+
+      .pcb-cta h2 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .pcb-cta p {
+        max-width: 700px;
+        margin: 0 auto 2.5rem;
+        font-size: 1.2rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .c-button {
+        text-decoration: none;
+        background-color: white;
+        color: #5C5CFD;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        display: inline-block;
+        z-index: 2;
+        position: relative;
+      }
+
+      .c-button:hover {
+        background-color: #f0f0f0;
+        transform: scale(1.05);
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .pcb-hero {
+          padding: 5rem 1rem 2rem;
+          min-height: 50vh;
+        }
+        
+        .hero-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .faults-grid,
+        .process-steps {
+          grid-template-columns: 1fr;
+        }
+        
+        .fault-card,
+        .step-card {
+          padding: 1.5rem;
+        }
+        
+        .stats-container {
+          flex-direction: column;
+          gap: 2.5rem;
+        }
+        
+        .brands-carousel {
+          gap: 1.5rem;
+        }
+        
+        .brand-logo {
+          height: 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header"></div>
+    <main>
+      <!-- PCB Hero Section -->
+      <section class="pcb-hero">
+        <div class="pcb-hero-content">
+          <span class="pcb-hero-tag">Expert PCB Repair Service</span>
+          <h1>Expert PCB Repair for Treadmills, Ellipticals & Gym Equipment</h1>
+          <p>We specialize in repairing motor control boards and electronic PCBs for all major fitness brands. Same-day service across Hamilton, Burlington, Oakville, Mississauga & GTA.</p>
+          <div class="hero-buttons">
+            <a href="tel:+12899257239" class="hero-btn btn-primary">
+                <i class="fas fa-phone-alt"></i> Call Now: (289) 925-7239
+            </a>
+            <a href="https://canadianfitnessrepair.com/get-quote.html" class="hero-btn btn-secondary">
+                <i class="fas fa-wrench"></i> Schedule PCB Repair
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Common Faults Section -->
+      <section class="common-faults">
+        <div class="section-header">
+          <span class="section-tag">Common Issues</span>
+          <h2 class="section-title">Common PCB Faults & Error Codes</h2>
+          <p class="section-subtitle">We diagnose and repair all these common circuit board issues in fitness equipment</p>
+        </div>
+        
+        <div class="faults-grid">
+          <div class="fault-card">
+            <div class="fault-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3>Power Supply Failure</h3>
+            <p>No power or intermittent shutdowns due to blown components or faulty low-voltage circuits.</p>
+          </div>
+          
+          <div class="fault-card">
+            <div class="fault-icon">
+              <i class="fas fa-fire"></i>
+            </div>
+            <h3>Burnt MOSFET / IGBT</h3>
+            <p>Board overheating, sparks, or treadmill stops suddenly.</p>
+          </div>
+          
+          <div class="fault-card">
+            <div class="fault-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Relay & Fuse Issues</h3>
+            <p>Equipment won't start, clicks but no motor response.</p>
+          </div>
+          
+          <div class="fault-card">
+            <div class="fault-icon">
+              <i class="fas fa-cog"></i>
+            </div>
+            <h3>Motor Drive Circuit Error</h3>
+            <p>Error codes like E1/E2 on treadmills; belt not moving.</p>
+          </div>
+          
+          <div class="fault-card">
+            <div class="fault-icon">
+              <i class="fas fa-desktop"></i>
+            </div>
+            <h3>Console Communication Loss</h3>
+            <p>Display works but doesn't send commands to motor board.</p>
+          </div>
+          
+          <div class="fault-card">
+            <div class="fault-icon">
+              <i class="fas fa-thermometer-full"></i>
+            </div>
+            <h3>Over-temperature Sensor Fault</h3>
+            <p>Unit shuts down mid-workout; fan keeps running.</p>
+          </div>
+          
+          <div class="fault-card">
+            <div class="fault-icon">
+              <i class="fas fa-plug"></i>
+            </div>
+            <h3>Connector / Solder Cracks</h3>
+            <p>Loose or damaged solder joints causing intermittent failures.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Choose Us Section -->
+      <section class="why-choose">
+        <div class="section-header">
+          <span class="section-tag">Why Choose Us</span>
+          <h2 class="section-title">Why Choose Canadian Fitness Repair</h2>
+          <p class="section-subtitle">Experience and expertise you can trust for all your PCB repair needs</p>
+        </div>
+        
+        <div class="stats-container">
+          <div class="stat-box">
+            <div class="stat-number">90-Day</div>
+            <div class="stat-text">Warranty on PCB repairs</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">OEM</div>
+            <div class="stat-text">or upgraded electronic parts</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">1,500+</div>
+            <div class="stat-text">successful board fixes</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PCB Repair Process Section -->
+      <section class="pcb-process">
+        <div class="section-header">
+          <span class="section-tag">Our Process</span>
+          <h2 class="section-title">PCB Repair Process</h2>
+          <p class="section-subtitle">Our systematic approach to diagnosing and repairing your fitness equipment circuit boards</p>
+        </div>
+        
+        <div class="process-steps">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Initial Diagnostic</h3>
+              <p>We begin with a thorough visual inspection and basic electrical testing to identify obvious issues like burnt components, bulging capacitors, or damaged traces.</p>
+            </div>
+            <div class="step-icon">
+              <i class="fas fa-search"></i>
+            </div>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Component-Level Testing</h3>
+              <p>Using specialized equipment, we test individual components including MOSFETs, capacitors, resistors, ICs, and connectors to identify failed parts.</p>
+            </div>
+            <div class="step-icon">
+              <i class="fas fa-microchip"></i>
+            </div>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Circuit Analysis</h3>
+              <p>We analyze the circuit design to understand how components interact, helping us identify not just failed parts but the reasons behind their failure.</p>
+            </div>
+            <div class="step-icon">
+              <i class="fas fa-project-diagram"></i>
+            </div>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Component Replacement</h3>
+              <p>Using high-quality replacement parts, we carefully replace failed components with proper soldering techniques and attention to thermal management.</p>
+            </div>
+            <div class="step-icon">
+              <i class="fas fa-tools"></i>
+            </div>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">5</div>
+            <div class="step-content">
+              <h3>Functional Testing</h3>
+              <p>After repairs, we thoroughly test the board under load conditions to ensure it performs to manufacturer specifications before returning to service.</p>
+            </div>
+            <div class="step-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">6</div>
+            <div class="step-content">
+              <h3>Preventative Measures</h3>
+              <p>Where appropriate, we implement upgrades or modifications to prevent future failures, such as improved cooling or higher-rated components.</p>
+            </div>
+            <div class="step-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Brands Section -->
+      <section class="brands-section">
+        <div class="section-header">
+          <span class="section-tag">Supported Brands</span>
+          <h2 class="section-title">We Repair All Major Fitness Brands</h2>
+          <p class="section-subtitle">Our technicians are experienced with electronic systems from all leading manufacturers</p>
+        </div>
+        
+        <div class="brands-carousel">
+          <img src="/images/brands/life-fitness.png" alt="Life Fitness" class="brand-logo">
+          <img src="/images/brands/nordictrack.png" alt="NordicTrack" class="brand-logo">
+          <img src="/images/brands/precor.png" alt="Precor" class="brand-logo">
+          <img src="/images/brands/matrix.png" alt="Matrix" class="brand-logo">
+          <img src="/images/brands/bowflex.png" alt="Bowflex" class="brand-logo">
+          <img src="/images/brands/technogym.png" alt="Technogym" class="brand-logo">
+          <img src="/images/brands/proform.png" alt="ProForm" class="brand-logo">
+          <img src="/images/brands/smooth.png" alt="Smooth Fitness" class="brand-logo">
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="pcb-cta">
+        <h2>Don't replace your machine — revive it with expert PCB repair. Call us today!</h2>
+        <p>All repairs come with a 90-day warranty and are performed by certified technicians.</p>
+        <a class="c-button" href="tel:+12899257239">
+          <i class="ri-phone-line"> </i>
+          Call Now: +1 289 925 7239
+        </a>
+      </section>
+    </main>
+    <div id="footer"></div>
+    
+    <script>
+      // Load header and footer
+      document.addEventListener('DOMContentLoaded', function() {
+        fetch('header.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('header').innerHTML = data;
+          });
+        
+        fetch('footer.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('footer').innerHTML = data;
+          });
+      });
+    </script>
+  </body>
+</html>
+[file content end]
