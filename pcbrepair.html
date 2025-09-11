@@ -45,65 +45,140 @@
     <link href="headerfooter.css" rel="stylesheet" />
     <link href="whatsapp.css" rel="stylesheet" />
   
-    <!-- JSON-LD Schema for PCB Repair Service -->
-    <script type="application/ld+json">
+   <!-- Structured Data for PCB / Motor Control Board Repair -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Canadian Fitness Repair",
+  "url": "https://www.canadianfitnessrepair.com/",
+  "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
+  "image": [
+    "https://www.canadianfitnessrepair.com/images/service-van.jpg",
+    "https://www.canadianfitnessrepair.com/images/treadmill-pcb-repair.jpg",
+    "https://www.canadianfitnessrepair.com/images/pcb-board-technician.jpg"
+  ],
+  "description": "Specialized motor control PCB and treadmill electronics repair. We service boards for treadmills, ellipticals, exercise bikes, and other gym machines across Hamilton, Burlington, Oakville, Mississauga and GTA.",
+  "telephone": "+1-289-925-7239",
+  "priceRange": "$$",
+  "paymentAccepted": ["Cash","E-Transfer","Credit Card"],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Service Area Business",
+    "addressLocality": "Hamilton",
+    "addressRegion": "ON",
+    "postalCode": "L8E 5R9",
+    "addressCountry": "CA"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "43.2557",
+    "longitude": "-79.8711"
+  },
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": "43.2557", "longitude": "-79.8711" },
+    "geoRadius": "80000"
+  },
+  "areaServed": [
+    {"@type":"City","name":"Hamilton"},
+    {"@type":"City","name":"Burlington"},
+    {"@type":"City","name":"Oakville"},
+    {"@type":"City","name":"Mississauga"},
+    "Niagara","Ancaster","Dundas","Stoney Creek","Grimsby","Brantford","Cambridge"
+  ],
+  "makesOffer": [
     {
-      "@context": "https://schema.org",
       "@type": "Service",
-      "name": "PCB Repair for Fitness Equipment",
+      "name": "Treadmill PCB Repair",
       "serviceType": "Repair",
-      "description": "Motor control board and electronic PCB repairs for treadmills, ellipticals, and other gym equipment.",
-      "provider": {
-        "@type": "LocalBusiness",
-        "name": "Canadian Fitness Repair",
-        "url": "https://www.canadianfitnessrepair.com"
-      },
+      "description": "Diagnosis and repair of treadmill motor control boards and console PCBs.",
+      "offers": { "@type": "Offer", "priceCurrency": "CAD", "price": "Contact for estimate" }
+    },
+    {
       "@type": "Service",
-      "serviceType": "PCB Repair",
-      "provider": {
-        "@type": "LocalBusiness",
-        "name": "Canadian Fitness Repair",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Hamilton",
-          "addressRegion": "ON",
-          "addressCountry": "CA"
-        }
-      },
-      "areaServed": ["Hamilton", "Burlington", "Oakville", "Mississauga", "GTA"],
-      "description": "Professional PCB and motor control board repair service for fitness equipment including treadmills, ellipticals, exercise bikes and more.",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "PCB Repair Services",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Treadmill PCB Repair",
-              "description": "Diagnosis and repair of treadmill motor control boards and console PCBs"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Elliptical PCB Repair",
-              "description": "Repair of elliptical machine control boards and power management systems"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Exercise Bike PCB Repair",
-              "description": "Repair of electronic control systems for stationary bikes"
-            }
-          }
-        ]
+      "name": "Elliptical Control Board Repair",
+      "serviceType": "Repair",
+      "description": "Repair of elliptical power boards, speed sensors and incline PCBs.",
+      "offers": { "@type": "Offer", "priceCurrency": "CAD", "price": "Contact for estimate" }
+    },
+    {
+      "@type": "Service",
+      "name": "Exercise Bike PCB Repair",
+      "serviceType": "Repair",
+      "description": "Restoration of resistance and display boards for upright, recumbent and spin bikes.",
+      "offers": { "@type": "Offer", "priceCurrency": "CAD", "price": "Contact for estimate" }
+    }
+  ],
+  "brand": {
+    "@type": "Brand",
+    "name": "Brands We Service",
+    "logo": "https://www.canadianfitnessrepair.com/images/brand-logos.png",
+    "description": "We repair PCBs from Life Fitness, Precor, NordicTrack, Matrix, Bowflex, Technogym, Sole, Spirit and more."
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "167",
+    "bestRating": "5"
+  }
+}
+</script>
+
+<!-- FAQ Schema for PCB Repair -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are common treadmill PCB faults?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Frequent issues include no power, burnt MOSFET/IGBT, relay failure, belt not moving (E1/E2 errors), overheating sensors, and cracked solder joints."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you repair PCBs from all treadmill brands?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we service boards from Life Fitness, Precor, NordicTrack, Matrix, Bowflex, Technogym, Sole, Spirit, ProForm and more."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a PCB repair take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most PCB repairs are diagnosed the same day. Depending on parts availability, repairs are usually completed within 1–3 business days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a warranty on PCB repairs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All PCB repairs come with a 90-day warranty covering parts and labour."
       }
     }
-    </script>
+  ]
+}
+</script>
+
+<!-- Breadcrumb for PCB page -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.canadianfitnessrepair.com/" },
+    { "@type": "ListItem", "position": 2, "name": "PCB Repair", "item": "https://www.canadianfitnessrepair.com/pcb-repair.html" }
+  ]
+}
+</script>
+
 
     <style>
       /* Inherit main styles from homepage */
