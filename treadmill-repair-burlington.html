@@ -60,49 +60,50 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
     
     <!-- Burlington-Specific Structured Data -->
-    <script type="application/ld+json">
+   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Canadian Fitness Repair",
+  "url": "https://www.canadianfitnessrepair.com/",
+  "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
+  "image": "https://www.canadianfitnessrepair.com/images/hero.jpg",
+  "description": "Canadian Fitness Repair provides expert treadmill and fitness equipment repair services at your home in Burlington, Ontario and nearby areas.",
+  "telephone": "+1-289-925-7239",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Burlington",
+    "addressRegion": "ON",
+    "addressCountry": "CA"
+  },
+  "openingHoursSpecification": [
     {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Canadian Fitness Repair",
-      "image": "https://www.canadianfitnessrepair.com/images/logo.png",
-      "url": "https://www.canadianfitnessrepair.com/",
-      "telephone": "+1-289-925-7239",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Burlington",
-        "addressRegion": "ON",
-        "addressCountry": "CA"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "43.3255",
-        "longitude": "-79.7990"
-      },
-      "openingHoursSpecification": [{
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday"
-        ],
-        "opens": "08:00",
-        "closes": "20:00"
-      }],
-      "areaServed": {
-        "@type": "City",
-        "name": "Burlington"
-      },
-      "sameAs": [
-        "https://www.facebook.com/CanadianFitnessRepair",
-        "https://www.instagram.com/canadianfitnessrepair"
-      ]
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "08:00",
+      "closes": "20:00"
     }
-    </script>
+  ],
+  "areaServed": [
+    { "@type": "Place", "name": "Burlington, Ontario" },
+    { "@type": "Place", "name": "Oakville, Ontario" },
+    { "@type": "Place", "name": "Hamilton, Ontario" },
+    { "@type": "Place", "name": "Milton, Ontario" }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/profile.php?id=61577294183492",
+    "https://www.instagram.com/canadianfitnessrepair/"
+  ]
+}
+</script>
     <style>
 
         * {
@@ -695,9 +696,8 @@
             }
         }
     </style>
-    <link href="whatsapp.css" rel="stylesheet"/>
-    <link href="headerfooter.css" rel="stylesheet"/>
-    link
+ <link href="whatsapp.css" rel="stylesheet"/>
+<link href="headerfooter.css" rel="stylesheet"/>
 </head>
 <body>
     <div id="header">
