@@ -1094,3 +1094,92 @@ footer {
     transform: rotate(180deg);
   }
 }
+/* Services Scrolling Banner */
+.services-scrolling-banner {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 10px 0;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 2px solid #e74c3c;
+}
+
+.banner-track {
+    display: flex;
+    width: max-content;
+    animation: scrollServices 35s linear infinite;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    white-space: nowrap;
+}
+
+.banner-content a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    margin: 0 3px;
+}
+
+.banner-content a:hover {
+    background: rgba(255,255,255,0.15);
+    color: #f39c12;
+}
+
+.separator {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0 8px;
+}
+
+.services-scrolling-banner:hover .banner-track {
+    animation-play-state: paused;
+}
+
+@keyframes scrollServices {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .services-scrolling-banner {
+        padding: 8px 0;
+    }
+    
+    .banner-content a {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+    
+    .separator {
+        font-size: 14px;
+        margin: 0 4px;
+    }
+    
+    .banner-track {
+        animation-duration: 25s;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-content a {
+        font-size: 10px;
+    }
+    
+    .services-scrolling-banner {
+        display: none; /* Hide on very small screens if needed */
+    }
+}
