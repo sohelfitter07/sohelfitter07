@@ -289,121 +289,7 @@
 </header>
 
 <style>
-
-        .promo-line {
-            background: linear-gradient(90deg, #CE4B40, #E7948F);
-            color: white;
-            padding: 4px 0 0 0;
-            overflow: hidden;
-            position: relative;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-           
-        }
-        
-        .banner-track {
-            display: flex;
-            width: max-content;
-            animation: scroll 40s linear infinite;
-        }
-        
-        .banner-content {
-            display: flex;
-            align-items: center;
-            white-space: nowrap;
-            padding: 0 20px;
-        }
-        
-        .banner-content a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-        
-        .banner-content a:hover {
-            background-color: rgba(255, 255, 255, 0.9);
-            color: #CE4B40;
-            transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        
-        .separator {
-            margin: 0 12px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-        
-        .promo-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            white-space: nowrap;
-            overflow-x: auto;
-            padding: 8px 20px;
-            gap: 20px;
-            scrollbar-width: none; /* Firefox */
-        }
-        
-        .promo-content::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Edge */
-        }
-        
-        .promo-item {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            flex-shrink: 0;
-        }
-        
-        .promo-item i {
-            margin-right: 8px;
-            font-size: 16px;
-        }
-        
-        
-        @media (max-width: 1200px) {
-            .promo-content {
-                justify-content: flex-start;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .banner-contents a {
-                font-size: 12px;
-            }
-            
-            .separator {
-                margin: 0 8px;
-            }
-            
-            .promo-item {
-                font-size: 12px;
-                padding: 4px 8px;
-            }
-            
-            .promo-item i {
-                font-size: 14px;
-                margin-right: 4px;
-            }
-        }.promo-line {
+.promo-line {
     background: linear-gradient(90deg, #CE4B40, #E7948F);
     color: white;
     padding: 4px 0 0 0;
@@ -550,8 +436,6 @@
         margin-right: 4px;
     }
 }
-
-    
 </style>
 
 <script>
