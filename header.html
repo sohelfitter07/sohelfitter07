@@ -403,7 +403,155 @@
                 font-size: 14px;
                 margin-right: 4px;
             }
-        }
+        }.promo-line {
+    background: linear-gradient(90deg, #CE4B40, #E7948F);
+    color: white;
+    padding: 4px 0 0 0;
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.banner-track {
+    display: flex;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 0 20px;
+}
+
+.banner-content a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.banner-content a:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #CE4B40;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.separator {
+    margin: 0 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.promo-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: auto;
+    padding: 8px 20px;
+    gap: 20px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.promo-content::-webkit-scrollbar {
+    display: none;
+}
+
+.promo-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+    min-width: max-content; /* Prevents items from shrinking too much */
+}
+
+.promo-item i {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+/* Improved responsive behavior */
+@media (max-width: 1200px) {
+    .promo-content {
+        justify-content: flex-start;
+        gap: 15px;
+    }
+    
+    .promo-item {
+        font-size: 13px;
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner-content a {
+        font-size: 12px;
+        padding: 3px 6px;
+    }
+    
+    .separator {
+        margin: 0 6px;
+    }
+    
+    .promo-content {
+        gap: 10px;
+        padding: 6px 15px;
+        justify-content: flex-start; /* Always left-align on mobile */
+    }
+    
+    .promo-item {
+        font-size: 12px;
+        padding: 4px 8px;
+        flex: 0 0 auto; /* Ensure items don't grow/shrink unexpectedly */
+    }
+    
+    .promo-item i {
+        font-size: 14px;
+        margin-right: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .promo-content {
+        gap: 8px;
+        padding: 5px 10px;
+    }
+    
+    .promo-item {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+    
+    .promo-item i {
+        font-size: 12px;
+        margin-right: 4px;
+    }
+}
+
+    
 </style>
 
 <script>
