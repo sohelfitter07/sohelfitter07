@@ -13,8 +13,8 @@
     </a>
     <div class="promo-line">
             <!-- Services Banner -->
-            <div class="banner-tracks">
-                <div class="banner-contents">
+            <div class="banner-track">
+                <div class="banner-content">
                     <a href="repairprocess.html">🔧 Repair Process</a>
                     <span class="separator">•</span>
                     <a href="commercial-residential.html">📋 Service Plans</a>
@@ -301,20 +301,20 @@
            
         }
         
-        .banner-trackss {
+        .banner-track {
             display: flex;
             width: max-content;
             animation: scroll 40s linear infinite;
         }
         
-        .banner-contents {
+        .banner-content {
             display: flex;
             align-items: center;
             white-space: nowrap;
             padding: 0 20px;
         }
         
-        .banner-contents a {
+        .banner-content a {
             color: white;
             text-decoration: none;
             font-weight: 500;
@@ -324,7 +324,7 @@
             border-radius: 4px;
         }
         
-        .banner-contents a:hover {
+        .banner-content a:hover {
             background-color: rgba(255, 255, 255, 0.9);
             color: #1a3a8f;
             transform: translateY(-2px);
@@ -409,13 +409,13 @@
 <script>
     // Pause animation on hover for better usability
     document.addEventListener('DOMContentLoaded', function() {
-        const bannerTrack = document.querySelector('.banner-tracks');
-        if (bannerTracks) {
-            bannerTracks.addEventListener('mouseenter', function() {
+        const bannerTrack = document.querySelector('.banner-track');
+        if (bannerTrack) {
+            bannerTrack.addEventListener('mouseenter', function() {
                 this.style.animationPlayState = 'paused';
             });
             
-            bannerTracks.addEventListener('mouseleave', function() {
+            bannerTrack.addEventListener('mouseleave', function() {
                 this.style.animationPlayState = 'running';
             });
         }
