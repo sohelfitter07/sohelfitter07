@@ -75,33 +75,61 @@
                 </div>
             </div>
             
-            <!-- Promo Content - Now in a single line -->
-            <div class="promo-content">
-                <div class="promo-item">
-                    <i class="ri-map-pin-fill"></i>
-                    Proudly serving Hamilton, Ancaster, Stoney Creek, Burlington, Oakville, Mississauga, Brampton &amp; Toronto
-                </div>
-                <div class="promo-item">
-                    <i class="ri-tools-fill"></i>
-                    Fast, reliable onsite fitness equipment repairs
-                </div>
-                <div class="promo-item">
-                    <i class="ri-flashlight-fill"></i>
-                    Emergency &amp; same-day service available
-                </div>
-                <div class="promo-item">
-                    <i class="ri-calendar-check-fill"></i>
-                    Easy booking with flexible appointments
-                </div>
-                <div class="promo-item">
-                    <i class="ri-24-hours-fill"></i>
-                    24/7 customer support &ndash; we&rsquo;ve got your back
-                </div>
-                <div class="promo-item">
-                    <i class="ri-medal-fill"></i>
-                    Certified techs trusted by gyms &amp; homeowners
-                </div>
+               <!-- Promo Content - Auto-scrolling version -->
+    <div class="promo-track">
+        <div class="promo-content">
+            <div class="promo-item">
+                <i class="ri-map-pin-fill"></i>
+                Proudly serving Hamilton, Ancaster, Stoney Creek, Burlington, Oakville, Mississauga, Brampton &amp; Toronto
             </div>
+            <div class="promo-item">
+                <i class="ri-tools-fill"></i>
+                Fast, reliable onsite fitness equipment repairs
+            </div>
+            <div class="promo-item">
+                <i class="ri-flashlight-fill"></i>
+                Emergency &amp; same-day service available
+            </div>
+            <div class="promo-item">
+                <i class="ri-calendar-check-fill"></i>
+                Easy booking with flexible appointments
+            </div>
+            <div class="promo-item">
+                <i class="ri-24-hours-fill"></i>
+                24/7 customer support &ndash; we&rsquo;ve got your back
+            </div>
+            <div class="promo-item">
+                <i class="ri-medal-fill"></i>
+                Certified techs trusted by gyms &amp; homeowners
+            </div>
+            
+            <!-- Duplicate for seamless loop -->
+            <div class="promo-item">
+                <i class="ri-map-pin-fill"></i>
+                Proudly serving Hamilton, Ancaster, Stoney Creek, Burlington, Oakville, Mississauga, Brampton &amp; Toronto
+            </div>
+            <div class="promo-item">
+                <i class="ri-tools-fill"></i>
+                Fast, reliable onsite fitness equipment repairs
+            </div>
+            <div class="promo-item">
+                <i class="ri-flashlight-fill"></i>
+                Emergency &amp; same-day service available
+            </div>
+            <div class="promo-item">
+                <i class="ri-calendar-check-fill"></i>
+                Easy booking with flexible appointments
+            </div>
+            <div class="promo-item">
+                <i class="ri-24-hours-fill"></i>
+                24/7 customer support &ndash; we&rsquo;ve got your back
+            </div>
+            <div class="promo-item">
+                <i class="ri-medal-fill"></i>
+                Certified techs trusted by gyms &amp; homeowners
+            </div>
+        </div>
+    </div>
         </div>
     
     <nav class="nav">
@@ -292,13 +320,14 @@
 .promo-line {
     background: linear-gradient(90deg, #CE4B40, #E7948F);
     color: white;
-    padding: 4px 0 0 0;
+    padding: 4px 0;
     overflow: hidden;
     position: relative;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
+/* Banner Track (existing - keep as is) */
 .banner-track {
     display: flex;
     width: max-content;
@@ -334,29 +363,19 @@
     color: rgba(255, 255, 255, 0.7);
 }
 
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+/* Promo Track (new auto-scrolling section) */
+.promo-track {
+    overflow: hidden;
+    position: relative;
 }
 
 .promo-content {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    white-space: nowrap;
-    overflow-x: auto;
+    width: max-content;
+    animation: scroll-promo 35s linear infinite;
     padding: 8px 20px;
     gap: 20px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.promo-content::-webkit-scrollbar {
-    display: none;
+    align-items: center;
 }
 
 .promo-item {
@@ -371,6 +390,12 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     flex-shrink: 0;
     white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.promo-item:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
 }
 
 .promo-item i {
@@ -378,13 +403,35 @@
     font-size: 16px;
 }
 
-/* Remove the problematic media query that changes justify-content */
-@media (max-width: 1200px) {
-    .promo-content {
-        justify-content: flex-start; /* Keep it consistent */
+/* Animations */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
     }
 }
 
+@keyframes scroll-promo {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Pause animation on hover */
+.promo-track:hover .promo-content {
+    animation-play-state: paused;
+}
+
+.banner-track:hover {
+    animation-play-state: paused;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .banner-content a {
         font-size: 12px;
@@ -396,9 +443,9 @@
     }
     
     .promo-content {
-        justify-content: flex-start; /* Always left-align for scrolling */
-        gap: 15px;
         padding: 6px 15px;
+        gap: 15px;
+        animation-duration: 30s; /* Slightly faster on mobile */
     }
     
     .promo-item {
@@ -414,8 +461,9 @@
 
 @media (max-width: 480px) {
     .promo-content {
-        gap: 12px;
         padding: 5px 10px;
+        gap: 12px;
+        animation-duration: 25s; /* Even faster on very small screens */
     }
     
     .promo-item {
@@ -444,4 +492,31 @@
             });
         }
     });
+    document.addEventListener('DOMContentLoaded', function() {
+    const bannerTrack = document.querySelector('.banner-track');
+    const promoTrack = document.querySelector('.promo-track');
+    
+    // Pause animations on hover for better usability
+    if (bannerTrack) {
+        bannerTrack.addEventListener('mouseenter', function() {
+            this.style.animationPlayState = 'paused';
+        });
+        
+        bannerTrack.addEventListener('mouseleave', function() {
+            this.style.animationPlayState = 'running';
+        });
+    }
+    
+    if (promoTrack) {
+        const promoContent = promoTrack.querySelector('.promo-content');
+        
+        promoTrack.addEventListener('mouseenter', function() {
+            promoContent.style.animationPlayState = 'paused';
+        });
+        
+        promoTrack.addEventListener('mouseleave', function() {
+            promoContent.style.animationPlayState = 'running';
+        });
+    }
+});
 </script>
