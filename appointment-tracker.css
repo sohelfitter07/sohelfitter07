@@ -1293,3 +1293,31 @@
     gap: 10px;
   }
 }
+/* Invoice Styles */
+.service-item {
+    transition: all 0.3s ease;
+}
+
+.service-item:hover {
+    background-color: rgba(59, 130, 246, 0.05);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.remove-service {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.remove-service:hover {
+    opacity: 1;
+    background-color: #ef4444;
+    color: white;
+}
+
+.invoice-template {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
