@@ -4354,7 +4354,166 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchAppointments();
     setupStatusCardClickHandlers(); // ✅ this is good
 });
+// Invoice Generation Functions
+function initializeInvoiceGeneration() {
+    // Add service row
+    document.getElementById('add-service').addEventListener('click', addServiceRow);
+    
+    // Calculate totals when inputs change
+    document.querySelectorAll('#invoice-services-container input').forEach(input => {
+        input.addEventListener('input', calculateInvoiceTotal);
+    });
+    
+    // Tax rate change
+    document.getElementById('invoice-tax-rate').addEventListener('input', calculateInvoiceTotal);
+    
+    // Set today's date as default
+    document.getElementById('invoice-date').valueAsDate = new Date();
+    
+    // Generate preview
+    document.getElementById('generate-invoice-preview').addEventListener('click', generateInvoicePreview);
+    
+    // Clear form
+    document.getElementById('clear-invoice-form').addEventListener('click', clearInvoiceForm);
+    
+    // Initialize with one service row
+    addServiceRow();
+}
 
+function addServiceRow() {
+    const container = document.getElementById('invoice-services-container');
+    const newRow = document.createElement('div');
+    newRow.className = 'service-item';
+    newRow.style.cssText = 'display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px; margin-bottom: 10px; align-items: end;';
+    
+    newRow.innerHTML = `
+        <div>
+            <input type="text" class="form-control service-description" placeholder="Service/Part description">
+        </div>
+        <div>
+            <input type="number" class="form-control service-quantity" placeholder="Qty" value="1" min="1">
+        </div>
+        <div>
+            <input type="number" class="form-control service-price" placeholder="Price" step="0.01">
+        </div>
+        <div>
+            <button type="button" class="btn secondary remove-service" style="padding: 8px 12px;">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `;
+    
+    container.appendChild(newRow);
+    
+    // Add event listeners to new inputs
+    newRow.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', calculateInvoiceTotal);
+    });
+    
+    // Add remove functionality
+    newRow.querySelector('.remove-service').addEventListener('click', function() {
+        if (document.querySelectorAll('.service-item').length > 1) {
+            newRow.remove();
+            calculateInvoiceTotal();
+        }
+    });
+}
+
+function calculateInvoiceTotal() {
+    let subtotal = 0;
+    
+    document.querySelectorAll('.service-item').forEach(item => {
+        const quantity = parseFloat(item.querySelector('.service-quantity').value) || 0;
+        const price = parseFloat(item.querySelector('.service-price').value) || 0;
+        subtotal += quantity * price;
+    });
+    
+    const taxRate = parseFloat(document.getElementById('invoice-tax-rate').value) || 0;
+    const taxAmount = subtotal * (taxRate / 100);
+    const total = subtotal + taxAmount;
+    
+    document.getElementById('invoice-total').value = `$${total.toFixed(2)} CAD`;
+}
+
+function generateInvoicePreview() {
+    const invoiceData = {
+        clientName: document.getElementById('invoice-client-name').value || 'Client Name',
+        clientPhone: document.getElementById('invoice-client-phone').value || 'Phone Number',
+        clientAddress: document.getElementById('invoice-client-address').value || 'Client Address',
+        invoiceNumber: document.getElementById('invoice-number').value || 'CFR-2025-0001',
+        invoiceDate: document.getElementById('invoice-date').value || new Date().toISOString().split('T')[0],
+        services: [],
+        taxRate: parseFloat(document.getElementById('invoice-tax-rate').value) || 13,
+        status: document.getElementById('invoice-status').value,
+        paymentStatus: document.getElementById('invoice-payment-status').value,
+        notes: document.getElementById('invoice-notes').value
+    };
+    
+    // Collect services
+    document.querySelectorAll('.service-item').forEach(item => {
+        const description = item.querySelector('.service-description').value;
+        const quantity = parseFloat(item.querySelector('.service-quantity').value) || 0;
+        const price = parseFloat(item.querySelector('.service-price').value) || 0;
+        
+        if (description) {
+            invoiceData.services.push({
+                description,
+                quantity,
+                price,
+                total: quantity * price
+            });
+        }
+    });
+    
+    // Calculate totals
+    invoiceData.subtotal = invoiceData.services.reduce((sum, service) => sum + service.total, 0);
+    invoiceData.taxAmount = invoiceData.subtotal * (invoiceData.taxRate / 100);
+    invoiceData.total = invoiceData.subtotal + invoiceData.taxAmount;
+    
+    // Generate HTML preview (using your existing invoice HTML structure)
+    const previewHTML = generateInvoiceHTML(invoiceData);
+    document.getElementById('invoice-preview-content').innerHTML = previewHTML;
+    
+    // Show modal
+    document.getElementById('invoice-preview-modal').style.display = 'block';
+}
+
+function generateInvoiceHTML(data) {
+    // This would contain your complete invoice HTML template
+    // You can use the HTML structure from your existing invoice code
+    // Return the formatted HTML string
+    return `
+        <div class="invoice-template">
+            <!-- Your invoice HTML structure here -->
+            <h2>Invoice: ${data.invoiceNumber}</h2>
+            <p>Client: ${data.clientName}</p>
+            <p>Total: $${data.total.toFixed(2)}</p>
+            <!-- Add the rest of your invoice template -->
+        </div>
+    `;
+}
+
+function clearInvoiceForm() {
+    document.getElementById('invoice-client-name').value = '';
+    document.getElementById('invoice-client-phone').value = '';
+    document.getElementById('invoice-client-address').value = '';
+    document.getElementById('invoice-notes').value = '';
+    
+    // Clear services (keep one empty row)
+    const container = document.getElementById('invoice-services-container');
+    container.innerHTML = '';
+    addServiceRow();
+    
+    calculateInvoiceTotal();
+}
+// Initialize when invoices view is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Add this to your view switching logic
+    const invoicesView = document.getElementById('invoices-view');
+    if (invoicesView) {
+        initializeInvoiceGeneration();
+    }
+});
 function openAddModal() {
   // Clear existing toasts
   document.getElementById('toast-container').innerHTML = '';
