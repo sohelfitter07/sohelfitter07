@@ -58,7 +58,10 @@
                 <i class="fas fa-clipboard-list"></i>
                 <span>Logs</span>
               </a>
-              
+              <a href="#" data-view="invoices">
+    <i class="fas fa-file-invoice"></i>
+    <span>Invoices</span>
+</a>
             <a href="#" data-view="settings">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
@@ -470,7 +473,156 @@
                   </div>                  
             </div>
         </div>
-  
+  <!-- Invoices View -->
+<div id="invoices-view" class="tab-content">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Invoice Generation</div>
+            <div class="card-icon">
+                <i class="fas fa-file-invoice"></i>
+            </div>
+        </div>
+        
+        <div style="padding: 20px;">
+            <!-- Invoice Generator Form -->
+            <div class="invoice-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label>Client Name</label>
+                        <input type="text" id="invoice-client-name" class="form-control" placeholder="Enter client name">
+                    </div>
+                    <div>
+                        <label>Invoice Number</label>
+                        <input type="text" id="invoice-number" class="form-control" placeholder="e.g., CFR-2025-1101" value="CFR-2025-1101">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label>Client Phone</label>
+                        <input type="tel" id="invoice-client-phone" class="form-control" placeholder="e.g., 519-227-4442">
+                    </div>
+                    <div>
+                        <label>Client Address</label>
+                        <input type="text" id="invoice-client-address" class="form-control" placeholder="e.g., 263 Main St, Lucan, ON">
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label>Invoice Date</label>
+                    <input type="date" id="invoice-date" class="form-control">
+                </div>
+                
+                <!-- Services Section -->
+                <div style="margin-bottom: 20px;">
+                    <label>Services & Parts</label>
+                    <div id="invoice-services-container">
+                        <div class="service-item" style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px; margin-bottom: 10px; align-items: end;">
+                            <div>
+                                <input type="text" class="form-control service-description" placeholder="Service/Part description">
+                            </div>
+                            <div>
+                                <input type="number" class="form-control service-quantity" placeholder="Qty" value="1" min="1">
+                            </div>
+                            <div>
+                                <input type="number" class="form-control service-price" placeholder="Price" step="0.01">
+                            </div>
+                            <div>
+                                <button type="button" class="btn secondary remove-service" style="padding: 8px 12px;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add-service" class="btn secondary" style="margin-top: 10px;">
+                        <i class="fas fa-plus"></i> Add Service/Part
+                    </button>
+                </div>
+                
+                <!-- Tax and Totals -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label>Tax Rate (%)</label>
+                        <input type="number" id="invoice-tax-rate" class="form-control" value="13" step="0.01">
+                    </div>
+                    <div>
+                        <label>Total Amount</label>
+                        <input type="text" id="invoice-total" class="form-control" readonly style="font-weight: bold; font-size: 1.2rem;">
+                    </div>
+                </div>
+                
+                <!-- Status and Notes -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label>Service Status</label>
+                        <select id="invoice-status" class="form-control">
+                            <option value="pending">Pending Approval</option>
+                            <option value="completed">Completed</option>
+                            <option value="in-progress">In Progress</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Payment Status</label>
+                        <select id="invoice-payment-status" class="form-control">
+                            <option value="pending">Pending</option>
+                            <option value="paid">Paid</option>
+                            <option value="partial">Partial Payment</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label>Additional Notes</label>
+                    <textarea id="invoice-notes" class="form-control" rows="3" placeholder="Additional notes or instructions..."></textarea>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button type="button" id="generate-invoice-preview" class="btn">
+                        <i class="fas fa-eye"></i> Preview Invoice
+                    </button>
+                    <button type="button" id="generate-invoice-pdf" class="btn">
+                        <i class="fas fa-file-pdf"></i> Generate PDF
+                    </button>
+                    <button type="button" id="clear-invoice-form" class="btn secondary">
+                        <i class="fas fa-trash"></i> Clear Form
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Invoices -->
+    <div class="card" style="margin-top: 20px;">
+        <div class="card-header">
+            <div class="card-title">Recent Invoices</div>
+            <div class="card-icon">
+                <i class="fas fa-history"></i>
+            </div>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Invoice #</th>
+                        <th>Client</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="recent-invoices-body">
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 30px;">
+                            No invoices generated yet
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
         <div id="settings-view" class="tab-content">
             <div class="card">
                 <div class="card-header">
@@ -913,5 +1065,26 @@
   
    <script type="module" src="appointment-tracker.js"></script>
   <script src="https://cdn.gomaps.pro/autocomplete/gomaps-autocomplete.min.js"></script>
+    <!-- Invoice Preview Modal -->
+<div id="invoice-preview-modal" class="modal" style="max-width: 90%;">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2><i class="fas fa-file-invoice"></i> Invoice Preview</h2>
+        <div id="invoice-preview-content">
+            <!-- Invoice HTML will be inserted here -->
+        </div>
+        <div style="margin-top: 20px; text-align: center;">
+            <button id="print-invoice" class="btn">
+                <i class="fas fa-print"></i> Print Invoice
+            </button>
+            <button id="download-invoice-pdf" class="btn">
+                <i class="fas fa-download"></i> Download PDF
+            </button>
+            <button id="close-invoice-preview" class="btn secondary">
+                <i class="fas fa-times"></i> Close
+            </button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
