@@ -1646,6 +1646,1153 @@
 }
 
     </style>
+<style>
+  /* ============================================
+   NEW YEAR MOTIVATION SECTION - UPDATED PROFESSIONAL VERSION
+   ============================================ */
+
+.new-year-motivation {
+  background: linear-gradient(135deg, 
+    rgba(21, 23, 25, 0.98) 0%,
+    rgba(30, 32, 40, 0.98) 50%,
+    rgba(21, 23, 25, 0.98) 100%
+  );
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 4vw, 2rem);
+  position: relative;
+  overflow: hidden;
+  margin: clamp(2rem, 4vw, 3rem) auto;
+  max-width: min(96%, 1400px);
+  border-radius: 24px;
+  border: 1px solid rgba(92, 92, 253, 0.15);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.new-year-motivation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    #5C5CFD 0%,
+    #FF6B6B 33%,
+    #4ECDC4 66%,
+    #5C5CFD 100%
+  );
+  z-index: 1;
+}
+
+.motivation-container {
+  max-width: min(95%, 1200px);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Animated Badge */
+.new-year-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  background: linear-gradient(135deg, rgba(92, 92, 253, 0.15), rgba(255, 107, 107, 0.15));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(92, 92, 253, 0.3);
+  border-radius: 50px;
+  padding: clamp(0.7rem, 1.8vw, 1rem) clamp(1.2rem, 2.5vw, 1.8rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  animation: float 3s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.badge-sparkle {
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  animation: sparkle 2s infinite;
+}
+
+.badge-icon {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+}
+
+.badge-text {
+  font-weight: 700;
+  color: white;
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #fff, #5C5CFD);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Main Title */
+.motivation-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  color: white;
+  line-height: 1.1;
+  text-align: center;
+  background: linear-gradient(135deg, #fff 0%, #5C5CFD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.motivation-subtitle {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: #94a3b8;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  line-height: 1.6;
+  padding: 0 1rem;
+}
+
+/* Hero Quote */
+.hero-quote {
+  background: rgba(30, 32, 40, 0.8);
+  border-left: 4px solid #5C5CFD;
+  border-radius: 16px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  margin: clamp(2rem, 4vw, 3rem) auto;
+  max-width: 900px;
+  position: relative;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.quote-mark {
+  position: absolute;
+  font-size: clamp(3rem, 6vw, 4rem);
+  color: #5C5CFD;
+  opacity: 0.2;
+  font-family: Georgia, serif;
+}
+
+.quote-mark.start {
+  top: 10px;
+  left: 20px;
+}
+
+.quote-mark.end {
+  bottom: 10px;
+  right: 20px;
+}
+
+.quote-text {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-style: italic;
+  color: #e2e8f0;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  text-align: center;
+  padding: 0 clamp(0.5rem, 2vw, 2rem);
+}
+
+.quote-author {
+  text-align: center;
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+}
+
+/* Benefits Grid - Updated Professional Version */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+  padding: 0 1rem;
+}
+
+/* Professional Benefit Card */
+.benefit-card.professional {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: visible;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.benefit-card.professional:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(92, 92, 253, 0.15);
+  border-color: #5C5CFD;
+}
+
+.benefit-card.professional.highlight {
+  border: 2px solid #5C5CFD;
+  position: relative;
+}
+
+.featured-tag {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #5C5CFD, #4ECDC4);
+  color: white;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(92, 92, 253, 0.3);
+  z-index: 2;
+}
+
+/* Benefit Header */
+.benefit-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.benefit-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #5C5CFD, #4ECDC4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.benefit-icon-wrapper i {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.benefit-header h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Benefit Description */
+.benefit-description {
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  flex-grow: 1;
+}
+
+/* Stats Container */
+.stats-container {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  margin-top: auto;
+}
+
+.stat-box {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.stat-divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 1.5rem;
+}
+
+.stat-value {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 0.5rem;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #5C5CFD;
+  line-height: 1;
+}
+
+.stat-plus {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #5C5CFD;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+}
+
+.stat-subtext {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Features List */
+.features-list {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: auto;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.feature-item:hover {
+  background: rgba(92, 92, 253, 0.05);
+}
+
+.feature-item:last-child {
+  margin-bottom: 0;
+}
+
+.feature-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.feature-check i {
+  color: white;
+  font-size: 0.8rem;
+}
+
+.feature-text {
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Performance Display */
+.performance-display {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: auto;
+}
+
+.performance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.performance-header h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.performance-legend {
+  display: flex;
+  gap: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-dot.before {
+  background: #ff6b6b;
+}
+
+.legend-dot.after {
+  background: #4ECDC4;
+}
+
+.legend-text {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+/* Performance Bar */
+.performance-bar-container {
+  margin: 1.5rem 0;
+}
+
+.performance-bar {
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.bar-section {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 1s ease-out;
+  position: relative;
+}
+
+.bar-section.before {
+  background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+}
+
+.bar-section.after {
+  background: linear-gradient(90deg, #4ECDC4, #6ae3d7);
+}
+
+.bar-value {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  position: absolute;
+}
+
+.bar-section.before .bar-value {
+  left: 10px;
+}
+
+.bar-section.after .bar-value {
+  right: 10px;
+}
+
+.performance-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.label-item {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.performance-improvement {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #5C5CFD, #4ECDC4);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.performance-improvement i {
+  font-size: 1rem;
+}
+
+/* Services Showcase */
+.services-showcase {
+  margin: clamp(3rem, 6vw, 4rem) 0;
+}
+
+.services-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.services-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.tab:hover {
+  background: rgba(92, 92, 253, 0.1);
+  color: white;
+}
+
+.tab.active {
+  background: linear-gradient(135deg, #5C5CFD, #4ECDC4);
+  color: white;
+  border-color: transparent;
+}
+
+.tab-content {
+  display: none;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.service-detail {
+  background: rgba(30, 32, 40, 0.8);
+  border-radius: 20px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 768px) {
+  .service-detail {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+}
+
+.detail-icon {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(92, 92, 253, 0.1), rgba(78, 205, 196, 0.1));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #5C5CFD;
+}
+
+.detail-content h3 {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 0.8rem;
+}
+
+.detail-content p {
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.detail-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.detail-features span {
+  background: rgba(92, 92, 253, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .detail-features {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .detail-features span {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.detail-features i {
+  color: #4ECDC4;
+  font-size: 0.8rem;
+}
+
+/* Call to Action */
+.new-year-cta {
+  margin-top: clamp(3rem, 6vw, 4rem);
+}
+
+.cta-card {
+  background: linear-gradient(145deg, rgba(30, 32, 40, 0.95), rgba(21, 23, 25, 0.95));
+  border-radius: 24px;
+  padding: clamp(2rem, 4vw, 3rem);
+  border: 1px solid rgba(92, 92, 253, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-header {
+  text-align: center;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  position: relative;
+  z-index: 1;
+}
+
+.cta-header h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  color: white;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.cta-subtitle {
+  color: #94a3b8;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.guarantee-badge {
+  background: rgba(92, 92, 253, 0.1);
+  border: 1px solid rgba(92, 92, 253, 0.3);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+}
+
+@media (max-width: 768px) {
+  .guarantee-badge {
+    flex-direction: column;
+    text-align: center;
+    max-width: 100%;
+  }
+}
+
+.guarantee-badge i {
+  font-size: 2.5rem;
+  color: #FF6B6B;
+  flex-shrink: 0;
+}
+
+.guarantee-badge div {
+  display: flex;
+  flex-direction: column;
+}
+
+.guarantee-badge strong {
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.guarantee-badge span {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.urgency-message {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(92, 92, 253, 0.1));
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+@media (max-width: 768px) {
+  .urgency-message {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+}
+
+.urgency-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 107, 107, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #FF6B6B;
+  flex-shrink: 0;
+}
+
+.urgency-text {
+  flex: 1;
+  color: white;
+  font-size: clamp(1rem, 1.8vw, 1.1rem);
+}
+
+.highlight-text {
+  color: #FF6B6B;
+  font-weight: 700;
+  background: rgba(255, 107, 107, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.countdown {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  min-width: 100px;
+  text-align: center;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.countdown-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #FF6B6B;
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cta-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .cta-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cta-button {
+  display: block;
+  text-decoration: none;
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.cta-primary {
+  background: linear-gradient(135deg, #5C5CFD, #4ECDC4);
+  color: white;
+}
+
+.cta-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.cta-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(92, 92, 253, 0.3);
+}
+
+.cta-secondary:hover {
+  background: rgba(92, 92, 253, 0.1);
+  border-color: #5C5CFD;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  .button-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
+
+.button-content i {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.button-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+@media (max-width: 480px) {
+  .button-text {
+    text-align: center;
+  }
+}
+
+.button-text strong {
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+@media (max-width: 480px) {
+  .button-text strong {
+    font-size: 1.1rem;
+  }
+}
+
+.button-text span {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 480px) {
+  .button-text span {
+    font-size: 0.85rem;
+  }
+}
+
+.trust-signals {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .trust-signals {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .trust-signals {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .trust-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
+
+.trust-item i {
+  color: #5C5CFD;
+  font-size: 1.1rem;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .benefits-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .new-year-motivation {
+    padding: 4rem 1.5rem;
+    margin: 2rem 1rem;
+  }
+  
+  .motivation-title {
+    font-size: 2.5rem;
+  }
+  
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .stats-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .stat-divider {
+    width: 100%;
+    height: 1px;
+    margin: 0;
+  }
+  
+  .service-detail {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .motivation-title {
+    font-size: 2rem;
+  }
+  
+  .motivation-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .hero-quote {
+    padding: 1.5rem;
+  }
+  
+  .quote-text {
+    font-size: 1.3rem;
+  }
+  
+  .benefit-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .benefit-icon-wrapper {
+    margin: 0 auto;
+  }
+  
+  .services-tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tab {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .urgency-message {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .countdown {
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .new-year-motivation {
+    padding: 3rem 1rem;
+    border-radius: 16px;
+  }
+  
+  .motivation-title {
+    font-size: 1.8rem;
+  }
+  
+  .motivation-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .new-year-badge {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .benefit-card.professional {
+    padding: 1.5rem;
+  }
+  
+  .benefit-header h3 {
+    font-size: 1.3rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .performance-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .performance-legend {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .cta-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .cta-button {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .new-year-motivation {
+    padding: 2rem 0.75rem;
+  }
+  
+  .motivation-title {
+    font-size: 1.6rem;
+  }
+  
+  .motivation-subtitle {
+    font-size: 1rem;
+  }
+  
+  .badge-text {
+    font-size: 0.8rem;
+  }
+  
+  .benefit-card h3 {
+    font-size: 1.3rem;
+  }
+  
+  .tab {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .featured-tag {
+    font-size: 0.7rem;
+    padding: 4px 16px;
+  }
+}
+
+/* Animation for Performance Bar */
+@keyframes fillBar {
+  from { width: 0%; }
+  to { width: var(--target-width); }
+}
+
+.bar-section {
+  animation: fillBar 1.5s ease-out forwards;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .new-year-badge,
+  .benefit-card.professional:hover,
+  .cta-button:hover,
+  .tab-content.active,
+  .bar-section {
+    animation: none;
+    transition: none;
+  }
+  
+  .benefit-card.professional:hover {
+    transform: none;
+  }
+  
+  .cta-button:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+</style>
   </head>
   <body>
     <noscript>
@@ -1700,8 +2847,295 @@
                 </div>
 
             </div>
-        </section>
 
+<!-- New Year Motivation Section - Updated Professional Version -->
+<section class="new-year-motivation">
+  <div class="motivation-container">
+    <!-- Animated Badge -->
+    <div class="new-year-badge">
+      <span class="badge-sparkle">✨</span>
+      <span class="badge-icon">🎯</span>
+      <span class="badge-text">New Year 2026 Resolution Ready!</span>
+      <span class="badge-sparkle">✨</span>
+    </div>
+    
+    <!-- Main Title -->
+    <h1 class="motivation-title">Transform Your Fitness Journey in 2026</h1>
+    <p class="motivation-subtitle">Your equipment's performance determines your workout success. Start the new year with confidence!</p>
+    
+    <!-- Hero Quote -->
+    <div class="hero-quote">
+      <div class="quote-mark start">"</div>
+      <blockquote class="quote-text">
+        The difference between a goal and a dream is a plan. Let us be part of your fitness success plan for 2026.
+      </blockquote>
+      <div class="quote-mark end">"</div>
+      <div class="quote-author">— Canadian Fitness Repair Team</div>
+    </div>
+    
+    <!-- Key Benefits Grid - UPDATED with professional styling -->
+    <div class="benefits-grid">
+      <!-- Card 1: Achieve Goals -->
+      <div class="benefit-card professional">
+        <div class="benefit-header">
+          <div class="benefit-icon-wrapper">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <h3>Achieve Your 2026 Goals</h3>
+        </div>
+        <p class="benefit-description">
+          Every year, 80% of fitness resolutions fail by February. Don't let equipment failure be the reason yours does. Our preventive maintenance keeps your fitness journey uninterrupted.
+        </p>
+        
+        <div class="stats-container">
+          <div class="stat-box">
+            <div class="stat-value">
+              <span class="stat-number" data-count="100">0</span>
+              <!-- <span class="stat-plus">+</span> -->
+            </div>
+            <div class="stat-label">SUCCESS RATE</div>
+            <div class="stat-subtext">Repair Completion</div>
+          </div>
+          
+          <div class="stat-divider"></div>
+          
+          <div class="stat-box">
+            <div class="stat-value">
+              <span class="stat-number" data-count="24">0</span>
+              <!-- <span class="stat-plus">+</span> -->
+            </div>
+            <div class="stat-label">RESPONSE TIME</div>
+            <div class="stat-subtext">Hours Average</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Card 2: Prevent, Don't Repair -->
+      <div class="benefit-card professional">
+        <div class="benefit-header">
+          <div class="benefit-icon-wrapper">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Prevent, Don't Repair</h3>
+        </div>
+        <p class="benefit-description">
+          Most equipment failures are preventable. Our comprehensive maintenance plans save you 40% compared to emergency repairs and extend your equipment's lifespan by 3-5 years.
+        </p>
+        
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-check">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="feature-text">Quarterly performance checks</div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-check">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="feature-text">Belt & motor diagnostics</div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-check">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="feature-text">Lubrication & calibration</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Card 3: Same-Day Performance -->
+      <div class="benefit-card professional highlight">
+        <div class="featured-tag">MOST POPULAR</div>
+        <div class="benefit-header">
+          <div class="benefit-icon-wrapper">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Same-Day Performance Restoration</h3>
+        </div>
+        <p class="benefit-description">
+          When equipment fails, your motivation shouldn't. Our same-day repair service means your treadmill or elliptical is back to peak performance within hours, not days.
+        </p>
+        
+        <div class="performance-display">
+          <div class="performance-header">
+            <h4>Equipment Performance</h4>
+            <div class="performance-legend">
+              <div class="legend-item">
+                <span class="legend-dot before"></span>
+                <span class="legend-text">Before Repair</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot after"></span>
+                <span class="legend-text">After Repair</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="performance-bar-container">
+            <div class="performance-bar">
+              <div class="bar-section before" style="width: 30%">
+                <div class="bar-value">30%</div>
+              </div>
+              <div class="bar-section after" style="width: 70%">
+                <div class="bar-value">100%</div>
+              </div>
+            </div>
+            
+            <div class="performance-labels">
+              <div class="label-item">Before: 30%</div>
+              <div class="label-item">After: 100%</div>
+            </div>
+          </div>
+          
+          <div class="performance-improvement">
+            <i class="fas fa-chart-line"></i>
+            <span>70% Performance Improvement</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Professional Services -->
+    <div class="services-showcase">
+      <h2 class="services-title">Your Complete 2026 Fitness Support System</h2>
+      <div class="services-tabs">
+        <button class="tab active" data-tab="repair">Repair Excellence</button>
+        <button class="tab" data-tab="maintenance">Preventive Care</button>
+        <button class="tab" data-tab="installation">Professional Setup</button>
+      </div>
+      
+      <div class="tab-content active" id="repair">
+        <div class="service-detail">
+          <div class="detail-icon">
+            <i class="fas fa-stethoscope"></i>
+          </div>
+          <div class="detail-content">
+            <h3>Diagnostic Precision</h3>
+            <p>Our certified technicians use advanced diagnostic tools to identify issues most repair services miss. We don't just fix symptoms—we solve root causes.</p>
+            <div class="detail-features">
+              <span><i class="fas fa-check"></i> 27-point equipment assessment</span>
+              <span><i class="fas fa-check"></i> Manufacturer-certified parts</span>
+              <span><i class="fas fa-check"></i> Satisfaction warranty on all repairs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tab-content" id="maintenance">
+        <div class="service-detail">
+          <div class="detail-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <div class="detail-content">
+            <h3>Proactive Protection</h3>
+            <p>Prevent 85% of common equipment failures with our scheduled maintenance plans. Regular care extends equipment life and maintains optimal performance.</p>
+            <div class="detail-features">
+              <span><i class="fas fa-check"></i> Quarterly performance optimization</span>
+              <span><i class="fas fa-check"></i> Wear-and-tear monitoring</span>
+              <span><i class="fas fa-check"></i> Safety compliance checks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tab-content" id="installation">
+        <div class="service-detail">
+          <div class="detail-icon">
+            <i class="fas fa-cogs"></i>
+          </div>
+          <div class="detail-content">
+            <h3>Perfect Setup</h3>
+            <p>Improper installation causes 60% of early equipment failures. Our professional installation ensures your equipment operates at factory specifications from day one.</p>
+            <div class="detail-features">
+              <span><i class="fas fa-check"></i> Level calibration</span>
+              <span><i class="fas fa-check"></i> Electrical safety testing</span>
+              <span><i class="fas fa-check"></i> User orientation included</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Call to Action -->
+    <div class="new-year-cta">
+      <div class="cta-card">
+        <div class="cta-header">
+          <h2>Ready for Your Best Fitness Year Ever?</h2>
+          <p class="cta-subtitle">Join thousands of satisfied customers who trust us with their fitness journey</p>
+        </div>
+        
+        <div class="cta-content">
+          <div class="guarantee-badge">
+            <i class="fas fa-award"></i>
+            <div>
+              <strong>100% Satisfaction Guarantee</strong>
+              <span>If you're not completely satisfied, we'll make it right</span>
+            </div>
+          </div>
+          
+          <div class="urgency-message">
+            <div class="urgency-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="urgency-text">
+              <strong>January Special:</strong> Book any service this month and receive <span class="highlight-text">FREE equipment assessment + 15% discount</span> on your next maintenance.
+            </div>
+            <div class="countdown">
+              <div class="countdown-item">
+                <span class="countdown-number">31</span>
+                <span class="countdown-label">Days Left</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cta-actions">
+          <a href="tel:+12899257239" class="cta-button cta-primary">
+            <div class="button-content">
+              <i class="fas fa-phone-alt"></i>
+              <div class="button-text">
+                <strong>Call Now for Priority Booking</strong>
+                <span>(289) 925-7239 • 24/7 Emergency Service</span>
+              </div>
+            </div>
+          </a>
+          
+          <a href="get-quote.html" class="cta-button cta-secondary">
+            <div class="button-content">
+              <i class="fas fa-calendar-alt"></i>
+              <div class="button-text">
+                <strong>Schedule Online Assessment</strong>
+                <span>Get instant quote • Same-day available</span>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+        <div class="trust-signals">
+          <div class="trust-item">
+            <i class="fas fa-user-tie"></i>
+            <span>Certified Technicians</span>
+          </div>
+          <div class="trust-item">
+            <i class="fas fa-shield-alt"></i>
+            <span>Insured & Licensed</span>
+          </div>
+          <div class="trust-item">
+            <i class="fas fa-star"></i>
+            <span>5/5 Customer Rating</span>
+          </div>
+          <div class="trust-item">
+            <i class="fas fa-truck"></i>
+            <span>Serving GTA Since 2012</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
                 <!-- Stats Section -->
         <section class="stats">
             <div class="stat-item">
@@ -2285,6 +3719,183 @@
   }
 
   setInterval(cycleWords, 2000);
+</script>
+<script>
+// New Year Motivation Section JavaScript - Updated
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // Tab Functionality
+  const tabs = document.querySelectorAll('.tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const target = this.getAttribute('data-tab');
+      
+      // Remove active class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
+      
+      // Add active class to clicked tab and corresponding content
+      this.classList.add('active');
+      document.getElementById(target).classList.add('active');
+    });
+  });
+  
+  // Animated Counter Function
+  function animateCounter(element) {
+    const target = parseInt(element.getAttribute('data-count'));
+    let current = 0;
+    const duration = 1500;
+    const startTime = Date.now();
+    
+    function updateCounter() {
+      const currentTime = Date.now();
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      current = Math.floor(easeOutQuart * target);
+      
+      element.textContent = current;
+      
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      } else {
+        element.textContent = target;
+      }
+    }
+    
+    updateCounter();
+  }
+  
+  // Intersection Observer for Counter Animation
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const statNumbers = entry.target.querySelectorAll('.stat-number[data-count]');
+        statNumbers.forEach(stat => {
+          if (!stat.classList.contains('animated')) {
+            stat.classList.add('animated');
+            animateCounter(stat);
+          }
+        });
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '0px 0px -50px 0px' });
+  
+  // Observe benefit cards for counter animation
+  document.querySelectorAll('.benefit-card.professional').forEach(card => {
+    counterObserver.observe(card);
+  });
+  
+  // Performance Bar Animation
+  const meterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const performanceBar = entry.target.querySelector('.performance-bar');
+        if (performanceBar) {
+          const beforeBar = performanceBar.querySelector('.before');
+          const afterBar = performanceBar.querySelector('.after');
+          
+          if (beforeBar && afterBar) {
+            // Reset to 0 for animation
+            beforeBar.style.width = '0%';
+            afterBar.style.width = '0%';
+            
+            // Animate to full width
+            setTimeout(() => {
+              beforeBar.style.width = '30%';
+              afterBar.style.width = '70%';
+            }, 300);
+          }
+        }
+        meterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  // Observe performance displays
+  document.querySelectorAll('.performance-display').forEach(display => {
+    meterObserver.observe(display);
+  });
+  
+  // Countdown Timer (Days left in January)
+  function updateCountdown() {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const endOfJanuary = new Date(currentYear, 0, 31, 23, 59, 59); // January 31
+    const timeDiff = endOfJanuary - now;
+    
+    if (timeDiff > 0) {
+      const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+      const countdownElement = document.querySelector('.countdown-number');
+      if (countdownElement) {
+        countdownElement.textContent = daysLeft;
+        countdownElement.nextElementSibling.textContent = daysLeft === 1 ? 'Day Left' : 'Days Left';
+      }
+    }
+  }
+  
+  // Initialize countdown
+  updateCountdown();
+  
+  // Update countdown every hour
+  setInterval(updateCountdown, 3600000);
+  
+  // Mobile touch optimizations
+  if ('ontouchstart' in window) {
+    // Add touch feedback for tabs
+    tabs.forEach(tab => {
+      tab.addEventListener('touchstart', function() {
+        this.style.transform = 'scale(0.98)';
+      });
+      
+      tab.addEventListener('touchend', function() {
+        this.style.transform = '';
+      });
+    });
+    
+    // Add touch feedback for CTA buttons
+    document.querySelectorAll('.cta-button').forEach(button => {
+      button.addEventListener('touchstart', function() {
+        this.style.transform = 'scale(0.98)';
+      });
+      
+      button.addEventListener('touchend', function() {
+        this.style.transform = '';
+      });
+    });
+  }
+  
+  // Initialize all counters on page load (fallback if observer doesn't trigger)
+  setTimeout(() => {
+    document.querySelectorAll('.stat-number[data-count]').forEach(stat => {
+      if (!stat.classList.contains('animated')) {
+        const rect = stat.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          stat.classList.add('animated');
+          animateCounter(stat);
+        }
+      }
+    });
+  }, 1000);
+  
+  // Add smooth scroll to tabs
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('data-tab');
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
+  
+});
 </script>
 
   </body>
