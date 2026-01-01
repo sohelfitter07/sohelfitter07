@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Exclusive Preventative Maintenance Plan — Canadian Fitness Repair
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* Professional Color Theme using #5D5DFF */
+      :root {
+        --primary: #5d5dff;
+        --primary-dark: #4a4acc;
+        --primary-light: #7a7aff;
+        --secondary: #ff7b5d;
+        --accent: #5dff7b;
+        --dark: #1a1a2e;
+        --light: #f8f9ff;
+        --text: #333344;
+        --text-light: #666677;
+        --border: #e1e4ff;
+        --shadow: rgba(93, 93, 255, 0.1);
+        --gradient: linear-gradient(135deg, #5d5dff 0%, #7a7aff 100%);
+      }
+
+      /* Page & print settings */
+      @page {
+        size: A4;
+        margin: 15mm;
+      }
+
+      html,
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        line-height: 1.6;
+        background: #fff;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 30px;
+        position: relative;
+      }
+
+      /* Premium Header */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px;
+        background: var(--gradient);
+        border-radius: 15px;
+        color: white;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 25px var(--shadow);
+      }
+
+      .company-details h1 {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .company-details .subtitle {
+        font-size: 15px;
+        opacity: 0.95;
+        font-weight: 500;
+      }
+
+      .invoice-details {
+        text-align: right;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 15px;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+      }
+
+      .invoice-number {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      .invoice-date {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      /* Client Information */
+      .client-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        background: var(--light);
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        border-left: 5px solid var(--primary);
+      }
+
+      .info-card {
+        padding: 15px;
+      }
+
+      .info-card strong {
+        color: var(--primary);
+        font-size: 15px;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      /* Equipment List */
+      .equipment-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+        margin: 20px 0;
+      }
+
+      .equipment-item {
+        background: var(--light);
+        padding: 12px 15px;
+        border-radius: 8px;
+        border-left: 3px solid var(--primary);
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      /* Pricing Cards */
+      .pricing-section {
+        margin: 40px 0;
+      }
+
+      .pricing-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+      }
+
+      .pricing-card {
+        background: white;
+        border-radius: 12px;
+        padding: 0;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid var(--border);
+      }
+
+      .pricing-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(93, 93, 255, 0.15);
+      }
+
+      .pricing-card.recommended {
+        border: 2px solid var(--primary);
+        position: relative;
+        margin-top: -10px;
+      }
+
+      .recommended-badge {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--secondary);
+        color: white;
+        padding: 6px 20px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .card-header {
+        background: var(--gradient);
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .card-header h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .card-header .price {
+        font-size: 36px;
+        font-weight: 800;
+        margin: 10px 0;
+      }
+
+      .card-header .period {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      .card-body {
+        padding: 25px;
+      }
+
+      .features-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+      }
+
+      .features-list li {
+        padding: 8px 0;
+        border-bottom: 1px dashed var(--border);
+        position: relative;
+        padding-left: 25px;
+      }
+
+      .features-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-weight: bold;
+      }
+
+      .savings-badge {
+        display: inline-block;
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 5px 0;
+      }
+
+      /* Table Styling */
+      .table-container {
+        overflow-x: auto;
+        margin: 25px 0;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+      }
+
+      table thead {
+        background: var(--gradient);
+        color: white;
+      }
+
+      table th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      table tbody tr {
+        border-bottom: 1px solid var(--border);
+      }
+
+      table tbody tr:nth-child(even) {
+        background: var(--light);
+      }
+
+      table td {
+        padding: 15px;
+        font-size: 14px;
+      }
+
+      .align-right {
+        text-align: right;
+      }
+
+      .highlight {
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      /* Benefits Section */
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+      }
+
+      .benefit-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        border-top: 4px solid var(--primary);
+        box-shadow: 0 4px 15px rgba(93, 93, 255, 0.08);
+      }
+
+      .benefit-icon {
+        font-size: 32px;
+        color: var(--primary);
+        margin-bottom: 15px;
+      }
+
+      .benefit-card h4 {
+        margin: 0 0 10px 0;
+        color: var(--dark);
+      }
+
+      /* Call to Action */
+      .cta-section {
+        background: var(--gradient);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        margin: 40px 0;
+      }
+
+      .cta-section h2 {
+        color: white;
+        margin-bottom: 15px;
+      }
+
+      .guarantee-badge {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 10px 20px;
+        border-radius: 25px;
+        display: inline-block;
+        margin: 15px 0;
+        font-weight: 600;
+      }
+
+      /* PDF Button */
+      .pdf-section {
+        text-align: center;
+        margin: 40px 0;
+        padding: 30px;
+        background: var(--light);
+        border-radius: 12px;
+      }
+
+      #download-pdf {
+        background: var(--gradient);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(93, 93, 255, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      #download-pdf:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(93, 93, 255, 0.4);
+      }
+
+      #download-pdf:active {
+        transform: translateY(-1px);
+      }
+
+      .loading {
+        display: none;
+        margin-top: 15px;
+        color: var(--primary);
+        font-weight: 500;
+      }
+
+      .loading:before {
+        content: "⏳ ";
+      }
+
+      /* Footer */
+      footer {
+        margin-top: 50px;
+        padding-top: 25px;
+        border-top: 1px solid var(--border);
+        font-size: 13px;
+        color: var(--text-light);
+        text-align: center;
+      }
+
+      .contact-info {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .contact-item:before {
+        font-size: 16px;
+      }
+
+      /* Print Styles */
+      @media print {
+        .container {
+          padding: 0;
+        }
+
+        #download-pdf {
+          display: none;
+        }
+
+        .header,
+        .client-section,
+        .pricing-card {
+          break-inside: avoid;
+        }
+
+        /* Ensure proper page breaks */
+        .page-break {
+          page-break-before: always;
+        }
+
+        /* Remove backgrounds for better printing */
+        .header {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        .pricing-card .card-header {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        .cta-section {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px;
+        }
+
+        .header {
+          flex-direction: column;
+          text-align: center;
+          gap: 15px;
+        }
+
+        .pricing-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* For PDF generation */
+      .page-break {
+        break-before: page;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="proposal-content">
+      <!-- Premium Header -->
+      <div class="header">
+        <div class="company-details">
+          <h1>Canadian Fitness Repair</h1>
+          <div class="subtitle">Professional Fitness Equipment Service</div>
+        </div>
+        <div class="invoice-details">
+          <div class="invoice-number">EXCLUSIVE MAINTENANCE PROPOSAL</div>
+          <div class="invoice-date">Valid Until: January 31, 2026</div>
+        </div>
+      </div>
+
+      <!-- Client Information -->
+      <section class="client-section">
+        <div class="info-card">
+          <strong>PREPARED FOR:</strong>
+          <div style="font-size: 18px; font-weight: 700; color: var(--primary)">
+            Veronika
+          </div>
+          <div>Commercial Fitness Facility</div>
+        </div>
+        <div class="info-card">
+          <strong>PROPOSED SERVICE WINDOW:</strong>
+          <div style="font-size: 16px; font-weight: 600; color: var(--primary)">
+            Late December 2025 — Early January 2026
+          </div>
+          <div style="font-size: 13px; margin-top: 5px">
+            (Flexible scheduling available)
+          </div>
+        </div>
+        <div class="info-card">
+          <strong>REFERENCE:</strong>
+          <div style="font-size: 14px">CFR-PM-2025-Q4-001</div>
+          <div style="font-size: 12px; color: var(--text-light)">
+            Issued: December 2025
+          </div>
+        </div>
+      </section>
+
+      <!-- Executive Summary -->
+      <section style="margin: 30px 0">
+        <h2 style="color: var(--primary); font-size: 24px; margin-bottom: 15px">
+          Executive Summary
+        </h2>
+        <p
+          style="
+            font-size: 15px;
+            line-height: 1.7;
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+          "
+        >
+          This comprehensive preventative maintenance proposal is designed to
+          maximize equipment uptime, extend machinery lifespan, and reduce
+          overall maintenance costs for your fitness facility. Based on industry
+          standards and your specific equipment portfolio, we offer three
+          tailored maintenance solutions to fit your operational needs and
+          budget.
+        </p>
+      </section>
+
+      <!-- Equipment Covered -->
+      <section style="margin: 40px 0">
+        <h2
+          style="
+            color: var(--primary);
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          <span>🏋️</span> Equipment Covered
+        </h2>
+        <div class="equipment-grid">
+          <div class="equipment-item">Concept2 Rowers (3 units)</div>
+          <div class="equipment-item">Concept2 SkiErgs (3 units)</div>
+          <div class="equipment-item">StairMaster HIIT Bikes (3 units)</div>
+          <div class="equipment-item">Keiser Spin Bikes (3 units)</div>
+          <div class="equipment-item">S-Drive Treadmills (3 units)</div>
+          <div
+            class="equipment-item"
+            style="background: var(--primary-light); color: white"
+          >
+            Total: 15 Machines
+          </div>
+        </div>
+      </section>
+
+      <!-- Scope of Work -->
+      <section style="margin: 40px 0">
+        <h2 style="color: var(--primary); font-size: 20px; margin-bottom: 15px">
+          📋 Scope of Work Includes:
+        </h2>
+        <div
+          style="
+            background: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+          "
+        >
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 15px;
+            "
+          >
+            <div>• Full mechanical inspection</div>
+            <div>• Cleaning & lubrication</div>
+            <div>• Belt & chain tension checks</div>
+            <div>• Electronic console verification</div>
+            <div>• Safety system testing</div>
+            <div>• Performance calibration</div>
+            <div>• Wear analysis report</div>
+            <div>• Priority service response</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing Options -->
+      <section class="pricing-section">
+        <h2
+          style="
+            color: var(--primary);
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 10px;
+          "
+        >
+          Choose Your Maintenance Plan
+        </h2>
+        <p
+          style="
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 30px;
+          "
+        >
+          Three flexible options designed for optimal equipment performance and
+          budget management
+        </p>
+
+        <div class="pricing-cards">
+          <!-- Option 1: One-Time -->
+          <div class="pricing-card">
+            <div class="card-header">
+              <h3>ONE-TIME SERVICE</h3>
+              <div class="price">
+                $810<sup style="font-size: 16px">+HST</sup>
+              </div>
+              <div class="period">Single Service Visit</div>
+            </div>
+            <div class="card-body">
+              <p
+                style="
+                  font-size: 13px;
+                  color: var(--text-light);
+                  margin-bottom: 20px;
+                "
+              >
+                Perfect for seasonal maintenance or new equipment setup
+              </p>
+              <ul class="features-list">
+                <li>Complete equipment inspection</li>
+                <li>Basic cleaning & lubrication</li>
+                <li>Performance testing</li>
+                <li>Written service report</li>
+                <li>30-day labor warranty</li>
+              </ul>
+              <div style="text-align: center; margin-top: 25px">
+                <div style="font-size: 12px; color: var(--text-light)">
+                  Equipment Cost: $54/unit
+                </div>
+                <div
+                  style="
+                    font-size: 13px;
+                    margin-top: 10px;
+                    color: var(--primary);
+                    font-weight: 600;
+                  "
+                >
+                  ⏱️ Estimated: 1 business day
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Option 2: Quarterly (Recommended) -->
+          <div class="pricing-card recommended">
+            <div class="recommended-badge">Most Popular</div>
+            <div class="card-header">
+              <h3>QUARTERLY PLAN</h3>
+              <div class="price">
+                $2,800<sup style="font-size: 16px">+HST</sup>
+              </div>
+              <div class="period">4 Visits Per Year</div>
+            </div>
+            <div class="card-body">
+              <p
+                style="
+                  font-size: 13px;
+                  color: var(--text-light);
+                  margin-bottom: 20px;
+                "
+              >
+                <span class="savings-badge">SAVE 14% vs One-Time</span>
+              </p>
+              <ul class="features-list">
+                <li>Everything in One-Time PLUS:</li>
+                <li>Priority scheduling</li>
+                <li>Advanced wear monitoring</li>
+                <li>Parts discount (15%)</li>
+                <li>Emergency response included</li>
+                <li>Quarterly performance reports</li>
+                <li>90-day labor warranty</li>
+              </ul>
+              <div style="text-align: center; margin-top: 25px">
+                <div
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: var(--primary);
+                  "
+                >
+                  📅 4 visits/year • $700/visit +HST
+                </div>
+                <div
+                  style="
+                    font-size: 12px;
+                    color: var(--text-light);
+                    margin-top: 5px;
+                  "
+                >
+                  $46.67 per machine per visit
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Option 3: Semi-Annual -->
+          <div class="pricing-card">
+            <div class="card-header">
+              <h3>SEMI-ANNUAL PLAN</h3>
+              <div class="price">
+                $1,500<sup style="font-size: 16px">+HST</sup>
+              </div>
+              <div class="period">2 Visits Per Year</div>
+            </div>
+            <div class="card-body">
+              <p
+                style="
+                  font-size: 13px;
+                  color: var(--text-light);
+                  margin-bottom: 20px;
+                "
+              >
+                <span class="savings-badge">SAVE 7% vs One-Time</span>
+              </p>
+              <ul class="features-list">
+                <li>Everything in One-Time PLUS:</li>
+                <li>Bi-annual deep cleaning</li>
+                <li>Pre-season & post-season checks</li>
+                <li>Parts discount (10%)</li>
+                <li>Semi-annual performance reports</li>
+                <li>60-day labor warranty</li>
+              </ul>
+              <div style="text-align: center; margin-top: 25px">
+                <div
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: var(--primary);
+                  "
+                >
+                  📅 2 visits/year • $750/visit +HST
+                </div>
+                <div
+                  style="
+                    font-size: 12px;
+                    color: var(--text-light);
+                    margin-top: 5px;
+                  "
+                >
+                  $50 per machine per visit
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparative Analysis -->
+      <section
+        style="
+          margin: 40px 0;
+          background: var(--light);
+          padding: 25px;
+          border-radius: 12px;
+        "
+      >
+        <h2 style="color: var(--primary); font-size: 20px; margin-bottom: 20px">
+          📊 Cost-Benefit Analysis
+        </h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>One-Time</th>
+                <th>Semi-Annual</th>
+                <th>Quarterly</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Visits Per Year</td>
+                <td>1</td>
+                <td>2</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>Annual Cost</td>
+                <td>$810 +HST</td>
+                <td>$1,500 +HST</td>
+                <td>$2,800 +HST</td>
+              </tr>
+              <tr>
+                <td>Cost Per Visit</td>
+                <td>$810</td>
+                <td>$750</td>
+                <td>$700</td>
+              </tr>
+              <tr>
+                <td>Emergency Response</td>
+                <td>Additional</td>
+                <td>Priority</td>
+                <td>✅ Included</td>
+              </tr>
+              <tr>
+                <td>Parts Discount</td>
+                <td>—</td>
+                <td>10%</td>
+                <td>15%</td>
+              </tr>
+              <tr>
+                <td>Equipment Downtime</td>
+                <td>Highest</td>
+                <td>Medium</td>
+                <td>Lowest</td>
+              </tr>
+              <tr>
+                <td>Labor Warranty</td>
+                <td>30 days</td>
+                <td>60 days</td>
+                <td>90 days</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Why Choose Us -->
+      <section style="margin: 50px 0">
+        <h2
+          style="
+            color: var(--primary);
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+          "
+        >
+          ⭐ Why Canadian Fitness Repair?
+        </h2>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">🔧</div>
+            <h4>Certified Technicians</h4>
+            <p style="font-size: 14px; line-height: 1.6">
+              Factory-trained specialists with 10+ years average experience.
+            </p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">⚡</div>
+            <h4>24-Hour Response</h4>
+            <p style="font-size: 14px; line-height: 1.6">
+              Emergency service available for plan members.
+            </p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">📊</div>
+            <h4>Predictive Analytics</h4>
+            <p style="font-size: 14px; line-height: 1.6">
+              Advanced wear monitoring prevents breakdowns.
+            </p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">💰</div>
+            <h4>Cost Savings</h4>
+            <p style="font-size: 14px; line-height: 1.6">
+              Reduce repair costs by up to 40% with regular maintenance.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="cta-section">
+        <h2>Ready to Optimize Your Equipment Performance?</h2>
+        <p
+          style="
+            font-size: 16px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 20px;
+          "
+        >
+          Join 150+ fitness facilities across Canada who trust us with their
+          equipment maintenance.
+        </p>
+        <div class="guarantee-badge">
+          🛡️ 100% Satisfaction Guarantee • 90-Day Labor Warranty
+        </div>
+        <div style="margin-top: 25px; font-size: 14px">
+          📞 Call: (289) 925-7239 • ✉️ Email: canadianfitnessrepair@gmail.com
+        </div>
+      </section>
+
+      <!-- Next Steps -->
+      <section
+        style="
+          margin: 40px 0;
+          background: white;
+          padding: 25px;
+          border-radius: 10px;
+          border: 2px solid var(--border);
+        "
+      >
+        <h3 style="color: var(--primary); margin-bottom: 20px">
+          📋 Next Steps
+        </h3>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+          "
+        >
+          <div style="text-align: center">
+            <div
+              style="
+                background: var(--primary);
+                color: white;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 10px;
+                font-weight: bold;
+              "
+            >
+              1
+            </div>
+            <div style="font-weight: 600; color: var(--primary)">
+              Select Plan
+            </div>
+            <div style="font-size: 13px; margin-top: 5px">
+              Choose your preferred option
+            </div>
+          </div>
+          <div style="text-align: center">
+            <div
+              style="
+                background: var(--primary);
+                color: white;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 10px;
+                font-weight: bold;
+              "
+            >
+              2
+            </div>
+            <div style="font-weight: 600; color: var(--primary)">Schedule</div>
+            <div style="font-size: 13px; margin-top: 5px">
+              Select service dates
+            </div>
+          </div>
+          <div style="text-align: center">
+            <div
+              style="
+                background: var(--primary);
+                color: white;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 10px;
+                font-weight: bold;
+              "
+            >
+              3
+            </div>
+            <div style="font-weight: 600; color: var(--primary)">
+              Confirmation
+            </div>
+            <div style="font-size: 13px; margin-top: 5px">
+              Receive service agreement
+            </div>
+          </div>
+          <div style="text-align: center">
+            <div
+              style="
+                background: var(--primary);
+                color: white;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 10px;
+                font-weight: bold;
+              "
+            >
+              4
+            </div>
+            <div style="font-weight: 600; color: var(--primary)">Service</div>
+            <div style="font-size: 13px; margin-top: 5px">
+              Enjoy optimized equipment
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PDF Download Section -->
+      <div class="pdf-section">
+        <button id="download-pdf">📄 Download Professional Proposal</button>
+        <div id="loading" class="loading">Generating PDF, please wait...</div>
+        <p style="font-size: 13px; color: var(--text-light); margin-top: 15px">
+          This PDF includes all details for your records and approval process
+        </p>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        <div
+          style="font-weight: 600; color: var(--primary); margin-bottom: 15px"
+        >
+          Canadian Fitness Repair
+        </div>
+        <div class="contact-info">
+          <div class="contact-item">📍 Hamilton, ON</div>
+          <div class="contact-item">📞 (289) 925-7239</div>
+          <div class="contact-item">✉️ canadianfitnessrepair@gmail.com</div>
+          <div class="contact-item">🌐 www.canadianfitnessrepair.com</div>
+        </div>
+        <div
+          style="
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+          "
+        >
+          Proposal ID: CFR-PM-2025-Q4-001 • Valid until January 31, 2026 •
+          Prices subject to HST
+        </div>
+      </footer>
+    </div>
+
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const downloadBtn = document.getElementById("download-pdf");
+        const loadingDiv = document.getElementById("loading");
+
+        downloadBtn.addEventListener("click", async function () {
+          // Disable button and show loading
+          downloadBtn.disabled = true;
+          const originalText = downloadBtn.innerHTML;
+          downloadBtn.innerHTML = "⏳ Generating PDF...";
+          loadingDiv.style.display = "block";
+
+          try {
+            const { jsPDF } = window.jspdf;
+
+            // Create PDF document
+            const pdf = new jsPDF({
+              orientation: "portrait",
+              unit: "mm",
+              format: "a4",
+              putOnlyUsedFonts: true,
+            });
+
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const margin = 15; // 15mm margins as in CSS
+
+            // Capture the entire content
+            const element = document.getElementById("proposal-content");
+
+            // Temporarily set width to A4 size for capture
+            const originalWidth = element.style.width;
+            const originalMargin = element.style.margin;
+            const originalPadding = element.style.padding;
+
+            element.style.width = pageWidth - margin * 2 + "mm";
+            element.style.margin = "0";
+            element.style.padding = "20px";
+            element.style.boxSizing = "border-box";
+
+            // Capture with html2canvas
+            const canvas = await html2canvas(element, {
+              scale: 2,
+              useCORS: true,
+              logging: false,
+              backgroundColor: "#ffffff",
+              windowWidth: element.scrollWidth,
+              windowHeight: element.scrollHeight,
+              onclone: function (clonedDoc) {
+                const clonedElement =
+                  clonedDoc.getElementById("proposal-content");
+                clonedElement.style.width = pageWidth - margin * 2 + "mm";
+                clonedElement.style.margin = "0";
+                clonedElement.style.padding = "20px";
+                clonedElement.style.boxSizing = "border-box";
+
+                // Ensure all content is visible
+                const allElements = clonedElement.getElementsByTagName("*");
+                for (let el of allElements) {
+                  if (el.style) {
+                    el.style.boxSizing = "border-box";
+                  }
+                }
+              },
+            });
+
+            // Restore original styles
+            element.style.width = originalWidth;
+            element.style.margin = originalMargin;
+            element.style.padding = originalPadding;
+
+            const imgData = canvas.toDataURL("image/png");
+
+            // Calculate image dimensions to fit page width
+            const imgWidth = pageWidth - margin * 2;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            // Calculate how many pages we need
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            // Add first page
+            pdf.addImage(imgData, "PNG", margin, margin, imgWidth, imgHeight);
+            heightLeft -= pageHeight - margin * 2;
+
+            // Add additional pages if needed
+            while (heightLeft > 0) {
+              position = -(imgHeight - heightLeft + margin * 2);
+              pdf.addPage();
+              pdf.addImage(
+                imgData,
+                "PNG",
+                margin,
+                position,
+                imgWidth,
+                imgHeight
+              );
+              heightLeft -= pageHeight - margin * 2;
+            }
+
+            // Add page numbers to all pages
+            const totalPages = pdf.internal.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+              pdf.setPage(i);
+              pdf.setFontSize(10);
+              pdf.setTextColor(93, 93, 255);
+              pdf.text(
+                `Page ${i} of ${totalPages}`,
+                pageWidth - margin - 20,
+                pageHeight - margin + 10
+              );
+              pdf.text(
+                "Canadian Fitness Repair",
+                margin,
+                pageHeight - margin + 10
+              );
+            }
+
+            // Save the PDF
+            const fileName = `Canadian-Fitness-Repair-Proposal-${new Date()
+              .toISOString()
+              .slice(0, 10)}.pdf`;
+            pdf.save(fileName);
+          } catch (error) {
+            console.error("PDF Generation Error:", error);
+            alert(
+              "Unable to generate PDF. Please try again or contact support."
+            );
+          } finally {
+            // Re-enable button
+            downloadBtn.disabled = false;
+            downloadBtn.innerHTML = originalText;
+            loadingDiv.style.display = "none";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
