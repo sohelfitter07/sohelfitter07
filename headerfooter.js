@@ -1,28 +1,10 @@
-// ================================================================
-//  HOW TO ADD THE CHATBOT TO headerfooter.js
-//  ----------------------------------------------------------------
-//  OPTION A (Easiest): Upload your headerfooter.js to this chat
-//  and Claude will do the merge for you automatically.
-//
-//  OPTION B: Follow the 3 steps below yourself.
-// ================================================================
-//
-//  STEP 1 ── Open headerfooter.js in VS Code
-//  STEP 2 ── Scroll to the VERY BOTTOM of the file
-//  STEP 3 ── Paste EVERYTHING below the dashed line at the bottom
-// ================================================================
-
-
-// ----------------------------------------------------------------
-//  PASTE THIS ENTIRE BLOCK AT THE BOTTOM OF YOUR headerfooter.js
-// ----------------------------------------------------------------
-
 (function injectCFRChatbot() {
 
   // ── 1. STYLES ──────────────────────────────────────────────────
   var css = document.createElement('style');
   css.textContent = `
-#cfr-bubble-wrap{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+#cfr-bubble-wrap{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:10px;transition:opacity .2s}
+#cfr-bubble-wrap.cfr-hidden{opacity:0;pointer-events:none}
 #cfr-bubble-label{background:#1E2030;color:#e2e8f0;font-family:"Segoe UI",Roboto,sans-serif;font-size:13px;font-weight:600;padding:8px 14px;border-radius:20px;border:1px solid rgba(92,92,253,.35);box-shadow:0 4px 18px rgba(0,0,0,.45);white-space:nowrap;animation:cfrLabelBob 3s ease-in-out infinite;cursor:pointer}
 @keyframes cfrLabelBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 #cfr-bubble{width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,#5C5CFD 0%,#4ECDC4 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px rgba(92,92,253,.18),0 0 0 12px rgba(92,92,253,.07),0 6px 24px rgba(92,92,253,.55);transition:transform .22s ease,box-shadow .22s ease;position:relative;animation:cfrRingPulse 2.4s ease-in-out infinite}
@@ -36,18 +18,49 @@
 #cfr-teaser strong{color:#9b9bfd}
 #cfr-teaser-dismiss{display:block;margin-top:8px;font-size:11.5px;color:#64748b;cursor:pointer}
 #cfr-teaser-dismiss:hover{color:#94a3b8}
+
+/* ── Chat window — desktop ── */
 #cfr-win{position:fixed;bottom:108px;right:24px;width:375px;max-width:calc(100vw - 20px);background:#151719;border-radius:22px;border:1px solid rgba(92,92,253,.22);box-shadow:0 28px 70px rgba(0,0,0,.7);display:none;flex-direction:column;overflow:hidden;z-index:9998;font-family:"Segoe UI",Roboto,sans-serif}
 #cfr-win.cfr-open{display:flex;animation:cfrFadeUp .28s ease}
 @keyframes cfrFadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.cfr-hd{background:linear-gradient(135deg,#5C5CFD,#4ECDC4);padding:13px 16px;display:flex;align-items:center;gap:11px}
+
+/* ── Chat window — tablet (481px–768px) ── */
+@media(min-width:481px) and (max-width:768px){
+  #cfr-win{width:340px;bottom:90px;right:16px}
+  #cfr-bubble-wrap{bottom:16px;right:16px}
+}
+
+/* ── Chat window — mobile (≤480px) ── */
+@media(max-width:480px){
+  #cfr-win{
+    position:fixed;
+    bottom:0; left:0; right:0;
+    width:100vw; max-width:100vw;
+    height:88vh; max-height:88vh;
+    border-radius:20px 20px 0 0;
+    border-bottom:none;
+  }
+  #cfr-win .cfr-msgs{max-height:calc(88vh - 130px);flex:1}
+  #cfr-bubble-wrap{bottom:16px;right:14px}
+  #cfr-teaser{right:14px;bottom:106px;max-width:calc(100vw - 80px)}
+  #cfr-bubble-label{font-size:12px;padding:6px 12px}
+}
+
+/* ── Very small phones (≤360px) ── */
+@media(max-width:360px){
+  #cfr-win{height:92vh;max-height:92vh}
+  #cfr-win .cfr-msgs{max-height:calc(92vh - 130px)}
+}
+
+.cfr-hd{background:linear-gradient(135deg,#5C5CFD,#4ECDC4);padding:13px 16px;display:flex;align-items:center;gap:11px;flex-shrink:0}
 .cfr-hd-av{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .cfr-hd-info{flex:1}
 .cfr-hd-name{font-size:14px;font-weight:700;color:#fff}
 .cfr-hd-sub{font-size:11px;color:rgba(255,255,255,.82);margin-top:2px;display:flex;align-items:center;gap:5px}
 .cfr-hd-sub::before{content:'';width:7px;height:7px;background:#4ade80;border-radius:50%;display:inline-block}
-.cfr-x{background:none;border:none;color:rgba(255,255,255,.85);font-size:23px;cursor:pointer;padding:0 3px;line-height:1}
+.cfr-x{background:none;border:none;color:rgba(255,255,255,.85);font-size:23px;cursor:pointer;padding:0 3px;line-height:1;flex-shrink:0}
 .cfr-x:hover{color:#fff}
-.cfr-msgs{overflow-y:auto;padding:13px 12px;display:flex;flex-direction:column;gap:9px;max-height:370px;min-height:180px;background:#151719;scroll-behavior:smooth}
+.cfr-msgs{overflow-y:auto;padding:13px 12px;display:flex;flex-direction:column;gap:9px;max-height:370px;min-height:180px;background:#151719;scroll-behavior:smooth;flex:1}
 .cfr-m{max-width:88%;padding:10px 14px;border-radius:18px;font-size:13.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word}
 .cfr-m.bot{background:#1E2030;color:#e2e8f0;border-radius:4px 18px 18px 18px;align-self:flex-start;border:1px solid rgba(255,255,255,.05)}
 .cfr-m.user{background:linear-gradient(135deg,#5C5CFD,#4ECDC4);color:#fff;border-radius:18px 4px 18px 18px;align-self:flex-end}
@@ -84,19 +97,18 @@
 .cfr-form-submit{background:linear-gradient(135deg,#5C5CFD,#4ECDC4);color:#fff;border:none;border-radius:10px;padding:10px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .2s}
 .cfr-form-submit:hover{opacity:.88}
 .cfr-form-submit:disabled{opacity:.45;cursor:not-allowed}
-.cfr-bar{display:flex;gap:8px;padding:10px 12px;background:#1B1C27;border-top:1px solid rgba(255,255,255,.06)}
-.cfr-in{flex:1;background:#151719;border:1px solid rgba(92,92,253,.22);border-radius:11px;padding:9px 13px;font-size:13.5px;color:#e2e8f0;outline:none;font-family:inherit}
+.cfr-bar{display:flex;gap:8px;padding:10px 12px;background:#1B1C27;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0}
+.cfr-in{flex:1;background:#151719;border:1px solid rgba(92,92,253,.22);border-radius:11px;padding:9px 13px;font-size:13.5px;color:#e2e8f0;outline:none;font-family:inherit;min-width:0}
 .cfr-in:focus{border-color:#5C5CFD}
 .cfr-in::placeholder{color:#475569}
-.cfr-go{background:linear-gradient(135deg,#5C5CFD,#4ECDC4);border:none;border-radius:11px;padding:9px 15px;color:#fff;font-size:15px;cursor:pointer;transition:opacity .2s}
+.cfr-go{background:linear-gradient(135deg,#5C5CFD,#4ECDC4);border:none;border-radius:11px;padding:9px 15px;color:#fff;font-size:15px;cursor:pointer;transition:opacity .2s;flex-shrink:0}
 .cfr-go:hover{opacity:.88}
-@media(max-width:480px){#cfr-win{bottom:0;right:0;width:100vw;max-width:100vw;border-radius:20px 20px 0 0}#cfr-bubble-wrap{bottom:16px;right:14px}#cfr-teaser{right:14px;bottom:106px}}
   `;
   document.head.appendChild(css);
 
   // ── 2. HTML ────────────────────────────────────────────────────
-  var html = document.createElement('div');
-  html.innerHTML = `
+  var wrap = document.createElement('div');
+  wrap.innerHTML = `
     <div id="cfr-teaser" onclick="cfrOpen()">
       👋 Equipment acting up?<br>
       <strong>We're online &amp; ready to help!</strong>
@@ -133,19 +145,19 @@
       </div>
     </div>
   `;
-  document.body.appendChild(html);
+  document.body.appendChild(wrap);
 
   // ── 3. LOGIC ───────────────────────────────────────────────────
   var isOpen   = false;
   var userName = '';
-  var M, IN, WIN;
+  var M, IN, WIN, BWRAP;
 
   function init() {
-    M   = document.getElementById('cfrMsgs');
-    IN  = document.getElementById('cfrIn');
-    WIN = document.getElementById('cfr-win');
+    M      = document.getElementById('cfrMsgs');
+    IN     = document.getElementById('cfrIn');
+    WIN    = document.getElementById('cfr-win');
+    BWRAP  = document.getElementById('cfr-bubble-wrap');
 
-    // Teaser: show after 4 s if not dismissed this session
     if (!sessionStorage.getItem('cfrTeaserDismissed')) {
       setTimeout(function () {
         if (!isOpen) document.getElementById('cfr-teaser').style.display = 'block';
@@ -176,21 +188,55 @@
     M.scrollTop = M.scrollHeight;
   }
 
+  /* 
+    btns() — two button types:
+    - LINK buttons  (have url, no cb or empty cb): open URL, keep row visible, show "start over" after
+    - ACTION buttons (have cb): remove row and run the callback
+  */
   function btns(arr) {
     var row = document.createElement('div');
     row.className = 'cfr-btn-row';
+
     arr.forEach(function (b) {
       var el = document.createElement('button');
       el.className = 'cfr-btn ' + (b.cls || '');
       el.innerHTML = '<span class="bi">' + (b.icon || '') + '</span><span>' + b.label + '</span>';
+
       el.onclick = function () {
+        var isLinkOnly = b.url && (!b.cb || b.cb.toString().trim() === 'function () {}' || b.cb.toString().trim() === 'function(){}');
+
         if (b.url) window.open(b.url, '_blank');
-        if (b.cb) { row.remove(); b.cb(); }
+
+        if (!isLinkOnly && b.cb) {
+          // Navigation button — remove whole row and go to new flow
+          row.remove();
+          b.cb();
+        } else if (isLinkOnly) {
+          // Link button — keep row visible but show a follow-up nudge once
+          if (!row.dataset.nudged) {
+            row.dataset.nudged = '1';
+            setTimeout(function () {
+              msg("Feel free to reach out anytime! 😊 Is there anything else I can help with?", 'bot');
+              var nudge = document.createElement('div');
+              nudge.className = 'cfr-chips';
+              var startBtn = document.createElement('button');
+              startBtn.className = 'cfr-chip';
+              startBtn.textContent = '🏠 Start over';
+              startBtn.onclick = function () { nudge.remove(); row.remove(); flowStart(); };
+              nudge.appendChild(startBtn);
+              M.appendChild(nudge);
+              M.scrollTop = M.scrollHeight;
+            }, 600);
+          }
+        }
       };
+
       row.appendChild(el);
     });
+
     M.appendChild(row);
     M.scrollTop = M.scrollHeight;
+    return row;
   }
 
   function typing(ms, then) {
@@ -237,34 +283,34 @@
     typing(600, function () {
       msg("Oh no — let's get you sorted right away! 🚨\n\nWe have technicians available 24/7. Fastest ways to reach us:", 'bot');
       btns([
-        { icon: '📞', label: 'Call us now — (289) 925-7239', cls: 'primary', url: 'tel:+12899257239', cb: function () {} },
-        { icon: '📱', label: 'Text us — (289) 925-7239', cls: 'sms', url: 'sms:+12899257239', cb: function () {} },
-        { icon: '💬', label: 'WhatsApp us', cls: 'wa', url: 'https://wa.me/13653662162', cb: function () {} },
-        { icon: '📋', label: 'Fill quick booking form here', cb: flowBookingForm },
-        { icon: '🏠', label: 'Back to main menu', cls: 'back', cb: flowStart }
+        { icon: '📞', label: 'Call us now — (289) 925-7239',  cls: 'primary', url: 'tel:+12899257239' },
+        { icon: '📱', label: 'Text us — (289) 925-7239',      cls: 'sms',     url: 'sms:+12899257239' },
+        { icon: '💬', label: 'WhatsApp us',                   cls: 'wa',      url: 'https://wa.me/13653662162' },
+        { icon: '📋', label: 'Fill quick booking form here',                  cb: flowBookingForm },
+        { icon: '🏠', label: 'Back to main menu',             cls: 'back',    cb: flowStart }
       ]);
     });
   }
 
   function flowHuman() {
     typing(600, function () {
-      msg("Of course! Sometimes you just need a real person 😊\n\nHere are all the ways to reach our team:", 'bot');
+      msg("Of course! Sometimes you just need a real person 😊\n\nHere are all the ways to reach our team — pick whatever's easiest:", 'bot');
       btns([
-        { icon: '💬', label: 'WhatsApp us', cls: 'wa', url: 'https://wa.me/13653662162', cb: function () {} },
-        { icon: '📱', label: 'Send us a text — (289) 925-7239', cls: 'sms', url: 'sms:+12899257239', cb: function () {} },
-        { icon: '📧', label: 'Email us — canadianfitnessrepair@gmail.com', cls: 'email', url: 'mailto:canadianfitnessrepair@gmail.com', cb: function () {} },
-        { icon: '📞', label: 'Call us — (289) 925-7239', cls: 'primary', url: 'tel:+12899257239', cb: function () {} },
-        { icon: '🏠', label: 'Back to main menu', cls: 'back', cb: flowStart }
+        { icon: '💬', label: 'WhatsApp us',                                    cls: 'wa',    url: 'https://wa.me/13653662162' },
+        { icon: '📱', label: 'Send us a text — (289) 925-7239',               cls: 'sms',   url: 'sms:+12899257239' },
+        { icon: '📧', label: 'Email — canadianfitnessrepair@gmail.com',        cls: 'email', url: 'mailto:canadianfitnessrepair@gmail.com' },
+        { icon: '📞', label: 'Call us — (289) 925-7239',                       cls: 'primary', url: 'tel:+12899257239' },
+        { icon: '🏠', label: 'Back to main menu',                              cls: 'back',  cb: flowStart }
       ]);
     });
   }
 
   function flowQuote() {
     typing(700, function () {
-      msg("Happy to help! Here's a rough pricing guide — fully transparent, no hidden fees 😊\n\n💰 Service call + diagnosis: $89\n🔧 Belt adjustment: ~$150\n⚙️ Motor replacement: from $500\n🏢 Commercial plans: $199–$499/mo\n\n✅ Every repair includes a 90-day parts & labour warranty.\n\nWant an exact quote? Fill the quick form right here!", 'bot');
+      msg("Happy to help! Here's a rough pricing guide — fully transparent, no hidden fees 😊\n\n💰 Service call + diagnosis: $89\n🔧 Belt adjustment: ~$150\n⚙️ Motor replacement: from $500\n🏢 Commercial plans: $199–$499/mo\n\n✅ Every repair includes a 90-day parts & labour warranty.", 'bot');
       btns([
         { icon: '📋', label: 'Fill quick booking form (right here!)', cls: 'primary', cb: flowBookingForm },
-        { icon: '🌐', label: 'Go to full quote page', url: 'https://www.canadianfitnessrepair.com/get-quote.html', cb: function () {} },
+        { icon: '🌐', label: 'Go to full quote page', url: 'https://www.canadianfitnessrepair.com/get-quote.html' },
         { icon: '🙋', label: 'Talk to a real person', cb: flowHuman },
         { icon: '🏠', label: 'Back to main menu', cls: 'back', cb: flowStart }
       ]);
@@ -307,8 +353,8 @@
       '</select></div>',
       '<div><label>Service needed</label><select id="cf-svc">',
         '<option value="">-- Select service --</option>',
-        '<option>Repairs & Tune-Ups</option><option>Preventative Maintenance</option>',
-        '<option>Inspection</option><option>Relocation & Assembly</option>',
+        '<option>Repairs &amp; Tune-Ups</option><option>Preventative Maintenance</option>',
+        '<option>Inspection</option><option>Relocation &amp; Assembly</option>',
       '</select></div>',
       '<div><label>Equipment type *</label><select id="cf-eq">',
         '<option value="">-- Select equipment --</option>',
@@ -325,8 +371,8 @@
          'Star Trac','Woodway','Reebok','Kettler','JTX Fitness','York Fitness','Not listed']
         .map(function(b){return '<option>'+b+'</option>';}).join(''),
       '</select></div>',
-      '<div><label>Model / serial number (optional)</label><input id="cf-model" placeholder="e.g. NTL14122.4 / SN 12345" /></div>',
-      '<div><label>Preferred date & time</label><input id="cf-date" type="datetime-local" /></div>',
+      '<div><label>Model / serial (optional)</label><input id="cf-model" placeholder="e.g. NTL14122.4" /></div>',
+      '<div><label>Preferred date &amp; time</label><input id="cf-date" type="datetime-local" /></div>',
       '<div><label>Describe the issue *</label>',
         '<textarea id="cf-desc" placeholder="e.g. Belt slips at high speed and makes a grinding noise…"></textarea>',
       '</div>',
@@ -345,11 +391,11 @@
         type=v('cf-type'), svc=v('cf-svc'), eq=v('cf-eq'),
         brand=v('cf-brand'), model=v('cf-model'), dt=v('cf-date'), desc=v('cf-desc');
 
-    if (!fn2)        { alert('Please enter your first name.'); return; }
-    if (!ph && !em)  { alert('Please enter a phone number or email.'); return; }
-    if (!city)       { alert('Please select your city.'); return; }
-    if (!eq)         { alert('Please select your equipment type.'); return; }
-    if (!desc)       { alert('Please describe the issue.'); return; }
+    if (!fn2)       { alert('Please enter your first name.'); return; }
+    if (!ph && !em) { alert('Please enter a phone number or email.'); return; }
+    if (!city)      { alert('Please select your city.'); return; }
+    if (!eq)        { alert('Please select your equipment type.'); return; }
+    if (!desc)      { alert('Please describe the issue.'); return; }
 
     M.querySelectorAll('.cfr-form-panel, .cfr-btn-row').forEach(function (el) { el.remove(); });
 
@@ -375,11 +421,11 @@
       msg("We'll reach out shortly to confirm your appointment. If you have photos or a video of the issue, send them over — it helps us come fully prepared! 📸", 'bot');
       btns([
         { icon: '📸', label: 'Send photos via WhatsApp', cls: 'wa',
-          url: 'https://wa.me/13653662162?text=' + encodeURIComponent(waText), cb: function () {} },
+          url: 'https://wa.me/13653662162?text=' + encodeURIComponent(waText) },
         { icon: '📸', label: 'Send photos via SMS', cls: 'sms',
-          url: 'sms:+12899257239?body=' + encodeURIComponent(waText), cb: function () {} },
+          url: 'sms:+12899257239?body=' + encodeURIComponent(waText) },
         { icon: '📧', label: 'Send photos via Email', cls: 'email',
-          url: 'mailto:canadianfitnessrepair@gmail.com?subject=Booking+Photos+-+' + encodeURIComponent(name) + '&body=' + encodeURIComponent('Hi,\n\nI submitted a booking via your chatbot.\n\nDetails:\n' + waText + '\n\nPlease find photos/videos attached.'), cb: function () {} },
+          url: 'mailto:canadianfitnessrepair@gmail.com?subject=Booking+-+' + encodeURIComponent(name) + '&body=' + encodeURIComponent('Hi,\n\nBooking details:\n' + waText + '\n\nPhotos attached.') },
         { icon: '🏠', label: 'Back to main menu', cls: 'back', cb: flowStart }
       ]);
     }, 900);
@@ -389,9 +435,9 @@
     msg(c, 'user');
     var l = c.toLowerCase();
     typing(850, function () {
-      if (l.includes('book') || l.includes('repair'))          flowBookingForm();
-      else if (l.includes('quote') || l.includes('price'))     flowQuote();
-      else if (l.includes('service') || l.includes('offer'))   flowServices();
+      if (l.includes('book') || l.includes('repair'))           flowBookingForm();
+      else if (l.includes('quote') || l.includes('price'))      flowQuote();
+      else if (l.includes('service') || l.includes('offer'))    flowServices();
       else if (l.includes('area') || l.includes('where') || l.includes('serve')) flowAreas();
       else if (l.includes('emergency') || l.includes('urgent')) flowEmergency();
       else if (l.includes('human') || l.includes('person') || l.includes('talk')) flowHuman();
@@ -404,21 +450,21 @@
     msg(txt, 'user');
     var l = txt.toLowerCase();
     typing(900, function () {
-      if (l.match(/book|appoint|schedul/))            flowBookingForm();
-      else if (l.match(/quote|cost|price|how much/))  flowQuote();
-      else if (l.match(/service|offer|what do you/))  flowServices();
-      else if (l.match(/area|city|cover|where/))      flowAreas();
-      else if (l.match(/emergency|urgent|broken|asap|right now/)) flowEmergency();
-      else if (l.match(/human|person|someone|whatsapp/)) flowHuman();
+      if (l.match(/book|appoint|schedul/))                         flowBookingForm();
+      else if (l.match(/quote|cost|price|how much/))               flowQuote();
+      else if (l.match(/service|offer|what do you/))               flowServices();
+      else if (l.match(/area|city|cover|where/))                   flowAreas();
+      else if (l.match(/emergency|urgent|broken|asap|right now/))  flowEmergency();
+      else if (l.match(/human|person|someone|whatsapp/))           flowHuman();
       else if (l.match(/treadmill/))  { msg("Ugh, treadmill troubles! 😅 Let me get your details so we can send a tech out. 🏃", 'bot'); setTimeout(flowBookingForm, 500); }
       else if (l.match(/elliptical/)) { msg("Elliptical issues? We'll have that sorted! 🚶 Let me grab your info.", 'bot'); setTimeout(flowBookingForm, 500); }
       else if (l.match(/bike|peloton|spin/)) { msg("Exercise bike acting up? We fix all brands including Peloton 🚴", 'bot'); setTimeout(flowBookingForm, 500); }
       else if (l.match(/rower|rowing/)) { msg("Rowing machine on the fritz? We're on it 🚣", 'bot'); setTimeout(flowBookingForm, 500); }
-      else if (l.match(/walk.*pad|walking/)) { msg("Walking pad repair — yep, we handle those too! 🚶", 'bot'); setTimeout(flowBookingForm, 500); }
+      else if (l.match(/walk.*pad|walking pad/)) { msg("Walking pad repair — we handle those too! 🚶", 'bot'); setTimeout(flowBookingForm, 500); }
       else if (l.match(/cable|strength|weight/)) { msg("Strength equipment giving you grief? Our techs fix cables, pulleys, weight stacks 💪", 'bot'); setTimeout(flowBookingForm, 500); }
       else if (l.match(/warrant|guarantee/)) { msg("Every repair comes with a 90-day parts & labour warranty. If anything acts up again within that window, we come back — no charge. 🛡️", 'bot'); setTimeout(function () { btns([{ icon: '🔧', label: 'Book a repair', cls: 'primary', cb: flowBookingForm }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
       else if (l.match(/pay|cash|e.?transfer|credit/)) { msg("We accept:\n💵 Cash\n📱 E-Transfer\n💳 Credit Card\n\nYou only pay once the job's done and you're happy! 😊", 'bot'); setTimeout(function () { btns([{ icon: '🔧', label: 'Book a repair', cls: 'primary', cb: flowBookingForm }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
-      else if (l.match(/remov|dispos|get rid|recycle/)) { msg("We do equipment removal too! 🗑️ We remove treadmills, ellipticals, full gym setups and recycle over 90% responsibly.", 'bot'); setTimeout(function () { btns([{ icon: '📋', label: 'Book a removal', cls: 'primary', cb: flowBookingForm }, { icon: '📞', label: 'Call us', url: 'tel:+12899257239', cb: function () {} }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
+      else if (l.match(/remov|dispos|get rid|recycle/)) { msg("We do equipment removal too! 🗑️ We remove treadmills, ellipticals, full gym setups and recycle over 90% responsibly.", 'bot'); setTimeout(function () { btns([{ icon: '📋', label: 'Book a removal', cls: 'primary', cb: flowBookingForm }, { icon: '📞', label: 'Call us', url: 'tel:+12899257239' }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
       else if (l.match(/hi|hello|hey|howdy/)) { msg(userName ? 'Hey ' + fn(userName) + '! 👋 How can I help?' : 'Hey! 👋 Great to have you here.', 'bot'); setTimeout(function () { chips(['🔧 Book a repair', '💬 Get a quote', '🛠 Our services', '🙋 Talk to a person']); }, 400); }
       else { msg("Hmm, not 100% sure about that one! 😅 Let me get you to the right place.", 'bot'); setTimeout(flowHuman, 500); }
     });
@@ -426,14 +472,12 @@
 
   function fn(n) { return n ? n.split(' ')[0] : ''; }
 
+  /* ── Open / Close — hide/show bubble ── */
   window.cfrOpen = function () {
     isOpen = true;
     WIN.classList.add('cfr-open');
+    BWRAP.classList.add('cfr-hidden');          // ← hide bubble when chat is open
     document.getElementById('cfr-teaser').style.display = 'none';
-    var notif = document.getElementById('cfr-bubble-notif');
-    if (notif) notif.style.display = 'none';
-    var label = document.getElementById('cfr-bubble-label');
-    if (label) label.style.display = 'none';
     if (M.children.length === 0) flowStart();
     setTimeout(function () { IN.focus(); }, 300);
   };
@@ -441,13 +485,13 @@
   window.cfrClose = function () {
     isOpen = false;
     WIN.classList.remove('cfr-open');
+    BWRAP.classList.remove('cfr-hidden');       // ← show bubble again when closed
   };
 
-  // Wait for DOM to be ready before grabbing elements
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
 
-})(); // end injectCFRChatbot
+})();
