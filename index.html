@@ -2807,6 +2807,8 @@
   }
 }
 </style>
+
+<!-- chatbot style -->
 <style>
 /* ── CFR Chatbot Widget ── */
 #cfr-chat-bubble {
@@ -3022,6 +3024,314 @@
 }
 </style>
  
+ <style>
+/* ─────────────────────────────────────────────────────────────
+   CFR CHATBOT WIDGET  —  all rules prefixed with #cfr- / .cfr-
+   ───────────────────────────────────────────────────────────── */
+ 
+/* Bubble wrapper */
+#cfr-bubble-wrap {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+ 
+/* Label above the bubble */
+#cfr-bubble-label {
+  background: #1E2030;
+  color: #e2e8f0;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(92,92,253,.35);
+  box-shadow: 0 4px 18px rgba(0,0,0,.45);
+  white-space: nowrap;
+  animation: cfrLabelBob 3s ease-in-out infinite;
+  cursor: pointer;
+}
+@keyframes cfrLabelBob {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+ 
+/* Main bubble button */
+#cfr-bubble {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #5C5CFD 0%, #4ECDC4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 6px rgba(92,92,253,.18),
+    0 0 0 12px rgba(92,92,253,.07),
+    0 6px 24px rgba(92,92,253,.55);
+  transition: transform .22s ease, box-shadow .22s ease;
+  position: relative;
+  animation: cfrRingPulse 2.4s ease-in-out infinite;
+}
+@keyframes cfrRingPulse {
+  0%,100% {
+    box-shadow: 0 0 0 6px rgba(92,92,253,.18),
+                0 0 0 12px rgba(92,92,253,.07),
+                0 6px 24px rgba(92,92,253,.55);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(92,92,253,.12),
+                0 0 0 20px rgba(92,92,253,.04),
+                0 8px 30px rgba(92,92,253,.65);
+  }
+}
+#cfr-bubble:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 14px rgba(92,92,253,.1), 0 8px 32px rgba(92,92,253,.7);
+  animation: none;
+}
+#cfr-bubble svg  { width: 30px; height: 30px; fill: #fff; }
+#cfr-bubble-notif {
+  position: absolute;
+  top: 2px; right: 2px;
+  width: 16px; height: 16px;
+  background: #FF6B6B;
+  border-radius: 50%;
+  border: 2.5px solid #151719;
+  animation: cfrNotifPop .6s ease forwards, cfrNotifPulse 1.8s ease-in-out 1s infinite;
+}
+@keyframes cfrNotifPop  { from{transform:scale(0)} to{transform:scale(1)} }
+@keyframes cfrNotifPulse{
+  0%,100%{ box-shadow:0 0 0 0 rgba(255,107,107,.7); }
+  50%    { box-shadow:0 0 0 6px rgba(255,107,107,0); }
+}
+ 
+/* Teaser pop-up */
+#cfr-teaser {
+  position: fixed;
+  bottom: 108px;
+  right: 28px;
+  background: #1E2030;
+  color: #e2e8f0;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.55;
+  padding: 13px 16px;
+  border-radius: 16px 16px 4px 16px;
+  border: 1px solid rgba(92,92,253,.3);
+  box-shadow: 0 10px 36px rgba(0,0,0,.55);
+  max-width: 220px;
+  z-index: 9997;
+  display: none;
+  animation: cfrFadeUp .4s ease;
+  cursor: pointer;
+}
+#cfr-teaser strong { color: #9b9bfd; }
+#cfr-teaser-dismiss {
+  display: block;
+  margin-top: 8px;
+  font-size: 11.5px;
+  color: #64748b;
+  cursor: pointer;
+}
+#cfr-teaser-dismiss:hover { color: #94a3b8; }
+ 
+/* Chat window */
+#cfr-win {
+  position: fixed;
+  bottom: 108px;
+  right: 24px;
+  width: 375px;
+  max-width: calc(100vw - 20px);
+  background: #151719;
+  border-radius: 22px;
+  border: 1px solid rgba(92,92,253,.22);
+  box-shadow: 0 28px 70px rgba(0,0,0,.7);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9998;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+#cfr-win.cfr-open { display: flex; animation: cfrFadeUp .28s ease; }
+@keyframes cfrFadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0);    }
+}
+ 
+/* Header */
+.cfr-hd {
+  background: linear-gradient(135deg, #5C5CFD, #4ECDC4);
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.cfr-hd-av {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.cfr-hd-info  { flex: 1; }
+.cfr-hd-name  { font-size: 14px; font-weight: 700; color: #fff; }
+.cfr-hd-sub   { font-size: 11px; color: rgba(255,255,255,.82); margin-top: 2px; display: flex; align-items: center; gap: 5px; }
+.cfr-hd-sub::before { content:''; width:7px; height:7px; background:#4ade80; border-radius:50%; display:inline-block; }
+.cfr-x { background:none; border:none; color:rgba(255,255,255,.85); font-size:23px; cursor:pointer; padding:0 3px; line-height:1; }
+.cfr-x:hover { color:#fff; }
+ 
+/* Messages */
+.cfr-msgs {
+  overflow-y: auto;
+  padding: 13px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  max-height: 370px;
+  min-height: 180px;
+  background: #151719;
+  scroll-behavior: smooth;
+}
+.cfr-m {
+  max-width: 88%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.cfr-m.bot  { background:#1E2030; color:#e2e8f0; border-radius:4px 18px 18px 18px; align-self:flex-start; border:1px solid rgba(255,255,255,.05); }
+.cfr-m.user { background:linear-gradient(135deg,#5C5CFD,#4ECDC4); color:#fff; border-radius:18px 4px 18px 18px; align-self:flex-end; }
+ 
+/* Chips */
+.cfr-chips { display:flex; flex-wrap:wrap; gap:7px; align-self:flex-start; max-width:96%; }
+.cfr-chip  {
+  background:transparent;
+  border:1px solid rgba(92,92,253,.45);
+  color:#9b9bfd;
+  border-radius:99px;
+  padding:6px 14px;
+  font-size:12.5px;
+  cursor:pointer;
+  transition:all .18s;
+  font-family:inherit;
+}
+.cfr-chip:hover { background:rgba(92,92,253,.18); color:#fff; border-color:#5C5CFD; }
+ 
+/* Action buttons */
+.cfr-btn-row { display:flex; flex-direction:column; gap:7px; align-self:flex-start; width:94%; }
+.cfr-btn {
+  background:#1E2030;
+  border:1px solid rgba(92,92,253,.35);
+  color:#e2e8f0;
+  border-radius:13px;
+  padding:10px 14px;
+  font-size:13px;
+  cursor:pointer;
+  text-align:left;
+  transition:all .18s;
+  font-family:inherit;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.cfr-btn:hover  { background:rgba(92,92,253,.15); border-color:#5C5CFD; }
+.cfr-btn.primary{ background:linear-gradient(135deg,#5C5CFD,#4ECDC4); color:#fff; border-color:transparent; }
+.cfr-btn.primary:hover { opacity:.88; }
+.cfr-btn.wa     { border-color:#25D366; color:#4ade80; }
+.cfr-btn.wa:hover  { background:rgba(37,211,102,.1); }
+.cfr-btn.sms    { border-color:#4ECDC4; color:#4ECDC4; }
+.cfr-btn.sms:hover { background:rgba(78,205,196,.1); }
+.cfr-btn.email  { border-color:#f59e0b; color:#fbbf24; }
+.cfr-btn.email:hover { background:rgba(245,158,11,.1); }
+.cfr-btn.back   { border-color:rgba(255,255,255,.1); color:#64748b; }
+.cfr-btn.back:hover { color:#94a3b8; background:rgba(255,255,255,.04); }
+.cfr-btn .bi    { font-size:17px; flex-shrink:0; }
+ 
+/* Typing dots */
+.cfr-typing { display:flex; align-items:center; gap:5px; padding:11px 15px; background:#1E2030; border-radius:4px 18px 18px 18px; align-self:flex-start; border:1px solid rgba(255,255,255,.05); }
+.cfr-typing span { width:7px; height:7px; background:#94a3b8; border-radius:50%; animation:cfrDot 1.2s infinite; }
+.cfr-typing span:nth-child(2){ animation-delay:.2s; }
+.cfr-typing span:nth-child(3){ animation-delay:.4s; }
+@keyframes cfrDot { 0%,80%,100%{opacity:.25;transform:scale(.9)} 40%{opacity:1;transform:scale(1.1)} }
+ 
+/* Inline booking form */
+.cfr-form-panel {
+  background:#1E2030;
+  border-radius:14px;
+  padding:14px;
+  border:1px solid rgba(92,92,253,.2);
+  align-self:flex-start;
+  width:94%;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.cfr-form-panel label  { font-size:11px; color:#94a3b8; text-transform:uppercase; letter-spacing:.5px; display:block; margin-bottom:3px; }
+.cfr-form-panel input,
+.cfr-form-panel select,
+.cfr-form-panel textarea {
+  width:100%; background:#151719;
+  border:1px solid rgba(92,92,253,.22);
+  border-radius:9px; padding:8px 11px;
+  font-size:13px; color:#e2e8f0;
+  font-family:inherit; outline:none; box-sizing:border-box;
+}
+.cfr-form-panel input:focus,
+.cfr-form-panel textarea:focus { border-color:#5C5CFD; }
+.cfr-form-panel select option  { background:#1E2030; }
+.cfr-form-panel textarea       { resize:vertical; min-height:68px; }
+.cfr-form-row  { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.cfr-form-note { font-size:11px; color:#64748b; }
+.cfr-form-submit {
+  background:linear-gradient(135deg,#5C5CFD,#4ECDC4);
+  color:#fff; border:none; border-radius:10px;
+  padding:10px; font-size:13.5px; font-weight:600;
+  cursor:pointer; font-family:inherit; transition:opacity .2s;
+}
+.cfr-form-submit:hover    { opacity:.88; }
+.cfr-form-submit:disabled { opacity:.45; cursor:not-allowed; }
+ 
+/* Input bar */
+.cfr-bar {
+  display:flex; gap:8px; padding:10px 12px;
+  background:#1B1C27;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.cfr-in {
+  flex:1; background:#151719;
+  border:1px solid rgba(92,92,253,.22);
+  border-radius:11px; padding:9px 13px;
+  font-size:13.5px; color:#e2e8f0; outline:none;
+  font-family:inherit;
+}
+.cfr-in:focus { border-color:#5C5CFD; }
+.cfr-in::placeholder { color:#475569; }
+.cfr-go {
+  background:linear-gradient(135deg,#5C5CFD,#4ECDC4);
+  border:none; border-radius:11px;
+  padding:9px 15px; color:#fff; font-size:15px;
+  cursor:pointer; transition:opacity .2s;
+}
+.cfr-go:hover { opacity:.88; }
+ 
+/* Mobile */
+@media(max-width:480px){
+  #cfr-win { bottom:0; right:0; width:100vw; max-width:100vw; border-radius:20px 20px 0 0; }
+  #cfr-bubble-wrap { bottom:16px; right:14px; }
+  #cfr-teaser { right:14px; bottom:106px; }
+}
+</style>
+
+
   </head>
   <body>
     <noscript>
@@ -3975,30 +4285,49 @@
 
     </main>
     <div id="footer"></div>
-    <button id="cfr-chat-bubble" aria-label="Open chat with Canadian Fitness Repair" onclick="cfrToggle()">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 2C6.48 2 2 6.02 2 11c0 2.68 1.15 5.09 3 6.79V22l4.44-2.22A10.5 10.5 0 0012 20c5.52 0 10-4.02 10-9S17.52 2 12 2z"/>
-  </svg>
-  <span class="cfr-notif"></span>
-</button>
+    
+<!-- Chat Bubble Button -->
+<!-- Teaser tooltip -->
+<div id="cfr-teaser" onclick="cfrOpen()">
+  👋 Equipment acting up?<br>
+  <strong>We're online &amp; ready to help!</strong>
+  <span id="cfr-teaser-dismiss"
+    onclick="event.stopPropagation();
+             document.getElementById('cfr-teaser').style.display='none';
+             sessionStorage.setItem('cfrTeaserDismissed','1')">
+    No thanks
+  </span>
+</div>
  
-<!-- Chat Window -->
-<div id="cfr-chat-window" role="dialog" aria-label="Canadian Fitness Repair chat">
-  <div class="cfr-header">
-    <div class="cfr-header-dot"></div>
-    <div class="cfr-header-info">
-      <div class="cfr-header-name">Canadian Fitness Repair</div>
-      <div class="cfr-header-sub">Typically replies instantly · 24/7</div>
+<!-- Floating bubble -->
+<div id="cfr-bubble-wrap">
+  <div id="cfr-bubble-label" onclick="cfrOpen()">💬 Chat with us — we're online!</div>
+  <button id="cfr-bubble" onclick="cfrOpen()" aria-label="Open chat">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.02 2 11c0 2.68 1.15 5.09 3 6.79V22l4.44-2.22A10.5 10.5 0 0012 20c5.52 0 10-4.02 10-9S17.52 2 12 2z"/></svg>
+    <span id="cfr-bubble-notif"></span>
+  </button>
+</div>
+ 
+<!-- Chat window -->
+<div id="cfr-win" role="dialog" aria-label="Chat — Canadian Fitness Repair">
+  <div class="cfr-hd">
+    <div class="cfr-hd-av">🔧</div>
+    <div class="cfr-hd-info">
+      <div class="cfr-hd-name">Canadian Fitness Repair</div>
+      <div class="cfr-hd-sub">Online now · replies instantly</div>
     </div>
-    <button class="cfr-close-btn" onclick="cfrToggle()" aria-label="Close chat">&times;</button>
+    <button class="cfr-x" onclick="cfrClose()" aria-label="Close">×</button>
   </div>
-  <div class="cfr-messages" id="cfrMessages"></div>
-  <div class="cfr-input-row">
-    <input id="cfrInput" class="cfr-input" type="text" placeholder="Type a message..."
-      onkeydown="if(event.key==='Enter')cfrSend()" aria-label="Chat message input" />
-    <button class="cfr-send" onclick="cfrSend()" aria-label="Send message">&#9658;</button>
+  <div class="cfr-msgs" id="cfrMsgs"></div>
+  <div class="cfr-bar">
+    <input id="cfrIn" class="cfr-in" placeholder="Type a message…"
+      onkeydown="if(event.key==='Enter')cfrSend()" aria-label="Message" />
+    <button class="cfr-go" onclick="cfrSend()">➤</button>
   </div>
 </div>
+
+
+
     <script defer="" src="menu.js"></script>
     <script defer="" src="animations.js"></script>
     <script defer="" src="whatsapp.js"></script>
@@ -4219,170 +4548,317 @@ document.addEventListener('DOMContentLoaded', function() {
   
 });
 </script>
+
+<!-- chatbot script -->
 <script>
-(function() {
-  var isOpen = false;
-  var msgs = document.getElementById('cfrMessages');
-  var input = document.getElementById('cfrInput');
-  var win = document.getElementById('cfr-chat-window');
+(function(){
+  var isOpen   = false;
+  var userName = '';
+  var M  = document.getElementById('cfrMsgs');
+  var IN = document.getElementById('cfrIn');
+  var WIN= document.getElementById('cfr-win');
  
-  // ── Conversation flows ──────────────────────────────────────
-  var flows = {
-    start: {
-      bot: "👋 Hi! Welcome to Canadian Fitness Repair — Hamilton & GTA's #1 fitness equipment specialists.\n\nHow can I help you today?",
-      chips: ["🔧 Book a repair", "💰 Get a quote", "🛠️ Our services", "📍 Service areas", "⚡ Emergency repair"]
-    },
-    "🔧 Book a repair": {
-      bot: "Great! Let's get you booked in.\n\nWhat city are you in?",
-      chips: ["Hamilton", "Burlington", "Oakville", "Mississauga", "Toronto / GTA", "Niagara / St. Catharines", "Kitchener / Waterloo", "Other city"]
-    },
-    "Hamilton":               { bot: "We serve ALL Hamilton neighbourhoods — Mountain, Ancaster, Dundas, Stoney Creek & more. No travel fee!\n\nWhat equipment needs repair?", chips: ["🏃 Treadmill", "🚶 Elliptical", "🚴 Exercise Bike", "💪 Cable / Strength Machine", "🚣 Rower", "🚶 Walking Pad"] },
-    "Burlington":             { bot: "We cover all of Burlington including Aldershot, Brant Hills, Roseland & more!\n\nWhat equipment needs repair?", chips: ["🏃 Treadmill", "🚶 Elliptical", "🚴 Exercise Bike", "💪 Cable / Strength Machine", "🚣 Rower"] },
-    "Oakville":               { bot: "Full Oakville coverage — Glen Abbey, Old Oakville, Joshua Creek & more!\n\nWhat equipment needs repair?", chips: ["🏃 Treadmill", "🚶 Elliptical", "🚴 Exercise Bike", "💪 Cable / Strength Machine"] },
-    "Mississauga":            { bot: "We serve all of Mississauga with same-day service available!\n\nWhat equipment needs repair?", chips: ["🏃 Treadmill", "🚶 Elliptical", "🚴 Exercise Bike", "💪 Cable / Strength Machine"] },
-    "Toronto / GTA":          { bot: "We cover the full GTA — all Toronto neighbourhoods, Brampton, and surrounding areas!\n\nWhat equipment needs repair?", chips: ["🏃 Treadmill", "🚶 Elliptical", "🚴 Exercise Bike", "💪 Cable / Strength Machine"] },
-    "Niagara / St. Catharines": { bot: "We serve the Niagara Region including St. Catharines, Niagara Falls & Grimsby!\n\nWhat equipment needs repair?", chips: ["🏃 Treadmill", "🚶 Elliptical", "🚴 Exercise Bike", "💪 Cable / Strength Machine"] },
-    "Kitchener / Waterloo":   { bot: "We cover Kitchener, Waterloo & Cambridge with fast turnaround!\n\nWhat equipment needs repair?", chips: ["🏃 Treadmill", "🚶 Elliptical", "🚴 Exercise Bike", "💪 Cable / Strength Machine"] },
-    "Other city":             { bot: "We likely cover your area! We serve a wide region across Ontario.\n\nWhat city are you in and what equipment needs repair? Call us to confirm:\n📞 (289) 925-7239", chips: ["📞 Call us now", "🔙 Back to start"] },
- 
-    "🏃 Treadmill": { bot: "Treadmill repair — we fix all brands!\n✅ NordicTrack, ProForm, Sole, Life Fitness, Precor, Bowflex & more.\n\nMotors, belts, decks, incline, console — all covered.\n\nHow urgent is this?", chips: ["🚨 Same-day (emergency)", "📅 Within 24–48 hrs", "🗓️ Schedule ahead"] },
-    "🚶 Elliptical": { bot: "Elliptical repair — stride, resistance, console & more!\n\nAll major brands serviced. Most repairs done in a single visit.\n\nHow urgent is this?", chips: ["🚨 Same-day (emergency)", "📅 Within 24–48 hrs", "🗓️ Schedule ahead"] },
-    "🚴 Exercise Bike": { bot: "Exercise bike & spin cycle repair!\n✅ Including Peloton, Schwinn, NordicTrack & more.\n\nPedals, resistance, display, crank — all fixed.\n\nHow urgent is this?", chips: ["🚨 Same-day (emergency)", "📅 Within 24–48 hrs", "🗓️ Schedule ahead"] },
-    "💪 Cable / Strength Machine": { bot: "Cable machine & strength equipment repair!\n\nPulleys, cables, weight stacks, pad restoration — all covered for both residential & commercial.\n\nHow urgent is this?", chips: ["🚨 Same-day (emergency)", "📅 Within 24–48 hrs", "🗓️ Schedule ahead"] },
-    "🚣 Rower": { bot: "Rowing machine repair — chain/belt, seat rails, resistance, monitor & more!\n\nMost rower repairs completed in 60–90 minutes.\n\nHow urgent is this?", chips: ["🚨 Same-day (emergency)", "📅 Within 24–48 hrs", "🗓️ Schedule ahead"] },
-    "🚶 Walking Pad": { bot: "Walking pad & under-desk treadmill repair!\n\nWe fix all types — motorized, non-motorized, foldable, portable. Belt, motor, sensor issues — all covered.\n\nHow urgent is this?", chips: ["🚨 Same-day (emergency)", "📅 Within 24–48 hrs", "🗓️ Schedule ahead"] },
- 
-    "🚨 Same-day (emergency)": { bot: "We offer 24/7 emergency service across Hamilton & GTA! 🚨\n\nCall us RIGHT NOW for the fastest response:\n📞 (289) 925-7239\n📧 canadianfitnessrepair@gmail.com\n\nWe'll dispatch a technician as soon as possible.", chips: ["📞 Call now", "🔙 Back to start"] },
-    "📅 Within 24–48 hrs":     { bot: "We can typically book you within 24 hours! ✅\n\nContact us to confirm your slot:\n📞 (289) 925-7239\n📧 canadianfitnessrepair@gmail.com\n\nOr fill our online form for a quick quote.", chips: ["📋 Get a quote online", "📞 Call us now", "🔙 Back to start"] },
-    "🗓️ Schedule ahead":        { bot: "No problem — we offer flexible scheduling to fit your calendar.\n\n📞 (289) 925-7239\n📧 canadianfitnessrepair@gmail.com\n\nWe'll find a time that works for you!", chips: ["📋 Get a quote online", "📞 Call us now", "🔙 Back to start"] },
- 
-    "💰 Get a quote": {
-      bot: "Our pricing is fully transparent — no hidden fees!\n\n💰 Service call + diagnosis: $89\n🔧 Belt adjustment: ~$150\n⚙️ Motor replacement: from $500\n🏢 Commercial plans: $199–$499/mo\n\n✅ 90-day parts & labour warranty on ALL repairs.\n\nWhat equipment do you need a quote for?",
-      chips: ["🏃 Treadmill", "🚶 Elliptical", "🚴 Exercise Bike", "💪 Cable / Strength Machine", "📋 Online quote form"]
-    },
-    "🛠️ Our services": {
-      bot: "Here's everything we do:\n\n🏃 Treadmill repair & tune-up\n🚶 Elliptical repair\n🚴 Exercise bike / spin / Peloton\n🚣 Rowing machine repair\n💪 Cable & strength machines\n🚶 Walking pad repair\n🔌 PCB / motor control board repair\n🔧 Preventative maintenance plans\n🏋️ Commercial gym service contracts\n📦 Equipment installation & relocation\n🗑️ Equipment removal & eco-disposal\n\nAll in-home · No travel fee · Most fixed in 1 visit.",
-      chips: ["🔧 Book a repair", "💰 Get a quote", "📍 Service areas"]
-    },
-    "📍 Service areas": {
-      bot: "We cover a wide area across Ontario:\n\n📍 Hamilton, Ancaster, Dundas, Stoney Creek, Waterdown\n📍 Burlington, Oakville, Mississauga, Milton\n📍 Toronto & full GTA, Brampton\n📍 Niagara Falls, St. Catharines, Grimsby\n📍 Brantford, Cambridge, Guelph\n📍 Kitchener, Waterloo, Woodstock\n📍 London & Southwestern Ontario\n\n🚗 No travel fees within our service zones!",
-      chips: ["🔧 Book a repair", "💰 Get a quote"]
-    },
-    "⚡ Emergency repair": {
-      bot: "🚨 24/7 EMERGENCY SERVICE AVAILABLE!\n\nWe respond to emergency calls for treadmills, ellipticals, bikes, and commercial gym equipment — any time, any day.\n\nCall us RIGHT NOW:\n📞 (289) 925-7239\n\nAverage response: within a few hours for most areas.",
-      chips: ["📞 Call now", "🔙 Back to start"]
-    },
-    "📋 Get a quote online": {
-      bot: "Fill our quick online form and get a quote in minutes:\n🌐 canadianfitnessrepair.com/get-quote.html\n\nOr call us directly:\n📞 (289) 925-7239",
-      chips: ["🔙 Back to start"]
-    },
-    "📞 Call us now": {
-      bot: "Call us anytime — we're available 24/7 for emergencies!\n\n📞 (289) 925-7239\n📧 canadianfitnessrepair@gmail.com",
-      chips: ["🔙 Back to start"]
-    },
-    "🔙 Back to start": null
-  };
- 
-  // ── Helpers ─────────────────────────────────────────────────
-  function addMsg(text, who) {
-    var d = document.createElement('div');
-    d.className = 'cfr-msg ' + who;
-    d.textContent = text;
-    msgs.appendChild(d);
-    msgs.scrollTop = msgs.scrollHeight;
+  /* ── Teaser: show after 4 s if not dismissed this session ── */
+  if(!sessionStorage.getItem('cfrTeaserDismissed')){
+    setTimeout(function(){
+      if(!isOpen) document.getElementById('cfr-teaser').style.display='block';
+    }, 4000);
   }
  
-  function addChips(chips) {
-    var row = document.createElement('div');
-    row.className = 'cfr-chips';
-    chips.forEach(function(c) {
-      var btn = document.createElement('button');
-      btn.className = 'cfr-chip';
-      btn.textContent = c;
-      btn.onclick = function() { row.remove(); handleChip(c); };
-      row.appendChild(btn);
+  /* ── Render helpers ──────────────────────────────────────── */
+  function msg(text, who){
+    var d=document.createElement('div');
+    d.className='cfr-m '+who; d.textContent=text;
+    M.appendChild(d); M.scrollTop=M.scrollHeight;
+  }
+ 
+  function chips(arr, removeSelf){
+    var row=document.createElement('div'); row.className='cfr-chips';
+    arr.forEach(function(c){
+      var b=document.createElement('button'); b.className='cfr-chip'; b.textContent=c;
+      b.onclick=function(){ if(removeSelf!==false) row.remove(); onChip(c); };
+      row.appendChild(b);
     });
-    msgs.appendChild(row);
-    msgs.scrollTop = msgs.scrollHeight;
+    M.appendChild(row); M.scrollTop=M.scrollHeight;
+    return row;
   }
  
-  function showTyping() {
-    var t = document.createElement('div');
-    t.className = 'cfr-typing';
-    t.innerHTML = '<span></span><span></span><span></span>';
-    msgs.appendChild(t);
-    msgs.scrollTop = msgs.scrollHeight;
-    return t;
+  /* btns: [{icon,label,cls,url,cb}] */
+  function btns(arr){
+    var row=document.createElement('div'); row.className='cfr-btn-row';
+    arr.forEach(function(b){
+      var el=document.createElement('button');
+      el.className='cfr-btn '+(b.cls||'');
+      el.innerHTML='<span class="bi">'+(b.icon||'')+'</span><span>'+b.label+'</span>';
+      el.onclick=function(){
+        if(b.url) window.open(b.url,'_blank');
+        if(b.cb){ row.remove(); b.cb(); }
+      };
+      row.appendChild(el);
+    });
+    M.appendChild(row); M.scrollTop=M.scrollHeight;
+    return row;
   }
  
-  function runFlow(key) {
-    var flow = flows[key];
-    if (!flow) return;
-    addMsg(flow.bot, 'bot');
-    if (flow.chips) addChips(flow.chips);
+  function typing(ms, then){
+    var t=document.createElement('div'); t.className='cfr-typing';
+    t.innerHTML='<span></span><span></span><span></span>';
+    M.appendChild(t); M.scrollTop=M.scrollHeight;
+    setTimeout(function(){ t.remove(); then(); }, ms||900);
   }
  
-  function handleChip(chip) {
-    addMsg(chip, 'user');
-    var t = showTyping();
-    setTimeout(function() {
-      t.remove();
-      if (chip === '🔙 Back to start') { runFlow('start'); return; }
-      if (flows[chip]) { runFlow(chip); }
-      else { fallback(); }
-    }, 700);
+  /* Shared "back to menu" button appended after any flow */
+  function backBtn(){ btns([{icon:'🏠',label:'Back to main menu',cls:'back',cb:flowStart}]); }
+ 
+  /* ── Flows ───────────────────────────────────────────────── */
+  function flowStart(){
+    typing(700, function(){
+      var g = userName ? 'Hey '+fn(userName)+'! 👋' : '👋 Hey there! Welcome to Canadian Fitness Repair.';
+      msg(g+"\n\nI'm here to help get your equipment back in shape 💪 What can I do for you today?", 'bot');
+      chips(['🔧 Book a repair','💬 Get a quote','🛠 Our services','📍 Where we serve','⚡ Emergency!','🙋 Talk to a person']);
+    });
   }
  
-  function fallback() {
-    addMsg("I'm not sure about that one — let me connect you with our team!\n\n📞 (289) 925-7239\n📧 canadianfitnessrepair@gmail.com", 'bot');
-    addChips(["🔧 Book a repair", "💰 Get a quote", "🔙 Back to start"]);
+  function flowServices(){
+    typing(700, function(){
+      msg("Here's everything we help with:\n\n🏃 Treadmill repair\n🚶 Elliptical repair\n🚴 Exercise bike & spin bike\n🚣 Rowing machine repair\n💪 Cable & strength machines\n🚶 Walking pad repair\n🔌 PCB / motor control boards\n🔧 Preventative maintenance plans\n🏢 Commercial gym contracts\n📦 Equipment installation & relocation\n🗑️ Eco-friendly equipment removal\n\nAll done right at your home or gym — no hauling anything. Most jobs finished in a single visit!", 'bot');
+      btns([
+        {icon:'🔧',label:'Book a repair',cls:'primary',cb:flowBookingForm},
+        {icon:'💬',label:'Get a quote',cb:flowQuote},
+        {icon:'🏠',label:'Back to main menu',cls:'back',cb:flowStart}
+      ]);
+    });
   }
  
-  // ── Free-text keyword matching ───────────────────────────────
-  window.cfrSend = function() {
-    var txt = input.value.trim();
-    if (!txt) return;
-    input.value = '';
-    addMsg(txt, 'user');
-    var t = showTyping();
-    var lower = txt.toLowerCase();
-    setTimeout(function() {
-      t.remove();
-      if (lower.match(/book|appoint|schedul/))              runFlow("🔧 Book a repair");
-      else if (lower.match(/quote|cost|price|how much|fee/)) runFlow("💰 Get a quote");
-      else if (lower.match(/service|fix|repair|offer/))     runFlow("🛠️ Our services");
-      else if (lower.match(/area|location|city|cover|serv.*where/)) runFlow("📍 Service areas");
-      else if (lower.match(/emergency|urgent|asap|now|broken/)) runFlow("⚡ Emergency repair");
-      else if (lower.match(/treadmill/))                    runFlow("🏃 Treadmill");
-      else if (lower.match(/elliptical/))                   runFlow("🚶 Elliptical");
-      else if (lower.match(/bike|spin|peloton/))            runFlow("🚴 Exercise Bike");
-      else if (lower.match(/rower|rowing/))                 runFlow("🚣 Rower");
-      else if (lower.match(/walk.*pad|walking pad/))        runFlow("🚶 Walking Pad");
-      else if (lower.match(/cable|strength|machine|dumbbell/)) runFlow("💪 Cable / Strength Machine");
-      else if (lower.match(/phone|call|contact|email/))     runFlow("📞 Call us now");
-      else if (lower.match(/warrant|guarantee/))            { addMsg("All our repairs include a 90-day parts & labour warranty. ✅\n\nIf you're not satisfied, we make it right — guaranteed!", 'bot'); addChips(["🔧 Book a repair", "🔙 Back to start"]); }
-      else if (lower.match(/payment|pay|cash|etransfer|credit/)) { addMsg("We accept:\n💵 Cash\n📱 E-Transfer\n💳 Credit Card\n\nNo payment until the work is done and you're satisfied!", 'bot'); addChips(["🔧 Book a repair", "🔙 Back to start"]); }
-      else if (lower.match(/remov|dispos|get rid|recycle/)) { addMsg("We offer equipment removal & eco-friendly disposal!\n\n🗑️ Treadmills, ellipticals, full gym clearances — all handled.\n\nWe recycle over 90% of materials responsibly.\n\n📞 (289) 925-7239 to schedule.", 'bot'); addChips(["📞 Call us now", "🔙 Back to start"]); }
-      else if (lower.match(/commercial|gym|hotel|corporate|condo/)) { addMsg("We offer commercial gym service contracts for:\n🏋️ Fitness centres\n🏨 Hotels & condos\n🏢 Corporate gyms\n\nIncludes quarterly maintenance, priority service & discounted rates.\n\n📞 (289) 925-7239", 'bot'); addChips(["📞 Call us now", "💰 Get a quote", "🔙 Back to start"]); }
-      else fallback();
-    }, 800);
+  function flowAreas(){
+    typing(700, function(){
+      msg("We cover a big chunk of Ontario! 🗺️\n\nHamilton, Ancaster, Dundas, Stoney Creek, Waterdown, Burlington, Oakville, Mississauga, Milton, Brampton, Toronto & full GTA, Niagara Falls, St. Catharines, Grimsby, Brantford, Cambridge, Guelph, Kitchener, Waterloo, Woodstock, London & more.\n\nNo travel fees inside our service zones — we come to you!", 'bot');
+      btns([
+        {icon:'🔧',label:'Book a repair',cls:'primary',cb:flowBookingForm},
+        {icon:'💬',label:'Get a quote',cb:flowQuote},
+        {icon:'🏠',label:'Back to main menu',cls:'back',cb:flowStart}
+      ]);
+    });
+  }
+ 
+  function flowEmergency(){
+    typing(600, function(){
+      msg("Oh no — let's get you sorted right away! 🚨\n\nWe have technicians available 24/7 for emergency calls. Fastest ways to reach us:", 'bot');
+      btns([
+        {icon:'📞',label:'Call us now — (289) 925-7239',cls:'primary',url:'tel:+12899257239',cb:function(){}},
+        {icon:'📱',label:'Text us — (289) 925-7239',cls:'sms',url:'sms:+12899257239',cb:function(){}},
+        {icon:'💬',label:'WhatsApp us',cls:'wa',url:'https://wa.me/13653662162',cb:function(){}},
+        {icon:'📋',label:'Fill quick booking form here',cb:flowBookingForm},
+        {icon:'🏠',label:'Back to main menu',cls:'back',cb:flowStart}
+      ]);
+    });
+  }
+ 
+  function flowHuman(){
+    typing(600, function(){
+      msg("Of course! Sometimes you just need a real person 😊\n\nHere are all the ways to reach our team directly — pick whatever's easiest for you:", 'bot');
+      btns([
+        {icon:'💬',label:'WhatsApp us',cls:'wa',url:'https://wa.me/13653662162',cb:function(){}},
+        {icon:'📱',label:'Send us a text — (289) 925-7239',cls:'sms',url:'sms:+12899257239',cb:function(){}},
+        {icon:'📧',label:'Email us — canadianfitnessrepair@gmail.com',cls:'email',url:'mailto:canadianfitnessrepair@gmail.com',cb:function(){}},
+        {icon:'📞',label:'Call us — (289) 925-7239',cls:'primary',url:'tel:+12899257239',cb:function(){}},
+        {icon:'🏠',label:'Back to main menu',cls:'back',cb:flowStart}
+      ]);
+    });
+  }
+ 
+  function flowQuote(){
+    typing(700, function(){
+      msg("Happy to help! Here's a rough pricing guide — everything's transparent, no hidden fees 😊\n\n💰 Service call + diagnosis: $89\n🔧 Belt adjustment: ~$150\n⚙️ Motor replacement: from $500\n🏢 Commercial plans: $199–$499/mo\n\n✅ Every repair includes a 90-day parts & labour warranty.\n\nWant an exact quote for your specific equipment? Fill the quick form right here!", 'bot');
+      btns([
+        {icon:'📋',label:'Fill quick booking form (right here!)',cls:'primary',cb:flowBookingForm},
+        {icon:'🌐',label:'Go to full quote page',url:'https://www.canadianfitnessrepair.com/get-quote.html',cb:function(){}},
+        {icon:'🙋',label:'Talk to a real person',cb:flowHuman},
+        {icon:'🏠',label:'Back to main menu',cls:'back',cb:flowStart}
+      ]);
+    });
+  }
+ 
+  /* ── Inline booking form ─────────────────────────────────── */
+  function flowBookingForm(){
+    typing(700, function(){
+      msg("No problem — let me take your details right here. Takes about a minute! 📋", 'bot');
+      setTimeout(renderForm, 400);
+    });
+  }
+ 
+  function renderForm(){
+    var p=document.createElement('div'); p.className='cfr-form-panel';
+    p.innerHTML=[
+      '<div class="cfr-form-row">',
+        '<div><label>First name *</label><input id="cf-fn" placeholder="Sarah" /></div>',
+        '<div><label>Last name</label><input id="cf-ln" placeholder="Johnson" /></div>',
+      '</div>',
+      '<div><label>Phone number *</label><input id="cf-ph" type="tel" placeholder="(289) 000-0000" /></div>',
+      '<div><label>Email address</label><input id="cf-em" type="email" placeholder="you@example.com" /></div>',
+      '<div><label>Preferred contact</label>',
+        '<select id="cf-pref"><option value="">-- How should we reach you? --</option>',
+        '<option>Phone call</option><option>Email</option><option>Text / SMS</option><option>WhatsApp</option>',
+        '</select></div>',
+      '<div><label>City / Town *</label><select id="cf-city">',
+        '<option value="">-- Pick your city --</option>',
+        ['Toronto','Mississauga','Brampton','Hamilton','Oakville','Burlington','Oshawa','Whitby',
+         'Ajax','Pickering','Markham','Vaughan','Richmond Hill','Newmarket','Aurora','Milton',
+         'Georgetown','Caledon','Scarborough','Etobicoke','North York','East York','Guelph',
+         'Cambridge','Kitchener','Waterloo','Niagara Falls','St. Catharines','Welland','Grimsby',
+         'Beamsville','Brantford','Woodstock','London','Ancaster','Dundas','Stoney Creek',
+         'Waterdown','Paris','Smithville'].map(function(c){return '<option>'+c+'</option>';}).join(''),
+      '</select></div>',
+      '<div><label>Postal code</label><input id="cf-postal" placeholder="L8E 5R9" /></div>',
+      '<div><label>Client type</label><select id="cf-type">',
+        '<option value="">-- Select --</option><option>Individual</option><option>Business</option>',
+      '</select></div>',
+      '<div><label>Service needed</label><select id="cf-svc">',
+        '<option value="">-- Select service --</option>',
+        '<option>Repairs & Tune-Ups</option><option>Preventative Maintenance</option>',
+        '<option>Inspection</option><option>Relocation & Assembly</option>',
+      '</select></div>',
+      '<div><label>Equipment type *</label><select id="cf-eq">',
+        '<option value="">-- Select equipment --</option>',
+        ['Treadmill','Elliptical','Exercise Bike','Spin Bike','Recumbent Bike','Rowing Machine',
+         'Strength Equipment','Cable Machine','Stair Climber','Walking Pad',
+         'Total Gym / Hybrid Trainer','Arc Trainer','Other']
+        .map(function(e){return '<option>'+e+'</option>';}).join(''),
+      '</select></div>',
+      '<div><label>Equipment brand</label><select id="cf-brand">',
+        '<option value="">-- Select brand (optional) --</option>',
+        ['NordicTrack','ProForm','Life Fitness','Precor','Matrix Fitness','Sole Fitness',
+         'Bowflex','Horizon Fitness','Technogym','True Fitness','Spirit Fitness','Cybex',
+         'Freemotion','Peloton','Nautilus','Schwinn','BH Fitness','Octane Fitness',
+         'Star Trac','Woodway','Reebok','Kettler','JTX Fitness','York Fitness','Not listed']
+        .map(function(b){return '<option>'+b+'</option>';}).join(''),
+      '</select></div>',
+      '<div><label>Model / serial number (optional)</label><input id="cf-model" placeholder="e.g. NTL14122.4 / SN 12345" /></div>',
+      '<div><label>Preferred date & time</label><input id="cf-date" type="datetime-local" /></div>',
+      '<div><label>Describe the issue *</label>',
+        '<textarea id="cf-desc" placeholder="e.g. Belt slips at high speed and makes a grinding noise…"></textarea>',
+      '</div>',
+      '<p class="cfr-form-note">📸 After booking, send photos/videos of the issue via WhatsApp or email — helps us come prepared!</p>',
+      '<button class="cfr-form-submit" onclick="cfrSubmitForm()">✅ Submit Booking Request</button>'
+    ].join('');
+    M.appendChild(p); M.scrollTop=M.scrollHeight;
+    /* Back to menu link under form */
+    btns([{icon:'🏠',label:'Cancel & back to menu',cls:'back',cb:function(){ p.remove(); flowStart(); }}]);
+  }
+ 
+  window.cfrSubmitForm=function(){
+    var v=function(id){return (document.getElementById(id)||{}).value||'';};
+    var fn2=v('cf-fn'),ln=v('cf-ln'),ph=v('cf-ph'),em=v('cf-em'),
+        pref=v('cf-pref'),city=v('cf-city'),postal=v('cf-postal'),
+        type=v('cf-type'),svc=v('cf-svc'),eq=v('cf-eq'),
+        brand=v('cf-brand'),model=v('cf-model'),dt=v('cf-date'),desc=v('cf-desc');
+ 
+    if(!fn2){ alert('Please enter your first name.'); return; }
+    if(!ph && !em){ alert('Please enter a phone number or email.'); return; }
+    if(!city){ alert('Please select your city.'); return; }
+    if(!eq){ alert('Please select your equipment type.'); return; }
+    if(!desc){ alert('Please describe the issue.'); return; }
+ 
+    /* Remove form + back button */
+    M.querySelectorAll('.cfr-form-panel,.cfr-btn-row').forEach(function(el){ el.remove(); });
+ 
+    var name=(fn2+' '+ln).trim();
+    userName=name;
+ 
+    var waText=[
+      '🔧 *NEW BOOKING — Canadian Fitness Repair Bot*',
+      '',
+      '👤 *Name:* '+name,
+      '📞 *Phone:* '+(ph||'—'),
+      '📧 *Email:* '+(em||'—'),
+      '📬 *Preferred contact:* '+(pref||'—'),
+      '📍 *City:* '+city+(postal?' ('+postal+')':''),
+      '🏢 *Client type:* '+(type||'—'),
+      '🛠 *Service:* '+(svc||'—'),
+      '🏋️ *Equipment:* '+eq+(brand?' — '+brand:'')+(model?' | Model: '+model:''),
+      '📅 *Preferred date:* '+(dt||'Flexible'),
+      '',
+      '📝 *Issue:*',
+      desc
+    ].join('\n');
+ 
+    msg("✅ Got it, "+fn(name)+"! Your booking request is submitted.", 'bot');
+    setTimeout(function(){
+      msg("We'll reach out shortly to confirm your appointment. Meanwhile, if you have photos or a video of the issue, send them over — it helps us come fully prepared! 📸", 'bot');
+      btns([
+        {icon:'📸',label:'Send photos via WhatsApp',cls:'wa',
+          url:'https://wa.me/13653662162?text='+encodeURIComponent(waText),cb:function(){}},
+        {icon:'📸',label:'Send photos via SMS',cls:'sms',
+          url:'sms:+12899257239?body='+encodeURIComponent(waText),cb:function(){}},
+        {icon:'📧',label:'Send photos via Email',cls:'email',
+          url:'mailto:canadianfitnessrepair@gmail.com?subject=Booking+Photos+-+'+encodeURIComponent(name)+'&body='+encodeURIComponent('Hi,\n\nI just submitted a booking via your website chatbot.\n\nDetails:\n'+waText+'\n\nPlease find photos/videos attached.'),cb:function(){}},
+        {icon:'🏠',label:'Back to main menu',cls:'back',cb:flowStart}
+      ]);
+    }, 900);
   };
  
-  // ── Toggle open/close ────────────────────────────────────────
-  window.cfrToggle = function() {
-    isOpen = !isOpen;
-    win.classList.toggle('open', isOpen);
-    if (isOpen) {
-      // Remove notification dot once opened
-      var notif = document.querySelector('.cfr-notif');
-      if (notif) notif.style.display = 'none';
-      // Start chat if empty
-      if (msgs.children.length === 0) runFlow('start');
-      setTimeout(function() { input.focus(); }, 300);
-    }
+  /* ── Chip dispatcher ─────────────────────────────────────── */
+  function onChip(c){
+    msg(c,'user');
+    var l=c.toLowerCase();
+    typing(850,function(){
+      if(l.includes('book')||l.includes('repair'))        flowBookingForm();
+      else if(l.includes('quote')||l.includes('price'))   flowQuote();
+      else if(l.includes('service')||l.includes('offer')) flowServices();
+      else if(l.includes('area')||l.includes('where')||l.includes('serve')) flowAreas();
+      else if(l.includes('emergency')||l.includes('urgent')) flowEmergency();
+      else if(l.includes('human')||l.includes('person')||l.includes('talk')) flowHuman();
+      else flowStart();
+    });
+  }
+ 
+  /* ── Free-text ───────────────────────────────────────────── */
+  window.cfrSend=function(){
+    var txt=IN.value.trim(); if(!txt) return; IN.value='';
+    msg(txt,'user');
+    var l=txt.toLowerCase();
+    typing(900,function(){
+      if(l.match(/book|appoint|schedul/))           flowBookingForm();
+      else if(l.match(/quote|cost|price|how much/)) flowQuote();
+      else if(l.match(/service|offer|what do you/)) flowServices();
+      else if(l.match(/area|city|cover|where/))     flowAreas();
+      else if(l.match(/emergency|urgent|broken|asap|right now/)) flowEmergency();
+      else if(l.match(/human|person|someone|whatsapp|text me/)) flowHuman();
+      else if(l.match(/treadmill/)) { msg("Ugh, treadmill troubles are the worst! 😅 Let me get your details so we can send a tech out. 🏃",'bot'); setTimeout(flowBookingForm,500); }
+      else if(l.match(/elliptical/))  { msg("Elliptical issues? We'll have that sorted in no time 🚶 Let me grab your info.",'bot'); setTimeout(flowBookingForm,500); }
+      else if(l.match(/bike|peloton|spin/)) { msg("Exercise bike acting up? We fix all brands including Peloton 🚴 Let me grab your details.",'bot'); setTimeout(flowBookingForm,500); }
+      else if(l.match(/rower|rowing/)) { msg("Rowing machine on the fritz? We're on it 🚣 Let me get your info.",'bot'); setTimeout(flowBookingForm,500); }
+      else if(l.match(/walk.*pad|walking/)) { msg("Walking pad repair — yep, we handle those too! Let me take your details. 🚶",'bot'); setTimeout(flowBookingForm,500); }
+      else if(l.match(/cable|strength|weight/)) { msg("Strength equipment giving you grief? Our techs can fix cables, pulleys, weight stacks — the lot 💪",'bot'); setTimeout(flowBookingForm,500); }
+      else if(l.match(/warrant|guarantee/)) { msg("Every single repair we do comes with a 90-day parts & labour warranty. If anything acts up again within that window, we come back at no charge. 🛡️",'bot'); setTimeout(function(){ btns([{icon:'🔧',label:'Book a repair',cls:'primary',cb:flowBookingForm},{icon:'🏠',label:'Back to menu',cls:'back',cb:flowStart}]); },400); }
+      else if(l.match(/pay|cash|e.?transfer|credit/)) { msg("We keep it simple:\n💵 Cash\n📱 E-Transfer\n💳 Credit Card\n\nYou only pay once the job's done and you're satisfied! 😊",'bot'); setTimeout(function(){ btns([{icon:'🔧',label:'Book a repair',cls:'primary',cb:flowBookingForm},{icon:'🏠',label:'Back to menu',cls:'back',cb:flowStart}]); },400); }
+      else if(l.match(/remov|dispos|get rid|recycle/)) { msg("We do equipment removal too! 🗑️ We remove treadmills, ellipticals, full gym setups — and recycle over 90% of materials responsibly.",'bot'); setTimeout(function(){ btns([{icon:'📋',label:'Book a removal',cls:'primary',cb:flowBookingForm},{icon:'📞',label:'Call us',url:'tel:+12899257239',cb:function(){}},{icon:'🏠',label:'Back to menu',cls:'back',cb:flowStart}]); },400); }
+      else if(l.match(/commercial|hotel|corporate|condo|gym business/)) { msg("We love working with commercial clients! 🏢 We do gym service contracts for fitness centres, hotels, condos, and corporate gyms — includes quarterly maintenance, priority service & discounted parts.",'bot'); setTimeout(function(){ btns([{icon:'💬',label:'WhatsApp us about this',cls:'wa',url:'https://wa.me/13653662162',cb:function(){}},{icon:'📞',label:'Call us',cls:'primary',url:'tel:+12899257239',cb:function(){}},{icon:'🏠',label:'Back to menu',cls:'back',cb:flowStart}]); },400); }
+      else if(l.match(/hi|hello|hey|howdy|morning|afternoon/)) { msg(userName?'Hey '+fn(userName)+'! 👋 How can I help?':'Hey! 👋 Great to have you here. How can I help?','bot'); setTimeout(function(){ chips(['🔧 Book a repair','💬 Get a quote','🛠 Our services','🙋 Talk to a person']); },400); }
+      else { msg("Hmm, I'm not 100% sure about that one! 😅 Let me get you to the right place.",'bot'); setTimeout(flowHuman,500); }
+    });
+  };
+ 
+  /* ── Utility ─────────────────────────────────────────────── */
+  function fn(n){ return n?n.split(' ')[0]:''; }
+ 
+  /* ── Open / Close ────────────────────────────────────────── */
+  window.cfrOpen=function(){
+    isOpen=true;
+    WIN.classList.add('cfr-open');
+    document.getElementById('cfr-teaser').style.display='none';
+    document.getElementById('cfr-bubble-notif').style.display='none';
+    document.getElementById('cfr-bubble-label').style.display='none';
+    if(M.children.length===0) flowStart();
+    setTimeout(function(){ IN.focus(); },300);
+  };
+  window.cfrClose=function(){
+    isOpen=false;
+    WIN.classList.remove('cfr-open');
   };
  
 })();
 </script>
+
   </body>
 </html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canadian Fitness Repair - Repair Estimate</title>
+    <style>
+      /* PDF-optimized styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+      body {
+        padding: 0;
+        background-color: white;
+        color: #333;
+        width: 8.5in;
+        margin: 0 auto;
+      }
+      .container {
+        background: white;
+        padding: 0.5in 0.75in;
+        border: none;
+        min-height: 11in;
+        display: flex;
+        flex-direction: column;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #1a73e8;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+      }
+      .company-details {
+        text-align: left;
+      }
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1d3557;
+        text-transform: uppercase;
+      }
+      .subtitle {
+        font-size: 14px;
+        color: #457b9d;
+        margin-top: 5px;
+        font-weight: 500;
+      }
+      .estimate-details {
+        text-align: right;
+      }
+      .estimate-number {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1a73e8;
+      }
+      .estimate-date {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+      }
+      .section-title {
+        background-color: #1d3557;
+        color: white;
+        padding: 8px 12px;
+        font-size: 14px;
+        margin-bottom: 12px;
+        border-radius: 3px;
+        font-weight: 600;
+      }
+      .info-item {
+        margin-bottom: 10px;
+        display: flex;
+      }
+      .info-label {
+        font-weight: 600;
+        color: #1d3557;
+        min-width: 140px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      .estimate-box {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 5px;
+        margin-top: 15px;
+        border-left: 4px solid #1a73e8;
+        border-top: 2px solid #1a73e8;
+      }
+      .service-part {
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed #ddd;
+      }
+      .service-part:last-child {
+        border-bottom: none;
+      }
+      .footer {
+        text-align: center;
+        margin-top: auto;
+        color: #6c757d;
+        font-size: 12px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+      }
+      .total-amount {
+        font-size: 22px;
+        font-weight: bold;
+        color: #e63946;
+      }
+      .company-info {
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 14px;
+        color: #6c757d;
+      }
+      .company-info a {
+        color: #1d3557;
+        text-decoration: none;
+      }
+      .payment-info {
+        margin-top: 25px;
+        font-size: 14px;
+        color: #1d3557;
+        font-weight: bold;
+        background: #e8f0fe;
+        padding: 12px;
+        border-radius: 5px;
+      }
+      .service-list {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .service-list li {
+        margin-bottom: 6px;
+        padding-left: 18px;
+        position: relative;
+      }
+      .service-list li:before {
+        content: "•";
+        color: #1a73e8;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+      .charges-list {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .charges-list li {
+        margin-bottom: 6px;
+        padding-left: 18px;
+        position: relative;
+      }
+      .charges-list li:before {
+        content: "•";
+        color: #457b9d;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+      .amount-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed #ddd;
+      }
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 2px solid #1d3557;
+        font-size: 16px;
+      }
+      .thank-you {
+        text-align: center;
+        margin-top: 25px;
+        font-style: italic;
+        color: #457b9d;
+      }
+      .part-title {
+        color: #1d3557;
+        margin-bottom: 8px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .status-pending {
+        color: #e63946;
+        font-weight: bold;
+      }
+      .status-estimate {
+        color: #1a73e8;
+        font-weight: bold;
+      }
+      .estimate-note {
+        background-color: #e8f0fe;
+        padding: 12px;
+        border-radius: 4px;
+        margin: 15px 0;
+        border-left: 4px solid #1a73e8;
+      }
+      .notice-box {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        color: #856404;
+        padding: 15px;
+        border-radius: 4px;
+        margin: 15px 0;
+        font-weight: 600;
+      }
+      .equipment-details {
+        background: #f1faee;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+        border: 1px solid #ddd;
+      }
+
+      /* Print-specific styles with proper margins */
+      @media print {
+        @page {
+          margin: 0.5in 0.75in;
+          size: letter;
+        }
+        body {
+          padding: 0;
+          margin: 0;
+          width: 100%;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .container {
+          padding: 0;
+          border: none;
+          box-shadow: none;
+          margin: 0;
+          min-height: auto;
+        }
+        .no-print {
+          display: none !important;
+        }
+
+        /* Hide URL and date in print */
+        @page {
+          @top-left {
+            content: "";
+          }
+          @top-center {
+            content: "";
+          }
+          @top-right {
+            content: "";
+          }
+          @bottom-left {
+            content: "";
+          }
+          @bottom-center {
+            content: "";
+          }
+          @bottom-right {
+            content: "";
+          }
+        }
+      }
+
+      /* Preview styling */
+      .preview-container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #f5f5f5;
+        border-radius: 10px;
+      }
+      .preview-title {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #1d3557;
+      }
+
+      /* Content wrapper for proper spacing */
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .main-content {
+        flex: 1;
+      }
+      .tax-note {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+        font-style: italic;
+      }
+      .estimate-title {
+        text-align: center;
+        color: #1a73e8;
+        margin-bottom: 15px;
+        font-size: 28px;
+        border-bottom: 2px solid #1a73e8;
+        padding-bottom: 10px;
+      }
+      .validity-period {
+        text-align: center;
+        margin: 10px 0;
+        color: #6c757d;
+        font-style: italic;
+      }
+      .action-required {
+        background-color: #ffeaa7;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 20px 0;
+        border-left: 4px solid #e63946;
+      }
+      .hst-note {
+        background-color: #f8d7da;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 10px 0;
+        border-left: 4px solid #e63946;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preview-container no-print">
+      <h2 class="preview-title">Canadian Fitness Repair - Repair Estimate</h2>
+      <p style="text-align: center; margin-bottom: 20px">
+        Click "Generate PDF" below to create a professional repair estimate for Robert's Life Fitness cable machine
+      </p>
+    </div>
+
+    <div class="container">
+      <div class="content-wrapper">
+        <div class="main-content">
+          <!-- Header -->
+          <div class="header">
+            <div class="company-details">
+              <h1 class="title">Canadian Fitness Repair</h1>
+              <div class="subtitle">Professional Fitness Equipment Service</div>
+            </div>
+            <div class="estimate-details">
+              <div class="estimate-title">REPAIR ESTIMATE</div>
+              
+              <div class="estimate-date">Date: December 30, 2025</div>
+            </div>
+          </div>
+
+          <!-- Company Info -->
+          <div class="company-info">
+            <p>
+              Website: www.canadianfitnessrepair.com | Email:
+              canadianfitnessrepair@gmail.com
+            </p>
+            <p>
+              Phone: <strong>+1 289 925 7239</strong> | HST Number:
+              789163136RT0001
+            </p>
+          </div>
+
+          <div class="validity-period">
+            <strong>This estimate is valid for 30 days from the date above</strong>
+          </div>
+
+          <!-- Client Information -->
+          <div class="section">
+            <div class="section-title">Customer Information</div>
+            <div class="grid">
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Customer:</span> Robert
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Address:</span> 2093 Stonehouse Crescent
+                </div>
+              </div>
+              <div>
+                <div class="info-item">
+                  <span class="info-label">City:</span> Mississauga, ON
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Estimate Status:</span>
+                  <span class="status-estimate">Pending Approval</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Equipment Details -->
+          <div class="equipment-details">
+            <h3 style="color: #1d3557; margin-bottom: 10px;">Equipment Information</h3>
+            <div class="info-item">
+              <span class="info-label">Equipment Type:</span> Life Fitness Cable Machine
+            </div>
+            <div class="info-item">
+              <span class="info-label">Service Required:</span> Cable Replacement (Left and Right Sides)
+            </div>
+            <div class="info-item">
+              <span class="info-label">Issue Description:</span> Worn/damaged cables requiring replacement
+            </div>
+          </div>
+
+          <!-- Repair Details -->
+          <div class="section">
+            <div class="section-title">Repair Details & Scope of Work</div>
+            <div>
+              <ul class="service-list">
+                <li>Complete inspection of cable machine system</li>
+                <li>Removal of old/damaged cables from both left and right sides</li>
+                <li>Installation of new replacement cables</li>
+                <li>Cable tensioning and alignment</li>
+                <li>Safety testing and functional verification</li>
+                <li>Cleanup of work area</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Estimate Details -->
+          <div class="estimate-box">
+            <h3 style="color: #1d3557; margin-bottom: 20px; text-align: center;">
+              ESTIMATED REPAIR COSTS
+            </h3>
+
+            <!-- Parts -->
+            <div class="service-part">
+              <div class="part-title">
+                Parts Required
+              </div>
+              <div class="amount-row">
+                <span>Replacement Cables (Left and Right Side) - includes shipping</span>
+                <span>$460.00 CAD</span>
+              </div>
+            </div>
+
+            <!-- Labor -->
+            <div class="service-part">
+              <div class="part-title">
+                Labor & Service
+              </div>
+              <div class="amount-row">
+                <span>Installation Fee (Professional Installation)</span>
+                <span>$140.00 CAD</span>
+              </div>
+            </div>
+
+            <!-- Subtotal -->
+            <div class="service-part">
+              <div class="amount-row">
+                <span><strong>Subtotal</strong></span>
+                <span><strong>$600.00 CAD</strong></span>
+              </div>
+            </div>
+
+            <!-- HST -->
+            <div class="service-part">
+              <div class="amount-row">
+                <span>HST (13%)</span>
+                <span>$78.00 CAD</span>
+              </div>
+              <div class="hst-note">
+                <strong>Note:</strong> 13% HST applies to all parts and labor in Ontario
+              </div>
+            </div>
+
+            <!-- Total -->
+            <div class="service-part">
+              <div class="total-row">
+                <span><strong>TOTAL ESTIMATED COST:</strong></span>
+                <span class="total-amount">$678.00 CAD</span>
+              </div>
+              <div class="tax-note" style="text-align: center; margin-top: 10px;">
+                This is the total estimated cost including parts, shipping, installation, and 13% HST.
+              </div>
+            </div>
+          </div>
+
+          <!-- Important Notes -->
+          <div class="notice-box">
+            <strong>IMPORTANT NOTES:</strong>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+              <li>This is an estimate, not a final invoice</li>
+              <li>Final cost may vary if additional issues are discovered during repair</li>
+              <li>All prices are in Canadian Dollars (CAD)</li>
+              <li>13% HST (Harmonized Sales Tax) is applicable to all parts and labor</li>
+            </ul>
+          </div>
+
+          <!-- Delivery Timeline -->
+          <div class="estimate-note">
+            <h4 style="color: #1d3557; margin-bottom: 10px;">Estimated Delivery Timeline</h4>
+            <div class="info-item">
+              <span class="info-label">Parts Delivery:</span> 1-2 weeks for cable delivery
+            </div>
+            <div class="info-item">
+              <span class="info-label">Installation:</span> Scheduled upon parts arrival
+            </div>
+            <div class="info-item">
+              <span class="info-label">Total Project Time:</span> Approximately 2-3 weeks
+            </div>
+          </div>
+
+          <!-- Action Required -->
+          <div class="action-required">
+            <div class="section-title">To Proceed With Repair</div>
+            <p style="margin-bottom: 10px;">
+              <strong>Step 1:</strong> To begin the repair process, please send an e-transfer of 
+              <strong>$460.00 CAD</strong> for the cable cost to:
+            </p>
+            <div style="text-align: center; margin: 15px 0; padding: 10px; background: white; border-radius: 4px;">
+              <strong>canadianfitnessrepair@gmail.com</strong>
+            </div>
+            <p style="margin-bottom: 10px;">
+              <strong>Step 2:</strong> Once payment is received, we will immediately place the order for the parts.
+            </p>
+            <p>
+              <strong>Step 3:</strong> We will contact you to confirm the installation date once the parts arrive (typically 1-2 weeks).
+            </p>
+          </div>
+
+          <!-- Payment Information -->
+          <div class="payment-info">
+            <div class="section-title">Payment & Approval</div>
+            <p style="margin-bottom: 10px;">
+              Please review this estimate carefully. To approve and proceed with the repair:
+            </p>
+            
+            <div class="estimate-note">
+              <strong>Payment Method:</strong> E-Transfer to canadianfitnessrepair@gmail.com<br>
+              <strong>Initial Payment Required:</strong> $460.00 CAD (for parts)<br>
+              <strong>Balance Due Upon Completion:</strong> $218.00 CAD (installation fee + HST)
+            </div>
+            
+            <p style="margin-top: 15px;">
+              <strong>By proceeding with payment, you approve this repair estimate and authorize the work to proceed.</strong>
+            </p>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="section">
+            <div class="section-title">Questions & Contact</div>
+            <div class="grid">
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Phone:</span> +1 289 925 7239
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Email:</span> canadianfitnessrepair@gmail.com
+                </div>
+              </div>
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Website:</span> www.canadianfitnessrepair.com
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Response Time:</span> Within 24 hours
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="thank-you">
+            <p>
+              Thank you for considering Canadian Fitness Repair for your equipment repair needs. 
+              We are committed to providing professional, reliable service with quality workmanship.
+            </p>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <p>
+            Canadian Fitness Repair | Professional Fitness Equipment Service & Repair
+          </p>
+          <p>Phone: +1 289 925 7239 | Email: canadianfitnessrepair@gmail.com | HST#: 789163136RT0001</p>
+          <p>
+            This estimate is provided for informational purposes only. Final invoice may vary based on actual work performed.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Print Controls -->
+    <div
+      class="no-print"
+      style="text-align: center; margin: 30px auto; max-width: 900px"
+    >
+      <button
+        onclick="generatePDF()"
+        style="
+          padding: 12px 30px;
+          background-color: #1a73e8;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          margin: 10px;
+        "
+      >
+        Generate PDF Estimate
+      </button>
+      <button
+        onclick="printPDF()"
+        style="
+          padding: 12px 30px;
+          background-color: #1d3557;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          margin: 10px;
+        "
+      >
+        Print Estimate
+      </button>
+      <div
+        style="
+          margin-top: 20px;
+          padding: 15px;
+          background: #e8f0fe;
+          border-radius: 5px;
+        "
+      >
+        <h3 style="color: #1d3557; margin-bottom: 10px">
+          PDF Generation Instructions:
+        </h3>
+        <p><strong>For best results with proper margins:</strong></p>
+        <ul style="text-align: left; display: inline-block; margin: 10px 0">
+          <li>Click "Generate PDF Estimate"</li>
+          <li>In print dialog: Set destination to "Save as PDF"</li>
+          <li>Set margins to "Default"</li>
+          <li>Check "Background graphics" option</li>
+          <li>Uncheck "Headers and footers"</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      function generatePDF() {
+        window.print();
+      }
+
+      function printPDF() {
+        window.print();
+      }
+
+      window.addEventListener("beforeprint", function () {
+        document.querySelector(".preview-container").style.display = "none";
+      });
+
+      window.addEventListener("afterprint", function () {
+        document.querySelector(".preview-container").style.display = "block";
+      });
+    </script>
+  </body>
+</html>

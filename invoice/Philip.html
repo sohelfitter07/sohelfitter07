@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canadian Fitness Repair - Invoice #CFR-2025-1103</title>
+    <style>
+      /* PDF-optimized styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+      body {
+        padding: 0;
+        background-color: white;
+        color: #333;
+        width: 8.5in;
+        margin: 0 auto;
+      }
+      .container {
+        background: white;
+        padding: 0.5in 0.75in;
+        border: none;
+        min-height: 11in;
+        display: flex;
+        flex-direction: column;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #e63946;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+      }
+      .company-details {
+        text-align: left;
+      }
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1d3557;
+        text-transform: uppercase;
+      }
+      .subtitle {
+        font-size: 14px;
+        color: #457b9d;
+        margin-top: 5px;
+        font-weight: 500;
+      }
+      .invoice-details {
+        text-align: right;
+      }
+      .invoice-number {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1d3557;
+      }
+      .invoice-date {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+      }
+      .section-title {
+        background-color: #1d3557;
+        color: white;
+        padding: 8px 12px;
+        font-size: 14px;
+        margin-bottom: 12px;
+        border-radius: 3px;
+        font-weight: 600;
+      }
+      .info-item {
+        margin-bottom: 10px;
+        display: flex;
+      }
+      .info-label {
+        font-weight: 600;
+        color: #1d3557;
+        min-width: 130px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      .charges {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 15px;
+        border-left: 4px solid #1d3557;
+      }
+      .service-part {
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed #ddd;
+      }
+      .service-part:last-child {
+        border-bottom: none;
+      }
+      .footer {
+        text-align: center;
+        margin-top: auto;
+        color: #6c757d;
+        font-size: 12px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+      }
+      .total-amount {
+        font-size: 20px;
+        font-weight: bold;
+        color: #e63946;
+      }
+      .company-info {
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 14px;
+        color: #6c757d;
+      }
+      .company-info a {
+        color: #1d3557;
+        text-decoration: none;
+      }
+      .payment-info {
+        margin-top: 25px;
+        font-size: 14px;
+        color: #1d3557;
+        font-weight: bold;
+        background: #f1faee;
+        padding: 12px;
+        border-radius: 5px;
+      }
+      .service-list {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .service-list li {
+        margin-bottom: 6px;
+        padding-left: 18px;
+        position: relative;
+      }
+      .service-list li:before {
+        content: "•";
+        color: #e63946;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+      .charges-list {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .charges-list li {
+        margin-bottom: 6px;
+        padding-left: 18px;
+        position: relative;
+      }
+      .charges-list li:before {
+        content: "•";
+        color: #457b9d;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+      .amount-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed #ddd;
+      }
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 2px solid #1d3557;
+        font-size: 16px;
+      }
+      .thank-you {
+        text-align: center;
+        margin-top: 25px;
+        font-style: italic;
+        color: #457b9d;
+      }
+      .part-title {
+        color: #1d3557;
+        margin-bottom: 8px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .pending-notice {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        color: #856404;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 12px 0;
+        font-weight: 600;
+      }
+      .status-pending {
+        color: #e63946;
+        font-weight: bold;
+      }
+      .status-completed {
+        color: #2a9d8f;
+        font-weight: bold;
+      }
+      .contact-highlight {
+        background-color: #e7f1ff;
+        padding: 8px 12px;
+        border-radius: 4px;
+        margin: 8px 0;
+        border-left: 4px solid #1d3557;
+      }
+      .payment-options {
+        margin-top: 15px;
+        padding: 15px;
+        background: #e7f1ff;
+        border-radius: 5px;
+      }
+      .payment-option {
+        margin-bottom: 10px;
+        padding: 8px;
+        background: white;
+        border-radius: 4px;
+        border-left: 4px solid #1d3557;
+      }
+
+      /* Print-specific styles with proper margins */
+      @media print {
+        @page {
+          margin: 0.5in 0.75in;
+          size: letter;
+        }
+        body {
+          padding: 0;
+          margin: 0;
+          width: 100%;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .container {
+          padding: 0;
+          border: none;
+          box-shadow: none;
+          margin: 0;
+          min-height: auto;
+        }
+        .no-print {
+          display: none !important;
+        }
+
+        /* Hide URL and date in print */
+        @page {
+          @top-left {
+            content: "";
+          }
+          @top-center {
+            content: "";
+          }
+          @top-right {
+            content: "";
+          }
+          @bottom-left {
+            content: "";
+          }
+          @bottom-center {
+            content: "";
+          }
+          @bottom-right {
+            content: "";
+          }
+        }
+      }
+
+      /* Preview styling */
+      .preview-container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #f5f5f5;
+        border-radius: 10px;
+      }
+      .preview-title {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #1d3557;
+      }
+
+      /* Content wrapper for proper spacing */
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .main-content {
+        flex: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preview-container no-print">
+      <h2 class="preview-title">Canadian Fitness Repair - Invoice Preview</h2>
+      <p style="text-align: center; margin-bottom: 20px">
+        Click "Generate PDF" below to create a professional PDF invoice with
+        proper margins
+      </p>
+    </div>
+
+    <div class="container">
+      <div class="content-wrapper">
+        <div class="main-content">
+          <!-- Header -->
+          <div class="header">
+            <div class="company-details">
+              <h1 class="title">Canadian Fitness Repair</h1>
+              <div class="subtitle">Professional Fitness Equipment Service</div>
+            </div>
+            <div class="invoice-details">
+              <div class="invoice-number">Invoice #CFR-2025-1103</div>
+              <div class="invoice-date">Date: November 28, 2025</div>
+            </div>
+          </div>
+
+          <!-- Company Info -->
+          <div class="company-info">
+            <p>
+              Website: www.canadianfitnessrepair.com | Email:
+              canadianfitnessrepair@gmail.com
+            </p>
+            <p>
+              Phone: <strong>+1 289 925 7239</strong> | Business Number:
+              761053230TZ0001
+            </p>
+          </div>
+
+          <!-- Client Information -->
+          <div class="section">
+            <div class="section-title">Client Information</div>
+            <div class="grid">
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Name:</span> Philip Webb
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Phone:</span> 647-926-5323
+                </div>
+              </div>
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Address:</span> 1068 Augustus Drive,
+                  Burlington, ON, L7S 2L1
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Email:</span> philipwebb@gmail.com
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Details -->
+          <div class="section">
+            <div class="section-title">Services Provided</div>
+            <div>
+              <ul class="service-list">
+                <li>
+                  Regular Preventative Maintenance for Treadmill
+                  <span class="status-completed">(Completed)</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Charges -->
+          <div class="charges">
+            <h3 style="color: #1d3557; margin-bottom: 15px">
+              Breakdown of Charges
+            </h3>
+
+            <!-- Regular Preventative Maintenance (Completed) -->
+            <div class="service-part">
+              <div class="part-title">
+                Regular Treadmill Preventative Maintenance
+                <span class="status-completed">(Completed)</span>
+              </div>
+              <div><span class="info-label">Service Charge:</span> $125.00</div>
+            </div>
+            <div class="total-row">
+              <span class="info-label">Total Amount Due:</span>
+              <span class="total-amount">$125.00 CAD</span>
+            </div>
+          </div>
+
+          <!-- Service Status -->
+          <div class="section">
+            <div class="section-title">Service Status</div>
+            <div class="grid">
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Service Date:</span> November 28,
+                  2025
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Service Status:</span>
+                  <span class="status-completed">Completed</span>
+                </div>
+              </div>
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Payment Status:</span>
+                  <span class="status-pending">Pending</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Instructions -->
+          <div class="payment-info">
+            <h3 style="margin-bottom: 12px; color: #1d3557">
+              Payment Information: Please process payment for this service
+              invoice.
+            </h3>
+
+            <div class="payment-options">
+              <h4 style="color: #1d3557; margin-bottom: 10px">
+                Payment Options:
+              </h4>
+
+              <div class="payment-option">
+                <strong>E-Transfer</strong>
+                <p style="margin: 5px 0">
+                  Send to: <strong>canadianfitnessrepair@gmail.com</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="thank-you">
+            <p>
+              Thank you for choosing Canadian Fitness Repair. We look forward to
+              continuing our service.
+            </p>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <p>
+            Canadian Fitness Repair | Professional Fitness Equipment Service &
+            Repair
+          </p>
+          <p>Phone: +1 289 925 7239 | Email: canadianfitnessrepair@gmail.com</p>
+          <p>
+            For any questions regarding this invoice, please don't hesitate to
+            contact us.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Print Controls -->
+    <div
+      class="no-print"
+      style="text-align: center; margin: 30px auto; max-width: 900px"
+    >
+      <button
+        onclick="generatePDF()"
+        style="
+          padding: 12px 30px;
+          background-color: #1d3557;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          margin: 10px;
+        "
+      >
+        Generate Professional PDF
+      </button>
+      <button
+        onclick="printPDF()"
+        style="
+          padding: 12px 30px;
+          background-color: #e63946;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          margin: 10px;
+        "
+      >
+        Print Directly
+      </button>
+      <div
+        style="
+          margin-top: 20px;
+          padding: 15px;
+          background: #f1faee;
+          border-radius: 5px;
+        "
+      >
+        <h3 style="color: #1d3557; margin-bottom: 10px">
+          PDF Generation Instructions:
+        </h3>
+        <p><strong>For best results with proper margins:</strong></p>
+        <ul style="text-align: left; display: inline-block; margin: 10px 0">
+          <li>Click "Generate Professional PDF"</li>
+          <li>In print dialog: Set destination to "Save as PDF"</li>
+          <li>Set margins to "Default"</li>
+          <li>Check "Background graphics" option</li>
+          <li>Uncheck "Headers and footers"</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      function generatePDF() {
+        window.print();
+      }
+
+      function printPDF() {
+        window.print();
+      }
+
+      window.addEventListener("beforeprint", function () {
+        document.querySelector(".preview-container").style.display = "none";
+      });
+
+      window.addEventListener("afterprint", function () {
+        document.querySelector(".preview-container").style.display = "block";
+      });
+    </script>
+  </body>
+</html>

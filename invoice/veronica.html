@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canadian Fitness Repair - Invoice #CFR-2025-1230 - PAID</title>
+    <style>
+      /* PDF-optimized styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+      body {
+        padding: 0;
+        background-color: white;
+        color: #333;
+        width: 8.5in;
+        margin: 0 auto;
+      }
+      .container {
+        background: white;
+        padding: 0.5in 0.75in;
+        border: none;
+        min-height: 11in;
+        display: flex;
+        flex-direction: column;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #2a9d8f;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+        position: relative;
+      }
+      .company-details {
+        text-align: left;
+      }
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1d3557;
+        text-transform: uppercase;
+      }
+      .subtitle {
+        font-size: 14px;
+        color: #457b9d;
+        margin-top: 5px;
+        font-weight: 500;
+      }
+      .invoice-details {
+        text-align: right;
+        position: relative;
+      }
+      .invoice-number {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1d3557;
+      }
+      .invoice-date {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+      }
+      .paid-stamp {
+        color: #2a9d8f;
+        font-weight: bold;
+        font-size: 20px;
+        margin-top: 8px;
+        padding: 5px 15px;
+        border: 2px solid #2a9d8f;
+        border-radius: 4px;
+        display: inline-block;
+        background: #f8fff9;
+      }
+      .section-title {
+        background-color: #1d3557;
+        color: white;
+        padding: 8px 12px;
+        font-size: 14px;
+        margin-bottom: 12px;
+        border-radius: 3px;
+        font-weight: 600;
+      }
+      .info-item {
+        margin-bottom: 10px;
+        display: flex;
+      }
+      .info-label {
+        font-weight: 600;
+        color: #1d3557;
+        min-width: 130px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      .charges {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 15px;
+        border-left: 4px solid #2a9d8f;
+      }
+      .service-part {
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed #ddd;
+      }
+      .service-part:last-child {
+        border-bottom: none;
+      }
+      .footer {
+        text-align: center;
+        margin-top: auto;
+        color: #6c757d;
+        font-size: 12px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+      }
+      .total-amount {
+        font-size: 20px;
+        font-weight: bold;
+        color: #2a9d8f;
+      }
+      .company-info {
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 14px;
+        color: #6c757d;
+      }
+      .company-info a {
+        color: #1d3557;
+        text-decoration: none;
+      }
+      .payment-info {
+        margin-top: 25px;
+        font-size: 14px;
+        color: #1d3557;
+        font-weight: bold;
+        background: #f1faee;
+        padding: 12px;
+        border-radius: 5px;
+        border-left: 4px solid #2a9d8f;
+      }
+      .service-list {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .service-list li {
+        margin-bottom: 6px;
+        padding-left: 18px;
+        position: relative;
+      }
+      .service-list li:before {
+        content: "•";
+        color: #2a9d8f;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+      .charges-list {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .charges-list li {
+        margin-bottom: 6px;
+        padding-left: 18px;
+        position: relative;
+      }
+      .charges-list li:before {
+        content: "•";
+        color: #457b9d;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+      .amount-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed #ddd;
+      }
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 2px solid #2a9d8f;
+        font-size: 16px;
+      }
+      .thank-you {
+        text-align: center;
+        margin-top: 25px;
+        font-style: italic;
+        color: #2a9d8f;
+        font-weight: bold;
+      }
+      .part-title {
+        color: #1d3557;
+        margin-bottom: 8px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .paid-notice {
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+        padding: 12px;
+        border-radius: 4px;
+        margin: 12px 0;
+        font-weight: 600;
+        text-align: center;
+      }
+      .status-pending {
+        color: #e63946;
+        font-weight: bold;
+      }
+      .status-completed {
+        color: #2a9d8f;
+        font-weight: bold;
+      }
+      .status-scheduled {
+        color: #1d3557;
+        font-weight: bold;
+      }
+      .contact-highlight {
+        background-color: #e7f1ff;
+        padding: 8px 12px;
+        border-radius: 4px;
+        margin: 8px 0;
+        border-left: 4px solid #1d3557;
+      }
+      .payment-options {
+        margin-top: 15px;
+        padding: 15px;
+        background: #d4edda;
+        border-radius: 5px;
+        border: 1px solid #c3e6cb;
+      }
+      .payment-option {
+        margin-bottom: 10px;
+        padding: 8px;
+        background: white;
+        border-radius: 4px;
+        border-left: 4px solid #2a9d8f;
+      }
+      .maintenance-note {
+        background-color: #e7f1ff;
+        padding: 12px;
+        border-radius: 4px;
+        margin: 15px 0;
+        border-left: 4px solid #2a9d8f;
+      }
+      .equipment-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin: 15px 0;
+      }
+      .equipment-item {
+        padding: 5px 0;
+        border-bottom: 1px dotted #ddd;
+      }
+
+      /* Print-specific styles with proper margins */
+      @media print {
+        @page {
+          margin: 0.5in 0.75in;
+          size: letter;
+        }
+        body {
+          padding: 0;
+          margin: 0;
+          width: 100%;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .container {
+          padding: 0;
+          border: none;
+          box-shadow: none;
+          margin: 0;
+          min-height: auto;
+        }
+        .no-print {
+          display: none !important;
+        }
+
+        /* Hide URL and date in print */
+        @page {
+          @top-left {
+            content: "";
+          }
+          @top-center {
+            content: "";
+          }
+          @top-right {
+            content: "";
+          }
+          @bottom-left {
+            content: "";
+          }
+          @bottom-center {
+            content: "";
+          }
+          @bottom-right {
+            content: "";
+          }
+        }
+      }
+
+      /* Preview styling */
+      .preview-container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #f5f5f5;
+        border-radius: 10px;
+      }
+      .preview-title {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #1d3557;
+      }
+
+      /* Content wrapper for proper spacing */
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .main-content {
+        flex: 1;
+      }
+      .tax-note {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+        font-style: italic;
+      }
+      .plan-details {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+        border: 1px solid #ddd;
+      }
+      .payment-details-box {
+        background: #d4edda;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+        border: 2px solid #2a9d8f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preview-container no-print">
+      <h2 class="preview-title">Canadian Fitness Repair - PAID Invoice Preview</h2>
+      <p style="text-align: center; margin-bottom: 20px">
+        This invoice has been marked as PAID. Click "Generate PDF" below to create a PDF receipt.
+      </p>
+    </div>
+
+    <div class="container">
+      <div class="content-wrapper">
+        <div class="main-content">
+          <!-- Header -->
+          <div class="header">
+            <div class="company-details">
+              <h1 class="title">Canadian Fitness Repair</h1>
+              <div class="subtitle">Professional Fitness Equipment Service</div>
+            </div>
+            <div class="invoice-details">
+              <div class="invoice-number">Invoice #CFR-2025-1230</div>
+              <div class="invoice-date">Date: December 30, 2025</div>
+              <div class="paid-stamp">PAID IN FULL</div>
+            </div>
+          </div>
+
+          <!-- Company Info -->
+          <div class="company-info">
+            <p>
+              Website: www.canadianfitnessrepair.com | Email:
+              canadianfitnessrepair@gmail.com
+            </p>
+            <p>
+              Phone: <strong>+1 289 925 7239</strong> | HST Number:
+              789163136RT0001
+            </p>
+          </div>
+
+          <!-- Paid Notice -->
+          <div class="paid-notice">
+            ✓ THIS INVOICE HAS BEEN PAID IN FULL - THANK YOU FOR YOUR PAYMENT
+          </div>
+
+          <!-- Client Information -->
+          <div class="section">
+            <div class="section-title">Client Information</div>
+            <div class="grid">
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Client:</span> Veronika
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Facility Type:</span> Commercial Fitness Facility
+                </div>
+              </div>
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Service Plan:</span> Semi-Annual Maintenance
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Visit:</span> 1 of 2 (First Visit)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintenance Plan Details -->
+          <div class="plan-details">
+            <h3 style="color: #1d3557; margin-bottom: 10px;">Semi-Annual Maintenance Plan Details</h3>
+            <div class="equipment-list">
+              <div class="equipment-item">• Concept2 Rowers (3 units)</div>
+              <div class="equipment-item">• Concept2 SkiErgs (3 units)</div>
+              <div class="equipment-item">• StairMaster HIIT Bikes (3 units)</div>
+              <div class="equipment-item">• Keiser Spin Bikes (3 units)</div>
+              <div class="equipment-item">• S-Drive Treadmills (3 units)</div>
+            </div>
+            <div style="text-align: center; margin-top: 10px; font-weight: bold;">
+              Total: 15 Machines
+            </div>
+          </div>
+
+          <!-- Service Details -->
+          <div class="section">
+            <div class="section-title">Services Performed</div>
+            <div>
+              <ul class="service-list">
+                <li>Full mechanical inspection of all 15 machines</li>
+                <li>Cleaning & lubrication of moving parts</li>
+                <li>Belt & chain tension checks and adjustments</li>
+                <li>Electronic console verification and calibration</li>
+                <li>Safety system testing on all equipment</li>
+                <li>Performance calibration for optimal operation</li>
+                <li>Wear analysis and recommendations report</li>
+                <li>10% parts discount applied to any needed replacements</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Charges -->
+          <div class="charges">
+            <h3 style="color: #1d3557; margin-bottom: 15px">
+              Invoice Details
+            </h3>
+
+            <!-- Maintenance Visit -->
+            <div class="service-part">
+              <div class="part-title">
+                Semi-Annual Maintenance Visit
+                <span class="status-scheduled">(Scheduled for Dec 30, 2025)</span>
+              </div>
+              <div class="amount-row">
+                <span>Semi-Annual Plan - First Visit (Visit 1 of 2)</span>
+                <span>$750.00</span>
+              </div>
+              <div class="amount-row">
+                <span>15 machines @ $50/machine</span>
+                <span>$750.00</span>
+              </div>
+              <div class="tax-note">
+                This visit is part of the Semi-Annual Maintenance Plan (2 visits/year for $1,500 + HST)
+              </div>
+            </div>
+
+            <!-- Discount Note -->
+            <div class="maintenance-note">
+              <strong>Plan Benefits Applied:</strong> 10% discount on any parts needed during this visit
+            </div>
+
+            <!-- Taxes and Total -->
+            <div class="service-part">
+              <div class="amount-row">
+                <span>Subtotal</span>
+                <span>$750.00</span>
+              </div>
+              <div class="amount-row">
+                <span>HST (13%)</span>
+                <span>$97.50</span>
+              </div>
+              <div class="total-row">
+                <span><strong>Total Paid:</strong></span>
+                <span class="total-amount">$847.50 CAD</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Details Box -->
+          <div class="payment-details-box">
+            <h3 style="color: #155724; margin-bottom: 15px; text-align: center;">
+              Payment Confirmation
+            </h3>
+            <div class="grid">
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Payment Status:</span>
+                  <span class="status-completed">PAID IN FULL</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Payment Date:</span> December 30, 2025
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Payment Method:</span> E-Transfer
+                </div>
+              </div>
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Amount Paid:</span> $847.50 CAD
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Transaction Ref:</span> CFR20251230-ET
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Balance Due:</span> $0.00
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Status -->
+          <div class="section">
+            <div class="section-title">Service Status & Plan Information</div>
+            <div class="grid">
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Service Date:</span> December 30, 2025
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Next Visit Due:</span> June 2026
+                </div>
+              </div>
+              <div>
+                <div class="info-item">
+                  <span class="info-label">Service Status:</span>
+                  <span class="status-scheduled">Scheduled</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Payment Status:</span>
+                  <span class="status-completed">Paid</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Plan Reference:</span> CFR-PM-2025-Q4-001
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Information -->
+          <div class="payment-info">
+            <div class="section-title">Payment Information</div>
+            <p style="margin-bottom: 10px; color: #2a9d8f; font-weight: bold; text-align: center;">
+              ✓ Payment Received - Thank You for Your Business!
+            </p>
+            
+            <div class="payment-options">
+              <div class="payment-option">
+                <strong>Payment Method Used:</strong> E-Transfer to canadianfitnessrepair@gmail.com
+              </div>
+              <div class="payment-option">
+                <strong>Transaction Reference:</strong> CFR20251230-ET
+              </div>
+              <div class="payment-option">
+                <strong>Payment Date:</strong> December 30, 2025
+              </div>
+            </div>
+          </div>
+
+          <div class="thank-you">
+            <p>
+              Thank you for choosing Canadian Fitness Repair for your preventative maintenance needs. 
+              Your payment has been processed successfully. We appreciate your business!
+            </p>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <p>
+            Canadian Fitness Repair | Professional Fitness Equipment Service & Maintenance
+          </p>
+          <p>Phone: +1 289 925 7239 | Email: canadianfitnessrepair@gmail.com</p>
+          <p>
+            This invoice serves as a receipt for your records. Please keep it for your accounting purposes.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Print Controls -->
+    <div
+      class="no-print"
+      style="text-align: center; margin: 30px auto; max-width: 900px"
+    >
+      <button
+        onclick="generatePDF()"
+        style="
+          padding: 12px 30px;
+          background-color: #2a9d8f;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          margin: 10px;
+        "
+      >
+        Generate PDF Receipt
+      </button>
+      <button
+        onclick="printPDF()"
+        style="
+          padding: 12px 30px;
+          background-color: #1d3557;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          margin: 10px;
+        "
+      >
+        Print Receipt
+      </button>
+      <div
+        style="
+          margin-top: 20px;
+          padding: 15px;
+          background: #f1faee;
+          border-radius: 5px;
+        "
+      >
+        <h3 style="color: #1d3557; margin-bottom: 10px">
+          PDF Generation Instructions:
+        </h3>
+        <p><strong>For best results with proper margins:</strong></p>
+        <ul style="text-align: left; display: inline-block; margin: 10px 0">
+          <li>Click "Generate PDF Receipt"</li>
+          <li>In print dialog: Set destination to "Save as PDF"</li>
+          <li>Set margins to "Default"</li>
+          <li>Check "Background graphics" option</li>
+          <li>Uncheck "Headers and footers"</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      function generatePDF() {
+        window.print();
+      }
+
+      function printPDF() {
+        window.print();
+      }
+
+      window.addEventListener("beforeprint", function () {
+        document.querySelector(".preview-container").style.display = "none";
+      });
+
+      window.addEventListener("afterprint", function () {
+        document.querySelector(".preview-container").style.display = "block";
+      });
+    </script>
+  </body>
+</html>
