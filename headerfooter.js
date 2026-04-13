@@ -497,18 +497,58 @@
 // })();
 
 
-(function injectCFRChatbot() {
+// ═══════════════════════════════════════════════════════════════════════════
+// CFR INTELLIGENT CHATBOT - Production Ready
+// ═══════════════════════════════════════════════════════════════════════════
+// Combines your existing beautiful UI with Claude AI intelligence
+// Copy-paste ready - just update the configuration section below
+// ═══════════════════════════════════════════════════════════════════════════
 
-  // ========== CONFIGURATION ==========
-  const JSONL_URL = '/repairs.jsonl';          // 👈 Change to your actual JSONL file path
-  const SIMILARITY_THRESHOLD = 0.65;           // How close a match must be
+(function injectCFRIntelligentChatbot() {
 
-  // ========== GLOBAL VARIABLES ==========
-  let repairVectors = [];                      // Stores embeddings + past conversations
-  let embedderReady = false;
+  // ╔═══════════════════════════════════════════════════════════════════════╗
+  // ║  CONFIGURATION - UPDATE THESE VALUES FOR YOUR WEBSITE                 ║
+  // ╚═══════════════════════════════════════════════════════════════════════╝
+  
+  const CONFIG = {
+    // Training data location (upload this file to your website)
+    TRAINING_DATA_URL: '/cfr_training_data_2026-04-13.jsonl',
+    
+    // AI Mode: 'claude-api' = smart AI, 'embeddings' = local matching, 'rules' = basic
+    AI_MODE: 'claude-api',  // Change to 'rules' for basic mode (no API needed)
+    
+    // Claude API settings (only needed if AI_MODE = 'claude-api')
+    CLAUDE_API_KEY: '',  // Leave empty for basic mode, or add your key for smart AI
+    CLAUDE_MODEL: 'claude-sonnet-4-20250514',
+    MAX_TOKENS: 1000,
+    
+    // Similarity threshold for embeddings mode (0.0 to 1.0)
+    SIMILARITY_THRESHOLD: 0.65,
+    
+    // Response timing
+    TYPING_DELAY: 900,  // milliseconds
+  };
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // GLOBAL STATE
+  // ═══════════════════════════════════════════════════════════════════════
+  
+  let isOpen = false;
+  let userName = '';
+  let M, IN, WIN, BWRAP;
+  let trainingData = [];
+  let conversationHistory = [];
+  let isAIReady = false;
+  
+  // For embeddings mode
+  let repairVectors = [];
   let embedder = null;
+  let embedderReady = false;
 
-  // ---------- 1. STYLES (full original) ----------
+  // ═══════════════════════════════════════════════════════════════════════
+  // 1. STYLES (Your existing beautiful design)
+  // ═══════════════════════════════════════════════════════════════════════
+  
   var css = document.createElement('style');
   css.textContent = `
 #cfr-bubble-wrap{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:10px;transition:opacity .2s}
@@ -534,7 +574,7 @@
   #cfr-bubble-wrap{bottom:16px;right:16px}
 }
 @media(max-width:480px){
-  #cfr-win{position:fixed;bottom:0; left:0; right:0; width:100vw; max-width:100vw; height:88vh; max-height:88vh; border-radius:20px 20px 0 0; border-bottom:none}
+  #cfr-win{position:fixed;bottom:0;left:0;right:0;width:100vw;max-width:100vw;height:88vh;max-height:88vh;border-radius:20px 20px 0 0;border-bottom:none}
   #cfr-win .cfr-msgs{max-height:calc(88vh - 130px);flex:1}
   #cfr-bubble-wrap{bottom:16px;right:14px}
   #cfr-teaser{right:14px;bottom:106px;max-width:calc(100vw - 80px)}
@@ -550,6 +590,7 @@
 .cfr-hd-name{font-size:14px;font-weight:700;color:#fff}
 .cfr-hd-sub{font-size:11px;color:rgba(255,255,255,.82);margin-top:2px;display:flex;align-items:center;gap:5px}
 .cfr-hd-sub::before{content:'';width:7px;height:7px;background:#4ade80;border-radius:50%;display:inline-block}
+.cfr-ai-badge{background:rgba(255,255,255,.15);padding:2px 7px;border-radius:8px;font-size:9px;margin-left:4px;display:inline-block}
 .cfr-x{background:none;border:none;color:rgba(255,255,255,.85);font-size:23px;cursor:pointer;padding:0 3px;line-height:1;flex-shrink:0}
 .cfr-x:hover{color:#fff}
 .cfr-msgs{overflow-y:auto;padding:13px 12px;display:flex;flex-direction:column;gap:9px;max-height:370px;min-height:180px;background:#151719;scroll-behavior:smooth;flex:1}
@@ -593,12 +634,17 @@
 .cfr-in{flex:1;background:#151719;border:1px solid rgba(92,92,253,.22);border-radius:11px;padding:9px 13px;font-size:13.5px;color:#e2e8f0;outline:none;font-family:inherit;min-width:0}
 .cfr-in:focus{border-color:#5C5CFD}
 .cfr-in::placeholder{color:#475569}
+.cfr-in:disabled{opacity:.5;cursor:not-allowed}
 .cfr-go{background:linear-gradient(135deg,#5C5CFD,#4ECDC4);border:none;border-radius:11px;padding:9px 15px;color:#fff;font-size:15px;cursor:pointer;transition:opacity .2s;flex-shrink:0}
-.cfr-go:hover{opacity:.88}
+.cfr-go:hover:not(:disabled){opacity:.88}
+.cfr-go:disabled{opacity:.4;cursor:not-allowed}
   `;
   document.head.appendChild(css);
 
-  // ---------- 2. HTML (full original) ----------
+  // ═══════════════════════════════════════════════════════════════════════
+  // 2. HTML STRUCTURE (Your existing layout)
+  // ═══════════════════════════════════════════════════════════════════════
+  
   var wrap = document.createElement('div');
   wrap.innerHTML = `
     <div id="cfr-teaser" onclick="cfrOpen()">
@@ -624,7 +670,10 @@
       <div class="cfr-hd">
         <div class="cfr-hd-av">🔧</div>
         <div class="cfr-hd-info">
-          <div class="cfr-hd-name">Canadian Fitness Repair</div>
+          <div class="cfr-hd-name">
+            Canadian Fitness Repair
+            <span class="cfr-ai-badge" id="cfr-ai-badge">✨ AI</span>
+          </div>
           <div class="cfr-hd-sub">Online now · replies instantly</div>
         </div>
         <button class="cfr-x" onclick="cfrClose()" aria-label="Close">×</button>
@@ -633,13 +682,242 @@
       <div class="cfr-bar">
         <input id="cfrIn" class="cfr-in" placeholder="Type a message…"
           onkeydown="if(event.key==='Enter')cfrSend()" aria-label="Message" />
-        <button class="cfr-go" onclick="cfrSend()">➤</button>
+        <button class="cfr-go" onclick="cfrSend()" id="cfr-send-btn">➤</button>
       </div>
     </div>
   `;
   document.body.appendChild(wrap);
 
-  // ---------- 3. RAG HELPERS ----------
+  // ═══════════════════════════════════════════════════════════════════════
+  // 3. INITIALIZATION
+  // ═══════════════════════════════════════════════════════════════════════
+  
+  function init() {
+    M = document.getElementById('cfrMsgs');
+    IN = document.getElementById('cfrIn');
+    WIN = document.getElementById('cfr-win');
+    BWRAP = document.getElementById('cfr-bubble-wrap');
+    window.SENDBTN = document.getElementById('cfr-send-btn');
+    
+    // Update AI badge
+    const badge = document.getElementById('cfr-ai-badge');
+    if (CONFIG.AI_MODE === 'claude-api' && CONFIG.CLAUDE_API_KEY) {
+      badge.textContent = '✨ AI-Powered';
+    } else if (CONFIG.AI_MODE === 'embeddings') {
+      badge.textContent = '🧠 Smart';
+    } else {
+      badge.textContent = '⚡ Fast';
+    }
+    
+    // Show teaser
+    if (!sessionStorage.getItem('cfrTeaserDismissed')) {
+      setTimeout(function () {
+        if (!isOpen) document.getElementById('cfr-teaser').style.display = 'block';
+      }, 4000);
+    }
+    
+    // Load AI system
+    initializeAI();
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // 4. AI SYSTEM INITIALIZATION
+  // ═══════════════════════════════════════════════════════════════════════
+  
+  async function initializeAI() {
+    console.log(`[CFR] Initializing AI mode: ${CONFIG.AI_MODE}`);
+    
+    // Load training data for all AI modes
+    try {
+      const response = await fetch(CONFIG.TRAINING_DATA_URL);
+      const text = await response.text();
+      trainingData = text.trim().split('\n').map(line => {
+        try {
+          return JSON.parse(line);
+        } catch (e) {
+          return null;
+        }
+      }).filter(Boolean);
+      
+      console.log(`[CFR] Loaded ${trainingData.length} training examples`);
+      isAIReady = true;
+    } catch (error) {
+      console.warn('[CFR] Could not load training data:', error);
+    }
+    
+    // Initialize embeddings if needed
+    if (CONFIG.AI_MODE === 'embeddings') {
+      await initializeEmbeddings();
+    }
+  }
+
+  async function initializeEmbeddings() {
+    try {
+      const module = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.11.0/dist/transformers.min.js');
+      embedder = await module.pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+      embedderReady = true;
+      console.log('[CFR] Embedder ready');
+      await loadRepairVectors();
+    } catch (error) {
+      console.error('[CFR] Embedder initialization failed:', error);
+    }
+  }
+
+  async function loadRepairVectors() {
+    const cached = localStorage.getItem('cfrRepairVectors');
+    if (cached) {
+      try {
+        repairVectors = JSON.parse(cached);
+        console.log(`[CFR] Loaded ${repairVectors.length} vectors from cache`);
+        return;
+      } catch (e) {
+        console.warn('[CFR] Cache parse error', e);
+      }
+    }
+    
+    const vectors = [];
+    for (let entry of trainingData) {
+      const userMsg = entry.messages.find(m => m.role === 'user')?.content || '';
+      const assistantReply = entry.messages.find(m => m.role === 'assistant')?.content || '';
+      if (userMsg && assistantReply && embedder) {
+        const emb = await embedder(userMsg, { pooling: 'mean' });
+        vectors.push({
+          embedding: Array.from(emb.data),
+          userMsg: userMsg,
+          assistantReply: assistantReply
+        });
+      }
+    }
+    repairVectors = vectors;
+    localStorage.setItem('cfrRepairVectors', JSON.stringify(repairVectors));
+    console.log(`[CFR] Indexed ${repairVectors.length} repair cases`);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // 5. AI RESPONSE GENERATION
+  // ═══════════════════════════════════════════════════════════════════════
+  
+  async function getAIResponse(userMessage) {
+    if (CONFIG.AI_MODE === 'claude-api' && CONFIG.CLAUDE_API_KEY) {
+      return await getClaudeAPIResponse(userMessage);
+    } else if (CONFIG.AI_MODE === 'embeddings' && embedderReady) {
+      return await getEmbeddingsResponse(userMessage);
+    } else {
+      return getRuleBasedResponse(userMessage);
+    }
+  }
+
+  async function getClaudeAPIResponse(userMessage) {
+    try {
+      const context = buildContextFromTraining(userMessage);
+      const messages = [...conversationHistory, { role: 'user', content: userMessage }];
+
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': CONFIG.CLAUDE_API_KEY,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model: CONFIG.CLAUDE_MODEL,
+          max_tokens: CONFIG.MAX_TOKENS,
+          system: `You are Sam from Canadian Fitness Repair, a professional and friendly fitness equipment repair service based in Hamilton, Ontario, Canada.
+
+CONTEXT FROM PAST CUSTOMER INTERACTIONS:
+${context}
+
+YOUR ROLE:
+- Provide helpful, professional, and friendly responses
+- Include specific service fees when relevant ($150-$180 for most repairs)
+- Mention what's included: travel, diagnostic, repair attempt during same visit
+- Always include a clear call to action
+- Be concise but warm and personable
+- Use emojis sparingly but appropriately
+
+SERVICES YOU OFFER:
+- Treadmill repair & maintenance
+- Elliptical repair
+- Exercise bike repair (including Peloton)
+- Rowing machine repair
+- Strength equipment repair
+- Walking pad repair
+- Equipment removal & disposal
+
+SERVICE AREA: Greater Toronto & Hamilton Area (GTA)
+
+KEY POINTS:
+- Most repairs: $150-$180 (includes travel + diagnostic + repair attempt)
+- 90-day parts & labour warranty
+- Payment after job completion (cash, e-transfer, credit card)
+- Same-day/emergency service available
+
+Keep responses under 150 words. If the person wants to book, pricing info, or talk to a human, guide them to the appropriate action.`,
+          messages: messages
+        })
+      });
+
+      if (!response.ok) throw new Error(`API Error: ${response.status}`);
+
+      const data = await response.json();
+      const reply = data.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
+
+      conversationHistory.push(
+        { role: 'user', content: userMessage },
+        { role: 'assistant', content: reply }
+      );
+      if (conversationHistory.length > 6) {
+        conversationHistory = conversationHistory.slice(-6);
+      }
+
+      return { text: reply, source: 'claude-api' };
+    } catch (error) {
+      console.error('[CFR] Claude API error:', error);
+      return getRuleBasedResponse(userMessage);
+    }
+  }
+
+  async function getEmbeddingsResponse(userMessage) {
+    try {
+      const similar = await getSimilarRepairs(userMessage, 1);
+      if (similar.length > 0 && similar[0].score >= CONFIG.SIMILARITY_THRESHOLD) {
+        return {
+          text: similar[0].assistantReply,
+          source: 'embeddings',
+          score: similar[0].score
+        };
+      }
+    } catch (error) {
+      console.error('[CFR] Embeddings error:', error);
+    }
+    return getRuleBasedResponse(userMessage);
+  }
+
+  function buildContextFromTraining(userMessage) {
+    if (!trainingData.length) return '';
+    const lower = userMessage.toLowerCase();
+    const relevant = trainingData.filter(ex => {
+      const content = ex.messages[0].content.toLowerCase();
+      return (
+        (lower.includes('treadmill') && content.includes('treadmill')) ||
+        (lower.includes('elliptical') && content.includes('elliptical')) ||
+        (lower.includes('bike') && content.includes('bike')) ||
+        (lower.includes('price') && content.includes('price')) ||
+        (lower.includes('quote') && content.includes('quote'))
+      );
+    }).slice(0, 3);
+
+    if (!relevant.length) {
+      relevant.push(...trainingData.slice(0, 2));
+    }
+
+    return relevant.map(ex => {
+      const userReq = ex.messages[0].content.substring(0, 300);
+      const samReply = ex.messages[1].content.substring(0, 400);
+      return `Example:\nCustomer: ${userReq}...\nSam: ${samReply}...`;
+    }).join('\n\n');
+  }
+
   function cosineSimilarity(vecA, vecB) {
     let dot = 0, magA = 0, magB = 0;
     for (let i = 0; i < vecA.length; i++) {
@@ -648,41 +926,6 @@
       magB += vecB[i] * vecB[i];
     }
     return dot / (Math.sqrt(magA) * Math.sqrt(magB));
-  }
-
-  async function loadRepairData() {
-    const cached = localStorage.getItem('repairVectors');
-    if (cached) {
-      try {
-        repairVectors = JSON.parse(cached);
-        console.log(`[CFR] Loaded ${repairVectors.length} past repairs from cache`);
-        return;
-      } catch(e) { console.warn('Cache parse error', e); }
-    }
-    try {
-      const response = await fetch(JSONL_URL);
-      const text = await response.text();
-      const lines = text.split('\n').filter(l => l.trim());
-      const vectors = [];
-      for (let line of lines) {
-        const entry = JSON.parse(line);
-        const userMsg = entry.messages.find(m => m.role === 'user')?.content || '';
-        const assistantReply = entry.messages.find(m => m.role === 'assistant')?.content || '';
-        if (userMsg && assistantReply && embedder) {
-          const emb = await embedder(userMsg, { pooling: 'mean' });
-          vectors.push({
-            embedding: Array.from(emb.data),
-            userMsg: userMsg,
-            assistantReply: assistantReply
-          });
-        }
-      }
-      repairVectors = vectors;
-      localStorage.setItem('repairVectors', JSON.stringify(repairVectors));
-      console.log(`[CFR] Loaded and indexed ${repairVectors.length} past repairs`);
-    } catch(err) {
-      console.error('[CFR] Failed to load repair data:', err);
-    }
   }
 
   async function getSimilarRepairs(userMessage, topK = 2) {
@@ -697,36 +940,43 @@
     return scored.slice(0, topK);
   }
 
-  async function loadEmbedder() {
-    try {
-      const module = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.11.0/dist/transformers.min.js');
-      embedder = await module.pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
-      embedderReady = true;
-      console.log('[CFR] Embedder ready');
-      await loadRepairData();
-    } catch(err) {
-      console.error('[CFR] Failed to load embedder:', err);
+  function getRuleBasedResponse(userMessage) {
+    const lower = userMessage.toLowerCase();
+    
+    if (lower.match(/price|cost|quote|how much/)) {
+      return {
+        text: "Our standard service call is $150-$180, which includes:\n\n✅ Travel to your location\n✅ Full diagnostic inspection\n✅ Repair attempt during the same visit (if no parts needed)\n\nIf parts are required, we'll provide a quote before proceeding.\n\nWould you like to book an appointment?",
+        source: 'rules',
+        action: 'show_booking_chips'
+      };
     }
-  }
-  loadEmbedder();
-
-  // ---------- 4. ORIGINAL CHAT LOGIC (with modified cfrSend) ----------
-  var isOpen   = false;
-  var userName = '';
-  var M, IN, WIN, BWRAP;
-
-  function init() {
-    M      = document.getElementById('cfrMsgs');
-    IN     = document.getElementById('cfrIn');
-    WIN    = document.getElementById('cfr-win');
-    BWRAP  = document.getElementById('cfr-bubble-wrap');
-    if (!sessionStorage.getItem('cfrTeaserDismissed')) {
-      setTimeout(function () {
-        if (!isOpen) document.getElementById('cfr-teaser').style.display = 'block';
-      }, 4000);
+    
+    if (lower.match(/treadmill/)) {
+      return {
+        text: "Treadmill troubles? We handle all common issues:\n\n🔧 Error codes (E1, E2, etc.)\n🔧 Belt problems\n🔧 Console issues\n🔧 Strange noises\n\nService fee: $160 (travel + diagnostic + repair attempt)\n\nShall I get your booking details?",
+        source: 'rules',
+        action: 'suggest_booking'
+      };
     }
+    
+    if (lower.match(/area|service|location|where/)) {
+      return {
+        text: "We service the Greater Toronto & Hamilton Area (GTA):\n\n📍 Hamilton, Burlington, Oakville\n📍 Mississauga, Toronto, Brampton\n📍 Kitchener, Cambridge, Guelph\n\nAnd surrounding areas! What city are you in?",
+        source: 'rules'
+      };
+    }
+    
+    return {
+      text: "Thanks for your message! To help you best, could you tell me:\n\n1️⃣ What type of equipment?\n2️⃣ What's the issue?\n3️⃣ Your city/area?\n\nOr if you prefer: (289) 925-7239",
+      source: 'rules',
+      action: 'show_main_chips'
+    };
   }
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // 6. UI RENDERING FUNCTIONS (Your existing design)
+  // ═══════════════════════════════════════════════════════════════════════
+  
   function msg(text, who) {
     var d = document.createElement('div');
     d.className = 'cfr-m ' + who;
@@ -757,7 +1007,7 @@
       el.className = 'cfr-btn ' + (b.cls || '');
       el.innerHTML = '<span class="bi">' + (b.icon || '') + '</span><span>' + b.label + '</span>';
       el.onclick = function () {
-        var isLinkOnly = b.url && (!b.cb || b.cb.toString().trim() === 'function () {}' || b.cb.toString().trim() === 'function(){}');
+        var isLinkOnly = b.url && (!b.cb || b.cb.toString().trim() === 'function () {}');
         if (b.url) window.open(b.url, '_blank');
         if (!isLinkOnly && b.cb) {
           row.remove();
@@ -766,7 +1016,7 @@
           if (!row.dataset.nudged) {
             row.dataset.nudged = '1';
             setTimeout(function () {
-              msg("Feel free to reach out anytime! 😊 Is there anything else I can help with?", 'bot');
+              msg("Feel free to reach out anytime! 😊 Anything else I can help with?", 'bot');
               var nudge = document.createElement('div');
               nudge.className = 'cfr-chips';
               var startBtn = document.createElement('button');
@@ -793,9 +1043,14 @@
     t.innerHTML = '<span></span><span></span><span></span>';
     M.appendChild(t);
     M.scrollTop = M.scrollHeight;
-    setTimeout(function () { t.remove(); then(); }, ms || 900);
+    setTimeout(function () { t.remove(); then(); }, ms || CONFIG.TYPING_DELAY);
+    return t;
   }
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // 7. CONVERSATION FLOWS (Your existing flows)
+  // ═══════════════════════════════════════════════════════════════════════
+  
   function flowStart() {
     typing(700, function () {
       var g = userName ? 'Hey ' + fn(userName) + '! 👋' : '👋 Hey there! Welcome to Canadian Fitness Repair.';
@@ -987,49 +1242,62 @@
     });
   }
 
-  // MODIFIED cfrSend with RAG
+  // ═══════════════════════════════════════════════════════════════════════
+  // 8. MAIN MESSAGE HANDLER (AI-powered)
+  // ═══════════════════════════════════════════════════════════════════════
+  
   window.cfrSend = async function() {
     var txt = IN.value.trim();
     if (!txt) return;
+    
     IN.value = '';
+    IN.disabled = true;
+    window.SENDBTN.disabled = true;
+    
     msg(txt, 'user');
-
-    // Try RAG if embedder is ready and we have data
-    if (embedderReady && repairVectors.length > 0) {
-      const similar = await getSimilarRepairs(txt, 1);
-      if (similar.length > 0 && similar[0].score >= SIMILARITY_THRESHOLD) {
-        const best = similar[0];
-        const smartAnswer = `🔍 *I remember a similar case!*\n\n${best.assistantReply}\n\n---\nWould you like me to book the same service for you?`;
-        msg(smartAnswer, 'bot');
-        return;
+    
+    const typingDiv = typing(CONFIG.TYPING_DELAY);
+    
+    try {
+      const response = await getAIResponse(txt);
+      typingDiv.remove();
+      msg(response.text, 'bot');
+      
+      // Show suggested actions based on response
+      if (response.action === 'show_booking_chips') {
+        setTimeout(() => {
+          chips(['📅 Book now', '💬 Ask more', '📞 Call instead']);
+        }, 500);
+      } else if (response.action === 'suggest_booking') {
+        setTimeout(() => {
+          btns([
+            { icon: '🔧', label: 'Book a repair', cls: 'primary', cb: flowBookingForm },
+            { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }
+          ]);
+        }, 500);
+      } else if (response.action === 'show_main_chips') {
+        setTimeout(() => {
+          chips(['🔧 Book a repair', '💬 Get a quote', '📞 Call us']);
+        }, 500);
       }
+      
+    } catch (error) {
+      typingDiv.remove();
+      msg("Sorry, I had a technical issue. Please try again or call us at (289) 925-7239", 'bot');
+      console.error('[CFR] Error:', error);
+    } finally {
+      IN.disabled = false;
+      window.SENDBTN.disabled = false;
+      IN.focus();
     }
-
-    // Fallback to original rule-based logic
-    var l = txt.toLowerCase();
-    typing(900, function () {
-      if (l.match(/book|appoint|schedul/))                         flowBookingForm();
-      else if (l.match(/quote|cost|price|how much/))               flowQuote();
-      else if (l.match(/service|offer|what do you/))               flowServices();
-      else if (l.match(/area|city|cover|where/))                   flowAreas();
-      else if (l.match(/emergency|urgent|broken|asap|right now/))  flowEmergency();
-      else if (l.match(/human|person|someone|whatsapp/))           flowHuman();
-      else if (l.match(/treadmill/))  { msg("Ugh, treadmill troubles! 😅 Let me get your details so we can send a tech out. 🏃", 'bot'); setTimeout(flowBookingForm, 500); }
-      else if (l.match(/elliptical/)) { msg("Elliptical issues? We'll have that sorted! 🚶 Let me grab your info.", 'bot'); setTimeout(flowBookingForm, 500); }
-      else if (l.match(/bike|peloton|spin/)) { msg("Exercise bike acting up? We fix all brands including Peloton 🚴", 'bot'); setTimeout(flowBookingForm, 500); }
-      else if (l.match(/rower|rowing/)) { msg("Rowing machine on the fritz? We're on it 🚣", 'bot'); setTimeout(flowBookingForm, 500); }
-      else if (l.match(/walk.*pad|walking pad/)) { msg("Walking pad repair — we handle those too! 🚶", 'bot'); setTimeout(flowBookingForm, 500); }
-      else if (l.match(/cable|strength|weight/)) { msg("Strength equipment giving you grief? Our techs fix cables, pulleys, weight stacks 💪", 'bot'); setTimeout(flowBookingForm, 500); }
-      else if (l.match(/warrant|guarantee/)) { msg("Every repair comes with a 90-day parts & labour warranty. If anything acts up again within that window, we come back — no charge. 🛡️", 'bot'); setTimeout(function () { btns([{ icon: '🔧', label: 'Book a repair', cls: 'primary', cb: flowBookingForm }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
-      else if (l.match(/pay|cash|e.?transfer|credit/)) { msg("We accept:\n💵 Cash\n📱 E-Transfer\n💳 Credit Card\n\nYou only pay once the job's done and you're happy! 😊", 'bot'); setTimeout(function () { btns([{ icon: '🔧', label: 'Book a repair', cls: 'primary', cb: flowBookingForm }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
-      else if (l.match(/remov|dispos|get rid|recycle/)) { msg("We do equipment removal too! 🗑️ We remove treadmills, ellipticals, full gym setups and recycle over 90% responsibly.", 'bot'); setTimeout(function () { btns([{ icon: '📋', label: 'Book a removal', cls: 'primary', cb: flowBookingForm }, { icon: '📞', label: 'Call us', url: 'tel:+12899257239' }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
-      else if (l.match(/hi|hello|hey|howdy/)) { msg(userName ? 'Hey ' + fn(userName) + '! 👋 How can I help?' : 'Hey! 👋 Great to have you here.', 'bot'); setTimeout(function () { chips(['🔧 Book a repair', '💬 Get a quote', '🛠 Our services', '🙋 Talk to a person']); }, 400); }
-      else { msg("Hmm, not 100% sure about that one! 😅 Let me get you to the right place.", 'bot'); setTimeout(flowHuman, 500); }
-    });
   };
 
   function fn(n) { return n ? n.split(' ')[0] : ''; }
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // 9. WINDOW CONTROLS
+  // ═══════════════════════════════════════════════════════════════════════
+  
   window.cfrOpen = function () {
     isOpen = true;
     WIN.classList.add('cfr-open');
@@ -1045,6 +1313,10 @@
     BWRAP.classList.remove('cfr-hidden');
   };
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // 10. AUTO-INITIALIZATION
+  // ═══════════════════════════════════════════════════════════════════════
+  
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
