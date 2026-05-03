@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Favicon Universal Support -->
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<!-- Apple/Safari Support -->
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<!-- Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01"></script>
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-E1WR6TZG01");
+    </script>
+<!-- Structured Data: Service -->
+
+<!-- Structured Data: Local Business -->
+
+<!-- Meta & SEO -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Instant Fitness Repair Quote | Hamilton &amp; GTA | Canadian Fitness Repair</title>
+<meta content="Get a fast, accurate quote for treadmill repairs, elliptical maintenance &amp; gym equipment service in Hamilton &amp; GTA. 5-minute request form. No hidden fees." name="description"/>
+<meta content="treadmill repair quote, fitness equipment estimate, gym service pricing, elliptical repair cost, Hamilton fitness quote, GTA repair estimate, commercial gym quote, urgent repair pricing" name="keywords"/>
+<!-- Open Graph -->
+<meta content="Instant Fitness Repair Quote | Hamilton &amp; GTA" property="og:title"/>
+<meta content="Get a personalized quote in minutes for fitness equipment repair &amp; relocation. Serving Hamilton, Burlington, Oakville &amp; surrounding areas." property="og:description"/>
+<meta content="https://www.canadianfitnessrepair.com/images/quote-banner.jpg" property="og:image"/>
+<meta content="https://www.canadianfitnessrepair.com/get-quote.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<!-- Location Meta -->
+<meta content="Hamilton, Burlington, Oakville, Mississauga, Niagara, Greater Toronto Area" name="geo.placename"/>
+<meta content="43.2250;-79.8660" name="geo.position"/>
+<meta content="CA-ON" name="geo.region"/>
+<meta content="43.2250, -79.8660" name="ICBM"/>
+<!-- Canonical -->
+<link href="https://canadianfitnessrepair.com/get-quote.html" rel="canonical"/>
+<!-- Stylesheets -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="whatsapp.css" rel="stylesheet"/>
+<link href="headerfooter.css" rel="stylesheet">
+<style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        body {
+          font-family: "Segoe UI", Roboto, sans-serif;
+          background-color: var(--bg-color);
+          color: var(--text-color);
+          min-height: 100vh;
+          overflow-x: hidden;
+          line-height: 1.6;
+        } /* Quote Page Hero Section */
+        .quote-hero {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          padding: 8rem 2rem 1rem 2rem;
+          background: linear-gradient(
+              rgba(21, 23, 25, 0.9),
+              rgba(21, 23, 25, 0.7)
+            ),
+            url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80");
+          background-size: cover;
+          background-position: center;
+          min-height: 60vh;
+          color: white;
+          position: relative;
+        }
+        .quote-hero::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100px;
+          background: linear-gradient(transparent, var(--bg-color));
+        }
+        input.error,
+        select.error,
+        textarea.error {
+          border: 1.5px solid #ff4d4d; /* subtle red border */
+          background-color: #1f1f1f; /* dark background */
+          color: #ffffff; /* readable text */
+          caret-color: #ffffff;
+        }
+  
+        input.error::placeholder,
+        textarea.error::placeholder {
+          color: #bbbbbb; /* lighter placeholder for contrast */
+        }
+        input.error:focus,
+        select.error:focus,
+        textarea.error:focus {
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.4);
+        }
+        .error-message {
+          display: none;
+          color: #ff4d4d;
+          font-size: 0.85rem;
+          margin-top: 4px;
+          font-weight: 500;
+        }
+  
+        .form-group {
+          position: relative;
+        }
+  
+        .quote-hero h1 {
+          font-size: clamp(2rem, 5vw + 1rem, 3.5rem);
+          margin-top: 8rem;
+          margin-bottom: 2rem; /* margin-bottom: 1.5rem; */
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          line-height: 1.2;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+          color: var(--theme-color);
+        }
+        .quote-hero p {
+          font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+          max-width: 800px;
+          margin-bottom: 2.5rem;
+          color: var(--light-text);
+        }
+        .word-animation {
+          display: flex;
+          align-items: center;
+          justify-content: center; /* margin: 2rem 0; */
+          margin-top: 2rem;
+          height: 120px;
+          overflow: hidden;
+        }
+        #wordWrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          transition: transform 0.6s ease;
+          height: 120px;
+        }
+        .word-item {
+          font-size: clamp(3rem, 5vw, 6rem);
+          font-weight: bold;
+          color: var(--accent-color);
+          height: 120px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+        } /* Quote Form Section */
+        .quote-section {
+          padding: 18rem 2rem 2rem 2rem;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .form-container {
+          background-color: var(--card-bg);
+          border-radius: 16px;
+          padding: 3rem;
+          box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+          border: 1px solid rgba(93, 93, 255, 0.1);
+          position: relative;
+          overflow: hidden;
+        }
+        .form-container::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5px;
+          height: 0;
+          background: var(--accent-color);
+          transition: var(--transition);
+        }
+        .form-container:hover::before {
+          height: 100%;
+        }
+        .form-header {
+          text-align: center;
+          margin-bottom: 3rem;
+        }
+        .form-header h2 {
+          font-size: clamp(2rem, 4vw, 3rem);
+          margin-bottom: 1rem;
+          color: var(--theme-color);
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+        .form-header p {
+          font-size: 1.2rem;
+          color: var(--light-text);
+          max-width: 800px;
+          margin: 0 auto;
+        } /* Form Styles */
+        .quote-form {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+        }
+        .form-group {
+          margin-bottom: 1.5rem;
+        }
+        .form-group.full-width {
+          grid-column: 1 / -1;
+        }
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          color: var(--text-color);
+        }
+        .required::after {
+          content: "*";
+          color: var(--accent-color);
+          margin-left: 4px;
+        }
+        input,
+        select,
+        textarea {
+          width: 100%;
+          padding: 12px 16px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background-color: rgba(255, 255, 255, 0.05);
+          border-radius: 8px;
+          color: var(--text-color);
+          font-family: "Segoe UI", Roboto, sans-serif;
+          font-size: 1rem;
+          transition: var(--transition);
+        }
+        option {
+          background-color: #151719;
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+          outline: none;
+          border-color: var(--theme-color);
+          box-shadow: 0 0 0 3px rgba(93, 93, 255, 0.3);
+        }
+        input[type="radio"] {
+          width: auto;
+          margin-right: 8px;
+        }
+        .radio-group {
+          display: flex;
+          gap: 1.5rem;
+          align-items: center;
+        }
+        .radio-option {
+          display: flex;
+          align-items: center;
+        }
+        .radio-option label {
+          margin-bottom: 0;
+          font-weight: normal;
+        }
+        .row {
+          display: flex;
+          gap: 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+        .row > div {
+          flex: 1;
+        }
+        .form-section-title {
+          font-size: 1.4rem;
+          margin: 2.5rem 0 1.5rem;
+          padding-bottom: 10px;
+          border-bottom: 2px solid var(--theme-color);
+          color: var(--theme-color);
+          grid-column: 1 / -1;
+        }
+        .form-note {
+          font-size: 0.9rem;
+          color: var(--light-text);
+          margin-top: 4px;
+          font-style: italic;
+        } /* Additional styles for form validation */
+        .form-group.invalid input,
+        .form-group.invalid select,
+        .form-group.invalid textarea {
+          border-color: var(--accent-color) !important;
+        }
+        .form-group.invalid .error-message {
+          display: block;
+        }
+        .loading-overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(21, 23, 25, 0.85);
+          z-index: 2000;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+        .loading-spinner {
+          width: 60px;
+          height: 60px;
+          border: 5px solid rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          border-top-color: var(--theme-color);
+          animation: spin 1s ease-in-out infinite;
+          margin-bottom: 20px;
+        }
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        .contact-followup {
+          margin-top: 30px;
+          padding: 20px;
+          text-align: center;
+          background: #1e1e3f;
+          border-radius: 10px;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+  
+        .followup-msg {
+          font-size: 1rem;
+          margin-bottom: 15px;
+          color: #fff;
+        }
+  
+        .contact-buttons {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 15px;
+          margin-bottom: 10px;
+        }
+  
+        .c-button {
+          padding: 12px 18px;
+          border-radius: 6px;
+          text-decoration: none;
+          color: white;
+          font-weight: bold;
+          display: inline-block;
+          background-color: #5d5dff;
+          transition: background 0.3s ease;
+        }
+  
+        .c-button:hover {
+          background-color: #4a4ae0;
+        }
+  
+        .optional-note {
+          font-size: 0.85rem;
+          color: #aaa;
+        }
+  
+        /* By default, hide all */
+        .sms-btn,
+        .email-btn {
+          display: none;
+        }
+  
+        /* Show SMS only on mobile */
+        @media (max-width: 767px) {
+          .sms-btn {
+            display: inline-block;
+          }
+        }
+  
+        /* Show Email only on desktop */
+        @media (min-width: 768px) {
+          .email-btn {
+            display: inline-block;
+          }
+        }
+  
+        .submit-btn {
+          grid-column: 1 / -1;
+          text-align: center;
+          margin-top: 1.5rem;
+        }
+        .submit-btn button {
+          background-color: var(--theme-color);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          padding: 16px 40px;
+          font-size: 1.2rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: var(--transition);
+          position: relative;
+          overflow: hidden;
+          z-index: 1;
+          width: 100%;
+          max-width: 400px;
+        }
+        .submit-btn button::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 0%;
+          height: 100%;
+          background: var(--accent-color);
+          transition: var(--transition);
+          z-index: -1;
+        }
+        .submit-btn button:hover::before {
+          width: 100%;
+        }
+        .submit-btn button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 25px rgba(93, 93, 255, 0.3);
+        } /* Contact Info Card */
+        .contact-card {
+          background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+          border-radius: 16px;
+          padding: 2.5rem;
+          margin-top: 3rem;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+        .contact-card::before {
+          content: "";
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0) 70%
+          );
+          transform: rotate(30deg);
+        }
+        .contact-card h3 {
+          font-size: 1.8rem;
+          margin-bottom: 1.5rem;
+          position: relative;
+          z-index: 1;
+        }
+        .contact-info {
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          flex-wrap: wrap;
+          position: relative;
+          z-index: 1;
+        }
+        .contact-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .contact-item i {
+          font-size: 1.5rem;
+          color: var(--text-color);
+        }
+        .contact-item span {
+          font-size: 1.1rem;
+        } /* Add to your existing CSS */
+        .success-message .c-button {
+          margin-top: 20px;
+          background: var(--theme-color);
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+        .success-message .c-button:hover {
+          background: var(--accent-color);
+          transform: translateY(-2px);
+        } /* Responsive Styles - Mobile Menu Fixes */
+        @media (max-width: 992px) {
+          .word-animation {
+            /* margin-top: 2rem; */
+            height: 80px;
+          }
+          #wordWrapper {
+            height: 80px;
+          }
+          .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            height: 80px;
+          }
+          .quote-hero h1 {
+            font-size: 3rem;
+          }
+          .quote-hero p {
+            font-size: 1.3rem;
+          }
+          .word-item {
+            font-size: 4.5rem;
+          }
+          .form-container {
+            padding: 2rem;
+          }
+        }
+        @media (max-width: 767px) {
+          .word-animation {
+            /* margin-top: 2rem; */
+            height: 80px;
+          }
+          #wordWrapper {
+            height: 80px;
+          }
+          .word-item {
+            font-size: clamp(4rem, 5vw, 6rem);
+            height: 80px;
+          }
+          .quote-hero h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+          }
+          .quote-section {
+            padding-top: 12rem;
+          }
+          .quote-hero p {
+            font-size: 1.1rem;
+            margin-bottom: 0;
+          }
+          .form-container {
+            padding: 1.5rem;
+          }
+          .form-header h2 {
+            font-size: 1.8rem;
+          }
+          .form-header p {
+            font-size: 1rem;
+          }
+          .row {
+            flex-direction: column;
+            gap: 1rem;
+          }
+          .contact-info {
+            flex-direction: column;
+            align-items: center;
+          }
+        }
+        @media (max-width: 480px) {
+          .promo-line {
+            display: none;
+          }
+          #contactlist {
+            display: none;
+          }
+          .word-animation {
+            height: 80px;
+          }
+          #wordWrapper {
+            height: 80px;
+          }
+          .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            height: 80px;
+          }
+          .quote-hero {
+            min-height: 30vh;
+            padding: 0rem 1rem 0rem 1rem;
+          }
+          .quote-hero h1 {
+            font-size: 1.8rem;
+            padding-top: 0;
+          }
+          .quote-section {
+            padding-top: 2.5rem;
+          }
+          .form-header h2 {
+            font-size: 1.6rem;
+          } /* MOBILE-SPECIFIC FIXES */
+          .form-container {
+            padding: 1.2rem;
+          }
+          .form-group {
+            margin-bottom: 1.2rem;
+          }
+          input,
+          select,
+          textarea {
+            padding: 10px 14px;
+            font-size: 0.95rem;
+          }
+          .submit-btn button {
+            width: 60%;
+            padding: 14px 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            max-width: 100%;
+          }
+          .contact-card {
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+          }
+          .contact-card h3 {
+            font-size: 1.4rem;
+            line-height: 1.3;
+          }
+          .contact-item {
+            flex-direction: column;
+            text-align: center;
+            gap: 5px;
+            margin-bottom: 1rem;
+            width: 100%;
+          }
+          .contact-info {
+            gap: 0.5rem;
+          }
+          .contact-item span {
+            font-size: 1rem;
+            word-break: break-word;
+            max-width: 90%;
+          }
+          .radio-group {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+          }
+          .radio-option {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+          } /* Fix for date input on mobile */
+          input[type="datetime-local"] {
+            font-size: 0.9rem;
+            padding: 10px;
+          } /* Ensure text doesn't overflow */
+          input,
+          select,
+          textarea,
+          .form-note,
+          .contact-item span {
+            word-wrap: break-word;
+            max-width: 100%;
+          } /* Prevent horizontal scrolling */
+          html,
+          body {
+            overflow-x: hidden;
+          } /* Adjust form section titles */
+          .form-section-title {
+            font-size: 1.3rem;
+            margin: 2rem 0 1.2rem;
+          }
+        } /* EXTRA SMALL SCREEN FIXES (under 380px) */
+        @media (max-width: 380px) {
+          /* Reduce padding on all containers */
+          .word-animation {
+            /* margin-top: 2rem; */
+            height: 80px;
+          }
+          #wordWrapper {
+            height: 80px;
+          }
+          .word-item {
+            font-size: clamp(3rem, 5vw, 6rem);
+            height: 80px;
+          }
+          .quote-hero {
+            padding: 0rem 0.8rem 0 0.8rem;
+            min-height: 30vh;
+          }
+          .quote-section {
+            padding: 1.6rem 0.8rem 2rem 0.8rem;
+          }
+          .form-container {
+            padding: 1rem;
+          } /* Adjust form input padding */
+          input,
+          select,
+          textarea {
+            padding: 9px 12px;
+            font-size: 0.92rem;
+          } /* Reduce font sizes slightly */
+          .quote-hero h1 {
+            font-size: 1.7rem;
+          }
+          .quote-hero p {
+            font-size: 1rem;
+            padding-bottom: 0rem;
+          }
+          .form-header h2 {
+            font-size: 1.5rem;
+          }
+          .form-header p {
+            font-size: 0.95rem;
+          }
+          .form-section-title {
+            font-size: 1.25rem;
+          } /* Adjust contact card */
+          .contact-card {
+            padding: 1.2rem 0.8rem;
+          }
+          .contact-card h3 {
+            font-size: 1.3rem;
+          } /* Make radio options stack vertically */
+          .radio-group {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+          }
+          .radio-option {
+            width: 100%;
+          } /* Adjust success message */
+          .success-message {
+            padding: 15px;
+          } /* Ensure inputs don't overflow */
+          input,
+          select,
+          textarea {
+            width: 100%;
+            box-sizing: border-box;
+          }
+        } /* Form Dropdown Improvements */
+        select {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 12px center;
+          background-size: 16px;
+          padding-right: 40px;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+        }
+        .radio-option {
+          background: rgba(255, 255, 255, 0.05);
+          padding: 10px 15px;
+          border-radius: 8px;
+          transition: var(--transition);
+        }
+        .radio-option:hover {
+          background: rgba(93, 93, 255, 0.1);
+        }
+        .form-group:focus-within label {
+          color: var(--theme-color);
+        } /* Animation Improvements */
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .form-container {
+          animation: fadeIn 0.6s ease-out;
+        } /* Success Message */
+        .success-message {
+          display: none;
+          background: rgba(93, 93, 255, 0.15);
+          border: 1px solid var(--theme-color);
+          border-radius: 8px;
+          padding: 20px;
+          margin: 20px 0;
+          text-align: center;
+        }
+        .success-message.show {
+          display: block;
+          animation: fadeIn 0.5s;
+        } /* Form Group Enhancements */
+        .form-group {
+          position: relative;
+        }
+        .error-message {
+          color: var(--accent-color);
+          font-size: 0.85rem;
+          display: none;
+          margin-top: 4px;
+        }
+        .success-wrapper {
+          max-width: 700px;
+          margin: 40px auto;
+          text-align: center;
+        }
+  
+        .success-box {
+          background: #1e1e3f;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 0 0 1px #5d5dff;
+          margin-bottom: 30px;
+        }
+  
+        .success-icon {
+          font-size: 2.5rem;
+          color: #5dff96;
+          margin-bottom: 10px;
+        }
+  
+        .success-title {
+          font-size: 1.4rem;
+          color: white;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+  
+        .success-text {
+          font-size: 1rem;
+          color: #ddd;
+          margin-bottom: 20px;
+        }
+  
+        .contact-followup {
+          background: #15151f;
+          padding: 25px;
+          border-radius: 10px;
+        }
+  
+        .followup-msg {
+          font-size: 1rem;
+          color: #fff;
+          margin-bottom: 15px;
+        }
+  
+        .contact-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 12px;
+        }
+  
+        .c-button {
+          background: #5d5dff;
+          color: white;
+          padding: 12px 18px;
+          text-decoration: none;
+          border-radius: 6px;
+          font-weight: bold;
+          transition: background 0.3s ease;
+        }
+  
+        .c-button:hover {
+          background-color: #4a4ae0;
+        }
+  
+        .optional-note {
+          font-size: 0.85rem;
+          color: #aaa;
+        }
+  
+        .asterisk {
+          color: #ff6b6b;
+          margin-right: 4px;
+          font-weight: bold;
+        }
+  
+        /* Show SMS only on mobile */
+        .sms-btn {
+          display: none;
+        }
+        @media (max-width: 767px) {
+          .sms-btn {
+            display: inline-block;
+          }
+        }
+  
+        /* Show Email only on desktop */
+        .email-btn {
+          display: none;
+        }
+        @media (min-width: 768px) {
+          .email-btn {
+            display: inline-block;
+          }
+        }
+      </style>
+</link><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Canadian Fitness Repair",
+  "url": "https://www.canadianfitnessrepair.com/",
+  "telephone": "+1-289-925-7239",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Hamilton",
+    "addressRegion": "ON",
+    "addressCountry": "CA"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 43.2557,
+    "longitude": -79.8711
+  },
+  "areaServed": "Hamilton + 150km GTA",
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Treadmill Repair"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Elliptical Repair"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Bike Repair"
+      }
+    }
+  ]
+}</script></head>
+<body>
+<div id="header"></div>
+<main>
+<section class="quote-section" itemscope="" itemtype="https://schema.org/Service">
+<div class="form-container">
+<div class="form-header">
+<h2 itemprop="name">WE'LL GET YOU BACK UP AND RUNNING</h2>
+<p itemprop="description">
+              To serve you better, please describe the problem you are having
+              with your machine and provide as much detail as possible. Include
+              photos and videos with your request to help us troubleshoot your
+              problem better.
+            </p>
+</div>
+<div class="success-wrapper" id="successMessage" style="display: none">
+<div class="success-box">
+<i class="ri-checkbox-circle-line success-icon"></i>
+<h3 class="success-title">Thank You for Booking Your Repair!</h3>
+<p class="success-text">
+                We've received your booking request and will contact you shortly
+                to confirm your appointment.
+              </p>
+<button class="c-button" id="newRequestBtn">
+                Submit Another Request
+              </button>
+</div>
+<div class="contact-followup" id="contactOptions">
+<p class="followup-msg">
+                If you'd like, you can now send us a photo/video of the issue to
+                help us serve you better:
+              </p>
+<div class="contact-buttons">
+<a class="c-button whatsapp-btn" id="whatsappLink" target="_blank">📲 Send via WhatsApp</a>
+<a class="c-button sms-btn" id="smsLink" target="_blank">💬 Send via SMS</a>
+<a class="c-button email-btn" id="emailLink" target="#">✉️ Send via Email</a>
+</div>
+<p class="optional-note">
+<span class="asterisk">*</span>This step is optional.
+              </p>
+</div>
+</div>
+<form autocomplete="off" class="quote-form" id="quoteForm" itemscope="" itemtype="https://schema.org/ServiceRequest" method="POST" novalidate="" onsubmit="return false;">
+<h3 class="form-section-title">Personal Information</h3>
+<div class="form-group" itemprop="customer" itemscope="" itemtype="https://schema.org/Person">
+<label class="required" for="firstName">First Name</label>
+<input id="firstName" itemprop="givenName" name="firstName" placeholder="First Name" required="" type="text"/>
+<div class="error-message" id="firstNameError">
+                Please enter your first name
+              </div>
+</div>
+<div class="form-group" itemprop="customer">
+<label for="lastName">Last Name</label>
+<input id="lastName" itemprop="familyName" name="lastName" placeholder="Last Name" type="text"/>
+</div>
+<div class="form-group" itemprop="customer">
+<label class="required" for="contactNumber">Contact Number</label>
+<input id="contactNumber" itemprop="telephone" name="contactNumber" placeholder="(123) 456-7890" required="" type="tel"/>
+<div class="error-message" id="contactNumberError">
+                Please enter a valid phone number
+              </div>
+</div>
+<div class="form-group" itemprop="customer">
+<label class="required" for="email">Email Address</label>
+<input id="email" itemprop="email" name="email" placeholder="example@email.com" required="" type="email"/>
+<div class="error-message" id="emailError">
+                Please enter a valid email address
+              </div>
+</div>
+<div class="form-group" itemprop="customer">
+<label for="preferredContact">Preferred Contact Method</label>
+<select id="preferredContact" name="preferredContact">
+<option value="">-- Select Contact Method --</option>
+<option value="email">Email</option>
+<option value="phone">Contact Number</option>
+</select>
+<div class="error-message" id="preferredContactError">
+                Please select a contact method
+              </div>
+</div>
+<div class="form-group full-width" itemprop="serviceLocation" itemscope="" itemtype="https://schema.org/Place">
+<div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
+<label class="required" for="address">Street Address</label>
+<input id="address" itemprop="streetAddress" name="address" placeholder="123 Example Street" required="" type="text"/>
+<div class="error-message" id="addressError">
+                  Please enter your address
+                </div>
+</div>
+</div>
+<div class="form-group" itemprop="serviceLocation" itemscope="" itemtype="https://schema.org/Place">
+<div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
+<label class="required" for="city">City/Town</label>
+<select id="city" itemprop="addressLocality" name="city" required="">
+<option value="">-- Select City/Town --</option>
+<option value="Toronto">Toronto</option>
+<option value="Mississauga">Mississauga</option>
+<option value="Brampton">Brampton</option>
+<option value="Hamilton">Hamilton</option>
+<option value="Oakville">Oakville</option>
+<option value="Burlington">Burlington</option>
+<option value="Oshawa">Oshawa</option>
+<option value="Whitby">Whitby</option>
+<option value="Ajax">Ajax</option>
+<option value="Pickering">Pickering</option>
+<option value="Markham">Markham</option>
+<option value="Vaughan">Vaughan</option>
+<option value="Richmond Hill">Richmond Hill</option>
+<option value="Newmarket">Newmarket</option>
+<option value="Aurora">Aurora</option>
+<option value="Milton">Milton</option>
+<option value="Georgetown">Georgetown</option>
+<option value="Caledon">Caledon</option>
+<option value="Scarborough">Scarborough</option>
+<option value="Etobicoke">Etobicoke</option>
+<option value="North York">North York</option>
+<option value="East York">East York</option>
+<option value="Keswick">Keswick</option>
+<option value="Stouffville">Stouffville</option>
+<option value="Bradford">Bradford</option>
+<option value="King City">King City</option>
+<option value="Maple">Maple</option>
+<option value="Thornhill">Thornhill</option>
+<option value="Courtice">Courtice</option>
+<option value="Clarington">Clarington</option>
+<option value="Bowmanville">Bowmanville</option>
+<option value="Port Perry">Port Perry</option>
+<option value="Uxbridge">Uxbridge</option>
+<option value="Guelph">Guelph</option>
+<option value="Cambridge">Cambridge</option>
+<option value="Kitchener">Kitchener</option>
+<option value="Waterloo">Waterloo</option>
+<option value="Niagara Falls">Niagara Falls</option>
+<option value="St. Catharines">St. Catharines</option>
+<option value="Welland">Welland</option>
+<option value="Grimsby">Grimsby</option>
+<option value="Beamsville">Beamsville</option>
+<option value="Smithville">Smithville</option>
+<option value="Paris">Paris</option>
+<option value="Brantford">Brantford</option>
+<option value="Woodstock">Woodstock</option>
+<option value="London">London</option>
+</select>
+<div class="error-message" id="cityError">
+                  Please select your city
+                </div>
+</div>
+</div>
+<div class="form-group" itemprop="serviceLocation" itemscope="" itemtype="https://schema.org/Place">
+<div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
+<label class="required" for="postal">Postal Code</label>
+<input id="postal" itemprop="postalCode" name="postal" placeholder="A1A 1A1" required="" type="text"/>
+<div class="error-message" id="postalError">
+                  Please enter a valid postal code
+                </div>
+</div>
+</div>
+<div class="form-group" itemprop="serviceLocation" itemscope="" itemtype="https://schema.org/Place">
+<div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
+<label for="province">Province</label>
+<select disabled="" id="province" name="province">
+<option selected="" value="ON">Ontario</option>
+</select>
+<meta content="ON" itemprop="addressRegion"/>
+</div>
+</div>
+<div class="form-group" itemprop="serviceLocation" itemscope="" itemtype="https://schema.org/Place">
+<div itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
+<label for="country">Country</label>
+<input disabled="" id="country" name="country" type="text" value="Canada"/>
+<meta content="CA" itemprop="addressCountry"/>
+</div>
+</div>
+<h3 class="form-section-title">Equipment Information</h3>
+<div class="form-group">
+<label>I am a(n)</label>
+<div class="radio-group">
+<div class="radio-option">
+<input id="individual" name="clientType" type="radio" value="Individual"/>
+<label for="individual">Individual</label>
+</div>
+<div class="radio-option">
+<input id="business" name="clientType" type="radio" value="Business"/>
+<label for="business">Business</label>
+</div>
+</div>
+<div class="error-message" id="clientTypeError">
+                Please select client type
+              </div>
+</div>
+<div class="form-group">
+<label class="required" for="serviceRequest">Service Request</label>
+<select id="serviceRequest" itemprop="serviceType" name="serviceRequest" required="">
+<option value="">-- Select Service --</option>
+<option value="Preventative Maintenance">
+                  Preventative Maintenance
+                </option>
+<option value="Inspection">Inspection</option>
+<option value="Repairs &amp; Tune-Ups">
+                  Repairs &amp; Tune-Ups
+                </option>
+<option value="Relocation &amp; Assembly">
+                  Relocation &amp; Assembly
+                </option>
+</select>
+<div class="error-message" id="serviceRequestError">
+                Please select a service
+              </div>
+</div>
+<div class="form-group">
+<label class="required" for="equipmentType">Equipment Type</label>
+<select id="equipmentType" name="equipmentType" required="">
+<option value="">-- Select Equipment Type --</option>
+<option value="Treadmill">Treadmill</option>
+<option value="Elliptical">Elliptical</option>
+<option value="Exercise Bike">Exercise Bike</option>
+<option value="Rowing Machine">Rowing Machine</option>
+<option value="Strength Equipment">Strength Equipment</option>
+<option value="Stair Climber">Stair Climber</option>
+<option value="Total Gym / Hybrid Trainer">
+                  Total Gym / Hybrid Trainer
+                </option>
+<option value="Spin Bike">Spin Bike</option>
+<option value="Recumbent Bike">Recumbent Bike</option>
+<option value="Upright Bike">Upright Bike</option>
+<option value="Arc Trainer">Arc Trainer</option>
+<option value="Rower">Rower</option>
+<option value="Other">Other</option>
+</select>
+<div class="error-message" id="equipmentTypeError">
+                Please select equipment type
+              </div>
+</div>
+<div class="form-group">
+<label class="required" for="brand">Equipment Manufacturer</label>
+<select id="brand" name="brand" required="">
+<option value="">-- Select Manufacturer --</option>
+<option value="NordicTrack">NordicTrack</option>
+<option value="ProForm">ProForm</option>
+<option value="Life Fitness">Life Fitness</option>
+<option value="Precor">Precor</option>
+<option value="Matrix Fitness">Matrix Fitness</option>
+<option value="Sole Fitness">Sole Fitness</option>
+<option value="Bowflex">Bowflex</option>
+<option value="Horizon Fitness">Horizon Fitness</option>
+<option value="Technogym">Technogym</option>
+<option value="True Fitness">True Fitness</option>
+<option value="Spirit Fitness">Spirit Fitness</option>
+<option value="Cybex">Cybex</option>
+<option value="Freemotion">Freemotion</option>
+<option value="Star Trac">Star Trac</option>
+<option value="Peloton">Peloton</option>
+<option value="Nautilus">Nautilus</option>
+<option value="BH Fitness">BH Fitness</option>
+<option value="Octane Fitness">Octane Fitness</option>
+<option value="Woodway">Woodway</option>
+<option value="Reebok">Reebok</option>
+<option value="Schwinn">Schwinn</option>
+<option value="Kettler">Kettler</option>
+<option value="JTX Fitness">JTX Fitness</option>
+<option value="York Fitness">York Fitness</option>
+<option value="Other">🔧 My manufacturer is not listed</option>
+</select>
+<input id="manualBrand" name="manualBrand" placeholder="🔧 My manufacturer is not listed" style="display: none" type="text"/>
+<div class="error-message" id="brandError">
+                Please select a manufacturer
+              </div>
+</div>
+<div class="form-group" id="modelGroup">
+<label class="required" for="model">Model Number</label>
+<select id="model" name="model" required="">
+<option value="">-- Select Model --</option>
+</select>
+<input id="manualModel" name="manualModel" placeholder="Enter your model number" style="display: none" type="text"/>
+<div class="error-message" id="modelError">
+                Please select or enter a model
+              </div>
+</div>
+<div class="form-group">
+<label for="serial">Serial Number</label>
+<input id="serial" name="serial" type="text"/>
+</div>
+<div class="form-group">
+<label class="required" for="bookingDateTime">Preferred Booking Date &amp; Time</label>
+<input id="bookingDateTime" itemprop="startTime" name="bookingDateTime" required="" type="datetime-local"/>
+<div class="error-message" id="bookingDateTimeError">
+                Please select a date and time
+              </div>
+</div>
+<div class="form-group full-width">
+<label class="required" for="description">Description of Issue</label>
+<textarea id="description" itemprop="description" name="description" placeholder="Example: Treadmill belt slipping, Elliptical making noise, Console not powering on, Motor overheating, Resistance not adjusting..." required="" rows="5"></textarea>
+<div class="error-message" id="descriptionError">
+                Please describe the issue
+              </div>
+</div>
+<div class="submit-btn">
+<button id="submitButton" type="button">
+<i class="ri-service-line"></i> Book Your Service Now
+              </button>
+</div>
+</form>
+<div class="loading-overlay" id="loadingOverlay">
+<div class="loading-spinner"></div>
+<p>Submitting your request...</p>
+</div>
+<div class="contact-card" itemscope="" itemtype="https://schema.org/LocalBusiness">
+<meta content="Canadian Fitness Repair" itemprop="name"/>
+<meta content="https://www.canadianfitnessrepair.com/images/logo.png" itemprop="image"/>
+<meta content="$$" itemprop="priceRange"/>
+<h3>Need Immediate Assistance?</h3>
+<div class="contact-info">
+<div class="contact-item" itemprop="telephone">
+<i class="ri-phone-line"></i><span>+1 289 925 7239</span>
+</div>
+<div class="contact-item" itemprop="email">
+<i class="ri-mail-line"></i>
+<span id="contactcardemail">canadianfitnessrepair@gmail.com</span>
+</div>
+<div class="contact-item" itemprop="address" itemscope="" itemtype="https://schema.org/PostalAddress">
+<i class="ri-map-pin-line"></i>
+<span itemprop="addressLocality">Hamilton</span>,
+                <span itemprop="addressRegion">ON</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="whatsapp-widget" id="whatsappWidget">
+<div class="widget-header">
+<div class="whatsapp-icon"><i class="fab fa-whatsapp"></i></div>
+<div class="header-text">
+<h3>Canadian Fitness Repair</h3>
+<p>Typically replies instantly</p>
+</div>
+<button class="close-btn" id="closeBtn">×</button>
+</div>
+<div class="chat-content" id="chatContent">
+<div class="message received">
+              Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can
+              we help you with your fitness equipment today?
+            </div>
+<div class="message received">
+              We specialize in repairing treadmills, ellipticals, exercise
+              bikes, and strength training equipment. Let us know what you need
+              help with!
+            </div>
+<div class="message sent">Great!.</div>
+</div>
+<div class="action-area">
+<button class="whatsapp-btn" id="whatsappBtn">
+<i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </button>
+</div>
+</div>
+<div class="floating-btn pulse" id="floatingBtn">
+<i class="fab fa-whatsapp"></i>
+</div>
+</section>
+</main>
+<div id="footer"></div>
+<script src="menu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize EmailJS
+        emailjs.init("Y3qHd9eGkrVsfM-Fs");
+        
+        // Constants
+        const yourPhone = "12899257239";
+        const yourEmail = "canadianfitnessrepair@gmail.com";
+        let lastSubmission = null; // Store form data
+    
+        // Form elements
+        const quoteForm = document.getElementById("quoteForm");
+        const successMessage = document.getElementById("successMessage");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        const newRequestBtn = document.getElementById("newRequestBtn");
+        const submitButton = document.getElementById("submitButton");
+        const typeSelect = document.getElementById("equipmentType");
+        const brandSelect = document.getElementById("brand");
+        const modelSelect = document.getElementById("model");
+        const manualBrandInput = document.getElementById("manualBrand");
+        const manualModelInput = document.getElementById("manualModel");
+    
+        // Save original button HTML for reset
+        const originalButtonHTML = submitButton.innerHTML;
+    
+        // ========== RECOMMENDATION #1: PHONE NUMBER FORMATTING ==========
+        const phoneInput = document.getElementById("contactNumber");
+        phoneInput.addEventListener("input", function(e) {
+          const value = e.target.value.replace(/\D/g, '');
+          let formatted = '';
+          
+          if (value.length > 0) formatted = `(${value.substring(0,3)}`;
+          if (value.length > 3) formatted += `) ${value.substring(3,6)}`;
+          if (value.length > 6) formatted += `-${value.substring(6,10)}`;
+          
+          e.target.value = formatted;
+        });
+    
+        // ========== RECOMMENDATION #2: POSTAL CODE VALIDATION ==========
+        const postalInput = document.getElementById("postal");
+        postalInput.addEventListener("input", function() {
+          const errorElement = document.getElementById("postalError");
+          if (this.value.trim() && !/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(this.value)) {
+            errorElement.textContent = "Format: A1A 1A1";
+            errorElement.style.display = "block";
+          } else {
+            errorElement.style.display = "none";
+          }
+        });
+    
+        // ========== RECOMMENDATION #3: BOOKING DATE VALIDATION ==========
+        const bookingInput = document.getElementById("bookingDateTime");
+        // Set default to next hour
+        const now = new Date();
+        const nextHour = new Date(now.setHours(now.getHours() + 1, 0, 0, 0));
+        bookingInput.value = nextHour.toISOString().slice(0, 16);
+        
+        bookingInput.addEventListener("change", function() {
+          const selectedDate = new Date(this.value);
+          const now = new Date();
+          const errorElement = document.getElementById("bookingDateTimeError");
+          
+          if (selectedDate < now) {
+            errorElement.textContent = "Cannot book past dates";
+            errorElement.style.display = "block";
+          } else {
+            errorElement.style.display = "none";
+          }
+        });
+    
+        // ========== RECOMMENDATION #4: ENHANCED LOADING STATE ==========
+        // Add spinner CSS dynamically
+        const spinnerCSS = `
+          <style>
+            .submit-spinner {
+              display: inline-block;
+              width: 16px;
+              height: 16px;
+              border: 2px solid rgba(255,255,255,0.3);
+              border-radius: 50%;
+              border-top-color: white;
+              animation: spin 1s ease-in-out infinite;
+              margin-right: 8px;
+            }
+            @keyframes spin {
+              to { transform: rotate(360deg); }
+            }
+          </style>
+        `;
+        document.head.insertAdjacentHTML("beforeend", spinnerCSS);
+    
+        // ========== RECOMMENDATION #5: SAVE FORM PROGRESS ==========
+        function saveFormState() {
+          const formData = new FormData(quoteForm);
+          const data = Object.fromEntries(formData);
+          localStorage.setItem('repairFormData', JSON.stringify(data));
+        }
+    
+        function loadFormState() {
+          const data = JSON.parse(localStorage.getItem('repairFormData'));
+          if (data) {
+            Object.keys(data).forEach(key => {
+              const el = quoteForm.elements[key];
+              if (el && data[key] !== null && data[key] !== undefined) {
+                el.value = data[key];
+              }
+            });
+          }
+        }
+    
+        // ========== RECOMMENDATION #6: ACCESSIBILITY IMPROVEMENTS ==========
+        document.querySelectorAll('.error-message').forEach(el => {
+          el.setAttribute('role', 'alert');
+          el.setAttribute('aria-live', 'polite');
+        });
+    
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+          const errorId = input.id + 'Error';
+          const errorElement = document.getElementById(errorId);
+          if (errorElement) {
+            input.setAttribute('aria-describedby', errorId);
+          }
+        });
+    
+        // ========== RECOMMENDATION #7: SUCCESS CONFETTI ==========
+        const confettiCanvas = document.createElement('canvas');
+        confettiCanvas.id = 'confettiCanvas';
+        confettiCanvas.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:1000;display:none;';
+        document.body.appendChild(confettiCanvas);
+    
+        function triggerConfetti() {
+          const canvas = document.getElementById('confettiCanvas');
+          canvas.style.display = 'block';
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          
+          const ctx = canvas.getContext('2d');
+          const pieces = [];
+          const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+          
+          // Create confetti pieces
+          for (let i = 0; i < 150; i++) {
+            pieces.push({
+              x: Math.random() * canvas.width,
+              y: -20,
+              size: Math.random() * 10 + 5,
+              speed: Math.random() * 3 + 2,
+              color: colors[Math.floor(Math.random() * colors.length)],
+              rotation: Math.random() * 360,
+              spin: Math.random() * 10 - 5
+            });
+          }
+          
+          // Animation function
+          function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            let activePieces = 0;
+            
+            pieces.forEach(p => {
+              p.y += p.speed;
+              p.x += Math.sin(p.y * 0.05);
+              p.rotation += p.spin;
+              
+              if (p.y < canvas.height) {
+                activePieces++;
+                
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                ctx.restore();
+              }
+            });
+            
+            if (activePieces > 0) {
+              requestAnimationFrame(animate);
+            } else {
+              canvas.style.display = 'none';
+            }
+          }
+          
+          animate();
+        }
+    
+        // ========== EMAIL LINK HANDLER ==========
+        document.getElementById("emailLink").addEventListener("click", function(e) {
+          e.preventDefault();
+          
+          if (!lastSubmission) {
+            alert("Please submit the form before sending media");
+            return;
+          }
+    
+          const { name, phone, city, service, brand, model } = lastSubmission;
+          
+          const message = `Hi! I just submitted a repair request. Here are my details:
+    Name: ${name}
+    Phone: ${phone}
+    City: ${city}
+    Service: ${service}
+    Brand: ${brand}
+    Model: ${model}
+    
+    Please attach photos/videos below this line:
+    -------------------------------------------`;
+    
+          const encodedMessage = encodeURIComponent(message);
+          
+          if (confirm("This will open your email client to send photos/videos. Continue?")) {
+            window.location.href = `mailto:${yourEmail}?subject=Repair%20Media%20From%20${encodeURIComponent(name)}&body=${encodedMessage}`;
+          }
+        });
+    
+        // Equipment mappings
+        const equipmentBrandMap = {
+          Treadmill: [
+            "NordicTrack", "ProForm", "Life Fitness", "Precor", "Matrix Fitness", 
+            "Sole Fitness", "Horizon Fitness", "Bowflex", "Technogym", "Woodway",
+            "True Fitness", "Reebok", "Spirit Fitness", "Cybex", "Star Trac",
+            "Octane Fitness", "Freemotion", "Peloton", "BH Fitness", "Schwinn",
+            "Kettler", "JTX Fitness", "York Fitness", "Nautilus"
+          ],
+          Elliptical: [
+            "NordicTrack", "ProForm", "Life Fitness", "Precor", "Matrix Fitness",
+            "Sole Fitness", "Spirit Fitness", "Technogym", "Horizon Fitness",
+            "Octane Fitness", "Freemotion", "Bowflex", "Nautilus"
+          ],
+          "Exercise Bike": [
+            "Peloton", "Schwinn", "NordicTrack", "ProForm", "Life Fitness",
+            "Spirit Fitness", "Cybex", "Matrix Fitness", "BH Fitness", "Bowflex",
+            "Nautilus", "Horizon Fitness", "Technogym"
+          ],
+          "Rowing Machine": [
+            "Concept2", "Hydrow", "WaterRower", "NordicTrack", "Life Fitness",
+            "ProForm", "Sole Fitness"
+          ],
+          "Strength Equipment": [
+            "Hoist", "Hammer Strength", "Body-Solid", "Life Fitness", "Precor",
+            "Bowflex", "Technogym", "Cybex", "Matrix Fitness", "Freemotion"
+          ],
+          "Stair Climber": [
+            "StairMaster", "Jacobs Ladder", "Technogym", "Life Fitness", "Precor"
+          ],
+          "Spin Bike": [
+            "Peloton", "Keiser", "NordicTrack", "ProForm", "Schwinn", "Bowflex"
+          ],
+          "Recumbent Bike": [
+            "Nautilus", "Schwinn", "ProForm", "Life Fitness", "Matrix Fitness",
+            "Bowflex", "Horizon Fitness"
+          ],
+          "Upright Bike": [
+            "Schwinn", "Life Fitness", "Precor", "Matrix Fitness", "ProForm",
+            "Bowflex", "Technogym"
+          ],
+          "Arc Trainer": ["Cybex", "Octane Fitness"],
+          Other: []
+        };
+    
+        const modelData = {
+    // NordicTrack Models
+    "NordicTrack": {
+      "Treadmill": [
+        "Commercial 1750", "Commercial 2450", "Commercial 2950", "X22i", 
+        "X32i", "T 6.5 S", "T 8.5 S", "C 990", "C 700", "Incline Trainer X11i",
+        "VR25", "EXP 10i", "Elite 900"
+      ],
+      "Elliptical": [
+        "FS14i", "FS10i", "FS7i", "AudioStrider 990", "E11.5", "Commercial 14.9",
+        "SpaceSaver SE7i", "E7.0", "Elliptical 7.0", "Elliptical 11.5"
+      ],
+      "Exercise Bike": [
+        "S22i Studio Cycle", "S27i Studio Cycle", "VU 19", "R35 Recumbent Bike",
+        "U35 Upright Bike", "GX 4.7", "VR25", "Grand Tour Pro"
+      ],
+      "Rowing Machine": ["RW900", "RW500", "RW200"],
+      "Spin Bike": ["S15i", "S22i", "GX 4.5"]
+    },
+
+    // Life Fitness Models
+    "Life Fitness": {
+      "Treadmill": [
+        "T5", "T7", "T9", "Run CX", "Elevation Series T7", "Integrity Series T5",
+        "Club Series Plus", "95T", "F3 Folding", "95T Inspire"
+      ],
+      "Elliptical": [
+        "E5", "E7", "E9", "CrossTrainer CX", "Elevation Series E7", "Integrity Series E5",
+        "95E", "X3", "Elliptical X3", "95E Inspire"
+      ],
+      "Exercise Bike": [
+        "C5", "C7", "C9", "Lifecycle Exercise Bike", "Elevation Series C7",
+        "Integrity Series C5", "95Ci", "R3 Recumbent", "U3 Upright"
+      ],
+      "Strength Equipment": [
+        "Signature Series", "Optima Series", "Circuit Series", "G7", "Hammer Strength"
+      ],
+      "Stair Climber": ["Stepmill 5", "Stepmill 7", "Stepmill 9"]
+    },
+
+    // Precor Models
+    "Precor": {
+      "Treadmill": [
+        "TRM 835", "TRM 885", "Experience Series", "EFX 5.23", "9.35", "9.31",
+        "Commercial Series 932", "TRM 211", "TRM 445"
+      ],
+      "Elliptical": [
+        "EFX 833", "EFX 885", "EFX 5.23", "Experience Series", "AMT 885", "AMT 835",
+        "CrossRater 546", "EFX 447", "EFX 885"
+      ],
+      "Exercise Bike": [
+        "RBK 835", "UBK 885", "Spinner® Chrono Power", "9.35", "Recumbent Series 546",
+        "Upright Series 532"
+      ],
+      "Stair Climber": ["StairMaster 8G", "StairMaster 7G", "StairMaster 5G"]
+    },
+
+    // Peloton Models
+    "Peloton": {
+      "Exercise Bike": ["Bike", "Bike+"],
+      "Treadmill": ["Tread", "Tread+"],
+      "Rowing Machine": ["Row"],
+      "Spin Bike": ["Bike", "Bike+"]
+    },
+
+    // Bowflex Models
+    "Bowflex": {
+      "Treadmill": [
+        "Treadmill 10", "Treadmill 7", "TreadClimber TC200", "TreadClimber TC100",
+        "Max Trainer M9", "Max Trainer M6", "BXT216", "T10", "T22"
+      ],
+      "Strength Equipment": [
+        "Bowflex Xtreme 2 SE", "Bowflex Blaze", "Bowflex Revolution", "Bowflex PR3000",
+        "Bowflex SelectTech 552", "Bowflex Max Trainer", "Bowflex Home Gym"
+      ],
+      "Exercise Bike": ["C6", "Velocore", "C7"],
+      "Recumbent Bike": ["C6", "C7"]
+    },
+
+    // Sole Fitness Models
+    "Sole Fitness": {
+      "Treadmill": ["F85", "F80", "F63", "TT8", "ST90", "S77", "F65"],
+      "Elliptical": ["E98", "E95", "E35", "E25", "E55"],
+      "Exercise Bike": [
+        "R92 Recumbent", "R93 Recumbent", "U77 Upright", "LCR Light Commercial Rower",
+        "SB700 Spin Bike"
+      ],
+      "Rowing Machine": ["LCR", "SR500", "SR800"]
+    },
+
+    // Technogym Models
+    "Technogym": {
+      "Treadmill": [
+        "Run Excite", "Run Personal", "Run Performance", "Skillrun", "Skillmill"
+      ],
+      "Elliptical": [
+        "Elliptical Excite", "Elliptical Personal", "Skillbike", "Skillup"
+      ],
+      "Exercise Bike": [
+        "Bike Excite", "Bike Personal", "Bike Performance", "Cycle Excite", "Skillbike"
+      ],
+      "Strength Equipment": ["Selection", "Pure Strength", "Personal Line"],
+      "Stair Climber": ["Climber", "Skillclimber"]
+    },
+
+    // Matrix Fitness Models
+    "Matrix Fitness": {
+      "Treadmill": ["T75", "T7X", "T5X", "T3X"],
+      "Elliptical": ["E7X", "E5X", "E3X", "A7X"],
+      "Exercise Bike": ["C7X", "C5X", "U7X", "R7X"],
+      "Strength Equipment": ["ClimbMill", "Chest Press", "Leg Press"],
+      "Upright Bike": ["U7X", "U5X"],
+      "Recumbent Bike": ["R7X", "R5X"]
+    },
+
+    // Schwinn Models
+    "Schwinn": {
+      "Treadmill": ["870", "810", "830"],
+      "Exercise Bike": ["IC8", "IC4", "270 Recumbent", "170 Upright"],
+      "Spin Bike": ["IC4", "IC8"],
+      "Recumbent Bike": ["270", "230"],
+      "Upright Bike": ["170", "130"]
+    },
+
+    // Nautilus Models
+    "Nautilus": {
+      "Treadmill": ["T618", "T616", "T614"],
+      "Exercise Bike": ["U618", "R618"],
+      "Recumbent Bike": ["R618", "R616"],
+      "Upright Bike": ["U618", "U616"]
+    },
+
+    // Other Manufacturers (flat list)
+    "ProForm": [
+      "Carbon TL", "Pro 2000", "Smart Pro 2000", "Studio Bike Pro", "ProForm 440",
+      "ProForm 680", "Power 995i", "Performance 600i", "Carbon T7", "City L6"
+    ],
+    "Horizon Fitness": [
+      "7.0 AT", "7.8 T", "Paragon X", "Adventure 5", "Studio 7.8", "T101"
+    ],
+    "True Fitness": [
+      "PS800", "M30", "CS9.0", "HRC", "Z5.0", "T800"
+    ],
+    "Spirit Fitness": [
+      "XT685", "XT385", "CS800", "CRW800", "BUF800", "XT485"
+    ],
+    "Cybex": [
+      "750T", "770T", "625A", "VR3", "Eagle", "Arc Trainer 770A"
+    ],
+    "Star Trac": [
+      "4TR", "E-TR", "E-SPX", "UB", "RB", "4ST"
+    ],
+    "BH Fitness": [
+      "G6545", "G6418", "G6436", "H917", "H915", "G6480"
+    ],
+    "Octane Fitness": [
+      "LateralX", "Zero Runner", "Q47", "Q37", "Q65"
+    ],
+    "Woodway": [
+      "4Front", "Desmo", "Curve", "Elite", "Pro"
+    ],
+    "York Fitness": [
+      "C510", "C410", "T520", "E520", "S520"
+    ],
+    "Freemotion": [
+      "Reflex Treadmill", "Incline Trainer", "Dual Cable Cross", "22.7 Treadmill"
+    ],
+    "Concept2": [
+      "Model D", "Model E", "RowErg", "SkiErg", "BikeErg"
+    ],
+    "StairMaster": [
+      "StepMill 7000 PT", "Gauntlet", "StepMill 4400 PT", "StepMill 4600 PT"
+    ],
+    "Keiser": [
+      "M3i", "M3", "M5i", "M5", "Rower"
+    ]
+  };
+    
+        // Initialize form
+        resetModel();
+        resetManualBrand();
+        populateBrands();
+        
+        // Load saved form state
+        loadFormState();
+    
+        // Save form state on changes
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+          el.addEventListener('change', saveFormState);
+          el.addEventListener('input', saveFormState);
+        });
+    
+        // Equipment Type → Brand
+        typeSelect.addEventListener("change", populateBrands);
+    
+        function populateBrands() {
+          const type = typeSelect.value;
+          brandSelect.innerHTML = '<option value="">-- Select Manufacturer --</option>';
+          
+          (equipmentBrandMap[type] || []).forEach((brand) => {
+            const opt = document.createElement("option");
+            opt.value = brand;
+            opt.textContent = brand;
+            brandSelect.appendChild(opt);
+          });
+          
+          const otherOpt = document.createElement("option");
+          otherOpt.value = "Other";
+          otherOpt.textContent = "🔧 My manufacturer is not listed";
+          brandSelect.appendChild(otherOpt);
+          
+          resetModel();
+          resetManualBrand();
+          saveFormState();
+        }
+    
+        // Brand → Model
+        brandSelect.addEventListener("change", populateModels);
+    
+        function populateModels() {
+          const brand = brandSelect.value;
+          resetModel();
+    
+          if (brand === "Other") {
+            showManualBrandInput();
+            showManualModelInput();
+            return;
+          }
+    
+          hideManualBrandInput();
+          const equipmentType = typeSelect.value;
+          const brandModels = modelData[brand];
+          
+          if (!brandModels) {
+            modelSelect.style.display = "block";
+            modelSelect.required = true;
+            return;
+          }
+    
+          if (typeof brandModels === 'object' && !Array.isArray(brandModels)) {
+            const equipmentModels = brandModels[equipmentType];
+            
+            if (equipmentModels && equipmentModels.length > 0) {
+              equipmentModels.forEach(model => {
+                const opt = new Option(model, model);
+                modelSelect.appendChild(opt);
+              });
+            } else {
+              Object.values(brandModels).flat().forEach(model => {
+                const opt = new Option(model, model);
+                modelSelect.appendChild(opt);
+              });
+            }
+          } 
+          else if (Array.isArray(brandModels)) {
+            brandModels.forEach(model => {
+              const opt = new Option(model, model);
+              modelSelect.appendChild(opt);
+            });
+          }
+    
+          const otherOpt = new Option("🔧 My model is not listed", "Other");
+          modelSelect.appendChild(otherOpt);
+          
+          modelSelect.style.display = "block";
+          modelSelect.required = true;
+          saveFormState();
+        }
+    
+        // Model → Manual input toggle
+        modelSelect.addEventListener("change", function() {
+          if (modelSelect.value === "Other") {
+            showManualModelInput();
+          } else {
+            hideManualModelInput();
+          }
+          saveFormState();
+        });
+    
+        // Form submission
+        quoteForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          clearErrors();
+    
+          if (!validateForm()) {
+            const error = document.querySelector(".error");
+            if (error) {
+              error.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+            return;
+          }
+    
+          // Enhanced loading state
+          submitButton.innerHTML = '<div class="submit-spinner"></div> Processing...';
+          submitButton.disabled = true;
+          loadingOverlay.style.display = "flex";
+    
+          emailjs
+            .sendForm("service_15f1fcs", "template_pq3tpbe", quoteForm)
+            .then(() => {
+              loadingOverlay.style.display = "none";
+              successMessage.style.display = "block";
+              submitButton.innerHTML = originalButtonHTML;
+              submitButton.disabled = false;
+              
+              // Confetti celebration
+              triggerConfetti();
+              
+              const name = document.getElementById("firstName").value.trim();
+              const phone = document.getElementById("contactNumber").value.trim();
+              const city = document.getElementById("city").value;
+              const service = document.getElementById("serviceRequest").value;
+              const brand = brandSelect.value === "Other" 
+                ? manualBrandInput.value 
+                : brandSelect.value;
+              const model = modelSelect.value === "Other" || modelSelect.style.display === "none"
+                ? manualModelInput.value 
+                : modelSelect.value;
+    
+              const message = `Hi! I just submitted a repair request. Here are my details:
+    Name: ${name}
+    Phone: ${phone}
+    City: ${city}
+    Service: ${service}
+    Brand: ${brand}
+    Model: ${model}
+    
+    I'd like to send a photo/video to help with the repair.`;
+    
+              const encodedMessage = encodeURIComponent(message);
+              
+              // Store for email link
+              lastSubmission = { 
+                name, 
+                phone, 
+                city, 
+                service, 
+                brand, 
+                model 
+              };
+    
+              // Set up contact links
+              document.getElementById("whatsappLink").href = `https://wa.me/${yourPhone}?text=${encodedMessage}`;
+              document.getElementById("smsLink").href = `sms:${yourPhone}?&body=${encodedMessage}`;
+              
+              // Show contact options
+              document.getElementById("contactOptions").style.display = "block";
+              quoteForm.style.display = "none";
+              localStorage.removeItem('repairFormData');
+              
+              setTimeout(() => {
+                successMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+              }, 200);
+            })
+            .catch(() => {
+              loadingOverlay.style.display = "none";
+              submitButton.innerHTML = originalButtonHTML;
+              submitButton.disabled = false;
+              alert("Submission failed. Please try again.");
+            });
+        });
+    
+        // New request button
+        if (newRequestBtn) {
+          newRequestBtn.addEventListener("click", () => {
+            quoteForm.reset();
+            clearErrors();
+            quoteForm.style.display = "grid";
+            successMessage.style.display = "none";
+            populateBrands();
+            lastSubmission = null;
+            localStorage.removeItem('repairFormData');
+            
+            // Reset booking time to next hour
+            const now = new Date();
+            const nextHour = new Date(now.setHours(now.getHours() + 1, 0, 0, 0));
+            document.getElementById('bookingDateTime').value = nextHour.toISOString().slice(0, 16);
+          });
+        }
+    
+        // ========== FORM HELPER FUNCTIONS ==========
+        function showManualBrandInput() {
+          manualBrandInput.style.display = "block";
+          manualBrandInput.required = true;
+        }
+    
+        function hideManualBrandInput() {
+          manualBrandInput.style.display = "none";
+          manualBrandInput.required = false;
+        }
+    
+        function resetManualBrand() {
+          hideManualBrandInput();
+          manualBrandInput.value = "";
+        }
+    
+        function showManualModelInput() {
+          manualModelInput.style.display = "block";
+          manualModelInput.required = true;
+          modelSelect.required = false;
+        }
+    
+        function hideManualModelInput() {
+          manualModelInput.style.display = "none";
+          manualModelInput.required = false;
+          modelSelect.required = true;
+        }
+    
+        function resetModel() {
+          modelSelect.innerHTML = '<option value="">-- Select Model --</option>';
+          modelSelect.style.display = "none";
+          modelSelect.required = false;
+          hideManualModelInput();
+        }
+    
+        // Validation
+        function validateForm() {
+          let valid = true;
+          const required = [
+            "firstName", "contactNumber", "email", 
+            "address", "city", "postal", "serviceRequest", "equipmentType",
+            "bookingDateTime", "description"
+          ];
+    
+          required.forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el || !el.value.trim()) {
+              showError(el, id + "Error", "Required");
+              valid = false;
+            }
+          });
+    
+    
+          const brand = brandSelect.value;
+          if (brand === "Other" && !manualBrandInput.value.trim()) {
+            showError(manualBrandInput, "brandError", "Please enter manufacturer");
+            valid = false;
+          }
+    
+          const modelValue = modelSelect.value;
+          if (modelValue === "Other" || brand === "Other") {
+            if (!manualModelInput.value.trim()) {
+              showError(manualModelInput, "modelError", "Please enter model");
+              valid = false;
+            }
+          } else if (modelSelect.style.display !== "none" && !modelValue) {
+            showError(modelSelect, "modelError", "Please select a model");
+            valid = false;
+          }
+    
+          const email = document.getElementById("email");
+          if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+            showError(email, "emailError", "Invalid email address");
+            valid = false;
+          }
+    
+          const phone = document.getElementById("contactNumber");
+          const phoneNum = phone.value.replace(/\D/g, '');
+          if (phoneNum && phoneNum.length !== 10) {
+            showError(phone, "contactNumberError", "Invalid phone number");
+            valid = false;
+          }
+    
+          const postal = document.getElementById("postal");
+          if (postal.value && !/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(postal.value)) {
+            showError(postal, "postalError", "Format: A1A 1A1");
+            valid = false;
+          }
+    
+          // Booking date validation
+          const bookingDate = new Date(bookingInput.value);
+          const now = new Date();
+          if (bookingDate < now) {
+            showError(bookingInput, "bookingDateTimeError", "Cannot book past dates");
+            valid = false;
+          }
+    
+          return valid;
+        }
+    
+        function showError(el, id, msg) {
+          const err = document.getElementById(id);
+          if (err) {
+            err.textContent = msg;
+            err.style.display = "block";
+            err.setAttribute('aria-live', 'assertive');
+          }
+          if (el) {
+            el.classList.add("error");
+            el.setAttribute('aria-invalid', 'true');
+          }
+        }
+    
+        function hideError(el, id) {
+          const err = document.getElementById(id);
+          if (err) {
+            err.style.display = "none";
+            err.removeAttribute('aria-live');
+          }
+          if (el) {
+            el.classList.remove("error");
+            el.removeAttribute('aria-invalid');
+          }
+        }
+    
+        function clearErrors() {
+          document.querySelectorAll(".error-message").forEach(el => {
+            el.style.display = "none";
+            el.removeAttribute('aria-live');
+          });
+          document.querySelectorAll(".error").forEach(el => {
+            el.classList.remove("error");
+            el.removeAttribute('aria-invalid');
+          });
+        }
+    
+        // Field validation
+        document.querySelectorAll("input, select, textarea").forEach((f) => {
+          f.addEventListener("input", () => validateField(f));
+          f.addEventListener("blur", () => validateField(f));
+        });
+    
+        function validateField(f) {
+          hideError(f, f.id + "Error");
+          const val = f.value.trim();
+    
+          if (f.required && !val) {
+            showError(f, f.id + "Error", "Required");
+          }
+    
+          if (f.id === "email" && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+            showError(f, "emailError", "Invalid email");
+          }
+    
+          if (f.id === "contactNumber" && val) {
+            const phoneNum = val.replace(/\D/g, '');
+            if (phoneNum.length !== 10) {
+              showError(f, "contactNumberError", "Invalid phone");
+            }
+          }
+    
+          if (f.id === "postal" && val && !/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(val)) {
+            showError(f, "postalError", "Format: A1A 1A1");
+          }
+          
+          if (f.id === "bookingDateTime" && val) {
+            const selectedDate = new Date(val);
+            const now = new Date();
+            if (selectedDate < now) {
+              showError(f, "bookingDateTimeError", "Cannot book past dates");
+            }
+          }
+        }
+    
+        // Initialize submit button
+        submitButton.addEventListener("click", function () {
+          quoteForm.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+        });
+      });
+    </script>
+<script src="whatsapp.js"></script>
+<script defer="" src="headerfooter.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ayaan's Super Day Checklist</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Segoe UI', Arial, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f9f7f3;
+            color: #1e2a2e;
+        }
+        h1 {
+            text-align: center;
+            color: #d97706;
+            border-bottom: 3px solid #fbbf24;
+            display: inline-block;
+            width: auto;
+            margin: 0 auto 20px;
+        }
+        h2 {
+            background: #fde68a;
+            padding: 8px;
+            border-radius: 20px;
+            font-size: 1.3rem;
+        }
+        .schedule {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .task-row {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            border-bottom: 1px dashed #ccc;
+            padding: 6px 0;
+        }
+        .time {
+            width: 110px;
+            font-weight: bold;
+            color: #b45309;
+        }
+        .task {
+            flex: 1;
+            margin-left: 10px;
+        }
+        .check {
+            width: 50px;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+        .rules, .reward {
+            background: #eef2ff;
+            padding: 12px;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+        .reward-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .reward-table th, .reward-table td {
+            border: 1px solid #cbd5e1;
+            padding: 8px;
+            text-align: center;
+        }
+        @media print {
+            body {
+                margin: 0;
+                padding: 10px;
+            }
+            .task-row {
+                break-inside: avoid;
+            }
+            .check input {
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🌟 Ayaan’s Super Day Checklist 🌟</h1>
+    <p style="text-align:center">Mark ✅ each box when you finish. Try your best every day!</p>
+
+    <div class="schedule">
+        <!-- Morning -->
+        <div class="task-row"><div class="time">7:30 AM</div><div class="task">Wake up, stretch, say “Good morning”</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">7:30–7:45</div><div class="task">Brush teeth (2 min), wash face, get dressed</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">7:45–8:15</div><div class="task"><strong>Healthy breakfast</strong> (eggs+toast / oatmeal+fruit / peanut butter sandwich + milk). No screens.</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">8:15–8:30</div><div class="task">Make bed, dirty clothes in hamper, pack water bottle</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">8:30–8:45</div><div class="task">Quiet activity: read a short story or puzzle</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">8:45–9:00</div><div class="task">Backpack by door, shoes on, ready for bus. Calm goodbye.</div><div class="check">☐</div></div>
+
+        <!-- School -->
+        <div class="task-row"><div class="time">9:00–4:00</div><div class="task"><strong>School time</strong> – Listen, raise hand, eat all lunch, run at recess</div><div class="check">☐</div></div>
+
+        <!-- After school -->
+        <div class="task-row"><div class="time">4:00–4:15</div><div class="task">Wash hands, change clothes, tell mom/dad one good thing about your day</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">4:15–4:30</div><div class="task"><strong>Healthy snack</strong> (fruit+yogurt / cheese+crackers / nuts)</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">4:30–5:00</div><div class="task">Screen time – 30 min max. Timer rings → put iPad on charger. No arguing.</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">5:00–5:30</div><div class="task">Online class – sit at desk, full attention</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">5:30–6:15</div><div class="task">Homework (Math + English). First work, then play.</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">6:15–7:15</div><div class="task">Outdoor play – run, jump, cycle. If rain: indoor dance or jumping jacks.</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">7:15–7:45</div><div class="task">Shower or relax (draw, Legos, audiobook). No intense games.</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">7:45–8:15</div><div class="task"><strong>Family dinner</strong> – roji/rice + dal/chicken + vegetables. No phones.</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">8:15–8:45</div><div class="task">Pack school bag for tomorrow, lay out clothes</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">8:45–9:15</div><div class="task">Calm time – read, journal, draw</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">9:15–9:30</div><div class="task">Brush teeth, floss, put on pajamas</div><div class="check">☐</div></div>
+        <div class="task-row"><div class="time">9:30–10:00</div><div class="task"><strong>Lights out</strong> – No screens. Sleep tight!</div><div class="check">☐</div></div>
+    </div>
+
+    <div class="rules">
+        <h2>⭐ Weekly Rules</h2>
+        <ul>
+            <li>Junk food (chips, cookies, Doritos) → only 2–3 days per week.</li>
+            <li>Screen time – weekdays: 30 min max; weekends: 1 hour after chores.</li>
+            <li>Outdoor activity – every day, at least 1 hour.</li>
+            <li>Wake up & bedtime – even on weekends, within 30 minutes of these times.</li>
+            <li>“First work, then play.” No extra screen until homework is done.</li>
+        </ul>
+    </div>
+
+    <div class="reward">
+        <h2>🎁 Weekly Reward Chart</h2>
+        <table class="reward-table">
+            <tr><th>Day</th><th>Finished all tasks without arguing?</th><th>Parent initial</th></tr>
+            <tr><td>Monday</td><td>☐ Yes  /  ☐ Almost</td><td>______</td></tr>
+            <tr><td>Tuesday</td><td>☐ Yes  /  ☐ Almost</td><td>______</td></tr>
+            <tr><td>Wednesday</td><td>☐ Yes  /  ☐ Almost</td><td>______</td></tr>
+            <tr><td>Thursday</td><td>☐ Yes  /  ☐ Almost</td><td>______</td></tr>
+            <tr><td>Friday</td><td>☐ Yes  /  ☐ Almost</td><td>______</td></tr>
+            <tr><td>Saturday</td><td>☐ Yes  /  ☐ Almost</td><td>______</td></tr>
+            <tr><td>Sunday</td><td>☐ Yes  /  ☐ Almost</td><td>______</td></tr>
+        </table>
+        <p><strong>If you get 5 “Yes” in a week →</strong> extra 30 min screen time, pick a movie, or stay up 15 min later on Friday.</p>
+    </div>
+</body>
+</html>
