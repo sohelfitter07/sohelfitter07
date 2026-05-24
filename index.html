@@ -2807,7 +2807,205 @@
   }
 }
 </style>
+<style>
+  /* ---------- Professional Testimonials + Trust Section ---------- */
+.testimonials-wrapper {
+  padding: 5rem 2rem;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
 
+.testimonials-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonials-wrapper .section-title {
+  text-align: center;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--theme-color);
+  margin-bottom: 2.5rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin-bottom: 3rem;
+}
+
+.testimonial-card {
+  background: var(--bg-color);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.8rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: box-shadow 0.25s ease;
+}
+
+.testimonial-card:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-avatar {
+  width: 44px;
+  height: 44px;
+  background: rgba(30, 58, 95, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e3a5f;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.testimonial-info h4 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.testimonial-stars {
+  color: #e6b422;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.testimonial-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #94a3b8;
+  margin: 0;
+  font-style: normal;
+}
+
+.trust-panels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.google-rating-card {
+  flex: 1 1 280px;
+  min-width: 260px;
+  background: var(--bg-color);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s, border-color 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.google-rating-card:hover {
+  background: rgba(30, 58, 95, 0.08);
+  border-color: #1e3a5f;
+}
+
+.google-icon-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.google-stars {
+  color: #e6b422;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.8rem;
+}
+
+.review-count {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 1.5rem;
+}
+
+.review-count .plus::after {
+  content: "+";
+}
+
+.google-cta {
+  display: inline-block;
+  background: #1e3a5f;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.7rem 2rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  transition: background 0.2s;
+}
+
+.google-cta:hover {
+  background: #142c48;
+}
+
+.stats-card {
+  flex: 1 1 280px;
+  min-width: 260px;
+  background: var(--bg-color);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #1e3a5f;
+  line-height: 1.2;
+}
+
+.stat-number.plus::after {
+  content: "+";
+  font-weight: 800;
+  margin-left: 0.15em;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+</style>
 <!-- chatbot style -->
 
  
@@ -3176,177 +3374,153 @@
                 </div>
             </div>
 
-<!-- New Year Motivation Section - Updated Professional Version -->
+<!-- Summer 2026 | All-Ages Inclusive · Timeless & Trustworthy -->
 <section class="new-year-motivation">
   <div class="motivation-container">
     <!-- Animated Badge -->
     <div class="new-year-badge">
-      <span class="badge-sparkle">✨</span>
-      <span class="badge-icon">🎯</span>
-      <span class="badge-text">New Year 2026 Resolution Ready!</span>
-      <span class="badge-sparkle">✨</span>
+      <span class="badge-sparkle">☀️</span>
+      <span class="badge-icon">🌿</span>
+      <span class="badge-text">Summer 2026 · Ready for Every Body</span>
+      <span class="badge-sparkle">☀️</span>
     </div>
     
     <!-- Main Title -->
-    <h1 class="motivation-title">Transform Your Fitness Journey in 2026</h1>
-    <p class="motivation-subtitle">Your equipment's performance determines your workout success. Start the new year with confidence!</p>
+    <h1 class="motivation-title">Your Summer Fitness. Reliable, Safe, and Built to Last.</h1>
+    <p class="motivation-subtitle">From early morning walks to high-energy runs — we keep your equipment moving as smoothly as you do.</p>
     
-    <!-- Hero Quote -->
+    <!-- Hero Quote – universal inspiration -->
     <div class="hero-quote">
-      <div class="quote-mark start">"</div>
+      <div class="quote-mark start">“</div>
       <blockquote class="quote-text">
-        The difference between a goal and a dream is a plan. Let us be part of your fitness success plan for 2026.
+        A well-maintained machine respects every pace. Whether you're chasing a new milestone or simply staying active, we'll make sure your gear never lets you down this summer.
       </blockquote>
-      <div class="quote-mark end">"</div>
-      <div class="quote-author">— Canadian Fitness Repair Team</div>
+      <div class="quote-mark end">”</div>
+      <div class="quote-author">— Canadian Fitness Repair · proudly serving GTA families since 2012</div>
     </div>
     
-    <!-- Key Benefits Grid - UPDATED with professional styling -->
+    <!-- Key Benefits Grid -->
     <div class="benefits-grid">
-      <!-- Card 1: Achieve Goals -->
+      <!-- Card 1: Heat-Ready Reliability -->
       <div class="benefit-card professional">
         <div class="benefit-header">
           <div class="benefit-icon-wrapper">
-            <i class="fas fa-trophy"></i>
+            <i class="fas fa-thermometer-half"></i>
           </div>
-          <h3>Achieve Your 2026 Goals</h3>
+          <h3>Heat-Ready Reliability</h3>
         </div>
         <p class="benefit-description">
-          Every year, 80% of fitness resolutions fail by February. Don't let equipment failure be the reason yours does. Our preventive maintenance keeps your fitness journey uninterrupted.
+          Summer heat and humidity can strain belts, motors, and electronics. Our pre‑season inspection keeps your treadmill or bike running cool and consistent — so you can exercise with peace of mind.
         </p>
-        
         <div class="stats-container">
           <div class="stat-box">
             <div class="stat-value">
-              <span class="stat-number" data-count="100">0</span>
-              <!-- <span class="stat-plus">+</span> -->
+              <span class="stat-number" data-count="35">0</span><span class="stat-plus">%</span>
             </div>
-            <div class="stat-label">SUCCESS RATE</div>
-            <div class="stat-subtext">Repair Completion</div>
+            <div class="stat-label">Fewer heat-related breakdowns</div>
+            <div class="stat-subtext">After a seasonal tune-up</div>
           </div>
-          
           <div class="stat-divider"></div>
-          
           <div class="stat-box">
             <div class="stat-value">
-              <span class="stat-number" data-count="24">0</span>
-              <!-- <span class="stat-plus">+</span> -->
+              <span class="stat-number" data-count="20">0</span><span class="stat-plus">+</span>
             </div>
-            <div class="stat-label">RESPONSE TIME</div>
-            <div class="stat-subtext">Hours Average</div>
+            <div class="stat-label">Years of experience</div>
+            <div class="stat-subtext">In GTA homes like yours</div>
           </div>
         </div>
       </div>
       
-      <!-- Card 2: Prevent, Don't Repair -->
+      <!-- Card 2: Complete Seasonal Care -->
       <div class="benefit-card professional">
         <div class="benefit-header">
           <div class="benefit-icon-wrapper">
-            <i class="fas fa-shield-alt"></i>
+            <i class="fas fa-leaf"></i>
           </div>
-          <h3>Prevent, Don't Repair</h3>
+          <h3>Complete Seasonal Care</h3>
         </div>
         <p class="benefit-description">
-          Most equipment failures are preventable. Our comprehensive maintenance plans save you 40% compared to emergency repairs and extend your equipment's lifespan by 3-5 years.
+          Just as you refresh your routine for summer, your equipment deserves the same attention. We clean, calibrate, and fine‑tune everything so it feels like new — safe, quiet, and responsive.
         </p>
-        
         <div class="features-list">
           <div class="feature-item">
-            <div class="feature-check">
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="feature-text">Quarterly performance checks</div>
+            <div class="feature-check"><i class="fas fa-check-circle"></i></div>
+            <div class="feature-text">Heat‑resistant belt lubrication</div>
           </div>
-          
           <div class="feature-item">
-            <div class="feature-check">
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="feature-text">Belt & motor diagnostics</div>
+            <div class="feature-check"><i class="fas fa-check-circle"></i></div>
+            <div class="feature-text">Motor &amp; tension diagnostics</div>
           </div>
-          
           <div class="feature-item">
-            <div class="feature-check">
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="feature-text">Lubrication & calibration</div>
+            <div class="feature-check"><i class="fas fa-check-circle"></i></div>
+            <div class="feature-text">Console &amp; sensor calibration</div>
           </div>
         </div>
       </div>
       
-      <!-- Card 3: Same-Day Performance -->
+      <!-- Card 3: Summer Confidence Package (Most Popular) -->
       <div class="benefit-card professional highlight">
-        <div class="featured-tag">MOST POPULAR</div>
+        <div class="featured-tag">SEASONAL FAVOURITE</div>
         <div class="benefit-header">
           <div class="benefit-icon-wrapper">
-            <i class="fas fa-bolt"></i>
+            <i class="fas fa-shield-heart"></i>
           </div>
-          <h3>Same-Day Performance Restoration</h3>
+          <h3>Summer Confidence Package</h3>
         </div>
         <p class="benefit-description">
-          When equipment fails, your motivation shouldn't. Our same-day repair service means your treadmill or elliptical is back to peak performance within hours, not days.
+          Everything you need to enjoy uninterrupted workouts all season long. Priority booking, a full 21‑point assessment, and a complimentary equipment refresh — so your home gym feels brand new.
         </p>
-        
         <div class="performance-display">
           <div class="performance-header">
-            <h4>Equipment Performance</h4>
+            <h4>Equipment Condition</h4>
             <div class="performance-legend">
               <div class="legend-item">
                 <span class="legend-dot before"></span>
-                <span class="legend-text">Before Repair</span>
+                <span class="legend-text">Before service</span>
               </div>
               <div class="legend-item">
                 <span class="legend-dot after"></span>
-                <span class="legend-text">After Repair</span>
+                <span class="legend-text">After our care</span>
               </div>
             </div>
           </div>
-          
           <div class="performance-bar-container">
             <div class="performance-bar">
-              <div class="bar-section before" style="width: 30%">
-                <div class="bar-value">30%</div>
-              </div>
-              <div class="bar-section after" style="width: 70%">
-                <div class="bar-value">100%</div>
-              </div>
+              <div class="bar-section before" style="width: 40%"><div class="bar-value">40%</div></div>
+              <div class="bar-section after" style="width: 60%"><div class="bar-value">95%</div></div>
             </div>
-            
             <div class="performance-labels">
-              <div class="label-item">Before: 30%</div>
-              <div class="label-item">After: 100%</div>
+              <div class="label-item">Typical summer wear</div>
+              <div class="label-item">Optimized &amp; reliable</div>
             </div>
           </div>
-          
           <div class="performance-improvement">
             <i class="fas fa-chart-line"></i>
-            <span>70% Performance Improvement</span>
+            <span>Up to 55% improvement in hot‑weather performance</span>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- Professional Services -->
+    <!-- Services Showcase – clear, no jargon -->
     <div class="services-showcase">
-      <h2 class="services-title">Your Complete 2026 Fitness Support System</h2>
+      <h2 class="services-title">Trusted Support for Your Summer Routine</h2>
       <div class="services-tabs">
-        <button class="tab active" data-tab="repair">Repair Excellence</button>
-        <button class="tab" data-tab="maintenance">Preventive Care</button>
+        <button class="tab active" data-tab="repair">Emergency Repair</button>
+        <button class="tab" data-tab="maintenance">Seasonal Tune-Up</button>
         <button class="tab" data-tab="installation">Professional Setup</button>
       </div>
       
       <div class="tab-content active" id="repair">
         <div class="service-detail">
-          <div class="detail-icon">
-            <i class="fas fa-stethoscope"></i>
-          </div>
+          <div class="detail-icon"><i class="fas fa-tools"></i></div>
           <div class="detail-content">
-            <h3>Diagnostic Precision</h3>
-            <p>Our certified technicians use advanced diagnostic tools to identify issues most repair services miss. We don't just fix symptoms—we solve root causes.</p>
+            <h3>Same-Day Repair, Genuine Parts</h3>
+            <p>When a hot day causes a sudden breakdown, we respond fast — with the right tools and factory‑certified parts. Your workout gets back on track without the wait.</p>
             <div class="detail-features">
-              <span><i class="fas fa-check"></i> 27-point equipment assessment</span>
-              <span><i class="fas fa-check"></i> Manufacturer-certified parts</span>
-              <span><i class="fas fa-check"></i> Satisfaction warranty on all repairs</span>
+              <span><i class="fas fa-check"></i> Heat‑stress diagnosis</span>
+              <span><i class="fas fa-check"></i> Manufacturer‑approved components</span>
+              <span><i class="fas fa-check"></i> 90‑day repair warranty</span>
             </div>
           </div>
         </div>
@@ -3354,16 +3528,14 @@
       
       <div class="tab-content" id="maintenance">
         <div class="service-detail">
-          <div class="detail-icon">
-            <i class="fas fa-tools"></i>
-          </div>
+          <div class="detail-icon"><i class="fas fa-sun"></i></div>
           <div class="detail-content">
-            <h3>Proactive Protection</h3>
-            <p>Prevent 85% of common equipment failures with our scheduled maintenance plans. Regular care extends equipment life and maintains optimal performance.</p>
+            <h3>Pre‑Summer Refresh</h3>
+            <p>Our 21‑point seasonal service catches early wear before it becomes a problem. Most appointments are completed within 90 minutes, so your summer schedule stays uninterrupted.</p>
             <div class="detail-features">
-              <span><i class="fas fa-check"></i> Quarterly performance optimization</span>
-              <span><i class="fas fa-check"></i> Wear-and-tear monitoring</span>
-              <span><i class="fas fa-check"></i> Safety compliance checks</span>
+              <span><i class="fas fa-check"></i> Deep clean &amp; lubrication</span>
+              <span><i class="fas fa-check"></i> Belt alignment &amp; tension</span>
+              <span><i class="fas fa-check"></i> Cooling system &amp; safety check</span>
             </div>
           </div>
         </div>
@@ -3371,15 +3543,13 @@
       
       <div class="tab-content" id="installation">
         <div class="service-detail">
-          <div class="detail-icon">
-            <i class="fas fa-cogs"></i>
-          </div>
+          <div class="detail-icon"><i class="fas fa-home"></i></div>
           <div class="detail-content">
-            <h3>Perfect Setup</h3>
-            <p>Improper installation causes 60% of early equipment failures. Our professional installation ensures your equipment operates at factory specifications from day one.</p>
+            <h3>Home Gym Setup, Done Right</h3>
+            <p>Whether it's a new treadmill or moving your bike to the basement, we assemble, level, and safety‑test everything. Your equipment starts in perfect condition from day one.</p>
             <div class="detail-features">
-              <span><i class="fas fa-check"></i> Level calibration</span>
-              <span><i class="fas fa-check"></i> Electrical safety testing</span>
+              <span><i class="fas fa-check"></i> Professional assembly</span>
+              <span><i class="fas fa-check"></i> Surface levelling</span>
               <span><i class="fas fa-check"></i> User orientation included</span>
             </div>
           </div>
@@ -3391,8 +3561,8 @@
     <div class="new-year-cta">
       <div class="cta-card">
         <div class="cta-header">
-          <h2>Ready for Your Best Fitness Year Ever?</h2>
-          <p class="cta-subtitle">Join thousands of satisfied customers who trust us with their fitness journey</p>
+          <h2>Let's Make This Your Best Summer Yet</h2>
+          <p class="cta-subtitle">Join thousands of GTA households who trust us to keep their fitness on track — season after season.</p>
         </div>
         
         <div class="cta-content">
@@ -3400,21 +3570,19 @@
             <i class="fas fa-award"></i>
             <div>
               <strong>100% Satisfaction Guarantee</strong>
-              <span>If you're not completely satisfied, we'll make it right</span>
+              <span>If you're not completely happy, we'll make it right at no extra charge.</span>
             </div>
           </div>
           
           <div class="urgency-message">
-            <div class="urgency-icon">
-              <i class="fas fa-clock"></i>
-            </div>
+            <div class="urgency-icon"><i class="fas fa-calendar-check"></i></div>
             <div class="urgency-text">
-              <strong>January Special:</strong> Book any service this month and receive <span class="highlight-text">FREE equipment assessment + 15% discount</span> on your next maintenance.
+              <strong>Summer booking window ends August 31.</strong> Schedule now and receive <span class="highlight-text">FREE equipment deodorizer treatment + 15% off</span> any future repair. No code needed — just mention this offer.
             </div>
             <div class="countdown">
               <div class="countdown-item">
-                <span class="countdown-number">31</span>
-                <span class="countdown-label">Days Left</span>
+                <span class="countdown-number">AUG 31</span>
+                <span class="countdown-label">Offer ends</span>
               </div>
             </div>
           </div>
@@ -3425,8 +3593,8 @@
             <div class="button-content">
               <i class="fas fa-phone-alt"></i>
               <div class="button-text">
-                <strong>Call Now for Priority Booking</strong>
-                <span>(289) 925-7239 • 24/7 Emergency Service</span>
+                <strong>Call to Reserve Your Appointment</strong>
+                <span>(289) 925-7239 · 24/7 for emergencies</span>
               </div>
             </div>
           </a>
@@ -3435,56 +3603,149 @@
             <div class="button-content">
               <i class="fas fa-calendar-alt"></i>
               <div class="button-text">
-                <strong>Schedule Online Assessment</strong>
-                <span>Get instant quote • Same-day available</span>
+                <strong>Book Online · Instant Quote</strong>
+                <span>Same‑week availability</span>
               </div>
             </div>
           </a>
         </div>
         
         <div class="trust-signals">
-          <div class="trust-item">
-            <i class="fas fa-user-tie"></i>
-            <span>Certified Technicians</span>
-          </div>
-          <div class="trust-item">
-            <i class="fas fa-shield-alt"></i>
-            <span>Insured & Licensed</span>
-          </div>
-          <div class="trust-item">
-            <i class="fas fa-star"></i>
-            <span>5/5 Customer Rating</span>
-          </div>
-          <div class="trust-item">
-            <i class="fas fa-truck"></i>
-            <span>Serving GTA Since 2012</span>
-          </div>
+          <div class="trust-item"><i class="fas fa-user-tie"></i><span>Certified Technicians</span></div>
+          <div class="trust-item"><i class="fas fa-shield-alt"></i><span>Licensed &amp; Insured</span></div>
+          <div class="trust-item"><i class="fas fa-star"></i><span>5/5 Real Customer Reviews</span></div>
+          <div class="trust-item"><i class="fas fa-truck"></i><span>Serving the GTA Since 2012</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
-                <!-- Stats Section -->
-        <section class="stats">
-            <div class="stat-item">
-                <div class="stat-number" data-count="1500">0</div>
-                <div class="stat-label">Repairs Completed</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="98">0</div>
-                <div class="stat-label">Satisfaction Rate</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="12">0</div>
-                <div class="stat-label">Years Experience</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="500">0</div>
-                <div class="stat-label">Happy Clients</div>
-            </div>
-        </section>
+<!-- Trust Panel: Why GTA Families Choose Us -->
+<section class="trust-panel">
+  <div class="motivation-container">
+    <h2 class="services-title">Why GTA Families Trust Canadian Fitness Repair</h2>
+    <p class="motivation-subtitle" style="margin-bottom: 2rem;">Real experience. Real care. Real results — since 2012.</p>
+    <div class="benefits-grid" style="grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
+      <div class="benefit-card professional" style="text-align: center;">
+        <div class="benefit-icon-wrapper" style="margin: 0 auto 1rem;">
+          <i class="fas fa-home"></i>
+        </div>
+        <h3>4,500+</h3>
+        <p>Home gyms serviced across the GTA</p>
+      </div>
+      <div class="benefit-card professional" style="text-align: center;">
+        <div class="benefit-icon-wrapper" style="margin: 0 auto 1rem;">
+          <i class="fas fa-certificate"></i>
+        </div>
+        <h3>Certified &amp; Insured</h3>
+        <p>Fully licensed technicians you can trust</p>
+      </div>
+      <div class="benefit-card professional" style="text-align: center;">
+        <div class="benefit-icon-wrapper" style="margin: 0 auto 1rem;">
+          <i class="fas fa-star"></i>
+        </div>
+        <h3>5/5 Rating</h3>
+        <p>Based on real Google &amp; Facebook reviews</p>
+      </div>
+      <div class="benefit-card professional" style="text-align: center;">
+        <div class="benefit-icon-wrapper" style="margin: 0 auto 1rem;">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <h3>Locally Owned</h3>
+        <p>Not a franchise — we live and work here</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 
+
+<!-- ═══════════════════════════════════════════════════════
+     PROFESSIONAL TESTIMONIALS + TRUST SECTION (FIXED)
+     ═══════════════════════════════════════════════════════ -->
+<section class="testimonials-wrapper">
+  <div class="testimonials-container">
+    <h2 class="section-title">What Our Customers Say</h2>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">SM</div>
+          <div class="testimonial-info">
+            <h4>Sarah M., Hamilton</h4>
+            <div class="testimonial-stars">★★★★★</div>
+          </div>
+        </div>
+        <p class="testimonial-text">
+          “Our treadmill broke down mid‑training and I panicked. They came the same day, diagnosed the motor issue, and had it running smoother than ever. Professional, clean, and genuinely caring. I’ll never call anyone else.”
+        </p>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">DK</div>
+          <div class="testimonial-info">
+            <h4>Dave K., Oakville</h4>
+            <div class="testimonial-stars">★★★★★</div>
+          </div>
+        </div>
+        <p class="testimonial-text">
+          “Commercial gym owner here. We switched all our preventative maintenance to Canadian Fitness Repair. Equipment downtime dropped by over 60%. Honest pricing, no upselling, and they actually show up when they say they will.”
+        </p>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">JP</div>
+          <div class="testimonial-info">
+            <h4>Jennifer P., Burlington</h4>
+            <div class="testimonial-stars">★★★★★</div>
+          </div>
+        </div>
+        <p class="testimonial-text">
+          “Our elliptical was making a terrible grinding noise. The technician arrived right on time, explained everything, and fixed it on the spot. Plus they cleaned up after themselves. Above and beyond service!”
+        </p>
+      </div>
+    </div>
+
+    <!-- Trust panels: Google rating + stats -->
+    <div class="trust-panels">
+<a href="https://maps.google.com/maps?cid=8149323007071080669" target="_blank" rel="noopener" class="google-rating-card">
+  <div class="google-icon-rating">
+    <i class="fab fa-google" style="font-size: 28px; color: #4285f4;"></i>
+    <span style="font-weight:600; font-size:1.1rem; color:#e2e8f0;">Google Rating</span>
+  </div>
+  <div class="google-stars">★★★★★</div>
+  <div class="review-count">4.9<span class="plus"></span> ★ (167 reviews)</div>
+  <span class="google-cta">Read Our Reviews</span>
+</a>
+
+      <div class="stats-card">
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-number" data-count="4500">4,500</div>
+            <div class="stat-label">Home Gyms Serviced</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="12">12</div>
+            <div class="stat-label">Years in Business</div>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-number" data-count="247">24/7</div>
+            <div class="stat-label">Emergency Service</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="90">90</div>
+            <div class="stat-label">Day Warranty</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
       
         <!-- Services Section -->
         <section class="services" id="services">
@@ -3948,79 +4209,6 @@
     <p class="note">Serving Hamilton, Burlington, Oakville, and surrounding areas</p>
   </div>
 </section>
-      <section class="testimonials">
-        <h2 class="section-title">Client Testimonials</h2>
-        <div class="testimonials-grid">
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">
-                <i class="ri-user-3-line"> </i>
-              </div>
-              <div class="testimonial-info">
-                <h4>Michael Johnson</h4>
-                <div class="testimonial-stars">
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                </div>
-              </div>
-            </div>
-            <p class="testimonial-text">
-              "Canadian Fitness Repair saved our downtown Hamilton gym! When our
-              treadmills broke down, they responded quickly and had us back in
-              business within hours. Their technicians are true professionals
-              serving the entire GTHA region."
-            </p>
-          </div>
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">
-                <i class="ri-user-3-line"> </i>
-              </div>
-              <div class="testimonial-info">
-                <h4>Sarah Thompson</h4>
-                <div class="testimonial-stars">
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                </div>
-              </div>
-            </div>
-            <p class="testimonial-text">
-              "The maintenance plan they created for our Ancaster home gym has
-              been invaluable. Our equipment runs like new, and we've avoided
-              costly repairs. Highly recommend their service to all Hamilton
-              area residents!"
-            </p>
-          </div>
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">
-                <i class="ri-user-3-line"> </i>
-              </div>
-              <div class="testimonial-info">
-                <h4>David Chen</h4>
-                <div class="testimonial-stars">
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                  <i class="ri-star-fill"> </i>
-                </div>
-              </div>
-            </div>
-            <p class="testimonial-text">
-              "Their relocation service made moving our Burlington commercial
-              gym equipment seamless. Everything arrived safely and was set up
-              perfectly. Couldn't be happier with their Halton Region service!"
-            </p>
-          </div>
-        </div>
-      </section>
 
       <section class="cta">
         <h2>Ready to Get Your Equipment Back in Shape?</h2>
