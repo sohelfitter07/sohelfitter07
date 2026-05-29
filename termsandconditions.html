@@ -354,7 +354,7 @@
        </h3>
        <ul>
         <li>
-         Parts warranty: 90 days unless otherwise specified
+         Parts warranty: 30 days unless otherwise specified
         </li>
         <li>
          Labor warranty: 30 days on all repairs
@@ -429,9 +429,71 @@
   </main>
   <div id="footer">
   </div>
-  <script>
-   document.addEventListener("DOMContentLoaded", function() { // === Tab Switching Logic === const tabBtns = document.querySelectorAll(".tab-btn"); const policySections = document.querySelectorAll(".policy-section"); function activateTab(tabName) { tabBtns.forEach((btn) => { btn.classList.toggle( "active", btn.getAttribute("data-tab") === tabName ); }); policySections.forEach((section) => { section.classList.toggle("active", section.id === tabName); }); } // Determine which tab to activate const hash = window.location.hash.replace("#", ""); const defaultTab = "terms-conditions"; const initialTab = hash && document.getElementById(hash) ? hash : defaultTab; activateTab(initialTab); // Scroll to section if hash exists if (hash && document.getElementById(hash)) { setTimeout(() => { document .getElementById(hash) ?.scrollIntoView({ behavior: "smooth" }); }, 300); } // Add click handlers to tab buttons tabBtns.forEach((btn) => { btn.addEventListener("click", () => { const tabName = btn.getAttribute("data-tab"); activateTab(tabName); }); }); });
-  </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // === Tab Switching Logic ===
+    const tabBtns = document.querySelectorAll(".tab-btn");
+    const policySections = document.querySelectorAll(".policy-section");
+
+    function activateTab(tabName) {
+
+        tabBtns.forEach((btn) => {
+            btn.classList.toggle(
+                "active",
+                btn.getAttribute("data-tab") === tabName
+            );
+        });
+
+        policySections.forEach((section) => {
+            section.classList.toggle(
+                "active",
+                section.id === tabName
+            );
+        });
+    }
+
+    // Determine which tab to activate
+    const hash = window.location.hash.replace("#", "");
+    const defaultTab = "terms-conditions";
+
+    const initialTab =
+        hash && document.getElementById(hash)
+            ? hash
+            : defaultTab;
+
+    activateTab(initialTab);
+
+    // Scroll to section if hash exists
+    if (hash && document.getElementById(hash)) {
+
+        setTimeout(() => {
+
+            document.getElementById(hash).scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }, 300);
+    }
+
+    // Add click handlers to tab buttons
+    tabBtns.forEach((btn) => {
+
+        btn.addEventListener("click", () => {
+
+            const tabName = btn.getAttribute("data-tab");
+
+            activateTab(tabName);
+
+            // Update URL hash
+            history.replaceState(null, null, "#" + tabName);
+
+        });
+
+    });
+
+});
+</script>
   <script src="menu.js">
   </script>
   <script src="whatsapp.js">
