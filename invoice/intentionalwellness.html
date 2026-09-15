@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canadian Fitness Repair - Invoice #CFR-2026-0728</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Arial", sans-serif;
+        }
+        body {
+            padding: 0;
+            background: #fff;
+            color: #333;
+            width: 8.5in;
+            margin: 0 auto;
+        }
+        .container {
+            background: #fff;
+            padding: 0.5in 0.75in;
+            border: none;
+            min-height: 11in;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #2a9d8f;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .company-details {
+            text-align: left;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1d3557;
+            text-transform: uppercase;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #457b9d;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        .invoice-details {
+            text-align: right;
+        }
+        .invoice-number {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1d3557;
+        }
+        .invoice-date {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        .section-title {
+            background-color: #1d3557;
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        .info-item {
+            margin-bottom: 10px;
+            display: flex;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #1d3557;
+            min-width: 130px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .charges {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid #2a9d8f;
+        }
+        .service-part {
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #ddd;
+        }
+        .service-part:last-child {
+            border-bottom: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: auto;
+            color: #6c757d;
+            font-size: 12px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .total-amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e76f51;
+        }
+        .company-info {
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .company-info a {
+            color: #1d3557;
+            text-decoration: none;
+        }
+        .payment-info {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #1d3557;
+            background: #fff3cd;
+            padding: 16px 18px;
+            border-radius: 5px;
+            border-left: 4px solid #e76f51;
+        }
+        .payment-info .section-title {
+            background-color: #e76f51;
+            margin-bottom: 12px;
+        }
+        .service-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .service-list li {
+            margin-bottom: 6px;
+            padding-left: 18px;
+            position: relative;
+        }
+        .service-list li:before {
+            content: "•";
+            color: #2a9d8f;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #ddd;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px solid #1d3557;
+            font-size: 16px;
+        }
+        .thank-you {
+            text-align: center;
+            margin-top: 25px;
+            font-style: italic;
+            color: #457b9d;
+        }
+        .part-title {
+            color: #1d3557;
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .receipt-note {
+            background: #e7f1ff;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border-left: 4px solid #2a9d8f;
+        }
+        .receipt-note strong {
+            color: #1d3557;
+        }
+        .payment-methods {
+            list-style-type: disc;
+            padding-left: 25px;
+            margin: 8px 0 4px;
+        }
+        .invoice-title-heading {
+            text-align: center;
+            color: #1d3557;
+            margin-bottom: 15px;
+            font-size: 28px;
+            border-bottom: 2px solid #e76f51;
+            padding-bottom: 10px;
+        }
+        .due-date-badge {
+            background: #e76f51;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: inline-block;
+            margin-left: 8px;
+        }
+        .status-confirmed {
+            color: #2a9d8f;
+            font-weight: bold;
+        }
+        @media print {
+            @page {
+                margin: 0.5in 0.75in;
+                size: letter;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .container {
+                padding: 0;
+                border: none;
+                box-shadow: none;
+                margin: 0;
+                min-height: auto;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+        .preview-container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        .preview-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1d3557;
+        }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-content {
+            flex: 1;
+        }
+        @media screen and (max-width: 600px) {
+            body {
+                width: 100%;
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+                min-height: auto;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .company-details,
+            .invoice-details {
+                text-align: center;
+                width: 100%;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .info-item {
+                flex-direction: column;
+            }
+            .info-label {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preview Banner -->
+    <div class="preview-container no-print">
+        <h2 class="preview-title">Canadian Fitness Repair — Invoice #CFR-2026-0728</h2>
+        <p style="text-align:center; margin-bottom:4px;">
+            <strong>Client:</strong> Intentional Wellness Brands &nbsp;|&nbsp; <strong>Service:</strong> Urgent Table Repair (Guelph)
+        </p>
+        <p style="text-align:center; font-size:14px; color:#2a9d8f; font-weight:bold;">
+            ✅ Confirmed: Tuesday, July 28 — 11:00 AM – 3:00 PM
+        </p>
+    </div>
+
+    <!-- ============ INVOICE ============ -->
+    <div class="container" id="invoiceContainer">
+        <div class="content-wrapper">
+            <div class="main-content">
+
+                <!-- HEADER -->
+                <div class="header">
+                    <div class="company-details">
+                        <h1 class="title">Canadian Fitness Repair</h1>
+                        <div class="subtitle">Professional Fitness Equipment Service</div>
+                    </div>
+                    <div class="invoice-details">
+                        <div class="invoice-title-heading" style="font-size:22px; border-bottom:none; padding-bottom:0; margin-bottom:2px;">INVOICE</div>
+                        <div class="invoice-number">Invoice #CFR-2026-0728</div>
+                        <div class="invoice-date">Date: July 28, 2026</div>
+                        <div class="invoice-date">Payment Due: <span class="due-date-badge">Upon Receipt</span></div>
+                    </div>
+                </div>
+
+                <!-- COMPANY INFO -->
+                <div class="company-info">
+                    <p>Website: www.canadianfitnessrepair.com &nbsp;|&nbsp; Email: canadianfitnessrepair@gmail.com</p>
+                    <p>Phone: <strong>+1 289 925 7239</strong> &nbsp;|&nbsp; HST: 789163136RT0001</p>
+                </div>
+
+                <!-- BILL TO -->
+                <div class="section">
+                    <div class="section-title">Bill To</div>
+                    <div class="grid">
+                        <div>
+                            <div class="info-item"><span class="info-label">Company:</span> Intentional Wellness Brands</div>
+                            <div class="info-item"><span class="info-label">Attn:</span> Michael Kelley</div>
+                            <div class="info-item"><span class="info-label">Email:</span> MKelley@intentionalwellness.com</div>
+                        </div>
+                        <div>
+                            <div class="info-item"><span class="info-label">Service Location:</span> Guelph, ON</div>
+                            <div class="info-item"><span class="info-label">Service Type:</span> Urgent Warranty Call</div>
+                            <div class="info-item"><span class="info-label">Date:</span> <strong>Tuesday, July 28, 2026</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SERVICE DETAILS -->
+                <div class="section">
+                    <div class="section-title">Service Description</div>
+                    <div>
+                        <p><strong>Urgent Warranty Service Call – Table Repair</strong></p>
+                        <ul class="service-list">
+                            <li>Diagnose and repair clinking noise when lowering the table</li>
+                            <li>Disassemble the center bolt that connects the table legs</li>
+                            <li>Apply grease to the crush sleeve and bronze bushing</li>
+                            <li>Reassemble the table and test for proper operation</li>
+                        </ul>
+                        <p style="font-size:13px; color:#6c757d; margin-top:8px;">
+                            <em>Issue identified: center bolt overtightened or lacking sufficient lubrication.</em>
+                        </p>
+                    </div>
+                    <div class="receipt-note">
+                        <strong>✅ Confirmed Appointment:</strong><br>
+                        <span style="font-size:16px; color:#1d3557; font-weight:bold;">Tuesday, July 28, 2026 — 11:00 AM – 3:00 PM</span>
+                    </div>
+                </div>
+
+                <!-- CHARGES -->
+                <div class="charges">
+                    <h3 style="color:#1d3557; margin-bottom:15px;">Amount Due</h3>
+
+                    <div class="service-part">
+                        <div class="part-title">Warranty Service Call – Guelph</div>
+                        <div class="amount-row">
+                            <span>Service call fee</span>
+                            <span>$280.00</span>
+                        </div>
+                        <div class="amount-row" style="border-bottom:none;">
+                            <span>Travel cost</span>
+                            <span>$160.00</span>
+                        </div>
+                    </div>
+
+                    <div class="service-part" style="border-bottom:none; margin-bottom:0; padding-bottom:0;">
+                        <div class="amount-row" style="border-bottom:1px dashed #ddd;">
+                            <span>Subtotal</span>
+                            <span>$440.00</span>
+                        </div>
+                        <div class="amount-row" style="border-bottom:1px dashed #ddd;">
+                            <span>HST (13%)</span>
+                            <span>$57.20</span>
+                        </div>
+                        <div class="total-row">
+                            <span><strong>Total Amount Due:</strong></span>
+                            <span class="total-amount">$497.20 CAD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAYMENT STATUS -->
+                <div class="section" style="margin-top:12px;">
+                    <div class="section-title">Payment Status</div>
+                    <div class="grid">
+                        <div>
+                            <div class="info-item"><span class="info-label">Invoice Status:</span> <span style="color:#e76f51; font-weight:bold;">Pending Payment</span></div>
+                        </div>
+                        <div>
+                            <div class="info-item"><span class="info-label">Payment Due:</span> Upon Receipt</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAYMENT INSTRUCTIONS (no cheque) -->
+                <div class="payment-info">
+                    <div class="section-title" style="background-color:#e76f51;">Payment Instructions</div>
+                    <p style="margin-bottom:8px;">Please remit the total amount of <strong>$497.20 CAD</strong> at your earliest convenience.</p>
+                    <p style="margin-bottom:4px;"><strong>Accepted payment methods:</strong></p>
+                    <ul class="payment-methods">
+                        <li><strong>Interac e‑Transfer</strong> to: canadianfitnessrepair@gmail.com</li>
+                        <li><strong>Cash</strong> (in‑person at time of service)</li>
+                    </ul>
+                    <p style="margin-top:6px; font-size:13px; color:#6c757d;">
+                        <em>Please include the invoice number in your e‑Transfer memo.</em>
+                    </p>
+                </div>
+
+                <!-- THANK YOU -->
+                <div class="thank-you">
+                    <p>Thank you for choosing Canadian Fitness Repair. We look forward to resolving this for you on July 28th.</p>
+                    <p style="margin-top:10px;"><em>Please retain this invoice for your records.</em></p>
+                </div>
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="footer">
+                <p>Canadian Fitness Repair &nbsp;|&nbsp; Professional Fitness Equipment Service &amp; Maintenance</p>
+                <p>Phone: +1 289 925 7239 &nbsp;|&nbsp; Email: canadianfitnessrepair@gmail.com</p>
+            </div>
+
+        </div>
+    </div>
+    <!-- ============ END INVOICE ============ -->
+
+    <!-- PRINT CONTROLS -->
+    <div class="no-print" style="text-align:center; margin:30px auto; max-width:900px; padding:0 20px;">
+        <button onclick="window.print()" style="padding:12px 30px; background:#2a9d8f; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:16px; margin:6px 10px;">🖨️ Print Invoice</button>
+        <button onclick="window.print()" style="padding:12px 30px; background:#1d3557; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:16px; margin:6px 10px;">📄 Save as PDF</button>
+        <div style="margin-top:24px; padding:18px 20px; background:#f1faee; border-radius:5px; max-width:600px; display:inline-block; text-align:left;">
+            <h4 style="color:#1d3557; margin-bottom:8px; text-align:center;">PDF / Print Tips</h4>
+            <ul style="font-size:14px; padding-left:20px; margin:0;">
+                <li>Click <strong>Print Invoice</strong> to open your browser's print dialog</li>
+                <li>Choose <strong>"Save as PDF"</strong> as the destination</li>
+                <li>Check <strong>"Background graphics"</strong> (or "Print backgrounds")</li>
+                <li>Uncheck <strong>"Headers and footers"</strong> for a clean look</li>
+                <li>Use <strong>"Default"</strong> or <strong>"Minimum"</strong> margins</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
+```

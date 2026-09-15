@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canadian Fitness Repair - Paid Receipt #CFR-2026-0908</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Arial", sans-serif;
+        }
+        body {
+            padding: 0;
+            background: #fff;
+            color: #333;
+            width: 8.5in;
+            margin: 0 auto;
+        }
+        .container {
+            background: #fff;
+            padding: 0.5in 0.75in;
+            border: none;
+            min-height: 11in;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #2a9d8f;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .company-details {
+            text-align: left;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1d3557;
+            text-transform: uppercase;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #457b9d;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        .invoice-details {
+            text-align: right;
+        }
+        .invoice-number {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1d3557;
+        }
+        .invoice-date {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        .section-title {
+            background-color: #1d3557;
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        .info-item {
+            margin-bottom: 10px;
+            display: flex;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #1d3557;
+            min-width: 150px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .charges {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid #2a9d8f;
+        }
+        .footer {
+            text-align: center;
+            margin-top: auto;
+            color: #6c757d;
+            font-size: 12px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .total-amount {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2a9d8f;
+        }
+        .company-info {
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .company-info a {
+            color: #1d3557;
+            text-decoration: none;
+        }
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #ddd;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px solid #1d3557;
+            font-size: 16px;
+        }
+        .thank-you {
+            text-align: center;
+            margin-top: 25px;
+            font-style: italic;
+            color: #457b9d;
+        }
+        .receipt-title-heading {
+            text-align: center;
+            color: #1d3557;
+            margin-bottom: 15px;
+            font-size: 28px;
+            border-bottom: 2px solid #e76f51;
+            padding-bottom: 10px;
+        }
+        .paid-badge {
+            background: #2a9d8f;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .paid-stamp {
+            border: 3px solid #2a9d8f;
+            color: #2a9d8f;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 10px 30px;
+            text-align: center;
+            display: inline-block;
+            transform: rotate(-8deg);
+            border-radius: 8px;
+            margin: 15px 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .item-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .item-table th {
+            background: #1d3557;
+            color: #fff;
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+        .item-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        .item-table .amount-col {
+            text-align: right;
+        }
+        .receipt-note {
+            background: #e7f1ff;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border-left: 4px solid #2a9d8f;
+        }
+        .payment-info {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #1d3557;
+            background: #f1faee;
+            padding: 16px 18px;
+            border-radius: 5px;
+            border-left: 4px solid #2a9d8f;
+        }
+        .payment-info .section-title {
+            background-color: #2a9d8f;
+            margin-bottom: 12px;
+        }
+        .due-date-badge {
+            background: #2a9d8f;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: inline-block;
+            margin-left: 8px;
+        }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-content {
+            flex: 1;
+        }
+        @media print {
+            @page {
+                margin: 0.5in 0.75in;
+                size: letter;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .container {
+                padding: 0;
+                border: none;
+                box-shadow: none;
+                margin: 0;
+                min-height: auto;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+        .preview-container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        .preview-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1d3557;
+        }
+        @media screen and (max-width: 600px) {
+            body {
+                width: 100%;
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+                min-height: auto;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .company-details,
+            .invoice-details {
+                text-align: center;
+                width: 100%;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .info-item {
+                flex-direction: column;
+            }
+            .info-label {
+                min-width: auto;
+            }
+            .paid-stamp {
+                font-size: 22px;
+                padding: 8px 20px;
+            }
+        }
+    </style>
+    <!-- ===== SINGLE PAGE PDF PRINT OVERRIDES ===== -->
+<style>
+@media print {
+  @page {
+    size: letter;
+    margin: 0.35in;
+  }
+
+  html, body {
+    width: 8.5in;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body {
+    font-size: 11px !important;
+  }
+
+  /* Hide everything that should not appear in the PDF */
+  .preview-container,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Force the receipt to stay on one page */
+  .container {
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  .content-wrapper,
+  .main-content {
+    page-break-inside: avoid !important;
+  }
+
+  .header,
+  .company-info,
+  .section,
+  .charges,
+  .payment-info,
+  .thank-you,
+  .footer {
+    page-break-inside: avoid !important;
+  }
+
+  /* Tighten spacing so it fits comfortably on one page */
+  .header {
+    margin-bottom: 10px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .company-info {
+    margin-bottom: 12px !important;
+  }
+
+  .section-title {
+    padding: 5px 10px !important;
+    margin-bottom: 8px !important;
+    font-size: 12px !important;
+  }
+
+  .info-item {
+    margin-bottom: 6px !important;
+  }
+
+  .charges {
+    padding: 12px !important;
+    margin-top: 10px !important;
+  }
+
+  .payment-info {
+    padding: 12px !important;
+    margin-top: 15px !important;
+  }
+
+  .thank-you {
+    margin-top: 12px !important;
+  }
+
+  .footer {
+    padding-top: 10px !important;
+    margin-top: 10px !important;
+  }
+
+  .paid-stamp {
+    font-size: 20px !important;
+    padding: 6px 18px !important;
+    margin: 10px 0 !important;
+  }
+}
+</style>
+</head>
+<body>
+    <!-- Preview Banner -->
+    <div class="preview-container no-print">
+        <h2 class="preview-title">Canadian Fitness Repair — Paid Receipt #CFR-2026-0908</h2>
+        <p style="text-align:center; margin-bottom:4px;"><strong>Client:</strong> Lucky Sharma &nbsp;|&nbsp; <strong>Item:</strong> Matrix T75 Treadmill Safety Key</p>
+        <p style="text-align:center; font-size:14px; color:#6c757d;">
+            Paid in full — September 8, 2026 — Total: $111.00 CAD (tax included)
+        </p>
+    </div>
+
+    <!-- ============ RECEIPT ============ -->
+    <div class="container" id="receiptContainer">
+        <div class="content-wrapper">
+            <div class="main-content">
+
+                <!-- HEADER -->
+                <div class="header">
+                    <div class="company-details">
+                        <h1 class="title">Canadian Fitness Repair</h1>
+                        <div class="subtitle">Professional Fitness Equipment Service</div>
+                    </div>
+                    <div class="invoice-details">
+                        <div class="receipt-title-heading" style="font-size:22px; border-bottom:none; padding-bottom:0; margin-bottom:2px;">PAID RECEIPT</div>
+                        <div class="invoice-number">Receipt #CFR-2026-0908</div>
+                        <div class="invoice-date">Date: September 8, 2026</div>
+                        <div class="invoice-date">Status: <span class="due-date-badge" style="background:#2a9d8f;">PAID</span></div>
+                    </div>
+                </div>
+
+                <!-- COMPANY INFO -->
+                <div class="company-info">
+                    <p>Website: www.canadianfitnessrepair.com &nbsp;|&nbsp; Email: canadianfitnessrepair@gmail.com</p>
+                    <p>Phone: <strong>+1 289 925 7239</strong> &nbsp;|&nbsp; HST: 789163136RT0001</p>
+                </div>
+
+                <!-- SOLD TO -->
+                <div class="section">
+                    <div class="section-title">Sold To</div>
+                    <div class="grid">
+                        <div>
+                            <div class="info-item"><span class="info-label">Customer:</span> Lucky Sharma</div>
+                            <div class="info-item"><span class="info-label">Purchase Date:</span> September 8, 2026</div>
+                        </div>
+                        <div>
+                            <div class="info-item"><span class="info-label">Receipt Type:</span> Paid in Full</div>
+                            <div class="info-item"><span class="info-label">Currency:</span> CAD</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM PURCHASED -->
+                <div class="section">
+                    <div class="section-title">Item Purchased</div>
+                    <table class="item-table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th style="text-align:center;">Qty</th>
+                                <th class="amount-col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Matrix T75 Treadmill Safety Key</strong><br />
+                                    <span style="font-size:12px; color:#6c757d;">Genuine replacement safety key — tax included</span>
+                                </td>
+                                <td style="text-align:center;">1</td>
+                                <td class="amount-col">$111.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- TAX BREAKDOWN & TOTAL -->
+                <div class="charges">
+                    <h3 style="color:#1d3557; margin-bottom:15px;">Payment Summary</h3>
+
+                    <div class="amount-row">
+                        <span>Subtotal (before tax)</span>
+                        <span>$98.23</span>
+                    </div>
+                    <div class="amount-row">
+                        <span>HST (13%)</span>
+                        <span>$12.77</span>
+                    </div>
+                    <div class="amount-row" style="border-bottom:1px dashed #ddd;">
+                        <span><strong>Total (tax included)</strong></span>
+                        <span><strong>$111.00 CAD</strong></span>
+                    </div>
+
+                    <div class="total-row">
+                        <span><strong>Amount Paid:</strong></span>
+                        <span class="total-amount">$111.00 CAD</span>
+                    </div>
+                    <div class="total-row" style="border-top:none; padding-top:6px; margin-top:6px;">
+                        <span><strong>Balance Due:</strong></span>
+                        <span style="color:#2a9d8f; font-weight:bold;">$0.00</span>
+                    </div>
+                </div>
+
+                <!-- PAID CONFIRMATION -->
+                <div class="payment-info">
+                    <div class="section-title" style="background-color:#2a9d8f;">Payment Confirmation</div>
+                    <p style="margin-bottom:8px;">This receipt confirms that <strong>Lucky Sharma</strong> has paid in full the amount of <strong>$111.00 CAD</strong> for the <strong>Matrix T75 Treadmill Safety Key</strong>.</p>
+                    <p style="margin-bottom:4px;"><strong>Payment Status:</strong> <span style="color:#2a9d8f; font-weight:bold;">PAID IN FULL</span></p>
+                    <p style="margin-bottom:4px;"><strong>Payment Date:</strong> September 8, 2026</p>
+                    <div class="paid-stamp">PAID</div>
+                    <p style="font-size:13px; color:#6c757d; margin-top:6px;"><em>Thank you for your business. Please retain this receipt for your records.</em></p>
+                </div>
+
+                <!-- THANK YOU -->
+                <div class="thank-you">
+                    <p>Thank you for choosing Canadian Fitness Repair.</p>
+                    <p style="margin-top:10px;"><em>We appreciate your business!</em></p>
+                </div>
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="footer">
+                <p>Canadian Fitness Repair &nbsp;|&nbsp; Professional Fitness Equipment Service &amp; Maintenance</p>
+                <p>Phone: +1 289 925 7239 &nbsp;|&nbsp; Email: canadianfitnessrepair@gmail.com</p>
+            </div>
+
+        </div>
+    </div>
+    <!-- ============ END RECEIPT ============ -->
+
+    <!-- PRINT CONTROLS -->
+    <div class="no-print" style="text-align:center; margin:30px auto; max-width:900px; padding:0 20px;">
+        <button onclick="window.print()" style="padding:12px 30px; background:#2a9d8f; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:16px; margin:6px 10px;">🖨️ Print Receipt</button>
+        <button onclick="window.print()" style="padding:12px 30px; background:#1d3557; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:16px; margin:6px 10px;">📄 Save as PDF</button>
+        <div style="margin-top:24px; padding:18px 20px; background:#f1faee; border-radius:5px; max-width:600px; display:inline-block; text-align:left;">
+            <h4 style="color:#1d3557; margin-bottom:8px; text-align:center;">PDF / Print Tips</h4>
+            <ul style="font-size:14px; padding-left:20px; margin:0;">
+                <li>Click <strong>Print Receipt</strong> to open your browser's print dialog</li>
+                <li>Choose <strong>"Save as PDF"</strong> as the destination</li>
+                <li>Check <strong>"Background graphics"</strong> (or "Print backgrounds")</li>
+                <li>Uncheck <strong>"Headers and footers"</strong> for a clean look</li>
+                <li>Use <strong>"Default"</strong> or <strong>"Minimum"</strong> margins</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

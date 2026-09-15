@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canadian Fitness Repair – Terms & Conditions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0f;
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            color: #ffffff;  /* pure white for all body text */
+        }
+
+        .document-card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #12121a;  /* solid dark background, no gradient */
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid #2a2a3a;
+        }
+
+        .header {
+            background: #0c0c12;
+            padding: 2rem 2rem 1.5rem;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+            color: #ffffff;  /* solid white */
+            text-align: center;
+        }
+        .header .sub {
+            font-size: 1rem;
+            font-weight: 400;
+            text-align: center;
+            color: #dddddd;
+            margin-top: 0.3rem;
+        }
+        .header .effective {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #bbbbbb;
+            margin-top: 0.75rem;
+        }
+
+        .content {
+            padding: 2rem 2.5rem;
+        }
+
+        .intro-note {
+            background: #1e1e2a;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            border-left: 5px solid #5C5CFD;
+            font-size: 0.95rem;
+            color: #ffffff;
+        }
+
+        .terms-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .term-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        .term-number {
+            font-weight: 700;
+            background: #2a2a3a;
+            color: #ffffff;
+            min-width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-family: monospace;
+            border: 1px solid #5C5CFD;
+        }
+
+        .term-text {
+            flex: 1;
+            font-size: 1rem;
+            color: #ffffff;  /* pure white, no dull gray */
+            line-height: 1.55;
+        }
+
+        .term-text strong {
+            color: #bdbdff;
+            font-weight: 700;
+        }
+
+        .highlight-clause {
+            background: #2a1f1a;
+            padding: 0.85rem 1rem;
+            border-radius: 16px;
+            border-left: 5px solid #ff7e5f;
+            margin-top: 0.15rem;
+        }
+
+        .footer-note {
+            margin-top: 2.5rem;
+            padding-top: 1.2rem;
+            font-size: 0.8rem;
+            text-align: center;
+            color: #cccccc;
+            border-top: 1px solid #2a2a3a;
+        }
+
+        @media (max-width: 650px) {
+            .content { padding: 1.5rem; }
+            .header { padding: 1.5rem; }
+            .term-item { flex-direction: column; gap: 0.3rem; }
+            .term-number { background: #2a2a3a; min-width: auto; }
+        }
+        
+        /* PRINT STYLES: black on white, no dullness */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+                color: black;
+            }
+            .document-card {
+                background: white;
+                box-shadow: none;
+                border-radius: 0;
+                border: none;
+            }
+            .header {
+                background: #f0f0f0;
+                border-bottom: 1px solid #ccc;
+            }
+            .header h1 {
+                color: black;
+                background: none;
+                -webkit-text-fill-color: black;
+            }
+            .header .sub, .header .effective {
+                color: #333;
+            }
+            .intro-note {
+                background: #f5f5f5;
+                border-left-color: #5C5CFD;
+                color: black;
+            }
+            .term-item {
+                border-bottom: 1px solid #ddd;
+            }
+            .term-number {
+                background: #e0e0e0;
+                color: black;
+                border-color: #5C5CFD;
+            }
+            .term-text {
+                color: black;
+            }
+            .term-text strong {
+                color: #1e3a8a;
+            }
+            .highlight-clause {
+                background: #fef3c7;
+                border-left-color: #d97706;
+            }
+            .footer-note {
+                color: #555;
+                border-top-color: #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-card">
+    <div class="header">
+        <h1>Canadian Fitness Repair</h1>
+        <div class="sub">Terms & Conditions of Service — Installation, Repair & Relocation</div>
+        <div class="effective">Effective from date of service appointment</div>
+    </div>
+    <div class="content">
+        <div class="intro-note">
+            ⚡ By scheduling or accepting a service, repair, relocation, or installation appointment with Canadian Fitness Repair, you (the customer) acknowledge and agree to all terms below.
+        </div>
+        
+        <div class="terms-list">
+            <div class="term-item"><div class="term-number">1</div><div class="term-text"><strong>Service fee due on completion</strong> — Service fees are due upon completion of the appointment regardless of diagnosis or repair outcome.</div></div>
+            <div class="term-item"><div class="term-number">2</div><div class="term-text"><strong>No credit toward future work</strong> — Service fees are not credited toward future repairs, return visits, labour, or parts.</div></div>
+            <div class="term-item"><div class="term-number">3</div><div class="term-text"><strong>Payment methods</strong> — Accepted payment methods are <strong>Cash</strong> and <strong>Interac E‑transfer</strong> only.</div></div>
+            <div class="term-item"><div class="term-number">4</div><div class="term-text"><strong>Payment timing</strong> — Payment must be made before the technician leaves the property.</div></div>
+            <div class="term-item"><div class="term-number">5</div><div class="term-text"><strong>Parts quotation</strong> — All parts are quoted separately and require customer approval before ordering.</div></div>
+            <div class="term-item"><div class="term-number">6</div><div class="term-text"><strong>Special-order parts</strong> — Special-order parts are non‑refundable and non‑returnable once ordered.</div></div>
+            <div class="term-item"><div class="term-number">7</div><div class="term-text"><strong>Additional visits for parts installation</strong> — Additional visits required for installation of ordered parts are billed separately unless otherwise agreed in writing.</div></div>
+            <div class="term-item"><div class="term-number">8</div><div class="term-text"><strong>Cancellation / rescheduling notice (customer)</strong> — A minimum of 24 hours' notice is required for cancellations or rescheduling by the customer.</div></div>
+            <div class="term-item"><div class="term-number">9</div><div class="term-text"><strong>Late cancellations / missed appointments (customer)</strong> — Late cancellations or missed appointments by the customer may be subject to the full service charge.</div></div>
+            <div class="term-item"><div class="term-number">10</div><div class="term-text"><strong>Pets must be secured</strong> — Pets must be secured before the technician enters the home.</div></div>
+            <div class="term-item"><div class="term-number">11</div><div class="term-text"><strong>Accessible equipment</strong> — Equipment must be accessible and ready for service upon arrival.</div></div>
+            <div class="term-item"><div class="term-number">12</div><div class="term-text"><strong>Arrival windows</strong> — Appointment times are provided as arrival windows. Arrival may vary due to traffic, weather, emergency calls, and previous appointments.</div></div>
+            <div class="term-item"><div class="term-number">13</div><div class="term-text"><strong>Customer approval for extra work</strong> — Customer approval will always be obtained before ordering parts or performing billable work beyond the original service call.</div></div>
+            <div class="term-item"><div class="term-number">14</div><div class="term-text"><strong>Limitation of liability</strong> — Canadian Fitness Repair is not responsible for failures caused by pre‑existing wear, manufacturer defects, or obsolete components discovered during diagnosis. We are also not liable for indirect, incidental, or consequential damages arising from repair or maintenance services.</div></div>
+            <div class="term-item"><div class="term-number">15</div><div class="term-text highlight-clause"><strong>Flat‑rate service fee (not hourly)</strong> — Appointment charges are flat‑rate service fees, not hourly rates. The service fee covers the technician's time, expertise, travel, diagnostic effort, and overhead. A repair that takes very little time does not entitle the customer to a reduced fee. By scheduling, the customer agrees the full service fee is payable regardless of how quickly the repair is completed.</div></div>
+            <div class="term-item"><div class="term-number">16</div><div class="term-text"><strong>Equipment relocation & installation services — no warranty</strong> — For appointments involving equipment relocation, moving, or installation (where no repair is performed), Canadian Fitness Repair provides no warranty, express or implied. The customer acknowledges that these are non-repair services. Any warranty for the equipment itself or its performance after relocation/installation must be pursued directly with the original manufacturer. Canadian Fitness Repair disclaims all liability for equipment malfunction, damage, or performance issues arising after relocation or installation.</div></div>
+            <div class="term-item"><div class="term-number">17</div><div class="term-text"><strong>Customer responsibility & site conditions</strong> — The customer is responsible for providing a safe, accessible, and suitable environment for service, relocation, or installation. Canadian Fitness Repair is not liable for damages resulting from inadequate power supply, unstable flooring, pre‑existing structural defects, or any site‑related hazards not disclosed before the appointment.</div></div>
+            <div class="term-item"><div class="term-number">18</div><div class="term-text"><strong>Force majeure</strong> — Canadian Fitness Repair shall not be liable for delays or failure to perform due to causes beyond its reasonable control, including but not limited to severe weather, natural disasters, utility outages, strikes, or public health emergencies. In such events, the appointment will be rescheduled at the earliest mutual availability without penalty to either party.</div></div>
+            <div class="term-item"><div class="term-number">19</div><div class="term-text"><strong>Provider's right to cancel or reschedule</strong> — Canadian Fitness Repair reserves the right to cancel or reschedule any appointment due to multiple factors including, but not limited to: inclement weather, traffic conditions, travel delays, vehicle or mechanical issues with service vehicles, unavailability of required tools or parts, or any emergency (personal, medical, or operational). In such cases, we will make reasonable efforts to notify the customer as soon as possible and reschedule at a mutually agreeable time. No penalty or fee will apply to the customer for a provider-initiated cancellation or rescheduling.</div></div>
+            <div class="term-item"><div class="term-number">20</div><div class="term-text"><strong>Customer no-show or last‑minute cancellation after dispatch</strong> — If a customer cancels or reschedules an appointment <strong>after the technician has already been dispatched</strong> (e.g., technician is en route to the property or has arrived at the location), or if the customer is not present at the scheduled time and does not respond within 15 minutes of the technician’s arrival, Canadian Fitness Repair reserves the right to charge the <strong>full service fee</strong>. This includes situations where the customer “changes their mind” after the technician has already committed travel time and resources. The fee will be invoiced and must be paid before any future appointments are scheduled.</div></div>
+        </div>
+
+        <div class="footer-note">
+            Canadian Fitness Repair — serving Hamilton, Burlington, Oakville, Mississauga & GTA<br>
+            For parts approval, warranty questions (manufacturer only for installation/relocation), or scheduling inquiries, contact us directly.
+        </div>
+    </div>
+</div>
+</body>
+</html>
