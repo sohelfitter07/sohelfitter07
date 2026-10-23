@@ -1186,7 +1186,9 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
     btns([{ icon: '🏠', label: 'Cancel & back to menu', cls: 'back', cb: function () { p.remove(); flowStart(); } }]);
   }
 
-  window.cfrSubmitForm = function () {
+ 
+
+    window.cfrSubmitForm = function () {
     var v = function (id) { return (document.getElementById(id) || {}).value || ''; };
     var fn2=v('cf-fn'), ln=v('cf-ln'), ph=v('cf-ph'), em=v('cf-em'),
         pref=v('cf-pref'), city=v('cf-city'), postal=v('cf-postal'),
@@ -1223,7 +1225,7 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
 
     // 4. ACTUALLY SEND VIA EMAILJS
     // ⚠️ REPLACE THESE WITH YOUR ACTUAL EMAILJS KEYS
-    var EMAILJS_SERVICE_ID = "service_15f1fcs"; 
+  var EMAILJS_SERVICE_ID = "service_15f1fcs"; 
     var EMAILJS_TEMPLATE_ID = "template_pq3tpbe";
 
     // Map the chatbot fields to match your exact EmailJS template
@@ -1242,7 +1244,6 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
         model: model,
         bookingDateTime: dt,
         description: desc,
-        // These are in your template but not in the chatbot form, so we send blank:
         address: '',
         province: 'ON',
         country: 'Canada',
