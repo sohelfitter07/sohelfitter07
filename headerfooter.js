@@ -1192,14 +1192,17 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
         pref=v('cf-pref'), city=v('cf-city'), postal=v('cf-postal'),
         type=v('cf-type'), svc=v('cf-svc'), eq=v('cf-eq'),
         brand=v('cf-brand'), model=v('cf-model'), dt=v('cf-date'), desc=v('cf-desc');
+
+    // 1. Validation
     if (!fn2)       { alert('Please enter your first name.'); return; }
     if (!ph && !em) { alert('Please enter a phone number or email.'); return; }
     if (!city)      { alert('Please select your city.'); return; }
     if (!eq)        { alert('Please select your equipment type.'); return; }
     if (!desc)      { alert('Please describe the issue.'); return; }
-    M.querySelectorAll('.cfr-form-panel, .cfr-btn-row').forEach(function (el) { el.remove(); });
+
     var name = (fn2 + ' ' + ln).trim();
-    userName = name;
+    
+    // 2. Format the text for the follow-up buttons
     var waText = [
       '🔧 *NEW BOOKING — Canadian Fitness Repair Bot*', '',
       '👤 *Name:* ' + name,
@@ -1213,21 +1216,67 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
       '📅 *Preferred date:* ' + (dt || 'Flexible'), '',
       '📝 *Issue:*', desc
     ].join('\n');
-    msg("✅ Got it, " + fn(name) + "! Your booking request is submitted.", 'bot');
-    setTimeout(function () {
-      msg("We'll reach out shortly to confirm your appointment. If you have photos or a video of the issue, send them over — it helps us come fully prepared! 📸", 'bot');
-      btns([
-        { icon: '📸', label: 'Send photos via WhatsApp', cls: 'wa',
-          url: 'https://wa.me/13653662162?text=' + encodeURIComponent(waText) },
-        { icon: '📸', label: 'Send photos via SMS', cls: 'sms',
-          url: 'sms:+12899257239?body=' + encodeURIComponent(waText) },
-        { icon: '📧', label: 'Send photos via Email', cls: 'email',
-          url: 'mailto:canadianfitnessrepair@gmail.com?subject=Booking+-+' + encodeURIComponent(name) + '&body=' + encodeURIComponent('Hi,\n\nBooking details:\n' + waText + '\n\nPhotos attached.') },
-        { icon: '🏠', label: 'Back to main menu', cls: 'back', cb: flowStart }
-      ]);
-    }, 900);
-  };
 
+    // 3. Change button to "Sending..." 
+    var btn = document.querySelector('.cfr-form-submit');
+    if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
+
+    // 4. ACTUALLY SEND VIA EMAILJS
+    // ⚠️ REPLACE THESE WITH YOUR ACTUAL EMAILJS KEYS
+    var EMAILJS_SERVICE_ID = "service_15f1fcs"; 
+    var EMAILJS_TEMPLATE_ID = "template_pq3tpbe";
+
+    // Map the chatbot fields to match your exact EmailJS template
+    var templateParams = {
+        firstName: fn2,
+        lastName: ln,
+        contactNumber: ph,
+        email: em,
+        preferredContact: pref,
+        city: city,
+        postal: postal,
+        clientType: type,
+        serviceRequest: svc,
+        equipmentType: eq,
+        brand: brand,
+        model: model,
+        bookingDateTime: dt,
+        description: desc,
+        // These are in your template but not in the chatbot form, so we send blank:
+        address: '',
+        province: 'ON',
+        country: 'Canada',
+        serial: ''
+    };
+
+    if (typeof emailjs !== 'undefined') {
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+            .then(function() {
+                // SUCCESS!
+                M.querySelectorAll('.cfr-form-panel, .cfr-btn-row').forEach(function (el) { el.remove(); });
+                userName = name;
+                msg("✅ Got it, " + fn(name) + "! Your booking request is submitted.", 'bot');
+                
+                setTimeout(function () {
+                  msg("We'll reach out shortly to confirm your appointment. If you have photos or a video of the issue, send them over — it helps us come fully prepared! 📸", 'bot');
+                  btns([
+                    { icon: '📸', label: 'Send photos via WhatsApp', cls: 'wa', url: 'https://wa.me/13653662162?text=' + encodeURIComponent(waText) },
+                    { icon: '📸', label: 'Send photos via SMS', cls: 'sms', url: 'sms:+13653662162?body=' + encodeURIComponent(waText) },
+                    { icon: '📧', label: 'Send photos via Email', cls: 'email', url: 'mailto:canadianfitnessrepair@gmail.com?subject=Booking+-+' + encodeURIComponent(name) + '&body=' + encodeURIComponent('Hi,\n\nBooking details:\n' + waText + '\n\nPhotos attached.') },
+                    { icon: '🏠', label: 'Back to main menu', cls: 'back', cb: flowStart }
+                  ]);
+                }, 900);
+            }, function(error) {
+                // FAILED
+                console.error('EmailJS failed:', error);
+                alert("Sorry, we couldn't send your request. Please call us at (289) 925-7239.");
+                if (btn) { btn.textContent = '✅ Submit Booking Request'; btn.disabled = false; }
+            });
+    } else {
+        alert("Error: EmailJS not loaded. Please call us at (289) 925-7239.");
+        if (btn) { btn.textContent = '✅ Submit Booking Request'; btn.disabled = false; }
+    }
+  };
   function onChip(c) {
     msg(c, 'user');
     var l = c.toLowerCase();
