@@ -3,7 +3,7 @@ import os
 
 # Define input and output directories
 input_folder = "archive/backup_images"
-output_folder = "images"
+output_folder = "assets/images"
 
 # Create output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)
