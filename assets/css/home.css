@@ -10,7 +10,7 @@
         box-sizing: border-box;
       }
       body {
-        font-family: "Segoe UI", Roboto, sans-serif;
+        font-family: var(--font-body);
         background-color: var(--bg-color);
         color: var(--text-color);
         min-height: 100vh;
@@ -63,7 +63,7 @@
 }
 
 .hero h1 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-heading);
     font-size: clamp(2.8rem, 5vw, 4.5rem);
     margin-bottom: 1.5rem;
     line-height: 1.2;
@@ -103,7 +103,7 @@
 }
 
 .word-item {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-heading);
     font-size: clamp(3rem, 5vw, 5rem);
     font-weight: bolder;
     color: var(--accent-color);
@@ -315,7 +315,7 @@
   font-weight: 700;
   color: var(--theme-color);
   margin-bottom: 0.5rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-heading);
 }
 
 .stat-label {
@@ -351,7 +351,7 @@
 }
 
 .section-title {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 4vw, 2.8rem);
   margin-bottom: 1.5rem;
   color: white;
@@ -447,7 +447,7 @@
   font-size: 1.5rem;
   margin-bottom: 1rem;
   color: white;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-heading);
 }
 
 .service-card p {
@@ -619,7 +619,7 @@
         }
       } /* Brand-specific styles with perfect fitting */
       .nordictrack {
-        font-family: "Segoe UI", Roboto, sans-serif "Oswald", sans-serif;
+        font-family: var(--font-body);
         font-weight: 600;
         font-size: clamp(1.2rem, 2.5vw, 1.7rem);
         color: #ffffff;
@@ -628,7 +628,7 @@
         white-space: nowrap;
       }
       .proform {
-        font-family: "Segoe UI", Roboto, sans-serif "Montserrat", sans-serif;
+        font-family: var(--font-body);
         font-weight: 800;
         font-size: clamp(1.4rem, 2.8vw, 1.9rem);
         color: #ff5252;
@@ -636,14 +636,14 @@
         letter-spacing: -1px;
       }
       .bowflex {
-        font-family: "Segoe UI", Roboto, sans-serif "Roboto", sans-serif;
+        font-family: var(--font-body);
         font-weight: 700;
         font-size: clamp(1.3rem, 2.6vw, 1.8rem);
         color: #ffb74d;
         letter-spacing: -0.5px;
       }
       .lifefitness {
-        font-family: "Segoe UI", Roboto, sans-serif "Montserrat", sans-serif;
+        font-family: var(--font-body);
         font-weight: 700;
         font-size: clamp(1rem, 2.2vw, 1.4rem);
         color: #4caf50;
@@ -651,21 +651,21 @@
         letter-spacing: 2px;
       }
       .precor {
-        font-family: "Segoe UI", Roboto, sans-serif "Roboto", sans-serif;
+        font-family: var(--font-body);
         font-weight: 700;
         font-size: clamp(1.3rem, 2.6vw, 1.8rem);
         color: #2196f3;
         letter-spacing: -1px;
       }
       .matrix {
-        font-family: "Segoe UI", Roboto, sans-serif "Montserrat", sans-serif;
+        font-family: var(--font-body);
         font-weight: 800;
         font-size: clamp(1.4rem, 2.8vw, 1.9rem);
         color: #f44336;
         letter-spacing: -1px;
       }
       .solefitness {
-        font-family: "Segoe UI", Roboto, sans-serif "Roboto", sans-serif;
+        font-family: var(--font-body);
         font-weight: 700;
         font-size: clamp(0.9rem, 2vw, 1.25rem);
         color: #9c27b0;
@@ -673,35 +673,35 @@
         letter-spacing: 1px;
       }
       .horizon {
-        font-family: "Segoe UI", Roboto, sans-serif "Montserrat", sans-serif;
+        font-family: var(--font-body);
         font-weight: 800;
         font-size: clamp(1.3rem, 2.6vw, 1.8rem);
         color: #ff9800;
         letter-spacing: -0.5px;
       }
       .cybex {
-        font-family: "Segoe UI", Roboto, sans-serif "Oswald", sans-serif;
+        font-family: var(--font-body);
         font-weight: 600;
         font-size: clamp(1.4rem, 2.8vw, 1.9rem);
         color: #00bcd4;
         letter-spacing: -1px;
       }
       .schwinn {
-        font-family: "Segoe UI", Roboto, sans-serif "Roboto", sans-serif;
+        font-family: var(--font-body);
         font-weight: 700;
         font-size: clamp(1.3rem, 2.6vw, 1.8rem);
         color: #e91e63;
         letter-spacing: -1px;
       }
       .nautilus {
-        font-family: "Segoe UI", Roboto, sans-serif "Montserrat", sans-serif;
+        font-family: var(--font-body);
         font-weight: 800;
         font-size: clamp(1.2rem, 2.4vw, 1.6rem);
         color: #3f51b5;
         letter-spacing: -0.5px;
       }
       .technogym {
-        font-family: "Segoe UI", Roboto, sans-serif "Roboto", sans-serif;
+        font-family: var(--font-body);
         font-weight: 700;
         font-size: clamp(1.1rem, 2.3vw, 1.45rem);
         color: #ff5722;
@@ -709,7 +709,7 @@
         letter-spacing: 1px;
       }
       .truefitness {
-        font-family: "Segoe UI", Roboto, sans-serif "Montserrat", sans-serif;
+        font-family: var(--font-body);
         font-weight: 700;
         font-size: clamp(1rem, 2.1vw, 1.35rem);
         color: #8bc34a;
@@ -717,7 +717,7 @@
         letter-spacing: 1px;
       }
       .spiritfitness {
-        font-family: "Segoe UI", Roboto, sans-serif "Roboto", sans-serif;
+        font-family: var(--font-body);
         font-weight: 700;
         font-size: clamp(0.9rem, 2vw, 1.25rem);
         color: #c5a17d;
@@ -725,7 +725,7 @@
         letter-spacing: 1px;
       }
       .octanefitness {
-        font-family: "Segoe UI", Roboto, sans-serif "Montserrat", sans-serif;
+        font-family: var(--font-body);
         font-weight: 800;
         font-size: clamp(1rem, 2.1vw, 1.35rem);
         color: #ff4081;
@@ -1338,7 +1338,7 @@
 
 /* Main Title */
 .motivation-title {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 5vw, 3.2rem);
   margin-bottom: clamp(1rem, 2vw, 1.5rem);
   color: white;
