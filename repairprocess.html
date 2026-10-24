@@ -2,12 +2,12 @@
 <html lang="en">
  <head>
 <!-- Favicon Universal Support -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
 
 <!-- Apple/Safari Support -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
   <script>
    window.dataLayer = window.dataLayer || [];
@@ -41,7 +41,7 @@
   <meta content="fitness equipment repair process, treadmill service steps, how fitness repair works, elliptical diagnostics, gym equipment service Hamilton, Canadian Fitness Repair method, repair procedure GTA" name="keywords"/>
   <meta content="Step-by-Step Fitness Equipment Repair | Canadian Fitness Repair" property="og:title"/>
   <meta content="Explore our proven fitness repair process&mdash;from diagnosis to repair and quality testing. Serving Hamilton, Mississauga, Burlington &amp; the GTA since 2015." property="og:description"/>
-  <meta content="https://www.canadianfitnessrepair.com/images/repair-process.jpg" property="og:image"/>
+  <meta content="https://www.canadianfitnessrepair.com/assets/images/repair-process.jpg" property="og:image"/>
   <meta content="https://www.canadianfitnessrepair.com/repairprocess" property="og:url"/>
   <meta content="website" property="og:type"/>
   <meta content="Hamilton, Burlington, Oakville, Mississauga, Niagara, Greater Toronto Area" name="geo.placename"/>
@@ -50,8 +50,8 @@
   <meta content="43.2250, -79.8660" name="ICBM"/>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-  <link href="whatsapp.css" rel="stylesheet"/>
-  <link href="headerfooter.css" rel="stylesheet"/>
+  <link href="assets/css/whatsapp.css" rel="stylesheet"/>
+  <link href="assets/css/headerfooter.css" rel="stylesheet"/>
   <style>
    /* ===== GLOBAL STYLES ===== */ * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; overflow-x: hidden; line-height: 1.6; } /* ===== REPAIR PROCESS STYLES ===== */ .repair-process-section { padding: 12rem 2rem; background-color: var(--card-bg); max-width: 1200px; margin: 3rem auto; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); } .section-title { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 3rem; text-transform: uppercase; letter-spacing: 1px; color: var(--theme-color); position: relative; padding-bottom: 1rem; } .section-title::after { content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: var(--accent-color); border-radius: 2px; } .section-intro { text-align: center; max-width: 800px; margin: 0 auto 3rem; color: var(--light-text); font-size: 1.1rem; line-height: 1.8; } /* Enhanced Tabs Styling */ .tabs-container { max-width: 900px; margin: 0 auto; background: var(--bg-color); border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); } .tabs-header { display: flex; background: rgba(93, 93, 255, 0.1); border-bottom: 2px solid var(--theme-color); } .tab-btn { flex: 1; padding: 1.2rem 1rem; background: none; border: none; color: var(--light-text); font-size: 1.1rem; font-weight: 600; cursor: pointer; position: relative; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1; } .tab-btn::before { content: ""; position: absolute; bottom: -2px; left: 0; width: 100%; height: 3px; background: var(--accent-color); transform: scaleX(0); transform-origin: center; transition: transform 0.3s ease; z-index: 2; } .tab-btn::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(93, 93, 255, 0.2); transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s ease; z-index: -1; } .tab-btn.active { color: var(--text-color); font-weight: 700; } .tab-btn.active::before { transform: scaleX(1); } .tab-btn.active::after { transform: scaleY(1); } .tab-btn:hover:not(.active) { color: var(--text-color); transform: translateY(-2px); } .tab-btn:hover::after { transform: scaleY(1); } .tab-btn i { font-size: 1.3rem; transition: transform 0.3s ease; } .tab-btn.active i { color: var(--accent-color); } .tabs-content-container { position: relative; min-height: 400px; overflow: hidden; } .tab-content { position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: translateX(30px); transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: none; padding: 2rem; } .tab-content.active { position: relative; opacity: 1; transform: translateX(0); pointer-events: auto; } /* Repair Steps */ .repair-steps { display: flex; flex-wrap: wrap; gap: 2rem; margin: 3rem 0; justify-content: center; } .step-card { flex: 1; min-width: 250px; max-width: 350px; background: var(--bg-color); border-radius: 12px; padding: 2rem; text-align: center; border: 1px solid rgba(93, 93, 255, 0.1); transition: var(--transition); position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); } .step-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--theme-color); transform: scaleX(0); transform-origin: left; transition: transform 0.5s ease; } .step-card:hover::before { transform: scaleX(1); } .step-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(93, 93, 255, 0.2); } .step-number { width: 50px; height: 50px; border-radius: 50%; background: var(--theme-color); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem; position: relative; z-index: 1; box-shadow: 0 5px 15px rgba(93, 93, 255, 0.3); } .step-card h3 { margin-bottom: 1rem; color: var(--theme-color); font-size: 1.4rem; } .step-card p { color: var(--light-text); margin-bottom: 1.5rem; min-height: 80px; } .step-card .step-button { margin-top: 1rem; padding: 0.6rem 1.5rem; font-size: 0.9rem; } /* CTA Section */ .cta-section { text-align: center; padding: 2rem; } .cta-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; } .cta-button { display: flex; align-items: center; gap: 0.5rem; min-width: 220px; transition: transform 0.3s ease, box-shadow 0.3s ease; } .cta-button:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); } /* City Pages Section */ .city-pages-section { background-color: var(--card-bg); max-width: 1200px; margin: 3rem auto; border-radius: 16px; padding: 4rem 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); } /* Animation Keyframes */ @keyframes fadeInSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } .animated { animation: fadeInSlide 0.6s ease-out forwards; } /* ===== RESPONSIVE STYLES ===== */ @media (max-width: 1024px) { .repair-steps { gap: 1.5rem; } } @media (max-width: 767px) { .repair-process-section { padding: 8rem 1.5rem 3rem 1.5rem; } .step-card { min-width: 100%; } .tabs-header { flex-direction: column; } .tab-btn { padding: 1.5rem 1rem; font-size: 1rem; } .cta-buttons { flex-direction: column; align-items: center; } .tabs-content-container { min-height: 600px; } .city-pages-section { padding: 2rem 1.5rem; } } @media (max-width: 480px) { .section-title { font-size: 1.6rem; } .section-intro { font-size: 1rem; } .step-card { padding: 1.5rem; } .step-card p { min-height: auto; } .tabs-content-container { min-height: 700px; } }
   </style>
@@ -65,10 +65,10 @@
   "@type": "LocalBusiness",
   "name": "Canadian Fitness Repair",
   "url": "https://www.canadianfitnessrepair.com",
-  "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
+  "logo": "https://www.canadianfitnessrepair.com/assets/images/logo.png",
   "image": [
-    "https://www.canadianfitnessrepair.com/images/service-van.jpg",
-    "https://www.canadianfitnessrepair.com/images/technician-working.jpg"
+    "https://www.canadianfitnessrepair.com/assets/images/service-van.jpg",
+    "https://www.canadianfitnessrepair.com/assets/images/technician-working.jpg"
   ],
   "description": "Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
   "address": {
@@ -647,10 +647,10 @@
     });
   </script>
   
-  <script src="menu.js">
+  <script src="assets/js/menu.js">
   </script>
-  <script src="whatsapp.js">
+  <script src="assets/js/whatsapp.js">
   </script>
- <script defer src="headerfooter.js"></script>
+ <script defer src="assets/js/headerfooter.js"></script>
 </body>
 </html>

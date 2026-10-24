@@ -19,7 +19,7 @@ const fs   = require('fs');
 const path = require('path');
 
 // The script tag that will be added to every page
-const SCRIPT_TAG = '<script defer src="headerfooter.js"></script>';
+const SCRIPT_TAG = '<script defer src="assets/js/headerfooter.js"></script>';
 
 // Folders to skip (won't touch these)
 const SKIP_FOLDERS = ['node_modules', '.git', '.vscode', 'dist', 'build', 'archive', 'backend', 'data', 'tools', 'vite'];
