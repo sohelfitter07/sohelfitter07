@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 
 BASE_URL = "https://www.canadianfitnessrepair.com/"
-SAVE_DIR = "site_download"
+SAVE_DIR = "archive/site_download"
 visited = set()
 
 def save_page(url):

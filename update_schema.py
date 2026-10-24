@@ -2,7 +2,7 @@ import os
 import json
 from bs4 import BeautifulSoup
 
-SITE_DIR = "site_download"
+SITE_DIR = "archive/site_download"
 DRY_RUN = False
 
 SCHEMA = {
