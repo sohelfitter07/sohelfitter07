@@ -435,6 +435,8 @@
         }
 
         .faq-question {
+            margin: 0;
+            font-family: var(--font-body);
             padding: 1.5rem;
             font-size: 1.2rem;
             font-weight: 600;
@@ -1006,12 +1008,12 @@
             <section class="faq-section">
                 <div class="faq-container">
                     <div class="faq-item">
-                        <div class="faq-question">
+                        <h3 class="faq-question" role="button" tabindex="0" aria-expanded="false">
                             What are the signs that my treadmill needs repair?
                             <span class="faq-toggle">
                                 <i class="ri-arrow-down-s-line"></i>
                             </span>
-                        </div>
+                        </h3>
                         <div class="faq-answer">
                             <p>
                                 Common signs your treadmill needs repair include: unusual noises or vibrations, 
@@ -1023,12 +1025,12 @@
                     </div>
                     
                     <div class="faq-item">
-                        <div class="faq-question">
+                        <h3 class="faq-question" role="button" tabindex="0" aria-expanded="false">
                             Do you offer maintenance services to prevent future problems?
                             <span class="faq-toggle">
                                 <i class="ri-arrow-down-s-line"></i>
                             </span>
-                        </div>
+                        </h3>
                         <div class="faq-answer">
                             <p>
                                 Yes! We recommend regular maintenance to extend your equipment's lifespan. Our Burlington 
@@ -1042,12 +1044,12 @@
                     <!-- Existing FAQ items -->
                     
                     <div class="faq-item">
-                        <div class="faq-question">
+                        <h3 class="faq-question" role="button" tabindex="0" aria-expanded="false">
                             Do you service commercial gym equipment in Burlington?
                             <span class="faq-toggle">
                                 <i class="ri-arrow-down-s-line"></i>
                             </span>
-                        </div>
+                        </h3>
                         <div class="faq-answer">
                             <p>
                                 Absolutely! We service both residential and commercial fitness equipment throughout 
@@ -1142,5 +1144,6 @@
     </section>
     <script src="assets/js/whatsapp.js"></script>
 <script defer src="assets/js/headerfooter.js"></script>
+<script src="assets/js/faq-a11y.js"></script>
 </body>
 </html>
