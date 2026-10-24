@@ -79,7 +79,12 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         :root {
-            --theme-color: #5d5dff;
+          /* Brand palette */
+          --brand: #5d5dff;
+          --brand-dark: #3a3aff;
+          --brand-light: #7a7aff;
+          --white: #fff;
+            --theme-color: var(--brand);
             --accent-color: #ff6b6b;
             --bg-color: #151719;
             --card-bg: #1f2126;
@@ -113,7 +118,7 @@
         
         /* Header Styles */
         .header {
-            background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+            background: linear-gradient(135deg, var(--theme-color), var(--brand-dark));
             color: white;
             padding: 40px;
             text-align: center;
@@ -338,7 +343,7 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+            background: linear-gradient(135deg, var(--theme-color), var(--brand-dark));
             color: white;
             box-shadow: 0 5px 20px rgba(93, 93, 255, 0.4);
         }
@@ -390,7 +395,7 @@
             }
             
             .header {
-                background: #5d5dff;
+                background: var(--brand);
                 color: white;
                 -webkit-print-color-adjust: exact;
                 color-adjust: exact;
@@ -430,7 +435,7 @@
             }
             
             .section-header {
-                background: #5d5dff !important;
+                background: var(--brand) !important;
                 color: white;
                 -webkit-print-color-adjust: exact;
                 color-adjust: exact;

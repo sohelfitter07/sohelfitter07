@@ -110,12 +110,12 @@
       }
       
       :root {
-        --theme-color: #5C5CFD;
+        --theme-color: var(--brand);
         --secondary: #f97316;
         --accent-color: #c0392b;
         --bg-color: #0f1116;
         --card-bg: #1a1d24;
-        --text-color: #ffffff;
+        --text-color: var(--white);
         --light-text: #cbd5e1;
         --border: rgba(255, 255, 255, 0.1);
         --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -225,7 +225,7 @@
       }
 
       .btn-primary {
-        background: #5C5CFD;
+        background: var(--brand);
         color: white;
         box-shadow: 0 4px 15px rgba(92, 92, 253, 0.4);
       }
@@ -609,7 +609,7 @@
       .cta {
         padding: 6rem 2rem;
         text-align: center;
-        background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+        background: linear-gradient(135deg, var(--theme-color), var(--brand-dark));
         position: relative;
         overflow: hidden;
       }

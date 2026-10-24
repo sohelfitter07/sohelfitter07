@@ -205,8 +205,8 @@
         textarea.error {
           border: 1.5px solid #ff4d4d; /* subtle red border */
           background-color: #1f1f1f; /* dark background */
-          color: #ffffff; /* readable text */
-          caret-color: #ffffff;
+          color: var(--white); /* readable text */
+          caret-color: var(--white);
         }
   
         input.error::placeholder,
@@ -449,7 +449,7 @@
         .followup-msg {
           font-size: 1rem;
           margin-bottom: 15px;
-          color: #fff;
+          color: var(--white);
         }
   
         .contact-buttons {
@@ -467,7 +467,7 @@
           color: white;
           font-weight: bold;
           display: inline-block;
-          background-color: #5d5dff;
+          background-color: var(--brand);
           transition: background 0.3s ease;
         }
   
@@ -540,7 +540,7 @@
           box-shadow: 0 10px 25px rgba(93, 93, 255, 0.3);
         } /* Contact Info Card */
         .contact-card {
-          background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+          background: linear-gradient(135deg, var(--theme-color), var(--brand-dark));
           border-radius: 16px;
           padding: 2.5rem;
           margin-top: 3rem;
@@ -910,7 +910,7 @@
           background: #1e1e3f;
           padding: 30px;
           border-radius: 10px;
-          box-shadow: 0 0 0 1px #5d5dff;
+          box-shadow: 0 0 0 1px var(--brand);
           margin-bottom: 30px;
         }
   
@@ -941,7 +941,7 @@
   
         .followup-msg {
           font-size: 1rem;
-          color: #fff;
+          color: var(--white);
           margin-bottom: 15px;
         }
   
@@ -954,7 +954,7 @@
         }
   
         .c-button {
-          background: #5d5dff;
+          background: var(--brand);
           color: white;
           padding: 12px 18px;
           text-decoration: none;

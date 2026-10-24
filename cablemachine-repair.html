@@ -114,12 +114,12 @@
     
     <style>
         :root {
-            --theme-color: #5d5dff;
+            --theme-color: var(--brand);
             --accent-color: #ff6b6b;
             --bg-color: #151719;
             --card-bg: #1f2126;
             --light-text: #b0b3b8;
-            --text-color: #ffffff;
+            --text-color: var(--white);
             --border-radius: 12px;
             --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             --transition: all 0.3s ease;
@@ -161,7 +161,7 @@
     background-size: cover;
     background-position: center;
     min-height: 60vh;
-    color: #5d5dff;
+    color: var(--brand);
     position: relative;
   }
 
@@ -222,7 +222,7 @@
 
   .cta-buttons a {
     background-color: var(--accent-color);
-    color: #fff;
+    color: var(--white);
     padding: 14px 25px;
     border-radius: 30px;
     font-weight: 700;

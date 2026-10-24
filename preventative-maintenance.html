@@ -17,9 +17,9 @@
         :root {
             --bg-color: #151719;
             --card-bg: #1f2125;
-            --theme-color: #5d5dff;
+            --theme-color: var(--brand);
             --accent-color: #ff6b6b;
-            --text-color: #ffffff;
+            --text-color: var(--white);
             --light-text: #a0a0b0;
             --border-radius: 12px;
             --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
@@ -72,7 +72,7 @@
             font-size: 3.2rem;
             font-weight: 800;
             margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #ffffff, #a0a0ff);
+            background: linear-gradient(to right, var(--white), #a0a0ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -172,7 +172,7 @@
         .service-card h3 {
             font-size: 1.7rem;
             margin-bottom: 1rem;
-            color: #ffffff;
+            color: var(--white);
         }
         
         .service-card p {
@@ -247,7 +247,7 @@
         .pricing-card h3 {
             font-size: 1.8rem;
             margin-bottom: 1rem;
-            color: #ffffff;
+            color: var(--white);
         }
         
         .price {
@@ -357,7 +357,7 @@
         .cta-section h2 {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
-            color: #ffffff;
+            color: var(--white);
         }
         
         .cta-section p {
@@ -370,7 +370,7 @@
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, var(--theme-color), var(--accent-color));
-            color: #fff;
+            color: var(--white);
             padding: 1.2rem 2.5rem;
             border-radius: 50px;
             font-size: 1.1rem;

@@ -9,11 +9,16 @@
     <meta name="robots" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-      /* Professional Color Theme using #5D5DFF */
+      /* Professional Color Theme using var(--brand) */
       :root {
-        --primary: #5d5dff;
+        /* Brand palette */
+        --brand: #5d5dff;
+        --brand-dark: #3a3aff;
+        --brand-light: #7a7aff;
+        --white: #fff;
+        --primary: var(--brand);
         --primary-dark: #4a4acc;
-        --primary-light: #7a7aff;
+        --primary-light: var(--brand-light);
         --secondary: #ff7b5d;
         --accent: #5dff7b;
         --dark: #1a1a2e;
@@ -22,7 +27,7 @@
         --text-light: #666677;
         --border: #e1e4ff;
         --shadow: rgba(93, 93, 255, 0.1);
-        --gradient: linear-gradient(135deg, #5d5dff 0%, #7a7aff 100%);
+        --gradient: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
       }
 
       /* Page & print settings */
@@ -36,7 +41,7 @@
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         color: var(--text);
         line-height: 1.6;
-        background: #fff;
+        background: var(--white);
         margin: 0;
         padding: 0;
       }

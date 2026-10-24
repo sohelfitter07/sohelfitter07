@@ -7,6 +7,13 @@
     <link rel="canonical" href="https://canadianfitnessrepair.com/appointmentterms.html" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
+:root {
+  /* Brand palette */
+  --brand: #5d5dff;
+  --brand-dark: #3a3aff;
+  --brand-light: #7a7aff;
+  --white: #fff;
+}
         * {
             margin: 0;
             padding: 0;
@@ -18,7 +25,7 @@
             font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             padding: 2rem 1rem;
-            color: #ffffff;  /* pure white for all body text */
+            color: var(--white);  /* pure white for all body text */
         }
 
         .document-card {
@@ -41,7 +48,7 @@
             font-weight: 800;
             letter-spacing: -0.5px;
             margin-bottom: 0.5rem;
-            color: #ffffff;  /* solid white */
+            color: var(--white);  /* solid white */
             text-align: center;
         }
         .header .sub {
@@ -67,9 +74,9 @@
             padding: 1rem 1.5rem;
             border-radius: 20px;
             margin-bottom: 2rem;
-            border-left: 5px solid #5C5CFD;
+            border-left: 5px solid var(--brand);
             font-size: 0.95rem;
-            color: #ffffff;
+            color: var(--white);
         }
 
         .terms-list {
@@ -89,7 +96,7 @@
         .term-number {
             font-weight: 700;
             background: #2a2a3a;
-            color: #ffffff;
+            color: var(--white);
             min-width: 40px;
             height: 40px;
             display: inline-flex;
@@ -98,13 +105,13 @@
             border-radius: 40px;
             font-size: 1.1rem;
             font-family: monospace;
-            border: 1px solid #5C5CFD;
+            border: 1px solid var(--brand);
         }
 
         .term-text {
             flex: 1;
             font-size: 1rem;
-            color: #ffffff;  /* pure white, no dull gray */
+            color: var(--white);  /* pure white, no dull gray */
             line-height: 1.55;
         }
 
@@ -165,7 +172,7 @@
             }
             .intro-note {
                 background: #f5f5f5;
-                border-left-color: #5C5CFD;
+                border-left-color: var(--brand);
                 color: black;
             }
             .term-item {
@@ -174,7 +181,7 @@
             .term-number {
                 background: #e0e0e0;
                 color: black;
-                border-color: #5C5CFD;
+                border-color: var(--brand);
             }
             .term-text {
                 color: black;

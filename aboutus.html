@@ -80,13 +80,13 @@
     <style>
       /* CSS Variables */
       :root {
-        --primary-color: #5d5dff;
+        --primary-color: var(--brand);
         --secondary-color: fff;
         --accent-color: #3498db;
         --light-color: #f9f9f9;
         --dark-color: #333;
         --text-color: #555;
-        --bg-color: #fff;
+        --bg-color: var(--white);
         --transition: all 0.3s ease;
         --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         --radius: 10px;
@@ -162,7 +162,7 @@
         font-size: 5rem;
         margin-bottom: 20px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        color: #5d5dff;
+        color: var(--brand);
       }
 
       .about-hero p {
@@ -416,7 +416,7 @@
       }
 
       .city-pill {
-        background: #5d5dff;
+        background: var(--brand);
         padding: 8px 15px;
         border-radius: 20px;
         font-size: 0.9rem;

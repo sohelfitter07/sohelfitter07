@@ -104,7 +104,7 @@
     <!-- Fixed font-family -->
     <style>
       :root {
-        --theme-color: #5d5dff;
+        --theme-color: var(--brand);
         --accent-color: #ff6b6b;
         --dark-bg: #151719;
         --light-bg: #f1f3f5;
@@ -125,7 +125,7 @@
         overflow-x: hidden;
       } /* === HERO === */
       .gallery-hero {
-        background: linear-gradient(to right, #5d5dff, #7f8fff);
+        background: linear-gradient(to right, var(--brand), #7f8fff);
         color: white;
         text-align: center;
         padding: 6rem 1rem 4rem;
@@ -141,7 +141,7 @@
       }
       .gallery-hero .c-button {
         background: white;
-        color: #5d5dff;
+        color: var(--brand);
         padding: 0.75rem 1.5rem;
         font-weight: 600;
         border: none;

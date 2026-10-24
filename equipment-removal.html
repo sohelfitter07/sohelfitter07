@@ -23,7 +23,7 @@
   <style>
     /* Reuse existing variables and base styles */
     :root {
-      --theme-color: #5C5CFD;
+      --theme-color: var(--brand);
  --secondary: #4CAF50; /* Eco-friendly green */
   --accent-color: #388E3C; /* Darker green */
       --bg-color: #0f172a;
@@ -131,7 +131,7 @@
     }
 
     .btn-primary {
-      background: #5C5CFD;
+      background: var(--brand);
       color: white;
       box-shadow: 0 4px 15px rgba(92, 92, 253, 0.4);
     }
@@ -381,7 +381,7 @@
     .cta {
       padding: 6rem 2rem;
       text-align: center;
-      background: linear-gradient(135deg, var(--theme-color), #3a3aff);
+      background: linear-gradient(135deg, var(--theme-color), var(--brand-dark));
       position: relative;
       overflow: hidden;
     }
@@ -488,7 +488,7 @@
     .c-button {
       text-decoration: none;
       background-color: var(--theme-color);
-      color: #fff;
+      color: var(--white);
       padding: 0.75rem 1.5rem;
       border: none;
       border-radius: 8px;

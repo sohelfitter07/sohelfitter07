@@ -1,5 +1,10 @@
 
         :root {
+          /* Brand palette */
+          --brand: #5d5dff;
+          --brand-dark: #3a3aff;
+          --brand-light: #7a7aff;
+          --white: #fff;
             --dark-bg: #121826;
             --dark-card: #1f2937;
             --dark-border: #374151;
@@ -495,7 +500,7 @@
         
         .status-scheduled {
             background: rgba(93, 93, 255, 0.15);
-            color: #5d5dff;
+            color: var(--brand);
         }
         
         .status-draft {

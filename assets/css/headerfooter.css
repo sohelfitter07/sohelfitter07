@@ -1,9 +1,14 @@
 :root {
-  --theme-color: #5d5dff;
+  /* Brand palette */
+  --brand: #5d5dff;
+  --brand-dark: #3a3aff;
+  --brand-light: #7a7aff;
+  --white: #fff;
+  --theme-color: var(--brand);
   --accent-color: #ff6b6b;
   --bg-color: #151719;
   --card-bg: #1e2023;
-  --text-color: #fff;
+  --text-color: var(--white);
   --light-text: #e0e0e0;
   --font-family: "Roboto", sans-serif;
   --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -66,7 +71,7 @@ body.has-banner {
 }
 .promo-canada-day {
   background-color: #d62828;
-  color: #fff;
+  color: var(--white);
   text-align: center;
   padding: 0.6rem 1rem;
   font-weight: 700;
