@@ -2,7 +2,7 @@ from PIL import Image, ImageOps
 import os
 
 # Define input and output directories
-input_folder = "backup_images"
+input_folder = "archive/backup_images"
 output_folder = "images"
 
 # Create output folder if it doesn't exist

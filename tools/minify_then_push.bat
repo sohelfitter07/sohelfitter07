@@ -1,6 +1,6 @@
 @echo off
 echo ⚙️ Running minification before push...
-python minify_assets.py
+python tools\minify_assets.py
 if %errorlevel% neq 0 (
     echo ❌ Minification failed. Aborting push.
     pause

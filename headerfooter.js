@@ -512,7 +512,7 @@
   
   const CONFIG = {
     // Training data location (upload this file to your website)
-    TRAINING_DATA_URL: '/repairs.jsonl',
+    TRAINING_DATA_URL: '/data/repairs.jsonl',
     
     // AI Mode: 'claude-api' = smart AI, 'embeddings' = local matching, 'rules' = basic
     AI_MODE: 'claude-api',  // Change to 'rules' for basic mode (no API needed)

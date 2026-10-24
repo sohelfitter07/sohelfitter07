@@ -22,7 +22,7 @@ const path = require('path');
 const SCRIPT_TAG = '<script defer src="headerfooter.js"></script>';
 
 // Folders to skip (won't touch these)
-const SKIP_FOLDERS = ['node_modules', '.git', '.vscode', 'dist', 'build'];
+const SKIP_FOLDERS = ['node_modules', '.git', '.vscode', 'dist', 'build', 'archive', 'backend', 'data', 'tools', 'vite'];
 
 // ── Find all .html files recursively ────────────────────────────
 function getAllHtmlFiles(dir) {

@@ -5,8 +5,12 @@ domain = "https://www.canadianfitnessrepair.com"
 output_file = "sitemap.xml"
 html_pages = []
 
+# Directories that are not part of the live website
+skip_dirs = {".git", ".github", ".vscode", ".firebase", "node_modules", "archive", "tools", "backend", "data", "vite"}
+
 # Scan for HTML files
-for root, _, files in os.walk("."):
+for root, dirs, files in os.walk("."):
+    dirs[:] = [d for d in dirs if d not in skip_dirs]
     for file in files:
         if file.endswith(".html"):
             filepath = os.path.join(root, file)

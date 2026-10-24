@@ -5,7 +5,10 @@ import re
 file_exts = ['.html', '.css']
 
 # Folder to store original unminified backups
-backup_folder = 'backup_originals'
+backup_folder = 'archive/backup_originals'
+
+# Directories that must never be minified
+skip_dirs = {'.git', '.github', '.vscode', '.firebase', 'node_modules', 'archive', 'tools', 'backend', 'data'}
 
 # Files you may want to skip (optional)
 exclude_files = []
@@ -35,7 +38,8 @@ def minify_css(content):
     return content.strip()
 
 # Walk through all project files
-for root, _, files in os.walk('.'):
+for root, dirs, files in os.walk('.'):
+    dirs[:] = [d for d in dirs if d not in skip_dirs]
     if backup_folder in root:
         continue  # Skip already backed-up files
 

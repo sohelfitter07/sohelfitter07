@@ -9,7 +9,7 @@
     {
       "label": "Minify then Push",
       "type": "shell",
-      "command": ".\\minify_then_push.bat",
+      "command": ".\\tools\\minify_then_push.bat",
       "group": {
         "kind": "build",
         "isDefault": true
