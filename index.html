@@ -11,6 +11,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#5D5DFF" />
   
     <title>Same-Day Treadmill Repair Hamilton | 24/7 | (289) 925-7239</title>
     <meta name="description" content="Same-day treadmill, elliptical &amp; gym equipment repair in Hamilton &amp; the GTA. Certified technicians, 90-day warranty, 4.9★ rated. Book online in 60 seconds.">
@@ -37,9 +38,6 @@
 <meta name="geo.position" content="43.2557;-79.8711" />
 <meta name="ICBM" content="43.2557, -79.8711" />
 
-    <!-- Preload -->
-    <link rel="preload" href="/assets/images/herobckgnd.webp" as="image" />
-  
     <!-- Preconnect -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -84,12 +82,12 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Canadian Fitness Repair",
-  "url": "https://www.canadianfitnessrepair.com/",
-  "logo": "https://www.canadianfitnessrepair.com/assets/images/logo.png",
+  "url": "https://canadianfitnessrepair.com/",
+  "logo": "https://canadianfitnessrepair.com/assets/images/Canadian%20Fitness%20Repair%20Logo.png",
   "image": [
-    "https://www.canadianfitnessrepair.com/assets/images/service-van.jpg",
-    "https://www.canadianfitnessrepair.com/assets/images/treadmill-repair-hamilton.jpg",
-    "https://www.canadianfitnessrepair.com/assets/images/elliptical-repair-technician.jpg"
+    "https://canadianfitnessrepair.com/assets/images/cable-machine.jpg",
+    "https://canadianfitnessrepair.com/assets/images/treadmill.jpg",
+    "https://canadianfitnessrepair.com/assets/images/elliptical.jpg"
   ],
   "description": "24/7 emergency repair services for treadmills, ellipticals, exercise bikes, rowers & strength equipment across Hamilton, Burlington, Oakville and GTA. Mobile technicians come to you!",
   "telephone": "+1-289-925-7239",
@@ -121,7 +119,6 @@
     "@type": "Brand",
     "name": "Repaired Brands",
     "description": "We service all major fitness equipment brands",
-    "logo": "https://www.canadianfitnessrepair.com/assets/images/brand-logos.png",
     "sameAs": [
       "https://www.lifefitness.com",
       "https://www.precor.com",
@@ -343,19 +340,7 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://www.canadianfitnessrepair.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Services",
-      "item": "https://www.canadianfitnessrepair.com/services"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Multi-Equipment Repair",
-      "item": "https://www.canadianfitnessrepair.com/full-repair-services"
+      "item": "https://canadianfitnessrepair.com/"
     }
   ]
 }
@@ -578,13 +563,13 @@
 
         <div class="services-showcase">
           <h2 class="services-title">Trusted Support for Your Fall Routine</h2>
-          <div class="services-tabs">
-            <button class="tab active" data-tab="repair">Emergency Repair</button>
-            <button class="tab" data-tab="maintenance">Fall Tune-Up</button>
-            <button class="tab" data-tab="installation">Home Gym Setup</button>
+          <div class="services-tabs" role="tablist" aria-label="Fall service options">
+            <button type="button" class="tab active" role="tab" id="tab-repair" aria-selected="true" aria-controls="repair" data-tab="repair">Emergency Repair</button>
+            <button type="button" class="tab" role="tab" id="tab-maintenance" aria-selected="false" aria-controls="maintenance" data-tab="maintenance">Fall Tune-Up</button>
+            <button type="button" class="tab" role="tab" id="tab-installation" aria-selected="false" aria-controls="installation" data-tab="installation">Home Gym Setup</button>
           </div>
 
-          <div class="tab-content active" id="repair">
+          <div class="tab-content active" id="repair" role="tabpanel" aria-labelledby="tab-repair" tabindex="0">
             <div class="service-detail">
               <div class="detail-icon"><i class="fas fa-tools"></i></div>
               <div class="detail-content">
@@ -599,7 +584,7 @@
             </div>
           </div>
 
-          <div class="tab-content" id="maintenance">
+          <div class="tab-content" id="maintenance" role="tabpanel" aria-labelledby="tab-maintenance" tabindex="0">
             <div class="service-detail">
               <div class="detail-icon"><i class="fas fa-leaf"></i></div>
               <div class="detail-content">
@@ -614,7 +599,7 @@
             </div>
           </div>
 
-          <div class="tab-content" id="installation">
+          <div class="tab-content" id="installation" role="tabpanel" aria-labelledby="tab-installation" tabindex="0">
             <div class="service-detail">
               <div class="detail-icon"><i class="fas fa-home"></i></div>
               <div class="detail-content">
@@ -1065,6 +1050,51 @@
         <p>Get rid of your old equipment responsibly — we recycle over 90% of materials!</p>
         <a class="c-button" href="equipment-removal.html">Schedule Removal Now</a>
         <p class="note">Serving Hamilton, Burlington, Oakville, and surrounding areas</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         FAQ
+         ═══════════════════════════════════════════════ -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="hero-tag">Common Questions</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-subtitle">Quick answers about repairs, removals, and maintenance across Hamilton &amp; the GTA.</p>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>Do you repair elliptical machines in Hamilton?</summary>
+            <p>Yes! We provide same-day elliptical repairs across Hamilton, including stride mechanism fixes, resistance calibration, and console replacements for all major brands.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Can you fix exercise bikes at home?</summary>
+            <p>Absolutely. Our mobile technician come to your home or gym to repair exercise bikes - from pedal replacements to resistance system overhauls - with a 30-day warranty on all parts.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How quickly can you repair a rowing machine?</summary>
+            <p>Most rower repairs are completed in 60-90 minutes during our first visit. We carry common parts like rowing belts, chains, and sensors for immediate fixes.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>What strength equipment do you service?</summary>
+            <p>We repair all cable-based strength machines including functional trainers, selectorized equipment, plate-loaded machines, and power racks. Common fixes include cable replacements, pulley repairs, and pad restorations.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do you remove old treadmills in Hamilton?</summary>
+            <p>Yes! We provide professional treadmill removal services across Hamilton and GTA. We disassemble, remove and recycle your old treadmill with eco-friendly disposal methods.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do you offer commercial gym maintenance contracts?</summary>
+            <p>Yes, we provide customized maintenance plans for fitness facilities including quarterly tune-ups, emergency repair priority, and discounted parts for contract holders.</p>
+          </details>
+        </div>
       </div>
     </section>
 

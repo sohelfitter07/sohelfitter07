@@ -1,6 +1,38 @@
 function injectFavicons() {
-  const faviconCode = ` <!-- Favicon Code --><link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http: <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,%3Csvg xmlns='http: <link rel="icon" type="image/png" sizes="16x16" href="data:image/svg+xml,%3Csvg xmlns='http: <meta name="theme-color" content="#5D5DFF"> `;
-  document.head.insertAdjacentHTML("afterbegin", faviconCode);
+  const head = document.head;
+  const icons = [
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      href: "/assets/icons/favicon-32x32.png",
+    },
+    { rel: "icon", type: "image/svg+xml", href: "/assets/icons/favicon.svg" },
+    {
+      rel: "apple-touch-icon",
+      sizes: "180x180",
+      href: "/assets/icons/apple-touch-icon.png",
+    },
+  ];
+
+  icons.forEach(({ rel, type, sizes, href }) => {
+    // Skip icons the page already declares in <head>.
+    if (head.querySelector(`link[rel="${rel}"][href="${href}"]`)) return;
+
+    const link = document.createElement("link");
+    link.rel = rel;
+    if (type) link.type = type;
+    if (sizes) link.sizes = sizes;
+    link.href = href;
+    head.appendChild(link);
+  });
+
+  if (!head.querySelector('meta[name="theme-color"]')) {
+    const meta = document.createElement("meta");
+    meta.name = "theme-color";
+    meta.content = "#5D5DFF";
+    head.appendChild(meta);
+  }
 }
 function initMenu() {
   const hamburger = document.getElementById("hamburger");

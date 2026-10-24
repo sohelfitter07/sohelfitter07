@@ -19,13 +19,39 @@ document.addEventListener('DOMContentLoaded', function () {
   const tabs = document.querySelectorAll('.tab');
   const tabContents = document.querySelectorAll('.tab-content');
 
+  function activateTab(tab) {
+    const target = tab.getAttribute('data-tab');
+    tabs.forEach(t => {
+      const isActive = t === tab;
+      t.classList.toggle('active', isActive);
+      t.setAttribute('aria-selected', String(isActive));
+    });
+    tabContents.forEach(c => c.classList.remove('active'));
+    const panel = document.getElementById(target);
+    if (panel) panel.classList.add('active');
+  }
+
   tabs.forEach(tab => {
     tab.addEventListener('click', function () {
-      const target = this.getAttribute('data-tab');
-      tabs.forEach(t => t.classList.remove('active'));
-      tabContents.forEach(c => c.classList.remove('active'));
-      this.classList.add('active');
-      document.getElementById(target).classList.add('active');
+      activateTab(this);
+    });
+
+    // Arrow-key navigation for the tablist
+    tab.addEventListener('keydown', function (e) {
+      const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+      if (!keys.includes(e.key)) return;
+      e.preventDefault();
+
+      const list = Array.from(tabs);
+      const index = list.indexOf(this);
+      let next = index;
+      if (e.key === 'ArrowLeft') next = (index - 1 + list.length) % list.length;
+      if (e.key === 'ArrowRight') next = (index + 1) % list.length;
+      if (e.key === 'Home') next = 0;
+      if (e.key === 'End') next = list.length - 1;
+
+      list[next].focus();
+      activateTab(list[next]);
     });
   });
 
