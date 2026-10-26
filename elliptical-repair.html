@@ -87,7 +87,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
-    <link href="assets/css/whatsapp.css" rel="stylesheet" />
     <link href="assets/css/headerfooter.css" rel="stylesheet" />
 
     <script type="application/ld+json">
@@ -549,7 +548,7 @@
     align-items: center;
     text-align: center;
     padding: 3rem 1rem;
-    background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)), 
+    background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)),
                 url("https://images.unsplash.com/photo-1593079831268-3381b0db4a77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80");
     background-size: cover;
     background-position: center;
@@ -894,7 +893,7 @@
   /* Testimonials */
   .testimonials {
     padding: 3rem 1rem;
-    background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.9)), 
+    background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.9)),
                 url("https://images.unsplash.com/photo-1519505907962-0a6cb0167c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80");
     background-size: cover;
     background-position: center;
@@ -1077,155 +1076,6 @@
     font-size: 0.95rem;
   }
 
-  /* WhatsApp Widget */
-  .whatsapp-widget {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 350px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    transform: translateY(20px);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .whatsapp-widget.active {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .widget-header {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    background: #25d366;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    color: white;
-  }
-
-  .whatsapp-icon {
-    font-size: 28px;
-    margin-right: 15px;
-  }
-
-  .header-text h3 {
-    font-size: 18px;
-    margin: 0;
-  }
-
-  .header-text p {
-    font-size: 12px;
-    opacity: 0.9;
-    margin: 0;
-  }
-
-  .close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    margin-left: auto;
-  }
-
-  .chat-content {
-    padding: 15px;
-    max-height: 250px;
-    overflow-y: auto;
-  }
-
-  .message {
-    margin-bottom: 10px;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    max-width: 80%;
-  }
-
-  .message.received {
-    background: #f0f0f0;
-    color: #333;
-    margin-right: auto;
-  }
-
-  .message.sent {
-    background: #dcf8c6;
-    color: #333;
-    margin-left: auto;
-  }
-
-  .action-area {
-    padding: 15px;
-    border-top: 1px solid #eee;
-  }
-
-  .whatsapp-btn {
-    width: 100%;
-    padding: 12px;
-    background: #25d366;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  .whatsapp-btn:hover {
-    background: #128c7e;
-  }
-
-  .floating-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background: #25d366;
-    border-radius: 50%;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    z-index: 999;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-    transition: transform 0.3s ease, background 0.3s ease;
-  }
-
-  .floating-btn:hover {
-    transform: scale(1.1);
-    background: #128c7e;
-  }
-
-  .pulse {
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0% {
-      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-    }
-    70% {
-      box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-    }
-  }
-
   /* Responsive Styles */
   @media (max-width: 1200px) {
     .container {
@@ -1323,19 +1173,7 @@
     .map {
       height: 280px;
     }
-    .whatsapp-widget {
-      width: 90%;
-      max-width: 320px;
-      right: 5%;
-      left: auto;
-    }
-    .floating-btn {
-      width: 55px;
-      height: 55px;
-      font-size: 26px;
-      bottom: 20px;
-      right: 20px;
-    }
+
     .cta {
       padding: 3rem 1rem;
     }
@@ -1390,15 +1228,6 @@
     .cta a.c-button {
       padding: 12px 25px;
       font-size: 1rem;
-    }
-    .whatsapp-widget {
-      max-width: 280px;
-      bottom: 70px;
-    }
-    .floating-btn {
-      width: 50px;
-      height: 50px;
-      font-size: 24px;
     }
   }
 
@@ -1784,77 +1613,10 @@
                 Call Now: +1 289 925 7239
             </a>
         </section>
-        <section>
-            <div class="whatsapp-widget" id="whatsappWidget">
-                <div class="widget-header">
-                    <div class="whatsapp-icon">
-                        <i class="fab fa-whatsapp"> </i>
-                    </div>
-                    <div class="header-text">
-                        <h3>Canadian Fitness Repair</h3>
-                        <p>Typically replies instantly</p>
-                    </div>
-                    <button class="close-btn" id="closeBtn">&times;</button>
-                </div>
-                <div class="chat-content" id="chatContent">
-                    <div class="message received">
-                        Hi there! 👋 Need help with your elliptical? We specialize in
-                        emergency elliptical repairs throughout Hamilton.
-                    </div>
-                    <div class="message received">
-                        What issues are you experiencing with your elliptical? We can help
-                        with noise, resistance, display problems and more!
-                    </div>
-                    <div class="message sent">Great!.</div>
-                </div>
-                <div class="action-area">
-                    <button class="whatsapp-btn" id="whatsappBtn">
-                        <i class="fab fa-whatsapp"> </i>
-                        Chat on WhatsApp
-                    </button>
-                </div>
-            </div>
-            <div class="floating-btn pulse" id="floatingBtn">
-                <i class="fab fa-whatsapp"> </i>
-            </div>
-        </section>
     </main>
     <div id="footer"></div>
     <script src="assets/js/menu.js"></script>
     <script src="assets/js/animations.js"></script>
-    <script src="assets/js/whatsapp.js"></script>
-    <script>
-        // WhatsApp Widget Functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const floatingBtn = document.getElementById('floatingBtn');
-            const whatsappWidget = document.getElementById('whatsappWidget');
-            const closeBtn = document.getElementById('closeBtn');
-            const whatsappBtn = document.getElementById('whatsappBtn');
-            
-            floatingBtn.addEventListener('click', function() {
-                whatsappWidget.classList.add('active');
-            });
-            
-            closeBtn.addEventListener('click', function() {
-                whatsappWidget.classList.remove('active');
-            });
-            
-            whatsappBtn.addEventListener('click', function() {
-                // Replace with your actual WhatsApp number
-                window.open('https://wa.me/12899257239', '_blank');
-            });
-            
-            // Initialize map locations (pseudo positions)
-            const locations = [
-                {name: 'Hamilton', top: '50%', left: '50%'},
-                {name: 'Burlington', top: '45%', left: '55%'},
-                {name: 'Ancaster', top: '55%', left: '48%'},
-                {name: 'Stoney Creek', top: '52%', left: '43%'},
-                {name: 'Dundas', top: '48%', left: '52%'},
-                {name: 'Brantford', top: '53%', left: '57%'}
-            ];
-        });
-    </script>
-<script defer src="assets/js/headerfooter.js"></script>
+    <script defer src="assets/js/headerfooter.js"></script>
 </body>
 </html>

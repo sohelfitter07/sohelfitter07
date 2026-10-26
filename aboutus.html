@@ -94,14 +94,14 @@
         --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         --radius: 10px;
       }
-      
+
       /* Base Styles */
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-      
+
       body {
         background-color: var(--bg-color);
         color: var(--text-color);
@@ -111,7 +111,7 @@
         transition: var(--transition);
         padding-top: var(--header-height);
       }
-      
+
       /* Typography */
       h1, h2, h3, h4, h5, h6 {
         font-weight: 700;
@@ -119,26 +119,26 @@
         margin-bottom: 1rem;
         color: var(--secondary-color);
       }
-      
+
       h1 {
         font-size: 2.8rem;
       }
-      
+
       h2 {
         font-size: 2.2rem;
       }
-      
+
       h3 {
         font-size: 1.8rem;
       }
-      
+
       p {
         margin-bottom: 1.5rem;
       }
-      
+
       /* Hero Section */
       .about-hero {
-        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
                     url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
         background-size: cover;
         background-position: center;
@@ -525,151 +525,8 @@
         box-shadow: 0 10px 20px rgba(230, 126, 34, 0.3);
       }
 
-      /* WhatsApp Widget Styles */
-      .whatsapp-widget {
-        position: fixed;
-        bottom: 100px;
-        right: 20px;
-        width: 320px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        overflow: hidden;
-        display: none;
-        font-family: 'Segoe UI', Roboto, sans-serif;
-      }
-
-      .widget-header {
-        background: #25D366;
-        color: white;
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .whatsapp-icon {
-        font-size: 24px;
-        margin-right: 10px;
-      }
-
-      .header-text h3 {
-        margin: 0;
-        font-size: 16px;
-      }
-
-      .header-text p {
-        margin: 0;
-        font-size: 12px;
-        opacity: 0.9;
-      }
-
-      .close-btn {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 20px;
-        cursor: pointer;
-      }
-
-      .chat-content {
-        padding: 15px;
-        max-height: 250px;
-        overflow-y: auto;
-      }
-
-      .message {
-        padding: 10px 15px;
-        border-radius: 18px;
-        margin-bottom: 10px;
-        max-width: 80%;
-        font-size: 14px;
-        line-height: 1.4;
-      }
-
-      .received {
-        background: #f1f1f1;
-        color: #333;
-        border-top-left-radius: 4px;
-        align-self: flex-start;
-      }
-
-      .sent {
-        background: #DCF8C6;
-        color: #333;
-        border-top-right-radius: 4px;
-        align-self: flex-end;
-        margin-left: auto;
-      }
-
-      .action-area {
-        padding: 15px;
-        border-top: 1px solid #eee;
-      }
-
-      .whatsapp-btn {
-        width: 100%;
-        padding: 12px;
-        background: #25D366;
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        transition: background 0.3s;
-      }
-
-      .whatsapp-btn:hover {
-        background: #128C7E;
-      }
-
-      .floating-btn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 60px;
-        height: 60px;
-        background: #25D366;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        z-index: 999;
-        transition: transform 0.3s;
-      }
-
-      .floating-btn:hover {
-        transform: scale(1.05);
-      }
-
-      .pulse {
-        animation: pulse 2s infinite;
-      }
-
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-        }
-        70% {
-          box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-        }
-      }
-
       /* Responsive Design */
       @media (max-width: 1024px) {
-        
         .about-hero h1 {
             font-size: 3rem;
         }
@@ -678,27 +535,21 @@
         .about-hero {
             padding: 2rem 20px;
         }
-        
+
         .about-hero h1 {
             font-size: 3rem;
         }
-        
+
         .section-title {
             font-size: 1.8rem;
         }
-        
+
         .about-story, .team-member {
             flex-direction: column;
         }
-        
+
         .stats {
             grid-template-columns: repeat(2, 1fr);
-        }
-        
-        .whatsapp-widget {
-            width: 90%;
-            right: 5%;
-            left: 5%;
         }
       }
 
@@ -706,16 +557,16 @@
         .about-hero h1 {
             font-size: 2.5rem;
         }
-        
+
         .stats {
             grid-template-columns: 1fr;
         }
-        
+
         .cities-list {
             flex-direction: column;
             align-items: center;
         }
-        
+
         .team-member {
           padding: 20px;
         }
@@ -740,7 +591,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
     <!-- Custom Styles -->
-    <link href="assets/css/whatsapp.css" rel="stylesheet" />
     <link href="assets/css/headerfooter.css" rel="stylesheet" />
   </head>
   <body>
@@ -936,39 +786,6 @@
           Call Now: +1 289 925 7239
         </a>
       </section>
-      <div class="whatsapp-widget" id="whatsappWidget">
-        <div class="widget-header">
-          <div class="whatsapp-icon">
-            <i class="fab fa-whatsapp"> </i>
-          </div>
-          <div class="header-text">
-            <h3>Canadian Fitness Repair</h3>
-            <p>Typically replies instantly</p>
-          </div>
-          <button class="close-btn" id="closeBtn">&times;</button>
-        </div>
-        <div class="chat-content" id="chatContent">
-          <div class="message received">
-            Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can
-            we help you with your fitness equipment today?
-          </div>
-          <div class="message received">
-            We specialize in repairing treadmills, ellipticals, exercise
-            bikes, and strength training equipment. Let us know what you need
-            help with!
-          </div>
-          <div class="message sent">Great!.</div>
-        </div>
-        <div class="action-area">
-          <button class="whatsapp-btn" id="whatsappBtn">
-            <i class="fab fa-whatsapp"> </i>
-            Chat on WhatsApp
-          </button>
-        </div>
-      </div>
-      <div class="floating-btn pulse" id="floatingBtn">
-        <i class="fab fa-whatsapp"> </i>
-      </div>
     </main>
     <div id="footer"></div>
     <script>
@@ -1065,36 +882,6 @@
           }
         });
 
-        // -------------------- WHATSAPP WIDGET LOGIC --------------------
-        const whatsappWidget = document.getElementById("whatsappWidget");
-        const floatingBtn = document.getElementById("floatingBtn");
-        const closeBtn = document.getElementById("closeBtn");
-        const whatsappBtn = document.getElementById("whatsappBtn");
-
-        if (floatingBtn) {
-          floatingBtn.addEventListener("click", function() {
-            if (whatsappWidget) {
-              whatsappWidget.style.display = 'block';
-              floatingBtn.style.display = 'none';
-            }
-          });
-        }
-
-        if (closeBtn) {
-          closeBtn.addEventListener("click", function() {
-            if (whatsappWidget) {
-              whatsappWidget.style.display = 'none';
-              if (floatingBtn) floatingBtn.style.display = 'flex';
-            }
-          });
-        }
-
-        if (whatsappBtn) {
-          whatsappBtn.addEventListener("click", function() {
-            window.open('https://wa.me/12899257239?text=Hi!%20I%20need%20help%20with%20my%20fitness%20equipment.', '_blank');
-          });
-        }
-
         // -------------------- STATS COUNTER ANIMATION --------------------
         const statNumbers = document.querySelectorAll(".stat-number");
 
@@ -1142,7 +929,6 @@
       });
     </script>
     <script src="assets/js/menu.js"></script>
-    <script src="assets/js/whatsapp.js"></script>
   <script defer src="assets/js/headerfooter.js"></script>
 </body>
 </html>

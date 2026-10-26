@@ -65,7 +65,6 @@
      --font-heading: 'Montserrat', 'Poppins', sans-serif; --theme-color: var(--brand); --accent-color: #FF6B6B; --bg-color: #151719; --card-bg: #1E2023; --text-color: var(--white); --light-text: #E0E0E0; --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); } * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: var(--font-body); background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; overflow-x: hidden; line-height: 1.6; }
 h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); } /* Main Content Styles for Relocation Page */ .relocation-hero { background: linear-gradient(135deg, var(--theme-color), var(--brand-dark)); padding: 5rem 2rem; text-align: center; position: relative; overflow: hidden; } .relocation-hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%); transform: rotate(30deg); } .relocation-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; position: relative; z-index: 1; } .relocation-hero p { max-width: 700px; margin: 0 auto 2rem; font-size: clamp(1.1rem, 3vw, 1.3rem); position: relative; z-index: 1; } .section-title { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin: 3rem 0; text-transform: uppercase; letter-spacing: 1px; color: var(--theme-color); position: relative; padding-bottom: 1rem; } .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: var(--accent-color); border-radius: 2px; } .relocation-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem 4rem; } .relocation-intro { text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: var(--light-text); line-height: 1.7; } .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 4rem; } .step-card { background: var(--card-bg); border-radius: 12px; padding: 2rem; display: flex; flex-direction: column; position: relative; overflow: hidden; border: 1px solid rgba(93, 93, 255, 0.1); transition: var(--transition); text-align: center; } .step-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2); } .step-number { font-size: 3rem; font-weight: 700; color: rgba(93, 93, 255, 0.1); margin-bottom: 1rem; } .step-icon { font-size: 3.5rem; margin-bottom: 1.5rem; color: var(--theme-color); transition: var(--transition); } .step-card:hover .step-icon { transform: scale(1.1); color: var(--accent-color); } .step-content h3 { font-size: 1.4rem; margin-bottom: 1rem; color: var(--theme-color); } .step-content p { color: var(--light-text); line-height: 1.6; } .service-details { background: var(--card-bg); border-radius: 12px; padding: 3rem; margin: 3rem 0; border: 1px solid rgba(93, 93, 255, 0.1); } .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; } .service-item { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; border-radius: 8px; background: rgba(255, 255, 255, 0.03); transition: var(--transition); } .service-item:hover { background: rgba(93, 93, 255, 0.1); } .service-icon { font-size: 2.5rem; color: var(--theme-color); } .service-item h3 { font-size: 1.3rem; color: var(--accent-color); } .service-item p { color: var(--light-text); } .pricing-table { background: var(--card-bg); border-radius: 12px; padding: 2rem; margin: 3rem 0; border: 1px solid rgba(93, 93, 255, 0.1); overflow-x: auto; } table { width: 100%; border-collapse: collapse; } th, td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); } th { color: var(--theme-color); font-weight: 600; } .highlight-row { background: rgba(93, 93, 255, 0.1); } .benefits-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0; } .benefit-card { display: flex; gap: 1rem; align-items: flex-start; } .benefit-icon { font-size: 2rem; color: var(--accent-color); flex-shrink: 0; } .benefit-content h3 { margin-bottom: 0.5rem; color: var(--theme-color); } .benefit-content p { color: var(--light-text); } .cta-section { background: var(--card-bg); border-radius: 12px; padding: 3rem; text-align: center; margin: 4rem 0; border: 1px solid rgba(93, 93, 255, 0.1); } .cta-section h2 { font-size: 2rem; margin-bottom: 1.5rem; color: var(--theme-color); } .cta-section p { max-width: 600px; margin: 0 auto 2rem; color: var(--light-text); } .form-link { display: inline-flex; align-items: center; background: var(--theme-color); color: white; padding: 12px 24px; border-radius: 30px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; margin-top: 15px; box-shadow: 0 4px 10px rgba(93, 93, 255, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); } .form-link:hover { background: var(--accent-color); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(93, 93, 255, 0.4); } .form-link i { margin-left: 8px; transition: transform 0.3s ease; } .form-link:hover i { transform: translateX(5px); } @media (max-width: 768px) { .relocation-hero { padding: 3rem 1rem; } .service-details, .pricing-table, .cta-section { padding: 1.5rem; } .step-card { padding: 1.5rem; } table { font-size: 0.9rem; } }
   </style>
-  <link href="assets/css/whatsapp.css" rel="stylesheet"/>
  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -511,51 +510,6 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); } /* Main Content Sty
    </section>
   </main>
   <div id="footer"></div>
-  <section>
-   <div class="whatsapp-widget" id="whatsappWidget">
-    <div class="widget-header">
-     <div class="whatsapp-icon">
-      <i class="fab fa-whatsapp">
-      </i>
-     </div>
-     <div class="header-text">
-      <h3>
-       Canadian Fitness Repair
-      </h3>
-      <p>
-       Typically replies instantly
-      </p>
-     </div>
-     <button class="close-btn" id="closeBtn">
-      &times;
-     </button>
-    </div>
-    <div class="chat-content" id="chatContent">
-     <div class="message received">
-      Hi there! 👋 Thanks for visiting Canadian Fitness Repair. How can we help you with your fitness equipment today?
-     </div>
-     <div class="message received">
-      We specialize in repairing treadmills, ellipticals, exercise bikes, and strength training equipment. Let us know what you need help with!
-     </div>
-     <div class="message sent">
-      Great!.
-     </div>
-    </div>
-    <div class="action-area">
-     <button class="whatsapp-btn" id="whatsappBtn">
-      <i class="fab fa-whatsapp">
-      </i>
-      Chat on WhatsApp
-     </button>
-    </div>
-   </div>
-   <div class="floating-btn pulse" id="floatingBtn">
-    <i class="fab fa-whatsapp">
-    </i>
-   </div>
-  </section>
-  <script src="assets/js/whatsapp.js">
-  </script>
  <script src="assets/js/menu.js"></script>
  <script defer src="assets/js/headerfooter.js"></script>
 </body>
