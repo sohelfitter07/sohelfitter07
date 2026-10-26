@@ -1,5 +1,6 @@
 :root {
-  --header-height: 0px;
+  /* Fallback until menu.js measures the injected fixed header. */
+  --header-height: 132px;
   /* Brand palette */
   --brand: #5d5dff;
   --brand-dark: #3a3aff;
@@ -17,6 +18,13 @@
 }
 body {
   font-family: var(--font-body);
+  /* Reserve space for the fixed header; menu.js keeps the value in sync. */
+  padding-top: var(--header-height);
+}
+@media (max-width: 767px) {
+  :root {
+    --header-height: 196px;
+  }
 }
 h1,
 h2,
@@ -64,9 +72,6 @@ header {
   cursor: pointer;
   font-size: 1.2rem;
 }
-body.has-banner {
-  padding-top: 160px;
-}
 @media (max-width: 767px) {
   .discount-banner {
     font-size: 1rem;
@@ -75,19 +80,8 @@ body.has-banner {
     flex-direction: column;
     height: auto;
   }
-  body.has-banner {
-    padding-top: 180px;
-  }
 }
-.promo-line {
-  background: linear-gradient(90deg, var(--accent-color), #ff8e8e);
-  color: var(--bg-color);
-  padding: 5px 0 5px 0;
-  overflow: hidden;
-  position: relative;
-  font-weight: 600;
-  font-size: 0.75rem;
-}
+/* Promo banner styles live in the "Header banner styles" block at the end. */
 .promo-canada-day {
   background-color: #d62828;
   color: var(--white);
@@ -100,28 +94,6 @@ body.has-banner {
   margin-bottom: 0.5rem;
 }
 
-.promo-content {
-  display: flex;
-  white-space: nowrap;
-  animation: promo-scroll 25s linear infinite;
-}
-.promo-item {
-  display: flex;
-  align-items: center;
-  padding: 0 30px;
-}
-.promo-item i {
-  margin-right: 10px;
-  font-size: 1.3rem;
-}
-@keyframes promo-scroll {
-  0% {
-    transform: translateX(50%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
 #contactlist {
   width: 100%;
   display: flex;
@@ -567,10 +539,6 @@ footer {
   }
 }
 @media (max-width: 767px) {
-  .promo-line {
-    font-size: 0.9rem;
-    padding: 4px 0;
-  }
   #navlogo {
     flex: 25;
   }
@@ -730,10 +698,7 @@ footer {
     padding: 0.6rem 0.6rem;
     font-size: 0.75rem;
   }
-  .promo-line {
-    font-size: 0.7rem;
-  }
-  
+
   /* Small screen legal links */
   .legal-links {
     font-size: 0.85rem;
@@ -1205,7 +1170,7 @@ footer {
     }
 }
 
-/* ===== Header banner styles (consolidated from header.html) ===== */
+/* ===== Promo banner (single source of truth) ===== */
 .promo-line {
     background: linear-gradient(90deg, #CE4B40, #E7948F);
     color: white;
@@ -1214,9 +1179,10 @@ footer {
     position: relative;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-weight: 600;
+    font-size: 0.75rem;
 }
 
-/* Banner Track (existing - keep as is) */
 .banner-track {
     display: flex;
     width: max-content;
@@ -1238,6 +1204,7 @@ footer {
     transition: all 0.3s ease;
     padding: 4px 8px;
     border-radius: 4px;
+    margin: 0 3px;
 }
 
 .banner-content a:hover {
@@ -1250,6 +1217,8 @@ footer {
 .separator {
     margin: 0 12px;
     color: rgba(255, 255, 255, 0.7);
+    font-weight: bold;
+    font-size: 16px;
 }
 
 /* Promo Track (new auto-scrolling section) */
@@ -1260,6 +1229,7 @@ footer {
 
 .promo-content {
     display: flex;
+    white-space: nowrap;
     width: max-content;
     animation: scroll-promo 35s linear infinite;
     padding: 8px 20px;
@@ -1363,5 +1333,19 @@ footer {
     .promo-item i {
         font-size: 12px;
         margin-right: 4px;
+    }
+}
+
+/* Mobile promo banner sizing (base rule is defined above). */
+@media (max-width: 767px) {
+    .promo-line {
+        font-size: 0.9rem;
+        padding: 4px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .promo-line {
+        font-size: 0.7rem;
     }
 }

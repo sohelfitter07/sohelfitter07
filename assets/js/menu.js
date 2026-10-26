@@ -39,7 +39,24 @@ function syncHeaderHeight() {
   if (!header) return;
 
   const height = header.getBoundingClientRect().height;
-  document.documentElement.style.setProperty("--header-height", `${height}px`);
+  // Keep the CSS fallback while the header is still empty.
+  if (height > 0) {
+    document.documentElement.style.setProperty("--header-height", `${height}px`);
+  }
+}
+
+function observeHeaderHeight() {
+  const header = document.querySelector("#header > header");
+  if (!header) return;
+
+  syncHeaderHeight();
+
+  if (typeof ResizeObserver === "function") {
+    new ResizeObserver(syncHeaderHeight).observe(header);
+  }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(syncHeaderHeight);
+  }
 }
 function initMenu() {
   const hamburger = document.getElementById("hamburger");
@@ -132,18 +149,25 @@ function initMenu() {
 }
 injectFavicons();
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("header.html")
-    .then((res) => res.text())
-    .then((data) => {
-      document.getElementById("header").innerHTML = data;
-      syncHeaderHeight();
-      initMenu();
-    });
-  fetch("footer.html")
-    .then((res) => res.text())
-    .then((data) => {
-      document.getElementById("footer").innerHTML = data;
-    });
+  const headerSlot = document.getElementById("header");
+  if (headerSlot) {
+    fetch("header.html")
+      .then((res) => res.text())
+      .then((data) => {
+        headerSlot.innerHTML = data;
+        observeHeaderHeight();
+        initMenu();
+      });
+  }
+
+  const footerSlot = document.getElementById("footer");
+  if (footerSlot) {
+    fetch("footer.html")
+      .then((res) => res.text())
+      .then((data) => {
+        footerSlot.innerHTML = data;
+      });
+  }
 
   window.addEventListener("resize", syncHeaderHeight);
   window.addEventListener("load", syncHeaderHeight);
