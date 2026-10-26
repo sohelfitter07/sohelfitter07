@@ -84,12 +84,16 @@
       /* CSS Variables */
       :root {
         --primary-color: var(--brand);
-        --secondary-color: fff;
+        /* Drives headings on the white cards and the CTA background, so it
+           must be a dark surface colour. "fff" was an invalid value. */
+        --secondary-color: var(--dark-color);
         --accent-color: #3498db;
         --light-color: #f9f9f9;
         --dark-color: #333;
         --text-color: #555;
+        --light-text: var(--text-color);
         --bg-color: var(--white);
+        --card-bg: var(--white);
         --transition: all 0.3s ease;
         --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         --radius: 10px;
@@ -593,7 +597,7 @@
     <!-- Custom Styles -->
     <link href="assets/css/headerfooter.css" rel="stylesheet" />
   </head>
-  <body>
+  <body class="theme-light">
     <div id="header"></div>
     <main>
       <section class="about-hero">

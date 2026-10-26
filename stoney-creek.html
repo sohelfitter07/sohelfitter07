@@ -63,6 +63,13 @@
         --card-bg: var(--white);
         --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         --transition: all 0.3s ease;
+        /* The page body is light, so the shared header/footer must use the
+           same light-theme tokens as the other city pages. */
+        --theme-color: #2563eb;
+        --accent-color: #e74c3c;
+        --bg-color: #f1f5f9;
+        --text-color: #1e293b;
+        --light-text: #64748b;
     }
     
     /* ===== BASE STYLES ===== */
@@ -706,7 +713,7 @@
 }
 </script>
 </head>
- <body>
+ <body class="theme-light">
   <div id="header">
   </div>
   <main>

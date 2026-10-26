@@ -129,10 +129,13 @@ header {
   font-size: 0.9rem;
 }
 .leftheaderlinks ul.links li a {
-  color: var(--text-color);
+  /* The contact bar is always --theme-color, so its text must stay white
+     even on light pages where --text-color is dark. */
+  color: var(--white);
 }
 .leftheaderlinks ul.links li a:hover {
-  color: var(--bg-color);
+  color: var(--white);
+  text-decoration: underline;
   transform: scale(1.05);
 }
 .rightheaderlinks ul.links li a {
@@ -142,12 +145,12 @@ header {
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 50%;
-  background-color: var(--text-color);
+  background-color: var(--white);
   color: var(--theme-color);
 }
 .rightheaderlinks ul.links li a:hover {
   background-color: var(--theme-color);
-  color: var(--text-color);
+  color: var(--white);
   transform: scale(1.15);
 }
 #navbottom {
@@ -246,7 +249,8 @@ header {
   padding: 12px 20px;
   width: 100%;
   display: block;
-  color: var(--text-color);
+  /* Sits on --theme-color in the desktop dropdown. */
+  color: var(--white);
   text-decoration: none;
   border-radius: 0;
 }
@@ -277,7 +281,8 @@ header {
   padding: 0.8rem 1.75rem;
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--text-color);
+  /* Buttons sit on --theme-color; white stays readable on light pages too. */
+  color: var(--white);
   transition: var(--transition);
   display: inline-block;
   position: relative;
@@ -627,6 +632,11 @@ footer {
     box-shadow: none;
     background-color: rgba(93, 93, 255, 0.2);
     margin-top: 5px;
+  }
+  .dropdown-content li a {
+    /* Drawer panel is a translucent tint of the page background, so it
+       follows --text-color instead of the solid --theme-color above. */
+    color: var(--text-color);
   }
 }
 
@@ -1387,4 +1397,15 @@ footer {
     .promo-line {
         font-size: 0.7rem;
     }
+}
+
+/* Light pages (aboutus, inspection, niagara, stcatharines, stoney-creek).
+   The shared header is built for a dark page, so its accent-coloured tagline
+   is too light against these white/near-white surfaces. */
+body.theme-light .tagline,
+body.theme-light .footer-tagline {
+  color: var(--theme-color);
+}
+body.theme-light .footerlinks ul.links li a:hover {
+  color: var(--white);
 }

@@ -136,7 +136,7 @@
 }
 
 .btn-primary {
-    background: #5C5CFD;
+    background: var(--brand);
     color: white;
     box-shadow: 0 4px 15px rgba(92, 92, 253, 0.4);
 }
@@ -2854,10 +2854,10 @@
 
   .new-year-motivation::before {
     background: linear-gradient(90deg,
-      #5C5CFD 0%,
+      var(--brand) 0%,
       #A78BFA 33%,
       #4ECDC4 66%,
-      #5C5CFD 100%
+      var(--brand) 100%
     ) !important;
   }
 
@@ -2868,7 +2868,7 @@
   }
 
   .badge-text {
-    background: linear-gradient(90deg, #fff, #5C5CFD) !important;
+    background: linear-gradient(90deg, #fff, var(--brand)) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -2876,7 +2876,7 @@
 
   /* ── Main Title ── */
   .motivation-title {
-    background: linear-gradient(135deg, #fff 0%, #A78BFA 60%, #5C5CFD 100%) !important;
+    background: linear-gradient(135deg, #fff 0%, #A78BFA 60%, var(--brand) 100%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
@@ -2885,35 +2885,35 @@
   /* ── Hero Quote ── */
   .hero-quote {
     background: rgba(30, 30, 48, 0.8) !important;
-    border-left: 4px solid #5C5CFD !important;
+    border-left: 4px solid var(--brand) !important;
   }
 
   .quote-mark {
-    color: #5C5CFD !important;
+    color: var(--brand) !important;
   }
 
   /* ── Benefit Cards ── */
   .benefit-card.professional:hover {
     box-shadow: 0 12px 40px rgba(92, 92, 253, 0.25) !important;
-    border-color: #5C5CFD !important;
+    border-color: var(--brand) !important;
   }
 
   .benefit-card.professional.highlight {
-    border: 2px solid #5C5CFD !important;
+    border: 2px solid var(--brand) !important;
   }
 
   .benefit-icon-wrapper {
-    background: linear-gradient(135deg, #5C5CFD, #4ECDC4) !important;
+    background: linear-gradient(135deg, var(--brand), #4ECDC4) !important;
   }
 
   .featured-tag {
-    background: linear-gradient(135deg, #5C5CFD, #4ECDC4) !important;
+    background: linear-gradient(135deg, var(--brand), #4ECDC4) !important;
     box-shadow: 0 4px 12px rgba(92, 92, 253, 0.4) !important;
   }
 
   /* ── Stat Numbers ── */
   .stat-number {
-    color: #5C5CFD !important;
+    color: var(--brand) !important;
   }
 
   .stat-label {
@@ -2931,11 +2931,11 @@
   }
 
   .bar-section.after {
-    background: linear-gradient(90deg, #5C5CFD, #4ECDC4) !important;
+    background: linear-gradient(90deg, var(--brand), #4ECDC4) !important;
   }
 
   .performance-improvement {
-    background: linear-gradient(135deg, #5C5CFD, #4ECDC4) !important;
+    background: linear-gradient(135deg, var(--brand), #4ECDC4) !important;
   }
 
   /* ── Tabs ── */
@@ -2945,7 +2945,7 @@
   }
 
   .tab.active {
-    background: linear-gradient(135deg, #5C5CFD, #4ECDC4) !important;
+    background: linear-gradient(135deg, var(--brand), #4ECDC4) !important;
   }
 
   /* ── Service Detail Card ── */
@@ -2955,7 +2955,7 @@
 
   .detail-icon {
     background: linear-gradient(135deg, rgba(92, 92, 253, 0.15), rgba(78, 205, 196, 0.15)) !important;
-    color: #5C5CFD !important;
+    color: var(--brand) !important;
   }
 
   .detail-features span {
@@ -2978,7 +2978,7 @@
   }
 
   .guarantee-badge i {
-    color: #5C5CFD !important;
+    color: var(--brand) !important;
   }
 
   .urgency-message {
@@ -2988,7 +2988,7 @@
 
   .urgency-icon {
     background: rgba(92, 92, 253, 0.2) !important;
-    color: #5C5CFD !important;
+    color: var(--brand) !important;
   }
 
   .highlight-text {
@@ -3002,7 +3002,7 @@
 
   /* ── CTA Buttons ── */
   .cta-primary {
-    background: linear-gradient(135deg, #5C5CFD, #4ECDC4) !important;
+    background: linear-gradient(135deg, var(--brand), #4ECDC4) !important;
   }
 
   .cta-button:hover {
@@ -3011,7 +3011,7 @@
 
   .cta-secondary:hover {
     background: rgba(92, 92, 253, 0.1) !important;
-    border-color: #5C5CFD !important;
+    border-color: var(--brand) !important;
   }
 
   /* ── Trust Signals ── */
@@ -3021,11 +3021,11 @@
 
   /* ── Brand Section Gradient Line ── */
   .brand-title::after {
-    background: linear-gradient(90deg, #5C5CFD, #4ECDC4) !important;
+    background: linear-gradient(90deg, var(--brand), #4ECDC4) !important;
   }
 
   .brand-card::before {
-    background: linear-gradient(90deg, #5C5CFD, #4ECDC4) !important;
+    background: linear-gradient(90deg, var(--brand), #4ECDC4) !important;
   }
 
   .brand-card {
@@ -3039,7 +3039,7 @@
 
   /* ── Form Link (Book Online button in process) ── */
   .form-link {
-    background: #5C5CFD !important;
+    background: var(--brand) !important;
     box-shadow: 0 4px 10px rgba(92, 92, 253, 0.3) !important;
   }
 
@@ -3068,7 +3068,7 @@
 
   /* ── Final CTA Section ── */
   .cta {
-    background: linear-gradient(135deg, #5C5CFD, #3a3aff) !important;
+    background: linear-gradient(135deg, var(--brand), #3a3aff) !important;
   }
 
   /* ── Section Tag / Hero Tag ── */
