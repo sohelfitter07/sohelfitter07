@@ -34,6 +34,13 @@ function injectFavicons() {
     head.appendChild(meta);
   }
 }
+function syncHeaderHeight() {
+  const header = document.querySelector("#header > header");
+  if (!header) return;
+
+  const height = header.getBoundingClientRect().height;
+  document.documentElement.style.setProperty("--header-height", `${height}px`);
+}
 function initMenu() {
   const hamburger = document.getElementById("hamburger");
   const navbarList = document.getElementById("navbarList");
@@ -129,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((res) => res.text())
     .then((data) => {
       document.getElementById("header").innerHTML = data;
+      syncHeaderHeight();
       initMenu();
     });
   fetch("footer.html")
@@ -136,4 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       document.getElementById("footer").innerHTML = data;
     });
+
+  window.addEventListener("resize", syncHeaderHeight);
+  window.addEventListener("load", syncHeaderHeight);
 });
