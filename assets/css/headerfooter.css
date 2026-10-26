@@ -1,3 +1,13 @@
+/* Global reset. Was previously supplied by whatsapp.css; kept here so every
+   page that loads the shared header/footer keeps identical base spacing. */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   /* Fallback until menu.js measures the injected fixed header. */
   --header-height: 132px;
