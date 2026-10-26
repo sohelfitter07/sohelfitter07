@@ -144,7 +144,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 5rem 2rem; /* Reduced horizontal padding for mobile */
+  padding: 3rem 2rem; /* Reduced horizontal padding for mobile */
   overflow: hidden; /* Prevents any potential overflow */
 }
       .hero::after {
@@ -161,7 +161,7 @@
         max-width: 1200px;
         width: 100%;
         margin: 0 auto;
-        padding: 2rem;
+        padding: 0 2rem 2rem;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 3rem;
@@ -630,10 +630,10 @@
       @media (max-width: 576px) {
         .hero {
           min-height: auto;
-          padding: 3rem 1rem;
+          padding: 2rem 1rem;
         }
         .hero-container {
-          padding: 1rem;
+          padding: 0 1rem 1rem;
         }
         .hero-title {
           font-size: 2.2rem;
@@ -680,7 +680,7 @@
       @media (max-width: 768px) {
   .hero {
     background-attachment: scroll; /* Change to scroll on mobile */
-    padding: 3rem 1rem; /* Further reduce padding on mobile */
+    padding: 2rem 1rem; /* Further reduce padding on mobile */
   }
 }
     </style>

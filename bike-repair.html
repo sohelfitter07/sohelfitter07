@@ -127,6 +127,12 @@
     position: relative;
   }
 
+  /* The markup nests a second .hero div; only the outer section should
+     provide the gap below the fixed header. */
+  .hero > .hero {
+    padding: 0;
+  }
+
   .hero::after {
     content: "";
     position: absolute;
@@ -620,7 +626,7 @@
         }
 
         .hero {
-          padding-top: 80px;
+          padding-top: 2rem;
         }
 
         .step-details {
