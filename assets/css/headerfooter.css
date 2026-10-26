@@ -993,6 +993,9 @@ footer {
 }
 
 .tagline {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
     font-size: 0.8rem;
     color: var(--accent-color);
     font-style: italic;
@@ -1071,6 +1074,24 @@ footer {
     flex: 0 0 auto;
     min-width: unset;
     margin-right: 20px;
+}
+
+/* Both logo lines live inside one link. Make the link a flex column so the
+   tagline badge sizes to its text (instead of stretching to the nav width)
+   and kill the browser's default underline on the logo. */
+#navlogo > a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+    color: inherit;
+}
+
+#navlogo > a:hover,
+#navlogo > a:focus,
+#navlogo > a:visited {
+    text-decoration: none;
+    color: inherit;
 }
 
 #navbottom {
