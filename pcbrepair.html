@@ -189,7 +189,6 @@
         min-height: 100vh;
         overflow-x: hidden;
         line-height: 1.6;
-        padding-top: 200px;
       }
 
       /* PCB Hero Section */
@@ -584,10 +583,6 @@
       }
 
       @media (max-width: 992px) {
-        body {
-          padding-top: 180px;
-        }
-        
         .pcb-hero {
           padding: 2.5rem 1.5rem 3rem;
         }
@@ -627,10 +622,6 @@
       }
 
       @media (max-width: 768px) {
-        body {
-          padding-top: 180px;
-        }
-        
         .pcb-hero {
           padding: 2rem 1rem 2rem;
           min-height: 40vh;
@@ -755,10 +746,6 @@
       }
 
       @media (max-width: 480px) {
-        body {
-          padding-top: 240px;
-        }
-        
         .pcb-hero {
           padding: 2rem 0.5rem 1.5rem;
           min-height: auto;
@@ -1064,23 +1051,8 @@
       </section>
     </main>
     <div id="footer"></div>
-    
-    <script>
-      // Load header and footer
-      document.addEventListener('DOMContentLoaded', function() {
-        fetch('header.html')
-          .then(response => response.text())
-          .then(data => {
-            document.getElementById('header').innerHTML = data;
-          });
-        
-        fetch('footer.html')
-          .then(response => response.text())
-          .then(data => {
-            document.getElementById('footer').innerHTML = data;
-          });
-      });
-    </script>
+
+  <script src="assets/js/menu.js"></script>
   <script defer src="assets/js/headerfooter.js"></script>
 </body>
 </html>
