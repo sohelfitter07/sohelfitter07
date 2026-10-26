@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <!-- Remixicon is required by the shared header markup. -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="assets/css/headerfooter.css" rel="stylesheet" />
     <style>
 :root {
   /* Brand palette */
@@ -28,7 +31,9 @@
             background: #0a0a0f;
             font-family: var(--font-body);
             line-height: 1.6;
-            padding: 2rem 1rem;
+            /* Reserve the fixed shared header. This shorthand would otherwise
+               override the global body padding-top. */
+            padding: calc(var(--header-height) + 2rem) 1rem 2rem;
             color: var(--white);  /* pure white for all body text */
         }
 h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
@@ -151,6 +156,11 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
         
         /* PRINT STYLES: black on white, no dullness */
         @media print {
+            /* The shared header/footer are screen navigation, not document
+               content, so keep them out of the printed terms. */
+            #header, #footer {
+                display: none !important;
+            }
             body {
                 background: white;
                 padding: 0;
@@ -206,6 +216,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
     </style>
 </head>
 <body>
+<div id="header"></div>
 <div class="document-card">
     <div class="header">
         <h1>Canadian Fitness Repair</h1>
@@ -246,5 +257,8 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
         </div>
     </div>
 </div>
+<div id="footer"></div>
+<script src="assets/js/menu.js"></script>
+<script src="assets/js/headerfooter.js"></script>
 </body>
 </html>

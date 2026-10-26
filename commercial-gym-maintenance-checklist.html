@@ -80,6 +80,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="assets/css/headerfooter.css" rel="stylesheet" />
     <style>
         :root {
           /* Brand palette */
@@ -108,7 +109,9 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            padding: 20px;
+            /* Reserve the fixed shared header. This shorthand would otherwise
+               override the global body padding-top. */
+            padding: calc(var(--header-height) + 20px) 20px 20px;
         }
 h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
         
@@ -388,6 +391,11 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
         
         /* Print Styles */
         @media print {
+            /* The shared header/footer are screen navigation, not checklist
+               content, so keep them out of the printout. */
+            #header, #footer {
+                display: none !important;
+            }
             body {
                 background: white;
                 padding: 0;
@@ -536,6 +544,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
     </style>
 </head>
 <body>
+    <div id="header"></div>
     <div class="container">
         <div class="header">
             <!-- Logo Placeholder -->
@@ -954,6 +963,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
             <p style="margin-top: 15px;"><a href="https://www.canadianfitnessrepair.com">www.canadianfitnessrepair.com</a></p>
         </div>
     </div>
+    <div id="footer"></div>
     
     <script>
         // Print functionality
@@ -984,6 +994,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
             document.querySelector('.contact-info').appendChild(dateElement);
         });
     </script>
+<script defer src="assets/js/menu.js"></script>
 <script defer src="assets/js/headerfooter.js"></script>
 </body>
 </html>

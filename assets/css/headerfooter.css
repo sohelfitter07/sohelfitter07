@@ -1409,3 +1409,12 @@ body.theme-light .footer-tagline {
 body.theme-light .footerlinks ul.links li a:hover {
   color: var(--white);
 }
+/* The .seo-hidden service-area links sit on the light footer background.
+   The global 0.7 parent opacity caps every child colour below 4.5:1, so the
+   light pages restore full opacity and use the page's own accessible ink. */
+body.theme-light .seo-hidden {
+  opacity: 1;
+}
+body.theme-light .seo-hidden a {
+  color: var(--theme-color);
+}
