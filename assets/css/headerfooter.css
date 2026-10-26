@@ -548,35 +548,18 @@ footer {
     font-size: 0.75rem;
   }
 }
-@media (max-width: 767px) {
-  #navlogo {
-    flex: 25;
-  }
-  #contactlist {
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 6px 5%;
-  }
-  .leftheaderlinks ul.links,
-  .rightheaderlinks ul.links {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+/* Tablets and phones: the hamburger drawer replaces the inline nav.
+   Keeping 1024 in this breakpoint means iPad landscape no longer gets the
+   full desktop row squeezed into 1024px. */
+@media (max-width: 1024px) {
   #navbottom {
     flex-wrap: nowrap;
-    padding: 15px;
     min-height: 60px;
     gap: 15px;
   }
   #navlogo {
     min-width: auto;
     overflow: hidden;
-  }
-  .logo-text {
-    font-size: 1.2rem;
-  }
-  .tagline {
-    font-size: 0.7rem;
   }
   .hamburger {
     display: block;
@@ -593,6 +576,11 @@ footer {
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
+  /* Tap-to-open replaces hover while the drawer is in use. */
+  .dropdown:hover .dropdown-content {
+    max-height: 0;
+    padding: 0;
+  }
   .navbarList {
     display: none;
     flex-direction: column;
@@ -602,8 +590,10 @@ footer {
     width: 300px;
     height: 100vh;
     background-color: var(--bg-color);
-    padding: 100px 20px 20px;
+    /* Start the links below the fixed header instead of at a guessed 100px. */
+    padding: calc(var(--header-height) + 14px) 20px 20px;
     gap: 1rem;
+    font-size: 1rem;
     box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
     z-index: 999;
     overflow-y: auto;
@@ -616,23 +606,20 @@ footer {
   }
   .hamburger .close-icon {
     display: none;
-    position: absolute;
-    top: -45px;
-    right: 7%;
   }
   .hamburger .menu-icon {
     display: block;
-    right: 100px;
   }
-  .navbarList.open ~ .hamburger .close-icon {
+  .hamburger.open .menu-icon {
+    display: none;
+  }
+  .hamburger.open .close-icon {
     display: block;
     position: fixed;
-    top: 0;
-    right: 0;
+    top: calc(var(--header-height) + 12px);
+    right: 16px;
     z-index: 1002;
-  }
-  .navbarList.open ~ .hamburger .menu-icon {
-    display: none;
+    line-height: 1;
   }
   .dropdown-content {
     position: static;
@@ -640,6 +627,25 @@ footer {
     box-shadow: none;
     background-color: rgba(93, 93, 255, 0.2);
     margin-top: 5px;
+  }
+}
+
+@media (max-width: 767px) {
+  #contactlist {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 6px 5%;
+  }
+  .leftheaderlinks ul.links,
+  .rightheaderlinks ul.links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .logo-text {
+    font-size: 1.2rem;
+  }
+  .tagline {
+    font-size: 0.7rem;
   }
   .footertop {
     flex-direction: column;
@@ -743,7 +749,7 @@ footer {
     order: 4;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .dropdown.active .dropdown-toggle-icon i {
     transform: rotate(180deg);
   }
@@ -945,7 +951,9 @@ footer {
 }
 
 /* Responsive Adjustments */
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
+  /* The drawer covers the header's right side, so the absolutely positioned
+     admin link lives in the drawer on tablets too. */
   .admin-button {
     display: none;
   }
@@ -955,7 +963,7 @@ footer {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1025px) {
   .mobile-admin-item {
     display: none !important;
   }
@@ -1098,15 +1106,15 @@ footer {
     align-items: center;
     padding: 10px 2% 10px 2%;
 }
-/* Mobile dropdown fix */
-@media (max-width: 767px) {
+/* Tablet/mobile dropdown fix */
+@media (max-width: 1024px) {
   .dropdown.active .dropdown-content {
-    max-height: 60vh; /* More space for mobile */
+    max-height: 60vh; /* More space for the drawer */
     position: static; /* Proper positioning */
     overflow-y: auto; /* Scrollable on small screens */
   }
   
-  /* Mobile dropdown arrow rotation */
+  /* Drawer dropdown arrow rotation */
   .dropdown.active .dropdown-toggle-icon i {
     transform: rotate(180deg);
   }

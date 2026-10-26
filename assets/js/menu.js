@@ -38,6 +38,11 @@ function syncHeaderHeight() {
   const header = document.querySelector("#header > header");
   if (!header) return;
 
+  // While the contact bar is collapsed the header is deliberately shorter.
+  // The body must keep reserving the expanded height, otherwise the page
+  // content jumps upwards the moment the user starts scrolling.
+  if (header.classList.contains("scrolled")) return;
+
   const height = header.getBoundingClientRect().height;
   // Keep the CSS fallback while the header is still empty.
   if (height > 0) {
@@ -62,28 +67,60 @@ function initMenu() {
   const hamburger = document.getElementById("hamburger");
   const navbarList = document.getElementById("navbarList");
   const dropdowns = document.querySelectorAll(".dropdown");
-  const menuIcon = hamburger.querySelector(".menu-icon");
-  const closeIcon = hamburger.querySelector(".close-icon");
   const header = document.querySelector("header");
-  let lastScrollTop = 0;
-  const scrollThreshold = 50;
-  window.addEventListener("scroll", function () {
-    if (window.innerWidth <= 1024) {
-      const currentScroll =
-        window.pageYOffset || document.documentElement.scrollTop;
-      header.classList.toggle("scrolled", currentScroll > scrollThreshold);
-      lastScrollTop = Math.max(currentScroll, 0);
+  const contactBar = header.querySelector("#contactlist");
+
+  // Only collapse the contact bar once its full height has scrolled past the
+  // top of the viewport. Collapsing earlier exposes a gap under the header.
+  let collapseAfter = 0;
+  const measureCollapsePoint = () => {
+    collapseAfter = contactBar ? contactBar.offsetHeight : 0;
+  };
+
+  const closeDropdown = (dropdown) => {
+    dropdown.classList.remove("active");
+    const content = dropdown.querySelector(".dropdown-content");
+    if (content) {
+      content.style.maxHeight = null;
+      content.style.padding = "0";
     }
-  });
+    const trigger = dropdown.querySelector("a[aria-expanded]");
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
+  };
+
+  const setMenu = (open) => {
+    navbarList.classList.toggle("open", open);
+    // The icon swap lives in CSS, keyed off this class.
+    hamburger.classList.toggle("open", open);
+    hamburger.setAttribute("aria-expanded", String(open));
+    hamburger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    if (open) {
+      // The drawer is offset by --header-height, so show the full header.
+      header.classList.remove("scrolled");
+    } else {
+      dropdowns.forEach(closeDropdown);
+      // Restore the collapsed state if the page is still scrolled down.
+      handleScroll();
+    }
+  };
+
+  const handleScroll = () => {
+    if (window.innerWidth > 1024) return;
+    // Keep the header (and the drawer offset) stable while the menu is open.
+    if (navbarList.classList.contains("open")) return;
+    const currentScroll =
+      window.pageYOffset || document.documentElement.scrollTop;
+    header.classList.toggle("scrolled", currentScroll > collapseAfter + 4);
+  };
+
+  measureCollapsePoint();
+  handleScroll();
+  window.addEventListener("scroll", handleScroll);
+
   hamburger.addEventListener("click", () => {
-    navbarList.classList.toggle("open");
-    menuIcon.style.display = navbarList.classList.contains("open")
-      ? "none"
-      : "block";
-    closeIcon.style.display = navbarList.classList.contains("open")
-      ? "block"
-      : "none";
+    setMenu(!navbarList.classList.contains("open"));
   });
+
   dropdowns.forEach((dropdown) => {
     dropdown.addEventListener("click", function (e) {
       if (window.innerWidth <= 1024) {
@@ -92,58 +129,49 @@ function initMenu() {
           e.preventDefault();
           e.stopPropagation();
           dropdowns.forEach((d) => {
-            if (d !== dropdown) {
-              d.classList.remove("active");
-              const otherContent = d.querySelector(".dropdown-content");
-              if (otherContent) {
-                otherContent.style.maxHeight = null;
-                otherContent.style.padding = "0";
-              }
-            }
+            if (d !== dropdown) closeDropdown(d);
           });
-          dropdown.classList.toggle("active");
-          const content = dropdown.querySelector(".dropdown-content");
-          if (content) {
-            content.style.maxHeight = dropdown.classList.contains("active")
-              ? content.scrollHeight + "px"
-              : null;
-            content.style.padding = dropdown.classList.contains("active")
-              ? "10px 0"
-              : "0";
+          const wasOpen = dropdown.classList.contains("active");
+          if (wasOpen) {
+            closeDropdown(dropdown);
+          } else {
+            dropdown.classList.add("active");
+            const content = dropdown.querySelector(".dropdown-content");
+            if (content) {
+              content.style.maxHeight = content.scrollHeight + "px";
+              content.style.padding = "10px 0";
+            }
+            const trigger = dropdown.querySelector("a[aria-expanded]");
+            if (trigger) trigger.setAttribute("aria-expanded", "true");
           }
         }
       }
     });
   });
+
   document.addEventListener("click", function (e) {
     if (!navbarList.contains(e.target) && !hamburger.contains(e.target)) {
-      navbarList.classList.remove("open");
-      dropdowns.forEach((d) => {
-        d.classList.remove("active");
-        const content = d.querySelector(".dropdown-content");
-        if (content) {
-          content.style.maxHeight = null;
-          content.style.padding = "0";
-        }
-      });
-      menuIcon.style.display = "block";
-      closeIcon.style.display = "none";
+      setMenu(false);
     }
   });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && navbarList.classList.contains("open")) {
+      setMenu(false);
+      hamburger.focus();
+    }
+  });
+
   window.addEventListener("resize", () => {
+    // Re-measure the expanded header at the new width before the scroll
+    // handler is allowed to collapse it again.
+    header.classList.remove("scrolled");
+    measureCollapsePoint();
+    syncHeaderHeight();
     if (window.innerWidth > 1024) {
-      dropdowns.forEach((d) => {
-        d.classList.remove("active");
-        const content = d.querySelector(".dropdown-content");
-        if (content) {
-          content.style.maxHeight = null;
-          content.style.padding = "";
-        }
-      });
-      navbarList.classList.remove("open");
-      menuIcon.style.display = "block";
-      closeIcon.style.display = "none";
-      header.classList.remove("scrolled");
+      setMenu(false);
+    } else {
+      handleScroll();
     }
   });
 }
