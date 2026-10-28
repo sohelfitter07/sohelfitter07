@@ -70,6 +70,7 @@ function initMenu() {
   const header = document.querySelector("header");
   const contactBar = header.querySelector("#contactlist");
   const backdrop = document.getElementById("navBackdrop");
+  const navClose = document.getElementById("navClose");
 
   // Only collapse the contact bar once its full height has scrolled past the
   // top of the viewport. Collapsing earlier exposes a gap under the header.
@@ -142,6 +143,10 @@ function initMenu() {
   hamburger.addEventListener("click", () => {
     setMenu(!navbarList.classList.contains("open"));
   });
+
+  if (navClose) {
+    navClose.addEventListener("click", () => setMenu(false));
+  }
 
   dropdowns.forEach((dropdown) => {
     const trigger = dropdown.querySelector("a[aria-expanded]");

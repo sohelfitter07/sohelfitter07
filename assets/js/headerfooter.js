@@ -562,7 +562,7 @@
 #cfr-bubble-notif{position:absolute;top:2px;right:2px;width:16px;height:16px;background:#FF6B6B;border-radius:50%;border:2.5px solid #151719;animation:cfrNotifPop .6s ease forwards,cfrNotifPulse 1.8s ease-in-out 1s infinite}
 @keyframes cfrNotifPop{from{transform:scale(0)}to{transform:scale(1)}}
 @keyframes cfrNotifPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,107,.7)}50%{box-shadow:0 0 0 6px rgba(255,107,107,0)}}
-#cfr-teaser{position:fixed;bottom:140px;right:24px;background:#1E2030;color:#e2e8f0;font-family:"Segoe UI",Roboto,sans-serif;font-size:13.5px;line-height:1.55;padding:14px 16px 12px;border-radius:16px 16px 4px 16px;border:1px solid rgba(92,92,253,.3);box-shadow:0 10px 36px rgba(0,0,0,.55);width:260px;max-width:calc(100vw - 48px);z-index:9997;display:none;animation:cfrFadeUp .4s ease;cursor:pointer;transition:opacity .25s ease,transform .25s ease}
+#cfr-teaser{position:fixed;bottom:148px;right:24px;background:#1E2030;color:#e2e8f0;font-family:"Segoe UI",Roboto,sans-serif;font-size:13.5px;line-height:1.55;padding:14px 16px 12px;border-radius:16px 16px 4px 16px;border:1px solid rgba(92,92,253,.3);box-shadow:0 10px 36px rgba(0,0,0,.55);width:260px;max-width:calc(100vw - 48px);z-index:9997;display:none;animation:cfrFadeUp .4s ease;cursor:pointer;transition:opacity .25s ease,transform .25s ease}
 #cfr-teaser.cfr-teaser-hiding{opacity:0;transform:translateY(6px);pointer-events:none}
 #cfr-teaser:focus-visible{outline:2px solid rgba(147,197,253,.9);outline-offset:2px}
 #cfr-teaser strong{color:#9b9bfd}

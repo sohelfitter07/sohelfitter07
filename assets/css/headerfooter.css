@@ -242,6 +242,9 @@ body.nav-open #cfr-win {
 .hamburger:hover {
   color: var(--theme-color);
 }
+.nav-close {
+  display: none;
+}
 .navbar {
   display: flex;
   flex: 2;
@@ -684,7 +687,10 @@ footer {
   .hamburger.open .menu-icon {
     display: none;
   }
-  .hamburger.open .close-icon {
+  /* A dedicated close button sits above the drawer. Keeping it outside the
+     hamburger avoids the hamburger's own stacking context, which otherwise
+     lets scrolled drawer links cover the X. */
+  header.menu-open .nav-close {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -696,12 +702,14 @@ footer {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--text-color);
     font-size: 1.5rem;
     line-height: 1;
-    z-index: 10002;
+    cursor: pointer;
+    z-index: 10003;
   }
-  .hamburger.open .close-icon:hover,
-  .hamburger.open .close-icon:focus-visible {
+  header.menu-open .nav-close:hover,
+  header.menu-open .nav-close:focus-visible {
     background: rgba(255, 255, 255, 0.16);
   }
   .dropdown-content {
