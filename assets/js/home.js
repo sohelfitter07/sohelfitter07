@@ -7,8 +7,9 @@
 
    1. Service tabs        .tab / .tab-content / data-tab
    2. Performance meter   .performance-display → .bar-section
-   3. Fall countdown      #fallCountdownNumber / #fallCountdownLabel
-   4. Touch feedback      .tab, .cta-button (touch devices only)
+   3. Touch feedback      .tab (touch devices only)
+
+   The retired seasonal countdown was removed with its section.
 
    Self-contained: no dependencies on other scripts or on the
    fetch-injected header/footer. Loaded with `defer`, and also
@@ -78,39 +79,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.querySelectorAll('.performance-display').forEach(display => meterObserver.observe(display));
 
-  // Fall 2026 countdown → Oct 31
-  function updateCountdown() {
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    let target = new Date(currentYear, 9, 31, 23, 59, 59);
-    if (now > target) target = new Date(currentYear + 1, 9, 31, 23, 59, 59);
-
-    const timeDiff = target - now;
-    const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    const numberEl = document.getElementById('fallCountdownNumber');
-    const labelEl = document.getElementById('fallCountdownLabel');
-
-    if (numberEl && labelEl) {
-      if (daysLeft > 0) {
-        numberEl.textContent = daysLeft;
-        labelEl.textContent = daysLeft === 1 ? 'Day Left' : 'Days Left';
-      } else {
-        numberEl.textContent = 'OCT 31';
-        labelEl.textContent = 'Offer ends';
-      }
-    }
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 3600000);
-
   if ('ontouchstart' in window) {
     tabs.forEach(tab => {
       tab.addEventListener('touchstart', function () { this.style.transform = 'scale(0.98)'; });
       tab.addEventListener('touchend', function () { this.style.transform = ''; });
-    });
-    document.querySelectorAll('.cta-button').forEach(button => {
-      button.addEventListener('touchstart', function () { this.style.transform = 'scale(0.98)'; });
-      button.addEventListener('touchend', function () { this.style.transform = ''; });
     });
   }
 });

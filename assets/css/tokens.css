@@ -1,0 +1,109 @@
+/* ============================================================
+   Design tokens — light-first foundation
+   ------------------------------------------------------------
+   Phase 1: loaded by index.html only. Site-wide rollout follows.
+   Legacy tokens in headerfooter.css (--brand, --bg-color, etc.)
+   are intentionally left in place so the dark homepage keeps its
+   current contrast until the full light-first rollout.
+   ============================================================ */
+
+:root {
+  /* ── Brand purple ── */
+  --brand-50: #eef2ff;
+  --brand-100: #e0e7ff;
+  --brand-300: #a5b4fc;
+  --brand-400: #818cf8;
+  --brand-500: #6366f1;
+  --brand-600: #4f46e5;
+  --brand-700: #4338ca;
+  --brand-900: #312e81;
+
+  /* ── Light-first surfaces ── */
+  --paper: #f8fafc;
+  --surface: #ffffff;
+  --surface-muted: #f1f5f9;
+  --border-light: #e2e8f0;
+
+  /* ── Ink bands / dark surfaces ── */
+  --ink-950: #0b1020;
+  --ink-900: #111827;
+  --ink-800: #1e293b;
+  --border-on-dark: rgba(255, 255, 255, 0.1);
+
+  /* ── Text ── */
+  --text-strong: #0b1020;
+  --text-body: #334155;
+  --text-muted: #475569;
+  --text-on-dark: #e2e8f0;
+  --text-on-dark-muted: #94a3b8;
+
+  /* ── Accent + status ── */
+  --amber-300: #fcd34d;
+  --amber-500: #f59e0b;
+  --amber-700: #b45309;
+  --success-700: #15803d;
+  --success-800: #166534;
+  --danger-700: #b91c1c;
+  --whatsapp: #25d366;
+  --whatsapp-hover: #1ebe5b;
+
+  /* ── Typography ── */
+  --font-display: 'Montserrat', 'Poppins', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: clamp(1.75rem, 3.5vw, 2.5rem);
+  --text-3xl: clamp(2.25rem, 5vw, 3.5rem);
+
+  /* ── Spacing (4px scale) ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --section-y: clamp(3rem, 6vw, 6rem);
+
+  /* ── Radii ── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* ── Elevation ── */
+  --shadow-sm: 0 1px 2px rgba(2, 6, 23, 0.06);
+  --shadow-md: 0 8px 24px rgba(2, 6, 23, 0.08);
+  --shadow-lg: 0 18px 48px rgba(2, 6, 23, 0.16);
+
+  /* ── Semantic button tokens ── */
+  --btn-primary-bg: var(--brand-700);
+  --btn-primary-bg-hover: var(--brand-600);
+  --btn-primary-text: #ffffff;
+  --btn-secondary-text: var(--brand-700);
+  --btn-secondary-border: var(--brand-700);
+  --btn-secondary-bg-hover: var(--brand-50);
+  --btn-call-bg: var(--success-700);
+  --btn-call-bg-hover: var(--success-800);
+  --btn-call-text: #ffffff;
+  --btn-whatsapp-bg: var(--whatsapp);
+  --btn-whatsapp-bg-hover: var(--whatsapp-hover);
+  --btn-whatsapp-text: var(--ink-950);
+  --focus-ring: var(--brand-500);
+
+  /* ── Legacy bridge (index.html only) ──
+     --accent-color is used by legacy rules for decorative lines and
+     two hover surfaces. components.css overrides those surfaces so
+     amber never sits behind normal-size white text. */
+  --accent-color: var(--amber-500);
+  --secondary: var(--amber-500);
+}

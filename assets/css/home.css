@@ -1246,1139 +1246,6 @@
 
     
 
-.new-year-motivation {
-  background: linear-gradient(135deg, 
-    rgba(21, 23, 25, 0.98) 0%,
-    rgba(35, 26, 22, 0.98) 50%,
-    rgba(21, 23, 25, 0.98) 100%
-  );
-  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 4vw, 2rem);
-  position: relative;
-  overflow: hidden;
-  margin: clamp(2rem, 4vw, 3rem) auto;
-  max-width: min(96%, 1400px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 145, 77, 0.18);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.03),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.new-year-motivation::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, 
-    #FF914D 0%,
-    #E85D04 33%,
-    #C1121F 66%,
-    #FF914D 100%
-  );
-  z-index: 1;
-}
-
-.motivation-container {
-  max-width: min(95%, 1200px);
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-
-/* Animated Badge */
-.new-year-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: clamp(0.5rem, 1.5vw, 1rem);
-  background: linear-gradient(135deg, rgba(255, 145, 77, 0.18), rgba(193, 18, 31, 0.15));
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 145, 77, 0.35);
-  border-radius: 50px;
-  padding: clamp(0.7rem, 1.8vw, 1rem) clamp(1.2rem, 2.5vw, 1.8rem);
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  animation: float 3s ease-in-out infinite;
-  position: relative;
-  overflow: hidden;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
-}
-
-.badge-sparkle {
-  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
-  animation: sparkle 2s infinite;
-}
-
-.badge-icon {
-  font-size: clamp(1rem, 2vw, 1.4rem);
-}
-
-.badge-text {
-  font-weight: 700;
-  color: white;
-  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #fff, #FF914D);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-/* Main Title */
-.motivation-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  margin-bottom: clamp(1rem, 2vw, 1.5rem);
-  color: white;
-  line-height: 1.1;
-  text-align: center;
-  background: linear-gradient(135deg, #fff 0%, #FF914D 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-
-.motivation-subtitle {
-  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-  color: #94a3b8;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto clamp(2rem, 4vw, 3rem);
-  line-height: 1.6;
-  padding: 0 1rem;
-}
-
-/* Hero Quote */
-.hero-quote {
-  background: rgba(30, 26, 22, 0.8);
-  border-left: 4px solid #FF914D;
-  border-radius: 16px;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  margin: clamp(2rem, 4vw, 3rem) auto;
-  max-width: 900px;
-  position: relative;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.quote-mark {
-  position: absolute;
-  font-size: clamp(3rem, 6vw, 4rem);
-  color: #FF914D;
-  opacity: 0.2;
-  font-family: Georgia, serif;
-}
-
-.quote-mark.start {
-  top: 10px;
-  left: 20px;
-}
-
-.quote-mark.end {
-  bottom: 10px;
-  right: 20px;
-}
-
-.quote-text {
-  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-  font-style: italic;
-  color: #e2e8f0;
-  line-height: 1.6;
-  margin: 0 0 1rem;
-  text-align: center;
-  padding: 0 clamp(0.5rem, 2vw, 2rem);
-}
-
-.quote-author {
-  text-align: center;
-  color: #94a3b8;
-  font-weight: 600;
-  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
-}
-
-/* Benefits Grid */
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
-  gap: 2rem;
-  margin: 3rem 0;
-  padding: 0 1rem;
-}
-
-.benefit-card.professional {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: visible;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.benefit-card.professional:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(255, 145, 77, 0.18);
-  border-color: #FF914D;
-}
-
-.benefit-card.professional.highlight {
-  border: 2px solid #FF914D;
-  position: relative;
-}
-
-.featured-tag {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #FF914D, #E85D04);
-  color: white;
-  padding: 6px 20px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(255, 145, 77, 0.4);
-  z-index: 2;
-}
-
-.benefit-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-.benefit-icon-wrapper {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #FF914D, #E85D04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.benefit-icon-wrapper i {
-  font-size: 1.5rem;
-  color: white;
-}
-
-.benefit-header h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: white;
-  margin: 0;
-  line-height: 1.3;
-}
-
-.benefit-description {
-  color: #94a3b8;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  font-size: 1rem;
-  flex-grow: 1;
-}
-
-.stats-container {
-  display: flex;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  position: relative;
-  margin-top: auto;
-}
-
-.stat-box {
-  flex: 1;
-  text-align: center;
-  position: relative;
-}
-
-.stat-divider {
-  width: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 0 1.5rem;
-}
-
-.stat-value {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 2px;
-  margin-bottom: 0.5rem;
-}
-
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #FF914D;
-  line-height: 1;
-}
-
-.stat-plus {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #94a3b8;
-}
-
-.stat-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #FF914D;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.25rem;
-}
-
-.stat-subtext {
-  font-size: 0.75rem;
-  color: #94a3b8;
-}
-
-.features-list {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  margin-top: auto;
-}
-
-.feature-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border-radius: 8px;
-  transition: background 0.2s ease;
-}
-
-.feature-item:hover {
-  background: rgba(255, 145, 77, 0.05);
-}
-
-.feature-item:last-child {
-  margin-bottom: 0;
-}
-
-.feature-check {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #10b981;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.feature-check i {
-  color: white;
-  font-size: 0.8rem;
-}
-
-.feature-text {
-  color: #e2e8f0;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  font-weight: 500;
-}
-
-.performance-display {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  margin-top: auto;
-}
-
-.performance-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.performance-header h4 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: white;
-  margin: 0;
-}
-
-.performance-legend {
-  display: flex;
-  gap: 1rem;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.legend-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.legend-dot.before {
-  background: #ff6b6b;
-}
-
-.legend-dot.after {
-  background: #FF914D;
-}
-
-.legend-text {
-  font-size: 0.8rem;
-  color: #94a3b8;
-}
-
-.performance-bar-container {
-  margin: 1.5rem 0;
-}
-
-.performance-bar {
-  height: 40px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  overflow: hidden;
-  display: flex;
-  position: relative;
-  margin-bottom: 0.75rem;
-}
-
-.bar-section {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: width 1s ease-out;
-  position: relative;
-}
-
-.bar-section.before {
-  background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
-}
-
-.bar-section.after {
-  background: linear-gradient(90deg, #FF914D, #E85D04);
-}
-
-.bar-value {
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  position: absolute;
-}
-
-.bar-section.before .bar-value {
-  left: 10px;
-}
-
-.bar-section.after .bar-value {
-  right: 10px;
-}
-
-.performance-labels {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 5px;
-}
-
-.label-item {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #94a3b8;
-}
-
-.performance-improvement {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: linear-gradient(135deg, #FF914D, #E85D04);
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-top: 1rem;
-}
-
-.performance-improvement i {
-  font-size: 1rem;
-}
-
-/* Services Showcase */
-.services-showcase {
-  margin: clamp(3rem, 6vw, 4rem) 0;
-}
-
-.services-title {
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-  color: white;
-  text-align: center;
-  margin-bottom: 2rem;
-  font-weight: 700;
-}
-
-.services-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.tab {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #94a3b8;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.tab:hover {
-  background: rgba(255, 145, 77, 0.1);
-  color: white;
-}
-
-.tab.active {
-  background: linear-gradient(135deg, #FF914D, #E85D04);
-  color: white;
-  border-color: transparent;
-}
-
-.tab-content {
-  display: none;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.tab-content.active {
-  display: block;
-  animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.service-detail {
-  background: rgba(30, 26, 22, 0.8);
-  border-radius: 20px;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-@media (max-width: 768px) {
-  .service-detail {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
-  }
-}
-
-.detail-icon {
-  flex-shrink: 0;
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, rgba(255, 145, 77, 0.15), rgba(232, 93, 4, 0.15));
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: #FF914D;
-}
-
-.detail-content h3 {
-  font-size: 1.5rem;
-  color: white;
-  margin-bottom: 0.8rem;
-}
-
-.detail-content p {
-  color: #94a3b8;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.detail-features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.detail-features span {
-  background: rgba(255, 145, 77, 0.1);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  color: #94a3b8;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-@media (max-width: 480px) {
-  .detail-features {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .detail-features span {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-.detail-features i {
-  color: #FF914D;
-  font-size: 0.8rem;
-}
-
-/* Call to Action */
-.new-year-cta {
-  margin-top: clamp(3rem, 6vw, 4rem);
-}
-
-.cta-card {
-  background: linear-gradient(145deg, rgba(35, 26, 22, 0.95), rgba(21, 23, 25, 0.95));
-  border-radius: 24px;
-  padding: clamp(2rem, 4vw, 3rem);
-  border: 1px solid rgba(255, 145, 77, 0.25);
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-header {
-  text-align: center;
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  position: relative;
-  z-index: 1;
-}
-
-.cta-header h2 {
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-  color: white;
-  margin-bottom: 1rem;
-  font-weight: 700;
-}
-
-.cta-subtitle {
-  color: #94a3b8;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  max-width: 700px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.cta-content {
-  position: relative;
-  z-index: 1;
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-}
-
-.guarantee-badge {
-  background: rgba(255, 145, 77, 0.1);
-  border: 1px solid rgba(255, 145, 77, 0.3);
-  border-radius: 16px;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  max-width: 500px;
-}
-
-@media (max-width: 768px) {
-  .guarantee-badge {
-    flex-direction: column;
-    text-align: center;
-    max-width: 100%;
-  }
-}
-
-.guarantee-badge i {
-  font-size: 2.5rem;
-  color: #FF914D;
-  flex-shrink: 0;
-}
-
-.guarantee-badge div {
-  display: flex;
-  flex-direction: column;
-}
-
-.guarantee-badge strong {
-  color: white;
-  font-size: 1.2rem;
-  margin-bottom: 0.3rem;
-}
-
-.guarantee-badge span {
-  color: #94a3b8;
-  font-size: 0.95rem;
-}
-
-.urgency-message {
-  background: linear-gradient(135deg, rgba(255, 145, 77, 0.12), rgba(193, 18, 31, 0.12));
-  border-radius: 16px;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  border: 1px solid rgba(255, 145, 77, 0.25);
-}
-
-@media (max-width: 768px) {
-  .urgency-message {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
-  }
-}
-
-.urgency-icon {
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 145, 77, 0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  color: #FF914D;
-  flex-shrink: 0;
-}
-
-.urgency-text {
-  flex: 1;
-  color: white;
-  font-size: clamp(1rem, 1.8vw, 1.1rem);
-}
-
-.highlight-text {
-  color: #FF914D;
-  font-weight: 700;
-  background: rgba(255, 145, 77, 0.1);
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-}
-
-.countdown {
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 12px;
-  padding: 1rem;
-  min-width: 100px;
-  text-align: center;
-}
-
-.countdown-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.countdown-number {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #FF914D;
-  line-height: 1;
-}
-
-.countdown-label {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  margin-top: 0.3rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.cta-actions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: clamp(1rem, 2vw, 1.5rem);
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 768px) {
-  .cta-actions {
-    grid-template-columns: 1fr;
-  }
-}
-
-.cta-button {
-  display: block;
-  text-decoration: none;
-  border-radius: 16px;
-  padding: 1.5rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid transparent;
-}
-
-.cta-primary {
-  background: linear-gradient(135deg, #FF914D, #E85D04);
-  color: white;
-}
-
-.cta-secondary {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-}
-
-.cta-button:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(255, 145, 77, 0.3);
-}
-
-.cta-secondary:hover {
-  background: rgba(255, 145, 77, 0.1);
-  border-color: #FF914D;
-}
-
-.button-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-@media (max-width: 480px) {
-  .button-content {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-  }
-}
-
-.button-content i {
-  font-size: 2rem;
-  flex-shrink: 0;
-}
-
-.button-text {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-@media (max-width: 480px) {
-  .button-text {
-    text-align: center;
-  }
-}
-
-.button-text strong {
-  font-size: 1.3rem;
-  margin-bottom: 0.3rem;
-}
-
-@media (max-width: 480px) {
-  .button-text strong {
-    font-size: 1.1rem;
-  }
-}
-
-.button-text span {
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
-
-@media (max-width: 480px) {
-  .button-text span {
-    font-size: 0.85rem;
-  }
-}
-
-.trust-signals {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: clamp(1rem, 2vw, 2rem);
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 768px) {
-  .trust-signals {
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .trust-signals {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  color: #94a3b8;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-@media (max-width: 480px) {
-  .trust-item {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-  }
-}
-
-.trust-item i {
-  color: #FF914D;
-  font-size: 1.1rem;
-}
-
-/* Responsive Breakpoints */
-@media (max-width: 1200px) {
-  .benefits-grid {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  }
-}
-
-@media (max-width: 992px) {
-  .new-year-motivation {
-    padding: 4rem 1.5rem;
-    margin: 2rem 1rem;
-  }
-  
-  .motivation-title {
-    font-size: 2.5rem;
-  }
-  
-  .benefits-grid {
-    grid-template-columns: 1fr;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .stats-container {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .stat-divider {
-    width: 100%;
-    height: 1px;
-    margin: 0;
-  }
-  
-  .service-detail {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 768px) {
-  .motivation-title {
-    font-size: 2rem;
-  }
-  
-  .motivation-subtitle {
-    font-size: 1.2rem;
-  }
-  
-  .hero-quote {
-    padding: 1.5rem;
-  }
-  
-  .quote-text {
-    font-size: 1.3rem;
-  }
-  
-  .benefit-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
-  }
-  
-  .benefit-icon-wrapper {
-    margin: 0 auto;
-  }
-  
-  .services-tabs {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .tab {
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  .urgency-message {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .countdown {
-    margin-top: 1rem;
-    width: 100%;
-    max-width: 200px;
-  }
-}
-
-@media (max-width: 480px) {
-  .new-year-motivation {
-    padding: 3rem 1rem;
-    border-radius: 16px;
-  }
-  
-  .motivation-title {
-    font-size: 1.8rem;
-  }
-  
-  .motivation-subtitle {
-    font-size: 1.1rem;
-  }
-  
-  .new-year-badge {
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
-  }
-  
-  .benefit-card.professional {
-    padding: 1.5rem;
-  }
-  
-  .benefit-header h3 {
-    font-size: 1.3rem;
-  }
-  
-  .stat-number {
-    font-size: 2rem;
-  }
-  
-  .performance-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .performance-legend {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .cta-header h2 {
-    font-size: 1.8rem;
-  }
-  
-  .cta-button {
-    padding: 1.25rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .new-year-motivation {
-    padding: 2rem 0.75rem;
-  }
-  
-  .motivation-title {
-    font-size: 1.6rem;
-  }
-  
-  .motivation-subtitle {
-    font-size: 1rem;
-  }
-  
-  .badge-text {
-    font-size: 0.8rem;
-  }
-  
-  .benefit-card h3 {
-    font-size: 1.3rem;
-  }
-  
-  .tab {
-    padding: 0.7rem 1rem;
-    font-size: 0.9rem;
-  }
-  
-  .featured-tag {
-    font-size: 0.7rem;
-    padding: 4px 16px;
-  }
-}
-
-@keyframes fillBar {
-  from { width: 0%; }
-  to { width: var(--target-width); }
-}
-
-.bar-section {
-  animation: fillBar 1.5s ease-out forwards;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .new-year-badge,
-  .benefit-card.professional:hover,
-  .cta-button:hover,
-  .tab-content.active,
-  .bar-section {
-    animation: none;
-    transition: none;
-  }
-  
-  .benefit-card.professional:hover {
-    transform: none;
-  }
-  
-  .cta-button:hover {
-    transform: none;
-    box-shadow: none;
-  }
-}
-
   /* ---------- Professional Testimonials + Trust Section ---------- */
 .testimonials-wrapper {
   padding: 5rem 2rem;
@@ -2597,75 +1464,18 @@
     margin-right: auto !important;
   }
 
-  /* ═══ MOTIVATION / FALL SECTION — the main fix ═══ */
-  .new-year-motivation {
-    text-align: center;
-  }
-
   .motivation-container {
     text-align: center !important;
     max-width: min(95%, 1200px);
     padding: 0 1rem;
   }
 
-  /* Badge is inline-flex — needs a text-align:center parent to center */
-  .new-year-badge {
-    display: inline-flex !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  /* Title, subtitle, quote — force center */
-  .motivation-title,
+  /* Subtitle + section title — force center */
   .motivation-subtitle,
-  .quote-text,
-  .quote-author,
   .services-title {
     text-align: center !important;
     margin-left: auto !important;
     margin-right: auto !important;
-  }
-
-  /* Hero quote block itself */
-  .hero-quote {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    max-width: 900px;
-    text-align: center;
-  }
-
-  /* Services tabs — center */
-  .services-tabs {
-    display: flex;
-    justify-content: center !important;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  /* Service detail card — center everything */
-  .service-detail {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 800px;
-  }
-
-  /* CTA card content — center */
-  .cta-header,
-  .cta-content,
-  .cta-actions,
-  .guarantee-badge,
-  .urgency-message {
-    text-align: center;
-  }
-
-  .guarantee-badge {
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  /* Trust signals row — centered */
-  .trust-signals {
-    justify-content: center !important;
   }
 
   /* ═══ HERO ═══ */
@@ -2781,7 +1591,6 @@
     .services,
     .repair-process,
     .testimonials-wrapper,
-    .new-year-motivation,
     .trust-panel {
       padding-left: 1rem !important;
       padding-right: 1rem !important;
@@ -2821,265 +1630,12 @@
       padding: 0 0.5rem;
     }
 
-    .new-year-badge {
-      padding: 0.5rem 1rem !important;
-      font-size: 0.75rem !important;
-    }
-
-    .badge-text {
-      font-size: 0.72rem !important;
-    }
   }
 
   /* Fix any hero overflow */
   .hero {
     width: 100%;
     overflow-x: hidden;
-  }
-
-  /* ═══════════════════════════════════════════════════════
-     PROFESSIONAL COLOUR OVERRIDE — Blue/Teal Brand Theme
-     Replaces all orange/red tones in the Fall section
-     ═══════════════════════════════════════════════════════ */
-
-  /* ── Fall Motivation Section ── */
-  .new-year-motivation {
-    background: linear-gradient(135deg,
-      rgba(21, 23, 25, 0.98) 0%,
-      rgba(28, 30, 48, 0.98) 50%,
-      rgba(21, 23, 25, 0.98) 100%
-    ) !important;
-    border-color: rgba(92, 92, 253, 0.25) !important;
-  }
-
-  .new-year-motivation::before {
-    background: linear-gradient(90deg,
-      var(--brand) 0%,
-      #A78BFA 33%,
-      #4ECDC4 66%,
-      var(--brand) 100%
-    ) !important;
-  }
-
-  /* ── Badge ── */
-  .new-year-badge {
-    background: linear-gradient(135deg, rgba(92, 92, 253, 0.18), rgba(78, 205, 196, 0.15)) !important;
-    border-color: rgba(92, 92, 253, 0.4) !important;
-  }
-
-  .badge-text {
-    background: linear-gradient(90deg, #fff, var(--brand)) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-  }
-
-  /* ── Main Title ── */
-  .motivation-title {
-    background: linear-gradient(135deg, #fff 0%, #A78BFA 60%, var(--brand) 100%) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-  }
-
-  /* ── Hero Quote ── */
-  .hero-quote {
-    background: rgba(30, 30, 48, 0.8) !important;
-    border-left: 4px solid var(--brand) !important;
-  }
-
-  .quote-mark {
-    color: var(--brand) !important;
-  }
-
-  /* ── Benefit Cards ── */
-  .benefit-card.professional:hover {
-    box-shadow: 0 12px 40px rgba(92, 92, 253, 0.25) !important;
-    border-color: var(--brand) !important;
-  }
-
-  .benefit-card.professional.highlight {
-    border: 2px solid var(--brand) !important;
-  }
-
-  .benefit-icon-wrapper {
-    background: linear-gradient(135deg, var(--brand), #4ECDC4) !important;
-  }
-
-  .featured-tag {
-    background: linear-gradient(135deg, var(--brand), #4ECDC4) !important;
-    box-shadow: 0 4px 12px rgba(92, 92, 253, 0.4) !important;
-  }
-
-  /* ── Stat Numbers ── */
-  .stat-number {
-    color: var(--brand) !important;
-  }
-
-  .stat-label {
-    color: #4ECDC4 !important;
-  }
-
-  /* ── Feature Check ── */
-  .feature-item:hover {
-    background: rgba(92, 92, 253, 0.06) !important;
-  }
-
-  /* ── Performance Bar ── */
-  .legend-dot.after {
-    background: #4ECDC4 !important;
-  }
-
-  .bar-section.after {
-    background: linear-gradient(90deg, var(--brand), #4ECDC4) !important;
-  }
-
-  .performance-improvement {
-    background: linear-gradient(135deg, var(--brand), #4ECDC4) !important;
-  }
-
-  /* ── Tabs ── */
-  .tab:hover {
-    background: rgba(92, 92, 253, 0.12) !important;
-    color: #fff !important;
-  }
-
-  .tab.active {
-    background: linear-gradient(135deg, var(--brand), #4ECDC4) !important;
-  }
-
-  /* ── Service Detail Card ── */
-  .service-detail {
-    background: rgba(30, 30, 48, 0.8) !important;
-  }
-
-  .detail-icon {
-    background: linear-gradient(135deg, rgba(92, 92, 253, 0.15), rgba(78, 205, 196, 0.15)) !important;
-    color: var(--brand) !important;
-  }
-
-  .detail-features span {
-    background: rgba(92, 92, 253, 0.1) !important;
-  }
-
-  .detail-features i {
-    color: #4ECDC4 !important;
-  }
-
-  /* ── CTA Card ── */
-  .cta-card {
-    background: linear-gradient(145deg, rgba(28, 30, 48, 0.95), rgba(21, 23, 25, 0.95)) !important;
-    border-color: rgba(92, 92, 253, 0.25) !important;
-  }
-
-  .guarantee-badge {
-    background: rgba(92, 92, 253, 0.1) !important;
-    border-color: rgba(92, 92, 253, 0.3) !important;
-  }
-
-  .guarantee-badge i {
-    color: var(--brand) !important;
-  }
-
-  .urgency-message {
-    background: linear-gradient(135deg, rgba(92, 92, 253, 0.12), rgba(78, 205, 196, 0.12)) !important;
-    border-color: rgba(92, 92, 253, 0.25) !important;
-  }
-
-  .urgency-icon {
-    background: rgba(92, 92, 253, 0.2) !important;
-    color: var(--brand) !important;
-  }
-
-  .highlight-text {
-    color: #4ECDC4 !important;
-    background: rgba(78, 205, 196, 0.1) !important;
-  }
-
-  .countdown-number {
-    color: #4ECDC4 !important;
-  }
-
-  /* ── CTA Buttons ── */
-  .cta-primary {
-    background: linear-gradient(135deg, var(--brand), #4ECDC4) !important;
-  }
-
-  .cta-button:hover {
-    box-shadow: 0 20px 40px rgba(92, 92, 253, 0.35) !important;
-  }
-
-  .cta-secondary:hover {
-    background: rgba(92, 92, 253, 0.1) !important;
-    border-color: var(--brand) !important;
-  }
-
-  /* ── Trust Signals ── */
-  .trust-item i {
-    color: #4ECDC4 !important;
-  }
-
-  /* ── Brand Section Gradient Line ── */
-  .brand-title::after {
-    background: linear-gradient(90deg, var(--brand), #4ECDC4) !important;
-  }
-
-  .brand-card::before {
-    background: linear-gradient(90deg, var(--brand), #4ECDC4) !important;
-  }
-
-  .brand-card {
-    border-color: rgba(92, 92, 253, 0.2) !important;
-  }
-
-  .brand-card:hover {
-    box-shadow: 0 15px 30px rgba(92, 92, 253, 0.3) !important;
-    border-color: rgba(92, 92, 253, 0.5) !important;
-  }
-
-  /* ── Form Link (Book Online button in process) ── */
-  .form-link {
-    background: var(--brand) !important;
-    box-shadow: 0 4px 10px rgba(92, 92, 253, 0.3) !important;
-  }
-
-  .form-link:hover {
-    background: #4ECDC4 !important;
-    box-shadow: 0 6px 15px rgba(78, 205, 196, 0.4) !important;
-  }
-
-  /* ── Service Card Hover ── */
-  .service-card:hover {
-    box-shadow: 0 10px 30px rgba(92, 92, 253, 0.2) !important;
-  }
-
-  .service-card::before {
-    background: #4ECDC4 !important;
-  }
-
-  /* ── Process Step Icon Hover ── */
-  .step-card:hover {
-    box-shadow: 0 10px 30px rgba(92, 92, 253, 0.2) !important;
-  }
-
-  .step-card:hover .step-icon {
-    color: #4ECDC4 !important;
-  }
-
-  /* ── Final CTA Section ── */
-  .cta {
-    background: linear-gradient(135deg, var(--brand), #3a3aff) !important;
-  }
-
-  /* ── Section Tag / Hero Tag ── */
-  .section-tag {
-    background: rgba(92, 92, 253, 0.2) !important;
-    color: #4ECDC4 !important;
-  }
-
-  /* ── Ensure any residual orange text is now brand blue ── */
-  .services-title {
-    color: #fff !important;
   }
 
 /* ---------- FAQ Section ---------- */
@@ -3167,5 +1723,129 @@
 
   .faq-item summary {
     font-size: 1rem;
+  }
+}
+
+/* ============================================================
+   WINTER PROMOTION (2026)
+   Seasonal campaign block — amber accent on an ink band.
+   Uses tokens.css values; buttons come from components.css.
+   ============================================================ */
+.winter-promo {
+  position: relative;
+  overflow: hidden;
+  max-width: min(96%, 1400px);
+  margin: clamp(2rem, 4vw, 3rem) auto;
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1rem, 4vw, 2rem);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(1100px 480px at 8% -20%, rgba(99, 102, 241, 0.35), transparent 60%),
+    radial-gradient(900px 420px at 100% 0%, rgba(245, 158, 11, 0.18), transparent 55%),
+    var(--ink-950);
+  color: var(--text-on-dark);
+  text-align: center;
+}
+
+.winter-promo::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand-500), var(--amber-500), var(--brand-500));
+}
+
+.winter-promo-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.winter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: var(--radius-pill);
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--amber-300);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.winter-title {
+  margin: 1.25rem auto 0.75rem;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.winter-title span {
+  display: block;
+  color: var(--amber-500);
+}
+
+.winter-subtitle {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--text-on-dark-muted);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.winter-offer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  max-width: 920px;
+  margin: 2rem auto 0;
+}
+
+.winter-offer-item {
+  padding: 1rem;
+  border: 1px solid var(--border-on-dark);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.winter-offer-item strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--amber-500);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.winter-offer-item span {
+  color: var(--text-on-dark-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.winter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.winter-fineprint {
+  margin: 1.25rem auto 0;
+  color: var(--text-on-dark-muted);
+  font-size: var(--text-xs);
+}
+
+@media (max-width: 600px) {
+  .winter-actions .btn {
+    width: 100%;
   }
 }
