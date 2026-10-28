@@ -1400,4 +1400,20 @@ footer {
     }
 }
 
-/* Footer contrast: .seo-hidden is tuned for the shared dark footer above. */
+/* Light pages (aboutus, stoney-creek, niagara, stcatharines) keep their own
+   light --bg-color, so the shared footer sits on a light surface there. Give
+   the footer ink and links dark values instead of the dark-page palette. */
+body.theme-light .tagline,
+body.theme-light .footer-tagline {
+  color: var(--theme-color);
+}
+body.theme-light .footerlinks ul.links li a:hover {
+  color: var(--white);
+}
+body.theme-light .seo-hidden {
+  opacity: 1;
+  color: #334155; /* 10.4:1 on #fff, 9.4:1 on #f1f5f9 */
+}
+body.theme-light .seo-hidden a {
+  color: #3730a3; /* 9.9:1 on #fff, 9.0:1 on #f1f5f9 */
+}

@@ -675,8 +675,8 @@
       /* Life Fitness — bold uppercase with wide tracking */
       .lifefitness {
         font-weight: 700;
-        font-size: clamp(0.8rem, 1.8vw, 1.05rem);
-        letter-spacing: 0.2em;
+        font-size: clamp(0.68rem, 1.7vw, 1.05rem);
+        letter-spacing: 0.16em;
         color: #f2f4f7;
       }
 
@@ -701,7 +701,7 @@
       .solefitness {
         font-weight: 800;
         font-style: italic;
-        font-size: clamp(0.9rem, 2vw, 1.2rem);
+        font-size: clamp(0.8rem, 1.9vw, 1.2rem);
         letter-spacing: 0.02em;
         color: #eef1f5;
       }
@@ -743,15 +743,15 @@
       /* Technogym — light, architectural tracking */
       .technogym {
         font-weight: 500;
-        font-size: clamp(0.95rem, 2vw, 1.3rem);
-        letter-spacing: 0.18em;
+        font-size: clamp(0.85rem, 1.9vw, 1.3rem);
+        letter-spacing: 0.16em;
         color: #eef1f5;
       }
 
       /* True Fitness — bold uppercase with wide tracking */
       .truefitness {
         font-weight: 700;
-        font-size: clamp(0.8rem, 1.7vw, 1.1rem);
+        font-size: clamp(0.72rem, 1.6vw, 1.1rem);
         letter-spacing: 0.12em;
         color: #eef1f4;
       }
@@ -760,7 +760,7 @@
       .spiritfitness {
         font-weight: 700;
         font-style: italic;
-        font-size: clamp(0.78rem, 1.65vw, 1.05rem);
+        font-size: clamp(0.7rem, 1.55vw, 1.05rem);
         letter-spacing: 0.06em;
         color: #f0f2f5;
       }
@@ -769,7 +769,7 @@
       .octanefitness {
         font-weight: 800;
         font-style: italic;
-        font-size: clamp(0.78rem, 1.65vw, 1.05rem);
+        font-size: clamp(0.7rem, 1.55vw, 1.05rem);
         letter-spacing: 0.05em;
         color: #eef1f4;
       }
