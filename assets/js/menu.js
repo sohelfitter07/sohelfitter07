@@ -218,7 +218,7 @@ injectFavicons();
 document.addEventListener("DOMContentLoaded", () => {
   const headerSlot = document.getElementById("header");
   if (headerSlot) {
-    fetch("header.html?v=20261029")
+    fetch("header.html?v=20261030")
       .then((res) => res.text())
       .then((data) => {
         headerSlot.innerHTML = data;
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const footerSlot = document.getElementById("footer");
   if (footerSlot) {
-    fetch("footer.html?v=20261029")
+    fetch("footer.html?v=20261030")
       .then((res) => res.text())
       .then((data) => {
         footerSlot.innerHTML = data;

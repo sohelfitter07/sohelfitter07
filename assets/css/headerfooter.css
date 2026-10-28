@@ -357,201 +357,459 @@ body.nav-open #cfr-win {
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
 }
-footer {
+/* ==========================================================================
+   Site footer
+   Desktop: 4 columns · Tablet: 2 columns · Mobile: single column.
+   Everything inside is scoped to .site-footer so page-level `footer` rules
+   from legacy pages cannot disturb the shared footer.
+   ========================================================================== */
+.site-footer {
+  --footer-bg: var(--ink-950, #0b1020);
+  --footer-text: #c9d1de;
+  --footer-muted: #9aa5b5;
+  --footer-line: rgba(255, 255, 255, 0.1);
+  --footer-line-soft: rgba(255, 255, 255, 0.07);
+  --footer-accent: var(--amber-500, #f59e0b);
   width: 100%;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 5%;
   margin-top: auto;
-  border-top: 1px solid rgba(93, 93, 255, 0.1);
+  padding: 0;
+  color: var(--footer-text);
+  background-color: var(--footer-bg);
+  background-image: radial-gradient(
+    1100px 380px at 8% -12%,
+    rgba(245, 158, 11, 0.1),
+    transparent 62%
+  );
+  border-top: 1px solid rgba(245, 158, 11, 0.28);
+  font-family: var(--font-body);
+  text-align: left;
 }
 
+.footer-inner {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Keyboard focus must stay visible on the dark surface. */
+.site-footer a:focus-visible {
+  outline: 2px solid var(--footer-accent);
+  outline-offset: 3px;
+}
+
+/* ---- Main grid ---------------------------------------------------------- */
 .footertop {
-  display: flex;
-  justify-content: center;
-  gap: 10rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  flex-wrap: wrap;
-}
-
-.footertop-left {
-  flex: 1;
-  min-width: 300px;
-}
-
-.footertop-middle {
-  flex: 1;
-  min-width: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-/* New grid layout for contact section */
-.footertop-right {
-  flex: 1;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  min-width: 300px;
+  grid-template-columns:
+    minmax(235px, 1.4fr)
+    minmax(158px, 0.8fr)
+    minmax(262px, 1.35fr)
+    minmax(258px, 1.2fr);
+  gap: 56px 40px;
+  align-items: start;
+  padding: 64px 0 56px;
 }
 
-.footer-contact {
-  padding: 15px;
-  background-color: rgba(30, 32, 35, 0.5);
-  border-radius: 8px;
-  transition: var(--transition);
-}
-.footer-contact:hover {
-  background-color: rgba(93, 93, 255, 0.1);
-  transform: translateY(-3px);
+.footer-brand {
+  min-width: 0;
 }
 
 .footer-company-name {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--theme-color);
+  font-family: var(--font-heading, 'Montserrat', 'Poppins', sans-serif);
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  margin-bottom: 0.45rem;
 }
 
 .footer-tagline {
-  color: var(--accent-color);
+  font-size: 0.92rem;
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+  color: var(--footer-accent);
+  margin-bottom: 1.1rem;
 }
 
-.footertop p {
-  color: var(--light-text);
-  margin-bottom: 1.5rem;
+.footer-brand p {
+  color: var(--footer-muted);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  margin: 0;
+  max-width: 46ch;
 }
 
-.footer-contact h2 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+/* ---- Column headings ---------------------------------------------------- */
+.site-footer .footer-heading,
+.site-footer .footer-contact h2 {
+  font-family: 'Poppins', var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--footer-accent);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.55rem;
+  margin: 0 0 1.05rem;
+  line-height: 1.4;
+}
+
+.site-footer .footer-heading i,
+.site-footer .footer-contact h2 i {
+  font-size: 1.05rem;
+  color: var(--footer-accent);
+  flex-shrink: 0;
+}
+
+/* Short amber rule under the two link columns, matching the site's accents. */
+.site-footer .footer-heading {
+  position: relative;
+  padding-bottom: 0.65rem;
+  margin-bottom: 0.8rem;
+}
+.site-footer .footer-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 26px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--footer-accent);
+  opacity: 0.85;
+}
+
+.footer-col {
+  min-width: 0;
+}
+
+/* ---- Link lists --------------------------------------------------------- */
+.footer-cities,
+.neighborhood-links {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.footer-cities a,
+.neighborhood-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0.3rem 0;
+  color: var(--footer-text);
+  text-decoration: none;
+  font-size: 0.93rem;
+  line-height: 1.45;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-cities a:hover,
+.neighborhood-links a:hover,
+.footer-cities a:focus-visible,
+.neighborhood-links a:focus-visible {
+  color: var(--footer-accent);
+  transform: translateX(3px);
+}
+
+/* ---- Contact blocks ----------------------------------------------------- */
+.footertop-right {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  min-width: 0;
+}
+
+.footer-contact {
+  padding: 0 0 18px;
+  border-bottom: 1px solid var(--footer-line-soft);
+  background: none;
+  border-radius: 0;
+}
+
+.footer-contact:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .footer-contact p {
-  margin-bottom: 0.5rem;
-  color: var(--light-text);
-  font-size: 0.95rem;
+  margin: 0 0 0.35rem;
+  color: var(--footer-text);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
 }
 
-.footer-contact i {
-  color: var(--theme-color);
+.footer-contact p:last-child {
+  margin-bottom: 0;
 }
 
-/* Footer bottom with legal links */
+.site-footer .footer-contact a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-footer .footer-contact a:hover,
+.site-footer .footer-contact a:focus-visible {
+  color: var(--footer-accent);
+}
+
+.site-footer .gbp-link p {
+  margin: 0;
+}
+
+/* ---- Bottom bar --------------------------------------------------------- */
 .footerbottom {
-  display: flex;
-  flex-direction: column;
-  padding: 1.5rem 0;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px 32px;
+  padding: 26px 0 34px;
+  border-top: 1px solid var(--footer-line);
+}
+
+.footer-legal {
+  min-width: 0;
 }
 
 .legal-links {
   display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: nowrap;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.55rem;
+  margin-bottom: 0.6rem;
+  color: var(--footer-muted);
+  font-size: 0.86rem;
 }
 
-.legal-links a {
-  color: var(--light-text);
-  text-decoration: none;
-  transition: var(--transition);
-  font-size: 0.9rem;
+/* Keep each "link •" pair on one line so a wrapped row never starts with a
+   stray bullet. */
+.legal-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   white-space: nowrap;
 }
 
-.legal-links a:hover {
-  color: var(--theme-color);
+.legal-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--footer-muted);
+  text-decoration: none;
+  font-size: 0.86rem;
+  transition: color 0.2s ease;
+}
+
+.legal-links a:hover,
+.legal-links a:focus-visible {
+  color: var(--footer-accent);
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .copyright {
-  font-size: 0.9rem;
-  color: var(--light-text);
-  text-align: center;
-  margin-bottom: 1rem;
+  color: var(--footer-muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+  text-align: left;
+  margin: 0;
 }
 
+.copyright p {
+  margin: 0;
+}
+
+/* ---- Social links ------------------------------------------------------- */
 .footerlinks {
-  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  width: auto;
 }
 
 .footerlinks ul.links {
   display: flex;
-  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 0.6rem;
+  list-style: none;
 }
+
 .footerlinks ul.links li a {
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 2.5em;
-  height: 2.5em;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
   border-radius: 50%;
-  background-color: var(--card-bg);
-  color: var(--text-color);
-  transition: var(--transition);
-}
-.footerlinks ul.links li a:hover {
-  background-color: var(--theme-color);
-  color: var(--text-color);
-  transform: translateY(-5px);
-}
-.footertop-middle {
-  flex: 1;
-  min-width: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-}
-.footer-cities {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 0.6rem 1.5rem;
-  width: 100%;
-}
-.footer-cities a {
-  color: var(--light-text);
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e8ecf4;
+  font-size: 1rem;
   text-decoration: none;
-  transition: var(--transition);
-  font-size: 0.95rem;
-  padding: 4px 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease, transform 0.2s ease;
 }
-.footer-cities a:hover {
-  color: var(--theme-color);
-  padding-left: 5px;
+
+.footerlinks ul.links li a:hover,
+.footerlinks ul.links li a:focus-visible {
+  background-color: var(--footer-accent);
+  border-color: var(--footer-accent);
+  color: var(--ink-950, #0b1020);
+  transform: translateY(-3px);
 }
+
+/* ---- SEO copy ----------------------------------------------------------- */
 .seo-hidden {
-  font-size: 0.75rem;
-  /* 7.3:1 on the #151719 footer — the old #666 at 0.7 opacity was ~2.2:1. */
-  color: #a0a6b0;
-  max-width: 700px;
-  margin: 20px auto 0;
-  line-height: 1.4;
-  user-select: text;
-  text-align: center;
-  letter-spacing: 0.02em;
-  order: 4;
+  grid-column: 1 / -1;
   width: 100%;
+  max-width: 900px;
+  margin: 10px auto 0;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #93a0b4;
+  user-select: text;
 }
+
 .seo-hidden a {
-  /* 8.8:1 on the dark footer. */
-  color: #9db2ff;
+  color: #b7c6ff;
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
+
+.seo-hidden a:hover {
+  color: var(--footer-accent);
+}
+
+.blog-link {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+  grid-column: 1 / -1;
+}
+
+/* ---- Tablet: balanced two-column grid ---------------------------------- */
+@media (max-width: 1099px) {
+  .footer-inner {
+    padding: 0 26px;
+  }
+
+  .footertop {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 42px 40px;
+    padding: 48px 0 42px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+    max-width: 640px;
+  }
+
+  .footertop-right {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 40px;
+  }
+
+  .footer-contact {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .footerbottom {
+    padding: 22px 0 28px;
+  }
+}
+
+/* ---- Mobile: single column, thumb-friendly ----------------------------- */
+@media (max-width: 767px) {
+  .footer-inner {
+    padding: 0 20px;
+  }
+
+  .site-footer {
+    border-top-width: 1px;
+  }
+
+  .footertop {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding: 40px 0 32px;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+    max-width: none;
+  }
+
+  .footer-company-name {
+    font-size: 1.35rem;
+  }
+
+  .footer-brand p {
+    font-size: 0.91rem;
+    line-height: 1.7;
+  }
+
+  .footertop-right {
+    grid-column: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .footer-cities a,
+  .neighborhood-links a {
+    min-height: 44px;
+    padding: 0.6rem 0;
+    font-size: 0.97rem;
+  }
+
+  .legal-links {
+    gap: 0.25rem 1rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.88rem;
+  }
+
+  .legal-links a {
+    min-height: 44px;
+    font-size: 0.88rem;
+  }
+
+  .footerbottom {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    padding: 20px 0 30px;
+  }
+
+  .footerlinks {
+    justify-content: flex-start;
+  }
+
+  .footerlinks ul.links {
+    justify-content: flex-start;
+    gap: 0.55rem;
+  }
+
+  .footerlinks ul.links li a {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.1rem;
+  }
+
+  .seo-hidden {
+    margin-top: 4px;
+    text-align: left;
+    font-size: 0.7rem;
+  }
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
   .navbarList {
     font-size: 65%;
@@ -796,38 +1054,6 @@ footer {
   .tagline {
     font-size: 0.7rem;
   }
-  .footertop {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  .footerbottom {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-  .footertop-middle {
-    width: 100%;
-    text-align: left;
-    margin-bottom: 2rem;
-  }
-  .footer-cities {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1rem;
-    justify-items: start;
-    padding: 0;
-  }
-  .footer-cities li {
-    list-style: none;
-    font-size: 1rem;
-    text-align: left;
-  }
-  
-  /* Mobile Legal Links */
-  .legal-links {
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
 }
 @media (max-width: 410px) {
   .logo-text {
@@ -862,39 +1088,10 @@ footer {
     padding: 0.6rem 0.6rem;
     font-size: 0.75rem;
   }
-
-  /* Small screen legal links */
-  .legal-links {
-    font-size: 0.85rem;
-  }
 }
 @media (min-width: 768px) {
   .dropdown:hover .dropdown-toggle-icon i {
     transform: rotate(180deg);
-  }
-  
-  /* Desktop Footer Layout */
-  .footerbottom {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .legal-links {
-    width: 100%;
-    order: 1;
-  }
-  .copyright {
-    order: 2;
-    width: auto;
-    text-align: left;
-  }
-  .footerlinks {
-    order: 3;
-    width: auto;
-  }
-  .seo-hidden {
-    order: 4;
   }
 }
 @media (max-width: 1024px) {
@@ -920,137 +1117,9 @@ footer {
   padding: 0.6rem 0.3rem;
 }
 }
-.footertop-middle {
-  flex: 1;
-  min-width: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-}
-.footer-cities {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 0.6rem 1.5rem;
-  width: 100%;
-}
-.footer-cities a {
-  color: var(--light-text);
-  text-decoration: none;
-  transition: var(--transition);
-  font-size: 0.95rem;
-  padding: 4px 0;
-}
-.footer-cities a:hover {
-  color: var(--theme-color);
-  padding-left: 5px;
-}
-.blog-link {
-  font-weight: bold;
-  margin-top: 10px;
-  display: block;
-  grid-column: 1 / -1;
-}
-.footer-neighborhoods {
-  margin-top: 1.5rem;
-  width: 100%;
-}
-.footer-neighborhoods h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--light-text);
-}
-.neighborhood-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.6rem 1.5rem;
-}
-.neighborhood-links a {
-  color: var(--light-text);
-  text-decoration: none;
-  transition: var(--transition);
-  font-size: 0.95rem;
-  padding: 4px 0;
-}
-.neighborhood-links a:hover {
-  color: var(--theme-color);
-  padding-left: 5px;
-}
-@media (max-width: 1024px) {
-  .footertop {
-    gap: 5rem;
-  }
-  .footer-cities,
-  .neighborhood-links {
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: 0.5rem 1rem;
-  }
-}
 @media (max-width: 767px) {
-  .footertop {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  .footertop-middle {
-    width: 100%;
-    margin-bottom: 2rem;
-  }
-  .footer-cities,
-  .neighborhood-links {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.8rem;
-  }
-  .footer-neighborhoods {
-    margin-top: 2rem;
-  }
-  .blog-link {
-    margin-top: 15px;
-  }
-}
-@media (max-width: 480px) {
-  .footer-cities,
-  .neighborhood-links {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 0.6rem;
-  }
-  .footer-cities a,
-  .neighborhood-links a {
-    font-size: 0.9rem;
-  }
-  .footer-neighborhoods h3 {
-    font-size: 1.1rem;
-  }
-}
-@media (max-width: 767px) {
-  .footertop {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .footertop-right {
-    grid-template-columns: 1fr;
-  }
-  
-  .legal-links {
-    gap: 0.8rem;
-    font-size: 0.85rem;
-  }
   .navbarList {
     padding-bottom: 20px; /* Add space at bottom */
-  }
-}
-
-@media (max-width: 480px) {
-  .legal-links {
-    gap: 0.5rem;
-    font-size: 0.8rem;
-  }
-  
-  .footer-contact {
-    padding: 12px;
   }
 }
 /* Admin Portal Styles */
@@ -1462,19 +1531,8 @@ footer {
 }
 
 /* Light pages (aboutus, stoney-creek, niagara, stcatharines) keep their own
-   light --bg-color, so the shared footer sits on a light surface there. Give
-   the footer ink and links dark values instead of the dark-page palette. */
-body.theme-light .tagline,
-body.theme-light .footer-tagline {
+   light --bg-color. The footer is intentionally dark on every page now, so
+   only the header tagline needs the page-aware accent. */
+body.theme-light .tagline {
   color: var(--theme-color);
-}
-body.theme-light .footerlinks ul.links li a:hover {
-  color: var(--white);
-}
-body.theme-light .seo-hidden {
-  opacity: 1;
-  color: #334155; /* 10.4:1 on #fff, 9.4:1 on #f1f5f9 */
-}
-body.theme-light .seo-hidden a {
-  color: #3730a3; /* 9.9:1 on #fff, 9.0:1 on #f1f5f9 */
 }
