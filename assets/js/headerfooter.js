@@ -568,7 +568,9 @@
 #cfr-teaser-dismiss:hover{color:#94a3b8}
 #cfr-win{position:fixed;bottom:108px;right:24px;width:375px;max-width:calc(100vw - 20px);background:#151719;border-radius:22px;border:1px solid rgba(92,92,253,.22);box-shadow:0 28px 70px rgba(0,0,0,.7);display:none;flex-direction:column;overflow:hidden;z-index:9998;font-family:"Segoe UI",Roboto,sans-serif}
 #cfr-win.cfr-open{display:flex;animation:cfrFadeUp .28s ease}
+#cfr-win.cfr-closing{display:flex;animation:cfrFadeDown .22s ease forwards}
 @keyframes cfrFadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cfrFadeDown{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(16px)}}
 @media(min-width:481px) and (max-width:768px){
   #cfr-win{width:340px;bottom:90px;right:16px}
   #cfr-bubble-wrap{bottom:16px;right:16px}
@@ -584,15 +586,16 @@
   #cfr-win{height:92vh;max-height:92vh}
   #cfr-win .cfr-msgs{max-height:calc(92vh - 130px)}
 }
-.cfr-hd{background:linear-gradient(135deg,#5C5CFD,#4ECDC4);padding:13px 16px;display:flex;align-items:center;gap:11px;flex-shrink:0}
+.cfr-hd{background:linear-gradient(135deg,#5C5CFD,#4ECDC4);padding:13px 16px;display:flex;align-items:center;gap:11px;flex-shrink:0;position:relative;padding-right:56px}
 .cfr-hd-av{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .cfr-hd-info{flex:1}
 .cfr-hd-name{font-size:14px;font-weight:700;color:#fff}
 .cfr-hd-sub{font-size:11px;color:rgba(255,255,255,.82);margin-top:2px;display:flex;align-items:center;gap:5px}
 .cfr-hd-sub::before{content:'';width:7px;height:7px;background:#4ade80;border-radius:50%;display:inline-block}
 .cfr-ai-badge{background:rgba(255,255,255,.15);padding:2px 7px;border-radius:8px;font-size:9px;margin-left:4px;display:inline-block}
-.cfr-x{background:none;border:none;color:rgba(255,255,255,.85);font-size:23px;cursor:pointer;padding:0 3px;line-height:1;flex-shrink:0}
-.cfr-x:hover{color:#fff}
+.cfr-x{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:20px;line-height:1;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s ease,transform .18s ease}
+.cfr-x:hover,.cfr-x:focus-visible{background:rgba(255,255,255,.34);color:#fff;transform:rotate(90deg);outline:none}
+.cfr-x:focus-visible{box-shadow:0 0 0 3px rgba(255,255,255,.35)}
 .cfr-msgs{overflow-y:auto;padding:13px 12px;display:flex;flex-direction:column;gap:9px;max-height:370px;min-height:180px;background:#151719;scroll-behavior:smooth;flex:1}
 .cfr-m{max-width:88%;padding:10px 14px;border-radius:18px;font-size:13.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word}
 .cfr-m.bot{background:#1E2030;color:#e2e8f0;border-radius:4px 18px 18px 18px;align-self:flex-start;border:1px solid rgba(255,255,255,.05)}
@@ -676,7 +679,7 @@
           </div>
           <div class="cfr-hd-sub">Online now · replies instantly</div>
         </div>
-        <button class="cfr-x" onclick="cfrClose()" aria-label="Close">×</button>
+        <button class="cfr-x" onclick="cfrClose()" aria-label="Close chat" title="Close chat">×</button>
       </div>
       <div class="cfr-msgs" id="cfrMsgs"></div>
       <div class="cfr-bar">
@@ -715,7 +718,12 @@
         if (!isOpen) document.getElementById('cfr-teaser').style.display = 'block';
       }, 4000);
     }
-    
+
+    // Allow closing the chat with the Escape key.
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && isOpen) cfrClose();
+    });
+
     // Load AI system
     initializeAI();
   }
@@ -1358,9 +1366,27 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
   };
 
   window.cfrClose = function () {
+    if (!isOpen) return;
     isOpen = false;
-    WIN.classList.remove('cfr-open');
-    BWRAP.classList.remove('cfr-hidden');
+
+    // Play the fade-down animation, then restore the launcher bubble.
+    WIN.classList.add('cfr-closing');
+
+    var finished = false;
+    function finishClose() {
+      if (finished) return;
+      finished = true;
+      WIN.removeEventListener('animationend', finishClose);
+      WIN.classList.remove('cfr-open', 'cfr-closing');
+      BWRAP.classList.remove('cfr-hidden');
+
+      var bubble = document.getElementById('cfr-bubble');
+      if (bubble) bubble.focus();
+    }
+
+    WIN.addEventListener('animationend', finishClose);
+    // Fallback for reduced-motion or browsers that skip the animation.
+    setTimeout(finishClose, 320);
   };
 
   // ═══════════════════════════════════════════════════════════════════════

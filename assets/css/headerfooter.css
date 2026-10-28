@@ -9,15 +9,16 @@
 }
 
 :root {
-  /* Fallback until menu.js measures the injected fixed header. */
-  --header-height: 132px;
+  /* Fallback until menu.js measures the injected fixed header. The header
+     now carries two promo rows, so allow extra room before JS syncs it. */
+  --header-height: 176px;
   /* Brand palette */
   --brand: #5d5dff;
   --brand-dark: #3a3aff;
   --brand-light: #7a7aff;
   --white: #fff;
   --theme-color: var(--brand);
-  --accent-color: #ff6b6b;
+  --accent-color: #f59e0b;
   --bg-color: #151719;
   --card-bg: #1e2023;
   --text-color: var(--white);
@@ -33,7 +34,7 @@ body {
 }
 @media (max-width: 767px) {
   :root {
-    --header-height: 196px;
+    --header-height: 238px;
   }
 }
 h1,
@@ -61,7 +62,7 @@ header {
   transition: var(--transition);
 }
 .discount-banner {
-  background: linear-gradient(45deg, #ff8e8e, var(--accent-color));
+  background: linear-gradient(45deg, #fcd34d, var(--accent-color));
   color: var(--bg-color);
   text-align: center;
   padding: 10px;
@@ -1020,7 +1021,7 @@ footer {
     font-style: italic;
     margin-top: 2px;
     padding: 2px 8px;
-    background: rgba(255, 107, 107, 0.1);
+    background: rgba(245, 158, 11, 0.12);
     border-radius: 4px;
     font-weight: 500;
     letter-spacing: 0.3px;
@@ -1134,7 +1135,7 @@ footer {
 .promo-line {
     background: var(--brand-700, #4338ca);
     color: #ffffff;
-    padding: 4px 0;
+    padding: 0;
     overflow: hidden;
     position: relative;
     border-radius: 8px;
@@ -1142,6 +1143,17 @@ footer {
     box-shadow: 0 4px 12px rgba(11, 16, 32, 0.35);
     font-weight: 600;
     font-size: 0.75rem;
+}
+
+/* Each marquee row is its own clipping track so the two rows can scroll
+   in opposite directions without interfering with one another. */
+.promo-row {
+    overflow: hidden;
+    position: relative;
+}
+
+.promo-row + .promo-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 /* Promo Track (auto-scrolling marquee) */
@@ -1158,6 +1170,40 @@ footer {
     padding: 8px 20px;
     gap: 20px;
     align-items: center;
+}
+
+/* Services row scrolls the other way for a bit of visual depth. */
+.promo-row--services .promo-content {
+    animation-direction: reverse;
+    animation-duration: 48s;
+}
+
+.promo-service {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.promo-service i {
+    font-size: 15px;
+    color: var(--amber-300, #fcd34d);
+}
+
+.promo-service:hover,
+.promo-service:focus-visible {
+    color: var(--amber-300, #fcd34d);
+}
+
+.promo-sep {
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: 700;
+    line-height: 1;
 }
 
 .promo-item {
@@ -1209,6 +1255,19 @@ footer {
         gap: 15px;
         animation-duration: 30s; /* Slightly faster on mobile */
     }
+
+    .promo-row--services .promo-content {
+        animation-duration: 40s;
+    }
+
+    .promo-service {
+        font-size: 12px;
+        gap: 6px;
+    }
+
+    .promo-service i {
+        font-size: 13px;
+    }
     
     .promo-item {
         font-size: 12px;
@@ -1227,6 +1286,19 @@ footer {
         gap: 12px;
         animation-duration: 25s; /* Even faster on very small screens */
     }
+
+    .promo-row--services .promo-content {
+        animation-duration: 34s;
+    }
+
+    .promo-service {
+        font-size: 11px;
+        gap: 5px;
+    }
+
+    .promo-service i {
+        font-size: 12px;
+    }
     
     .promo-item {
         font-size: 11px;
@@ -1243,7 +1315,7 @@ footer {
 @media (max-width: 767px) {
     .promo-line {
         font-size: 0.9rem;
-        padding: 4px 0;
+        padding: 0;
     }
 }
 

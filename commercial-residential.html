@@ -87,7 +87,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
-    <link href="assets/css/headerfooter.css" rel="stylesheet" />
+    <link href="assets/css/headerfooter.css?v=20261028" rel="stylesheet" />
     <style>
       * {
         margin: 0;
@@ -921,9 +921,9 @@
       </section>
     </main>
     <div id="footer"></div>
-    <script src="assets/js/menu.js"></script>
+    <script src="assets/js/menu.js?v=20261028"></script>
     <script src="assets/js/animations.js"></script>
-    <script src="assets/js/headerfooter.js"></script>
+    <script src="assets/js/headerfooter.js?v=20261028"></script>
     <script>
       // Simple animation for plan cards on scroll document.addEventListener("DOMContentLoaded", function () { const planCards = document.querySelectorAll(".plan-card"); const observer = new IntersectionObserver( (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.style.opacity = 1; entry.target.style.transform = "translateY(0)"; } }); }, { threshold: 0.1, } ); planCards.forEach((card) => { card.style.opacity = 0; card.style.transform = "translateY(20px)"; card.style.transition = "opacity 0.5s ease, transform 0.5s ease"; observer.observe(card); }); });
     </script>

@@ -171,12 +171,12 @@
 
 .equipment-item {
   background: #f5f5f5;           /* very light pink */
-  color: var(--accent-color);                /* deep red */
+  color: var(--accent-color);                /* amber accent */
   font-weight: 600;
   font-size: 1rem;
   padding: 0.5rem 1.25rem;
   border-radius: 30px;
-  box-shadow: 0 2px 6px rgba(192, 57, 43, 0.15);
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.2);
   user-select: none;
   transition: background-color 0.3s ease, color 0.3s ease;
   cursor: default;
@@ -186,7 +186,7 @@
 .equipment-item:focus {
   background: var(--accent-color);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.35);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
   outline: none;
 }
 
@@ -528,7 +528,7 @@
         display: block;
         width: 60px;
         height: 4px;
-        background: linear-gradient(90deg, #ff7e5f, #feb47b);
+        background: linear-gradient(90deg, #f59e0b, #fcd34d);
         margin: 12px auto 0;
         border-radius: 3px;
       }
@@ -553,6 +553,7 @@
       }
       .brand-card {
         background: rgba(25, 25, 40, 0.9);
+        color: #eef1f5;
         border-radius: 16px;
         padding: clamp(15px, 2vw, 25px) clamp(15px, 1.5vw, 20px);
         width: clamp(140px, 18vw, 200px);
@@ -563,7 +564,7 @@
         justify-content: center;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         transition: all 0.4s ease;
-        border: 1px solid rgba(255, 126, 95, 0.2);
+        border: 1px solid rgba(245, 158, 11, 0.25);
         position: relative;
         overflow: hidden;
       }
@@ -574,15 +575,15 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #ff7e5f, #feb47b);
+        background: linear-gradient(90deg, #f59e0b, #fcd34d);
         opacity: 0;
         transition: opacity 0.3s ease;
       }
       .brand-card:hover {
         transform: translateY(-12px) scale(1.03);
-        box-shadow: 0 15px 30px rgba(255, 126, 95, 0.3);
+        box-shadow: 0 15px 30px rgba(245, 158, 11, 0.35);
         background: rgba(35, 35, 55, 0.95);
-        border-color: rgba(255, 126, 95, 0.4);
+        border-color: rgba(245, 158, 11, 0.5);
       }
       .brand-card:hover::before {
         opacity: 1;
@@ -624,7 +625,7 @@
         line-height: 1;
         white-space: nowrap;
         text-transform: uppercase;
-        color: #eef1f5;
+        color: inherit;
         text-shadow: none;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
@@ -636,32 +637,16 @@
         font-style: italic;
         font-size: clamp(1rem, 2.1vw, 1.4rem);
         letter-spacing: -0.02em;
-        color: #f4f6f8;
+        color: #E31837;
       }
 
-      /* ProForm — bold italic with the red-to-steel two-tone lockup */
+      /* ProForm — bold italic wordmark in official brand red */
       .proform {
         font-weight: 800;
         font-style: italic;
         font-size: clamp(1.15rem, 2.4vw, 1.7rem);
         letter-spacing: -0.03em;
-        color: #d7dbe0;
-        background: linear-gradient(
-          100deg,
-          #ff5a4a 0%,
-          #ff5a4a 46%,
-          #d7dbe0 78%
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      @supports not (background-clip: text) {
-        .proform {
-          background: none;
-          color: #ff5a4a;
-          -webkit-text-fill-color: currentColor;
-        }
+        color: #E31837;
       }
 
       /* Bowflex — heavy geometric wordmark */
@@ -669,7 +654,7 @@
         font-weight: 800;
         font-size: clamp(1.15rem, 2.4vw, 1.7rem);
         letter-spacing: 0.01em;
-        color: #f0f3f6;
+        color: #E31837;
       }
 
       /* Life Fitness — bold uppercase with wide tracking */
@@ -677,7 +662,7 @@
         font-weight: 700;
         font-size: clamp(0.68rem, 1.7vw, 1.05rem);
         letter-spacing: 0.16em;
-        color: #f2f4f7;
+        color: #3B82F6;
       }
 
       /* Precor — clean sans with slight letter spacing */
@@ -686,7 +671,7 @@
         font-weight: 500;
         font-size: clamp(1.05rem, 2.2vw, 1.55rem);
         letter-spacing: 0.14em;
-        color: #e9edf2;
+        color: #4A90E2;
       }
 
       /* Matrix — condensed, very heavy wordmark */
@@ -694,7 +679,7 @@
         font-weight: 900;
         font-size: clamp(1.3rem, 2.6vw, 1.85rem);
         letter-spacing: -0.04em;
-        color: #f7f8fa;
+        color: #E63946;
       }
 
       /* Sole — bold italic */
@@ -703,7 +688,7 @@
         font-style: italic;
         font-size: clamp(0.8rem, 1.9vw, 1.2rem);
         letter-spacing: 0.02em;
-        color: #eef1f5;
+        color: #4A9FE0;
       }
 
       /* Horizon — slanted medium-heavy wordmark */
@@ -712,7 +697,7 @@
         font-style: italic;
         font-size: clamp(1.05rem, 2.2vw, 1.55rem);
         letter-spacing: 0.04em;
-        color: #dfe4ea;
+        color: #4A90E2;
       }
 
       /* Cybex — open, wide-tracked sans */
@@ -720,7 +705,7 @@
         font-weight: 600;
         font-size: clamp(1.2rem, 2.4vw, 1.7rem);
         letter-spacing: 0.16em;
-        color: #e6ebf1;
+        color: #C0C0C0;
       }
 
       /* Schwinn — bold italic heritage wordmark */
@@ -729,7 +714,7 @@
         font-style: italic;
         font-size: clamp(1.15rem, 2.4vw, 1.65rem);
         letter-spacing: 0.03em;
-        color: #f0f2f5;
+        color: #E31837;
       }
 
       /* Nautilus — bold with measured tracking */
@@ -737,7 +722,7 @@
         font-weight: 700;
         font-size: clamp(1.05rem, 2.2vw, 1.5rem);
         letter-spacing: 0.1em;
-        color: #e9edf2;
+        color: #3B82F6;
       }
 
       /* Technogym — light, architectural tracking */
@@ -745,7 +730,7 @@
         font-weight: 500;
         font-size: clamp(0.85rem, 1.9vw, 1.3rem);
         letter-spacing: 0.16em;
-        color: #eef1f5;
+        color: #FFD100;
       }
 
       /* True Fitness — bold uppercase with wide tracking */
@@ -753,7 +738,7 @@
         font-weight: 700;
         font-size: clamp(0.72rem, 1.6vw, 1.1rem);
         letter-spacing: 0.12em;
-        color: #eef1f4;
+        color: #E31837;
       }
 
       /* Spirit Fitness — italic with open tracking */
@@ -762,7 +747,7 @@
         font-style: italic;
         font-size: clamp(0.7rem, 1.55vw, 1.05rem);
         letter-spacing: 0.06em;
-        color: #f0f2f5;
+        color: #E63946;
       }
 
       /* Octane Fitness — bold italic with wide tracking */
@@ -771,7 +756,7 @@
         font-style: italic;
         font-size: clamp(0.7rem, 1.55vw, 1.05rem);
         letter-spacing: 0.05em;
-        color: #eef1f4;
+        color: #F58220;
       }
       .footer {
         text-align: center;
@@ -791,7 +776,7 @@
         height: min(80vw, 400px);
         background: radial-gradient(
           circle,
-          rgba(255, 126, 95, 0.1) 0%,
+          rgba(245, 158, 11, 0.12) 0%,
           transparent 70%
         );
         top: 10%;
