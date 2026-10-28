@@ -69,6 +69,7 @@ function initMenu() {
   const dropdowns = document.querySelectorAll(".dropdown");
   const header = document.querySelector("header");
   const contactBar = header.querySelector("#contactlist");
+  const backdrop = document.getElementById("navBackdrop");
 
   // Only collapse the contact bar once its full height has scrolled past the
   // top of the viewport. Collapsing earlier exposes a gap under the header.
@@ -94,9 +95,30 @@ function initMenu() {
     hamburger.classList.toggle("open", open);
     hamburger.setAttribute("aria-expanded", String(open));
     hamburger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+
+    // Raise the header stacking context so the drawer and backdrop sit above
+    // the floating chatbot, and hide the launcher while the drawer is open.
+    document.body.classList.toggle("nav-open", open);
+    header.classList.toggle("menu-open", open);
+    if (backdrop) {
+      backdrop.classList.toggle("open", open);
+      backdrop.setAttribute("aria-hidden", String(!open));
+    }
+
     if (open) {
       // The drawer is offset by --header-height, so show the full header.
       header.classList.remove("scrolled");
+      document.body.classList.remove("cfr-input-focus");
+
+      // Never leave the chat window floating over the drawer.
+      const chatWindow = document.getElementById("cfr-win");
+      if (
+        chatWindow &&
+        chatWindow.classList.contains("cfr-open") &&
+        typeof window.cfrClose === "function"
+      ) {
+        window.cfrClose();
+      }
     } else {
       dropdowns.forEach(closeDropdown);
       // Restore the collapsed state if the page is still scrolled down.
@@ -122,32 +144,44 @@ function initMenu() {
   });
 
   dropdowns.forEach((dropdown) => {
-    dropdown.addEventListener("click", function (e) {
-      if (window.innerWidth <= 1024) {
-        const isArrowClick = e.target.closest(".dropdown-toggle-icon");
-        if (isArrowClick) {
-          e.preventDefault();
-          e.stopPropagation();
-          dropdowns.forEach((d) => {
-            if (d !== dropdown) closeDropdown(d);
-          });
-          const wasOpen = dropdown.classList.contains("active");
-          if (wasOpen) {
-            closeDropdown(dropdown);
-          } else {
-            dropdown.classList.add("active");
-            const content = dropdown.querySelector(".dropdown-content");
-            if (content) {
-              content.style.maxHeight = content.scrollHeight + "px";
-              content.style.padding = "10px 0";
-            }
-            const trigger = dropdown.querySelector("a[aria-expanded]");
-            if (trigger) trigger.setAttribute("aria-expanded", "true");
-          }
-        }
+    const trigger = dropdown.querySelector("a[aria-expanded]");
+    if (!trigger) return;
+
+    trigger.addEventListener("click", function (e) {
+      // Desktop uses hover, so only stop the "#" jump from the parent link.
+      if (window.innerWidth > 1024) {
+        e.preventDefault();
+        return;
+      }
+
+      // One tap should open or close the sub-menu on touch devices.
+      e.preventDefault();
+      e.stopPropagation();
+
+      const wasOpen = dropdown.classList.contains("active");
+      dropdowns.forEach((d) => {
+        if (d !== dropdown) closeDropdown(d);
+      });
+
+      if (wasOpen) {
+        closeDropdown(dropdown);
+        return;
+      }
+
+      dropdown.classList.add("active");
+      trigger.setAttribute("aria-expanded", "true");
+
+      const content = dropdown.querySelector(".dropdown-content");
+      if (content) {
+        content.style.maxHeight = content.scrollHeight + "px";
+        content.style.padding = "4px 0";
       }
     });
   });
+
+  if (backdrop) {
+    backdrop.addEventListener("click", () => setMenu(false));
+  }
 
   document.addEventListener("click", function (e) {
     if (!navbarList.contains(e.target) && !hamburger.contains(e.target)) {
@@ -179,7 +213,7 @@ injectFavicons();
 document.addEventListener("DOMContentLoaded", () => {
   const headerSlot = document.getElementById("header");
   if (headerSlot) {
-    fetch("header.html?v=20261028")
+    fetch("header.html?v=20261029")
       .then((res) => res.text())
       .then((data) => {
         headerSlot.innerHTML = data;
@@ -190,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const footerSlot = document.getElementById("footer");
   if (footerSlot) {
-    fetch("footer.html?v=20261028")
+    fetch("footer.html?v=20261029")
       .then((res) => res.text())
       .then((data) => {
         footerSlot.innerHTML = data;

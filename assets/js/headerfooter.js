@@ -551,8 +551,8 @@
   
   var css = document.createElement('style');
   css.textContent = `
-#cfr-bubble-wrap{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:10px;transition:opacity .2s}
-#cfr-bubble-wrap.cfr-hidden{opacity:0;pointer-events:none}
+#cfr-bubble-wrap{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:10px;transition:opacity .2s ease,transform .2s ease,visibility .2s ease}
+#cfr-bubble-wrap.cfr-hidden{opacity:0;pointer-events:none;visibility:hidden}
 #cfr-bubble-label{background:#1E2030;color:#e2e8f0;font-family:"Segoe UI",Roboto,sans-serif;font-size:13px;font-weight:600;padding:8px 14px;border-radius:20px;border:1px solid rgba(92,92,253,.35);box-shadow:0 4px 18px rgba(0,0,0,.45);white-space:nowrap;animation:cfrLabelBob 3s ease-in-out infinite;cursor:pointer}
 @keyframes cfrLabelBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 #cfr-bubble{width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,#5C5CFD 0%,#4ECDC4 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px rgba(92,92,253,.18),0 0 0 12px rgba(92,92,253,.07),0 6px 24px rgba(92,92,253,.55);transition:transform .22s ease,box-shadow .22s ease;position:relative;animation:cfrRingPulse 2.4s ease-in-out infinite}
@@ -562,24 +562,31 @@
 #cfr-bubble-notif{position:absolute;top:2px;right:2px;width:16px;height:16px;background:#FF6B6B;border-radius:50%;border:2.5px solid #151719;animation:cfrNotifPop .6s ease forwards,cfrNotifPulse 1.8s ease-in-out 1s infinite}
 @keyframes cfrNotifPop{from{transform:scale(0)}to{transform:scale(1)}}
 @keyframes cfrNotifPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,107,.7)}50%{box-shadow:0 0 0 6px rgba(255,107,107,0)}}
-#cfr-teaser{position:fixed;bottom:108px;right:28px;background:#1E2030;color:#e2e8f0;font-family:"Segoe UI",Roboto,sans-serif;font-size:13.5px;line-height:1.55;padding:13px 16px;border-radius:16px 16px 4px 16px;border:1px solid rgba(92,92,253,.3);box-shadow:0 10px 36px rgba(0,0,0,.55);max-width:220px;z-index:9997;display:none;animation:cfrFadeUp .4s ease;cursor:pointer}
+#cfr-teaser{position:fixed;bottom:140px;right:24px;background:#1E2030;color:#e2e8f0;font-family:"Segoe UI",Roboto,sans-serif;font-size:13.5px;line-height:1.55;padding:14px 16px 12px;border-radius:16px 16px 4px 16px;border:1px solid rgba(92,92,253,.3);box-shadow:0 10px 36px rgba(0,0,0,.55);width:260px;max-width:calc(100vw - 48px);z-index:9997;display:none;animation:cfrFadeUp .4s ease;cursor:pointer;transition:opacity .25s ease,transform .25s ease}
+#cfr-teaser.cfr-teaser-hiding{opacity:0;transform:translateY(6px);pointer-events:none}
+#cfr-teaser:focus-visible{outline:2px solid rgba(147,197,253,.9);outline-offset:2px}
 #cfr-teaser strong{color:#9b9bfd}
-#cfr-teaser-dismiss{display:block;margin-top:8px;font-size:11.5px;color:#64748b;cursor:pointer}
-#cfr-teaser-dismiss:hover{color:#94a3b8}
+#cfr-teaser-dismiss{display:inline-flex;align-items:center;justify-content:center;margin-top:10px;padding:6px 14px;font:inherit;font-size:12px;font-weight:600;color:#cbd5e1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:999px;cursor:pointer;transition:background .18s ease,color .18s ease}
+#cfr-teaser-dismiss:hover,#cfr-teaser-dismiss:focus-visible{background:rgba(255,255,255,.14);color:#fff;outline:none}
 #cfr-win{position:fixed;bottom:108px;right:24px;width:375px;max-width:calc(100vw - 20px);background:#151719;border-radius:22px;border:1px solid rgba(92,92,253,.22);box-shadow:0 28px 70px rgba(0,0,0,.7);display:none;flex-direction:column;overflow:hidden;z-index:9998;font-family:"Segoe UI",Roboto,sans-serif}
 #cfr-win.cfr-open{display:flex;animation:cfrFadeUp .28s ease}
 #cfr-win.cfr-closing{display:flex;animation:cfrFadeDown .22s ease forwards}
 @keyframes cfrFadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes cfrFadeDown{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(16px)}}
 @media(min-width:481px) and (max-width:768px){
-  #cfr-win{width:340px;bottom:90px;right:16px}
-  #cfr-bubble-wrap{bottom:16px;right:16px}
+  #cfr-win{width:calc(100vw - 32px);max-width:360px;bottom:88px;right:16px}
+  #cfr-bubble-wrap{bottom:max(16px,env(safe-area-inset-bottom));right:16px;gap:8px}
+  #cfr-bubble{width:56px;height:56px}
+  #cfr-bubble svg{width:26px;height:26px}
+  #cfr-teaser{right:16px;bottom:126px;max-width:calc(100vw - 32px)}
 }
 @media(max-width:480px){
   #cfr-win{position:fixed;bottom:0;left:0;right:0;width:100vw;max-width:100vw;height:88vh;max-height:88vh;border-radius:20px 20px 0 0;border-bottom:none}
   #cfr-win .cfr-msgs{max-height:calc(88vh - 130px);flex:1}
-  #cfr-bubble-wrap{bottom:16px;right:14px}
-  #cfr-teaser{right:14px;bottom:106px;max-width:calc(100vw - 80px)}
+  #cfr-bubble-wrap{bottom:max(12px,env(safe-area-inset-bottom));right:12px;gap:8px}
+  #cfr-bubble{width:56px;height:56px}
+  #cfr-bubble svg{width:26px;height:26px}
+  #cfr-teaser{right:12px;bottom:116px;max-width:calc(100vw - 24px);width:auto}
   #cfr-bubble-label{font-size:12px;padding:6px 12px}
 }
 @media(max-width:360px){
@@ -650,15 +657,10 @@
   
   var wrap = document.createElement('div');
   wrap.innerHTML = `
-    <div id="cfr-teaser" onclick="cfrOpen()">
+    <div id="cfr-teaser">
       👋 Equipment acting up?<br>
       <strong>We're online &amp; ready to help!</strong>
-      <span id="cfr-teaser-dismiss"
-        onclick="event.stopPropagation();
-                 document.getElementById('cfr-teaser').style.display='none';
-                 sessionStorage.setItem('cfrTeaserDismissed','1')">
-        No thanks
-      </span>
+      <button type="button" id="cfr-teaser-dismiss">No thanks</button>
     </div>
 
     <div id="cfr-bubble-wrap">
@@ -712,12 +714,71 @@
       badge.textContent = '⚡ Fast';
     }
     
-    // Show teaser
-    if (!sessionStorage.getItem('cfrTeaserDismissed')) {
+    // Teaser: show once per session, then collapse back to the bubble.
+    var teaser = document.getElementById('cfr-teaser');
+    var teaserDismiss = document.getElementById('cfr-teaser-dismiss');
+    var teaserTimer = null;
+
+    function hideTeaser() {
+      if (!teaser || teaser.style.display === 'none') return;
+      teaser.classList.add('cfr-teaser-hiding');
       setTimeout(function () {
-        if (!isOpen) document.getElementById('cfr-teaser').style.display = 'block';
+        teaser.style.display = 'none';
+        teaser.classList.remove('cfr-teaser-hiding');
+      }, 250);
+    }
+
+    if (teaser) {
+      teaser.addEventListener('click', function (event) {
+        if (event.target.closest('#cfr-teaser-dismiss')) return;
+        cfrOpen();
+      });
+    }
+
+    if (teaserDismiss) {
+      teaserDismiss.addEventListener('click', function (event) {
+        event.stopPropagation();
+        sessionStorage.setItem('cfrTeaserDismissed', '1');
+        clearTimeout(teaserTimer);
+        hideTeaser();
+      });
+    }
+
+    if (
+      teaser &&
+      !sessionStorage.getItem('cfrTeaserDismissed') &&
+      !sessionStorage.getItem('cfrTeaserShown')
+    ) {
+      teaserTimer = setTimeout(function () {
+        if (isOpen) return;
+        sessionStorage.setItem('cfrTeaserShown', '1');
+        teaser.style.display = 'block';
+        teaserTimer = setTimeout(hideTeaser, 9000);
       }, 4000);
     }
+
+    // Hide the floating launcher while a page field is focused so it can
+    // never sit on top of an input, select or textarea.
+    var focusOutTimer = null;
+    function isPageField(el) {
+      if (!el || !el.matches || el.closest('#cfr-win')) return false;
+      return el.matches(
+        'input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]), textarea, select'
+      );
+    }
+    document.addEventListener('focusin', function (event) {
+      if (!isPageField(event.target)) return;
+      clearTimeout(focusOutTimer);
+      document.body.classList.add('cfr-input-focus');
+    });
+    document.addEventListener('focusout', function (event) {
+      if (!isPageField(event.target)) return;
+      focusOutTimer = setTimeout(function () {
+        if (!isPageField(document.activeElement)) {
+          document.body.classList.remove('cfr-input-focus');
+        }
+      }, 180);
+    });
 
     // Allow closing the chat with the Escape key.
     document.addEventListener('keydown', function (event) {
@@ -1360,7 +1421,12 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
     isOpen = true;
     WIN.classList.add('cfr-open');
     BWRAP.classList.add('cfr-hidden');
-    document.getElementById('cfr-teaser').style.display = 'none';
+    document.body.classList.remove('cfr-input-focus');
+    var teaser = document.getElementById('cfr-teaser');
+    if (teaser) {
+      teaser.classList.remove('cfr-teaser-hiding');
+      teaser.style.display = 'none';
+    }
     if (M.children.length === 0) flowStart();
     setTimeout(function () { IN.focus(); }, 300);
   };

@@ -61,6 +61,48 @@ header {
   z-index: 1000;
   transition: var(--transition);
 }
+
+/* Mobile/tablet navigation backdrop. It lives inside <header>, so raising the
+   header during an open drawer keeps both the backdrop and the drawer above
+   the floating chatbot launcher (z-index 9999). */
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 11, 22, 0.64);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 9990;
+}
+.nav-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+header.menu-open {
+  z-index: 10001;
+}
+
+/* Never let the floating chat launcher cover the drawer, the teaser or an
+   input the visitor is typing into. */
+body.nav-open {
+  overflow: hidden;
+}
+body.nav-open #cfr-bubble-wrap,
+body.nav-open #cfr-teaser,
+body.cfr-input-focus #cfr-bubble-wrap,
+body.cfr-input-focus #cfr-teaser {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+body.nav-open #cfr-win {
+  opacity: 0;
+  pointer-events: none;
+}
 .discount-banner {
   background: linear-gradient(45deg, #fcd34d, var(--accent-color));
   color: var(--bg-color);
@@ -589,27 +631,49 @@ footer {
     padding: 0;
   }
   .navbarList {
-    display: none;
+    display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
     right: 0;
-    width: 300px;
+    width: min(86vw, 380px);
     height: 100vh;
-    background-color: var(--bg-color);
-    /* Start the links below the fixed header instead of at a guessed 100px. */
-    padding: calc(var(--header-height) + 14px) 20px 20px;
-    gap: 1rem;
-    font-size: 1rem;
-    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
-    z-index: 999;
+    height: 100dvh;
+    background-color: var(--bg-color, #151719);
+    /* Full-height app-style panel: leave room for the floating close button,
+       then keep the links tight and scrollable. */
+    padding: calc(env(safe-area-inset-top, 0px) + 72px) 14px
+      calc(env(safe-area-inset-bottom, 0px) + 24px);
+    gap: 2px;
+    font-size: 0.95rem;
+    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.45);
+    z-index: 10000;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    visibility: hidden;
+    pointer-events: none;
     transform: translateX(100%);
-    transition: transform 0.4s ease;
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0.32s ease;
   }
   .navbarList.open {
-    display: flex;
+    visibility: visible;
+    pointer-events: auto;
     transform: translateX(0);
+  }
+  .navbarList > li {
+    flex: 0 0 auto;
+  }
+  .navbarList > li > a {
+    padding: 11px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    gap: 10px;
+  }
+  .navbarList > li > a:hover,
+  .navbarList > li > a:focus-visible {
+    background-color: rgba(93, 93, 255, 0.18);
   }
   .hamburger .close-icon {
     display: none;
@@ -621,24 +685,89 @@ footer {
     display: none;
   }
   .hamburger.open .close-icon {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
-    top: calc(var(--header-height) + 12px);
+    top: calc(env(safe-area-inset-top, 0px) + 16px);
     right: 16px;
-    z-index: 1002;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    font-size: 1.5rem;
     line-height: 1;
+    z-index: 10002;
+  }
+  .hamburger.open .close-icon:hover,
+  .hamburger.open .close-icon:focus-visible {
+    background: rgba(255, 255, 255, 0.16);
   }
   .dropdown-content {
     position: static;
     min-width: 100%;
     box-shadow: none;
-    background-color: rgba(93, 93, 255, 0.2);
-    margin-top: 5px;
+    background-color: rgba(93, 93, 255, 0.12);
+    border-radius: 8px;
+    margin-top: 2px;
   }
   .dropdown-content li a {
     /* Drawer panel is a translucent tint of the page background, so it
        follows --text-color instead of the solid --theme-color above. */
     color: var(--text-color);
+    padding: 9px 14px;
+    border-radius: 0;
+    font-size: 0.9rem;
+  }
+  .dropdown.active .dropdown-content {
+    padding: 4px 0;
+  }
+  .mobile-admin-item {
+    margin-top: 8px;
+    padding-top: 12px;
+  }
+  .mobile-admin-link {
+    margin-top: 2px;
+    padding: 11px 14px;
+    border-radius: 8px;
+  }
+}
+
+/* Tablets get a slightly roomier panel than phones, but stay compact. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .navbarList {
+    width: 380px;
+    padding-left: 18px;
+    padding-right: 18px;
+    font-size: 1rem;
+  }
+  .navbarList > li > a {
+    padding: 12px 14px;
+  }
+  .dropdown-content li a {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Keep form fields clear of the floating chat launcher on phones/tablets. */
+@media (max-width: 768px) {
+  .quote-form,
+  .form-container,
+  #contactForm,
+  #equipmentRemovalForm {
+    padding-bottom: 112px;
+  }
+  .quote-section {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 112px);
+  }
+  form,
+  input,
+  select,
+  textarea,
+  button[type="submit"] {
+    scroll-margin-bottom: 120px;
   }
 }
 
@@ -717,10 +846,9 @@ footer {
     padding-bottom: 0;
   }
   .navbarList {
-    width: 80%;
-  }
-  .hamburger .close-icon {
-    top: -25px;
+    width: min(88vw, 330px);
+    padding-left: 12px;
+    padding-right: 12px;
   }
   .c-button-nav {
     padding: 0.6rem 0.6rem;
