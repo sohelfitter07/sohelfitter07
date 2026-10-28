@@ -254,44 +254,19 @@
 </header>
 
 <script>
-    // Pause animation on hover for better usability
+    // Pause the promo marquee on hover for better usability
     document.addEventListener('DOMContentLoaded', function() {
-        const bannerTrack = document.querySelector('.banner-track');
-        if (bannerTrack) {
-            bannerTrack.addEventListener('mouseenter', function() {
-                this.style.animationPlayState = 'paused';
-            });
-            
-            bannerTrack.addEventListener('mouseleave', function() {
-                this.style.animationPlayState = 'running';
-            });
-        }
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-    const bannerTrack = document.querySelector('.banner-track');
-    const promoTrack = document.querySelector('.promo-track');
-    
-    // Pause animations on hover for better usability
-    if (bannerTrack) {
-        bannerTrack.addEventListener('mouseenter', function() {
-            this.style.animationPlayState = 'paused';
-        });
-        
-        bannerTrack.addEventListener('mouseleave', function() {
-            this.style.animationPlayState = 'running';
-        });
-    }
-    
-    if (promoTrack) {
+        const promoTrack = document.querySelector('.promo-track');
+        if (!promoTrack) return;
+
         const promoContent = promoTrack.querySelector('.promo-content');
-        
+
         promoTrack.addEventListener('mouseenter', function() {
-            promoContent.style.animationPlayState = 'paused';
+            if (promoContent) promoContent.style.animationPlayState = 'paused';
         });
-        
+
         promoTrack.addEventListener('mouseleave', function() {
-            promoContent.style.animationPlayState = 'running';
+            if (promoContent) promoContent.style.animationPlayState = 'running';
         });
-    }
-});
+    });
 </script>

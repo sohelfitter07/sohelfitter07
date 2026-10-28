@@ -1130,148 +1130,21 @@ footer {
     transform: rotate(180deg);
   }
 }
-/* Services Scrolling Banner */
-.services-scrolling-banner {
-    background: linear-gradient(135deg, #2c3e50, #34495e);
-    color: white;
-    padding: 10px 0;
-    overflow: hidden;
-    position: relative;
-    border-bottom: 2px solid #e74c3c;
-}
-
-.banner-track {
-    display: flex;
-    width: max-content;
-    animation: scrollServices 35s linear infinite;
-}
-
-.banner-content {
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    white-space: nowrap;
-}
-
-.banner-content a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 13px;
-    padding: 4px 8px;
-    border-radius: 3px;
-    transition: all 0.3s ease;
-    margin: 0 3px;
-}
-
-.banner-content a:hover {
-    background: rgba(255,255,255,0.15);
-    color: #f39c12;
-}
-
-.separator {
-    color: #e74c3c;
-    font-weight: bold;
-    font-size: 16px;
-    margin: 0 8px;
-}
-
-.services-scrolling-banner:hover .banner-track {
-    animation-play-state: paused;
-}
-
-@keyframes scrollServices {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .services-scrolling-banner {
-        padding: 8px 0;
-    }
-    
-    .banner-content a {
-        font-size: 11px;
-        padding: 3px 6px;
-    }
-    
-    .separator {
-        font-size: 14px;
-        margin: 0 4px;
-    }
-    
-    .banner-track {
-        animation-duration: 25s;
-    }
-}
-
-@media (max-width: 480px) {
-    .banner-content a {
-        font-size: 10px;
-    }
-    
-    .services-scrolling-banner {
-        display: none; /* Hide on very small screens if needed */
-    }
-}
-
 /* ===== Promo banner (single source of truth) ===== */
 .promo-line {
-    background: linear-gradient(90deg, #CE4B40, #E7948F);
-    color: white;
+    background: var(--brand-700, #4338ca);
+    color: #ffffff;
     padding: 4px 0;
     overflow: hidden;
     position: relative;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 12px rgba(11, 16, 32, 0.35);
     font-weight: 600;
     font-size: 0.75rem;
 }
 
-.banner-track {
-    display: flex;
-    width: max-content;
-    animation: scroll 40s linear infinite;
-}
-
-.banner-content {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    padding: 0 20px;
-}
-
-.banner-content a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin: 0 3px;
-}
-
-.banner-content a:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #CE4B40;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-.separator {
-    margin: 0 12px;
-    color: rgba(255, 255, 255, 0.7);
-    font-weight: bold;
-    font-size: 16px;
-}
-
-/* Promo Track (new auto-scrolling section) */
+/* Promo Track (auto-scrolling marquee) */
 .promo-track {
     overflow: hidden;
     position: relative;
@@ -1290,11 +1163,12 @@ footer {
 .promo-item {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 14px;
     font-weight: 500;
+    color: #ffffff;
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     flex-shrink: 0;
@@ -1303,25 +1177,17 @@ footer {
 }
 
 .promo-item:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.22);
     transform: translateY(-1px);
 }
 
 .promo-item i {
     margin-right: 8px;
     font-size: 16px;
+    color: var(--amber-300, #fcd34d);
 }
 
 /* Animations */
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
 @keyframes scroll-promo {
     0% {
         transform: translateX(0);
@@ -1336,21 +1202,8 @@ footer {
     animation-play-state: paused;
 }
 
-.banner-track:hover {
-    animation-play-state: paused;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
-    .banner-content a {
-        font-size: 12px;
-        padding: 3px 6px;
-    }
-    
-    .separator {
-        margin: 0 8px;
-    }
-    
     .promo-content {
         padding: 6px 15px;
         gap: 15px;

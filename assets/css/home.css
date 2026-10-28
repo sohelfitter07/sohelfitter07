@@ -1771,21 +1771,25 @@
 /* ============================================================
    WINTER PROMOTION (2026)
    Seasonal campaign block — amber accent on an ink band.
-   Uses tokens.css values; buttons come from components.css.
+   Tokens come from tokens.css with hard fallbacks so the block
+   still renders if the token sheet is cached or stale. Buttons
+   come from components.css.
    ============================================================ */
 .winter-promo {
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
   max-width: min(96%, 1400px);
   margin: clamp(2rem, 4vw, 3rem) auto;
   padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1rem, 4vw, 2rem);
   border: 1px solid rgba(245, 158, 11, 0.28);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-lg, 20px);
   background:
     radial-gradient(1100px 480px at 8% -20%, rgba(99, 102, 241, 0.35), transparent 60%),
     radial-gradient(900px 420px at 100% 0%, rgba(245, 158, 11, 0.18), transparent 55%),
-    var(--ink-950);
-  color: var(--text-on-dark);
+    var(--ink-950, #0b1020);
+  color: var(--text-on-dark, #e2e8f0);
   text-align: center;
 }
 
@@ -1794,12 +1798,29 @@
   position: absolute;
   inset: 0 0 auto;
   height: 4px;
-  background: linear-gradient(90deg, var(--brand-500), var(--amber-500), var(--brand-500));
+  background: linear-gradient(
+    90deg,
+    var(--brand-500, #6366f1),
+    var(--amber-500, #f59e0b),
+    var(--brand-500, #6366f1)
+  );
+}
+
+/* Standard page container so the block centers and pads like the rest of
+   the homepage. Scoped to the Winter section to avoid touching the other
+   .container wrappers. */
+.winter-promo .container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .winter-promo-inner {
   position: relative;
   z-index: 1;
+  width: 100%;
   max-width: 1080px;
   margin: 0 auto;
 }
@@ -1810,10 +1831,10 @@
   gap: 0.5rem;
   padding: 0.45rem 1rem;
   border: 1px solid rgba(245, 158, 11, 0.45);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-pill, 999px);
   background: rgba(245, 158, 11, 0.12);
-  color: var(--amber-300);
-  font-size: var(--text-xs);
+  color: var(--amber-300, #fcd34d);
+  font-size: var(--text-xs, 0.8125rem);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1822,7 +1843,7 @@
 .winter-title {
   margin: 1.25rem auto 0.75rem;
   color: #ffffff;
-  font-family: var(--font-display);
+  font-family: var(--font-display, 'Montserrat', 'Poppins', sans-serif);
   font-size: clamp(2rem, 4.5vw, 3.25rem);
   font-weight: 800;
   line-height: 1.15;
@@ -1831,13 +1852,13 @@
 
 .winter-title span {
   display: block;
-  color: var(--amber-500);
+  color: var(--amber-500, #f59e0b);
 }
 
 .winter-subtitle {
   max-width: 760px;
   margin: 0 auto;
-  color: var(--text-on-dark-muted);
+  color: var(--text-on-dark-muted, #94a3b8);
   font-size: clamp(1rem, 2vw, 1.15rem);
   line-height: 1.7;
 }
@@ -1852,38 +1873,47 @@
 
 .winter-offer-item {
   padding: 1rem;
-  border: 1px solid var(--border-on-dark);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--border-on-dark, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-md, 12px);
   background: rgba(255, 255, 255, 0.04);
 }
 
 .winter-offer-item strong {
   display: block;
   margin-bottom: 0.25rem;
-  color: var(--amber-500);
-  font-family: var(--font-display);
+  color: var(--amber-500, #f59e0b);
+  font-family: var(--font-display, 'Montserrat', 'Poppins', sans-serif);
   font-size: 1.2rem;
   font-weight: 700;
 }
 
 .winter-offer-item span {
-  color: var(--text-on-dark-muted);
-  font-size: var(--text-sm);
+  color: var(--text-on-dark-muted, #94a3b8);
+  font-size: var(--text-sm, 0.9375rem);
   line-height: 1.5;
 }
 
+/* Keep the three CTAs on one centered row; wrap only when the viewport
+   is too narrow. */
 .winter-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  margin-top: 2rem;
+  margin: 2rem auto 0;
+  text-align: center;
+}
+
+.winter-actions .btn {
+  flex: 0 1 auto;
+  margin: 0;
 }
 
 .winter-fineprint {
   margin: 1.25rem auto 0;
-  color: var(--text-on-dark-muted);
-  font-size: var(--text-xs);
+  color: var(--text-on-dark-muted, #94a3b8);
+  font-size: var(--text-xs, 0.8125rem);
 }
 
 @media (max-width: 600px) {
