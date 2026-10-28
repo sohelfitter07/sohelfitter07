@@ -656,6 +656,13 @@
         background-clip: text;
         -webkit-text-fill-color: transparent;
       }
+      @supports not (background-clip: text) {
+        .proform {
+          background: none;
+          color: #ff5a4a;
+          -webkit-text-fill-color: currentColor;
+        }
+      }
 
       /* Bowflex — heavy geometric wordmark */
       .bowflex {
