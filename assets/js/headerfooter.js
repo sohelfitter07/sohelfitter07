@@ -283,8 +283,8 @@
 //     typing(600, function () {
 //       msg("Oh no — let's get you sorted right away! 🚨\n\nWe have technicians available 24/7. Fastest ways to reach us:", 'bot');
 //       btns([
-//         { icon: '📞', label: 'Call us now — (289) 925-7239',  cls: 'primary', url: 'tel:+12899257239' },
-//         { icon: '📱', label: 'Text us — (289) 925-7239',      cls: 'sms',     url: 'sms:+12899257239' },
+//         { icon: '📞', label: 'Call us now — (289) 925-7239',  cls: 'primary', url: 'tel:2899257239' },
+//         { icon: '📱', label: 'Text us — (289) 925-7239',      cls: 'sms',     url: 'sms:2899257239' },
 //         { icon: '💬', label: 'WhatsApp us',                   cls: 'wa',      url: 'https://wa.me/13653662162' },
 //         { icon: '📋', label: 'Fill quick booking form here',                  cb: flowBookingForm },
 //         { icon: '🏠', label: 'Back to main menu',             cls: 'back',    cb: flowStart }
@@ -297,9 +297,9 @@
 //       msg("Of course! Sometimes you just need a real person 😊\n\nHere are all the ways to reach our team — pick whatever's easiest:", 'bot');
 //       btns([
 //         { icon: '💬', label: 'WhatsApp us',                                    cls: 'wa',    url: 'https://wa.me/13653662162' },
-//         { icon: '📱', label: 'Send us a text — (289) 925-7239',               cls: 'sms',   url: 'sms:+12899257239' },
+//         { icon: '📱', label: 'Send us a text — (289) 925-7239',               cls: 'sms',   url: 'sms:2899257239' },
 //         { icon: '📧', label: 'Email — canadianfitnessrepair@gmail.com',        cls: 'email', url: 'mailto:canadianfitnessrepair@gmail.com' },
-//         { icon: '📞', label: 'Call us — (289) 925-7239',                       cls: 'primary', url: 'tel:+12899257239' },
+//         { icon: '📞', label: 'Call us — (289) 925-7239',                       cls: 'primary', url: 'tel:2899257239' },
 //         { icon: '🏠', label: 'Back to main menu',                              cls: 'back',  cb: flowStart }
 //       ]);
 //     });
@@ -307,7 +307,7 @@
 
 //   function flowQuote() {
 //     typing(700, function () {
-//       msg("Happy to help! Here's a rough pricing guide — fully transparent, no hidden fees 😊\n\n💰 Service call + diagnosis: $89\n🔧 Belt adjustment: ~$150\n⚙️ Motor replacement: from $500\n🏢 Commercial plans: $199–$499/mo\n\n✅ Every repair includes a 90-day parts & labour warranty.", 'bot');
+//       msg("Happy to help! Here's a rough pricing guide — fully transparent, no hidden fees 😊\n\n💰 Service call + diagnosis: $89\n🔧 Belt adjustment: ~$150\n⚙️ Motor replacement: from $500\n🏢 Commercial plans: $199–$499/mo\n\n✅ Every repair includes a 30-day parts & labour warranty.", 'bot');
 //       btns([
 //         { icon: '📋', label: 'Fill quick booking form (right here!)', cls: 'primary', cb: flowBookingForm },
 //         { icon: '🌐', label: 'Go to full quote page', url: 'https://www.canadianfitnessrepair.com/get-quote.html' },
@@ -423,7 +423,7 @@
 //         { icon: '📸', label: 'Send photos via WhatsApp', cls: 'wa',
 //           url: 'https://wa.me/13653662162?text=' + encodeURIComponent(waText) },
 //         { icon: '📸', label: 'Send photos via SMS', cls: 'sms',
-//           url: 'sms:+12899257239?body=' + encodeURIComponent(waText) },
+//           url: 'sms:2899257239?body=' + encodeURIComponent(waText) },
 //         { icon: '📧', label: 'Send photos via Email', cls: 'email',
 //           url: 'mailto:canadianfitnessrepair@gmail.com?subject=Booking+-+' + encodeURIComponent(name) + '&body=' + encodeURIComponent('Hi,\n\nBooking details:\n' + waText + '\n\nPhotos attached.') },
 //         { icon: '🏠', label: 'Back to main menu', cls: 'back', cb: flowStart }
@@ -462,9 +462,9 @@
 //       else if (l.match(/rower|rowing/)) { msg("Rowing machine on the fritz? We're on it 🚣", 'bot'); setTimeout(flowBookingForm, 500); }
 //       else if (l.match(/walk.*pad|walking pad/)) { msg("Walking pad repair — we handle those too! 🚶", 'bot'); setTimeout(flowBookingForm, 500); }
 //       else if (l.match(/cable|strength|weight/)) { msg("Strength equipment giving you grief? Our techs fix cables, pulleys, weight stacks 💪", 'bot'); setTimeout(flowBookingForm, 500); }
-//       else if (l.match(/warrant|guarantee/)) { msg("Every repair comes with a 90-day parts & labour warranty. If anything acts up again within that window, we come back — no charge. 🛡️", 'bot'); setTimeout(function () { btns([{ icon: '🔧', label: 'Book a repair', cls: 'primary', cb: flowBookingForm }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
+//       else if (l.match(/warrant|guarantee/)) { msg("Every repair comes with a 30-day parts & labour warranty. If anything acts up again within that window, we come back — no charge. 🛡️", 'bot'); setTimeout(function () { btns([{ icon: '🔧', label: 'Book a repair', cls: 'primary', cb: flowBookingForm }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
 //       else if (l.match(/pay|cash|e.?transfer|credit/)) { msg("We accept:\n💵 Cash\n📱 E-Transfer\n💳 Credit Card\n\nYou only pay once the job's done and you're happy! 😊", 'bot'); setTimeout(function () { btns([{ icon: '🔧', label: 'Book a repair', cls: 'primary', cb: flowBookingForm }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
-//       else if (l.match(/remov|dispos|get rid|recycle/)) { msg("We do equipment removal too! 🗑️ We remove treadmills, ellipticals, full gym setups and recycle over 90% responsibly.", 'bot'); setTimeout(function () { btns([{ icon: '📋', label: 'Book a removal', cls: 'primary', cb: flowBookingForm }, { icon: '📞', label: 'Call us', url: 'tel:+12899257239' }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
+//       else if (l.match(/remov|dispos|get rid|recycle/)) { msg("We do equipment removal too! 🗑️ We remove treadmills, ellipticals, full gym setups and recycle over 90% responsibly.", 'bot'); setTimeout(function () { btns([{ icon: '📋', label: 'Book a removal', cls: 'primary', cb: flowBookingForm }, { icon: '📞', label: 'Call us', url: 'tel:2899257239' }, { icon: '🏠', label: 'Back to menu', cls: 'back', cb: flowStart }]); }, 400); }
 //       else if (l.match(/hi|hello|hey|howdy/)) { msg(userName ? 'Hey ' + fn(userName) + '! 👋 How can I help?' : 'Hey! 👋 Great to have you here.', 'bot'); setTimeout(function () { chips(['🔧 Book a repair', '💬 Get a quote', '🛠 Our services', '🙋 Talk to a person']); }, 400); }
 //       else { msg("Hmm, not 100% sure about that one! 😅 Let me get you to the right place.", 'bot'); setTimeout(flowHuman, 500); }
 //     });
@@ -848,7 +848,7 @@ SERVICE AREA: Greater Toronto & Hamilton Area (GTA)
 
 KEY POINTS:
 - Most repairs: $150-$180 (includes travel + diagnostic + repair attempt)
-- 90-day parts & labour warranty
+- 30-day parts & labour warranty
 - Payment after job completion (cash, e-transfer, credit card)
 - Same-day/emergency service available
 
@@ -1085,8 +1085,8 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
     typing(600, function () {
       msg("Oh no — let's get you sorted right away! 🚨\n\nWe have technicians available 24/7. Fastest ways to reach us:", 'bot');
       btns([
-        { icon: '📞', label: 'Call us now — (289) 925-7239',  cls: 'primary', url: 'tel:+12899257239' },
-        { icon: '📱', label: 'Text us — (289) 925-7239',      cls: 'sms',     url: 'sms:+12899257239' },
+        { icon: '📞', label: 'Call us now — (289) 925-7239',  cls: 'primary', url: 'tel:2899257239' },
+        { icon: '📱', label: 'Text us — (289) 925-7239',      cls: 'sms',     url: 'sms:2899257239' },
         { icon: '💬', label: 'WhatsApp us',                   cls: 'wa',      url: 'https://wa.me/13653662162' },
         { icon: '📋', label: 'Fill quick booking form here',                  cb: flowBookingForm },
         { icon: '🏠', label: 'Back to main menu',             cls: 'back',    cb: flowStart }
@@ -1099,9 +1099,9 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
       msg("Of course! Sometimes you just need a real person 😊\n\nHere are all the ways to reach our team — pick whatever's easiest:", 'bot');
       btns([
         { icon: '💬', label: 'WhatsApp us',                                    cls: 'wa',    url: 'https://wa.me/13653662162' },
-        { icon: '📱', label: 'Send us a text — (289) 925-7239',               cls: 'sms',   url: 'sms:+12899257239' },
+        { icon: '📱', label: 'Send us a text — (289) 925-7239',               cls: 'sms',   url: 'sms:2899257239' },
         { icon: '📧', label: 'Email — canadianfitnessrepair@gmail.com',        cls: 'email', url: 'mailto:canadianfitnessrepair@gmail.com' },
-        { icon: '📞', label: 'Call us — (289) 925-7239',                       cls: 'primary', url: 'tel:+12899257239' },
+        { icon: '📞', label: 'Call us — (289) 925-7239',                       cls: 'primary', url: 'tel:2899257239' },
         { icon: '🏠', label: 'Back to main menu',                              cls: 'back',  cb: flowStart }
       ]);
     });
@@ -1109,7 +1109,7 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
 
   function flowQuote() {
     typing(700, function () {
-      msg("Happy to help! Here's a rough pricing guide — fully transparent, no hidden fees 😊\n\n💰 Service call + diagnosis: $89\n🔧 Belt adjustment: ~$150\n⚙️ Motor replacement: from $500\n🏢 Commercial plans: $199–$499/mo\n\n✅ Every repair includes a 90-day parts & labour warranty.", 'bot');
+      msg("Happy to help! Here's a rough pricing guide — fully transparent, no hidden fees 😊\n\n💰 Service call + diagnosis: $89\n🔧 Belt adjustment: ~$150\n⚙️ Motor replacement: from $500\n🏢 Commercial plans: $199–$499/mo\n\n✅ Every repair includes a 30-day parts & labour warranty.", 'bot');
       btns([
         { icon: '📋', label: 'Fill quick booking form (right here!)', cls: 'primary', cb: flowBookingForm },
         { icon: '🌐', label: 'Go to full quote page', url: 'https://www.canadianfitnessrepair.com/get-quote.html' },
@@ -1262,7 +1262,7 @@ Keep responses under 150 words. If the person wants to book, pricing info, or ta
                   msg("We'll reach out shortly to confirm your appointment. If you have photos or a video of the issue, send them over — it helps us come fully prepared! 📸", 'bot');
                   btns([
                     { icon: '📸', label: 'Send photos via WhatsApp', cls: 'wa', url: 'https://wa.me/13653662162?text=' + encodeURIComponent(waText) },
-                    { icon: '📸', label: 'Send photos via SMS', cls: 'sms', url: 'sms:+13653662162?body=' + encodeURIComponent(waText) },
+                    { icon: '📸', label: 'Send photos via SMS', cls: 'sms', url: 'sms:2899257239?body=' + encodeURIComponent(waText) },
                     { icon: '📧', label: 'Send photos via Email', cls: 'email', url: 'mailto:canadianfitnessrepair@gmail.com?subject=Booking+-+' + encodeURIComponent(name) + '&body=' + encodeURIComponent('Hi,\n\nBooking details:\n' + waText + '\n\nPhotos attached.') },
                     { icon: '🏠', label: 'Back to main menu', cls: 'back', cb: flowStart }
                   ]);
