@@ -615,120 +615,156 @@
         100% {
           transform: translateX(-50%);
         }
-      } /* Brand-specific styles with perfect fitting */
-      .nordictrack {
-        font-family: var(--font-body);
-        font-weight: 600;
-        font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-        color: #ffffff;
-        text-shadow: 0 0 12px rgba(0, 200, 255, 0.8);
-        letter-spacing: 1px;
+      }
+      /* Brand-specific styles — CSS typographic stand-ins for the OEM logos.
+         Each wordmark is tuned for weight, slant, tracking and colour so it
+         reads like the real lockup on the dark brand cards. */
+      .brand-logo > div {
+        font-family: var(--font-heading);
+        line-height: 1;
         white-space: nowrap;
+        text-transform: uppercase;
+        color: #eef1f5;
+        text-shadow: none;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
       }
-      .proform {
-        font-family: var(--font-body);
+
+      /* NordicTrack — heavy, forward-leaning wordmark */
+      .nordictrack {
         font-weight: 800;
-        font-size: clamp(1.4rem, 2.8vw, 1.9rem);
-        color: #ff5252;
-        text-transform: uppercase;
-        letter-spacing: -1px;
+        font-style: italic;
+        font-size: clamp(1rem, 2.1vw, 1.4rem);
+        letter-spacing: -0.02em;
+        color: #f4f6f8;
       }
+
+      /* ProForm — bold italic with the red-to-steel two-tone lockup */
+      .proform {
+        font-weight: 800;
+        font-style: italic;
+        font-size: clamp(1.15rem, 2.4vw, 1.7rem);
+        letter-spacing: -0.03em;
+        color: #d7dbe0;
+        background: linear-gradient(
+          100deg,
+          #ff5a4a 0%,
+          #ff5a4a 46%,
+          #d7dbe0 78%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Bowflex — heavy geometric wordmark */
       .bowflex {
-        font-family: var(--font-body);
-        font-weight: 700;
-        font-size: clamp(1.3rem, 2.6vw, 1.8rem);
-        color: #ffb74d;
-        letter-spacing: -0.5px;
+        font-weight: 800;
+        font-size: clamp(1.15rem, 2.4vw, 1.7rem);
+        letter-spacing: 0.01em;
+        color: #f0f3f6;
       }
+
+      /* Life Fitness — bold uppercase with wide tracking */
       .lifefitness {
-        font-family: var(--font-body);
         font-weight: 700;
-        font-size: clamp(1rem, 2.2vw, 1.4rem);
-        color: #4caf50;
-        text-transform: uppercase;
-        letter-spacing: 2px;
+        font-size: clamp(0.8rem, 1.8vw, 1.05rem);
+        letter-spacing: 0.2em;
+        color: #f2f4f7;
       }
+
+      /* Precor — clean sans with slight letter spacing */
       .precor {
         font-family: var(--font-body);
-        font-weight: 700;
-        font-size: clamp(1.3rem, 2.6vw, 1.8rem);
-        color: #2196f3;
-        letter-spacing: -1px;
+        font-weight: 500;
+        font-size: clamp(1.05rem, 2.2vw, 1.55rem);
+        letter-spacing: 0.14em;
+        color: #e9edf2;
       }
+
+      /* Matrix — condensed, very heavy wordmark */
       .matrix {
-        font-family: var(--font-body);
-        font-weight: 800;
-        font-size: clamp(1.4rem, 2.8vw, 1.9rem);
-        color: #f44336;
-        letter-spacing: -1px;
+        font-weight: 900;
+        font-size: clamp(1.3rem, 2.6vw, 1.85rem);
+        letter-spacing: -0.04em;
+        color: #f7f8fa;
       }
+
+      /* Sole — bold italic */
       .solefitness {
-        font-family: var(--font-body);
-        font-weight: 700;
-        font-size: clamp(0.9rem, 2vw, 1.25rem);
-        color: #9c27b0;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        font-weight: 800;
+        font-style: italic;
+        font-size: clamp(0.9rem, 2vw, 1.2rem);
+        letter-spacing: 0.02em;
+        color: #eef1f5;
       }
+
+      /* Horizon — slanted medium-heavy wordmark */
       .horizon {
-        font-family: var(--font-body);
-        font-weight: 800;
-        font-size: clamp(1.3rem, 2.6vw, 1.8rem);
-        color: #ff9800;
-        letter-spacing: -0.5px;
+        font-weight: 700;
+        font-style: italic;
+        font-size: clamp(1.05rem, 2.2vw, 1.55rem);
+        letter-spacing: 0.04em;
+        color: #dfe4ea;
       }
+
+      /* Cybex — open, wide-tracked sans */
       .cybex {
-        font-family: var(--font-body);
         font-weight: 600;
-        font-size: clamp(1.4rem, 2.8vw, 1.9rem);
-        color: #00bcd4;
-        letter-spacing: -1px;
+        font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+        letter-spacing: 0.16em;
+        color: #e6ebf1;
       }
+
+      /* Schwinn — bold italic heritage wordmark */
       .schwinn {
-        font-family: var(--font-body);
-        font-weight: 700;
-        font-size: clamp(1.3rem, 2.6vw, 1.8rem);
-        color: #e91e63;
-        letter-spacing: -1px;
+        font-weight: 800;
+        font-style: italic;
+        font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+        letter-spacing: 0.03em;
+        color: #f0f2f5;
       }
+
+      /* Nautilus — bold with measured tracking */
       .nautilus {
-        font-family: var(--font-body);
-        font-weight: 800;
-        font-size: clamp(1.2rem, 2.4vw, 1.6rem);
-        color: #3f51b5;
-        letter-spacing: -0.5px;
+        font-weight: 700;
+        font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+        letter-spacing: 0.1em;
+        color: #e9edf2;
       }
+
+      /* Technogym — light, architectural tracking */
       .technogym {
-        font-family: var(--font-body);
-        font-weight: 700;
-        font-size: clamp(1.1rem, 2.3vw, 1.45rem);
-        color: #ff5722;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        font-weight: 500;
+        font-size: clamp(0.95rem, 2vw, 1.3rem);
+        letter-spacing: 0.18em;
+        color: #eef1f5;
       }
+
+      /* True Fitness — bold uppercase with wide tracking */
       .truefitness {
-        font-family: var(--font-body);
         font-weight: 700;
-        font-size: clamp(1rem, 2.1vw, 1.35rem);
-        color: #8bc34a;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        font-size: clamp(0.8rem, 1.7vw, 1.1rem);
+        letter-spacing: 0.12em;
+        color: #eef1f4;
       }
+
+      /* Spirit Fitness — italic with open tracking */
       .spiritfitness {
-        font-family: var(--font-body);
         font-weight: 700;
-        font-size: clamp(0.9rem, 2vw, 1.25rem);
-        color: #c5a17d;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        font-style: italic;
+        font-size: clamp(0.78rem, 1.65vw, 1.05rem);
+        letter-spacing: 0.06em;
+        color: #f0f2f5;
       }
+
+      /* Octane Fitness — bold italic with wide tracking */
       .octanefitness {
-        font-family: var(--font-body);
         font-weight: 800;
-        font-size: clamp(1rem, 2.1vw, 1.35rem);
-        color: #ff4081;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        font-style: italic;
+        font-size: clamp(0.78rem, 1.65vw, 1.05rem);
+        letter-spacing: 0.05em;
+        color: #eef1f4;
       }
       .footer {
         text-align: center;
