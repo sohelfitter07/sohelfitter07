@@ -596,8 +596,601 @@
 
     <!-- Custom Styles -->
     <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet" />
+    <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+    <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
+    <style>
+      /* ============================================================
+         About page — dark / amber refresh
+         Scoped to body.about-page so shared styles stay untouched.
+         ============================================================ */
+      body.about-page {
+        color-scheme: dark;
+        background:
+          radial-gradient(1000px 600px at 84% -8%, rgba(245, 158, 11, 0.09), transparent 60%),
+          radial-gradient(820px 520px at 2% 4%, rgba(93, 93, 255, 0.1), transparent 60%),
+          #0b0f16;
+        color: #c3cdda;
+      }
+      body.about-page main {
+        position: relative;
+        z-index: 1;
+      }
+      body.about-page h1,
+      body.about-page h2,
+      body.about-page h3,
+      body.about-page h4,
+      body.about-page h5,
+      body.about-page h6 {
+        font-family: var(--font-display, "Montserrat", sans-serif);
+        color: #fff;
+      }
+      body.about-page p {
+        color: #c3cdda;
+      }
+
+      /* ── Hero ─────────────────────────────────────────────────── */
+      body.about-page .about-hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: clamp(340px, 46vh, 500px);
+        margin-bottom: clamp(2.5rem, 5vw, 4rem);
+        padding: clamp(3.25rem, 6.5vw, 5.5rem) 1.25rem clamp(3rem, 5.5vw, 4.5rem);
+        text-align: center;
+        background:
+          linear-gradient(180deg, rgba(7, 10, 15, 0.88) 0%, rgba(8, 11, 17, 0.74) 46%, #0b0f16 100%),
+          url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80")
+            center / cover no-repeat;
+      }
+      body.about-page .about-hero::before {
+        display: none;
+      }
+      body.about-page .about-hero h1 {
+        max-width: 20ch;
+        margin: 0 0 1.1rem;
+        font-size: clamp(2.15rem, 5.4vw, 4rem);
+        font-weight: 800;
+        line-height: 1.07;
+        letter-spacing: -0.025em;
+        color: #fff;
+        text-shadow: 0 2px 26px rgba(0, 0, 0, 0.55);
+      }
+      body.about-page .about-hero h1::after {
+        content: "";
+        display: block;
+        width: 84px;
+        height: 4px;
+        margin: 1.45rem auto 0;
+        border-radius: 99px;
+        background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      }
+      body.about-page .about-hero p {
+        max-width: 60ch;
+        margin: 0 0 1.9rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        line-height: 1.65;
+        color: #d3dce9;
+        text-wrap: balance;
+      }
+
+      /* ── Shared layout ────────────────────────────────────────── */
+      body.about-page .about-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 clamp(1rem, 3vw, 2rem);
+      }
+      body.about-page .about-content > section {
+        margin-bottom: clamp(3rem, 6vw, 5rem);
+      }
+      body.about-page section:last-child {
+        margin-bottom: 0;
+      }
+      body.about-page .section-title {
+        margin: 0 0 clamp(2rem, 4vw, 3rem);
+        padding-bottom: 1rem;
+        font-size: clamp(1.65rem, 3.2vw, 2.3rem);
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        text-align: center;
+        color: #fff;
+      }
+      body.about-page .section-title::after {
+        bottom: 0;
+        width: 64px;
+        height: 4px;
+        border-radius: 99px;
+        background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      }
+
+      /* ── Story ────────────────────────────────────────────────── */
+      body.about-page .about-story {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+        align-items: center;
+        gap: clamp(1.5rem, 4vw, 3.25rem);
+        margin-bottom: clamp(3rem, 6vw, 5rem);
+      }
+      body.about-page .about-story-img {
+        position: relative;
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        box-shadow: 0 34px 70px -36px rgba(0, 0, 0, 0.95);
+      }
+      body.about-page .about-story-img::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(180deg, transparent 48%, rgba(8, 11, 17, 0.55));
+      }
+      body.about-page .about-story-img img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 4 / 3.3;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      body.about-page .about-story-img:hover img {
+        transform: scale(1.03);
+      }
+      body.about-page .about-story-text {
+        min-width: 0;
+      }
+      body.about-page .about-story-text h2 {
+        margin: 0 0 1.25rem;
+        padding-bottom: 0.9rem;
+        font-size: clamp(1.55rem, 3vw, 2.2rem);
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        color: #fff;
+      }
+      body.about-page .about-story-text h2::after {
+        width: 56px;
+        height: 4px;
+        border-radius: 99px;
+        background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      }
+      body.about-page .story-lead {
+        margin: 0;
+        font-size: 1.06rem;
+        line-height: 1.75;
+        color: #dbe4ef;
+      }
+      body.about-page .story-grid {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(1.25rem, 3vw, 2.25rem);
+        margin-top: 0.25rem;
+        padding-top: clamp(1.5rem, 3vw, 2.25rem);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      body.about-page .story-grid p {
+        margin: 0;
+        font-size: 0.98rem;
+        line-height: 1.75;
+        color: #b7c2d2;
+      }
+
+      /* ── Why choose us ────────────────────────────────────────── */
+      body.about-page .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(1rem, 2vw, 1.4rem);
+      }
+      body.about-page .feature-card {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(1.4rem, 2.6vw, 1.85rem);
+        text-align: left;
+        background: linear-gradient(180deg, #141a25 0%, #0f141d 100%);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 18px;
+        box-shadow: 0 22px 44px -30px rgba(0, 0, 0, 0.9);
+        transition: transform 0.25s ease, border-color 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      body.about-page .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #fbbf24, rgba(245, 158, 11, 0));
+      }
+      body.about-page .feature-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(245, 158, 11, 0.38);
+        box-shadow: 0 30px 56px -30px rgba(0, 0, 0, 0.95);
+      }
+      body.about-page .feature-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        margin-bottom: 1.15rem;
+        font-size: 1.5rem;
+        color: #fbbf24;
+        background: rgba(245, 158, 11, 0.12);
+        border: 1px solid rgba(245, 158, 11, 0.28);
+        border-radius: 14px;
+      }
+      body.about-page .feature-card h3 {
+        margin: 0 0 0.55rem;
+        font-size: 1.12rem;
+        font-weight: 700;
+        line-height: 1.35;
+        text-align: left;
+        color: #fff;
+      }
+      body.about-page .feature-card p {
+        margin: 0;
+        font-size: 0.94rem;
+        line-height: 1.7;
+        color: #a9b5c7;
+      }
+
+      /* ── Team ─────────────────────────────────────────────────── */
+      body.about-page .team-grid {
+        display: block;
+      }
+      body.about-page .team-member {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(1.5rem, 4vw, 2.5rem);
+        max-width: 100%;
+        overflow: hidden;
+        padding: clamp(1.5rem, 4vw, 2.5rem);
+        background: linear-gradient(120deg, #151b26 0%, #0f141d 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 22px;
+        box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.95);
+      }
+      body.about-page .team-member::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 4px;
+        background: linear-gradient(180deg, #fbbf24, #f59e0b);
+      }
+      body.about-page .initials-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: clamp(88px, 10vw, 120px);
+        height: clamp(88px, 10vw, 120px);
+        font-family: var(--font-display, "Montserrat", sans-serif);
+        font-size: clamp(2.2rem, 4vw, 3rem);
+        font-weight: 800;
+        color: #1c1305;
+        background: linear-gradient(145deg, #fbbf24, #f59e0b);
+        border-radius: 50%;
+        box-shadow: 0 18px 36px -18px rgba(245, 158, 11, 0.8),
+          inset 0 0 0 4px rgba(8, 11, 17, 0.25);
+      }
+      body.about-page .team-info {
+        min-width: 0;
+      }
+      body.about-page .team-name {
+        margin: 0 0 0.3rem;
+        font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        color: #fff;
+      }
+      body.about-page .team-title {
+        margin: 0 0 0.95rem;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #fbbf24;
+      }
+      body.about-page .team-bio {
+        margin: 0;
+        font-size: 0.97rem;
+        line-height: 1.75;
+        color: #b7c2d2;
+      }
+
+      /* ── Service area ─────────────────────────────────────────── */
+      body.about-page .service-area-map {
+        position: relative;
+        isolation: isolate;
+        height: clamp(340px, 42vw, 430px);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 22px;
+        background:
+          radial-gradient(620px 240px at 50% 0%, rgba(245, 158, 11, 0.14), transparent 70%),
+          linear-gradient(180deg, #101620 0%, #0c1119 100%);
+        box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.95);
+      }
+      body.about-page .service-area-map::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background-image: linear-gradient(rgba(245, 158, 11, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(245, 158, 11, 0.07) 1px, transparent 1px);
+        background-size: 46px 46px;
+        -webkit-mask-image: radial-gradient(72% 62% at 50% 45%, #000 18%, transparent 80%);
+        mask-image: radial-gradient(72% 62% at 50% 45%, #000 18%, transparent 80%);
+      }
+      body.about-page .map-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(1.5rem, 4vw, 3rem);
+        text-align: center;
+        background: linear-gradient(120deg, rgba(8, 11, 17, 0.86), rgba(11, 16, 24, 0.62));
+      }
+      body.about-page .map-overlay h3 {
+        margin-bottom: 0.9rem;
+        font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+        font-weight: 800;
+        color: #fff;
+      }
+      body.about-page .map-overlay p {
+        max-width: 62ch;
+        margin-bottom: 1.5rem;
+        line-height: 1.65;
+        color: #c3cdda;
+      }
+      body.about-page .cities-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+      }
+      body.about-page .city-pill {
+        padding: 0.45rem 0.9rem;
+        font-size: 0.86rem;
+        font-weight: 500;
+        color: #fcd34d;
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid rgba(245, 158, 11, 0.32);
+        border-radius: 999px;
+        transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+      }
+      body.about-page .city-pill:hover {
+        color: #fff;
+        background: rgba(245, 158, 11, 0.2);
+        border-color: rgba(245, 158, 11, 0.6);
+      }
+
+      /* ── Stats ────────────────────────────────────────────────── */
+      body.about-page .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(0.85rem, 2vw, 1.25rem);
+        margin-bottom: clamp(3rem, 6vw, 5rem);
+      }
+      body.about-page .stat-item {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(1.4rem, 3vw, 2rem) 1rem;
+        text-align: center;
+        background: linear-gradient(180deg, #141a25 0%, #0f141d 100%);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 18px;
+        box-shadow: 0 22px 44px -30px rgba(0, 0, 0, 0.9);
+        transition: transform 0.25s ease, border-color 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      body.about-page .stat-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 44px;
+        height: 3px;
+        transform: translateX(-50%);
+        border-radius: 0 0 99px 99px;
+        background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      }
+      body.about-page .stat-item:hover {
+        transform: translateY(-4px);
+        border-color: rgba(245, 158, 11, 0.35);
+        box-shadow: 0 28px 50px -30px rgba(0, 0, 0, 0.95);
+      }
+      body.about-page .stat-number {
+        margin-bottom: 0.55rem;
+        font-family: var(--font-display, "Montserrat", sans-serif);
+        font-size: clamp(2.35rem, 4.4vw, 3.1rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: #fbbf24;
+        font-variant-numeric: tabular-nums;
+        text-shadow: 0 10px 30px rgba(245, 158, 11, 0.18);
+      }
+      body.about-page .stat-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: #e8edf5;
+      }
+
+      /* ── CTA band ─────────────────────────────────────────────── */
+      body.about-page .cta {
+        margin-bottom: 0;
+        padding: clamp(3.25rem, 7vw, 5.5rem) 1.25rem;
+        text-align: center;
+        color: #e8edf5;
+        background:
+          radial-gradient(700px 320px at 50% 0%, rgba(245, 158, 11, 0.16), transparent 65%),
+          linear-gradient(180deg, #151b26 0%, #0d121a 100%);
+        border-top: 1px solid rgba(245, 158, 11, 0.22);
+        border-bottom: 1px solid rgba(245, 158, 11, 0.22);
+      }
+      body.about-page .cta::before {
+        display: none;
+      }
+      body.about-page .cta h2 {
+        margin: 0 auto 0.9rem;
+        max-width: 22ch;
+        font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+        color: #fff;
+      }
+      body.about-page .cta p {
+        max-width: 62ch;
+        margin: 0 auto 1.9rem;
+        font-size: 1.02rem;
+        line-height: 1.65;
+        color: #c3cdda;
+      }
+
+      /* ── Amber CTAs ───────────────────────────────────────────── */
+      body.about-page .c-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        min-height: 52px;
+        padding: 0.9rem 1.7rem;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 58%, #d97706 100%);
+        color: #1c1305;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-weight: 800;
+        text-decoration: none;
+        box-shadow: 0 18px 36px -16px rgba(245, 158, 11, 0.8);
+        transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+      }
+      body.about-page .c-button:hover {
+        background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 58%, #f59e0b 100%);
+        color: #1c1305;
+        border-color: transparent;
+        transform: translateY(-2px);
+        filter: brightness(1.03);
+        box-shadow: 0 24px 44px -16px rgba(245, 158, 11, 0.9);
+      }
+      body.about-page .c-button:focus-visible {
+        outline: 3px solid rgba(251, 191, 36, 0.5);
+        outline-offset: 3px;
+      }
+
+      /* ── Responsive ───────────────────────────────────────────── */
+      @media (max-width: 1024px) {
+        body.about-page .about-story {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        body.about-page .about-story-img img {
+          aspect-ratio: 16 / 9;
+        }
+        body.about-page .features-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        body.about-page .stats {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 767px) {
+        body.about-page .about-hero {
+          min-height: 300px;
+          padding: 2.75rem 1rem 2.5rem;
+        }
+        body.about-page .about-content {
+          padding: 0 1rem;
+        }
+        body.about-page .about-content > section {
+          margin-bottom: 3rem;
+        }
+        body.about-page .story-grid {
+          grid-template-columns: 1fr;
+          gap: 1.1rem;
+          padding-top: 1.4rem;
+        }
+        body.about-page .features-grid {
+          grid-template-columns: 1fr;
+        }
+        body.about-page .team-member {
+          grid-template-columns: 1fr;
+          justify-items: center;
+          text-align: center;
+          padding: 1.6rem 1.25rem;
+        }
+        body.about-page .team-info {
+          width: 100%;
+        }
+        body.about-page .team-title {
+          margin-bottom: 0.75rem;
+        }
+        body.about-page .team-bio {
+          text-align: left;
+        }
+        body.about-page .service-area-map {
+          height: auto;
+          min-height: 340px;
+          display: flex;
+        }
+        body.about-page .map-overlay {
+          position: relative;
+          inset: auto;
+          width: 100%;
+          padding: 2rem 1.15rem;
+        }
+        body.about-page .city-pill {
+          font-size: 0.82rem;
+          padding: 0.4rem 0.8rem;
+        }
+        body.about-page .stat-item {
+          padding: 1.35rem 0.85rem;
+        }
+      }
+      @media (max-width: 340px) {
+        body.about-page .stats {
+          grid-template-columns: 1fr;
+        }
+        body.about-page .stat-number {
+          font-size: 2.5rem;
+        }
+        body.about-page .about-hero h1 {
+          font-size: 2rem;
+        }
+      }
+      @media (max-width: 380px) {
+        body.about-page .c-button {
+          padding: 0.85rem 1.35rem;
+          font-size: 0.9rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        body.about-page .about-story-img img,
+        body.about-page .feature-card,
+        body.about-page .stat-item,
+        body.about-page .city-pill,
+        body.about-page .c-button {
+          transition: none;
+        }
+      }
+    </style>
   </head>
-  <body class="theme-light">
+  <body class="theme-light about-page">
     <div id="header"></div>
     <main>
       <section class="about-hero">
@@ -615,7 +1208,7 @@
           </div>
           <div class="about-story-text">
             <h2>Our Journey Since 2013</h2>
-            <p>
+            <p class="story-lead">
               Founded in 2013, Canadian Fitness Repair was born out of a passion
               for fitness and a commitment to excellence. Our founder, a
               certified technician with over 15 years of experience in the
@@ -623,6 +1216,8 @@
               expert repair services for both commercial and residential fitness
               equipment.
             </p>
+          </div>
+          <div class="story-grid">
             <p>
               What started as a one-man operation has grown into a team of
               highly skilled technicians serving the Greater Toronto Area and
@@ -642,7 +1237,7 @@
           <div class="features-grid">
             <div class="feature-card">
               <div class="feature-icon">
-                <i class="ri-certificate-line"> </i>
+                <i class="ri-award-line"> </i>
               </div>
               <h3>Certified Technicians</h3>
               <p>
