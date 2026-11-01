@@ -65,293 +65,621 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
     <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet" />
+    <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+    <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
     />
     <style>
-  /* Reset */
-      * {
+      /* ============================================================
+         Blog — modern dark / amber editorial refresh
+         Scoped to body.blog-page so shared styles stay untouched.
+         ============================================================ */
+      *,
+      *::before,
+      *::after {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-      body {
-        background-color: var(--bg-color);
-        color: var(--text-color);
-        line-height: 1.6;
+      body.blog-page {
+        color-scheme: dark;
         min-height: 100vh;
         overflow-x: hidden;
-        padding: var(--header-height) 20px 30px;
-        transition: var(--transition);
+        line-height: 1.65;
+        color: #c3cdda;
+        background:
+          radial-gradient(900px 520px at 84% -4%, rgba(245, 158, 11, 0.1), transparent 62%),
+          radial-gradient(760px 460px at 2% 10%, rgba(93, 93, 255, 0.09), transparent 60%),
+          #0b0f16;
       }
-      .main-container {
-        max-width: 900px;
+      body.blog-page main {
+        position: relative;
+        z-index: 1;
+      }
+      body.blog-page h1,
+      body.blog-page h2,
+      body.blog-page h3,
+      body.blog-page h4 {
+        font-family: var(--font-display, "Montserrat", sans-serif);
+      }
+      body.blog-page .main-container {
+        max-width: 1240px;
         margin: 0 auto;
-        padding: 0 15px;
-      } /* Page Title */
-      .blog-section > h1 {
-        font-size: 2.8rem;
-        font-weight: 900;
-        color: var(--theme-color);
-        margin-bottom: 40px;
-        text-align: center;
-        text-shadow: 1px 1px 4px rgba(93, 93, 255, 0.6);
-      } /* Blog intro */
-      .blog-intro {
-        text-align: center;
-        max-width: 800px;
-        margin: 0 auto 50px;
-        font-size: 1.2rem;
-        color: var(--light-text);
-        line-height: 1.8;
-      } /* Each blog post card */
-      .blog-post {
-        background-color: var(--card-bg);
-        border-radius: var(--border-radius);
-        padding: 30px;
-        margin-bottom: 40px;
-        box-shadow: var(--box-shadow);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        padding: 0 clamp(1rem, 3vw, 2rem);
       }
-      .blog-post:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 10px 25px rgba(93, 93, 255, 0.35);
-      } /* Blog post headings */
-      .blog-post h2 {
-        color: var(--theme-color);
-        margin-bottom: 18px;
+
+      /* ── Masthead ─────────────────────────────────────────────── */
+      body.blog-page .blog-section {
+        padding: clamp(2.5rem, 5vw, 4.25rem) 0 0;
+      }
+      body.blog-page .blog-masthead {
+        position: relative;
+        padding: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(2.25rem, 4vw, 3.25rem);
+        text-align: center;
+      }
+      body.blog-page .blog-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        margin-bottom: 1.2rem;
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #fbbf24;
+      }
+      body.blog-page .blog-eyebrow::before,
+      body.blog-page .blog-eyebrow::after {
+        content: "";
+        width: 34px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #f59e0b);
+      }
+      body.blog-page .blog-eyebrow::after {
+        background: linear-gradient(90deg, #f59e0b, transparent);
+      }
+      body.blog-page .blog-masthead h1 {
+        max-width: 20ch;
+        margin: 0 auto 1.25rem;
+        font-size: clamp(2.35rem, 5.4vw, 4rem);
         font-weight: 800;
-        font-size: 1.9rem;
-      } /* Blog post meta */
-      .post-meta {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        color: var(--light-text);
-        font-size: 0.95rem;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        color: #ffffff;
+        text-wrap: balance;
       }
-      .post-meta i {
-        margin-right: 8px;
-        color: var(--accent-color);
+      body.blog-page .blog-masthead h1::after {
+        content: "";
+        display: block;
+        width: 84px;
+        height: 4px;
+        margin: 1.45rem auto 0;
+        border-radius: 99px;
+        background: linear-gradient(90deg, #fbbf24, #f59e0b);
       }
-      .post-meta span {
-        margin-right: 20px;
-        display: flex;
-        align-items: center;
-      } /* Paragraph styling */
-      .blog-post p {
-        color: var(--text-color);
-        font-size: 1.1rem;
-        margin-bottom: 20px;
-        line-height: 1.5;
-      } /* Lists inside blog posts */
-      .blog-post ul,
-      .blog-post ol {
-        padding-left: 25px;
-        color: var(--light-text);
-        margin-bottom: 20px;
-        font-size: 1.05rem;
+      body.blog-page .blog-intro {
+        max-width: 66ch;
+        margin: 0 auto;
+        padding: 0;
+        font-size: clamp(1rem, 1.7vw, 1.12rem);
+        line-height: 1.75;
+        color: #a8b5c7;
+        text-wrap: balance;
       }
-      .blog-post ul li,
-      .blog-post ol li {
-        margin-bottom: 10px;
-        line-height: 1.5;
-      }
-      .blog-post ul li a,
-      .blog-post ol li a {
-        color: var(--theme-color);
-        font-weight: 600;
-      }
-      .post-image {
-        width: 100%;
-        border-radius: var(--border-radius);
-        margin: 25px 0;
-        height: 300px;
-        object-fit: cover;
-        background: linear-gradient(135deg, #2a2c33, #3d4049);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--light-text);
-        font-style: italic;
-      }
-      .tip-box {
-        background: rgba(93, 93, 255, 0.1);
-        border-left: 4px solid var(--theme-color);
-        padding: 20px;
-        border-radius: 0 var(--border-radius) var(--border-radius) 0;
-        margin: 25px 0;
-      }
-      .tip-box h3 {
-        color: var(--theme-color);
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-      }
-      .tip-box h3 i {
-        margin-right: 10px;
-      } /* Links */
-      main a {
-        color: var(--theme-color);
-        text-decoration: none;
-        border-bottom: 1.5px solid transparent;
-        transition: all 0.25s ease;
-        cursor: pointer;
-      }
-      main a:hover,
-      main a:focus {
-        color: var(--accent-color);
-        border-color: var(--accent-color);
-        text-decoration: none;
-      }
-      .blog-categories {
+
+      /* ── Category filters ─────────────────────────────────────── */
+      body.blog-page .blog-categories {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
-        margin-bottom: 40px;
         justify-content: center;
-        padding: 15px;
-        border-radius: var(--border-radius);
-        background: rgba(93, 93, 255, 0.05);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        gap: 0.55rem;
+        margin: 0 0 clamp(2.25rem, 4vw, 3rem);
+        padding: 0;
+        border: 0;
+        background: none;
+        box-shadow: none;
       }
-      .category-btn {
-        background: rgba(93, 93, 255, 0.15);
-        color: var(--theme-color);
-        padding: 10px 24px;
-        border-radius: 30px;
+      body.blog-page .category-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.55rem 0.95rem;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 999px;
+        background: rgba(17, 23, 32, 0.85);
+        color: #9dabbd;
+        font-family: var(--font-body, "Poppins", sans-serif);
+        font-size: 0.8rem;
         font-weight: 600;
-        transition: all 0.3s ease;
-        border: 2px solid rgba(93, 93, 255, 0.3);
+        line-height: 1.2;
         cursor: pointer;
+        box-shadow: none;
+        transition: color 0.2s ease, border-color 0.2s ease,
+          background-color 0.2s ease, transform 0.2s ease;
+      }
+      body.blog-page .category-btn i {
+        font-size: 0.95rem;
+        color: #fbbf24;
+        margin: 0;
+      }
+      body.blog-page .category-btn:hover {
+        transform: translateY(-2px);
+        border-color: rgba(245, 158, 11, 0.45);
+        background: rgba(245, 158, 11, 0.08);
+        color: #fbbf24;
+        box-shadow: none;
+      }
+      body.blog-page .category-btn.active {
+        border-color: #f59e0b;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: #171005;
+        box-shadow: 0 8px 22px -12px rgba(245, 158, 11, 0.8);
+      }
+      body.blog-page .category-btn.active i {
+        color: #171005;
+      }
+      body.blog-page .category-btn:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 3px;
+      }
+
+      /* ── Editorial grid ───────────────────────────────────────── */
+      body.blog-page .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: stretch;
+        gap: clamp(1.1rem, 2.2vw, 1.65rem);
+      }
+      body.blog-page .blog-post {
+        min-width: 0;
+        margin: 0;
+        scroll-margin-top: calc(var(--header-height) + 16px);
+        padding: 0;
+        background: none;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        transition: none;
+      }
+      body.blog-page .blog-post:hover {
+        transform: none;
+        box-shadow: none;
+      }
+      body.blog-page .blog-post.is-featured {
+        grid-column: span 2;
+      }
+      body.blog-page .blog-post:has(.post-disclosure[open]) {
+        grid-column: span 2;
+      }
+      body.blog-page .post-disclosure {
+        height: 100%;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 22px;
+        background: linear-gradient(180deg, #151b25 0%, #0f141d 100%);
+        box-shadow: 0 26px 50px -34px rgba(0, 0, 0, 0.95);
+        transition: border-color 0.25s ease, box-shadow 0.25s ease,
+          transform 0.25s ease;
+      }
+      body.blog-page .post-disclosure:hover {
+        transform: translateY(-5px);
+        border-color: rgba(245, 158, 11, 0.38);
+        box-shadow: 0 30px 58px -30px rgba(0, 0, 0, 1),
+          0 0 0 1px rgba(245, 158, 11, 0.07);
+      }
+      body.blog-page .post-disclosure[open] {
+        height: auto;
+        border-color: rgba(245, 158, 11, 0.46);
+        box-shadow: 0 34px 65px -30px rgba(0, 0, 0, 1),
+          0 0 0 1px rgba(245, 158, 11, 0.1);
+      }
+      body.blog-page .post-disclosure[open] > .post-card {
+        height: auto;
+      }
+      body.blog-page .post-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        list-style: none;
+        cursor: pointer;
+      }
+      body.blog-page .post-card::-webkit-details-marker {
+        display: none;
+      }
+      body.blog-page .post-card:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: -2px;
+        border-radius: 22px;
+      }
+      body.blog-page .post-media {
+        position: relative;
+        display: block;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        background: #0a0e14;
+      }
+      body.blog-page .is-featured .post-media {
+        aspect-ratio: 2.1 / 1;
+      }
+      body.blog-page .post-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      body.blog-page .post-disclosure:hover .post-media img {
+        transform: scale(1.045);
+      }
+      body.blog-page .post-media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(7, 10, 15, 0.02) 48%, rgba(7, 10, 15, 0.58) 100%);
+        pointer-events: none;
+      }
+      body.blog-page .post-topic {
+        position: absolute;
+        top: 0.9rem;
+        left: 0.9rem;
+        z-index: 1;
+        padding: 0.34rem 0.7rem;
+        border: 1px solid rgba(245, 158, 11, 0.4);
+        border-radius: 999px;
+        background: rgba(8, 12, 18, 0.78);
+        color: #fbbf24;
+        font-size: 0.66rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        line-height: 1.4;
+        text-transform: uppercase;
+        backdrop-filter: blur(6px);
+      }
+      body.blog-page .post-card-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: clamp(1.15rem, 2vw, 1.55rem);
+      }
+      body.blog-page .post-card .post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem 0.95rem;
+        margin: 0 0 0.7rem;
+        color: #7f8da1;
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.07em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+      body.blog-page .post-card .post-meta span {
+        display: inline-flex;
+        align-items: center;
+        margin: 0;
+      }
+      body.blog-page .post-card .post-meta i {
+        margin-right: 0.35rem;
+        color: #fbbf24;
+        font-size: 0.88rem;
+      }
+      body.blog-page .post-card .post-meta span:last-child {
+        display: none;
+      }
+      body.blog-page .blog-post h2 {
+        margin: 0 0 0.65rem;
+        color: #ffffff;
+        font-size: clamp(1.13rem, 1.65vw, 1.38rem);
+        font-weight: 700;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+      }
+      body.blog-page .is-featured h2 {
+        font-size: clamp(1.45rem, 2.5vw, 2rem);
+        line-height: 1.22;
+      }
+      body.blog-page .post-excerpt {
+        display: -webkit-box;
+        overflow: hidden;
+        margin: 0 0 1.2rem;
+        color: #9fadc0;
+        font-size: 0.92rem;
+        line-height: 1.65;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+      body.blog-page .is-featured .post-excerpt {
+        font-size: 0.98rem;
+        -webkit-line-clamp: 2;
+      }
+      body.blog-page .post-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        margin-top: auto;
+        color: #fbbf24 !important;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        line-height: 1.4;
+        text-decoration: none !important;
+        border: 0 !important;
+      }
+      body.blog-page .post-more i {
+        transition: transform 0.2s ease;
+      }
+      body.blog-page .post-disclosure:hover .post-more i {
+        transform: translateX(4px);
+      }
+      body.blog-page .post-more:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+      body.blog-page .post-more .close-label {
+        display: none;
+      }
+      body.blog-page .post-disclosure[open] .post-more .more-label {
+        display: none;
+      }
+      body.blog-page .post-disclosure[open] .post-more .close-label {
+        display: inline;
+      }
+
+      /* ── Expanded article body ───────────────────────────────── */
+      body.blog-page .post-full {
+        padding: 0 clamp(1.25rem, 2.5vw, 2rem) clamp(1.75rem, 3vw, 2.4rem);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      body.blog-page .post-full > :first-child {
+        margin-top: 1.4rem;
+      }
+      body.blog-page .post-full h3 {
+        margin: 1.85rem 0 0.6rem;
+        color: #ffffff;
+        font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+        font-weight: 700;
+        line-height: 1.35;
+      }
+      body.blog-page .post-full h4 {
+        margin: 1.4rem 0 0.45rem;
+        color: #fbbf24;
         font-size: 1rem;
+        font-weight: 700;
+      }
+      body.blog-page .post-full p {
+        margin: 0 0 1rem;
+        color: #b3c0d1;
+        font-size: 0.98rem;
+        line-height: 1.75;
+      }
+      body.blog-page .post-full ul,
+      body.blog-page .post-full ol {
+        margin: 0 0 1.2rem;
+        padding-left: 1.3rem;
+        color: #b3c0d1;
+        font-size: 0.96rem;
+        line-height: 1.7;
+      }
+      body.blog-page .post-full li {
+        margin-bottom: 0.45rem;
+      }
+      body.blog-page .post-full strong {
+        color: #ffffff;
+      }
+      body.blog-page .post-full a {
+        color: #fbbf24;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(245, 158, 11, 0.35);
+        transition: color 0.18s ease, border-color 0.18s ease;
+      }
+      body.blog-page .post-full a:hover,
+      body.blog-page .post-full a:focus {
+        color: #fcd34d;
+        border-color: #fcd34d;
+      }
+      body.blog-page .post-full em {
+        color: #d6dde8;
+      }
+      body.blog-page .post-full table {
+        width: 100%;
+        margin: 1.4rem 0;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+      }
+      body.blog-page .post-full th,
+      body.blog-page .post-full td {
+        padding: 0.7rem 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        text-align: left;
+        vertical-align: top;
+      }
+      body.blog-page .post-full th {
+        background: rgba(245, 158, 11, 0.07);
+        color: #fbbf24;
+        font-weight: 700;
+      }
+      body.blog-page .post-full td {
+        color: #b3c0d1;
+      }
+      body.blog-page .tip-box {
+        margin: 1.45rem 0;
+        padding: 1.05rem 1.2rem;
+        border: 1px solid rgba(245, 158, 11, 0.18);
+        border-left: 3px solid #f59e0b;
+        border-radius: 0 14px 14px 0;
+        background: rgba(245, 158, 11, 0.06);
+      }
+      body.blog-page .tip-box h3 {
         display: flex;
         align-items: center;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        gap: 0.45rem;
+        margin: 0 0 0.4rem;
+        color: #fbbf24;
+        font-size: 0.98rem;
       }
-      .category-btn i {
-        margin-right: 8px;
-        font-size: 1.1rem;
+      body.blog-page .tip-box p {
+        margin: 0;
+        color: #b3c0d1;
+        font-size: 0.93rem;
       }
-      .category-btn:hover {
-        background: var(--theme-color);
-        color: white;
-        border-color: var(--theme-color);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(93, 93, 255, 0.3);
+      body.blog-page .download-section {
+        margin: 1.5rem 0 !important;
+        padding: clamp(1.2rem, 2.5vw, 1.8rem) !important;
+        border: 1px solid rgba(245, 158, 11, 0.18) !important;
+        border-radius: 16px !important;
+        background: rgba(245, 158, 11, 0.05) !important;
       }
-      .category-btn.active {
-        background: var(--accent-color);
-        color: white;
-        border-color: var(--accent-color);
-        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-        transform: translateY(-2px);
-      } /* CTA Buttons Container */
-      .cta-buttons {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        gap: 18px;
-        margin-top: 50px;
-        padding: 20px 0;
-        border-top: 1px solid #2a2c33;
-      } /* CTA Buttons Styling */
-      .cta-buttons a {
-        background: linear-gradient(
-          135deg,
-          var(--theme-color),
-          var(--accent-color)
-        );
-        color: var(--white);
-        padding: 14px 28px;
-        border-radius: 30px;
-        font-weight: 700;
-        font-size: 1.1rem;
-        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.6);
-        transition: background 0.4s ease, box-shadow 0.3s ease;
-        min-width: 160px;
-        text-align: center;
-        user-select: none;
-        display: inline-block;
+      body.blog-page .download-section h3 {
+        margin: 0 0 0.8rem !important;
+        color: #fbbf24 !important;
+        font-size: 1.08rem !important;
       }
-      .cta-buttons a:hover,
-      .cta-buttons a:focus {
-        background: linear-gradient(
-          135deg,
-          var(--accent-color),
-          var(--theme-color)
-        );
-        box-shadow: 0 6px 25px rgba(245, 158, 11, 0.85);
+      body.blog-page .download-section p {
+        font-size: 0.92rem;
+      }
+      body.blog-page .download-section label {
+        color: #c3cdda !important;
+        font-size: 0.84rem !important;
+      }
+      body.blog-page .download-section input,
+      body.blog-page .download-section select {
+        min-height: 46px;
+        padding: 0.7rem 0.8rem !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 10px !important;
+        background: #0c1119 !important;
+        color: #eef2f8 !important;
+        font-size: 0.92rem !important;
         outline: none;
       }
-      /* Responsive text sizes */
-      @media (max-width: 900px) {
-        body {
-          padding: var(--header-height) 15px 25px;
+      body.blog-page .download-section input:focus,
+      body.blog-page .download-section select:focus {
+        border-color: #f59e0b !important;
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.16);
+      }
+      body.blog-page .download-section a {
+        color: #fbbf24 !important;
+        border-bottom-color: rgba(245, 158, 11, 0.4) !important;
+      }
+      body.blog-page .download-section button {
+        border: 0 !important;
+        border-radius: 10px !important;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+        color: #171005 !important;
+        font-weight: 700 !important;
+        box-shadow: 0 10px 24px -12px rgba(245, 158, 11, 0.8) !important;
+      }
+      body.blog-page .download-section button:hover {
+        background: linear-gradient(135deg, #fcd34d, #fbbf24) !important;
+      }
+
+      /* ── Empty state + footer links ───────────────────────────── */
+      body.blog-page .no-results {
+        display: none;
+        margin: 0 0 2rem;
+        padding: clamp(2.5rem, 5vw, 3.5rem) 1.25rem;
+        border: 1px dashed rgba(245, 158, 11, 0.28);
+        border-radius: 18px;
+        color: #9fadc0;
+        text-align: center;
+      }
+      body.blog-page .cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.7rem;
+        margin-top: clamp(3rem, 6vw, 4.5rem);
+        padding: 2rem 0 clamp(3rem, 6vw, 4rem);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      body.blog-page .cta-buttons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0.65rem 1.05rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        background: rgba(17, 23, 32, 0.85);
+        color: #cbd5e1;
+        font-size: 0.84rem;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: none;
+        transition: color 0.2s ease, border-color 0.2s ease,
+          background-color 0.2s ease, transform 0.2s ease;
+      }
+      body.blog-page .cta-buttons a:hover,
+      body.blog-page .cta-buttons a:focus {
+        transform: translateY(-2px);
+        border-color: rgba(245, 158, 11, 0.5);
+        background: rgba(245, 158, 11, 0.08);
+        color: #fbbf24;
+      }
+
+      /* ── Responsive ───────────────────────────────────────────── */
+      @media (max-width: 1024px) {
+        body.blog-page .blog-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
-        .blog-section > h1 {
-          font-size: 2.4rem;
-        }
-        .blog-intro {
-          font-size: 1.1rem;
-        }
-        .blog-post h2 {
-          font-size: 1.7rem;
-        }
-        .blog-post p,
-        .blog-post ul,
-        .blog-post ol {
-          font-size: 1rem;
-        }
-        .cta-buttons a {
-          font-size: 1rem;
-          min-width: 140px;
-        }
-        .post-image {
-          height: 250px;
+        body.blog-page .blog-post.is-featured,
+        body.blog-page .blog-post:has(.post-disclosure[open]) {
+          grid-column: span 2;
         }
       }
-      @media (max-width: 768px) {
-        .blog-section > h1 {
-          font-size: 2.2rem;
+      @media (max-width: 700px) {
+        body.blog-page .main-container {
+          padding: 0 clamp(0.85rem, 4vw, 1.15rem);
         }
-        .blog-post {
-          padding: 20px;
+        body.blog-page .blog-grid {
+          grid-template-columns: 1fr;
         }
-        .post-image {
-          height: 200px;
+        body.blog-page .blog-post.is-featured,
+        body.blog-page .blog-post:has(.post-disclosure[open]) {
+          grid-column: span 1;
+        }
+        body.blog-page .is-featured .post-media {
+          aspect-ratio: 16 / 10;
+        }
+        body.blog-page .is-featured h2 {
+          font-size: clamp(1.25rem, 5vw, 1.6rem);
+        }
+        body.blog-page .is-featured .post-excerpt {
+          font-size: 0.92rem;
+          -webkit-line-clamp: 3;
+        }
+        body.blog-page .blog-masthead h1 {
+          max-width: 16ch;
+        }
+        body.blog-page .cta-buttons a {
+          flex: 1 1 auto;
         }
       }
-      @media (max-width: 480px) {
-        body {
-          padding: var(--header-height) 12px 20px;
+      @media (max-width: 420px) {
+        body.blog-page .category-btn {
+          padding: 0.5rem 0.8rem;
+          font-size: 0.75rem;
         }
-        .blog-section > h1 {
-          font-size: 2rem;
+        body.blog-page .post-card-body {
+          padding: 1.05rem;
         }
-        .blog-intro {
-          margin-bottom: 30px;
+        body.blog-page .post-full {
+          padding-inline: 1.05rem;
         }
-        .blog-post h2 {
-          font-size: 1.5rem;
+        body.blog-page .post-card .post-meta {
+          gap: 0.3rem 0.7rem;
         }
-        .cta-buttons {
-          flex-direction: column;
-          gap: 15px;
-        }
-        .cta-buttons a {
-          min-width: 100%;
-        }
-        .post-meta {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-        .post-meta span {
-          margin-bottom: 8px;
-        }
-        .post-image {
-          height: 180px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        body.blog-page .post-disclosure,
+        body.blog-page .post-disclosure:hover,
+        body.blog-page .post-media img,
+        body.blog-page .post-more i {
+          transition: none;
+          transform: none;
         }
       }
     </style>
@@ -754,7 +1082,7 @@
       }
     </script>
   </head>
-  <body>
+  <body class="blog-page">
     <div id="header"></div>
     <main>
       <div class="main-container">
@@ -762,16 +1090,19 @@
           aria-label="Fitness Equipment Blog and Repair Guides"
           class="blog-section"
         >
-          <h1>Fitness Equipment Repair Blog &amp; Guides</h1>
-          <div class="blog-intro">
-            <p>
-              Welcome to the Canadian Fitness Repair blog - your ultimate
-              resource for fitness equipment maintenance, troubleshooting, and
-              repair tips. Our certified technicians share expert advice to help
-              you extend the life of your treadmills, ellipticals, and gym
-              equipment in Hamilton, GTA, and beyond.
-            </p>
-          </div>
+          <header class="blog-masthead">
+            <span class="blog-eyebrow">The Journal</span>
+            <h1>Fitness Equipment Repair Blog &amp; Guides</h1>
+            <div class="blog-intro">
+              <p>
+                Welcome to the Canadian Fitness Repair blog - your ultimate
+                resource for fitness equipment maintenance, troubleshooting, and
+                repair tips. Our certified technicians share expert advice to help
+                you extend the life of your treadmills, ellipticals, and gym
+                equipment in Hamilton, GTA, and beyond.
+              </p>
+            </div>
+          </header>
           <div class="blog-categories">
             <button class="category-btn active" data-category="all">
               <i class="ri-stack-line"> </i>
@@ -807,16 +1138,207 @@
               No articles found in this category. Please try another filter.
             </p>
           </div>
-          <article class="blog-post" data-categories="Treadmill Repair, Electrical Issues, Troubleshooting">
-    <h2>Treadmill Won't Start? 5 Common Causes & How to Fix It</h2>
-    <div class="post-meta">
-        <span><i class="ri-calendar-line"></i> June 25, 2025</span>
+          <div class="blog-grid" id="blogGrid">
+            <article class="blog-post is-featured" id="winter-treadmill-maintenance" data-categories="Treadmill Maintenance, Preventive Care, Winter">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1598289431512-b97b0917affc?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Rows of cardio machines in a commercial gym"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Treadmill Maintenance</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> October 28, 2026</span>
+                      <span><i class="ri-time-line"></i> 6 min read</span>
+                      <span><i class="ri-price-tag-3-line"></i> Treadmill Maintenance, Preventive Care, Winter</span>
+                    </span>
+                    <h2>Winter Treadmill Maintenance: 5 Tips to Keep You Running</h2>
+                    <span class="post-excerpt">Canadian winters are hard on home treadmills. Cold garages, dry indoor air, heavier use and grit tracked in from the street all accelerate wear on belts, decks, motors and electronics.</span>
+                    <a class="post-more" href="#winter-treadmill-maintenance" aria-label="Read Winter Treadmill Maintenance: 5 Tips to Keep You Running">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>Canadian winters are hard on home treadmills. Cold garages, dry indoor air, heavier use and grit tracked in from the street all accelerate wear on belts, decks, motors and electronics.</p>
+<p>These five maintenance habits will help you protect your investment and keep your training routine uninterrupted until spring.</p>
+
+<h3>1. Keep the Room Warm and Dry</h3>
+<p>If your treadmill lives in a garage or basement, keep the space as close to room temperature as possible. Cold lubricant thickens, belts stiffen and condensation can form on control boards when the machine warms up. A small space heater or dehumidifier is often enough to prevent avoidable damage.</p>
+
+<h3>2. Clean the Belt and Deck Every Week</h3>
+<p>Winter salt, sand and carpet fibres collect under the belt and act like sandpaper against the deck. Wipe the belt surface weekly and vacuum around the motor housing. A clean running surface reduces friction, heat and motor strain.</p>
+
+<h3>3. Check Belt Tension and Tracking</h3>
+<p>A belt that slips or drifts to one side is telling you something. Check tension at the rear rollers and confirm the belt stays centred through a full speed range. Tightening a belt too much can damage the rollers and motor, so adjust in small increments or book a technician if you are unsure.</p>
+
+<h3>4. Protect the Console and Wiring</h3>
+<p>Dry winter air increases static electricity, and static is a common killer of treadmill control boards. Use a surge protector, keep the console free of dust and check that cables are not pinched or cracked. Never drape clothing over the console while the machine is running.</p>
+
+<h3>5. Book a Pre-Winter Tune-Up</h3>
+<p>A professional tune-up catches worn belts, failing bearings and error codes before they turn into December breakdowns. We inspect the motor, deck, rollers, incline system, safety key and electronics, then give you a clear report on what needs attention now and what can wait.</p>
+
+<div class="tip-box">
+  <h3><i class="ri-snowy-line"></i> Winter Ready</h3>
+  <p>Book your tune-up before the first heavy snowfall. Once the season starts, most home gym owners discover problems on the same cold weekend — and service slots fill quickly.</p>
+</div>
+
+<h3>Keep Your Routine Moving</h3>
+<p>A little preventive care now is far cheaper than a motor or control board replacement later. Our certified technicians serve Hamilton, Burlington, Oakville, Mississauga and the wider GTA.</p>
+<p><strong><a href="get-quote.html">Book a winter treadmill tune-up</a></strong> or call us at <a href="tel:2899257239">(289) 925-7239</a>.</p>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="elliptical-repair-or-replace" data-categories="Elliptical Maintenance, Cost Savings, Troubleshooting">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1546483875-ad9014c88eba?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Person training on a cardio machine in a gym"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Elliptical Maintenance</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> October 21, 2026</span>
+                      <span><i class="ri-time-line"></i> 7 min read</span>
+                      <span><i class="ri-price-tag-3-line"></i> Elliptical Maintenance, Cost Savings, Troubleshooting</span>
+                    </span>
+                    <h2>Repair or Replace? When to Call a Technician for Your Elliptical</h2>
+                    <span class="post-excerpt">When an elliptical starts squeaking, grinding or feeling unstable, the first question is usually simple: is this worth repairing, or is it time for a new machine?</span>
+                    <a class="post-more" href="#elliptical-repair-or-replace" aria-label="Read Repair or Replace? When to Call a Technician for Your Elliptical">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>When an elliptical starts squeaking, grinding or feeling unstable, the first question is usually simple: is this worth repairing, or is it time for a new machine?</p>
+<p>The answer depends on age, service history and the cost of the repair compared with the value of the equipment. Here is how to make a confident decision.</p>
+
+<h3>Start With Age and Service History</h3>
+<p>A well-maintained elliptical can last many years, while a neglected one may be approaching the end of its useful life. Check when it was last serviced, whether parts are still available and whether the frame and resistance system are structurally sound.</p>
+
+<h3>Compare Repair Cost With Replacement Value</h3>
+<p>As a general rule, a repair that costs less than half the price of a comparable new machine is usually worth doing — especially when the frame is solid and the repair comes with a warranty. Once the estimate approaches the cost of replacement, a new unit may make more sense.</p>
+
+<h3>Watch for These Red Flags</h3>
+<ul>
+  <li><strong>Frame cracks or deep corrosion</strong> that compromise safety</li>
+  <li><strong>Repeated electronics failures</strong> after previous board replacements</li>
+  <li><strong>Obsolete parts</strong> that are no longer manufactured</li>
+  <li><strong>Grinding from the drive system</strong> that returns after service</li>
+  <li><strong>Unstable pedals or handlebars</strong> that cannot be tightened safely</li>
+</ul>
+
+<h3>When a Technician Is the Right Call</h3>
+<p>Drive belts, bearings, resistance motors and console electronics are not DIY repairs. A technician can measure wear, test the resistance system under load and confirm whether the repair will actually solve the problem. That diagnosis prevents you from spending money on the wrong part — or replacing a machine that had a simple fix.</p>
+
+<div class="tip-box">
+  <h3><i class="ri-tools-line"></i> Technician Tip</h3>
+  <p>Describe the sound, when it happens and whether it changes with resistance or speed. A precise symptom description helps us bring the right parts on the first visit.</p>
+</div>
+
+<h3>Make the Decision With Real Numbers</h3>
+<p>We provide a transparent repair estimate before any work begins, so you can compare it directly with the cost of a replacement. If repair is not the right choice, we will tell you.</p>
+<p><strong><a href="get-quote.html">Request an elliptical repair quote</a></strong> or call <a href="tel:2899257239">(289) 925-7239</a>.</p>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="commercial-gyms-trust-canadian-fitness-repair" data-categories="Commercial Equipment, Preventive Care">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1637430308606-86576d8fef3c?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Dark commercial gym floor with strength equipment"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Commercial Equipment</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> October 14, 2026</span>
+                      <span><i class="ri-time-line"></i> 5 min read</span>
+                      <span><i class="ri-price-tag-3-line"></i> Commercial Equipment, Preventive Care</span>
+                    </span>
+                    <h2>Why Commercial Gyms Trust Canadian Fitness Repair</h2>
+                    <span class="post-excerpt">In a commercial gym, equipment downtime is more than an inconvenience. It frustrates members, disrupts programming and puts revenue at risk.</span>
+                    <a class="post-more" href="#commercial-gyms-trust-canadian-fitness-repair" aria-label="Read Why Commercial Gyms Trust Canadian Fitness Repair">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>In a commercial gym, equipment downtime is more than an inconvenience. It frustrates members, disrupts programming and puts revenue at risk. That is why facility managers need a service partner who understands urgency as well as repair.</p>
+<p>Canadian Fitness Repair supports commercial gyms across Hamilton and the GTA with preventive maintenance, emergency service and clear reporting built around how facilities actually operate.</p>
+
+<h3>Preventive Maintenance Protects Uptime</h3>
+<p>Most major breakdowns start as small issues: a worn belt, a loose cable, a noisy bearing or a console error that gets ignored. Scheduled inspections catch those problems early, before they take a machine offline during peak hours.</p>
+
+<h3>One Partner for Every Major Brand</h3>
+<p>Commercial floors are rarely made up of a single brand. We service treadmills, ellipticals, bikes, rowers, cable machines and strength equipment from the major manufacturers, so your team is not juggling multiple vendors for routine service.</p>
+
+<h3>Clear Reporting and Fast Response</h3>
+<p>Facility managers need to know what was inspected, what was repaired and what needs attention next. We provide straightforward service reports and prioritized recommendations, with emergency response when a critical machine goes down.</p>
+
+<h3>Plans That Scale With Your Facility</h3>
+<p>Whether you operate a boutique studio with ten machines or a multi-site fitness centre, we build maintenance coverage around your equipment count, usage patterns and budget. Plans can include scheduled visits, priority scheduling, parts discounts and staff training.</p>
+
+<div class="tip-box">
+  <h3><i class="ri-building-line"></i> Built for Commercial Teams</h3>
+  <p>Ask about our commercial maintenance plans for predictable coverage, priority response and documented service history for every machine.</p>
+</div>
+
+<h3>Talk to Us About Your Facility</h3>
+<p>Tell us how many pieces of equipment you manage and what downtime costs your business. We will recommend a maintenance plan that fits.</p>
+<p><strong><a href="contactform.html">Contact our commercial team</a></strong> or call <a href="tel:2899257239">(289) 925-7239</a>.</p>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="treadmill-wont-start" data-categories="Treadmill Repair, Electrical Issues, Troubleshooting">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1570829460005-c840387bb1ca?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Technician diagnosing a treadmill that won&#x27;t start"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Treadmill Repair</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> June 25, 2025</span>
         <span><i class="ri-time-line"></i> 8 min read</span>
         <span><i class="ri-price-tag-3-line"></i> Treadmill Repair, Electrical Issues, Troubleshooting</span>
-    </div>
-    <div class="post-image">Technician diagnosing a treadmill that won't start</div>
-    
-    <p>Nothing derails your workout routine faster than a treadmill that’s completely unresponsive. As Hamilton's leading fitness equipment repair specialists, we see this issue daily. The good news is that <strong>over 50% of "no start" problems have a simple, DIY solution</strong>.</p>
+                    </span>
+                    <h2>Treadmill Won't Start? 5 Common Causes & How to Fix It</h2>
+                    <span class="post-excerpt">Nothing derails your workout routine faster than a treadmill that’s completely unresponsive. As Hamilton&#x27;s leading fitness equipment repair specialists, we see this issue daily.</span>
+                    <a class="post-more" href="#treadmill-wont-start" aria-label="Read Treadmill Won&#x27;t Start? 5 Common Causes &amp; How to Fix It">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>Nothing derails your workout routine faster than a treadmill that’s completely unresponsive. As Hamilton's leading fitness equipment repair specialists, we see this issue daily. The good news is that <strong>over 50% of "no start" problems have a simple, DIY solution</strong>.</p>
     <p>This guide will walk you through the five most common reasons your treadmill won’t start, from the quickest checks you can do in 30 seconds to more complex electrical issues that require a professional.</p>
 
     <h3>1. Power Supply Issues (The Most Common Fix)</h3>
@@ -874,17 +1396,38 @@
     <p>We'll quickly identify the root cause, provide a transparent quote, and use genuine OEM parts to get you back on track. We repair all brands, including <a href="nordictrack-repair.html">NordicTrack</a>, <a href="sole-repair.html">Sole</a>, <a href="proform-repair.html">ProForm</a>, and <a href="lifefitness-repair.html">Life Fitness</a>.</p>
 
     <p><strong><a href="get-quote.html">Click here to get a free, no-obligation repair quote</a></strong> or call us directly at <a href="tel:2899257239">(289) 925-7239</a>.</p>
-</article>
-<article class="blog-post" data-categories="Elliptical Maintenance, Troubleshooting, Preventive Care">
-    <h2>Why Is My Elliptical Making Noise? A Guide to Diagnosing Squeaks, Squeals, and Grinds</h2>
-    <div class="post-meta">
-        <span><i class="ri-calendar-line"></i> June 28, 2025</span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="elliptical-noise" data-categories="Elliptical Maintenance, Troubleshooting, Preventive Care">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1571388208497-71bedc66e932?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Technician listening to an elliptical drive train"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Elliptical Maintenance</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> June 28, 2025</span>
         <span><i class="ri-time-line"></i> 9 min read</span>
         <span><i class="ri-price-tag-3-line"></i> Elliptical Maintenance, Troubleshooting, Preventive Care</span>
-    </div>
-    <div class="post-image">Technician listening to an elliptical drive train</div>
-    
-    <p>A noisy elliptical isn't just annoying—it's often the first warning sign of a component that needs attention. Ignoring these sounds can lead to costly repairs down the road. Based on thousands of service calls across the GTA, we've created this diagnostic guide to help you identify and fix the noise your machine is making.</p>
+                    </span>
+                    <h2>Why Is My Elliptical Making Noise? A Guide to Diagnosing Squeaks, Squeals, and Grinds</h2>
+                    <span class="post-excerpt">A noisy elliptical isn&#x27;t just annoying—it&#x27;s often the first warning sign of a component that needs attention. Ignoring these sounds can lead to costly repairs down the road.</span>
+                    <a class="post-more" href="#elliptical-noise" aria-label="Read Why Is My Elliptical Making Noise? A Guide to Diagnosing Squeaks, Squeals, and Grinds">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>A noisy elliptical isn't just annoying—it's often the first warning sign of a component that needs attention. Ignoring these sounds can lead to costly repairs down the road. Based on thousands of service calls across the GTA, we've created this diagnostic guide to help you identify and fix the noise your machine is making.</p>
     <p><strong>Pro Tip:</strong> Have someone else use the elliptical while you listen closely to pinpoint the exact source of the noise. This is the most important step in diagnosis.</p>
 
     <h3>The Diagnostic Chart: What Does Your Noise Sound Like?</h3>
@@ -939,16 +1482,24 @@
     <p><strong>We provide urgent repair service throughout Hamilton, Ancaster, Dundas, and Burlington.</strong> Don't let a strange noise ruin your workout or lead to a massive repair bill.</p>
 
     <p><strong><a href="get-quote.html">Schedule a quiet, professional repair online now</a></strong> or call us at <a href="tel:2899257239">(289) 925-7239</a> for same-day service.</p>
-</article>
-          <article
-            class="blog-post"
-            data-categories="Treadmill Maintenance, Preventive Care"
-          >
-            <h2>
-              Ultimate Guide to Maintaining Treadmills in Canadian Winters
-            </h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="winters" data-categories="Treadmill Maintenance, Preventive Care">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Treadmill in a cold garage setting"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Treadmill Maintenance</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 June 12, 2025
               </span>
@@ -960,9 +1511,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Treadmill Maintenance, Preventive Care
               </span>
-            </div>
-            <div class="post-image">Treadmill in a cold garage setting</div>
-            <p>
+                    </span>
+                    <h2>Ultimate Guide to Maintaining Treadmills in Canadian Winters</h2>
+                    <span class="post-excerpt">Canadian winters present unique challenges for fitness equipment. Cold temperatures can affect lubrication, electronics, and mechanical components.</span>
+                    <a class="post-more" href="#winters" aria-label="Read Ultimate Guide to Maintaining Treadmills in Canadian Winters">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Canadian winters present unique challenges for fitness equipment.
               Cold temperatures can affect lubrication, electronics, and
               mechanical components. Follow these essential tips to protect your
@@ -1040,14 +1600,24 @@
               diagnostics, and belt tension adjustment specifically for
               Hamilton's climate.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Commercial Equipment, Cost Savings"
-          >
-            <h2>Cost Breakdown: Repair vs. Replace Commercial Gym Equipment</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="repair-vs-replace" data-categories="Commercial Equipment, Cost Savings">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Commercial gym equipment repair cost analysis"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Commercial Equipment</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 June 7, 2025
               </span>
@@ -1059,11 +1629,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Commercial Equipment, Cost Savings
               </span>
-            </div>
-            <div class="post-image">
-              Commercial gym equipment repair cost analysis
-            </div>
-            <p>
+                    </span>
+                    <h2>Cost Breakdown: Repair vs. Replace Commercial Gym Equipment</h2>
+                    <span class="post-excerpt">Fitness facilities in the GTA often face the dilemma: repair aging equipment or invest in replacements? We analyzed 5 years of service data to create this decision framework:</span>
+                    <a class="post-more" href="#repair-vs-replace" aria-label="Read Cost Breakdown: Repair vs. Replace Commercial Gym Equipment">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Fitness facilities in the GTA often face the dilemma: repair aging
               equipment or invest in replacements? We analyzed 5 years of
               service data to create this decision framework:
@@ -1125,14 +1702,24 @@
               for your specific equipment. Our Hamilton-based team provides
               unbiased recommendations for GTA fitness facilities.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Preventive Care, Equipment Selection"
-          >
-            <h2>Infographic: Expected Lifespans of Fitness Equipment</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="lifespan" data-categories="Preventive Care, Equipment Selection">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Infographic showing fitness equipment lifespans"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Preventive Care</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 June 3, 2025
               </span>
@@ -1144,11 +1731,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Preventive Care, Equipment Selection
               </span>
-            </div>
-            <div class="post-image">
-              Infographic showing fitness equipment lifespans
-            </div>
-            <p>
+                    </span>
+                    <h2>Infographic: Expected Lifespans of Fitness Equipment</h2>
+                    <span class="post-excerpt">Based on service records from hundreds of Hamilton and GTA clients, we&#x27;ve compiled realistic lifespan expectations for common fitness equipment with proper maintenance:</span>
+                    <a class="post-more" href="#lifespan" aria-label="Read Infographic: Expected Lifespans of Fitness Equipment">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Based on service records from hundreds of Hamilton and GTA
               clients, we've compiled realistic lifespan expectations for common
               fitness equipment with proper maintenance:
@@ -1223,17 +1817,24 @@
               <li>Environmental conditions (humidity/temperature control)</li>
               <li>User weight limits adherence</li>
             </ol>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Commercial Equipment, Cost Savings"
-          >
-            <h2>
-              Local Success: How We Saved Hamilton Gym $12,450 in Equipment
-              Costs
-            </h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="hamilton-success" data-categories="Commercial Equipment, Cost Savings">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Hamilton gym equipment repair success story"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Commercial Equipment</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 May 30, 2025
               </span>
@@ -1245,11 +1846,19 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Commercial Equipment, Cost Savings
               </span>
-            </div>
-            <div class="post-image">
-              Hamilton gym equipment repair success story
-            </div>
-            <p>
+                    </span>
+                    <h2>Local Success: How We Saved Hamilton Gym $12,450 in Equipment
+              Costs</h2>
+                    <span class="post-excerpt">When Downtown Hamilton Fitness approached us with 8 malfunctioning treadmills and rising member complaints, we implemented a strategic repair program that saved them over $12,450 versus replacement costs.</span>
+                    <a class="post-more" href="#hamilton-success" aria-label="Read Local Success: How We Saved Hamilton Gym $12,450 in Equipment Costs">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               When Downtown Hamilton Fitness approached us with 8 malfunctioning
               treadmills and rising member complaints, we implemented a
               strategic repair program that saved them over $12,450 versus
@@ -1305,14 +1914,24 @@
               for a customized cost-savings analysis for your fitness facility
               in Hamilton or the GTA.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Treadmill Repair, Maintenance"
-          >
-            <h2>Top 5 Treadmill Problems &amp; How to Fix Them</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="treadmill-fixes" data-categories="Treadmill Repair, Maintenance">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Treadmill Repair Technician at Work"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Treadmill Repair</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 June 10, 2025
               </span>
@@ -1324,9 +1943,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Treadmill Repair, Maintenance
               </span>
-            </div>
-            <div class="post-image">Treadmill Repair Technician at Work</div>
-            <p>
+                    </span>
+                    <h2>Top 5 Treadmill Problems &amp; How to Fix Them</h2>
+                    <span class="post-excerpt">As a fitness equipment repair specialist serving Hamilton and the GTA, I see the same treadmill issues repeatedly. Here are the top 5 problems and how to address them:</span>
+                    <a class="post-more" href="#treadmill-fixes" aria-label="Read Top 5 Treadmill Problems &amp; How to Fix Them">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               As a fitness equipment repair specialist serving Hamilton and the
               GTA, I see the same treadmill issues repeatedly. Here are the top
               5 problems and how to address them:
@@ -1360,14 +1988,24 @@
               <a href="get-quote.html"> certified technicians </a>
               for professional repair service.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Equipment Selection, Home Gym"
-          >
-            <h2>How to Choose Between a Treadmill and an Elliptical</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="choose-cardio" data-categories="Equipment Selection, Home Gym">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="How to Choose Between a Treadmill and an Elliptical"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Equipment Selection</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 May 28, 2025
               </span>
@@ -1379,8 +2017,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Equipment Selection, Home Gym
               </span>
-            </div>
-            <p>
+                    </span>
+                    <h2>How to Choose Between a Treadmill and an Elliptical</h2>
+                    <span class="post-excerpt">Selecting the right cardio equipment is crucial for your fitness journey. Here&#x27;s a comparison to help you decide:</span>
+                    <a class="post-more" href="#choose-cardio" aria-label="Read How to Choose Between a Treadmill and an Elliptical">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Selecting the right cardio equipment is crucial for your fitness
               journey. Here's a comparison to help you decide:
             </p>
@@ -1417,14 +2065,24 @@
               with our fitness equipment specialists to find the perfect match
               for your needs.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Error Codes, Troubleshooting"
-          >
-            <h2>Understanding Fitness Equipment Error Codes</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="error-codes" data-categories="Error Codes, Troubleshooting">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Fitness Equipment Console Showing Error Code"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Error Codes</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 May 15, 2025
               </span>
@@ -1436,11 +2094,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Error Codes, Troubleshooting
               </span>
-            </div>
-            <div class="post-image">
-              Fitness Equipment Console Showing Error Code
-            </div>
-            <p>
+                    </span>
+                    <h2>Understanding Fitness Equipment Error Codes</h2>
+                    <span class="post-excerpt">Error codes are your equipment&#x27;s way of communicating problems. Here are common codes across major brands:</span>
+                    <a class="post-more" href="#error-codes" aria-label="Read Understanding Fitness Equipment Error Codes">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Error codes are your equipment's way of communicating problems.
               Here are common codes across major brands:
             </p>
@@ -1525,14 +2190,24 @@
               <a href="get-quote.html"> technicians offer same-day service </a>
               across Hamilton and the GTA.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Error Codes, Treadmill Repair"
-          >
-            <h2>NordicTrack Treadmill Error Codes Explained</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="nordictrack-errors" data-categories="Error Codes, Treadmill Repair">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="NordicTrack Treadmill Console Showing Error Codes"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Error Codes</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 June 5, 2025
               </span>
@@ -1544,11 +2219,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Error Codes, Treadmill Repair
               </span>
-            </div>
-            <div class="post-image">
-              NordicTrack Treadmill Console Showing Error Codes
-            </div>
-            <p>
+                    </span>
+                    <h2>NordicTrack Treadmill Error Codes Explained</h2>
+                    <span class="post-excerpt">NordicTrack is one of North America&#x27;s most popular treadmill brands. Understanding their error codes can save you time and money. Here&#x27;s a comprehensive guide:</span>
+                    <a class="post-more" href="#nordictrack-errors" aria-label="Read NordicTrack Treadmill Error Codes Explained">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               NordicTrack is one of North America's most popular treadmill
               brands. Understanding their error codes can save you time and
               money. Here's a comprehensive guide:
@@ -1606,14 +2288,24 @@
               For complex NordicTrack repairs in Hamilton and the GTA, our
               technicians are factory-trained and carry OEM replacement parts.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Treadmill Maintenance, Parts Replacement"
-          >
-            <h2>When to Replace Your Treadmill Belt</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="treadmill-belt" data-categories="Treadmill Maintenance, Parts Replacement">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Worn vs. New Treadmill Belt Comparison"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Treadmill Maintenance</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 May 5, 2025
               </span>
@@ -1625,9 +2317,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Treadmill Maintenance, Parts Replacement
               </span>
-            </div>
-            <div class="post-image">Worn vs. New Treadmill Belt Comparison</div>
-            <p>
+                    </span>
+                    <h2>When to Replace Your Treadmill Belt</h2>
+                    <span class="post-excerpt">A worn treadmill belt is the #1 cause of performance issues and premature motor failure. Here&#x27;s how to assess your belt:</span>
+                    <a class="post-more" href="#treadmill-belt" aria-label="Read When to Replace Your Treadmill Belt">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               A worn treadmill belt is the #1 cause of performance issues and
               premature motor failure. Here's how to assess your belt:
             </p>
@@ -1655,14 +2356,24 @@
               with our certified technicians. We carry OEM belts for all major
               brands.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Preventive Maintenance, Cost Savings"
-          >
-            <h2>Why Regular Maintenance Saves You Money</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="save-money" data-categories="Preventive Maintenance, Cost Savings">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Why Regular Maintenance Saves You Money"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Preventive Maintenance</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 April 22, 2025
               </span>
@@ -1674,8 +2385,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Preventive Maintenance, Cost Savings
               </span>
-            </div>
-            <p>
+                    </span>
+                    <h2>Why Regular Maintenance Saves You Money</h2>
+                    <span class="post-excerpt">Preventative maintenance is the smartest investment for fitness equipment owners. Here&#x27;s why:</span>
+                    <a class="post-more" href="#save-money" aria-label="Read Why Regular Maintenance Saves You Money">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Preventative maintenance is the smartest investment for fitness
               equipment owners. Here's why:
             </p>
@@ -1703,14 +2424,24 @@
               include comprehensive inspections, lubrication, calibration, and
               priority service for Hamilton and GTA residents.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Error Codes, Elliptical Maintenance"
-          >
-            <h2>Sole Fitness Elliptical Error Codes Guide</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="sole-errors" data-categories="Error Codes, Elliptical Maintenance">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Sole Elliptical Console with Error Code Display"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Error Codes</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 May 25, 2025
               </span>
@@ -1722,11 +2453,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Error Codes, Elliptical Maintenance
               </span>
-            </div>
-            <div class="post-image">
-              Sole Elliptical Console with Error Code Display
-            </div>
-            <p>
+                    </span>
+                    <h2>Sole Fitness Elliptical Error Codes Guide</h2>
+                    <span class="post-excerpt">Sole Fitness elliptical machines are known for their durability, but like all equipment, they can display error codes. Here&#x27;s how to interpret and resolve them:</span>
+                    <a class="post-more" href="#sole-errors" aria-label="Read Sole Fitness Elliptical Error Codes Guide">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Sole Fitness elliptical machines are known for their durability,
               but like all equipment, they can display error codes. Here's how
               to interpret and resolve them:
@@ -1785,14 +2523,24 @@
               <a href="get-quote.html"> Hamilton service team </a>
               offers same-day diagnostics.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Elliptical Repair, Maintenance"
-          >
-            <h2>Elliptical Maintenance Checklist</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="elliptical-checklist" data-categories="Elliptical Repair, Maintenance">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Technician Performing Elliptical Maintenance"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Elliptical Repair</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 April 10, 2025
               </span>
@@ -1804,11 +2552,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Elliptical Repair, Maintenance
               </span>
-            </div>
-            <div class="post-image">
-              Technician Performing Elliptical Maintenance
-            </div>
-            <p>
+                    </span>
+                    <h2>Elliptical Maintenance Checklist</h2>
+                    <span class="post-excerpt">Keep your elliptical in peak condition with this monthly maintenance checklist:</span>
+                    <a class="post-more" href="#elliptical-checklist" aria-label="Read Elliptical Maintenance Checklist">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Keep your elliptical in peak condition with this monthly
               maintenance checklist:
             </p>
@@ -1825,14 +2580,24 @@
               <a href="get-quote.html"> elliptical service in Hamilton </a>
               , our technicians offer same-day diagnostics and repair.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Commercial Equipment, Gym Maintenance"
-          >
-            <h2>Commercial Gym Equipment Maintenance Guide</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="commercial-guide" data-categories="Commercial Equipment, Gym Maintenance">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Commercial Gym Equipment Maintenance Guide"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Commercial Equipment</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 March 28, 2025
               </span>
@@ -1844,8 +2609,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Commercial Equipment, Gym Maintenance
               </span>
-            </div>
-            <p>
+                    </span>
+                    <h2>Commercial Gym Equipment Maintenance Guide</h2>
+                    <span class="post-excerpt">Commercial fitness facilities in the GTA require specialized maintenance approaches. Implement this protocol:</span>
+                    <a class="post-more" href="#commercial-guide" aria-label="Read Commercial Gym Equipment Maintenance Guide">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Commercial fitness facilities in the GTA require specialized
               maintenance approaches. Implement this protocol:
             </p>
@@ -1882,14 +2657,24 @@
                 include priority service and discounted parts.
               </p>
             </div>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Treadmill Repair, Electrical Issues"
-          >
-            <h2>How to Troubleshoot Treadmill Electrical Issues</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="electrical-issues" data-categories="Treadmill Repair, Electrical Issues">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="How to Troubleshoot Treadmill Electrical Issues"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Treadmill Repair</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 March 15, 2025
               </span>
@@ -1901,8 +2686,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Treadmill Repair, Electrical Issues
               </span>
-            </div>
-            <p>
+                    </span>
+                    <h2>How to Troubleshoot Treadmill Electrical Issues</h2>
+                    <span class="post-excerpt">Electrical problems are among the most common treadmill issues. Follow this troubleshooting guide:</span>
+                    <a class="post-more" href="#electrical-issues" aria-label="Read How to Troubleshoot Treadmill Electrical Issues">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Electrical problems are among the most common treadmill issues.
               Follow this troubleshooting guide:
             </p>
@@ -1933,14 +2728,24 @@
               certified technicians. We carry replacement controllers, wiring
               harnesses, and power supplies for all major brands.
             </p>
-          </article>
-          <article
-            class="blog-post"
-            data-categories="Preventive Care, Treadmill Repair"
-          >
-            <h2>Monthly Preventative Maintenance for Treadmills</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="monthly-maintenance" data-categories="Preventive Care, Treadmill Repair">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Technician Performing Treadmill Maintenance"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Preventive Care</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 June 8, 2025
               </span>
@@ -1952,11 +2757,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Preventive Care, Treadmill Repair
               </span>
-            </div>
-            <div class="post-image">
-              Technician Performing Treadmill Maintenance
-            </div>
-            <p>
+                    </span>
+                    <h2>Monthly Preventative Maintenance for Treadmills</h2>
+                    <span class="post-excerpt">Regular preventative maintenance can extend your treadmill&#x27;s lifespan by 3-5 years. Here&#x27;s a simple monthly routine for Hamilton treadmill owners:</span>
+                    <a class="post-more" href="#monthly-maintenance" aria-label="Read Monthly Preventative Maintenance for Treadmills">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Regular preventative maintenance can extend your treadmill's
               lifespan by 3-5 years. Here's a simple monthly routine for
               Hamilton treadmill owners:
@@ -2006,17 +2818,38 @@
               include all these services plus professional calibration for
               optimal performance.
             </p>
-          </article>
-          <!-- Cable Machine Article -->
-<article class="blog-post" data-categories="Strength Equipment, Cable Machine Repair">
-  <h2>Troubleshooting Common Cable Machine Issues</h2>
-  <div class="post-meta">
-    <span><i class="ri-calendar-line"></i> June 14, 2025</span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="cable-machine-issues" data-categories="Strength Equipment, Cable Machine Repair">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Cable machine pulley system close-up"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Strength Equipment</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> June 14, 2025</span>
     <span><i class="ri-time-line"></i> 6 min read</span>
     <span><i class="ri-price-tag-3-line"></i> Strength Equipment, Cable Machine Repair</span>
-  </div>
-  <div class="post-image">Cable machine pulley system close-up</div>
-  <p>Cable machines provide versatile strength training but develop issues over time. Here's how to diagnose and fix common problems with home and commercial cable systems:</p>
+                    </span>
+                    <h2>Troubleshooting Common Cable Machine Issues</h2>
+                    <span class="post-excerpt">Cable machines provide versatile strength training but develop issues over time. Here&#x27;s how to diagnose and fix common problems with home and commercial cable systems:</span>
+                    <a class="post-more" href="#cable-machine-issues" aria-label="Read Troubleshooting Common Cable Machine Issues">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>Cable machines provide versatile strength training but develop issues over time. Here's how to diagnose and fix common problems with home and commercial cable systems:</p>
   
   <h3>Cable Machine Maintenance Essentials</h3>
   <ol>
@@ -2050,14 +2883,24 @@
   </ul>
   
   <p>Our Hamilton-based technicians carry OEM cables and pulleys for all major brands. <a href="contactform.html">Contact us for emergency cable replacement</a> to prevent equipment downtime in your gym.</p>
-</article>
-          <article
-            class="blog-post"
-            data-categories="Preventive Care, Elliptical Maintenance"
-          >
-            <h2>Preventative Care Checklist for Ellipticals</h2>
-            <div class="post-meta">
-              <span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="elliptical-care" data-categories="Preventive Care, Elliptical Maintenance">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1591741535018-d042766c62eb?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Elliptical Preventative Maintenance"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Preventive Care</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span>
                 <i class="ri-calendar-line"> </i>
                 May 20, 2025
               </span>
@@ -2069,9 +2912,18 @@
                 <i class="ri-price-tag-3-line"> </i>
                 Preventive Care, Elliptical Maintenance
               </span>
-            </div>
-            <div class="post-image">Elliptical Preventative Maintenance</div>
-            <p>
+                    </span>
+                    <h2>Preventative Care Checklist for Ellipticals</h2>
+                    <span class="post-excerpt">Ellipticals require specific preventative care to maintain smooth operation. Follow this quarterly checklist:</span>
+                    <a class="post-more" href="#elliptical-care" aria-label="Read Preventative Care Checklist for Ellipticals">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>
               Ellipticals require specific preventative care to maintain smooth
               operation. Follow this quarterly checklist:
             </p>
@@ -2133,17 +2985,38 @@
               </a>
               for brand-specific maintenance schedules.
             </p>
-          </article>
-          <!-- Insert after existing articles, before CTA buttons -->
-<article class="blog-post" data-categories="Elliptical Maintenance, Cost Savings">
-  <h2>Cost to Repair a NordicTrack Elliptical in Hamilton</h2>
-  <div class="post-meta">
-    <span><i class="ri-calendar-line"></i> June 15, 2025</span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="nordictrack-elliptical-cost" data-categories="Elliptical Maintenance, Cost Savings">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="NordicTrack elliptical repair cost analysis"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Elliptical Maintenance</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> June 15, 2025</span>
     <span><i class="ri-time-line"></i> 6 min read</span>
     <span><i class="ri-price-tag-3-line"></i> Elliptical Maintenance, Cost Savings</span>
-  </div>
-  <div class="post-image">NordicTrack elliptical repair cost analysis</div>
-  <p>As Hamilton's leading elliptical repair specialists, we service NordicTrack machines across Ancaster, Dundas, and Burlington. Here's a transparent pricing guide for common repairs:</p>
+                    </span>
+                    <h2>Cost to Repair a NordicTrack Elliptical in Hamilton</h2>
+                    <span class="post-excerpt">As Hamilton&#x27;s leading elliptical repair specialists, we service NordicTrack machines across Ancaster, Dundas, and Burlington. Here&#x27;s a transparent pricing guide for common repairs:</span>
+                    <a class="post-more" href="#nordictrack-elliptical-cost" aria-label="Read Cost to Repair a NordicTrack Elliptical in Hamilton">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>As Hamilton's leading elliptical repair specialists, we service NordicTrack machines across Ancaster, Dundas, and Burlington. Here's a transparent pricing guide for common repairs:</p>
   
   <h3>Common Repair Costs</h3>
   <ul>
@@ -2163,17 +3036,38 @@
   </div>
 
   <p><strong>Emergency Service:</strong> We offer same-day repairs across the GTA. Call <a href="tel:2899257239">(289) 925-7239</a> for immediate assistance.</p>
-</article>
-
-<article class="blog-post" data-categories="Exercise Bike Repair, Preventive Care">
-  <h2>Why Your Peloton Bike Needs Annual Service</h2>
-  <div class="post-meta">
-    <span><i class="ri-calendar-line"></i> June 18, 2025</span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="peloton-annual-service" data-categories="Exercise Bike Repair, Preventive Care">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Peloton bike maintenance technician"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Exercise Bike Repair</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> June 18, 2025</span>
     <span><i class="ri-time-line"></i> 5 min read</span>
     <span><i class="ri-price-tag-3-line"></i> Exercise Bike Repair, Preventive Care</span>
-  </div>
-  <div class="post-image">Peloton bike maintenance technician</div>
-  <p>As certified Peloton technicians serving Burlington, Oakville, and Mississauga, we've identified critical maintenance needs most owners overlook:</p>
+                    </span>
+                    <h2>Why Your Peloton Bike Needs Annual Service</h2>
+                    <span class="post-excerpt">As certified Peloton technicians serving Burlington, Oakville, and Mississauga, we&#x27;ve identified critical maintenance needs most owners overlook:</span>
+                    <a class="post-more" href="#peloton-annual-service" aria-label="Read Why Your Peloton Bike Needs Annual Service">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>As certified Peloton technicians serving Burlington, Oakville, and Mississauga, we've identified critical maintenance needs most owners overlook:</p>
 
   <h3>Essential Annual Service Components</h3>
   <ul>
@@ -2196,17 +3090,38 @@
   </div>
 
   <p><strong>Our Peloton Service Package ($149)</strong> includes full mechanical inspection, calibration, and electronic diagnostics. <a href="bike-repair.html">Book your annual service</a> and receive complimentary pedal maintenance.</p>
-</article>
-
-<article class="blog-post" data-categories="Commercial Equipment, Preventive Care">
-  <h2>Commercial Gym Maintenance Checklist PDF</h2>
-  <div class="post-meta">
-    <span><i class="ri-calendar-line"></i> June 20, 2025</span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="gym-maintenance-checklist" data-categories="Commercial Equipment, Preventive Care">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Commercial gym maintenance checklist"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Commercial Equipment</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> June 20, 2025</span>
     <span><i class="ri-time-line"></i> 4 min read</span>
     <span><i class="ri-price-tag-3-line"></i> Commercial Equipment, Preventive Care</span>
-  </div>
-  <div class="post-image">Commercial gym maintenance checklist</div>
-  <p>Download our professional gym maintenance checklist to prevent equipment downtime in Hamilton facilities:</p>
+                    </span>
+                    <h2>Commercial Gym Maintenance Checklist PDF</h2>
+                    <span class="post-excerpt">Download our professional gym maintenance checklist to prevent equipment downtime in Hamilton facilities:</span>
+                    <a class="post-more" href="#gym-maintenance-checklist" aria-label="Read Commercial Gym Maintenance Checklist PDF">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>Download our professional gym maintenance checklist to prevent equipment downtime in Hamilton facilities:</p>
   
   <!-- Download Section -->
 <!-- Add this to your blog.html where you want the form -->
@@ -2278,16 +3193,38 @@
     <p>Facilities using our checklist reduce repair costs by 37% on average. 
       <a href="commercial-residential.html">Our service plans</a> include priority emergency response.</p>
   </div>
-</article>
-          <article class="blog-post" data-categories="Gym Equipment, Cost Savings">
-  <h2>Repair vs. Replace: The True Cost of Gym Equipment Ownership in Hamilton</h2>
-  <div class="post-meta">
-    <span><i class="ri-calendar-line"></i> September 27, 2025</span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="repair-vs-replace-the-true-cost-of-gym-equipment-ownership-in-hamilton" data-categories="Gym Equipment, Cost Savings">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Gym equipment repair vs replacement comparison"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Gym Equipment</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> September 27, 2025</span>
     <span><i class="ri-time-line"></i> 5 min read</span>
     <span><i class="ri-price-tag-3-line"></i> Gym Equipment, Cost Savings</span>
-  </div>
-  <div class="post-image">Gym equipment repair vs replacement comparison</div>
-  <p>Fitness equipment repair in Hamilton can save you significant money compared to full replacement. Understanding when to repair versus replace helps maximize your investment.</p>
+                    </span>
+                    <h2>Repair vs. Replace: The True Cost of Gym Equipment Ownership in Hamilton</h2>
+                    <span class="post-excerpt">Fitness equipment repair in Hamilton can save you significant money compared to full replacement. Understanding when to repair versus replace helps maximize your investment.</span>
+                    <a class="post-more" href="#repair-vs-replace-the-true-cost-of-gym-equipment-ownership-in-hamilton" aria-label="Read Repair vs. Replace: The True Cost of Gym Equipment Ownership in Hamilton">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>Fitness equipment repair in Hamilton can save you significant money compared to full replacement. Understanding when to repair versus replace helps maximize your investment.</p>
 
   <h3>Factors to Consider</h3>
   <ul>
@@ -2303,17 +3240,38 @@
   </div>
 
   <p>Our certified Hamilton technicians offer both repair and replacement guidance. <a href="get-quote.html">Get a quote today</a> to see the most cost-effective option for your gym.</p>
-</article>
-
-<article class="blog-post" data-categories="Fitness Equipment, Preventive Care">
-  <h2>Top Signs Your Fitness Equipment Needs Professional Service</h2>
-  <div class="post-meta">
-    <span><i class="ri-calendar-line"></i> September 27, 2025</span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="top-signs-your-fitness-equipment-needs-professional-service" data-categories="Fitness Equipment, Preventive Care">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Technician inspecting treadmill"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Fitness Equipment</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> September 27, 2025</span>
     <span><i class="ri-time-line"></i> 4 min read</span>
     <span><i class="ri-price-tag-3-line"></i> Fitness Equipment, Preventive Care</span>
-  </div>
-  <div class="post-image">Technician inspecting treadmill</div>
-  <p>Regular inspection can prevent unexpected failures. Here are the top signs your treadmill, elliptical, or exercise bike needs professional attention:</p>
+                    </span>
+                    <h2>Top Signs Your Fitness Equipment Needs Professional Service</h2>
+                    <span class="post-excerpt">Regular inspection can prevent unexpected failures. Here are the top signs your treadmill, elliptical, or exercise bike needs professional attention:</span>
+                    <a class="post-more" href="#top-signs-your-fitness-equipment-needs-professional-service" aria-label="Read Top Signs Your Fitness Equipment Needs Professional Service">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>Regular inspection can prevent unexpected failures. Here are the top signs your treadmill, elliptical, or exercise bike needs professional attention:</p>
 
   <h3>Common Warning Signs</h3>
   <ul>
@@ -2330,17 +3288,38 @@
   </div>
 
   <p><a href="get-quote.html">Book professional service now</a> and prevent costly downtime at your facility.</p>
-</article>
-
-<article class="blog-post" data-categories="DIY, Fitness Equipment Maintenance">
-  <h2>DIY Fixes You Can Safely Try Before Calling a Technician</h2>
-  <div class="post-meta">
-    <span><i class="ri-calendar-line"></i> September 27, 2025</span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="diy-fixes-you-can-safely-try-before-calling-a-technician" data-categories="DIY, Fitness Equipment Maintenance">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1591291621164-2c6367723315?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Home gym DIY maintenance"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">DIY</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> September 27, 2025</span>
     <span><i class="ri-time-line"></i> 4 min read</span>
     <span><i class="ri-price-tag-3-line"></i> DIY, Fitness Equipment Maintenance</span>
-  </div>
-  <div class="post-image">Home gym DIY maintenance</div>
-  <p>While professional service is recommended for most issues, some minor problems can be addressed safely at home before calling a technician.</p>
+                    </span>
+                    <h2>DIY Fixes You Can Safely Try Before Calling a Technician</h2>
+                    <span class="post-excerpt">While professional service is recommended for most issues, some minor problems can be addressed safely at home before calling a technician.</span>
+                    <a class="post-more" href="#diy-fixes-you-can-safely-try-before-calling-a-technician" aria-label="Read DIY Fixes You Can Safely Try Before Calling a Technician">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>While professional service is recommended for most issues, some minor problems can be addressed safely at home before calling a technician.</p>
 
   <h3>Safe DIY Tips</h3>
   <ul>
@@ -2357,17 +3336,38 @@
   </div>
 
   <p>For full diagnostics or complex repairs, <a href="get-quote.html">schedule a service visit</a> with Canadian Fitness Repair.</p>
-</article>
-
-<article class="blog-post" data-categories="Commercial vs Residential, Equipment Lifespan">
-  <h2>Average Lifespan of Commercial vs. Residential Treadmills</h2>
-  <div class="post-meta">
-    <span><i class="ri-calendar-line"></i> September 27, 2025</span>
+                </div>
+              </details>
+            </article>
+            <article class="blog-post" id="average-lifespan-of-commercial-vs-residential-treadmills" data-categories="Commercial vs Residential, Equipment Lifespan">
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1576678927484-cc907957088c?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Commercial treadmill vs residential treadmill"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Commercial vs Residential</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> September 27, 2025</span>
     <span><i class="ri-time-line"></i> 5 min read</span>
     <span><i class="ri-price-tag-3-line"></i> Commercial vs Residential, Equipment Lifespan</span>
-  </div>
-  <div class="post-image">Commercial treadmill vs residential treadmill</div>
-  <p>Understanding treadmill lifespan is key to maintenance planning. Commercial treadmills are built for heavy daily use, while residential models are designed for lighter use.</p>
+                    </span>
+                    <h2>Average Lifespan of Commercial vs. Residential Treadmills</h2>
+                    <span class="post-excerpt">Understanding treadmill lifespan is key to maintenance planning. Commercial treadmills are built for heavy daily use, while residential models are designed for lighter use.</span>
+                    <a class="post-more" href="#average-lifespan-of-commercial-vs-residential-treadmills" aria-label="Read Average Lifespan of Commercial vs. Residential Treadmills">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>Understanding treadmill lifespan is key to maintenance planning. Commercial treadmills are built for heavy daily use, while residential models are designed for lighter use.</p>
 
   <h3>Expected Lifespan</h3>
   <ul>
@@ -2382,18 +3382,38 @@
   </div>
 
   <p>Our Hamilton team provides customized maintenance plans for commercial gyms and home users. <a href="pricingpackagespage.html">View our maintenance packages</a> and protect your investment.</p>
-</article>
-
+                </div>
+              </details>
+            </article>
             <article class="blog-post" id="fall-treadmill-tuneup" data-categories="Fall Seasonal, Treadmill Maintenance, Preventive Care">
-  <h2>Why Fall is the Best Time for a Treadmill Tune-Up in Hamilton</h2>
-  <div class="post-meta">
-    <span><i class="ri-calendar-line"></i> September 15, 2026</span>
+              <details class="post-disclosure">
+                <summary class="post-card">
+                  <span class="post-media">
+                    <img
+                      src="https://images.unsplash.com/photo-1596357395217-80de13130e92?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+                      alt="Fall treadmill tune-up in a Hamilton home gym"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="post-topic">Fall Seasonal</span>
+                  </span>
+                  <span class="post-card-body">
+                    <span class="post-meta">
+                      <span><i class="ri-calendar-line"></i> September 15, 2026</span>
     <span><i class="ri-time-line"></i> 6 min read</span>
     <span><i class="ri-price-tag-3-line"></i> Fall Seasonal, Treadmill Maintenance, Preventive Care</span>
-  </div>
-  <div class="post-image">Fall treadmill tune-up in a Hamilton home gym</div>
-
-  <p>Every September, our phones light up with the same story: a treadmill that worked perfectly in June suddenly won't start in November. The culprit is almost always the same — a missed fall tune-up.</p>
+                    </span>
+                    <h2>Why Fall is the Best Time for a Treadmill Tune-Up in Hamilton</h2>
+                    <span class="post-excerpt">Every September, our phones light up with the same story: a treadmill that worked perfectly in June suddenly won&#x27;t start in November. The culprit is almost always the same — a missed fall tune-up.</span>
+                    <a class="post-more" href="#fall-treadmill-tuneup" aria-label="Read Why Fall is the Best Time for a Treadmill Tune-Up in Hamilton">
+                      <span class="more-label">Read More</span>
+                      <span class="close-label">Close Article</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </a>
+                  </span>
+                </summary>
+                <div class="post-full">
+<p>Every September, our phones light up with the same story: a treadmill that worked perfectly in June suddenly won't start in November. The culprit is almost always the same — a missed fall tune-up.</p>
   <p>If you own a treadmill in Hamilton or anywhere across the GTA, here's why <strong>fall is the single best season</strong> to book a maintenance service — and how a small investment now saves you hundreds in emergency repairs later.</p>
 
   <h3>1. Your Treadmill Just Survived Its Hardest Season</h3>
@@ -2468,7 +3488,10 @@
   <p>If you're in Hamilton, Burlington, Oakville, Ancaster, Stoney Creek, or anywhere else in the GTA, we can be at your door within days. Most tune-ups take under 90 minutes. Most customers tell us the machine feels brand new afterward.</p>
   <p><strong><a href="get-quote.html">Book your fall tune-up online</a></strong> or call us directly at <a href="tel:2899257239">(289) 925-7239</a> — 24/7 for emergencies.</p>
   <p>We service all major brands including <a href="nordictrack-repair.html">NordicTrack</a>, <a href="sole-repair.html">Sole</a>, <a href="proform-repair.html">ProForm</a>, <a href="horizon-repair.html">Horizon</a>, <a href="precor-repair.html">Precor</a>, and <a href="lifefitness-repair.html">Life Fitness</a>.</p>
-</article>
+                </div>
+              </details>
+            </article>
+          </div>
           <div
             aria-label="Repair and Quote Links"
             class="cta-buttons"
@@ -2531,6 +3554,44 @@
         filterPosts("all");
       });
     </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Read More links open the full article in place.
+    document.querySelectorAll(".post-more").forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        const details = this.closest("details");
+        const article = this.closest(".blog-post");
+        if (!details) return;
+
+        event.preventDefault();
+        details.open = !details.open;
+
+        if (details.open && article) {
+          history.replaceState(null, "", "#" + article.id);
+          details.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          history.replaceState(null, "", location.pathname + location.search);
+        }
+      });
+    });
+
+    // Deep links such as blog.html#winter-treadmill-maintenance open the article.
+    function openHashArticle() {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (!id) return;
+      const article = document.getElementById(id);
+      if (!article) return;
+      const details = article.querySelector("details");
+      if (details) {
+        details.open = true;
+        details.scrollIntoView({ block: "start" });
+      }
+    }
+
+    openHashArticle();
+    window.addEventListener("hashchange", openHashArticle);
+  });
+</script>
 <script>
   document.getElementById('checklistForm').addEventListener('submit', function(e) {
   e.preventDefault();
