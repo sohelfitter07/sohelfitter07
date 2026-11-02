@@ -1620,27 +1620,20 @@ body .c1-button {
 
 /* ============================================================
    MOBILE HEADER — phones only (<= 767px)
-   The top bar carries just the logo and the hamburger. The
-   "Book Repair" call to action moves into the hamburger drawer
-   so it can never be clipped or force horizontal scrolling.
+   The "Book Repair" pill stays in the top bar on every device.
+   The logo shrinks/truncates so the hamburger and CTA always fit.
    ============================================================ */
-.mobile-quote-item {
-  display: none;
-}
-
 @media (max-width: 767px) {
-  /* Top bar: logo + hamburger only. */
   #navbottom {
     padding: 10px 4%;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: nowrap;
   }
-  #quote {
-    display: none;
-  }
+  /* Logo takes the leftover space and can shrink below its text width. */
   #navlogo {
     flex: 1 1 auto;
     min-width: 0;
+    margin-right: 0;
     overflow: hidden;
   }
   .logo-text {
@@ -1653,74 +1646,49 @@ body .c1-button {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  /* The drawer container is out of flow on phones; don't let it take width. */
+  .navbar {
+    flex: 0 0 auto;
+    width: 0;
+  }
+  /* Hamburger and CTA keep their intrinsic size at all times. */
   .hamburger {
     flex: 0 0 auto;
-    margin-left: 8px;
+    margin-left: 6px;
     font-size: 1.75rem;
     line-height: 1;
   }
-
-  /* Drawer CTA: full-width cylinder, readable at any width. */
-  .navbarList > .mobile-quote-item {
-    display: block;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    margin-top: 10px;
-    padding-top: 12px;
+  #quote {
+    display: inline-flex;
+    flex: 0 0 auto;
+    margin-left: 0;
   }
-  .navbarList > li > a.mobile-quote-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0.85rem 1.25rem;
-    border-radius: 50px;
-    background-color: var(--theme-color);
-    color: var(--white) !important;
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: 0.02em;
-    text-decoration: none;
+  #quote .c-button-nav {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    gap: 0;
     white-space: nowrap;
-    transition: var(--transition);
   }
-  .navbarList > li > a.mobile-quote-link:hover,
-  .navbarList > li > a.mobile-quote-link:focus-visible {
-    background-color: var(--accent-color);
-    color: var(--white) !important;
-  }
-  .navbarList > li > a.mobile-quote-link i {
-    font-size: 1.05rem;
-    line-height: 1;
+  /* Drop the calendar icon on phones so the pill stays compact. */
+  #quote .c-button-nav i {
+    display: none;
   }
 }
 
-/* Very small phones (320px): trim the logo, never the tap target. */
+/* Very small phones (320px): trim the logo and gaps, never the CTA. */
 @media (max-width: 360px) {
   #navbottom {
     padding: 8px 3%;
-    gap: 6px;
+    gap: 5px;
   }
   .logo-text {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
   }
   .tagline {
-    font-size: 0.6rem;
+    font-size: 0.58rem;
   }
   .hamburger {
-    margin-left: 4px;
-    font-size: 1.6rem;
-  }
-  .navbarList > li > a.mobile-quote-link {
-    padding: 0.75rem 1rem;
-    font-size: 0.92rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .navbarList > .mobile-quote-item {
-    display: none !important;
+    margin-left: 2px;
+    font-size: 1.55rem;
   }
 }
