@@ -322,15 +322,21 @@ body.nav-open #cfr-win {
   letter-spacing: 0.057em;
   text-transform: uppercase;
   background-color: var(--theme-color);
-  border: none;
-  border-radius: 0.25rem;
-  padding: 0.8rem 1.75rem;
-  font-size: 1.1rem;
-  font-weight: 700;
+  border: 2px solid var(--theme-color);
+  border-radius: 50px;
+  padding: 0.9375rem 1.875rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
   /* Buttons sit on --theme-color; white stays readable on light pages too. */
   color: var(--white);
   transition: var(--transition);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  vertical-align: middle;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -348,14 +354,46 @@ body.nav-open #cfr-win {
 }
 .c-button:hover {
   color: var(--text-color);
-  border: 1px solid var(--theme-color);
+  border: 2px solid var(--theme-color);
 }
 .c-button:hover::before {
   width: 100%;
 }
 .c-button-nav {
-  padding: 0.8rem 1.5rem;
+  padding: 0.7rem 1.35rem;
+  font-size: 0.95rem;
+  border-radius: 50px;
+}
+/* Header "Book Repair" pill — kept identical on every page */
+#quote .c-button-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--theme-color);
+  color: var(--text-color);
+  border: 2px solid var(--theme-color);
+  border-radius: 50px;
+  padding: 0.7rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  gap: 0.4rem;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+#quote .c-button-nav:hover {
+  background-color: var(--theme-color);
+  color: var(--text-color);
+  border-color: var(--theme-color);
+}
+#quote .c-button-nav i {
   font-size: 1rem;
+  line-height: 1;
+}
+#quote .quotetext {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
 }
 /* ==========================================================================
    Site footer
@@ -1535,4 +1573,86 @@ body.nav-open #cfr-win {
    only the header tagline needs the page-aware accent. */
 body.theme-light .tagline {
   color: var(--theme-color);
+}
+
+/* ============================================================
+   GLOBAL CYLINDER / PILL BUTTON SYSTEM
+   Matches the Contact / About "Book Repair" button:
+   border-radius 50px, 15px 30px padding, 600 weight, #5d5dff.
+   Page-level button styles live in individual HTML files, so the
+   radius is enforced here to keep every primary CTA identical.
+   ============================================================ */
+body .c-button,
+body .c-button-nav,
+body .c-button-secondary,
+body .submit-btn,
+body .submit-btn button,
+body .cta-button,
+body .cta-primary,
+body .cta-secondary,
+body .hero-btn,
+body .btn,
+body .btn-primary,
+body .btn-secondary,
+body .c1-button,
+body .c1-button-secondary,
+body .service-button,
+body .pricing-cta,
+body .plan-cta,
+body .process-cta,
+body .step-button {
+  border-radius: 50px !important;
+}
+
+body .c-button,
+body .submit-btn,
+body .hero-btn,
+body .btn,
+body .c1-button {
+  font-weight: 600;
+}
+
+/* Keep the header CTA on one line at every width. */
+#quote .c-button-nav,
+#quote .c-button-nav .quotetext {
+  white-space: nowrap;
+}
+
+@media (max-width: 414px) {
+  #navbottom {
+    padding: 10px 4%;
+    gap: 8px;
+  }
+  #quote {
+    min-width: 0;
+  }
+  #quote .c-button-nav {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.68rem;
+    gap: 0.3rem;
+    letter-spacing: 0.02em;
+  }
+  #quote .c-button-nav i {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 340px) {
+  #navbottom {
+    padding: 8px 3%;
+    gap: 6px;
+  }
+  .logo-text {
+    font-size: 0.9rem;
+  }
+  .tagline {
+    font-size: 0.6rem;
+  }
+  #quote .c-button-nav {
+    padding: 0.45rem 0.55rem;
+    font-size: 0.62rem;
+  }
+  #quote .c-button-nav i {
+    font-size: 0.8rem;
+  }
 }
