@@ -35,7 +35,8 @@ body.svc-page {
 }
 
 .svc-page {
-  padding-top: 240px;
+  /* headerfooter.css reserves room via --header-height; menu.js keeps it in sync. */
+  padding-top: var(--header-height);
   background: var(--bg-color);
   color: var(--svc-ink);
   overflow-x: hidden;
@@ -177,7 +178,7 @@ body.svc-page {
   padding: 4.75rem 0 4.25rem;
   background:
     linear-gradient(100deg, rgba(15, 17, 21, 0.96) 0%, rgba(15, 17, 21, 0.82) 48%, rgba(15, 17, 21, 0.64) 100%),
-    url("../../images/herobckgnd.webp") center / cover no-repeat;
+    url("../images/herobckgnd.webp") center / cover no-repeat;
   overflow: hidden;
 }
 
@@ -937,10 +938,6 @@ body.svc-page {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
-  .svc-page {
-    padding-top: 215px;
-  }
-
   .svc-hero__grid {
     grid-template-columns: 1fr;
     gap: 1.8rem;
@@ -964,10 +961,6 @@ body.svc-page {
 }
 
 @media (max-width: 820px) {
-  .svc-page {
-    padding-top: 225px;
-  }
-
   .svc-section {
     padding: 3.5rem 0;
   }
@@ -1000,17 +993,7 @@ body.svc-page {
   }
 }
 
-@media (min-width: 768px) and (max-width: 820px) {
-  .svc-page {
-    padding-top: 215px;
-  }
-}
-
 @media (max-width: 640px) {
-  .svc-page {
-    padding-top: 228px;
-  }
-
   .svc-container {
     padding: 0 1rem;
   }
@@ -1079,10 +1062,6 @@ body.svc-page {
 }
 
 @media (max-width: 380px) {
-  .svc-page {
-    padding-top: 225px;
-  }
-
   .svc-hero-card {
     padding: 1.2rem;
   }

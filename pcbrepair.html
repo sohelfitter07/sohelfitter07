@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <!-- Favicon Universal Support -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
 
     <!-- Apple/Safari Support -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,7 +25,7 @@
     <meta property="og:locale" content="en_CA" />
   
     <!-- Preload -->
-    <link rel="preload" href="/images/herobckgnd.webp" as="image" />
+    <link rel="preload" href="/assets/images/herobckgnd.webp" as="image" />
   
     <!-- Preconnect -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
@@ -40,8 +40,7 @@
     <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /></noscript>
 
     <!-- Local Stylesheets -->
-    <link href="headerfooter.css" rel="stylesheet" />
-    <link href="whatsapp.css" rel="stylesheet" />
+    <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet" />
   
    <!-- Structured Data for PCB / Motor Control Board Repair -->
 <script type="application/ld+json">
@@ -185,13 +184,13 @@
         box-sizing: border-box;
       }
       body {
-        font-family: "Segoe UI", Roboto, sans-serif;
-        background-color: #1B1C27;
+        font-family: var(--font-body);
+        background-color: var(--bg-color);
         color: #ffffff;
         min-height: 100vh;
         overflow-x: hidden;
         line-height: 1.6;
-        padding-top: 200px;
+        padding-top: var(--header-height);
       }
 
       /* PCB Hero Section */
@@ -608,10 +607,6 @@
       }
 
       @media (max-width: 992px) {
-        body {
-          padding-top: 180px;
-        }
-        
         .pcb-hero {
           padding: 4rem 1.5rem 3rem;
         }
@@ -651,10 +646,6 @@
       }
 
       @media (max-width: 768px) {
-        body {
-          padding-top: 180px;
-        }
-        
         .pcb-hero {
           padding: 3rem 1rem 2rem;
           min-height: 40vh;
@@ -779,10 +770,6 @@
       }
 
       @media (max-width: 480px) {
-        body {
-          padding-top: 240px;
-        }
-        
         .pcb-hero {
           padding: 2.5rem 0.5rem 1.5rem;
           min-height: auto;
@@ -1089,22 +1076,7 @@
     </main>
     <div id="footer"></div>
     
-    <script>
-      // Load header and footer
-      document.addEventListener('DOMContentLoaded', function() {
-        fetch('header.html')
-          .then(response => response.text())
-          .then(data => {
-            document.getElementById('header').innerHTML = data;
-          });
-        
-        fetch('footer.html')
-          .then(response => response.text())
-          .then(data => {
-            document.getElementById('footer').innerHTML = data;
-          });
-      });
-    </script>
-  <script defer src="headerfooter.js"></script>
+    <script defer src="assets/js/menu.js?v=20261030"></script>
+    <script defer src="assets/js/headerfooter.js?v=20261031"></script>
 </body>
 </html>
