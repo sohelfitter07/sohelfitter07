@@ -369,22 +369,44 @@ body.nav-open #cfr-win {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--theme-color);
+  background-color: var(--brand, #5d5dff);
   color: var(--text-color);
-  border: 2px solid var(--theme-color);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 50px;
   padding: 0.7rem 1.25rem;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1;
   gap: 0.4rem;
   white-space: nowrap;
   vertical-align: middle;
+  box-shadow:
+    0 6px 18px rgba(93, 93, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
 }
-#quote .c-button-nav:hover {
-  background-color: var(--theme-color);
+#quote .c-button-nav:hover,
+#quote .c-button-nav:focus-visible {
+  background-color: var(--brand-dark, #3a3aff);
   color: var(--text-color);
-  border-color: var(--theme-color);
+  border-color: var(--amber-500, #f59e0b);
+  box-shadow:
+    0 10px 24px rgba(93, 93, 255, 0.45),
+    0 0 0 2px rgba(245, 158, 11, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+#quote .c-button-nav:active {
+  background-color: var(--amber-500, #f59e0b);
+  color: #151719;
+  border-color: var(--amber-500, #f59e0b);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+  transform: translateY(0);
 }
 #quote .c-button-nav i {
   font-size: 1rem;
@@ -394,6 +416,12 @@ body.nav-open #cfr-win {
   display: inline-block;
   line-height: 1;
   white-space: nowrap;
+}
+/* Keep the CTA label locked to the button size. A legacy 380px rule
+   shrank .quotetext to 0.5rem, which made the mobile pill look tiny. */
+#quote .c-button-nav .quotetext {
+  font-size: 1em;
+  font-weight: inherit;
 }
 /* ==========================================================================
    Site footer
@@ -1149,7 +1177,7 @@ body.nav-open #cfr-win {
 }
 @media (max-width: 380px) {
   .quotetext {
-    font-size: 0.5rem;
+    font-size: inherit;
   }
   .c-button {
   padding: 0.6rem 0.3rem;
@@ -1664,8 +1692,10 @@ body .c1-button {
     margin-left: 0;
   }
   #quote .c-button-nav {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
+    padding: 0.62rem 1.05rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
     gap: 0;
     white-space: nowrap;
   }
@@ -1690,5 +1720,9 @@ body .c1-button {
   .hamburger {
     margin-left: 2px;
     font-size: 1.55rem;
+  }
+  #quote .c-button-nav {
+    padding: 0.58rem 0.85rem;
+    letter-spacing: 0;
   }
 }
