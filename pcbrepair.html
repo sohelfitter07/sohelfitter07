@@ -2,26 +2,30 @@
 <html lang="en">
   <head>
     <!-- Favicon Universal Support -->
-    <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <!-- Apple/Safari Support -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
     <title>🔌 PCB &amp; Motor Control Board Repair Hamilton | Treadmill Electronics</title>
     <meta name="description" content="Professional PCB repair for treadmill and elliptical motor control boards. We service all major brands with same-day support across Hamilton & GTA.">
+    <meta name="keywords" content="PCB repair, motor control board repair, treadmill PCB repair, elliptical circuit board repair, fitness equipment PCB service, gym machine electronics repair, treadmill controller repair, treadmill motor controller replacement">
   
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content="Professional PCB Repair Service for Fitness Equipment | Canadian Fitness Repair" />
     <meta property="og:description" content="Expert PCB and motor control board repair for treadmills, ellipticals, and all fitness equipment. Fast service with 30-day warranty." />
-    <meta property="og:image" content="https://www.canadianfitnessrepair.com/assets/images/pcb-repair-service.jpg" />
+    <meta property="og:image" content="https://www.canadianfitnessrepair.com/assets/images/fitness-equipment-repair.webp" />
     <meta property="og:url" content="https://www.canadianfitnessrepair.com/pcbrepair.html" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_CA" />
+  
+    <!-- Preload -->
+    <link rel="preload" href="/images/herobckgnd.webp" as="image" />
   
     <!-- Preconnect -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
@@ -36,10 +40,8 @@
     <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /></noscript>
 
     <!-- Local Stylesheets -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
-    <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet" />
+    <link href="headerfooter.css" rel="stylesheet" />
+    <link href="whatsapp.css" rel="stylesheet" />
   
    <!-- Structured Data for PCB / Motor Control Board Repair -->
 <script type="application/ld+json">
@@ -48,11 +50,11 @@
   "@type": "LocalBusiness",
   "name": "Canadian Fitness Repair",
   "url": "https://www.canadianfitnessrepair.com/",
-  "logo": "https://www.canadianfitnessrepair.com/assets/images/logo.png",
+  "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
   "image": [
-    "https://www.canadianfitnessrepair.com/assets/images/service-van.jpg",
-    "https://www.canadianfitnessrepair.com/assets/images/treadmill-pcb-repair.jpg",
-    "https://www.canadianfitnessrepair.com/assets/images/pcb-board-technician.jpg"
+    "https://www.canadianfitnessrepair.com/images/service-van.jpg",
+    "https://www.canadianfitnessrepair.com/images/treadmill-pcb-repair.jpg",
+    "https://www.canadianfitnessrepair.com/images/pcb-board-technician.jpg"
   ],
   "description": "Specialized motor control PCB and treadmill electronics repair. We service boards for treadmills, ellipticals, exercise bikes, and other gym machines across Hamilton, Burlington, Oakville, Mississauga and GTA.",
   "telephone": "+1-289-925-7239",
@@ -109,7 +111,7 @@
   "brand": {
     "@type": "Brand",
     "name": "Brands We Service",
-    "logo": "https://www.canadianfitnessrepair.com/assets/images/brand-logos.png",
+    "logo": "https://www.canadianfitnessrepair.com/images/brand-logos.png",
     "description": "We repair PCBs from Life Fitness, Precor, NordicTrack, Matrix, Bowflex, Technogym, Sole, Spirit and more."
   },
   "aggregateRating": {
@@ -183,11 +185,13 @@
         box-sizing: border-box;
       }
       body {
+        font-family: "Segoe UI", Roboto, sans-serif;
         background-color: #1B1C27;
-        color: var(--white);
+        color: #ffffff;
         min-height: 100vh;
         overflow-x: hidden;
         line-height: 1.6;
+        padding-top: 200px;
       }
 
       /* PCB Hero Section */
@@ -197,7 +201,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding: 3rem 2rem 4rem;
+        padding: 6rem 2rem 4rem;
         position: relative;
         overflow: hidden;
         min-height: 60vh;
@@ -216,7 +220,7 @@
       .pcb-hero-tag {
         display: inline-block;
         background: rgba(92, 92, 253, 0.15);
-        color: var(--brand);
+        color: #5C5CFD;
         padding: 0.5rem 1.5rem;
         border-radius: 30px;
         font-weight: 600;
@@ -236,7 +240,7 @@
       }
 
       .pcb-hero h1 span {
-        color: var(--brand);
+        color: #5C5CFD;
       }
 
       .pcb-hero p {
@@ -267,7 +271,7 @@
       }
 
       .btn-primary {
-        background-color: var(--brand);
+        background-color: #5C5CFD;
         color: white;
       }
 
@@ -279,7 +283,7 @@
       .btn-secondary {
         background-color: transparent;
         color: white;
-        border: 2px solid var(--brand);
+        border: 2px solid #5C5CFD;
       }
 
       .btn-secondary:hover {
@@ -302,7 +306,7 @@
       .section-tag {
         display: inline-block;
         background: rgba(92, 92, 253, 0.2);
-        color: var(--brand);
+        color: #5C5CFD;
         padding: 0.5rem 1.5rem;
         border-radius: 30px;
         font-weight: 600;
@@ -328,7 +332,7 @@
         transform: translateX(-50%);
         width: 80px;
         height: 4px;
-        background: var(--brand);
+        background: #5C5CFD;
         border-radius: 2px;
       }
 
@@ -352,7 +356,7 @@
         border-radius: 12px;
         padding: 2rem;
         transition: all 0.3s ease;
-        border-left: 4px solid var(--brand);
+        border-left: 4px solid #5C5CFD;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       }
 
@@ -363,7 +367,7 @@
 
       .fault-icon {
         font-size: 2.5rem;
-        color: var(--brand);
+        color: #5C5CFD;
         margin-bottom: 1rem;
       }
 
@@ -402,7 +406,7 @@
       .stat-number {
         font-size: 2.5rem;
         font-weight: 700;
-        color: var(--brand);
+        color: #5C5CFD;
         margin-bottom: 0.5rem;
       }
 
@@ -460,7 +464,7 @@
       .step-content h3 {
         font-size: 1.4rem;
         margin-bottom: 1rem;
-        color: var(--brand);
+        color: #5C5CFD;
       }
 
       .step-content p {
@@ -471,12 +475,12 @@
       .step-icon {
         margin-top: 1.5rem;
         font-size: 2.5rem;
-        color: var(--brand);
+        color: #5C5CFD;
         transition: all 0.3s ease;
       }
 
       .step-card:hover .step-icon {
-        color: #f59e0b;
+        color: #ff7e5f;
         transform: scale(1.1);
       }
 
@@ -509,11 +513,33 @@
         transform: scale(1.05);
       }
 
+      .brand-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        padding: 0.7rem 1.5rem;
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        border-radius: 50px;
+        background: rgba(245, 158, 11, 0.08);
+        color: #f8fafc;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        transition: all 0.3s ease;
+      }
+
+      .brand-chip:hover {
+        border-color: #f59e0b;
+        background: rgba(245, 158, 11, 0.16);
+        transform: translateY(-3px);
+      }
+
       /* CTA Section */
       .pcb-cta {
         padding: 6rem 2rem;
         text-align: center;
-        background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+        background: linear-gradient(135deg, #5C5CFD, #3a3aff);
         position: relative;
         overflow: hidden;
       }
@@ -551,7 +577,7 @@
       .c-button {
         text-decoration: none;
         background-color: white;
-        color: var(--brand);
+        color: #5C5CFD;
         padding: 0.75rem 1.5rem;
         border: none;
         border-radius: 8px;
@@ -582,8 +608,12 @@
       }
 
       @media (max-width: 992px) {
+        body {
+          padding-top: 180px;
+        }
+        
         .pcb-hero {
-          padding: 2.5rem 1.5rem 3rem;
+          padding: 4rem 1.5rem 3rem;
         }
         
         .common-faults,
@@ -621,8 +651,12 @@
       }
 
       @media (max-width: 768px) {
+        body {
+          padding-top: 180px;
+        }
+        
         .pcb-hero {
-          padding: 2rem 1rem 2rem;
+          padding: 3rem 1rem 2rem;
           min-height: 40vh;
         }
         
@@ -745,8 +779,12 @@
       }
 
       @media (max-width: 480px) {
+        body {
+          padding-top: 240px;
+        }
+        
         .pcb-hero {
-          padding: 2rem 0.5rem 1.5rem;
+          padding: 2.5rem 0.5rem 1.5rem;
           min-height: auto;
         }
         
@@ -841,7 +879,7 @@
           <h1>Expert PCB Repair for Treadmills, Ellipticals & Gym Equipment</h1>
           <p>We specialize in repairing motor control boards and electronic PCBs for all major fitness brands. Same-day service across Hamilton, Burlington, Oakville, Mississauga & GTA.</p>
           <div class="hero-buttons">
-            <a href="tel:2899257239" class="hero-btn btn-primary">
+            <a href="tel:+12899257239" class="hero-btn btn-primary">
                 <i class="fas fa-phone-alt"></i> Call Now: (289) 925-7239
             </a>
             <a href="https://canadianfitnessrepair.com/get-quote.html" class="hero-btn btn-secondary">
@@ -928,7 +966,7 @@
         
         <div class="stats-container">
           <div class="stat-box">
-            <div class="stat-number">30-Day</div>
+            <div class="stat-number">90-Day</div>
             <div class="stat-text">Warranty on PCB repairs</div>
           </div>
           <div class="stat-box">
@@ -1028,14 +1066,14 @@
         </div>
         
         <div class="brands-carousel">
-          <img src="/assets/images/brands/life-fitness.png" alt="Life Fitness" class="brand-logo">
-          <img src="/assets/images/brands/nordictrack.png" alt="NordicTrack" class="brand-logo">
-          <img src="/assets/images/brands/precor.png" alt="Precor" class="brand-logo">
-          <img src="/assets/images/brands/matrix.png" alt="Matrix" class="brand-logo">
-          <img src="/assets/images/brands/bowflex.png" alt="Bowflex" class="brand-logo">
-          <img src="/assets/images/brands/technogym.png" alt="Technogym" class="brand-logo">
-          <img src="/assets/images/brands/proform.png" alt="ProForm" class="brand-logo">
-          <img src="/assets/images/brands/smooth.png" alt="Smooth Fitness" class="brand-logo">
+          <span class="brand-chip">Life Fitness</span>
+          <span class="brand-chip">NordicTrack</span>
+          <span class="brand-chip">Precor</span>
+          <span class="brand-chip">Matrix</span>
+          <span class="brand-chip">Bowflex</span>
+          <span class="brand-chip">Technogym</span>
+          <span class="brand-chip">ProForm</span>
+          <span class="brand-chip">Smooth Fitness</span>
         </div>
       </section>
 
@@ -1043,15 +1081,30 @@
       <section class="pcb-cta">
         <h2>Don't replace your machine — revive it with expert PCB repair. Call us today!</h2>
         <p>All repairs come with a 30-day warranty and are performed by certified technicians.</p>
-        <a class="c-button" href="tel:2899257239">
+        <a class="c-button" href="tel:+12899257239">
           <i class="ri-phone-line"> </i>
-          Call Now: (289) 925-7239
+          Call Now: +1 289 925 7239
         </a>
       </section>
     </main>
     <div id="footer"></div>
-
-  <script src="assets/js/menu.js?v=20261030"></script>
-  <script defer src="assets/js/headerfooter.js?v=20261031"></script>
+    
+    <script>
+      // Load header and footer
+      document.addEventListener('DOMContentLoaded', function() {
+        fetch('header.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('header').innerHTML = data;
+          });
+        
+        fetch('footer.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('footer').innerHTML = data;
+          });
+      });
+    </script>
+  <script defer src="headerfooter.js"></script>
 </body>
 </html>
