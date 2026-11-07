@@ -2,152 +2,122 @@
 <html lang="en">
   <head>
     <!-- Favicon Universal Support -->
-    <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+    <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
 
-    <!-- Apple/Safari Support -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <!-- Google Analytics -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.addEventListener("load", function () {
+        if ("requestIdleCallback" in window) { requestIdleCallback(loadGTag); }
+        else { setTimeout(loadGTag, 500); }
+      });
+      function loadGTag() {
+        var script = document.createElement("script");
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01";
+        script.async = true;
+        document.head.appendChild(script);
+        gtag("js", new Date());
+        gtag("config", "G-E1WR6TZG01");
+      }
+    </script>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-    <title>🔌 PCB &amp; Motor Control Board Repair Hamilton | Treadmill Electronics</title>
-    <meta name="description" content="Professional PCB repair for treadmill and elliptical motor control boards. We service all major brands with same-day support across Hamilton & GTA.">
-    <meta name="keywords" content="PCB repair, motor control board repair, treadmill PCB repair, elliptical circuit board repair, fitness equipment PCB service, gym machine electronics repair, treadmill controller repair, treadmill motor controller replacement">
-  
-    <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="Professional PCB Repair Service for Fitness Equipment | Canadian Fitness Repair" />
-    <meta property="og:description" content="Expert PCB and motor control board repair for treadmills, ellipticals, and all fitness equipment. Fast service with 30-day warranty." />
-    <meta property="og:image" content="https://www.canadianfitnessrepair.com/assets/images/fitness-equipment-repair.webp" />
-    <meta property="og:url" content="https://www.canadianfitnessrepair.com/pcbrepair.html" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en_CA" />
-  
-    <!-- Preload -->
-    <link rel="preload" href="/assets/images/herobckgnd.webp" as="image" />
-  
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <title>PCB &amp; Motor Control Board Repair Hamilton | Treadmill Electronics</title>
+    <meta name="description" content="Board-level PCB repair for treadmill and elliptical motor controllers, consoles and power supplies. Component-level testing, OEM parts and a 30-day warranty across Hamilton and the GTA." />
+    <meta name="keywords" content="PCB repair Hamilton, treadmill control board repair, motor controller repair, fitness equipment electronics, elliptical PCB repair GTA" />
     <link rel="canonical" href="https://canadianfitnessrepair.com/pcbrepair.html" />
 
-    <!-- Fonts & Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" /></noscript>
-  
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /></noscript>
+    <!-- Open Graph -->
+    <meta property="og:title" content="PCB &amp; Motor Control Board Repair | Hamilton &amp; GTA" />
+    <meta property="og:description" content="Board-level PCB repair for treadmill and elliptical motor controllers, consoles and power supplies. Component-level testing, OEM parts and a 30-day warranty across Hamilton and the GTA." />
+    <meta property="og:image" content="https://www.canadianfitnessrepair.com/assets/images/fitness-equipment-repair.webp" />
+    <meta property="og:url" content="https://canadianfitnessrepair.com/pcbrepair.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PCB &amp; Motor Control Board Repair | Hamilton &amp; GTA" />
+    <meta name="twitter:description" content="Board-level PCB repair for treadmill and elliptical motor controllers, consoles and power supplies. Component-level testing, OEM parts and a 30-day warranty across Hamilton and the GTA." />
+    <meta name="twitter:image" content="https://www.canadianfitnessrepair.com/assets/images/fitness-equipment-repair.webp" />
 
-    <!-- Local Stylesheets -->
+    <!-- Geo -->
+    <meta name="geo.placename" content="Hamilton, Burlington, Oakville, Mississauga, Brampton, Toronto, Niagara" />
+    <meta name="geo.position" content="43.2250;-79.8660" />
+    <meta name="geo.region" content="CA-ON" />
+    <meta name="ICBM" content="43.2250, -79.8660" />
 
+    <!-- Fonts & icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" rel="stylesheet" />
+
+    <!-- Shared chrome + service design system -->
     <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet" />
     <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
     <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
-  
-   <!-- Structured Data for PCB / Motor Control Board Repair -->
-<script type="application/ld+json">
+    <link href="assets/css/service.css?v=20261104" rel="stylesheet" />
+
+    <!-- Service + FAQ structured data -->
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Canadian Fitness Repair",
-  "url": "https://www.canadianfitnessrepair.com/",
-  "logo": "https://www.canadianfitnessrepair.com/images/logo.png",
-  "image": [
-    "https://www.canadianfitnessrepair.com/images/service-van.jpg",
-    "https://www.canadianfitnessrepair.com/images/treadmill-pcb-repair.jpg",
-    "https://www.canadianfitnessrepair.com/images/pcb-board-technician.jpg"
-  ],
-  "description": "Specialized motor control PCB and treadmill electronics repair. We service boards for treadmills, ellipticals, exercise bikes, and other gym machines across Hamilton, Burlington, Oakville, Mississauga and GTA.",
-  "telephone": "+1-289-925-7239",
-  "priceRange": "$$",
-  "paymentAccepted": ["Cash","E-Transfer","Credit Card"],
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Service Area Business",
-    "addressLocality": "Hamilton",
-    "addressRegion": "ON",
-    "postalCode": "L8E 5R9",
-    "addressCountry": "CA"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "43.2557",
-    "longitude": "-79.8711"
-  },
-  "serviceArea": {
-    "@type": "GeoCircle",
-    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": "43.2557", "longitude": "-79.8711" },
-    "geoRadius": "80000"
+  "@type": "Service",
+  "name": "PCB and Motor Control Board Repair",
+  "serviceType": "Fitness equipment PCB and electronics repair",
+  "description": "Component-level repair of treadmill and elliptical motor control boards, consoles, power supplies and sensors, including testing and preventative upgrades.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Canadian Fitness Repair",
+    "url": "https://www.canadianfitnessrepair.com",
+    "telephone": "+1-289-925-7239",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "22 Canary Grass Blvd",
+      "addressLocality": "Hamilton",
+      "addressRegion": "ON",
+      "postalCode": "L0R 1P0",
+      "addressCountry": "CA"
+    }
   },
   "areaServed": [
-    {"@type":"City","name":"Hamilton"},
-    {"@type":"City","name":"Burlington"},
-    {"@type":"City","name":"Oakville"},
-    {"@type":"City","name":"Mississauga"},
-    "Niagara","Ancaster","Dundas","Stoney Creek","Grimsby","Brantford","Cambridge"
+    "Hamilton",
+    "Burlington",
+    "Oakville",
+    "Mississauga",
+    "Brampton",
+    "Toronto",
+    "Niagara Region",
+    "St. Catharines"
   ],
-  "makesOffer": [
-    {
-      "@type": "Service",
-      "name": "Treadmill PCB Repair",
-      "serviceType": "Repair",
-      "description": "Diagnosis and repair of treadmill motor control boards and console PCBs.",
-      "offers": { "@type": "Offer", "priceCurrency": "CAD", "price": "Contact for estimate" }
-    },
-    {
-      "@type": "Service",
-      "name": "Elliptical Control Board Repair",
-      "serviceType": "Repair",
-      "description": "Repair of elliptical power boards, speed sensors and incline PCBs.",
-      "offers": { "@type": "Offer", "priceCurrency": "CAD", "price": "Contact for estimate" }
-    },
-    {
-      "@type": "Service",
-      "name": "Exercise Bike PCB Repair",
-      "serviceType": "Repair",
-      "description": "Restoration of resistance and display boards for upright, recumbent and spin bikes.",
-      "offers": { "@type": "Offer", "priceCurrency": "CAD", "price": "Contact for estimate" }
-    }
-  ],
-  "brand": {
-    "@type": "Brand",
-    "name": "Brands We Service",
-    "logo": "https://www.canadianfitnessrepair.com/images/brand-logos.png",
-    "description": "We repair PCBs from Life Fitness, Precor, NordicTrack, Matrix, Bowflex, Technogym, Sole, Spirit and more."
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "167",
-    "bestRating": "5"
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "CAD",
+    "price": "89.00",
+    "description": "PCB diagnostic service to assess board condition and repair feasibility.",
+    "url": "https://canadianfitnessrepair.com/pcbrepair.html"
   }
 }
-</script>
-
-<!-- FAQ Schema for PCB Repair -->
-<script type="application/ld+json">
+    </script>
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What are common treadmill PCB faults?",
+      "name": "Can every board be repaired?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Frequent issues include no power, burnt MOSFET/IGBT, relay failure, belt not moving (E1/E2 errors), overheating sensors, and cracked solder joints."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you repair PCBs from all treadmill brands?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, we service boards from Life Fitness, Precor, NordicTrack, Matrix, Bowflex, Technogym, Sole, Spirit, ProForm and more."
+        "text": "No, but many can. We diagnose first and tell you honestly whether component-level repair is viable. If the board is too damaged or parts are unavailable, we quote a replacement instead."
       }
     },
     {
@@ -155,934 +125,538 @@
       "name": "How long does a PCB repair take?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most PCB repairs are diagnosed the same day. Depending on parts availability, repairs are usually completed within 1–3 business days."
+        "text": "Many common board faults are repaired within a few business days. Turnaround depends on the fault and parts availability, and we confirm it after diagnosis."
       }
     },
     {
       "@type": "Question",
-      "name": "Is there a warranty on PCB repairs?",
+      "name": "Do you repair the board on-site or at a bench?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "All PCB repairs come with a 30-day warranty covering parts and labour."
+        "text": "Some faults can be diagnosed on-site. Board-level repair is usually completed at our bench, where we have the right soldering and testing equipment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What brands of boards do you work on?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We repair boards from Life Fitness, NordicTrack, Precor, Matrix, Bowflex, Technogym, ProForm, Smooth Fitness and most other major fitness brands."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a repaired board reliable?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We replace failed components with OEM or higher-rated parts, address thermal issues where relevant and load-test the board before it goes back into service. Repairs carry a 30-day warranty."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is repair cheaper than a new board?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually, yes. Component-level repair typically costs a fraction of a replacement board, and far less than a new machine. You receive a written quote before any repair begins."
       }
     }
   ]
 }
-</script>
-
-<!-- Breadcrumb for PCB page -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.canadianfitnessrepair.com/" },
-    { "@type": "ListItem", "position": 2, "name": "PCB Repair", "item": "https://www.canadianfitnessrepair.com/pcb-repair.html" }
-  ]
-}
-</script>
-
-    <style>
-      /* Inherit main styles from homepage */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: var(--font-body);
-        background-color: var(--bg-color);
-        color: #ffffff;
-        min-height: 100vh;
-        overflow-x: hidden;
-        line-height: 1.6;
-        padding-top: var(--header-height);
-      }
-
-      /* PCB Hero Section */
-      .pcb-hero {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 6rem 2rem 4rem;
-        position: relative;
-        overflow: hidden;
-        min-height: 60vh;
-        background: linear-gradient(rgba(27, 28, 39, 0.9), rgba(27, 28, 39, 0.9)), 
-                    url('https://images.unsplash.com/photo-1581094288338-231b058b38b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
-        background-size: cover;
-        background-position: center;
-      }
-
-      .pcb-hero-content {
-        max-width: 900px;
-        position: relative;
-        z-index: 2;
-      }
-
-      .pcb-hero-tag {
-        display: inline-block;
-        background: rgba(92, 92, 253, 0.15);
-        color: #5C5CFD;
-        padding: 0.5rem 1.5rem;
-        border-radius: 30px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        margin-bottom: 1.5rem;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-      }
-
-      .pcb-hero h1 {
-        font-family: var(--font-display);
-        font-size: clamp(2.5rem, 5vw, 3.5rem);
-        margin-bottom: 1.5rem;
-        line-height: 1.2;
-        color: white;
-        font-weight: 800;
-      }
-
-      .pcb-hero h1 span {
-        color: #5C5CFD;
-      }
-
-      .pcb-hero p {
-        font-size: clamp(1.1rem, 3vw, 1.3rem);
-        max-width: 700px;
-        margin: 0 auto 2rem;
-        color: #cbd5e1;
-        line-height: 1.7;
-      }
-
-      .hero-buttons {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 2rem;
-      }
-
-      .hero-btn {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.8rem 1.8rem;
-        border-radius: 8px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-      }
-
-      .btn-primary {
-        background-color: #5C5CFD;
-        color: white;
-      }
-
-      .btn-primary:hover {
-        background-color: #4b4bdf;
-        transform: translateY(-2px);
-      }
-
-      .btn-secondary {
-        background-color: transparent;
-        color: white;
-        border: 2px solid #5C5CFD;
-      }
-
-      .btn-secondary:hover {
-        background-color: rgba(92, 92, 253, 0.1);
-        transform: translateY(-2px);
-      }
-
-      /* Common Faults Section */
-      .common-faults {
-        padding: 5rem 2rem;
-        background-color: #252734;
-      }
-
-      .section-header {
-        text-align: center;
-        max-width: 800px;
-        margin: 0 auto 4rem;
-      }
-
-      .section-tag {
-        display: inline-block;
-        background: rgba(92, 92, 253, 0.2);
-        color: #5C5CFD;
-        padding: 0.5rem 1.5rem;
-        border-radius: 30px;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-      }
-
-      .section-title {
-        font-family: var(--font-display);
-        font-size: clamp(2rem, 4vw, 2.8rem);
-        margin-bottom: 1.5rem;
-        color: white;
-        position: relative;
-        display: inline-block;
-      }
-
-      .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 4px;
-        background: #5C5CFD;
-        border-radius: 2px;
-      }
-
-      .section-subtitle {
-        color: #cbd5e1;
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      .faults-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .fault-card {
-        background: #1B1C27;
-        border-radius: 12px;
-        padding: 2rem;
-        transition: all 0.3s ease;
-        border-left: 4px solid #5C5CFD;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      .fault-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(92, 92, 253, 0.15);
-      }
-
-      .fault-icon {
-        font-size: 2.5rem;
-        color: #5C5CFD;
-        margin-bottom: 1rem;
-      }
-
-      .fault-card h3 {
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
-        color: white;
-      }
-
-      .fault-card p {
-        color: #cbd5e1;
-        line-height: 1.6;
-      }
-
-      /* Why Choose Us Section */
-      .why-choose {
-        padding: 5rem 2rem;
-        background-color: #1B1C27;
-      }
-
-      .stats-container {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        gap: 2rem;
-        max-width: 1000px;
-        margin: 3rem auto 0;
-      }
-
-      .stat-box {
-        text-align: center;
-        flex: 1;
-        min-width: 200px;
-      }
-
-      .stat-number {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #5C5CFD;
-        margin-bottom: 0.5rem;
-      }
-
-      .stat-text {
-        font-size: 1.1rem;
-        color: #cbd5e1;
-      }
-
-      /* PCB Repair Process Section */
-      .pcb-process {
-        padding: 5rem 2rem;
-        background-color: #252734;
-      }
-
-      .process-steps {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .step-card {
-        background: #1B1C27;
-        border-radius: 12px;
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgba(93, 93, 255, 0.1);
-        transition: all 0.3s ease;
-      }
-
-      .step-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(93, 93, 255, 0.2);
-      }
-
-      .step-number {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        font-size: 3rem;
-        font-weight: 700;
-        color: rgba(93, 93, 255, 0.1);
-        z-index: 1;
-      }
-
-      .step-content {
-        position: relative;
-        z-index: 2;
-      }
-
-      .step-content h3 {
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
-        color: #5C5CFD;
-      }
-
-      .step-content p {
-        color: #cbd5e1;
-        line-height: 1.6;
-      }
-
-      .step-icon {
-        margin-top: 1.5rem;
-        font-size: 2.5rem;
-        color: #5C5CFD;
-        transition: all 0.3s ease;
-      }
-
-      .step-card:hover .step-icon {
-        color: var(--amber-500);
-        transform: scale(1.1);
-      }
-
-      /* Brands Section */
-      .brands-section {
-        padding: 5rem 2rem;
-        background-color: #1B1C27;
-        text-align: center;
-      }
-
-      .brands-carousel {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 2.5rem;
-        max-width: 1200px;
-        margin: 3rem auto 0;
-      }
-
-      .brand-logo {
-        height: 60px;
-        opacity: 0.7;
-        transition: all 0.3s ease;
-        filter: grayscale(100%) brightness(200%);
-      }
-
-      .brand-logo:hover {
-        opacity: 1;
-        filter: grayscale(0%) brightness(100%);
-        transform: scale(1.05);
-      }
-
-      .brand-chip {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 52px;
-        padding: 0.7rem 1.5rem;
-        border: 1px solid rgba(245, 158, 11, 0.35);
-        border-radius: 50px;
-        background: rgba(245, 158, 11, 0.08);
-        color: #f8fafc;
-        font-size: 1rem;
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        transition: all 0.3s ease;
-      }
-
-      .brand-chip:hover {
-        border-color: #f59e0b;
-        background: rgba(245, 158, 11, 0.16);
-        transform: translateY(-3px);
-      }
-
-      /* CTA Section */
-      .pcb-cta {
-        padding: 6rem 2rem;
-        text-align: center;
-        background: linear-gradient(135deg, #5C5CFD, #3a3aff);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .pcb-cta::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.1) 0%,
-          rgba(255, 255, 255, 0) 70%
-        );
-        transform: rotate(30deg);
-      }
-
-      .pcb-cta h2 {
-        font-size: clamp(1.8rem, 4vw, 2.5rem);
-        margin-bottom: 1.5rem;
-        position: relative;
-        z-index: 1;
-      }
-
-      .pcb-cta p {
-        max-width: 700px;
-        margin: 0 auto 2.5rem;
-        font-size: 1.2rem;
-        position: relative;
-        z-index: 1;
-      }
-
-      .c-button {
-        text-decoration: none;
-        background-color: white;
-        color: #5C5CFD;
-        padding: 0.75rem 1.5rem;
-        border: none;
-        border-radius: 8px;
-        font-weight: bold;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-        display: inline-block;
-        z-index: 2;
-        position: relative;
-      }
-
-      .c-button:hover {
-        background-color: #f0f0f0;
-        transform: scale(1.05);
-      }
-
-      /* Responsive Styles - Enhanced for better mobile experience */
-      @media (max-width: 1200px) {
-        .pcb-hero {
-          min-height: 50vh;
-        }
-        
-        .faults-grid,
-        .process-steps {
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        }
-      }
-
-      @media (max-width: 992px) {
-        .pcb-hero {
-          padding: 4rem 1.5rem 3rem;
-        }
-        
-        .common-faults,
-        .why-choose,
-        .pcb-process,
-        .brands-section {
-          padding: 4rem 1.5rem;
-        }
-        
-        .section-header {
-          margin-bottom: 3rem;
-        }
-        
-        .faults-grid,
-        .process-steps {
-          gap: 1.5rem;
-        }
-        
-        .fault-card,
-        .step-card {
-          padding: 1.5rem;
-        }
-        
-        .stats-container {
-          gap: 1.5rem;
-        }
-        
-        .brands-carousel {
-          gap: 2rem;
-        }
-        
-        .brand-logo {
-          height: 50px;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .pcb-hero {
-          padding: 3rem 1rem 2rem;
-          min-height: 40vh;
-        }
-        
-        .pcb-hero-tag,
-        .section-tag {
-          font-size: 0.8rem;
-          padding: 0.4rem 1.2rem;
-        }
-        
-        .pcb-hero h1 {
-          font-size: 2.2rem;
-        }
-        
-        .pcb-hero p {
-          font-size: 1.1rem;
-        }
-        
-        .hero-buttons {
-          flex-direction: column;
-          align-items: center;
-          width: 100%;
-          max-width: 300px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-        
-        .hero-btn {
-          width: 100%;
-          justify-content: center;
-          padding: 1rem;
-          font-size: 1rem;
-          margin-bottom: 0.5rem;
-        }
-        
-        .common-faults,
-        .why-choose,
-        .pcb-process,
-        .brands-section {
-          padding: 3rem 1rem;
-        }
-        
-        .section-title {
-          font-size: 1.8rem;
-        }
-        
-        .section-title::after {
-          width: 60px;
-          height: 3px;
-          bottom: -8px;
-        }
-        
-        .section-subtitle {
-          font-size: 1rem;
-        }
-        
-        .faults-grid,
-        .process-steps {
-          grid-template-columns: 1fr;
-          gap: 1.2rem;
-        }
-        
-        .fault-card,
-        .step-card {
-          padding: 1.2rem;
-        }
-        
-        .fault-icon,
-        .step-icon {
-          font-size: 2rem;
-        }
-        
-        .fault-card h3,
-        .step-content h3 {
-          font-size: 1.2rem;
-        }
-        
-        .stats-container {
-          flex-direction: column;
-          gap: 2rem;
-        }
-        
-        .stat-box {
-          min-width: 100%;
-        }
-        
-        .stat-number {
-          font-size: 2rem;
-        }
-        
-        .stat-text {
-          font-size: 1rem;
-        }
-        
-        .brands-carousel {
-          gap: 1.5rem;
-          margin-top: 2rem;
-        }
-        
-        .brand-logo {
-          height: 40px;
-        }
-        
-        .pcb-cta {
-          padding: 4rem 1rem;
-        }
-        
-        .pcb-cta h2 {
-          font-size: 1.6rem;
-        }
-        
-        .pcb-cta p {
-          font-size: 1rem;
-          margin-bottom: 2rem;
-        }
-        
-        .c-button {
-          padding: 1rem 1.5rem;
-          font-size: 1rem;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .pcb-hero {
-          padding: 2.5rem 0.5rem 1.5rem;
-          min-height: auto;
-        }
-        
-        .pcb-hero h1 {
-          font-size: 1.8rem;
-          margin-bottom: 1rem;
-        }
-        
-        .pcb-hero p {
-          font-size: 1rem;
-          margin-bottom: 1.5rem;
-        }
-        
-        .common-faults,
-        .why-choose,
-        .pcb-process,
-        .brands-section {
-          padding: 2.5rem 0.5rem;
-        }
-        
-        .section-header {
-          margin-bottom: 2rem;
-        }
-        
-        .section-title {
-          font-size: 1.6rem;
-        }
-        
-        .fault-card,
-        .step-card {
-          padding: 1rem;
-        }
-        
-        .step-number {
-          font-size: 2.5rem;
-          top: 10px;
-          right: 10px;
-        }
-        
-        .brands-carousel {
-          gap: 1rem;
-        }
-        
-        .brand-logo {
-          height: 35px;
-        }
-        
-        .pcb-cta {
-          padding: 3rem 0.5rem;
-        }
-        
-        .pcb-cta h2 {
-          font-size: 1.4rem;
-          margin-bottom: 1rem;
-        }
-      }
-
-      /* Additional improvements for touch devices */
-      @media (hover: none) {
-        .fault-card:hover,
-        .step-card:hover,
-        .hero-btn:hover,
-        .c-button:hover {
-          transform: none;
-        }
-        
-        .fault-card:active,
-        .step-card:active {
-          transform: scale(0.98);
-        }
-        
-        .hero-btn:active,
-        .c-button:active {
-          transform: scale(0.95);
-        }
-      }
-
-      /* Prevent horizontal scrolling */
-      html, body {
-        max-width: 100%;
-        overflow-x: hidden;
-      }
-    </style>
+    </script>
   </head>
-  <body>
+
+  <body class="svc-page">
     <div id="header"></div>
+
     <main>
-      <!-- PCB Hero Section -->
-      <section class="pcb-hero">
-        <div class="pcb-hero-content">
-          <span class="pcb-hero-tag">Expert PCB Repair Service</span>
-          <h1>Expert PCB Repair for Treadmills, Ellipticals & Gym Equipment</h1>
-          <p>We specialize in repairing motor control boards and electronic PCBs for all major fitness brands. Same-day service across Hamilton, Burlington, Oakville, Mississauga & GTA.</p>
-          <div class="hero-buttons">
-            <a href="tel:+12899257239" class="hero-btn btn-primary">
-                <i class="fas fa-phone-alt"></i> Call Now: (289) 925-7239
+
+      <!-- 1. HERO -->
+      <section class="svc-hero">
+        <div class="svc-container svc-hero__grid">
+          <div>
+            <nav class="svc-breadcrumb" aria-label="Breadcrumb">
+              <a href="index.html">Home</a>
+              <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
+              <a href="services.html">Services</a>
+              <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
+              <span aria-current="page">PCB Repair</span>
+            </nav>
+
+            <span class="svc-eyebrow"><i class="ri-cpu-line" aria-hidden="true"></i> PCB &amp; Electronics Repair · Hamilton &amp; GTA</span>
+            <h1>PCB and Motor Control Board Repair for Fitness <span>Equipment</span></h1>
+            <p class="svc-hero__lead">
+              A dead console or failed motor controller does not always mean a new machine. We diagnose and repair boards at component level, test them under load and return your equipment to service for a fraction of replacement cost.
+            </p>
+
+            <div class="svc-hero__actions">
+              <a class="svc-btn svc-btn--primary" href="tel:+12899257239">
+                <i class="ri-phone-fill" aria-hidden="true"></i>
+                Call (289) 925-7239
+              </a>
+              <a class="svc-btn svc-btn--ghost" href="get-quote.html">
+                <i class="ri-calendar-check-line" aria-hidden="true"></i>
+                Book Online
+              </a>
+            </div>
+
+            <div class="svc-hero__chips">
+              <span class="svc-chip"><i class="ri-cpu-fill" aria-hidden="true"></i> Board-level repair</span>
+              <span class="svc-chip"><i class="ri-shield-check-fill" aria-hidden="true"></i> 30-day warranty</span>
+              <span class="svc-chip"><i class="ri-award-fill" aria-hidden="true"></i> OEM components</span>
+              <span class="svc-chip"><i class="ri-flashlight-fill" aria-hidden="true"></i> Same-day support</span>
+            </div>
+          </div>
+
+          <aside class="svc-hero-card" aria-label="Book a PCB or motor control board repair">
+            <p class="svc-hero-card__label">Board failure?</p>
+            <h2>Repair the board before replacing the machine.</h2>
+            <p>Send us the machine brand, model, board number and symptoms. We'll confirm whether the board is repairable and the likely turnaround.</p>
+            <a class="svc-hero-card__phone" href="tel:+12899257239">
+              <i class="ri-phone-fill" aria-hidden="true"></i>
+              (289) 925-7239
             </a>
-            <a href="https://canadianfitnessrepair.com/get-quote.html" class="hero-btn btn-secondary">
-                <i class="fas fa-wrench"></i> Schedule PCB Repair
+            <a class="svc-btn svc-btn--primary svc-btn--wide" href="get-quote.html">
+              <i class="ri-calendar-check-line" aria-hidden="true"></i>
+              Book PCB Repair
             </a>
+            <p class="svc-hero-card__note"><i class="ri-checkbox-circle-fill" aria-hidden="true"></i> 1,500+ boards fixed · 30-day warranty</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- 2. TRUST STRIP -->
+      <section class="svc-trust" aria-label="Why customers choose Canadian Fitness Repair">
+        <div class="svc-container svc-trust__grid">
+          <div class="svc-trust__item">
+            <i class="ri-cpu-line" aria-hidden="true"></i>
+            <div><strong>1,500+ boards repaired</strong><span>Component-level work</span></div>
+          </div>
+          <div class="svc-trust__item">
+            <i class="ri-shield-check-line" aria-hidden="true"></i>
+            <div><strong>30-day warranty</strong><span>Parts &amp; labour included</span></div>
+          </div>
+          <div class="svc-trust__item">
+            <i class="ri-award-line" aria-hidden="true"></i>
+            <div><strong>OEM or upgraded parts</strong><span>Thermal-rated components</span></div>
+          </div>
+          <div class="svc-trust__item">
+            <i class="ri-map-pin-line" aria-hidden="true"></i>
+            <div><strong>Hamilton &amp; GTA</strong><span>On-site diagnosis</span></div>
           </div>
         </div>
       </section>
 
-      <!-- Common Faults Section -->
-      <section class="common-faults">
-        <div class="section-header">
-          <span class="section-tag">Common Issues</span>
-          <h2 class="section-title">Common PCB Faults & Error Codes</h2>
-          <p class="section-subtitle">We diagnose and repair all these common circuit board issues in fitness equipment</p>
-        </div>
-        
-        <div class="faults-grid">
-          <div class="fault-card">
-            <div class="fault-icon">
-              <i class="fas fa-bolt"></i>
-            </div>
-            <h3>Power Supply Failure</h3>
-            <p>No power or intermittent shutdowns due to blown components or faulty low-voltage circuits.</p>
+      <!-- 3. SYMPTOMS -->
+      <section class="svc-section" id="symptoms">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Common PCB faults</span>
+            <h2 class="svc-section-title">Circuit Board Failures We <span>Repair</span></h2>
+            <p class="svc-section-sub">
+              These are the board faults we see most often in treadmills, ellipticals and other cardio equipment.
+            </p>
           </div>
-          
-          <div class="fault-card">
-            <div class="fault-icon">
-              <i class="fas fa-fire"></i>
-            </div>
-            <h3>Burnt MOSFET / IGBT</h3>
-            <p>Board overheating, sparks, or treadmill stops suddenly.</p>
-          </div>
-          
-          <div class="fault-card">
-            <div class="fault-icon">
-              <i class="fas fa-exclamation-triangle"></i>
-            </div>
-            <h3>Relay & Fuse Issues</h3>
-            <p>Equipment won't start, clicks but no motor response.</p>
-          </div>
-          
-          <div class="fault-card">
-            <div class="fault-icon">
-              <i class="fas fa-cog"></i>
-            </div>
-            <h3>Motor Drive Circuit Error</h3>
-            <p>Error codes like E1/E2 on treadmills; belt not moving.</p>
-          </div>
-          
-          <div class="fault-card">
-            <div class="fault-icon">
-              <i class="fas fa-desktop"></i>
-            </div>
-            <h3>Console Communication Loss</h3>
-            <p>Display works but doesn't send commands to motor board.</p>
-          </div>
-          
-          <div class="fault-card">
-            <div class="fault-icon">
-              <i class="fas fa-thermometer-full"></i>
-            </div>
-            <h3>Over-temperature Sensor Fault</h3>
-            <p>Unit shuts down mid-workout; fan keeps running.</p>
-          </div>
-          
-          <div class="fault-card">
-            <div class="fault-icon">
-              <i class="fas fa-plug"></i>
-            </div>
-            <h3>Connector / Solder Cracks</h3>
-            <p>Loose or damaged solder joints causing intermittent failures.</p>
+
+          <div class="svc-grid svc-grid--3">
+            <article class="svc-card">
+              <span class="svc-card__icon"><i class="ri-flashlight-line" aria-hidden="true"></i></span>
+              <h3>Power supply failure</h3>
+              <p>No power or intermittent shutdowns caused by blown components or faulty low-voltage circuits.</p>
+            </article>
+            <article class="svc-card">
+              <span class="svc-card__icon"><i class="ri-fire-line" aria-hidden="true"></i></span>
+              <h3>Burnt MOSFET or IGBT</h3>
+              <p>Board overheating, sparks or a machine that stops suddenly under load.</p>
+            </article>
+            <article class="svc-card">
+              <span class="svc-card__icon"><i class="ri-plug-line" aria-hidden="true"></i></span>
+              <h3>Relay and fuse issues</h3>
+              <p>The machine clicks but the motor does not respond, or it will not start at all.</p>
+            </article>
+            <article class="svc-card">
+              <span class="svc-card__icon"><i class="ri-cpu-line" aria-hidden="true"></i></span>
+              <h3>Motor drive circuit errors</h3>
+              <p>Error codes such as E1 or E2, or a belt that does not move when commanded.</p>
+            </article>
+            <article class="svc-card">
+              <span class="svc-card__icon"><i class="ri-computer-line" aria-hidden="true"></i></span>
+              <h3>Console communication loss</h3>
+              <p>The display works but does not send commands to the motor board.</p>
+            </article>
+            <article class="svc-card">
+              <span class="svc-card__icon"><i class="ri-temp-hot-line" aria-hidden="true"></i></span>
+              <h3>Sensor and solder faults</h3>
+              <p>Over-temperature shutdowns, loose connectors and cracked solder joints causing intermittent faults.</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <!-- Why Choose Us Section -->
-      <section class="why-choose">
-        <div class="section-header">
-          <span class="section-tag">Why Choose Us</span>
-          <h2 class="section-title">Why Choose Canadian Fitness Repair</h2>
-          <p class="section-subtitle">Experience and expertise you can trust for all your PCB repair needs</p>
-        </div>
-        
-        <div class="stats-container">
-          <div class="stat-box">
-            <div class="stat-number">30-Day</div>
-            <div class="stat-text">Warranty on PCB repairs</div>
+      <!-- 4. SERVICES -->
+      <section class="svc-section svc-section--alt" id="services">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">What we repair</span>
+            <h2 class="svc-section-title">Electronics Repair <span>Services</span></h2>
+            <p class="svc-section-sub">
+              We work on the boards that control power, motion and user input.
+            </p>
           </div>
-          <div class="stat-box">
-            <div class="stat-number">OEM</div>
-            <div class="stat-text">or upgraded electronic parts</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-number">1,500+</div>
-            <div class="stat-text">successful board fixes</div>
+
+          <div class="svc-grid svc-grid--3">
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-search-line" aria-hidden="true"></i></span>
+              <h3>PCB diagnostics</h3>
+              <p>Visual inspection, electrical testing and fault isolation to find the failed component.</p>
+              <a class="svc-service-card__link" href="get-quote.html">Book a diagnostic <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-cpu-line" aria-hidden="true"></i></span>
+              <h3>Motor controller repair</h3>
+              <p>MOSFETs, IGBTs, relays, capacitors and drive circuits repaired or replaced.</p>
+              <a class="svc-service-card__link" href="get-quote.html">Request a quote <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-computer-line" aria-hidden="true"></i></span>
+              <h3>Console and display repair</h3>
+              <p>Blank screens, dead buttons, communication faults and damaged data cables.</p>
+              <a class="svc-service-card__link" href="get-quote.html">Book a repair <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-plug-line" aria-hidden="true"></i></span>
+              <h3>Power supply repair</h3>
+              <p>Low-voltage supplies, fuses, rectifiers and protection circuits restored.</p>
+              <a class="svc-service-card__link" href="get-quote.html">Book a repair <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-tools-line" aria-hidden="true"></i></span>
+              <h3>Component-level replacement</h3>
+              <p>Failed parts replaced with OEM or higher-rated components and proper soldering.</p>
+              <a class="svc-service-card__link" href="get-quote.html">Ask about your board <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-shield-check-line" aria-hidden="true"></i></span>
+              <h3>Preventative upgrades</h3>
+              <p>Improved cooling, higher-rated parts and protection against repeat failures.</p>
+              <a class="svc-service-card__link" href="get-quote.html">Discuss an upgrade <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
           </div>
         </div>
       </section>
 
-      <!-- PCB Repair Process Section -->
-      <section class="pcb-process">
-        <div class="section-header">
-          <span class="section-tag">Our Process</span>
-          <h2 class="section-title">PCB Repair Process</h2>
-          <p class="section-subtitle">Our systematic approach to diagnosing and repairing your fitness equipment circuit boards</p>
-        </div>
-        
-        <div class="process-steps">
-          <div class="step-card">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h3>Initial Diagnostic</h3>
-              <p>We begin with a thorough visual inspection and basic electrical testing to identify obvious issues like burnt components, bulging capacitors, or damaged traces.</p>
-            </div>
-            <div class="step-icon">
-              <i class="fas fa-search"></i>
-            </div>
+      <!-- 5. BRANDS -->
+      <section class="svc-section" id="brands">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Supported brands</span>
+            <h2 class="svc-section-title">Brands We Repair and <span>Service</span></h2>
+            <p class="svc-section-sub">
+              Our technicians are experienced with the electronic systems used by leading manufacturers.
+            </p>
           </div>
-          
-          <div class="step-card">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h3>Component-Level Testing</h3>
-              <p>Using specialized equipment, we test individual components including MOSFETs, capacitors, resistors, ICs, and connectors to identify failed parts.</p>
-            </div>
-            <div class="step-icon">
-              <i class="fas fa-microchip"></i>
-            </div>
-          </div>
-          
-          <div class="step-card">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h3>Circuit Analysis</h3>
-              <p>We analyze the circuit design to understand how components interact, helping us identify not just failed parts but the reasons behind their failure.</p>
-            </div>
-            <div class="step-icon">
-              <i class="fas fa-project-diagram"></i>
-            </div>
-          </div>
-          
-          <div class="step-card">
-            <div class="step-number">4</div>
-            <div class="step-content">
-              <h3>Component Replacement</h3>
-              <p>Using high-quality replacement parts, we carefully replace failed components with proper soldering techniques and attention to thermal management.</p>
-            </div>
-            <div class="step-icon">
-              <i class="fas fa-tools"></i>
-            </div>
-          </div>
-          
-          <div class="step-card">
-            <div class="step-number">5</div>
-            <div class="step-content">
-              <h3>Functional Testing</h3>
-              <p>After repairs, we thoroughly test the board under load conditions to ensure it performs to manufacturer specifications before returning to service.</p>
-            </div>
-            <div class="step-icon">
-              <i class="fas fa-check-circle"></i>
-            </div>
-          </div>
-          
-          <div class="step-card">
-            <div class="step-number">6</div>
-            <div class="step-content">
-              <h3>Preventative Measures</h3>
-              <p>Where appropriate, we implement upgrades or modifications to prevent future failures, such as improved cooling or higher-rated components.</p>
-            </div>
-            <div class="step-icon">
-              <i class="fas fa-shield-alt"></i>
-            </div>
+
+          <div class="svc-brands">
+            <span class="svc-brand">Life Fitness</span>
+            <span class="svc-brand">NordicTrack</span>
+            <span class="svc-brand">Precor</span>
+            <span class="svc-brand">Matrix</span>
+            <span class="svc-brand">Bowflex</span>
+            <span class="svc-brand">Technogym</span>
+            <span class="svc-brand">ProForm</span>
+            <span class="svc-brand">Smooth Fitness</span>
+            <span class="svc-brand">Sole Fitness</span>
+            <span class="svc-brand">Horizon</span>
           </div>
         </div>
       </section>
 
-      <!-- Brands Section -->
-      <section class="brands-section">
-        <div class="section-header">
-          <span class="section-tag">Supported Brands</span>
-          <h2 class="section-title">We Repair All Major Fitness Brands</h2>
-          <p class="section-subtitle">Our technicians are experienced with electronic systems from all leading manufacturers</p>
-        </div>
-        
-        <div class="brands-carousel">
-          <span class="brand-chip">Life Fitness</span>
-          <span class="brand-chip">NordicTrack</span>
-          <span class="brand-chip">Precor</span>
-          <span class="brand-chip">Matrix</span>
-          <span class="brand-chip">Bowflex</span>
-          <span class="brand-chip">Technogym</span>
-          <span class="brand-chip">ProForm</span>
-          <span class="brand-chip">Smooth Fitness</span>
+      <!-- 6. PROCESS -->
+      <section class="svc-section svc-section--alt" id="process">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Our process</span>
+            <h2 class="svc-section-title">PCB Repair <span>Process</span></h2>
+            <p class="svc-section-sub">
+              A systematic approach that fixes the cause, not just the symptom.
+            </p>
+          </div>
+
+          <div class="svc-steps">
+            <article class="svc-step">
+              <span class="svc-step__num">1</span>
+              <h3>Initial diagnostic</h3>
+              <p>Visual inspection and basic electrical testing to identify burnt components, bulging capacitors or damaged traces.</p>
+            </article>
+            <article class="svc-step">
+              <span class="svc-step__num">2</span>
+              <h3>Component-level testing</h3>
+              <p>MOSFETs, capacitors, resistors, ICs and connectors are tested individually to find failed parts.</p>
+            </article>
+            <article class="svc-step">
+              <span class="svc-step__num">3</span>
+              <h3>Circuit analysis</h3>
+              <p>We trace how the components interact to understand why the part failed in the first place.</p>
+            </article>
+            <article class="svc-step">
+              <span class="svc-step__num">4</span>
+              <h3>Repair &amp; replacement</h3>
+              <p>Failed components are replaced with quality parts using proper soldering and thermal management.</p>
+            </article>
+            <article class="svc-step">
+              <span class="svc-step__num">5</span>
+              <h3>Testing &amp; prevention</h3>
+              <p>The board is tested under load, and upgrades are applied where they reduce repeat failures.</p>
+            </article>
+          </div>
         </div>
       </section>
 
-      <!-- CTA Section -->
-      <section class="pcb-cta">
-        <h2>Don't replace your machine — revive it with expert PCB repair. Call us today!</h2>
-        <p>All repairs come with a 30-day warranty and are performed by certified technicians.</p>
-        <a class="c-button" href="tel:+12899257239">
-          <i class="ri-phone-line"> </i>
-          Call Now: +1 289 925 7239
-        </a>
+      <!-- 7. PRICING -->
+      <section class="svc-section" id="pricing">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Upfront pricing</span>
+            <h2 class="svc-section-title">PCB Repair <span>Costs</span></h2>
+            <p class="svc-section-sub">
+              Board repair is usually far cheaper than a replacement board or a new machine. You approve the quote before work begins.
+            </p>
+          </div>
+
+          <div class="svc-pricing">
+            <article class="svc-price">
+              <span class="svc-price__tag">Start here</span>
+              <h3>PCB Diagnostic</h3>
+              <p class="svc-price__amount">$89 <small>CAD</small></p>
+              <p class="svc-price__desc">Bench or on-site fault diagnosis.</p>
+              <ul>
+                <li><i class="ri-check-line" aria-hidden="true"></i> Visual and electrical inspection</li>
+                <li><i class="ri-check-line" aria-hidden="true"></i> Component-level testing</li>
+                <li><i class="ri-check-line" aria-hidden="true"></i> Repair feasibility assessment</li>
+                <li><i class="ri-check-line" aria-hidden="true"></i> Written quote before repair</li>
+              </ul>
+              <a class="svc-btn svc-btn--ghost svc-btn--wide" href="get-quote.html">Book a Diagnostic</a>
+            </article>
+
+            <article class="svc-price svc-price--featured">
+              <span class="svc-price__tag">Most common</span>
+              <h3>Board Repair</h3>
+              <p class="svc-price__amount">$150–$400 <small>typical</small></p>
+              <p class="svc-price__desc">Component-level repair with quality parts.</p>
+              <ul>
+                <li><i class="ri-check-line" aria-hidden="true"></i> Failed component replacement</li>
+                <li><i class="ri-check-line" aria-hidden="true"></i> Motor drive and power supply repair</li>
+                <li><i class="ri-check-line" aria-hidden="true"></i> Console and communication faults</li>
+                <li><i class="ri-check-line" aria-hidden="true"></i> Load testing before return</li>
+                <li><i class="ri-check-line" aria-hidden="true"></i> 30-day parts &amp; labour warranty</li>
+              </ul>
+              <a class="svc-btn svc-btn--primary svc-btn--wide" href="tel:+12899257239">Get a Repair Quote</a>
+            </article>
+
+            <article class="svc-price">
+              <span class="svc-price__tag">If unrepairable</span>
+              <h3>Replacement Board</h3>
+              <p class="svc-price__amount">Custom <small>quote</small></p>
+              <p class="svc-price__desc">Sourced when repair is not viable.</p>
+              <ul>
+                <li><i class="ri-check-line" aria-hidden="true"></i> OEM or compatible board sourcing</li>
+                <li><i class="ri-check-line" aria-hidden="true"></i> Installation and calibration</li>
+                <li><i class="ri-check-line" aria-hidden="true"></i> Old board disposal</li>
+                <li><i class="ri-check-line" aria-hidden="true"></i> 30-day warranty on the part</li>
+              </ul>
+              <a class="svc-btn svc-btn--ghost svc-btn--wide" href="tel:+12899257239">Ask About a Board</a>
+            </article>
+          </div>
+
+          <p class="svc-price-note">
+            Diagnostic fees are credited toward an approved board repair. Special-order components and replacement boards are quoted separately before purchase.
+          </p>
+        </div>
       </section>
+
+      <!-- 8. WHY CHOOSE US -->
+      <section class="svc-section svc-section--alt" id="why-us">
+        <div class="svc-container svc-why">
+          <div>
+            <span class="svc-eyebrow">Why board-level repair</span>
+            <h2 class="svc-section-title">Repair the Board, Not the Whole <span>Machine</span></h2>
+            <p class="svc-section-sub">
+              Replacing a board or machine is often unnecessary. Component-level repair is faster, cheaper and keeps otherwise-good equipment in service.
+            </p>
+            <ul class="svc-checks">
+              <li><i class="ri-check-double-line" aria-hidden="true"></i> 1,500+ successful board repairs</li>
+              <li><i class="ri-check-double-line" aria-hidden="true"></i> Component-level diagnostics, not guesswork</li>
+              <li><i class="ri-check-double-line" aria-hidden="true"></i> OEM or higher-rated replacement parts</li>
+              <li><i class="ri-check-double-line" aria-hidden="true"></i> Load testing before the board is returned</li>
+              <li><i class="ri-check-double-line" aria-hidden="true"></i> Same-day support across the GTA</li>
+              <li><i class="ri-check-double-line" aria-hidden="true"></i> 30-day parts and labour warranty</li>
+            </ul>
+          </div>
+
+          <aside class="svc-guarantee">
+            <span class="svc-guarantee__icon"><i class="ri-shield-check-line" aria-hidden="true"></i></span>
+            <h3>30-Day PCB Warranty</h3>
+            <p>
+              Repaired boards are covered by a 30-day parts and labour warranty. If the same fault returns, we re-test the board and correct it at no charge.
+            </p>
+            <a class="svc-btn svc-btn--primary svc-btn--wide" href="tel:+12899257239">
+              <i class="ri-phone-fill" aria-hidden="true"></i>
+              Talk to a Technician
+            </a>
+          </aside>
+        </div>
+      </section>
+
+      <!-- 9. REVIEWS -->
+      <section class="svc-section" id="reviews">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Customer reviews</span>
+            <h2 class="svc-section-title">What PCB Customers <span>Say</span></h2>
+            <p class="svc-section-sub">
+              Homeowners and gym operators who avoided an unnecessary replacement.
+            </p>
+          </div>
+
+          <div class="svc-reviews">
+            <article class="svc-review">
+              <div class="svc-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="svc-review__quote">
+                “Another company told me the treadmill needed a new motor and board. These guys traced it to a failed component on the board and repaired it for a fraction of the price.”
+              </p>
+              <div class="svc-review__person">
+                <span class="svc-avatar">JT</span>
+                <div><strong>Jason T.</strong><span>Hamilton, ON</span></div>
+              </div>
+            </article>
+            <article class="svc-review">
+              <div class="svc-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="svc-review__quote">
+                “Our commercial elliptical kept shutting down mid-workout. They tested the board under load, replaced a regulator and it has run clean ever since.”
+              </p>
+              <div class="svc-review__person">
+                <span class="svc-avatar">RS</span>
+                <div><strong>Rina S.</strong><span>Mississauga, ON</span></div>
+              </div>
+            </article>
+            <article class="svc-review">
+              <div class="svc-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="svc-review__quote">
+                “Clear explanation of what failed and why. They showed me the burnt part and the repair work. No pressure to replace the machine.”
+              </p>
+              <div class="svc-review__person">
+                <span class="svc-avatar">BW</span>
+                <div><strong>Brian W.</strong><span>Oakville, ON</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. SERVICE AREAS -->
+      <section class="svc-section svc-section--alt" id="areas">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Service areas</span>
+            <h2 class="svc-section-title">PCB Repair Across <span>Hamilton &amp; the GTA</span></h2>
+            <p class="svc-section-sub">
+              On-site diagnosis and board repair for homes, condos and commercial gyms. Choose your city for local details.
+            </p>
+          </div>
+
+          <div class="svc-areas">
+            <a class="svc-area" href="treadmill-repair-hamilton.html"><span>Hamilton</span><i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            <a class="svc-area" href="treadmill-repair-burlington.html"><span>Burlington</span><i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            <a class="svc-area" href="treadmill-repair-oakville.html"><span>Oakville</span><i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            <a class="svc-area" href="treadmill-repair-mississauga.html"><span>Mississauga</span><i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            <a class="svc-area" href="treadmill-repair-brampton.html"><span>Brampton</span><i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            <a class="svc-area" href="treadmill-repair-toronto.html"><span>Toronto</span><i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            <a class="svc-area" href="treadmill-repair-niagara.html"><span>Niagara Region</span><i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            <a class="svc-area" href="treadmill-repair-stcatharines.html"><span>St. Catharines</span><i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11. FAQ -->
+      <section class="svc-section" id="faq">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Questions &amp; answers</span>
+            <h2 class="svc-section-title">PCB Repair <span>FAQs</span></h2>
+            <p class="svc-section-sub">
+              What can be repaired, how long it takes and when replacement makes more sense.
+            </p>
+          </div>
+
+          <div class="svc-faq">
+            <details>
+              <summary>Can every board be repaired?</summary>
+              <div class="svc-faq__answer">
+                <p>No, but many can. We diagnose first and tell you honestly whether component-level repair is viable. If the board is too damaged or parts are unavailable, we quote a replacement instead.</p>
+              </div>
+            </details>
+            <details>
+              <summary>How long does a PCB repair take?</summary>
+              <div class="svc-faq__answer">
+                <p>Many common board faults are repaired within a few business days. Turnaround depends on the fault and parts availability, and we confirm it after diagnosis.</p>
+              </div>
+            </details>
+            <details>
+              <summary>Do you repair the board on-site or at a bench?</summary>
+              <div class="svc-faq__answer">
+                <p>Some faults can be diagnosed on-site. Board-level repair is usually completed at our bench, where we have the right soldering and testing equipment.</p>
+              </div>
+            </details>
+            <details>
+              <summary>What brands of boards do you work on?</summary>
+              <div class="svc-faq__answer">
+                <p>We repair boards from Life Fitness, NordicTrack, Precor, Matrix, Bowflex, Technogym, ProForm, Smooth Fitness and most other major fitness brands.</p>
+              </div>
+            </details>
+            <details>
+              <summary>Is a repaired board reliable?</summary>
+              <div class="svc-faq__answer">
+                <p>We replace failed components with OEM or higher-rated parts, address thermal issues where relevant and load-test the board before it goes back into service. Repairs carry a 30-day warranty.</p>
+              </div>
+            </details>
+            <details>
+              <summary>Is repair cheaper than a new board?</summary>
+              <div class="svc-faq__answer">
+                <p>Usually, yes. Component-level repair typically costs a fraction of a replacement board, and far less than a new machine. You receive a written quote before any repair begins.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. FINAL CTA -->
+      <section class="svc-cta">
+        <div class="svc-container">
+          <div class="svc-cta__inner">
+            <span class="svc-eyebrow">Do not replace it yet</span>
+            <h2>Repair the Board and Save the <span style="color: var(--svc-accent-bright)">Machine</span></h2>
+            <p>
+              Send us the board number and symptoms. We'll tell you whether it is repairable and what it will cost before you commit.
+            </p>
+            <div class="svc-cta__actions">
+              <a class="svc-btn svc-btn--primary" href="tel:+12899257239">
+                <i class="ri-phone-fill" aria-hidden="true"></i>
+                Call (289) 925-7239
+              </a>
+              <a class="svc-btn svc-btn--ghost" href="get-quote.html">
+                <i class="ri-calendar-check-line" aria-hidden="true"></i>
+                Book Online
+              </a>
+            </div>
+            <p class="svc-cta__note"><i class="ri-checkbox-circle-fill" aria-hidden="true"></i> Component-level repair · Load tested · 30-day warranty</p>
+          </div>
+        </div>
+      </section>
+
     </main>
+
     <div id="footer"></div>
-    
+
     <script defer src="assets/js/menu.js?v=20261030"></script>
     <script defer src="assets/js/headerfooter.js?v=20261031"></script>
-</body>
+  </body>
 </html>
