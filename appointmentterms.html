@@ -11,6 +11,8 @@
     <!-- Remixicon is required by the shared header markup. -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet" />
+    <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+    <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
     <style>
 :root {
   /* Brand palette */
@@ -53,7 +55,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
             border-bottom: 1px solid #2a2a3a;
         }
         .header h1 {
-            font-family: 'Montserrat', sans-serif;
+            font-family: var(--font-display);
             font-size: 2.2rem;
             font-weight: 800;
             letter-spacing: -0.5px;
@@ -202,7 +204,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
                 color: black;
             }
             .term-text strong {
-                color: #1e3a8a;
+                color: var(--brand-700);
             }
             .highlight-clause {
                 background: #fef3c7;

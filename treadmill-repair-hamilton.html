@@ -53,6 +53,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
   <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet"/>
+  <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+  <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -324,7 +326,7 @@
   
   /* ===== Emergency Banner ===== */
   .emergency-banner {
-      background: linear-gradient(90deg, #ff6b6b, #e74c3c);
+      background: linear-gradient(90deg, var(--amber-500), var(--amber-700));
       padding: 2rem;
       border-radius: 12px;
       margin: 3rem 0;
@@ -335,9 +337,9 @@
   }
   
   @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
   }
   
   /* ===== Neighborhoods Section ===== */
@@ -441,12 +443,12 @@
       font-size: 5rem;
       color: var(--accent-color);
       opacity: 0.15;
-      font-family: Georgia, serif;
+      font-family: var(--font-display);
       line-height: 1;
   }
   
   .rating {
-      color: #FFD700;
+      color: var(--amber-500);
       margin-bottom: 1rem;
       font-size: 1.2rem;
   }
@@ -713,24 +715,24 @@
   opacity: 0.4;
 }
 .emergency-note {
-  background: linear-gradient(90deg, #fff4f2 0%, #ffe6e1 100%);
-  border-left: 5px solid #e74c3c;
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.12) 100%);
+  border-left: 5px solid var(--amber-700);
   padding: 1.25rem 2rem;
   margin: 2.5rem 0;
   font-weight: 600;
-  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.15);
-  color: #c0392b;
+  box-shadow: 0 6px 15px rgba(245, 158, 11, 0.15);
+  color: var(--amber-700);
   display: flex;
   align-items: center;
   gap: 1rem;
   border-radius: 6px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--font-body);
   animation: pulseGlow 3s ease-in-out infinite;
 }
 
 .emergency-note i {
   font-size: 1.6rem;
-  color: #e74c3c;
+  color: var(--amber-700);
   flex-shrink: 0;
   animation: pulseGlow 3s ease-in-out infinite;
 }
@@ -738,10 +740,10 @@
 /* Subtle glowing pulse effect */
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 6px rgba(231, 76, 60, 0.5);
+    box-shadow: 0 0 6px rgba(245, 158, 11, 0.5);
   }
   50% {
-    box-shadow: 0 0 12px rgba(231, 76, 60, 0.9);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.9);
   }
 }
 
@@ -850,7 +852,7 @@
         </section>
 
         <section class="city-content">
-            <h2 class="section-title">Hamilton's #1 Fitness Equipment Repair Specialists</h2>
+            <h2 class="section-title">Hamilton's Trusted Fitness Equipment Repair Specialists</h2>
             <p class="intro-text">Since 2013, Canadian Fitness Repair has been Hamilton's trusted solution for professional treadmill, elliptical, and exercise bike repairs. Our factory-trained technicians specialize in restoring all major brands to optimal performance.</p>
             
             <div class="emergency-banner">
@@ -1002,7 +1004,7 @@
       <div class="benefit-number">2</div>
       <div class="benefit-content">
         <h3>Same-Day Parts Replacement</h3>
-        <p>We maintain Canada's largest inventory of fitness equipment parts in Hamilton, including hard-to-find NordicTrack motors and ProForm controllers.</p>
+        <p>We maintain a deep inventory of fitness equipment parts in Hamilton, including hard-to-find NordicTrack motors and ProForm controllers.</p>
       </div>
     </div>
     <div class="benefit-item">
@@ -1031,7 +1033,7 @@
     <div class="testimonial-card">
       <div class="rating">★★★★★</div>
       <p>"As a downtown gym owner near Jackson Square, I rely on their expertise. They understand Hamilton's unique challenges with humidity and power surges."</p>
-      <p><strong>Sarah T.</strong> | Downtown Fitness Center</p>
+      <p><strong>Sarah T.</strong> | a local gym</p>
     </div>
     <div class="testimonial-card">
       <div class="rating">★★★★★</div>

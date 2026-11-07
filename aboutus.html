@@ -42,7 +42,7 @@
           "https://www.canadianfitnessrepair.com/assets/images/service-van.jpg",
           "https://www.canadianfitnessrepair.com/assets/images/technician-working.jpg"
         ],
-        "description": "Family-owned fitness equipment repair company with certified technicians specializing in treadmill, elliptical, and commercial gym service since 2015. Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
+        "description": "Family-owned fitness equipment repair company with certified technicians specializing in treadmill, elliptical, and commercial gym service since 2013. Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "22 Canary Grass Blvd",
@@ -84,18 +84,17 @@
       /* CSS Variables */
       :root {
         --primary-color: var(--brand);
-        /* Drives headings on the white cards and the CTA background, so it
-           must be a dark surface colour. "fff" was an invalid value. */
-        --secondary-color: var(--dark-color);
-        --accent-color: #3498db;
-        --light-color: #f9f9f9;
-        --dark-color: #333;
-        --text-color: #555;
-        --light-text: var(--text-color);
-        --bg-color: var(--white);
-        --card-bg: var(--white);
+        /* Heading colour on dark cards; was previously an invalid "fff" value. */
+        --secondary-color: #e2e8f0;
+        --accent-color: var(--amber-500);
+        --light-color: #111827;
+        --dark-color: #0b1020;
+        --text-color: #c3cdda;
+        --light-text: #94a3b8;
+        --bg-color: #0b1020;
+        --card-bg: #111827;
         --transition: all 0.3s ease;
-        --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        --shadow: 0 5px 15px rgba(0, 0, 0, 0.45);
         --radius: 10px;
       }
 
@@ -305,7 +304,7 @@
       }
 
       .feature-card p {
-        color: #666;
+        color: var(--text-on-dark-muted);
         line-height: 1.6;
       }
 
@@ -526,7 +525,7 @@
         background: transparent;
         color: var(--primary-color);
         transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(230, 126, 34, 0.3);
+        box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
       }
 
       /* Responsive Design */
@@ -581,7 +580,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Our Fitness Repair Experts | Canadian Fitness Repair | Hamilton & GTA</title>
     <link rel="canonical" href="https://canadianfitnessrepair.com/aboutus.html" />
-    <meta name="description" content="Meet our certified fitness equipment technicians serving Hamilton & GTA since 2015. 24/7 repair specialists for treadmills, ellipticals & commercial gym equipment. Family-owned business." />
+    <meta name="description" content="Meet our certified fitness equipment technicians serving Hamilton & GTA since 2013. 24/7 repair specialists for treadmills, ellipticals & commercial gym equipment. Family-owned business." />
     <meta property="og:title" content="Meet Our Fitness Repair Team | Canadian Fitness Repair" />
     <meta property="og:description" content="Certified technicians with 10+ years experience repairing treadmills, ellipticals & commercial gym equipment across Hamilton and GTA." />
     <meta property="og:image" content="https://www.canadianfitnessrepair.com/assets/images/team-photo.jpg" />
@@ -1190,7 +1189,7 @@
       }
     </style>
   </head>
-  <body class="theme-light about-page">
+  <body class="about-page">
     <div id="header"></div>
     <main>
       <section class="about-hero">
@@ -1225,8 +1224,8 @@
               values of integrity, expertise, and customer-first service.
             </p>
             <p>
-              Today, we're proud to be GTA's premier fitness equipment repair
-              service, trusted by gym owners, fitness centers, and home users
+              Today, we're proud to be a trusted fitness equipment repair
+              service across the GTA, recommended by gym owners, fitness centers, and home users
               alike. Our journey continues as we innovate and expand our
               services to meet the evolving needs of the fitness community.
             </p>
@@ -1294,8 +1293,8 @@
               </div>
               <h3>Warranty Guaranteed</h3>
               <p>
-                All repairs come with a comprehensive warranty covering both
-                parts and labor for your peace of mind.
+                All repairs come with a 30-day parts and labour warranty for
+                your peace of mind.
               </p>
             </div>
           </div>

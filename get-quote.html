@@ -161,6 +161,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/headerfooter.css?v=20261030" />
+    <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+    <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
     <style>
         * {
           margin: 0;
@@ -204,7 +206,7 @@
         input.error,
         select.error,
         textarea.error {
-          border: 1.5px solid #ff4d4d; /* subtle red border */
+          border: 1.5px solid var(--amber-500); /* subtle red border */
           background-color: #1f1f1f; /* dark background */
           color: var(--white); /* readable text */
           caret-color: var(--white);
@@ -222,7 +224,7 @@
         }
         .error-message {
           display: none;
-          color: #ff4d4d;
+          color: var(--amber-500);
           font-size: 0.85rem;
           margin-top: 4px;
           font-weight: 500;
@@ -347,7 +349,7 @@
           background-color: rgba(255, 255, 255, 0.05);
           border-radius: 8px;
           color: var(--text-color);
-          font-family: "Segoe UI", Roboto, sans-serif;
+          font-family: var(--font-body);
           font-size: 1rem;
           transition: var(--transition);
         }
@@ -910,7 +912,7 @@
   
         .success-icon {
           font-size: 2.5rem;
-          color: #5dff96;
+          color: var(--amber-500);
           margin-bottom: 10px;
         }
   
@@ -967,7 +969,7 @@
         }
   
         .asterisk {
-          color: #ff6b6b;
+          color: var(--amber-500);
           margin-right: 4px;
           font-weight: bold;
         }
@@ -1309,7 +1311,7 @@
         /* ---- Validation --------------------------------------------------- */
         .error-message,
         .form-group.invalid .error-message {
-          color: #fca5a5;
+          color: var(--amber-700);
           font-size: 0.82rem;
           margin-top: 0.4rem;
         }
@@ -1320,16 +1322,16 @@
         .quote-form input.error,
         .quote-form select.error,
         .quote-form textarea.error {
-          border-color: #ef4444;
+          border-color: var(--amber-500);
           background-color: #1a1216;
-          box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18);
+          box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
         }
 
         .quote-form input.error:focus,
         .quote-form select.error:focus,
         .quote-form textarea.error:focus {
-          border-color: #f87171;
-          box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.28);
+          border-color: var(--amber-500);
+          box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.28);
         }
 
         .form-note,
@@ -1461,13 +1463,13 @@
 
         .c-button {
           border-radius: 10px;
-          background: var(--brand-700, #4338ca);
+          background: var(--brand-700, var(--brand-700));
           font-weight: 700;
           transition: background-color 0.2s ease, transform 0.2s ease;
         }
 
         .c-button:hover {
-          background: var(--brand-600, #4f46e5);
+          background: var(--brand-600, var(--brand-600));
           transform: translateY(-2px);
         }
 

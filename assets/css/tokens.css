@@ -11,12 +11,12 @@
   /* ── Brand purple ── */
   --brand-50: #eef2ff;
   --brand-100: #e0e7ff;
-  --brand-300: #a5b4fc;
-  --brand-400: #818cf8;
-  --brand-500: #6366f1;
-  --brand-600: #4f46e5;
-  --brand-700: #4338ca;
-  --brand-900: #312e81;
+  --brand-300: #a5a5ff;
+  --brand-400: #8585ff;
+  --brand-500: #7a7aff;
+  --brand-600: #4a4aff;
+  --brand-700: #5d5dff;
+  --brand-900: #2f2fe6;
 
   /* ── Light-first surfaces ── */
   --paper: #f8fafc;

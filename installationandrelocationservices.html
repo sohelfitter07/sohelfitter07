@@ -57,7 +57,13 @@
     <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /></noscript>
     
     <!-- Local Stylesheets -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/headerfooter.css?v=20261030" />
+    <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+    <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
 
     <!-- JSON-LD Schema Markup -->
     <script type="application/ld+json">
@@ -192,7 +198,7 @@
       }
 
       .hero h1 {
-        font-family: 'Montserrat', sans-serif;
+        font-family: var(--font-display);
         font-size: clamp(2.8rem, 5vw, 4.5rem);
         margin-bottom: 1.5rem;
         line-height: 1.2;
@@ -278,7 +284,7 @@
 
       .section-tag {
         display: inline-block;
-        background: rgba(249, 115, 22, 0.2);
+        background: rgba(245, 158, 11, 0.2);
         color: var(--secondary);
         padding: 0.5rem 1.5rem;
         border-radius: 30px;
@@ -289,7 +295,7 @@
       }
 
       .section-title {
-        font-family: 'Montserrat', sans-serif;
+        font-family: var(--font-display);
         font-size: clamp(2rem, 4vw, 2.8rem);
         margin-bottom: 1.5rem;
         color: white;
@@ -366,7 +372,7 @@
         width: 80px;
         height: 80px;
         border-radius: 16px;
-        background: rgba(37, 99, 235, 0.1);
+        background: rgba(93, 93, 255, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -377,7 +383,7 @@
       }
 
       .service-card:hover .service-icon {
-        background: rgba(249, 115, 22, 0.2);
+        background: rgba(245, 158, 11, 0.2);
         transform: scale(1.1);
       }
 
@@ -385,7 +391,7 @@
         font-size: 1.5rem;
         margin-bottom: 1rem;
         color: white;
-        font-family: 'Montserrat', sans-serif;
+        font-family: var(--font-display);
       }
 
       .service-card p {
@@ -1002,7 +1008,7 @@
             <div class="step-number">6</div>
             <div class="step-content">
               <h3>Cleanup & Warranty</h3>
-              <p>We clean up the work area, remove all packaging materials, and provide you with our 90-day service warranty.</p>
+              <p>We clean up the work area, remove all packaging materials, and provide you with our 30-day service warranty.</p>
             </div>
           </div>
         </div>
@@ -1028,7 +1034,7 @@
               <li>Basic calibration and testing</li>
               <li>Packaging removal</li>
               <li>30-minute operational tutorial</li>
-              <li>90-day labor warranty</li>
+              <li>30-day labour warranty</li>
             </ul>
             <a href="tel:+12899257239" class="c-button">Book This Service</a>
           </div>
@@ -1045,7 +1051,7 @@
               <li>Space planning consultation</li>
               <li>Comprehensive safety check</li>
               <li>60-minute operational tutorial</li>
-              <li>90-day labor warranty</li>
+              <li>30-day labour warranty</li>
             </ul>
             <a href="tel:+12899257239" class="c-button">Book This Service</a>
           </div>
@@ -1062,7 +1068,7 @@
               <li>Reassembly and calibration</li>
               <li>Damage protection during move</li>
               <li>Testing at new location</li>
-              <li>90-day labor warranty</li>
+              <li>30-day labour warranty</li>
             </ul>
             <a href="tel:+12899257239" class="c-button">Book This Service</a>
           </div>

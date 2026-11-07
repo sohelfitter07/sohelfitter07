@@ -50,26 +50,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
   <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet"/>
+  <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+  <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
   <style>
     /* ===== ROOT VARIABLES ===== */
     :root {
-        --primary: #2563eb;
-        --primary-dark: #1d4ed8;
-        --secondary: #10b981;
-        --dark: #1e293b;
-        --light: #f8fafc;
+        --primary: var(--brand);
+        --primary-dark: var(--brand-dark);
+        --secondary: var(--amber-500);
+        --dark: #e2e8f0;
+        --light: #111827;
         --gray: #94a3b8;
-        --accent: #f97316;
-        --card-bg: var(--white);
-        --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        --accent: var(--amber-500);
+        --card-bg: #111827;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
         --transition: all 0.3s ease;
-        /* The page body is light, so the shared header/footer must use the
-           same light-theme tokens as the other city pages. */
-        --theme-color: #2563eb;
-        --accent-color: #b45309;
-        --bg-color: #f1f5f9;
-        --text-color: #1e293b;
-        --light-text: #64748b;
+        /* Dark page surfaces; header/footer share the same brand tokens. */
+        --theme-color: var(--brand);
+        --accent-color: var(--amber-500);
+        --bg-color: #0b1020;
+        --text-color: #e2e8f0;
+        --light-text: #94a3b8;
     }
     
     /* ===== BASE STYLES ===== */
@@ -80,7 +81,7 @@
     }
     
     body {
-        background-color: #f1f5f9;
+        background-color: var(--bg-color);
         color: var(--dark);
         line-height: 1.6;
         overflow-x: hidden;
@@ -95,7 +96,7 @@
     
     /* ===== HERO SECTION ===== */
     .hero {
-        background: linear-gradient(rgba(30, 41, 59, 0.85), rgba(30, 41, 59, 0.9)),
+        background: linear-gradient(rgba(11, 16, 32, 0.85), rgba(11, 16, 32, 0.95)),
                     url('https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80');
         background-size: cover;
         background-position: center;
@@ -124,7 +125,7 @@
     
     .hero-title {
         font-size: 3.5rem;
-        font-family: 'Montserrat', sans-serif;
+        font-family: var(--font-display);
         margin-bottom: 20px;
         line-height: 1.2;
     }
@@ -182,7 +183,7 @@
         margin-bottom: 15px;
         position: relative;
         font-size: 2.5rem;
-        font-family: 'Montserrat', sans-serif;
+        font-family: var(--font-display);
     }
     
     .section-title::after {
@@ -216,7 +217,7 @@
         transition: var(--transition);
         box-shadow: var(--shadow);
         text-align: center;
-        border: 1px solid #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.08);
     }
     
     .service-card:hover {
@@ -244,7 +245,7 @@
     /* ===== TECHNICIAN SECTION ===== */
     .technician {
         padding: 80px 0;
-        background: linear-gradient(to right, #f8fafc, #e2e8f0);
+        background: linear-gradient(to right, #111827, #0b1020);
     }
     
     .technician-container {
@@ -294,7 +295,7 @@
         position: relative;
         padding: 40px 30px 30px;
         margin: 50px 0;
-        background: #f8f9fc;
+        background: #111827;
         border-radius: 8px;
         border-left: 4px solid var(--primary);
         font-style: italic;
@@ -309,7 +310,7 @@
         font-size: 6rem;
         color: var(--primary);
         opacity: 0.15;
-        font-family: Georgia, serif;
+        font-family: var(--font-display);
         font-weight: bold;
         line-height: 1;
         z-index: 0;
@@ -321,7 +322,7 @@
     }
     
     .areas-content {
-        background: white;
+        background: var(--card-bg);
         border-radius: 12px;
         padding: 40px;
         box-shadow: var(--shadow);
@@ -335,12 +336,12 @@
     }
     
     .area-item {
-        background: rgba(37, 99, 235, 0.1);
+        background: rgba(93, 93, 255, 0.12);
         padding: 15px;
         border-radius: 8px;
         text-align: center;
         transition: var(--transition);
-        border: 1px solid rgba(37, 99, 235, 0.2);
+        border: 1px solid rgba(93, 93, 255, 0.28);
         font-weight: 500;
     }
     
@@ -348,7 +349,7 @@
         background: var(--primary);
         color: white;
         transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        box-shadow: 0 5px 15px rgba(93, 93, 255, 0.28);
     }
     
     /* ===== PARTNERSHIP SECTION ===== */
@@ -390,7 +391,7 @@
         position: relative;
         padding: 40px 30px;
         margin: 50px 0;
-        background: linear-gradient(135deg, #2c3e50, #1a2530);
+        background: linear-gradient(135deg, #151b26, #0b1020);
         border-radius: 12px;
         color: white;
         font-style: italic;
@@ -405,7 +406,7 @@
         left: 20px;
         font-size: 6rem;
         color: rgba(255, 255, 255, 0.3);
-        font-family: Georgia, serif;
+        font-family: var(--font-display);
         font-weight: bold;
         line-height: 1;
         z-index: 0;
@@ -418,13 +419,13 @@
         font-weight: 600;
         margin-top: 15px;
         font-size: 1rem;
-        color: #ddd;
+        color: #cbd5e1;
     }
     
     /* ===== NEARBY AREAS ===== */
     .nearby {
         padding: 80px 0;
-        background: #f1f5f9;
+        background: var(--bg-color);
     }
     
     .nearby-areas {
@@ -435,7 +436,7 @@
     }
     
     .nearby-card {
-        background: white;
+        background: var(--card-bg);
         border-radius: 12px;
         padding: 25px;
         text-align: center;
@@ -470,7 +471,7 @@
     /* ===== CTA SECTION ===== */
     .cta {
         padding: 100px 0;
-        background: linear-gradient(135deg, var(--accent), #ea580c);
+        background: linear-gradient(135deg, var(--brand), var(--brand-dark));
         color: white;
         text-align: center;
     }
@@ -478,7 +479,7 @@
     .cta-title {
         font-size: 2.5rem;
         margin-bottom: 20px;
-        font-family: 'Montserrat', sans-serif;
+        font-family: var(--font-display);
     }
     
     .cta-description {
@@ -490,7 +491,7 @@
     /* ===== SERVICE MAP ===== */
     .service-map {
         padding: 80px 0;
-        background: white;
+        background: var(--card-bg);
     }
     
     .map-container {
@@ -529,7 +530,7 @@
     
     .map-list li {
         padding: 10px 0;
-        border-bottom: 1px solid #e2e8f0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         display: flex;
         align-items: center;
         gap: 10px;
@@ -542,7 +543,7 @@
     /* ===== TESTIMONIALS ===== */
     .testimonials {
         padding: 100px 0;
-        background: #f1f5f9;
+        background: var(--bg-color);
     }
     
     .testimonial-grid {
@@ -554,7 +555,7 @@
     .testimonial-card {
         position: relative;
         padding: 40px 30px 30px;
-        background: white;
+        background: var(--card-bg);
         border-radius: 12px;
         box-shadow: var(--shadow);
     }
@@ -567,7 +568,7 @@
         font-size: 5rem;
         color: var(--primary);
         opacity: 0.1;
-        font-family: Georgia, serif;
+        font-family: var(--font-display);
         font-weight: bold;
         line-height: 1;
         z-index: 0;
@@ -713,7 +714,7 @@
 }
 </script>
 </head>
- <body class="theme-light">
+ <body>
   <div id="header">
   </div>
   <main>
@@ -978,7 +979,7 @@
       <div class="testimonial-card">
        <div class="testimonial-content">
         <p>
-         Our gym equipment at Stoney Creek Fitness was constantly breaking down until we hired Canadian Fitness Repair. Their monthly maintenance program has saved us thousands in replacement costs.
+         Our gym equipment was constantly breaking down until we hired Canadian Fitness Repair. Their monthly maintenance program has saved us thousands in replacement costs.
         </p>
         <div class="testimonial-author">
          <div class="author-avatar">
@@ -989,7 +990,7 @@
            Michael Thompson
           </h4>
           <p>
-           Stoney Creek Fitness Center
+           Local gym owner
           </p>
          </div>
         </div>
@@ -1021,14 +1022,14 @@
    <section class="partnership">
     <div class="container partner-container">
      <div class="partner-logo">
-      <img alt="Stoney Creek Fitness Center" src="https://tourismhamilton.com/media/Street-View2-medium-1.jpg"/>
+      <img alt="Commercial gym equipment in Stoney Creek" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"/>
      </div>
      <div class="partner-info">
       <h2 class="partner-name">
-       Preferred Repair Provider for Stoney Creek Fitness Center
+       Commercial Fitness Equipment Service in Stoney Creek
       </h2>
       <p>
-       We're proud to be the exclusive fitness equipment service provider for Stoney Creek Fitness Center, the premier gym in our community. Our technicians service their 40+ pieces of commercial equipment monthly, ensuring minimal downtime for members.
+       We regularly service commercial gyms, condo fitness rooms, and home gyms across Stoney Creek, keeping equipment running with minimal downtime.
       </p>
       <div class="partner-quote">
        "Canadian Fitness Repair understands the demands of a busy Stoney Creek gym. Their same-day service keeps our equipment running smoothly during peak hours." - Michael T., Facility Manager

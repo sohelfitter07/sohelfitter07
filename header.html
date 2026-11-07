@@ -1,11 +1,11 @@
 <header>
     <!-- Favicon Universal Support -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
     
     <!-- Apple/Safari Support -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
     
     <!-- Desktop Admin Button -->
     <a href="admin-login.html" class="admin-button">
@@ -315,7 +315,7 @@
 
 <style>
 .promo-line {
-    background: linear-gradient(90deg, #CE4B40, #E7948F);
+    background: linear-gradient(90deg, var(--brand), var(--amber-500));
     color: white;
     padding: 4px 0;
     overflow: hidden;
@@ -350,7 +350,7 @@
 
 .banner-content a:hover {
     background-color: rgba(255, 255, 255, 0.9);
-    color: #CE4B40;
+    color: var(--brand);
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }

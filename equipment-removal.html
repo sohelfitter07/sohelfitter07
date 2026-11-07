@@ -15,6 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
   <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet" />
+  <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+  <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
   
   <!-- Fonts & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'" />
@@ -26,8 +28,8 @@
     /* Reuse existing variables and base styles */
     :root {
       --theme-color: var(--brand);
- --secondary: #4CAF50; /* Eco-friendly green */
-  --accent-color: #388E3C; /* Darker green */
+ --secondary: var(--amber-500); /* Eco-friendly green */
+  --accent-color: var(--amber-700); /* Darker green */
       --bg-color: #0f172a;
       --card-bg: #1e293b;
       --text-color: #f8fafc;
@@ -88,7 +90,7 @@
     }
 
     .hero h1 {
-      font-family: 'Montserrat', sans-serif;
+      font-family: var(--font-display);
       font-size: clamp(2.8rem, 5vw, 4rem);
       margin-bottom: 1.5rem;
       line-height: 1.2;
@@ -173,7 +175,7 @@
 
     .section-tag {
       display: inline-block;
-      background: rgba(249, 115, 22, 0.2);
+      background: rgba(245, 158, 11, 0.2);
       color: var(--secondary);
       padding: 0.5rem 1.5rem;
       border-radius: 30px;
@@ -184,7 +186,7 @@
     }
 
     .section-title {
-      font-family: 'Montserrat', sans-serif;
+      font-family: var(--font-display);
       font-size: clamp(2rem, 4vw, 2.8rem);
       margin-bottom: 1.5rem;
       color: white;
@@ -261,7 +263,7 @@
       width: 80px;
       height: 80px;
       border-radius: 16px;
-      background: rgba(37, 99, 235, 0.1);
+      background: rgba(93, 93, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -272,7 +274,7 @@
     }
 
     .service-card:hover .service-icon {
-      background: rgba(249, 115, 22, 0.2);
+      background: rgba(245, 158, 11, 0.2);
       transform: scale(1.1);
     }
 
@@ -280,7 +282,7 @@
       font-size: 1.5rem;
       margin-bottom: 1rem;
       color: white;
-      font-family: 'Montserrat', sans-serif;
+      font-family: var(--font-display);
     }
 
     .service-card p {
@@ -533,7 +535,7 @@
       font-weight: 700;
       color: var(--theme-color);
       margin-bottom: 0.5rem;
-      font-family: 'Montserrat', sans-serif;
+      font-family: var(--font-display);
     }
 
     .stat-label {

@@ -40,7 +40,7 @@
 
     <!-- Apple/Safari Support -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5d5dff" />
+    <link rel="mask-icon" href="/assets/icons/favicon.svg" color="#5d5dff" />
     
     <!-- Theme Color -->
     <meta name="theme-color" content="#5d5dff" />
@@ -97,6 +97,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
 <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet" />
+<link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+<link href="assets/css/components.css?v=20261028" rel="stylesheet" />
     <style>
       :root {
         --bg-color: #151719;
@@ -503,7 +505,7 @@
         left: 20px;
         font-size: 5rem;
         color: rgba(93, 93, 255, 0.2);
-        font-family: serif;
+        font-family: var(--font-display);
         line-height: 1;
       }
       .testimonial-content {
@@ -541,7 +543,7 @@
         font-size: 0.9rem;
       }
       .rating {
-        color: #ffc107;
+        color: var(--amber-500);
         margin-top: 0.3rem;
       }
 

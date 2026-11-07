@@ -40,6 +40,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/headerfooter.css?v=20261030">
+    <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+    <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -106,7 +108,7 @@
           "@type": "PriceSpecification",
           "price": 89.0,
           "priceCurrency": "CAD",
-          "description": "Flat rate diagnostic and minor repair. Parts and labor extra."
+          "description": "Flat rate diagnostic and minor repair. Parts and labour extra."
         },
         "availability": "https://schema.org/InStock",
         "url": "https://www.canadianfitnessrepair.com/strength-equipment-repair.html"
@@ -537,7 +539,7 @@
             left: 20px;
             font-size: 5rem;
             color: rgba(93, 93, 255, 0.2);
-            font-family: serif;
+            font-family: var(--font-display);
             line-height: 1;
         }
         
@@ -581,7 +583,7 @@
         }
         
         .rating {
-            color: #ffc107;
+            color: var(--amber-500);
             margin-top: 5px;
         }
         

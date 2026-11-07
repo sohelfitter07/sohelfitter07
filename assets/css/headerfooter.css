@@ -1596,9 +1596,9 @@ body.nav-open #cfr-win {
     }
 }
 
-/* Light pages (aboutus, stoney-creek, niagara, stcatharines) keep their own
-   light --bg-color. The footer is intentionally dark on every page now, so
-   only the header tagline needs the page-aware accent. */
+/* Some pages still scope their own local --bg-color override. The footer is
+   intentionally dark on every page, so only the header tagline needs the
+   page-aware accent. */
 body.theme-light .tagline {
   color: var(--theme-color);
 }

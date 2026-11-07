@@ -53,6 +53,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/headerfooter.css?v=20261030">
+    <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
+    <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
     <script type="application/ld+json">
         {
           "@context": "https://schema.org",
@@ -327,7 +329,7 @@
         
         /* ===== Emergency Banner ===== */
         .emergency-banner {
-            background: linear-gradient(90deg, #ff6b6b, #e74c3c);
+            background: linear-gradient(90deg, var(--amber-500), var(--amber-700));
             padding: 2rem;
             border-radius: 12px;
             margin: 3rem 0;
@@ -338,9 +340,9 @@
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
         }
         
         /* ===== Neighborhoods Section ===== */
@@ -444,12 +446,12 @@
             font-size: 5rem;
             color: var(--accent-color);
             opacity: 0.15;
-            font-family: Georgia, serif;
+            font-family: var(--font-display);
             line-height: 1;
         }
         
         .rating {
-            color: #FFD700;
+            color: var(--amber-500);
             margin-bottom: 1rem;
             font-size: 1.2rem;
         }
@@ -782,7 +784,7 @@
 
         <!-- Welland Content -->
         <section class="city-content">
-            <h2 class="section-title">Welland's #1 Fitness Equipment Repair Specialists</h2>
+            <h2 class="section-title">Welland's Trusted Fitness Equipment Repair Specialists</h2>
             <p class="intro-text">Since 2013, Canadian Fitness Repair has been Welland's trusted solution for professional treadmill, elliptical, and exercise bike repairs. Our factory-trained technicians specialize in restoring all major brands to optimal performance.</p>
             
             <div class="emergency-banner">
@@ -934,7 +936,7 @@
                 <div class="testimonial-card">
                     <div class="rating">★★★★★</div>
                     <p>"As a downtown Welland gym owner, I rely on their expertise. They understand our unique challenges with high-volume equipment usage."</p>
-                    <p><strong>Sarah K.</strong> | Welland Fitness Centre</p>
+                    <p><strong>Sarah K.</strong> | a local gym</p>
                 </div>
                 <div class="testimonial-card">
                     <div class="rating">★★★★★</div>
