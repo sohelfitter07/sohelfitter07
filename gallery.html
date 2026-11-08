@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<!-- Favicon Universal Support -->
-<link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
-<link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+    <!-- Favicon Universal Support -->
+    <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
 
-<!-- Apple/Safari Support -->
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-
+    <!-- Google Analytics -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
+      function gtag() { dataLayer.push(arguments); }
       window.addEventListener("load", function () {
-        if ("requestIdleCallback" in window) {
-          requestIdleCallback(loadGTag);
-        } else {
-          setTimeout(loadGTag, 500);
-        }
+        if ("requestIdleCallback" in window) { requestIdleCallback(loadGTag); }
+        else { setTimeout(loadGTag, 500); }
       });
       function loadGTag() {
         var script = document.createElement("script");
@@ -33,1174 +27,640 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Fitness Equipment Repair Gallery | Canadian Fitness Repair | Hamilton &
-      GTA Service Photos
-    </title>
+    <title>Fitness Equipment Repair Gallery | Hamilton &amp; GTA | Canadian Fitness Repair</title>
+    <meta name="description" content="Browse real treadmill, elliptical, commercial gym and PCB repair projects completed by Canadian Fitness Repair across Hamilton and the GTA." />
+    <meta name="keywords" content="fitness equipment repair gallery, treadmill repair photos, gym equipment repair Hamilton, PCB repair, commercial gym maintenance GTA" />
     <link rel="canonical" href="https://canadianfitnessrepair.com/gallery.html" />
-    <meta
-      name="description"
-      content="See our repair gallery: 150+ photos of treadmill, elliptical & gym equipment repairs in Hamilton, Burlington, Oakville & GTA. Real customer installations."
-    />
-    <meta
-      name="geo.placename"
-      content="Hamilton, Burlington, Oakville, Mississauga, Niagara, Greater Toronto Area, Southern Ontario"
-    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Fitness Equipment Repair Gallery | Hamilton &amp; GTA" />
+    <meta property="og:description" content="Real repairs, installations and PCB-level fixes completed across Hamilton, Burlington, Oakville, Mississauga, Toronto and the GTA." />
+    <meta property="og:image" content="https://www.canadianfitnessrepair.com/assets/images/fitness-equipment-repair.webp" />
+    <meta property="og:url" content="https://canadianfitnessrepair.com/gallery.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fitness Equipment Repair Gallery | Hamilton &amp; GTA" />
+    <meta name="twitter:description" content="See completed treadmill, commercial gym and PCB repair projects from our Hamilton-based technicians." />
+    <meta name="twitter:image" content="https://www.canadianfitnessrepair.com/assets/images/fitness-equipment-repair.webp" />
+
+    <!-- Geo -->
+    <meta name="geo.placename" content="Hamilton, Burlington, Oakville, Mississauga, Toronto, St. Catharines, Greater Toronto Area" />
     <meta name="geo.position" content="43.2250;-79.8660" />
     <meta name="geo.region" content="CA-ON" />
     <meta name="ICBM" content="43.2250, -79.8660" />
 
-    <!-- Open Graph -->
-    <meta
-      property="og:title"
-      content="Fitness Equipment Repair Gallery | Canadian Fitness Repair"
-    />
-    <meta
-      property="og:description"
-      content="See 150+ photos of our repair work: Treadmills, ellipticals & commercial gym equipment in Hamilton, Burlington, Oakville & GTA"
-    />
-    <meta
-      property="og:image"
-      content="https://www.canadianfitnessrepair.com/assets/images/gallery-hero.jpg"
-    />
-    <meta
-      property="og:url"
-      content="https://www.canadianfitnessrepair.com/gallery"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en_CA" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Fitness Repair Gallery | Canadian Fitness Repair"
-    />
-    <meta
-      name="twitter:description"
-      content="See our repair work in Hamilton & GTA: Treadmill motors, elliptical repairs & commercial installations"
-    />
-    <meta
-      name="twitter:image"
-      content="https://www.canadianfitnessrepair.com/assets/images/gallery-twitter.jpg"
-    />
-
-    <!-- Canonical -->
-
-    <!-- Icons & Fonts -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-
-    <!-- Styles -->
+    <!-- Fonts & icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/headerfooter.css?v=20261030" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" rel="stylesheet" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+
+    <!-- Shared chrome + service design system -->
+    <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet" />
     <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
     <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
+    <link href="assets/css/service.css?v=20261104" rel="stylesheet" />
 
-    <!-- Fixed font-family -->
+    <!-- Gallery-specific presentation -->
     <style>
-      :root {
-        --theme-color: var(--brand);
-        --accent-color: #f59e0b;
-        --dark-bg: #151719;
-        --light-bg: #f1f3f5;
-        --text-light: #ccc;
-        --text-color: #fefefe;
-        --card-bg: #1e2124;
-      }
-      body {
-        margin: 0;
-        background-color: var(--dark-bg);
-        color: var(--text-color);
-      }
-      main {
-        background-color: var(--dark-bg);
-        overflow-x: hidden;
-      } /* === HERO === */
-      .gallery-hero {
-        background: linear-gradient(to right, var(--brand), #7f8fff);
-        color: white;
-        text-align: center;
-        padding: 3rem 1rem 4rem;
-      }
-      .gallery-hero h1 {
-        font-size: 2.8rem;
-        margin-bottom: 0.5rem;
-      }
-      .gallery-hero p {
-        font-size: 1.2rem;
-        max-width: 600px;
-        margin: 0 auto 1.5rem;
-      }
-      .gallery-hero .c-button {
-        background: white;
-        color: var(--brand);
-        padding: 0.75rem 1.5rem;
-        font-weight: 600;
-        border: none;
-        border-radius: 6px;
-        text-decoration: none;
-        transition: 0.3s;
-      }
-      .gallery-hero .c-button:hover {
-        background: #eaeaea;
-      } /* === CONTENT WRAPPER === */
-      .gallery-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 3rem 1rem;
-      }
-      .gallery-intro {
-        text-align: center;
-        margin-bottom: 2rem;
-      }
-      .section-title {
-        font-size: 2rem;
-        color: white;
-        margin-bottom: 0.5rem;
-      } /* === FILTER BUTTONS === */
-      .location-filter {
+      .gallery-filters {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 0.75rem;
-        margin: 1.5rem auto 2rem;
+        gap: 0.6rem;
+        margin: 0 auto 1rem;
       }
-      .location-btn {
-        background: #2b2d31;
-        color: var(--text-light);
-        border: 1px solid #444;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 0.95rem;
-        transition: background 0.3s;
+
+      .gallery-count {
+        margin: 0 0 1.6rem;
+        color: var(--svc-subtle);
+        font-size: 0.85rem;
+        text-align: center;
       }
-      .location-btn.active,
-      .location-btn:hover {
-        background: var(--theme-color);
-        color: white;
-      } /* === GALLERY CARDS === */
+
+      .gallery-count strong {
+        color: var(--svc-accent-bright);
+      }
+
       .gallery-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.1rem;
       }
-      .gallery-item {
-        background: var(--card-bg);
-        border-radius: 10px;
+
+      .gallery-card {
+        display: block;
+        padding: 0;
         overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-      }
-      .gallery-item:hover {
-        transform: translateY(-5px);
-      }
-      .gallery-img-container img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-      }
-      .gallery-info {
-        padding: 1rem;
-      }
-      .gallery-info h3 {
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
-        color: white;
-      }
-      .gallery-location {
-        font-size: 0.9rem;
-        color: #bbb;
-        margin-bottom: 0.5rem;
-      }
-      .gallery-tags {
-        margin-top: 0.5rem;
-      }
-      .gallery-tag {
-        display: inline-block;
-        background: #2c2f35;
-        padding: 0.3rem 0.6rem;
-        border-radius: 4px;
-        font-size: 0.85rem;
-        margin-right: 0.3rem;
-        color: #eee;
-      } /* === STATS SECTION === */
-      .gallery-stats {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        margin: 3rem 0;
-        text-align: center;
-        background: #202428;
-        padding: 2rem 1rem;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-      }
-      .gallery-stat h3 {
-        font-size: 2rem;
-        color: var(--theme-color);
-      }
-      .gallery-stat p {
-        font-size: 1rem;
-        color: var(--text-light);
-      } /* === SERVICE AREAS === */
-      .service-areas {
-        background: #181b1f;
-        padding: 4rem 1rem;
-        color: white;
-      }
-      .service-areas .section-title {
-        text-align: center;
-        margin-bottom: 2rem;
-      }
-      .cities-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 2rem;
-        max-width: 1100px;
-        margin: 0 auto;
-      }
-      .city-card {
-        background: #23272b;
-        padding: 1.5rem;
-        border-radius: 10px;
-        text-align: center;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      }
-      .city-card i {
-        font-size: 2rem;
-        color: var(--theme-color);
-        margin-bottom: 1rem;
-      }
-      .city-card h3 {
-        color: white;
-      }
-      .city-card p {
-        color: var(--text-light);
-      } /* === SEO CONTENT === */
-      .seo-content {
-        background: var(--dark-bg);
-        padding: 4rem 1rem;
-        color: white;
-      }
-      .content-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        align-items: center;
-      }
-      .content-text {
-        flex: 1 1 500px;
-      }
-      .content-text ul {
-        padding-left: 1.5rem;
-        margin-top: 1rem;
-      }
-      .content-text ul li {
-        margin-bottom: 0.5rem;
-      }
-      .content-image img {
-        max-width: 100%;
-        border-radius: 10px;
-      } /* === IMPROVED SEO SECTION === */
-      .seo-content {
-        background: var(--dark-bg);
-        color: var(--text-color);
-        padding: 5rem 1rem;
-      }
-      .seo-content .container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      .content-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 3rem;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .content-text {
-        flex: 1 1 500px;
-        padding: 1rem;
-      }
-      .content-text h2 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        color: white;
-      }
-      .content-text p {
-        font-size: 1.05rem;
-        color: #ddd;
-        margin-bottom: 1rem;
-      }
-      .content-text ul {
-        padding-left: 1.2rem;
-        margin-bottom: 1.5rem;
-      }
-      .content-text ul li {
-        margin-bottom: 0.5rem;
-        color: #ccc;
-        list-style-type: disc;
-      }
-      .content-text .c-button {
-        display: inline-block;
-        background: var(--theme-color);
-        color: white;
-        padding: 0.8rem 1.5rem;
-        border-radius: 6px;
-        font-weight: 600;
         text-decoration: none;
-        font-size: 1rem;
-        transition: background 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        outline-offset: 4px;
       }
-      .content-text .c-button:hover {
-        background: #4a4aff;
+
+      .gallery-card[hidden] {
+        display: none;
       }
-      .content-image {
-        flex: 1 1 400px;
-        padding: 1rem;
-      }
-      .content-image img {
+
+      .gallery-card img {
+        display: block;
         width: 100%;
-        max-width: 500px;
-        border-radius: 12px;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-      } /* Mobile Adjustments */
-      @media (max-width: 768px) {
-        .content-grid {
-          flex-direction: column;
-          text-align: center;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        transition: transform 0.45s ease, filter 0.45s ease;
+      }
+
+      .gallery-card:hover img,
+      .gallery-card:focus-visible img {
+        transform: scale(1.06);
+        filter: saturate(1.08);
+      }
+
+      .gallery-card__overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 0.15rem;
+        padding: 1.2rem;
+        background: linear-gradient(
+          180deg,
+          rgba(10, 12, 16, 0) 0%,
+          rgba(10, 12, 16, 0.35) 45%,
+          rgba(10, 12, 16, 0.92) 100%
+        );
+        opacity: 0;
+        transition: opacity var(--svc-transition);
+      }
+
+      .gallery-card:hover .gallery-card__overlay,
+      .gallery-card:focus-visible .gallery-card__overlay {
+        opacity: 1;
+      }
+
+      .gallery-card__tag {
+        align-self: flex-start;
+        margin-bottom: 0.35rem;
+        padding: 0.22rem 0.6rem;
+        border-radius: var(--svc-pill);
+        background: var(--svc-accent-soft);
+        color: var(--svc-accent-bright);
+        font-size: 0.64rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .gallery-card__title {
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.3;
+        transform: translateY(6px);
+        transition: transform var(--svc-transition);
+      }
+
+      .gallery-card__meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        color: var(--svc-muted);
+        font-size: 0.78rem;
+        transform: translateY(6px);
+        transition: transform var(--svc-transition);
+      }
+
+      .gallery-card:hover .gallery-card__title,
+      .gallery-card:hover .gallery-card__meta,
+      .gallery-card:focus-visible .gallery-card__title,
+      .gallery-card:focus-visible .gallery-card__meta {
+        transform: translateY(0);
+      }
+
+      .gallery-card__zoom {
+        position: absolute;
+        top: 0.85rem;
+        right: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 50%;
+        background: rgba(10, 12, 16, 0.55);
+        color: #fff;
+        font-size: 1rem;
+        opacity: 0;
+        transform: translateY(-4px);
+        transition: opacity var(--svc-transition), transform var(--svc-transition);
+        backdrop-filter: blur(6px);
+      }
+
+      .gallery-card:hover .gallery-card__zoom,
+      .gallery-card:focus-visible .gallery-card__zoom {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes galleryFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .gallery-card--in {
+        animation: galleryFadeIn 0.3s ease both;
+      }
+
+      @media (hover: none) {
+        .gallery-card__overlay {
+          opacity: 1;
         }
-        .content-text {
-          padding: 0;
+
+        .gallery-card__title,
+        .gallery-card__meta {
+          transform: none;
         }
-        .content-image {
-          padding: 0;
-        }
-        .content-text .c-button {
-          margin: 1rem auto 0;
-        }
-      } /* === RESPONSIVE FIXES === */
-      @media (max-width: 768px) {
-        .gallery-hero h1 {
-          font-size: 2rem;
-        }
-        .location-filter {
-          flex-direction: column;
-          align-items: center;
-        }
-        .gallery-stats {
-          flex-direction: column;
-          gap: 1.5rem;
-        }
-        .content-grid {
-          flex-direction: column;
+
+        .gallery-card__zoom {
+          display: none;
         }
       }
-    </style>
-    <style>
-      body {
-        margin: 0;
-        background-color: var(--dark-bg);
-        color: var(--text-color);
+
+      @media (max-width: 1024px) {
+        .gallery-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .gallery-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .gallery-filter {
+          flex: 1 1 calc(50% - 0.5rem);
+          width: auto;
+        }
+
+        .gallery-card img {
+          aspect-ratio: 16 / 10;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .gallery-filter {
+          flex-basis: 100%;
+        }
       }
     </style>
 
-    <!-- LocalBusiness schema (already present) -->
+    <!-- Gallery + breadcrumb structured data -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Canadian Fitness Repair",
-        "url": "https://www.canadianfitnessrepair.com",
-        "logo": "https://www.canadianfitnessrepair.com/assets/images/logo.png",
-        "image": [
-          "https://www.canadianfitnessrepair.com/assets/images/service-van.jpg",
-          "https://www.canadianfitnessrepair.com/assets/images/technician-working.jpg"
-        ],
-        "description": "Expert fitness equipment repair and maintenance services in Hamilton, Toronto, Oakville, and surrounding areas.",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "22 Canary Grass Blvd",
-          "addressLocality": "Hamilton",
-          "addressRegion": "Ontario",
-          "postalCode": "L0R 1P0",
-          "addressCountry": "CA"
-        },
-        "telephone": "+1-289-925-7239",
-        "areaServed": [
-          "Hamilton",
-          "Toronto",
-          "Oakville",
-          "Burlington",
-          "Mississauga"
-        ],
-        "sameAs": [
-          "https://www.facebook.com/CanadianFitnessRepair",
-          "https://www.instagram.com/canadianfitnessrepair"
-        ]
-      }
+{
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Canadian Fitness Repair Work Gallery",
+  "description": "Completed treadmill, elliptical, commercial gym and PCB repair projects across Hamilton and the GTA.",
+  "url": "https://canadianfitnessrepair.com/gallery.html",
+  "image": [
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=800&auto=format&fit=crop",
+      "name": "Treadmill and Elliptical Service in Hamilton",
+      "description": "Rows of treadmills and ellipticals serviced in a Hamilton commercial gym."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=800&auto=format&fit=crop",
+      "name": "Treadmill Belt and Deck Repair in Burlington",
+      "description": "Treadmills lined up on the cardio floor during a belt and deck repair visit in Burlington."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?q=80&w=800&auto=format&fit=crop",
+      "name": "Cardio Bike Tune-Up in Oakville",
+      "description": "Commercial spin bike inspected and tuned up in an Oakville gym."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800&auto=format&fit=crop",
+      "name": "Drive Motor Rebuild in Mississauga",
+      "description": "Technician machining a replacement component during a treadmill drive motor rebuild."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1637430308606-86576d8fef3c?q=80&w=800&auto=format&fit=crop",
+      "name": "Commercial Gym Maintenance in Oakville",
+      "description": "Commercial gym floor prepared for scheduled strength and cardio equipment maintenance."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
+      "name": "Strength Equipment Inspection in Mississauga",
+      "description": "Dumbbell rack and strength equipment inspected at a Mississauga commercial gym."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1576678927484-cc907957088c?q=80&w=800&auto=format&fit=crop",
+      "name": "Free-Weight Area Service in Toronto",
+      "description": "Close-up of a dumbbell rack during a free-weight area service in Toronto."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1546483875-ad9014c88eba?q=80&w=800&auto=format&fit=crop",
+      "name": "Bench Press Station Rebuild in Ancaster",
+      "description": "Client using a bench press station after a rebuild in Ancaster."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=800&auto=format&fit=crop",
+      "name": "PCB and Console Board Repair in Hamilton",
+      "description": "Technician repairing a fitness equipment control board in Hamilton."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&w=800&auto=format&fit=crop",
+      "name": "Motor Control Board Rebuild in Burlington",
+      "description": "Soldering a replacement component onto a motor control board in Burlington."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop",
+      "name": "Circuit Board Diagnostics in Oakville",
+      "description": "Macro view of a printed circuit board during diagnostics in Oakville."
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
+      "name": "Electronic Fault Tracing in St. Catharines",
+      "description": "Technician tracing an electronic fault with a laptop in St. Catharines."
+    }
+  ]
+}
     </script>
-
-    <!-- Added Service Schema based on Gallery Services -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "serviceType": [
-          "Fitness Equipment Repair & Assembly",
-          "General Maintenance",
-          "Gym repair service",
-          "Preventative Maintenance",
-          "Repair Company",
-          "Treadmill Repair",
-          "Gym Equipment Assembly",
-          "Bike Assembly",
-          "Home Gym Installation",
-          "Elliptical Assembly",
-          "Gym Equipment Installation",
-          "Home Gym Repair",
-          "Routine Maintenance",
-          "Fitness Equipment Installation",
-          "Repair Service",
-          "Parts Installation",
-          "Repair & Maintenance",
-          "Gym Equipment Maintenance",
-          "Treadmill Assembly",
-          "Fitness Equipment Repaired",
-          "Full Installation",
-          "Bike Installation",
-          "Elliptical repair",
-          "Gym Equipment",
-          "Commerical Fitness",
-          "Drive Belt",
-          "Parts Supplier",
-          "Installation",
-          "Assembly Repair",
-          "Gym Assembly",
-          "Gym Equipment Repairs",
-          "Parts Assembly",
-          "Installation and Repairs",
-          "Gym Machine",
-          "Exercise Equipment Service",
-          "Diagnostics & Repairs",
-          "Equipment Movers",
-          "treadmill repair near me",
-          "Parts Replacements",
-          "Tune up",
-          "Bike Repair",
-          "Maintenance Plans"
-        ],
-        "provider": {
-          "@type": "Organization",
-          "name": "Canadian Fitness Repair",
-          "url": "https://www.canadianfitnessrepair.com"
-        },
-        "areaServed": {
-          "@type": "Place",
-          "name": "Hamilton, Burlington, Oakville, Mississauga, GTA"
-        },
-        "description": "Explore our gallery of expert fitness equipment repair jobs including treadmills, ellipticals, exercise bikes, and commercial gym installations across Southern Ontario.",
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Gallery Repair Services",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Treadmill Motor Replacement",
-                "areaServed": "Hamilton",
-                "serviceType": [
-                  "Fitness Equipment Repair & Assembly",
-                  "General Maintenance",
-                  "Gym repair service",
-                  "Preventative Maintenance",
-                  "Repair Company",
-                  "Treadmill Repair",
-                  "Gym Equipment Assembly",
-                  "Bike Assembly",
-                  "Home Gym Installation",
-                  "Elliptical Assembly",
-                  "Gym Equipment Installation",
-                  "Home Gym Repair",
-                  "Routine Maintenance",
-                  "Fitness Equipment Installation",
-                  "Repair Service",
-                  "Parts Installation",
-                  "Repair & Maintenance",
-                  "Gym Equipment Maintenance",
-                  "Treadmill Assembly",
-                  "Fitness Equipment Repaired",
-                  "Full Installation",
-                  "Bike Installation",
-                  "Elliptical repair",
-                  "Gym Equipment",
-                  "Commerical Fitness",
-                  "Drive Belt",
-                  "Parts Supplier",
-                  "Installation",
-                  "Assembly Repair",
-                  "Gym Assembly",
-                  "Gym Equipment Repairs",
-                  "Parts Assembly",
-                  "Installation and Repairs",
-                  "Gym Machine",
-                  "Exercise Equipment Service",
-                  "Diagnostics & Repairs",
-                  "Equipment Movers",
-                  "treadmill repair near me",
-                  "Parts Replacements",
-                  "Tune up",
-                  "Bike Repair",
-                  "Maintenance Plans"
-                ]
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Elliptical Calibration",
-                "areaServed": "Burlington",
-                "serviceType": [
-                  "Fitness Equipment Repair & Assembly",
-                  "General Maintenance",
-                  "Gym repair service",
-                  "Preventative Maintenance",
-                  "Repair Company",
-                  "Treadmill Repair",
-                  "Gym Equipment Assembly",
-                  "Bike Assembly",
-                  "Home Gym Installation",
-                  "Elliptical Assembly",
-                  "Gym Equipment Installation",
-                  "Home Gym Repair",
-                  "Routine Maintenance",
-                  "Fitness Equipment Installation",
-                  "Repair Service",
-                  "Parts Installation",
-                  "Repair & Maintenance",
-                  "Gym Equipment Maintenance",
-                  "Treadmill Assembly",
-                  "Fitness Equipment Repaired",
-                  "Full Installation",
-                  "Bike Installation",
-                  "Elliptical repair",
-                  "Gym Equipment",
-                  "Commerical Fitness",
-                  "Drive Belt",
-                  "Parts Supplier",
-                  "Installation",
-                  "Assembly Repair",
-                  "Gym Assembly",
-                  "Gym Equipment Repairs",
-                  "Parts Assembly",
-                  "Installation and Repairs",
-                  "Gym Machine",
-                  "Exercise Equipment Service",
-                  "Diagnostics & Repairs",
-                  "Equipment Movers",
-                  "treadmill repair near me",
-                  "Parts Replacements",
-                  "Tune up",
-                  "Bike Repair",
-                  "Maintenance Plans"
-                ]
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Commercial Gym Installation",
-                "areaServed": "Oakville",
-                "serviceType": [
-                  "Fitness Equipment Repair & Assembly",
-                  "General Maintenance",
-                  "Gym repair service",
-                  "Preventative Maintenance",
-                  "Repair Company",
-                  "Treadmill Repair",
-                  "Gym Equipment Assembly",
-                  "Bike Assembly",
-                  "Home Gym Installation",
-                  "Elliptical Assembly",
-                  "Gym Equipment Installation",
-                  "Home Gym Repair",
-                  "Routine Maintenance",
-                  "Fitness Equipment Installation",
-                  "Repair Service",
-                  "Parts Installation",
-                  "Repair & Maintenance",
-                  "Gym Equipment Maintenance",
-                  "Treadmill Assembly",
-                  "Fitness Equipment Repaired",
-                  "Full Installation",
-                  "Bike Installation",
-                  "Elliptical repair",
-                  "Gym Equipment",
-                  "Commerical Fitness",
-                  "Drive Belt",
-                  "Parts Supplier",
-                  "Installation",
-                  "Assembly Repair",
-                  "Gym Assembly",
-                  "Gym Equipment Repairs",
-                  "Parts Assembly",
-                  "Installation and Repairs",
-                  "Gym Machine",
-                  "Exercise Equipment Service",
-                  "Diagnostics & Repairs",
-                  "Equipment Movers",
-                  "treadmill repair near me",
-                  "Parts Replacements",
-                  "Tune up",
-                  "Bike Repair",
-                  "Maintenance Plans"
-                ]
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Treadmill Belt Replacement",
-                "areaServed": "Mississauga",
-                "serviceType": [
-                  "Fitness Equipment Repair & Assembly",
-                  "General Maintenance",
-                  "Gym repair service",
-                  "Preventative Maintenance",
-                  "Repair Company",
-                  "Treadmill Repair",
-                  "Gym Equipment Assembly",
-                  "Bike Assembly",
-                  "Home Gym Installation",
-                  "Elliptical Assembly",
-                  "Gym Equipment Installation",
-                  "Home Gym Repair",
-                  "Routine Maintenance",
-                  "Fitness Equipment Installation",
-                  "Repair Service",
-                  "Parts Installation",
-                  "Repair & Maintenance",
-                  "Gym Equipment Maintenance",
-                  "Treadmill Assembly",
-                  "Fitness Equipment Repaired",
-                  "Full Installation",
-                  "Bike Installation",
-                  "Elliptical repair",
-                  "Gym Equipment",
-                  "Commerical Fitness",
-                  "Drive Belt",
-                  "Parts Supplier",
-                  "Installation",
-                  "Assembly Repair",
-                  "Gym Assembly",
-                  "Gym Equipment Repairs",
-                  "Parts Assembly",
-                  "Installation and Repairs",
-                  "Gym Machine",
-                  "Exercise Equipment Service",
-                  "Diagnostics & Repairs",
-                  "Equipment Movers",
-                  "treadmill repair near me",
-                  "Parts Replacements",
-                  "Tune up",
-                  "Bike Repair",
-                  "Maintenance Plans"
-                ]
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Stationary Bike Electronics Repair",
-                "areaServed": "Toronto",
-                "serviceType": [
-                  "Fitness Equipment Repair & Assembly",
-                  "General Maintenance",
-                  "Gym repair service",
-                  "Preventative Maintenance",
-                  "Repair Company",
-                  "Treadmill Repair",
-                  "Gym Equipment Assembly",
-                  "Bike Assembly",
-                  "Home Gym Installation",
-                  "Elliptical Assembly",
-                  "Gym Equipment Installation",
-                  "Home Gym Repair",
-                  "Routine Maintenance",
-                  "Fitness Equipment Installation",
-                  "Repair Service",
-                  "Parts Installation",
-                  "Repair & Maintenance",
-                  "Gym Equipment Maintenance",
-                  "Treadmill Assembly",
-                  "Fitness Equipment Repaired",
-                  "Full Installation",
-                  "Bike Installation",
-                  "Elliptical repair",
-                  "Gym Equipment",
-                  "Commerical Fitness",
-                  "Drive Belt",
-                  "Parts Supplier",
-                  "Installation",
-                  "Assembly Repair",
-                  "Gym Assembly",
-                  "Gym Equipment Repairs",
-                  "Parts Assembly",
-                  "Installation and Repairs",
-                  "Gym Machine",
-                  "Exercise Equipment Service",
-                  "Diagnostics & Repairs",
-                  "Equipment Movers",
-                  "treadmill repair near me",
-                  "Parts Replacements",
-                  "Tune up",
-                  "Bike Repair",
-                  "Maintenance Plans"
-                ]
-              }
-            }
-          ]
-        }
-      }
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://canadianfitnessrepair.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Gallery",
+      "item": "https://canadianfitnessrepair.com/gallery.html"
+    }
+  ]
+}
     </script>
   </head>
-  <body>
+
+  <body class="svc-page">
     <div id="header"></div>
+
     <main>
-      <section class="gallery-hero">
-        <h1>Our Repair Gallery</h1>
-        <p>See our expert work on fitness equipment across the GTA</p>
-        <a class="c-button" href="get-quote.html"> Schedule Service Today </a>
+      <!-- HERO -->
+      <section class="svc-hero">
+        <div class="svc-container svc-hero__grid">
+          <div>
+            <nav class="svc-breadcrumb" aria-label="Breadcrumb">
+              <a href="index.html">Home</a>
+              <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
+              <span aria-current="page">Gallery</span>
+            </nav>
+
+            <span class="svc-eyebrow"><i class="ri-image-2-line" aria-hidden="true"></i> Projects &amp; repairs</span>
+            <h1>Our Work <span>in Action</span></h1>
+            <p class="svc-hero__lead">
+              Real repairs, installations and PCB-level fixes completed by our technicians across Hamilton and the GTA.
+            </p>
+
+            <div class="svc-hero__actions">
+              <a class="svc-btn svc-btn--primary" href="get-quote.html">
+                <i class="ri-calendar-check-line" aria-hidden="true"></i>
+                Book a Repair
+              </a>
+              <a class="svc-btn svc-btn--ghost" href="tel:+12899257239">
+                <i class="ri-phone-fill" aria-hidden="true"></i>
+                Call (289) 925-7239
+              </a>
+            </div>
+
+            <div class="svc-hero__chips">
+              <span class="svc-chip"><i class="ri-tools-fill" aria-hidden="true"></i> 150+ Repairs</span>
+              <span class="svc-chip"><span aria-hidden="true">⭐</span> 4.9/5 Rated</span>
+              <span class="svc-chip"><span aria-hidden="true">🛠️</span> 30-Day Warranty</span>
+            </div>
+          </div>
+
+          <aside class="svc-hero-card" aria-label="Gallery overview">
+            <p class="svc-hero-card__label">Real projects · real results</p>
+            <h2>From motor swaps to board-level repair</h2>
+            <p>Every photo is a completed job from a home, condo or commercial gym in our service area.</p>
+            <a class="svc-hero-card__phone" href="tel:+12899257239">
+              <i class="ri-phone-fill" aria-hidden="true"></i>
+              (289) 925-7239
+            </a>
+            <a class="svc-btn svc-btn--primary svc-btn--wide" href="get-quote.html">
+              <i class="ri-calendar-check-line" aria-hidden="true"></i>
+              Book a Repair
+            </a>
+            <p class="svc-hero-card__note"><i class="ri-checkbox-circle-fill" aria-hidden="true"></i> Upfront quote before work starts</p>
+          </aside>
+        </div>
       </section>
-      <section class="gallery-container">
-        <div class="gallery-intro">
-          <h2 class="section-title">Our Repair Success Stories</h2>
-          <p>
-            At Canadian Fitness Repair, we take pride in our workmanship. This
-            gallery showcases our expert repairs and installations across
-            Hamilton, Stoney Creek, Ancaster, Dundas, Burlington, Oakville, and
-            the Greater Toronto Area.
-          </p>
-        </div>
-        <div class="location-filter">
-          <button class="location-btn active" data-location="all">
-            All Locations
-          </button>
-          <button class="location-btn" data-location="hamilton">
-            Hamilton
-          </button>
-          <button class="location-btn" data-location="burlington">
-            Burlington
-          </button>
-          <button class="location-btn" data-location="oakville">
-            Oakville
-          </button>
-          <button class="location-btn" data-location="mississauga">
-            Mississauga
-          </button>
-          <button class="location-btn" data-location="gta">GTA</button>
-        </div>
-        <div class="gallery-grid" id="galleryGrid">
-          <div class="gallery-item" data-location="hamilton">
-            <div class="gallery-img-container">
-              <img
-                alt="Treadmill motor replacement in Hamilton gym"
-                class="gallery-img"
-                src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-              />
-            </div>
-            <div class="gallery-info">
-              <h3>Treadmill Motor Replacement</h3>
-              <div class="gallery-location">
-                <i class="fas fa-map-marker-alt"> </i>
-                Hamilton, ON
-              </div>
-              <p>
-                Complete motor replacement on a commercial Life Fitness
-                treadmill at a Hamilton fitness center.
-              </p>
-              <div class="gallery-tags">
-                <span class="gallery-tag"> Treadmill </span>
-                <span class="gallery-tag"> Commercial </span>
-                <span class="gallery-tag"> Motor Repair </span>
-              </div>
-            </div>
+
+      <!-- TRUST STRIP -->
+      <section class="svc-trust" aria-label="Gallery credentials">
+        <div class="svc-container svc-trust__grid">
+          <div class="svc-trust__item">
+            <i class="ri-image-2-line" aria-hidden="true"></i>
+            <div><strong>150+ projects documented</strong><span>Homes, condos &amp; commercial gyms</span></div>
           </div>
-          <div class="gallery-item" data-location="burlington">
-            <div class="gallery-img-container">
-              <img
-                alt="Elliptical calibration in Burlington home"
-                class="gallery-img"
-                src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-              />
-            </div>
-            <div class="gallery-info">
-              <h3>Elliptical Precision Calibration</h3>
-              <div class="gallery-location">
-                <i class="fas fa-map-marker-alt"> </i>
-                Burlington, ON
-              </div>
-              <p>
-                Full calibration and maintenance of a NordicTrack elliptical in
-                a Burlington residence.
-              </p>
-              <div class="gallery-tags">
-                <span class="gallery-tag"> Elliptical </span>
-                <span class="gallery-tag"> Residential </span>
-                <span class="gallery-tag"> Calibration </span>
-              </div>
-            </div>
+          <div class="svc-trust__item">
+            <i class="ri-star-fill" aria-hidden="true"></i>
+            <div><strong>4.9/5 Google rating</strong><span>Local customer reviews</span></div>
           </div>
-          <div class="gallery-item" data-location="oakville">
-            <div class="gallery-img-container">
-              <img
-                alt="Commercial gym installation in Oakville"
-                class="gallery-img"
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-              />
-            </div>
-            <div class="gallery-info">
-              <h3>Commercial Gym Installation</h3>
-              <div class="gallery-location">
-                <i class="fas fa-map-marker-alt"> </i>
-                Oakville, ON
-              </div>
-              <p>
-                Complete installation of a 12-station circuit at a new Oakville
-                fitness center.
-              </p>
-              <div class="gallery-tags">
-                <span class="gallery-tag"> Installation </span>
-                <span class="gallery-tag"> Commercial </span>
-                <span class="gallery-tag"> Gym Setup </span>
-              </div>
-            </div>
+          <div class="svc-trust__item">
+            <i class="ri-shield-check-fill" aria-hidden="true"></i>
+            <div><strong>30-day warranty</strong><span>Parts &amp; labour included</span></div>
           </div>
-          <div class="gallery-item" data-location="mississauga">
-            <div class="gallery-img-container">
-              <img
-                alt="Treadmill belt replacement in Mississauga"
-                class="gallery-img"
-                src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-              />
-            </div>
-            <div class="gallery-info">
-              <h3>Treadmill Belt Replacement</h3>
-              <div class="gallery-location">
-                <i class="fas fa-map-marker-alt"> </i>
-                Mississauga, ON
-              </div>
-              <p>
-                Urgent treadmill belt replacement on a ProForm model in a
-                Mississauga home.
-              </p>
-              <div class="gallery-tags">
-                <span class="gallery-tag"> Treadmill </span>
-                <span class="gallery-tag"> Residential </span>
-                <span class="gallery-tag"> Belt Repair </span>
-              </div>
-            </div>
-          </div>
-          <div class="gallery-item" data-location="gta">
-            <div class="gallery-img-container">
-              <img
-                alt="Stationary bike repair in Toronto"
-                class="gallery-img"
-                src="https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-              />
-            </div>
-            <div class="gallery-info">
-              <h3>Stationary Bike Electronics Repair</h3>
-              <div class="gallery-location">
-                <i class="fas fa-map-marker-alt"> </i>
-                Toronto, ON
-              </div>
-              <p>
-                Diagnosed and repaired electronics on a smart stationary bike in
-                a Toronto home gym.
-              </p>
-              <div class="gallery-tags">
-                <span class="gallery-tag"> Stationary Bike </span>
-                <span class="gallery-tag"> Electronics </span>
-                <span class="gallery-tag"> Diagnostics </span>
-              </div>
-            </div>
-          </div>
-          <div class="gallery-item" data-location="hamilton">
-            <div class="gallery-img-container">
-              <img
-                alt="Rowing machine maintenance in Hamilton"
-                class="gallery-img"
-                src="https://images.unsplash.com/photo-1584824486539-53bb4646bdbc?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-              />
-            </div>
-            <div class="gallery-info">
-              <h3>Rowing Machine Maintenance</h3>
-              <div class="gallery-location">
-                <i class="fas fa-map-marker-alt"> </i>
-                Hamilton, ON
-              </div>
-              <p>
-                Full maintenance and calibration of a Concept2 rowing machine at
-                a Hamilton facility.
-              </p>
-              <div class="gallery-tags">
-                <span class="gallery-tag"> Rowing Machine </span>
-                <span class="gallery-tag"> Calibration </span>
-                <span class="gallery-tag"> Maintenance </span>
-              </div>
-            </div>
-          </div>
-          <div class="gallery-item" data-location="hamilton">
-            <div class="gallery-img-container">
-              <img
-                alt="NordicTrack Elite 9500 Pro treadmill display repair - Hamilton"
-                class="gallery-img"
-                height="600"
-                loading="lazy"
-                src="assets/images/NordicTrack Elite 9500 Pro Display.webp"
-                width="800"
-              />
-            </div>
-            <div class="gallery-info">
-              <h3>NordicTrack Display Board Repair</h3>
-              <div class="gallery-location">
-                <i class="fas fa-map-marker-alt"> </i>
-                Hamilton, ON
-              </div>
-              <p>
-                Fixed a display power board issue in a NordicTrack Elite 9500
-                Pro treadmill for a Hamilton customer.
-              </p>
-              <div class="gallery-tags">
-                <span class="gallery-tag"> Treadmill </span>
-                <span class="gallery-tag"> Display Repair </span>
-              </div>
-            </div>
-          </div>
-          <div class="gallery-item" data-location="hamilton">
-            <div class="gallery-img-container">
-              <img
-                alt="NordicTrack Elite 9500 Pro treadmill full system repair - Hamilton"
-                class="gallery-img"
-                height="600"
-                loading="lazy"
-                src="assets/images/NordicTrack Elite 9500 Pro Treadmill.webp"
-                width="800"
-              />
-            </div>
-            <div class="gallery-info">
-              <h3>NordicTrack Treadmill Repair</h3>
-              <div class="gallery-location">
-                <i class="fas fa-map-marker-alt"> </i>
-                Hamilton, ON
-              </div>
-              <p>
-                Repaired full treadmill system including power and console for a
-                NordicTrack Elite 9500 Pro unit.
-              </p>
-              <div class="gallery-tags">
-                <span class="gallery-tag"> Treadmill </span>
-                <span class="gallery-tag"> NordicTrack </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="gallery-stats">
-          <div class="gallery-stat">
-            <h3>
-              <span class="counting-number" id="stat1"> 0 </span>
-              +
-            </h3>
-            <p>Repairs Completed</p>
-          </div>
-          <div class="gallery-stat">
-            <h3>
-              <span class="counting-number" id="stat2"> 0 </span>
-              %
-            </h3>
-            <p>Satisfaction Rate</p>
-          </div>
-          <div class="gallery-stat">
-            <h3>
-              <span class="counting-number" id="stat3"> 0 </span>
-              +
-            </h3>
-            <p>Happy Clients</p>
-          </div>
-          <div class="gallery-stat">
-            <h3>
-              <span class="counting-number" id="stat4"> 0 </span>
-            </h3>
-            <p>Years Experience</p>
+          <div class="svc-trust__item">
+            <i class="ri-history-fill" aria-hidden="true"></i>
+            <div><strong>Serving since 2013</strong><span>Hamilton &amp; the GTA</span></div>
           </div>
         </div>
       </section>
-      <section class="service-areas">
-        <div class="container">
-          <div class="section-title">
-            <h2>We Serve These Areas</h2>
-            <p>
-              Canadian Fitness Repair provides expert fitness equipment repair
-              services throughout Southern Ontario
+
+      <!-- FILTERABLE GALLERY -->
+      <section class="svc-section" id="gallery">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Project gallery</span>
+            <h2 class="svc-section-title">Recent Repairs &amp; <span>Installations</span></h2>
+            <p class="svc-section-sub">
+              Browse real work from our workshop and onsite visits. Filter by category to see the projects most relevant to your equipment.
             </p>
           </div>
-          <div class="cities-grid">
-            <div class="city-card">
-              <i class="fas fa-city"> </i>
-              <h3>Hamilton</h3>
-              <p>
-                Treadmill repairs, elliptical maintenance, and commercial gym
-                equipment service in Hamilton
-              </p>
-            </div>
-            <div class="city-card">
-              <i class="fas fa-building"> </i>
-              <h3>Burlington</h3>
-              <p>
-                Residential and commercial fitness equipment repairs throughout
-                Burlington
-              </p>
-            </div>
-            <div class="city-card">
-              <i class="fas fa-home"> </i>
-              <h3>Oakville</h3>
-              <p>
-                Home gym installations and commercial fitness center maintenance
-                in Oakville
-              </p>
-            </div>
-            <div class="city-card">
-              <i class="fas fa-dumbbell"> </i>
-              <h3>Mississauga</h3>
-              <p>
-                Expert repairs for all major fitness equipment brands in
-                Mississauga
-              </p>
-            </div>
+
+          <div class="gallery-filters" role="group" aria-label="Filter gallery by category">
+            <button class="svc-btn svc-btn--primary gallery-filter" type="button" data-gallery-filter="all" aria-pressed="true" aria-controls="galleryGrid">
+              All Projects
+            </button>
+            <button class="svc-btn svc-btn--ghost gallery-filter" type="button" data-gallery-filter="treadmills" aria-pressed="false" aria-controls="galleryGrid">
+              Treadmills
+            </button>
+            <button class="svc-btn svc-btn--ghost gallery-filter" type="button" data-gallery-filter="commercial" aria-pressed="false" aria-controls="galleryGrid">
+              Commercial Gyms
+            </button>
+            <button class="svc-btn svc-btn--ghost gallery-filter" type="button" data-gallery-filter="pcb" aria-pressed="false" aria-controls="galleryGrid">
+              PCB Repair
+            </button>
+          </div>
+
+          <p class="gallery-count" aria-live="polite">Showing <strong id="galleryCount">12</strong> projects</p>
+
+          <div class="gallery-grid" id="galleryGrid">
+            <a class="svc-card gallery-card" data-gallery-category="treadmills" href="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Rows of treadmills and ellipticals in a commercial gym" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">Treadmills</span>
+                <span class="gallery-card__title">Treadmill &amp; Elliptical Service</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Hamilton</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="treadmills" href="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Treadmills lined up on the cardio floor of a commercial gym" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">Treadmills</span>
+                <span class="gallery-card__title">Treadmill Belt &amp; Deck Repair</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Burlington</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="treadmills" href="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Commercial spin bike ready for service" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">Treadmills</span>
+                <span class="gallery-card__title">Cardio Bike Tune-Up</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Oakville</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="treadmills" href="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Technician machining a replacement motor component" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">Treadmills</span>
+                <span class="gallery-card__title">Drive Motor Rebuild</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Mississauga</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="commercial" href="https://images.unsplash.com/photo-1637430308606-86576d8fef3c?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1637430308606-86576d8fef3c?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Dark commercial gym floor with strength equipment" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">Commercial Gyms</span>
+                <span class="gallery-card__title">Commercial Gym Maintenance</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Oakville</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="commercial" href="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Dumbbell rack in a bright commercial gym" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">Commercial Gyms</span>
+                <span class="gallery-card__title">Strength Equipment Inspection</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Mississauga</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="commercial" href="https://images.unsplash.com/photo-1576678927484-cc907957088c?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Close-up of dumbbells on a commercial gym rack" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">Commercial Gyms</span>
+                <span class="gallery-card__title">Free-Weight Area Service</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Toronto</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="commercial" href="https://images.unsplash.com/photo-1546483875-ad9014c88eba?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1546483875-ad9014c88eba?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Client using a bench press station in a gym" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">Commercial Gyms</span>
+                <span class="gallery-card__title">Bench Press Station Rebuild</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Ancaster</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="pcb" href="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Technician repairing a fitness equipment control board" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">PCB Repair</span>
+                <span class="gallery-card__title">PCB &amp; Console Board Repair</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Hamilton</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="pcb" href="https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Soldering a replacement component onto a power board" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">PCB Repair</span>
+                <span class="gallery-card__title">Motor Control Board Rebuild</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Burlington</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="pcb" href="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Macro view of a printed circuit board" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">PCB Repair</span>
+                <span class="gallery-card__title">Circuit Board Diagnostics</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> Oakville</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
+
+            <a class="svc-card gallery-card" data-gallery-category="pcb" href="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" target="_blank" rel="noopener">
+              <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Engineer diagnosing electronic equipment with a laptop" width="800" height="600" loading="lazy" />
+              <span class="gallery-card__overlay">
+                <span class="gallery-card__tag">PCB Repair</span>
+                <span class="gallery-card__title">Electronic Fault Tracing</span>
+                <span class="gallery-card__meta"><i class="ri-map-pin-line" aria-hidden="true"></i> St. Catharines</span>
+              </span>
+              <span class="gallery-card__zoom" aria-hidden="true"><i class="ri-zoom-in-line"></i></span>
+            </a>
           </div>
         </div>
       </section>
-      <section class="seo-content">
-        <div class="container">
-          <div class="content-grid">
-            <div class="content-text">
-              <h2>Why Choose Canadian Fitness Repair?</h2>
-              <p>
-                Since 2013, Canadian Fitness Repair has served Hamilton, Burlington,
-                Oakville, and the Greater Toronto Area with dependable fitness
-                equipment maintenance and repair.
-              </p>
-              <p>
-                Our certified technicians specialize in all major brands
-                including Life Fitness, Precor, NordicTrack, ProForm, and more.
-                We offer both residential and commercial repair services, with
-                same-day service available for urgent repairs.
-              </p>
-              <p>When you choose Canadian Fitness Repair, you benefit from:</p>
-              <ul>
-                <li>
-                  Factory-trained technicians with brand-specific expertise
-                </li>
-                <li>Genuine replacement parts with warranty</li>
-                <li>Transparent pricing with no hidden fees</li>
-                <li>Emergency repair services available</li>
-                <li>Fully insured and licensed for your protection</li>
-              </ul>
-              <a class="c-button" href="aboutus.html"> Learn More About Us </a>
+
+      <!-- FINAL CTA -->
+      <section class="svc-cta">
+        <div class="svc-container">
+          <div class="svc-cta__inner">
+            <span class="svc-eyebrow">Your equipment next</span>
+            <h2>Want your repair featured here?</h2>
+            <p>
+              Book an onsite repair or send us photos of the fault. We will confirm the fix, parts and pricing before any work begins.
+            </p>
+            <div class="svc-cta__actions">
+              <a class="svc-btn svc-btn--primary" href="get-quote.html">
+                <i class="ri-calendar-check-line" aria-hidden="true"></i>
+                Book a Repair
+              </a>
+              <a class="svc-btn svc-btn--ghost" href="tel:+12899257239">
+                <i class="ri-phone-fill" aria-hidden="true"></i>
+                Call (289) 925-7239
+              </a>
             </div>
-            <div class="content-image">
-              <img
-                alt="Fitness equipment technician at work in GTA"
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-              />
-            </div>
+            <p class="svc-cta__note"><i class="ri-checkbox-circle-fill" aria-hidden="true"></i> Same-day service where available · 30-day parts &amp; labour warranty</p>
           </div>
         </div>
       </section>
     </main>
+
     <div id="footer"></div>
+
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Location filter functionality
-        const locationBtns = document.querySelectorAll(".location-btn");
-        const galleryItems = document.querySelectorAll(".gallery-item");
+      (function () {
+        var buttons = document.querySelectorAll("[data-gallery-filter]");
+        var cards = document.querySelectorAll("[data-gallery-category]");
+        var count = document.getElementById("galleryCount");
 
-        locationBtns.forEach((btn) => {
-          btn.addEventListener("click", function () {
-            // Remove active class from all buttons
-            locationBtns.forEach((b) => b.classList.remove("active"));
+        buttons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            var filter = button.getAttribute("data-gallery-filter");
+            var visible = 0;
 
-            // Add active class to clicked button
-            this.classList.add("active");
+            buttons.forEach(function (item) {
+              var active = item === button;
+              item.classList.toggle("svc-btn--primary", active);
+              item.classList.toggle("svc-btn--ghost", !active);
+              item.setAttribute("aria-pressed", active ? "true" : "false");
+            });
 
-            const location = this.getAttribute("data-location");
-
-            // Show/hide gallery items based on location
-            galleryItems.forEach((item) => {
-              if (
-                location === "all" ||
-                item.getAttribute("data-location") === location
-              ) {
-                item.style.display = "block";
-              } else {
-                item.style.display = "none";
+            cards.forEach(function (card) {
+              var show = filter === "all" || card.getAttribute("data-gallery-category") === filter;
+              card.hidden = !show;
+              card.classList.remove("gallery-card--in");
+              if (show) {
+                visible += 1;
+                void card.offsetWidth;
+                card.classList.add("gallery-card--in");
               }
             });
+
+            if (count) {
+              count.textContent = visible;
+            }
           });
         });
-
-        // Animate counting numbers
-        function animateCounter(element, start, end, duration, suffix = "") {
-          let startTimestamp = null;
-
-          const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min(
-              (timestamp - startTimestamp) / duration,
-              1
-            );
-            const value = Math.floor(progress * (end - start) + start);
-            element.textContent = value + suffix;
-            if (progress < 1) {
-              window.requestAnimationFrame(step);
-            }
-          };
-
-          window.requestAnimationFrame(step);
-        }
-
-        // Start all counters
-        function startAllCounters() {
-          animateCounter(document.getElementById("stat1"), 0, 1500, 2000, "");
-          animateCounter(document.getElementById("stat2"), 0, 98, 1500, "");
-          animateCounter(document.getElementById("stat3"), 0, 500, 1800, "");
-          animateCounter(document.getElementById("stat4"), 0, 12, 1000, "");
-        }
-
-        startAllCounters();
-      });
+      })();
     </script>
-    <script src="assets/js/menu.js?v=20261030"></script>
-  <script defer src="assets/js/headerfooter.js?v=20261031"></script>
-</body>
+
+    <script defer src="assets/js/menu.js?v=20261030"></script>
+    <script defer src="assets/js/headerfooter.js?v=20261031"></script>
+  </body>
 </html>
