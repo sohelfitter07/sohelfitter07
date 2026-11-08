@@ -73,3 +73,6 @@ node_modules/
 archive/
 *.orig
 *.old
+
+# Admin desktop app (local-only; not part of the public website)
+admin-dashboard/
