@@ -17,6 +17,22 @@ session cookie verified on the server.
 - The old `appointment-tracker.html`, JS, and CSS in the repository root are
   untouched.
 
+## What exists in Phase 1
+
+- Typed Firestore models for customers, appointments, and logs in
+  `lib/types.ts`.
+- `getAdminFirestore()` in `lib/firebase/admin.ts`.
+- `requireAdminSession()` re-checks the verified session cookie and admin
+  authorization for every API request.
+- `GET /api/appointments` returns the latest appointments (default 100,
+  maximum 500) ordered by date.
+- `GET /api/customers` returns customers ordered by name (default 100, maximum
+  500).
+- A **Fetch Appointments** button on `/dashboard` calls the API and renders the
+  raw JSON so the secure connection can be verified.
+
+Both list routes accept an optional `?limit=` query parameter.
+
 ## Requirements
 
 - Node.js 20.9 or newer (Node 24 LTS is recommended).

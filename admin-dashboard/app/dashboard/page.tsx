@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth/session';
+import FetchAppointments from './fetch-appointments';
 import LogoutButton from './logout-button';
 
 export const dynamic = 'force-dynamic';
@@ -32,6 +33,8 @@ export default async function DashboardPage() {
           be migrated here in later phases.
         </p>
       </section>
+
+      <FetchAppointments />
     </main>
   );
 }

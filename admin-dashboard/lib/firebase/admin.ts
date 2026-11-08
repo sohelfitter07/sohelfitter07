@@ -5,6 +5,7 @@ import {
   type App,
 } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
+import { getFirestore } from 'firebase-admin/firestore';
 
 /**
  * Initializes the Firebase Admin SDK once per server process.
@@ -35,4 +36,8 @@ function getAdminApp(): App {
 
 export function getAdminAuth() {
   return getAuth(getAdminApp());
+}
+
+export function getAdminFirestore() {
+  return getFirestore(getAdminApp());
 }

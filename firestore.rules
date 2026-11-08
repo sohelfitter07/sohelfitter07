@@ -4,8 +4,8 @@ rules_version = '2';
 //
 // Default deny. Every read and write is rejected unless a rule below
 // explicitly allows it. Only authenticated admins (custom claim
-// `admin == true`) may access the appointments, customers, and logs
-// collections.
+// `admin == true`) may access the appointments, customers, logs, and
+// settings collections.
 
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -31,6 +31,11 @@ service cloud.firestore {
     }
 
     match /logs/{logId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Admin settings used by the current tracker until it is fully migrated.
+    match /settings/{settingId} {
       allow read, write: if isAdmin();
     }
   }
