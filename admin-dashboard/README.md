@@ -45,6 +45,20 @@ Both list routes accept an optional `?limit=` query parameter.
 - Loading skeletons, error states, empty states, and a manual refresh control.
 - Create/edit forms are intentionally out of scope until the next phase.
 
+## What exists in Phase 3
+
+- `POST /api/appointments/create` — verifies the admin session and same-origin
+  request, validates every field, converts Toronto wall-clock date/time to UTC,
+  and writes the appointment with the Admin SDK.
+- The API stores a pre-tax base price, the 13% HST rate, and the tax-inclusive
+  total. `createdBy` records the admin UID.
+- A **New Appointment** button and modal on `/appointments` with customer,
+  phone, email, date, time, equipment, issue/notes, status, and price.
+- Inline client and server validation, including the requirement for at least
+  one contact method.
+- Successful creates refresh the table automatically and show a confirmation.
+- Editing and deleting existing appointments are not built yet.
+
 ## Requirements
 
 - Node.js 20.9 or newer (Node 24 LTS is recommended).

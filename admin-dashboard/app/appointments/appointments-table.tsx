@@ -2,7 +2,6 @@
 
 import type { AppointmentDTO } from '@/lib/types';
 import { formatCurrency, formatDateTime } from '@/lib/format';
-import { useApiList } from '@/lib/use-api-list';
 
 const STATUS_STYLES: Record<string, string> = {
   Scheduled: 'bg-sky-500/10 text-sky-300 ring-sky-500/30',
@@ -48,11 +47,20 @@ function SkeletonRows() {
   );
 }
 
-export default function AppointmentsTable() {
-  const { data, loading, error, reload } =
-    useApiList<AppointmentDTO>('/api/appointments?limit=100');
+interface AppointmentsTableProps {
+  appointments: AppointmentDTO[] | null;
+  loading: boolean;
+  error: string | null;
+  onRefresh: () => void;
+}
 
-  const count = data?.length ?? 0;
+export default function AppointmentsTable({
+  appointments,
+  loading,
+  error,
+  onRefresh,
+}: AppointmentsTableProps) {
+  const count = appointments?.length ?? 0;
 
   return (
     <section className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 shadow-2xl shadow-black/20">
@@ -62,7 +70,7 @@ export default function AppointmentsTable() {
             Recent appointments
           </h2>
           <p className="mt-1 text-xs text-slate-500">
-            {loading
+            {loading && !appointments
               ? 'Loading records…'
               : `${count} record${count === 1 ? '' : 's'} · newest first`}
           </p>
@@ -70,7 +78,7 @@ export default function AppointmentsTable() {
 
         <button
           type="button"
-          onClick={() => void reload()}
+          onClick={onRefresh}
           disabled={loading}
           className="rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-amber-500/40 hover:text-amber-300 disabled:opacity-60"
         >
@@ -86,7 +94,7 @@ export default function AppointmentsTable() {
           <span>{error}</span>
           <button
             type="button"
-            onClick={() => void reload()}
+            onClick={onRefresh}
             className="rounded-lg border border-rose-400/30 px-3 py-1.5 text-xs font-semibold text-rose-200 transition hover:bg-rose-500/10"
           >
             Try again
@@ -119,22 +127,22 @@ export default function AppointmentsTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-800/80">
-            {loading && !data ? <SkeletonRows /> : null}
+            {loading && !appointments ? <SkeletonRows /> : null}
 
-            {!loading && data && data.length === 0 ? (
+            {!loading && appointments && appointments.length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-5 py-16 text-center">
                   <p className="text-sm font-semibold text-slate-300">
                     No appointments yet
                   </p>
                   <p className="mt-1 text-xs text-slate-500">
-                    Bookings will appear here as soon as they are created.
+                    Use “New Appointment” to add the first booking.
                   </p>
                 </td>
               </tr>
             ) : null}
 
-            {data?.map((appointment) => (
+            {appointments?.map((appointment) => (
               <tr
                 key={appointment.id}
                 className="transition hover:bg-slate-800/30"

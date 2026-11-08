@@ -6,16 +6,19 @@ import type { Timestamp } from 'firebase-admin/firestore';
  */
 export type DateValue = Timestamp | string | null;
 
-export type AppointmentStatus =
-  | 'Scheduled'
-  | 'Confirmed'
-  | 'In Progress'
-  | 'Awaiting Parts'
-  | 'Parts Arrived'
-  | 'Scheduled for Parts Installation'
-  | 'Repaired'
-  | 'Completed'
-  | 'Cancelled';
+export const APPOINTMENT_STATUSES = [
+  'Scheduled',
+  'Confirmed',
+  'In Progress',
+  'Awaiting Parts',
+  'Parts Arrived',
+  'Scheduled for Parts Installation',
+  'Repaired',
+  'Completed',
+  'Cancelled',
+] as const;
+
+export type AppointmentStatus = (typeof APPOINTMENT_STATUSES)[number];
 
 /** A document in the `customers` collection. */
 export interface Customer {
