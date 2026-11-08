@@ -4,7 +4,7 @@ import { Timestamp } from 'firebase-admin/firestore';
 import { requireAdminSession } from '@/lib/auth/require-admin';
 import { getAdminFirestore } from '@/lib/firebase/admin';
 import { serializeAppointment } from '@/lib/firestore/serialize';
-import { validateCreateAppointment } from '@/lib/appointments/validate-create-appointment';
+import { validateAppointmentInput } from '@/lib/appointments/validate-appointment';
 import { isSameOrigin } from '@/lib/http/same-origin';
 
 export const runtime = 'nodejs';
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const validation = validateCreateAppointment(body);
+  const validation = validateAppointmentInput(body);
 
   if (!validation.ok) {
     return NextResponse.json(

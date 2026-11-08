@@ -1,7 +1,7 @@
 import { APPOINTMENT_STATUSES, type AppointmentStatus } from '@/lib/types';
 import { torontoWallTimeToUtc } from './timezone';
 
-export interface CreateAppointmentValues {
+export interface AppointmentInputValues {
   customer: string;
   phone: string;
   email: string;
@@ -13,8 +13,8 @@ export interface CreateAppointmentValues {
   scheduledAt: Date;
 }
 
-export type CreateAppointmentValidation =
-  | { ok: true; value: CreateAppointmentValues }
+export type AppointmentInputValidation =
+  | { ok: true; value: AppointmentInputValues }
   | { ok: false; errors: Record<string, string> };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -46,12 +46,13 @@ function isValidCalendarDate(value: string): boolean {
 }
 
 /**
- * Validates and normalizes the POST body for creating an appointment.
- * The client sends a pre-tax price; tax is calculated by the route.
+ * Validates and normalizes the request body for creating or updating an
+ * appointment. The client sends a pre-tax price; tax is calculated by the
+ * route so create and update stay consistent.
  */
-export function validateCreateAppointment(
+export function validateAppointmentInput(
   body: unknown,
-): CreateAppointmentValidation {
+): AppointmentInputValidation {
   if (typeof body !== 'object' || body === null || Array.isArray(body)) {
     return { ok: false, errors: { form: 'Invalid request body.' } };
   }

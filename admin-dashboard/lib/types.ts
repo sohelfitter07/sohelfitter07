@@ -55,6 +55,10 @@ export interface Appointment {
   createdAt?: DateValue;
   /** Firebase UID of the admin who created the record. */
   createdBy?: string;
+  /** When the record was last edited. */
+  updatedAt?: DateValue;
+  /** Firebase UID of the admin who last edited the record. */
+  updatedBy?: string;
   confirmationSent?: boolean;
   confirmationSentAt?: DateValue;
   lastStatusSent?: string;
