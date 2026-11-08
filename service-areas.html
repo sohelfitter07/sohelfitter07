@@ -1,805 +1,613 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<!-- Favicon Universal Support -->
-<link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
-<link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+  <head>
+    <!-- Favicon Universal Support -->
+    <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
 
-<!-- Apple/Safari Support -->
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <!-- Google Analytics -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.addEventListener("load", function () {
+        if ("requestIdleCallback" in window) { requestIdleCallback(loadGTag); }
+        else { setTimeout(loadGTag, 500); }
+      });
+      function loadGTag() {
+        var script = document.createElement("script");
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-E1WR6TZG01";
+        script.async = true;
+        document.head.appendChild(script);
+        gtag("js", new Date());
+        gtag("config", "G-E1WR6TZG01");
+      }
+    </script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Area Map | Canadian Fitness Repair</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Area Map | Fitness Equipment Repair Hamilton &amp; GTA</title>
+    <meta name="description" content="Canadian Fitness Repair serves Hamilton, Burlington, Oakville, Mississauga, Brampton, Toronto, Niagara and surrounding communities within 60km of Hamilton. View coverage, travel zones and local city pages." />
+    <meta name="keywords" content="fitness equipment repair service area, treadmill repair Hamilton, Burlington, Oakville, Mississauga, Brampton, Toronto, Niagara, Brantford, Cambridge, Guelph, Kitchener Waterloo" />
     <link rel="canonical" href="https://canadianfitnessrepair.com/service-areas.html" />
-    <meta name="description" content="Canadian Fitness Repair services Hamilton, Burlington, Oakville, Mississauga, Niagara and all cities within 60km radius. View our full service area map and coverage.">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="Service Area Coverage | Hamilton & GTA Fitness Equipment Repair" />
-    <meta property="og:description" content="24/7 mobile repair service throughout Hamilton and surrounding communities within 60km radius. Same-day service available!" />
-    <meta property="og:image" content="https://www.canadianfitnessrepair.com/assets/images/service-area-map.jpg" />
-    <meta property="og:url" content="https://www.canadianfitnessrepair.com/service-areas.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Service Area Coverage | Hamilton &amp; GTA Fitness Equipment Repair" />
+    <meta property="og:description" content="Onsite fitness equipment repair within 60km of Hamilton. Same-day service within 30km and no travel fees within 20km." />
+    <meta property="og:image" content="https://www.canadianfitnessrepair.com/assets/images/fitness-equipment-repair.webp" />
+    <meta property="og:url" content="https://canadianfitnessrepair.com/service-areas.html" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_CA" />
-  
-    <!-- Geo & ICBM -->
-    <meta name="geo.placename" content="Hamilton, Burlington, Oakville, Mississauga, Niagara, Greater Toronto Area, Southern Ontario" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Service Area Coverage | Hamilton &amp; GTA Fitness Equipment Repair" />
+    <meta name="twitter:description" content="Onsite fitness equipment repair within 60km of Hamilton. Same-day service within 30km and no travel fees within 20km." />
+    <meta name="twitter:image" content="https://www.canadianfitnessrepair.com/assets/images/fitness-equipment-repair.webp" />
+
+    <!-- Geo -->
+    <meta name="geo.placename" content="Hamilton, Burlington, Oakville, Mississauga, Brampton, Toronto, Niagara, Brantford, Cambridge, Guelph, Kitchener, Waterloo" />
     <meta name="geo.position" content="43.2250;-79.8660" />
     <meta name="geo.region" content="CA-ON" />
     <meta name="ICBM" content="43.2250, -79.8660" />
-  
-    <!-- Preload -->
-    <link rel="preload" href="/assets/images/fitness-equipment-repair.webp" as="image" />
-  
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 
-    <!-- Schema Markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ServiceArea",
-      "name": "Canadian Fitness Repair Service Coverage",
-      "description": "Mobile fitness equipment repair serving Hamilton and surrounding areas within 60km radius",
-      "areaServed": {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
-          "@type": "GeoCoordinates",
-          "latitude": "43.2557",
-          "longitude": "-79.8711"
-        },
-        "geoRadius": "60000"
-      },
-      "serviceArea": [
-        "Hamilton", "Ancaster", "Dundas", "Burlington", "Oakville", 
-        "Mississauga", "Stoney Creek", "Grimsby", "St. Catharines",
-        "Niagara Falls", "Brantford", "Cambridge", "Guelph", "Waterdown",
-        "Caledonia", "Paris", "Milton", "Binbrook", "Freelton", "Lynden", 
-        "Rockton", "Carlisle", "Kilbride", "Mount Hope", "Copetown", 
-        "Flamborough", "Aldershot", "Kitchener", "Woodstock", "Ingersoll",
-        "Tillsonburg", "Simcoe", "Delhi", "Port Dover", "Jarvis",
-        "Hagersville", "Cayuga", "Dunnville", "Beamsville", "Vineland",
-        "Smithville", "Waterford"
-      ],
-      "provider": {
-        "@type": "LocalBusiness",
-        "name": "Canadian Fitness Repair",
-        "image": "https://www.canadianfitnessrepair.com/assets/images/logo.png",
-        "telephone": "+1-289-925-7239",
-        "openingHours": "Mo-Su 06:00-23:00"
-      }
-    }
-    </script>
-  
-    <!-- Fonts & Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" /></noscript>
-  
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /></noscript>
-  
-    <!-- Local Stylesheets -->
+    <!-- Fonts & icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" rel="stylesheet" />
+
+    <!-- Shared chrome + service design system -->
     <link href="assets/css/headerfooter.css?v=20261030" rel="stylesheet" />
     <link href="assets/css/tokens.css?v=20261028" rel="stylesheet" />
     <link href="assets/css/components.css?v=20261028" rel="stylesheet" />
-  
-    <!-- GTM Lazy Load -->
-    <script>
-      let gtmLoaded = false;
-      function loadGTM() {
-        if (gtmLoaded) return;
-        gtmLoaded = true;
-        (function (w, d, s, l, i) {
-          w[l] = w[l] || [];
-          w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-          var f = d.getElementsByTagName(s)[0],
-              j = d.createElement(s),
-              dl = l != 'dataLayer' ? '&l=' + l : '';
-          j.async = true;
-          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-          f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-PRFVRKQB');
-      }
-      window.addEventListener("scroll", loadGTM, { once: true });
-      window.addEventListener("mousemove", loadGTM, { once: true });
-      window.addEventListener("touchstart", loadGTM, { once: true });
-    </script>
+    <link href="assets/css/service.css?v=20261104" rel="stylesheet" />
+
+    <!-- Coverage map framing (the only page-specific CSS) -->
     <style>
-        :root {
-          --bg-color: #151719;
-          --card-bg: #1e2023;
-          --text-color: #e1e1e1;
-          --light-text: #a0a0a0;
-          --theme-color: var(--brand);
-          --accent-color: #f59e0b;
-          --transition: all 0.3s ease;
+      .svc-map-frame {
+        overflow: hidden;
+        border: 1px solid var(--svc-line);
+        border-radius: var(--svc-radius);
+        background: var(--svc-card);
+      }
+
+      .svc-map-frame iframe {
+        display: block;
+        width: 100%;
+        height: 480px;
+        border: 0;
+      }
+
+      @media (max-width: 820px) {
+        .svc-map-frame iframe {
+          height: 340px;
         }
+      }
 
-        body {
-          background-color: var(--bg-color);
-          color: var(--text-color);
-          min-height: 100vh;
-          overflow-x: hidden;
-          line-height: 1.6;
+      @media (max-width: 480px) {
+        .svc-map-frame iframe {
+          height: 280px;
         }
-
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 20px;
-        }
-
-        .c-button {
-          display: inline-block;
-          padding: 1rem 2rem;
-          background-color: var(--theme-color);
-          color: white;
-          text-decoration: none;
-          border-radius: 50px;
-          font-weight: 600;
-          transition: var(--transition);
-          border: none;
-          cursor: pointer;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          margin-top: 1rem;
-        }
-
-        .c-button:hover {
-          background-color: var(--accent-color);
-          transform: translateY(-3px);
-          box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
-        }
-
-        /* Hero Section */
-        .service-hero {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          padding: 3rem 2rem 3rem;
-          background: linear-gradient(rgba(21, 23, 25, 0.9), rgba(21, 23, 25, 0.7)),
-                     url("/assets/images/fitness-equipment-repair.webp");
-          background-size: cover;
-          background-position: center;
-          min-height: 60vh;
-          position: relative;
-        }
-
-        .service-hero h1 {
-          font-size: clamp(2.5rem, 5vw, 4rem);
-          margin-bottom: 1.5rem;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          line-height: 1.3;
-        }
-
-        .service-hero p {
-          font-size: clamp(1.25rem, 3vw, 1.5rem);
-          max-width: 800px;
-          margin-bottom: 1rem;
-          color: var(--light-text);
-        }
-
-        .highlight {
-          color: var(--accent-color);
-          font-weight: 700;
-        }
-
-        .hamilton-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: rgba(93, 93, 255, 0.2);
-          color: var(--theme-color);
-          padding: 0.75rem 1.5rem;
-          border-radius: 50px;
-          margin-top: 1.5rem;
-          font-weight: 600;
-          border: 2px solid var(--theme-color);
-        }
-
-        .hamilton-badge i {
-          color: var(--accent-color);
-        }
-
-        /* Map Section */
-        .map-section {
-          padding: 5rem 0;
-          text-align: center;
-        }
-
-        .section-title {
-          text-align: center;
-          font-size: clamp(1.8rem, 4vw, 2.5rem);
-          margin-bottom: 3rem;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          color: var(--theme-color);
-          position: relative;
-          padding-bottom: 1rem;
-        }
-
-        .section-title::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 100px;
-          height: 4px;
-          background: var(--accent-color);
-          border-radius: 2px;
-        }
-
-        .map-container {
-          background: var(--card-bg);
-          border-radius: 16px;
-          padding: 30px;
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-          margin: 0 auto 40px;
-          max-width: 1000px;
-          position: relative;
-          overflow: hidden;
-          border: 1px solid rgba(93, 93, 255, 0.15);
-        }
-
-        .map-visual {
-          position: relative;
-          height: 500px;
-          background: #0f1429;
-          border-radius: 12px;
-          overflow: hidden;
-          margin: 20px auto;
-        }
-
-        .google-map-container {
-          width: 100%;
-          height: 100%;
-          border-radius: 12px;
-          overflow: hidden;
-        }
-
-        .google-map-container iframe {
-          width: 100%;
-          height: 100%;
-          border: none;
-        }
-
-        .map-key {
-          display: flex;
-          justify-content: center;
-          gap: 30px;
-          margin: 30px 0;
-          flex-wrap: wrap;
-        }
-
-        .key-item {
-          display: flex;
-          align-items: center;
-          font-size: 1.1rem;
-        }
-
-        .key-color {
-          width: 25px;
-          height: 25px;
-          margin-right: 10px;
-          border-radius: 4px;
-        }
-
-        .primary-service {
-          background: var(--theme-color);
-        }
-
-        .secondary-service {
-          background: var(--accent-color);
-        }
-
-        /* Postal Code Section */
-        .postal-code-section {
-          padding: 5rem 0;
-          background: var(--card-bg);
-        }
-
-        .postal-code-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 2rem;
-          margin-top: 2rem;
-        }
-
-        .postal-code-group {
-          background: rgba(30, 30, 46, 0.7);
-          border-radius: 16px;
-          padding: 25px;
-          box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-          border: 1px solid rgba(93, 93, 255, 0.1);
-          transition: var(--transition);
-        }
-
-        .postal-code-group:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 15px 30px rgba(93, 93, 255, 0.2);
-        }
-
-        .postal-code-group h3 {
-          color: var(--theme-color);
-          margin-bottom: 20px;
-          padding-bottom: 10px;
-          border-bottom: 2px solid var(--accent-color);
-          font-size: 1.5rem;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-
-        .postal-code-group h3 i {
-          color: var(--accent-color);
-        }
-
-        .postal-code-list {
-          list-style: none;
-        }
-
-        .postal-code-list li {
-          margin-bottom: 12px;
-          padding: 10px;
-          background: rgba(93, 93, 255, 0.1);
-          border-radius: 8px;
-          border-left: 4px solid var(--accent-color);
-        }
-
-        .postal-code-list strong {
-          color: var(--theme-color);
-          display: block;
-          margin-bottom: 0.5rem;
-        }
-
-        /* Cities List */
-        .cities-section {
-          padding: 5rem 0;
-          background: var(--card-bg);
-        }
-
-        .cities-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 30px;
-          margin-top: 40px;
-        }
-
-        .city-group {
-          background: rgba(30, 30, 46, 0.7);
-          border-radius: 16px;
-          padding: 25px;
-          box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-          border: 1px solid rgba(93, 93, 255, 0.1);
-          transition: var(--transition);
-        }
-
-        .city-group:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 15px 30px rgba(93, 93, 255, 0.2);
-        }
-
-        .city-group h3 {
-          color: var(--theme-color);
-          margin-bottom: 20px;
-          padding-bottom: 10px;
-          border-bottom: 2px solid var(--accent-color);
-          font-size: 1.5rem;
-        }
-
-        .city-list {
-          list-style: none;
-          columns: 2;
-          -webkit-columns: 2;
-          -moz-columns: 2;
-        }
-
-        .city-list li {
-          margin-bottom: 12px;
-          break-inside: avoid;
-        }
-
-        .city-list a {
-          color: var(--light-text);
-          text-decoration: none;
-          transition: var(--transition);
-          display: flex;
-          align-items: center;
-          font-size: 1.1rem;
-        }
-
-        .city-list a::before {
-          content: "→";
-          margin-right: 10px;
-          color: var(--accent-color);
-          font-weight: bold;
-          transition: var(--transition);
-        }
-
-        .city-list a:hover {
-          color: white;
-        }
-
-        .city-list a:hover::before {
-          transform: translateX(5px);
-        }
-
-        /* Service Information */
-        .service-info {
-          padding: 5rem 0;
-          text-align: center;
-        }
-
-        .info-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 30px;
-          max-width: 1200px;
-          margin: 40px auto 0;
-        }
-
-        .info-card {
-          background: var(--card-bg);
-          border-radius: 16px;
-          padding: 30px;
-          text-align: center;
-          box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-          border-left: 4px solid var(--accent-color);
-          transition: var(--transition);
-        }
-
-        .info-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 15px 35px rgba(93, 93, 255, 0.3);
-        }
-
-        .info-card i {
-          font-size: 3rem;
-          color: var(--theme-color);
-          margin-bottom: 20px;
-        }
-
-        .info-card h4 {
-          font-size: 1.5rem;
-          margin-bottom: 15px;
-          color: var(--theme-color);
-        }
-
-        /* Call to Action */
-        .cta-section {
-          background: linear-gradient(135deg, var(--theme-color), var(--brand-dark));
-          padding: 80px 0;
-          text-align: center;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .cta-section::before {
-          content: "";
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
-          transform: rotate(30deg);
-        }
-
-        .cta-section h2 {
-          font-size: clamp(2rem, 4vw, 3rem);
-          margin-bottom: 20px;
-          position: relative;
-          z-index: 1;
-        }
-
-        .cta-section p {
-          max-width: 700px;
-          margin: 0 auto 30px;
-          font-size: 1.2rem;
-          position: relative;
-          z-index: 1;
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 992px) {
-          .map-visual {
-            height: 400px;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .service-hero {
-            padding: 2rem 2rem 2rem;
-          }
-
-          .city-list {
-            columns: 1;
-            -webkit-columns: 1;
-            -moz-columns: 1;
-          }
-
-          .map-visual {
-            height: 350px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .map-visual {
-            height: 300px;
-          }
-
-          .map-key {
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-          }
-        }
+      }
     </style>
-</head>
-<body>
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PRFVRKQB" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    
-    <div id="header"></div>
-    
-    <main>
-        <!-- Hero Section -->
-        <section class="service-hero">
-            <h1>Our Service Coverage Area</h1>
-            <p>Canadian Fitness Repair provides mobile repair services throughout Hamilton and all surrounding communities within a <span class="highlight">60km radius</span>. Our certified technicians come directly to your home or business.</p>
-            <span class="hamilton-badge">
-              <i class="ri-map-pin-fill"></i> We're based in Hamilton, serving the GTA and beyond!
-            </span>
-            <a class="c-button" href="tel:2899257239">
-                <i class="ri-phone-line"></i> Call Now: (289) 925-7239
-            </a>
-        </section>
-        
-        <!-- Map Section -->
-        <section class="map-section">
-            <div class="container">
-                <h2 class="section-title">Service Area Map</h2>
-                <div class="map-container">
-                    <p>Our technicians service all locations within the shaded region on the map below. This covers Hamilton and surrounding cities within approximately 60km.</p>
-    
-                    <div class="map-visual">
-                        <div class="google-map-container">
-                            <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d186518.3953639664!2d-80.1624821001467!3d43.38949902648381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882c9c2a3,0x1e882e0c4d1d4b2a!2sHamilton%2C%20ON!5e0!3m2!1sen!2sca!4v1653000000000!5m2!1sen!2sca" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                        </div>
-                    </div>
-    
-                    <div class="map-key">
-                        <div class="key-item">
-                            <div class="key-color primary-service"></div>
-                            <span>Primary Service Area (Hamilton + 20km)</span>
-                        </div>
-                        <div class="key-item">
-                            <div class="key-color secondary-service"></div>
-                            <span>Extended Service Area (20-60km from Hamilton)</span>
-                        </div>
-                    </div>
-    
-                    <p>Whether you're in downtown Hamilton, Burlington, Oakville, or anywhere in between, we come to you for fast, reliable fitness equipment repairs.</p>
-                </div>
-            </div>
-        </section>
 
-        <!-- Postal Code Section -->
-        <section class="postal-code-section">
-            <div class="container">
-                <h2 class="section-title">Postal Codes We Serve</h2>
-                <p>We service these postal code areas throughout the Greater Toronto Area and surrounding regions:</p>
-                
-                <div class="postal-code-grid">
-                    <div class="postal-code-group">
-                        <h3><i class="ri-map-pin-line"></i> Hamilton & Area</h3>
-                        <ul class="postal-code-list">
-                            <li><strong>Central Hamilton</strong> L8E, L8H, L8J, L8K, L8L</li>
-                            <li><strong>East Hamilton</strong> L8M, L8N, L8P, L8R</li>
-                            <li><strong>West Hamilton</strong> L8S, L8T, L8V, L8W</li>
-                            <li><strong>Mountain</strong> L9A, L9B, L9C</li>
-                            <li><strong>Outskirts</strong> L9G, L9H, L9K</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="postal-code-group">
-                        <h3><i class="ri-map-pin-line"></i> Burlington & Area</h3>
-                        <ul class="postal-code-list">
-                            <li><strong>Central Burlington</strong> L7L, L7M</li>
-                            <li><strong>North Burlington</strong> L7N, L7P</li>
-                            <li><strong>South Burlington</strong> L7R, L7S, L7T</li>
-                            <li><strong>Aldershot</strong> L7T</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="postal-code-group">
-                        <h3><i class="ri-map-pin-line"></i> Oakville & Area</h3>
-                        <ul class="postal-code-list">
-                            <li><strong>East Oakville</strong> L6H, L6J</li>
-                            <li><strong>Central Oakville</strong> L6K, L6L</li>
-                            <li><strong>West Oakville</strong> L6M</li>
-                            <li><strong>Bronte</strong> L6L, L6M</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="postal-code-group">
-                        <h3><i class="ri-map-pin-line"></i> Mississauga & Area</h3>
-                        <ul class="postal-code-list">
-                            <li><strong>Northeast Mississauga</strong> L4T, L4W, L4X</li>
-                            <li><strong>Northwest Mississauga</strong> L4Y, L4Z, L5A</li>
-                            <li><strong>Southeast Mississauga</strong> L5B, L5C, L5E</li>
-                            <li><strong>Southwest Mississauga</strong> L5G, L5H, L5J, L5K</li>
-                            <li><strong>Central Mississauga</strong> L5L, L5M, L5N, L5R</li>
-                            <li><strong>Airport Area</strong> L5V, L5W</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="postal-code-group">
-                        <h3><i class="ri-map-pin-line"></i> Niagara Region</h3>
-                        <ul class="postal-code-list">
-                            <li><strong>St. Catharines</strong> L2R, L2S, L2T</li>
-                            <li><strong>Niagara Falls</strong> L2E, L2G, L2H, L2J</li>
-                            <li><strong>Welland</strong> L3B, L3C</li>
-                            <li><strong>Grimsby</strong> L3M</li>
-                            <li><strong>Niagara-on-the-Lake</strong> L0S</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="postal-code-group">
-                        <h3><i class="ri-map-pin-line"></i> Other Areas</h3>
-                        <ul class="postal-code-list">
-                            <li><strong>Brantford</strong> N3R, N3S, N3T, N3V</li>
-                            <li><strong>Cambridge</strong> N1R, N1S, N1T, N3C, N3E</li>
-                            <li><strong>Guelph</strong> N1E, N1G, N1H, N1K, N1L</li>
-                            <li><strong>Kitchener/Waterloo</strong> N2A, N2B, N2C, N2E, N2G, N2H, N2K, N2M, N2N, N2P, N2R</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <p style="margin-top: 2rem; text-align: center;">
-                    <strong>Don't see your postal code?</strong> We serve a wide area - 
-                    <a href="contactform.html" style="color: var(--accent-color);">Contact us</a> 
-                    to check if we service your location!
+    <!-- Service area + FAQ structured data -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ServiceArea",
+  "name": "Canadian Fitness Repair Service Coverage",
+  "description": "Mobile fitness equipment repair serving Hamilton and surrounding areas within a 60km radius.",
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "43.2557",
+      "longitude": "-79.8711"
+    },
+    "geoRadius": "60000"
+  },
+  "serviceArea": [
+    "Hamilton", "Ancaster", "Dundas", "Stoney Creek", "Burlington",
+    "Oakville", "Mississauga", "Brampton", "Toronto", "Niagara Region",
+    "St. Catharines", "Niagara Falls", "Welland", "Grimsby",
+    "Brantford", "Cambridge", "Guelph", "Kitchener", "Waterloo",
+    "Milton", "Waterdown", "Binbrook", "Caledonia", "Paris"
+  ],
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Canadian Fitness Repair",
+    "url": "https://canadianfitnessrepair.com",
+    "image": "https://www.canadianfitnessrepair.com/assets/images/fitness-equipment-repair.webp",
+    "telephone": "+1-289-925-7239",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "22 Canary Grass Blvd",
+      "addressLocality": "Hamilton",
+      "addressRegion": "ON",
+      "postalCode": "L0R 1P0",
+      "addressCountry": "CA"
+    },
+    "openingHours": "Mo-Su 06:00-23:00"
+  }
+}
+    </script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do you charge a travel fee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No travel fee is charged within 20km of Hamilton. For locations between 20km and 60km, any travel fee is quoted upfront before the visit is booked."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How fast can you get to Oakville?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oakville is roughly 45–50km from Hamilton, so it usually falls into our next-day or scheduled service window. Same-day service is available when the schedule allows. Call us and we will confirm the earliest arrival time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What areas do you cover?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We cover a 60km radius around Hamilton, including Hamilton, Ancaster, Stoney Creek, Burlington, Oakville, Mississauga, Brampton, Toronto, the Niagara Region, Brantford, Cambridge, Guelph and Kitchener-Waterloo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is same-day service available in my area?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Same-day service is available within 30km of Hamilton, subject to schedule availability. For locations beyond 30km, we usually offer next-day or scheduled appointments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you service commercial gyms and homes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We repair equipment in homes, condos, hotels, corporate fitness rooms and commercial gyms. Commercial clients can also request scheduled maintenance and priority response."
+      }
+    }
+  ]
+}
+    </script>
+  </head>
+
+  <body class="svc-page">
+    <div id="header"></div>
+
+    <main>
+      <!-- 1. HERO -->
+      <section class="svc-hero">
+        <div class="svc-container svc-hero__grid">
+          <div>
+            <nav class="svc-breadcrumb" aria-label="Breadcrumb">
+              <a href="index.html">Home</a>
+              <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
+              <a href="services.html">Services</a>
+              <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
+              <span aria-current="page">Service Areas</span>
+            </nav>
+
+            <span class="svc-eyebrow"><i class="ri-map-pin-line" aria-hidden="true"></i> Service Area · Hamilton &amp; the GTA</span>
+            <h1>Fitness Equipment Repair Across <span>Hamilton &amp; the GTA</span></h1>
+            <p class="svc-hero__lead">
+              Fast, reliable onsite repairs for homes and commercial gyms within a 60km radius of Hamilton.
+            </p>
+
+            <div class="svc-hero__actions">
+              <a class="svc-btn svc-btn--primary" href="get-quote.html">
+                <i class="ri-calendar-check-line" aria-hidden="true"></i>
+                Book a Repair
+              </a>
+              <a class="svc-btn svc-btn--ghost" href="tel:+12899257239">
+                <i class="ri-phone-fill" aria-hidden="true"></i>
+                Call (289) 925-7239
+              </a>
+            </div>
+
+            <div class="svc-hero__chips">
+              <span class="svc-chip"><span aria-hidden="true">⭐</span> 4.9/5 Rated</span>
+              <span class="svc-chip"><span aria-hidden="true">🛠️</span> 30-Day Warranty</span>
+              <span class="svc-chip"><span aria-hidden="true">⚡</span> Same-Day Service</span>
+            </div>
+          </div>
+
+          <aside class="svc-hero-card" aria-label="Service area summary">
+            <p class="svc-hero-card__label">Serving since 2013</p>
+            <h2>Hamilton-based. GTA-wide.</h2>
+            <p>Onsite repair for homes, condos, hotels and commercial gyms within 60km of Hamilton.</p>
+            <a class="svc-hero-card__phone" href="tel:+12899257239">
+              <i class="ri-phone-fill" aria-hidden="true"></i>
+              (289) 925-7239
+            </a>
+            <a class="svc-btn svc-btn--primary svc-btn--wide" href="get-quote.html">
+              <i class="ri-calendar-check-line" aria-hidden="true"></i>
+              Book a Repair
+            </a>
+            <p class="svc-hero-card__note"><i class="ri-checkbox-circle-fill" aria-hidden="true"></i> No travel fees within 20km</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- 2. TRUST STRIP -->
+      <section class="svc-trust" aria-label="Service area credentials">
+        <div class="svc-container svc-trust__grid">
+          <div class="svc-trust__item">
+            <i class="ri-star-fill" aria-hidden="true"></i>
+            <div><strong>4.9/5 Google rating</strong><span>Local customer reviews</span></div>
+          </div>
+          <div class="svc-trust__item">
+            <i class="ri-shield-check-fill" aria-hidden="true"></i>
+            <div><strong>30-day warranty</strong><span>Parts &amp; labour included</span></div>
+          </div>
+          <div class="svc-trust__item">
+            <i class="ri-verified-badge-fill" aria-hidden="true"></i>
+            <div><strong>Certified &amp; insured</strong><span>Professional technicians</span></div>
+          </div>
+          <div class="svc-trust__item">
+            <i class="ri-history-fill" aria-hidden="true"></i>
+            <div><strong>Serving since 2013</strong><span>Hamilton &amp; the GTA</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. VISUAL COVERAGE MAP -->
+      <section class="svc-section" id="coverage">
+        <div class="svc-container">
+          <div class="svc-why">
+            <div class="svc-map-frame">
+              <iframe
+                src="https://maps.google.com/maps?q=Hamilton%2C%20Ontario%2C%20Canada&amp;z=9&amp;output=embed"
+                title="Map of Canadian Fitness Repair's 60km service area around Hamilton, Ontario"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen>
+              </iframe>
+            </div>
+
+            <div>
+              <span class="svc-eyebrow"><i class="ri-road-map-line" aria-hidden="true"></i> Visual coverage map</span>
+              <h2 class="svc-section-title">A 60km Radius, <span>Centred on Hamilton</span></h2>
+              <p class="svc-section-sub">
+                Our technicians are based in Hamilton and travel to homes and commercial gyms across the GTA, Niagara and Southwestern Ontario. Use the map to see the area we cover, then check the city grid below for your local page.
+              </p>
+              <ul class="svc-checks">
+                <li><i class="ri-check-double-line" aria-hidden="true"></i> <span><strong>Primary zone (0–20km):</strong> no travel fee.</span></li>
+                <li><i class="ri-check-double-line" aria-hidden="true"></i> <span><strong>Extended zone (20–60km):</strong> travel fee may apply.</span></li>
+                <li><i class="ri-check-double-line" aria-hidden="true"></i> <span><strong>Same-day service:</strong> locations within 30km.</span></li>
+                <li><i class="ri-check-double-line" aria-hidden="true"></i> <span><strong>Beyond 60km:</strong> call to check availability.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. CITIES WE SERVE -->
+      <section class="svc-section svc-section--alt" id="cities">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Cities we serve</span>
+            <h2 class="svc-section-title">Local Repair Pages Across <span>Hamilton &amp; the GTA</span></h2>
+            <p class="svc-section-sub">
+              Choose your city for local service details, response times and coverage information.
+            </p>
+          </div>
+
+          <div class="svc-grid svc-grid--3">
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-building-2-line" aria-hidden="true"></i></span>
+              <h3>Hamilton</h3>
+              <p>Treadmill &amp; Elliptical Repair in Hamilton</p>
+              <a class="svc-service-card__link" href="treadmill-repair-hamilton.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-home-4-line" aria-hidden="true"></i></span>
+              <h3>Ancaster</h3>
+              <p>On-Site Fitness Equipment Repair in Ancaster</p>
+              <a class="svc-service-card__link" href="ancaster.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-map-pin-2-line" aria-hidden="true"></i></span>
+              <h3>Stoney Creek</h3>
+              <p>Treadmill &amp; Cardio Repair in Stoney Creek</p>
+              <a class="svc-service-card__link" href="stoney-creek.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-run-line" aria-hidden="true"></i></span>
+              <h3>Burlington</h3>
+              <p>Treadmill &amp; Elliptical Repair in Burlington</p>
+              <a class="svc-service-card__link" href="treadmill-repair-burlington.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-building-line" aria-hidden="true"></i></span>
+              <h3>Oakville</h3>
+              <p>Home &amp; Commercial Gym Repair in Oakville</p>
+              <a class="svc-service-card__link" href="treadmill-repair-oakville.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-map-2-line" aria-hidden="true"></i></span>
+              <h3>Mississauga</h3>
+              <p>Fitness Equipment Repair Across Mississauga</p>
+              <a class="svc-service-card__link" href="treadmill-repair-mississauga.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-map-pin-line" aria-hidden="true"></i></span>
+              <h3>Brampton</h3>
+              <p>Treadmill &amp; Gym Equipment Repair in Brampton</p>
+              <a class="svc-service-card__link" href="treadmill-repair-brampton.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-building-4-line" aria-hidden="true"></i></span>
+              <h3>Toronto</h3>
+              <p>Fitness Equipment Repair in Toronto</p>
+              <a class="svc-service-card__link" href="treadmill-repair-toronto.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-leaf-line" aria-hidden="true"></i></span>
+              <h3>Niagara Region</h3>
+              <p>Treadmill &amp; Cardio Repair in Niagara</p>
+              <a class="svc-service-card__link" href="treadmill-repair-niagara.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-route-line" aria-hidden="true"></i></span>
+              <h3>Brantford</h3>
+              <p>Fitness Equipment Repair in Brantford</p>
+              <a class="svc-service-card__link" href="treadmill-repair-brantford.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-map-pin-user-line" aria-hidden="true"></i></span>
+              <h3>Cambridge</h3>
+              <p>Treadmill &amp; Elliptical Repair in Cambridge</p>
+              <a class="svc-service-card__link" href="treadmill-repair-cambridge.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-home-smile-line" aria-hidden="true"></i></span>
+              <h3>Guelph</h3>
+              <p>Home Gym Repair in Guelph</p>
+              <a class="svc-service-card__link" href="treadmill-repair-cambridge.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="svc-card svc-service-card">
+              <span class="svc-card__icon"><i class="ri-map-pin-time-line" aria-hidden="true"></i></span>
+              <h3>Kitchener/Waterloo</h3>
+              <p>Fitness Equipment Repair in Kitchener-Waterloo</p>
+              <a class="svc-service-card__link" href="treadmill-repair-kitchener.html">Learn More <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. POSTAL CODE ACCORDION -->
+      <section class="svc-section" id="postal-codes">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Coverage by postal code</span>
+            <h2 class="svc-section-title">Find Your <span>Postal Code</span></h2>
+            <p class="svc-section-sub">
+              Open your region to confirm coverage. If you do not see your postal code, contact us and we will check it for you.
+            </p>
+          </div>
+
+          <div class="svc-faq">
+            <details>
+              <summary>Hamilton &amp; Area</summary>
+              <div class="svc-faq__answer">
+                <p>
+                  <strong>Central Hamilton:</strong> L8E, L8H, L8J, L8K, L8L<br />
+                  <strong>East Hamilton:</strong> L8M, L8N, L8P, L8R<br />
+                  <strong>West Hamilton:</strong> L8S, L8T, L8V, L8W<br />
+                  <strong>Mountain:</strong> L9A, L9B, L9C<br />
+                  <strong>Outskirts:</strong> L9G, L9H, L9K
                 </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Burlington &amp; Area</summary>
+              <div class="svc-faq__answer">
+                <p>
+                  <strong>Central Burlington:</strong> L7L, L7M<br />
+                  <strong>North Burlington:</strong> L7N, L7P<br />
+                  <strong>South Burlington:</strong> L7R, L7S, L7T<br />
+                  <strong>Aldershot:</strong> L7T
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Oakville &amp; Area</summary>
+              <div class="svc-faq__answer">
+                <p>
+                  <strong>East Oakville:</strong> L6H, L6J<br />
+                  <strong>Central Oakville:</strong> L6K, L6L<br />
+                  <strong>West Oakville:</strong> L6M<br />
+                  <strong>Bronte:</strong> L6L, L6M
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Mississauga &amp; Area</summary>
+              <div class="svc-faq__answer">
+                <p>
+                  <strong>Northeast Mississauga:</strong> L4T, L4W, L4X<br />
+                  <strong>Northwest Mississauga:</strong> L4Y, L4Z, L5A<br />
+                  <strong>Southeast Mississauga:</strong> L5B, L5C, L5E<br />
+                  <strong>Southwest Mississauga:</strong> L5G, L5H, L5J, L5K<br />
+                  <strong>Central Mississauga:</strong> L5L, L5M, L5N, L5R<br />
+                  <strong>Airport Area:</strong> L5V, L5W
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Niagara Region</summary>
+              <div class="svc-faq__answer">
+                <p>
+                  <strong>St. Catharines:</strong> L2R, L2S, L2T<br />
+                  <strong>Niagara Falls:</strong> L2E, L2G, L2H, L2J<br />
+                  <strong>Welland:</strong> L3B, L3C<br />
+                  <strong>Grimsby:</strong> L3M<br />
+                  <strong>Niagara-on-the-Lake:</strong> L0S
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Brantford, Cambridge, Guelph &amp; Kitchener-Waterloo</summary>
+              <div class="svc-faq__answer">
+                <p>
+                  <strong>Brantford:</strong> N3R, N3S, N3T, N3V<br />
+                  <strong>Cambridge:</strong> N1R, N1S, N1T, N3C, N3E<br />
+                  <strong>Guelph:</strong> N1E, N1G, N1H, N1K, N1L<br />
+                  <strong>Kitchener/Waterloo:</strong> N2A, N2B, N2C, N2E, N2G, N2H, N2K, N2M, N2N, N2P, N2R
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <p class="svc-price-note">
+            Don't see your postal code? <a href="contactform.html">Contact us</a> to check your location.
+          </p>
+        </div>
+      </section>
+
+      <!-- 6. SERVICE GUARANTEES & TRAVEL FEES -->
+      <section class="svc-section svc-section--alt" id="guarantees">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Service guarantees</span>
+            <h2 class="svc-section-title">Clear Coverage, <span>No Surprises</span></h2>
+            <p class="svc-section-sub">
+              The same straightforward terms apply across every city we serve.
+            </p>
+          </div>
+
+          <div class="svc-grid svc-grid--3 svc-features">
+            <article class="svc-card">
+              <span class="svc-card__icon"><i class="ri-road-map-line" aria-hidden="true"></i></span>
+              <h3>60km Radius</h3>
+              <p>We come to you. Onsite repair across Hamilton, the GTA, Niagara and Southwestern Ontario within 60km of Hamilton.</p>
+            </article>
+
+            <article class="svc-card">
+              <span class="svc-card__icon"><i class="ri-flashlight-line" aria-hidden="true"></i></span>
+              <h3>Same-Day Service</h3>
+              <p>For locations within 30km of Hamilton, subject to schedule availability. Call early for the best chance of a same-day slot.</p>
+            </article>
+
+            <article class="svc-card">
+              <span class="svc-card__icon"><i class="ri-money-dollar-circle-line" aria-hidden="true"></i></span>
+              <h3>No Travel Fees</h3>
+              <p>Within 20km of Hamilton. Beyond 20km, any travel fee is quoted upfront before the visit is booked.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="svc-section" id="faq">
+        <div class="svc-container">
+          <div class="svc-section-head">
+            <span class="svc-eyebrow">Questions &amp; answers</span>
+            <h2 class="svc-section-title">Service Area <span>FAQs</span></h2>
+            <p class="svc-section-sub">
+              Travel, response times and coverage across Hamilton and the GTA.
+            </p>
+          </div>
+
+          <div class="svc-faq">
+            <details>
+              <summary>Do you charge a travel fee?</summary>
+              <div class="svc-faq__answer">
+                <p>No travel fee is charged within 20km of Hamilton. For locations between 20km and 60km, any travel fee is quoted upfront before the visit is booked.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>How fast can you get to Oakville?</summary>
+              <div class="svc-faq__answer">
+                <p>Oakville is roughly 45–50km from Hamilton, so it usually falls into our next-day or scheduled service window. Same-day service is available when the schedule allows. Call us and we will confirm the earliest arrival time.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>What areas do you cover?</summary>
+              <div class="svc-faq__answer">
+                <p>We cover a 60km radius around Hamilton, including Hamilton, Ancaster, Stoney Creek, Burlington, Oakville, Mississauga, Brampton, Toronto, the Niagara Region, Brantford, Cambridge, Guelph and Kitchener-Waterloo.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Is same-day service available in my area?</summary>
+              <div class="svc-faq__answer">
+                <p>Same-day service is available within 30km of Hamilton, subject to schedule availability. For locations beyond 30km, we usually offer next-day or scheduled appointments.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Do you service commercial gyms and homes?</summary>
+              <div class="svc-faq__answer">
+                <p>Yes. We repair equipment in homes, condos, hotels, corporate fitness rooms and commercial gyms. Commercial clients can also request scheduled maintenance and priority response.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. FINAL CTA -->
+      <section class="svc-cta">
+        <div class="svc-container">
+          <div class="svc-cta__inner">
+            <span class="svc-eyebrow">Still not sure?</span>
+            <h2>Don't see your area? Contact us to check!</h2>
+            <p>
+              Send us your postal code and equipment details. We will confirm coverage and the earliest appointment in your area.
+            </p>
+            <div class="svc-cta__actions">
+              <a class="svc-btn svc-btn--primary" href="get-quote.html">
+                <i class="ri-calendar-check-line" aria-hidden="true"></i>
+                Book a Repair
+              </a>
+              <a class="svc-btn svc-btn--ghost" href="tel:+12899257239">
+                <i class="ri-phone-fill" aria-hidden="true"></i>
+                Call (289) 925-7239
+              </a>
             </div>
-        </section>
-        
-        <!-- Cities List -->
-        <section class="cities-section">
-            <div class="container">
-                <h2 class="section-title">Cities We Serve</h2>
-                <div class="cities-container">
-                    <div class="city-group">
-                        <h3>Hamilton Region</h3>
-                        <ul class="city-list">
-                            <li><a href="treadmill-repair-hamilton.html">Hamilton</a></li>
-                            <li><a href="ancaster.html">Ancaster</a></li>
-                            <li><a href="dundas.html">Dundas</a></li>
-                            <li><a href="stoney-creek.html">Stoney Creek</a></li>
-                            <li><a href="treadmill-repair-waterdown.html">Waterdown</a></li>
-                            <li><a href="treadmill-repair-binbrook.html">Binbrook</a></li>
-                            <li><a href="treadmill-repair-hamilton.html">Carlisle</a></li>
-                            <li><a href="treadmill-repair-hamilton.html">Freelton</a></li>
-                            <li><a href="treadmill-repair-hamilton.html">Lynden</a></li>
-                            <li><a href="treadmill-repair-hamilton.html">Milton</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="city-group">
-                        <h3>Niagara Region</h3>
-                        <ul class="city-list">
-                            <li><a href="treadmill-repair-stcatharines.html">St. Catharines</a></li>
-                            <li><a href="treadmill-repair-niagara.html">Niagara Falls</a></li>
-                            <li><a href="treadmill-repair-welland.html">Welland</a></li>
-                            <li><a href="grimsby.html">Grimsby</a></li>
-                            <li><a href="grimsby.html">Beamsville</a></li>
-                            <li><a href="grimsby.html">Vineland</a></li>
-                            <li><a href="grimsby.html">Jordan</a></li>
-                            <li><a href="treadmill-repair-niagara.html">Niagara-on-the-Lake</a></li>
-                            <li><a href="treadmill-repair-niagara.html">Port Colborne</a></li>
-                            <li><a href="treadmill-repair-niagara.html">Fort Erie</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="city-group">
-                        <h3>Greater Toronto Area</h3>
-                        <ul class="city-list">
-                            <li><a href="treadmill-repair-burlington.html">Burlington</a></li>
-                            <li><a href="treadmill-repair-oakville.html">Oakville</a></li>
-                            <li><a href="treadmill-repair-mississauga.html">Mississauga</a></li>
-                            <li><a href="treadmill-repair-brampton.html">Brampton</a></li>
-                            <li><a href="treadmill-repair-mississauga.html">Halton Hills</a></li>
-                            <li><a href="treadmill-repair-oakville.html">Georgetown</a></li>
-                            <li><a href="treadmill-repair-mississauga.html">Milton</a></li>
-                            <li><a href="treadmill-repair-mississauga.html">Etobicoke</a></li>
-                            <li><a href="treadmill-repair-toronto.html">Toronto (West End)</a></li>
-                            <li><a href="treadmill-repair-toronto.html">Vaughan</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="city-group">
-                        <h3>Southwestern Ontario</h3>
-                        <ul class="city-list">
-                            <li><a href="treadmill-repair-cambridge.html">Brantford</a></li>
-                            <li><a href="treadmill-repair-cambridge.html">Cambridge</a></li>
-                            <li><a href="treadmill-repair-kitchener.html">Kitchener</a></li>
-                            <li><a href="treadmill-repair-london.html">Waterloo</a></li>
-                            <li><a href="treadmill-repair-cambridge.html">Guelph</a></li>
-                            <li><a href="treadmill-repair-london.html">London</a></li>
-                            <li><a href="treadmill-repair-burlington.html">Woodstock</a></li>
-                            <li><a href="treadmill-repair-cambridge.html">Ingersoll</a></li>
-                            <li><a href="treadmill-repair-hamilton.html">Ayr</a></li>
-                            <li><a href="treadmill-repair-hamilton.html">New Hamburg</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Service Information -->
-        <section class="service-info">
-            <div class="container">
-                <h2 class="section-title">Service Coverage Details</h2>
-                <div class="info-grid">
-                    <div class="info-card">
-                        <i class="ri-map-pin-line"></i>
-                        <h4>Service Radius</h4>
-                        <p>We service all locations within a 60km radius of Hamilton, including both residential and commercial properties.</p>
-                    </div>
-                    
-                    <div class="info-card">
-                        <i class="ri-time-line"></i>
-                        <h4>Same-Day Service</h4>
-                        <p>For locations within 30km of Hamilton, we offer same-day emergency service for most repair needs.</p>
-                    </div>
-                    
-                    <div class="info-card">
-                        <i class="ri-car-line"></i>
-                        <h4>Travel Fees</h4>
-                        <p>No travel fees within 20km of Hamilton. Standard travel fees apply beyond 20km.</p>
-                    </div>
-                    
-                    <div class="info-card">
-                        <i class="ri-building-line"></i>
-                        <h4>Commercial Accounts</h4>
-                        <p>Special service agreements available for commercial clients with multiple locations.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Call to Action -->
-        <section class="cta-section">
-            <div class="container">
-                <h2>Need Fitness Equipment Repair?</h2>
-                <p>Our certified technicians are ready to help you with any fitness equipment repair needs throughout Hamilton and surrounding areas.</p>
-                <a href="tel:2899257239" class="c-button">
-                    <i class="ri-phone-line"></i> Call Now: (289) 925-7239
-                </a>
-            </div>
-        </section>
-        
+            <p class="svc-cta__note"><i class="ri-checkbox-circle-fill" aria-hidden="true"></i> No travel fees within 20km · 30-day parts &amp; labour warranty</p>
+          </div>
+        </div>
+      </section>
     </main>
-    
+
     <div id="footer"></div>
+
     <script defer src="assets/js/menu.js?v=20261030"></script>
-    <script defer src="assets/js/animations.js"></script>
     <script defer src="assets/js/headerfooter.js?v=20261031"></script>
-    </body>
+  </body>
 </html>
