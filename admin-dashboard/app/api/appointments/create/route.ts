@@ -12,6 +12,56 @@ export const dynamic = 'force-dynamic';
 
 const HST_RATE = 0.13;
 
+interface CustomerSyncInput {
+  name: string;
+  phone: string;
+  email: string;
+  lastAppointment: Timestamp;
+}
+
+/**
+ * Keeps the `customers` collection in step with new bookings. A customer is
+ * matched on phone first, then email; matches only refresh the last visit so
+ * manually maintained contact details are never overwritten.
+ */
+async function syncCustomer({
+  name,
+  phone,
+  email,
+  lastAppointment,
+}: CustomerSyncInput): Promise<void> {
+  const customers = getAdminFirestore().collection('customers');
+  const lookups = [];
+
+  if (phone) {
+    lookups.push(customers.where('phone', '==', phone).limit(1).get());
+  }
+
+  if (email) {
+    lookups.push(customers.where('email', '==', email).limit(1).get());
+  }
+
+  if (lookups.length === 0) {
+    return;
+  }
+
+  const snapshots = await Promise.all(lookups);
+  const match = snapshots.find((snapshot) => !snapshot.empty)?.docs[0];
+
+  if (match) {
+    await match.ref.update({ lastAppointment });
+    return;
+  }
+
+  await customers.add({
+    name,
+    phone,
+    email,
+    lastAppointment,
+    createdAt: Timestamp.now(),
+  });
+}
+
 /**
  * POST /api/appointments/create
  *
@@ -96,6 +146,22 @@ export async function POST(request: NextRequest) {
     const reference = await getAdminFirestore()
       .collection('appointments')
       .add(appointment);
+
+    try {
+      await syncCustomer({
+        name: customer,
+        phone,
+        email,
+        lastAppointment: appointment.date,
+      });
+    } catch (syncError) {
+      // The booking already exists; a customer-sync failure must not report
+      // the whole request as failed.
+      console.error(
+        'Failed to sync customer:',
+        syncError instanceof Error ? syncError.message : 'unknown error',
+      );
+    }
 
     return NextResponse.json(
       { data: serializeAppointment(reference.id, appointment) },

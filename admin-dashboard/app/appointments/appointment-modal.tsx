@@ -6,12 +6,17 @@ import {
   type FormEvent,
   type ReactNode,
 } from 'react';
-import { APPOINTMENT_STATUSES, type AppointmentStatus } from '@/lib/types';
+import {
+  APPOINTMENT_STATUSES,
+  type AppointmentDTO,
+  type AppointmentStatus,
+} from '@/lib/types';
 import { formatCurrency } from '@/lib/format';
 
-interface NewAppointmentModalProps {
+interface AppointmentModalProps {
+  appointment?: AppointmentDTO | null;
   onClose: () => void;
-  onCreated: () => void;
+  onSaved: () => void;
 }
 
 interface FormState {
@@ -36,6 +41,81 @@ function todayInToronto(): string {
     month: '2-digit',
     day: '2-digit',
   }).format(new Date());
+}
+
+/**
+ * Converts an ISO timestamp into Toronto wall-clock date/time values so the
+ * edit form round-trips through the same timezone logic as the API.
+ */
+function toTorontoInputs(value?: string | null): { date: string; time: string } {
+  const parsed = value ? new Date(value) : null;
+
+  if (!parsed || Number.isNaN(parsed.getTime())) {
+    return { date: todayInToronto(), time: '09:00' };
+  }
+
+  const parts: Record<string, string> = {};
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Toronto',
+    hourCycle: 'h23',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  for (const part of formatter.formatToParts(parsed)) {
+    if (part.type !== 'literal') {
+      parts[part.type] = part.value;
+    }
+  }
+
+  return {
+    date: `${parts.year}-${parts.month}-${parts.day}`,
+    time: `${parts.hour}:${parts.minute}`,
+  };
+}
+
+function initialFormState(appointment?: AppointmentDTO | null): FormState {
+  if (!appointment) {
+    return {
+      customer: '',
+      phone: '',
+      email: '',
+      date: todayInToronto(),
+      time: '09:00',
+      equipment: '',
+      issue: '',
+      status: 'Scheduled',
+      basePrice: '',
+    };
+  }
+
+  const { date, time } = toTorontoInputs(appointment.date);
+  const basePrice =
+    typeof appointment.basePrice === 'number'
+      ? appointment.basePrice
+      : typeof appointment.price === 'number'
+        ? Math.round((appointment.price / (1 + HST_RATE)) * 100) / 100
+        : null;
+  const status = APPOINTMENT_STATUSES.includes(
+    appointment.status as AppointmentStatus,
+  )
+    ? (appointment.status as AppointmentStatus)
+    : 'Scheduled';
+
+  return {
+    customer: appointment.customer ?? '',
+    phone: appointment.phone ?? '',
+    email: appointment.email ?? '',
+    date,
+    time,
+    equipment: appointment.equipment ?? '',
+    issue: appointment.issue ?? '',
+    status,
+    basePrice: basePrice === null ? '' : String(basePrice),
+  };
 }
 
 function extractFieldErrors(payload: unknown): Record<string, string> {
@@ -109,21 +189,15 @@ function Field({
 const inputClass =
   'w-full rounded-xl border border-slate-700 bg-slate-950/60 px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 outline-none transition focus:border-amber-500/60 focus:ring-2 focus:ring-amber-500/20';
 
-export default function NewAppointmentModal({
+export default function AppointmentModal({
+  appointment = null,
   onClose,
-  onCreated,
-}: NewAppointmentModalProps) {
-  const [form, setForm] = useState<FormState>(() => ({
-    customer: '',
-    phone: '',
-    email: '',
-    date: todayInToronto(),
-    time: '09:00',
-    equipment: '',
-    issue: '',
-    status: 'Scheduled',
-    basePrice: '',
-  }));
+  onSaved,
+}: AppointmentModalProps) {
+  const isEditing = appointment !== null;
+  const [form, setForm] = useState<FormState>(() =>
+    initialFormState(appointment),
+  );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -222,38 +296,45 @@ export default function NewAppointmentModal({
     setErrors({});
     setFormError(null);
 
-    try {
-      const response = await fetch('/api/appointments/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          customer: form.customer.trim(),
-          phone: form.phone.trim(),
-          email: form.email.trim(),
-          date: form.date,
-          time: form.time,
-          equipment: form.equipment.trim(),
-          issue: form.issue.trim(),
-          status: form.status,
-          basePrice: Number(form.basePrice),
-        }),
-      });
+    const payload = {
+      customer: form.customer.trim(),
+      phone: form.phone.trim(),
+      email: form.email.trim(),
+      date: form.date,
+      time: form.time,
+      equipment: form.equipment.trim(),
+      issue: form.issue.trim(),
+      status: form.status,
+      basePrice: Number(form.basePrice),
+    };
 
-      const payload: unknown = await response.json().catch(() => null);
+    try {
+      const response = await fetch(
+        isEditing ? '/api/appointments/update' : '/api/appointments/create',
+        {
+          method: isEditing ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(
+            isEditing ? { ...payload, id: appointment.id } : payload,
+          ),
+        },
+      );
+
+      const responsePayload: unknown = await response.json().catch(() => null);
 
       if (!response.ok) {
-        setErrors(extractFieldErrors(payload));
+        setErrors(extractFieldErrors(responsePayload));
         setFormError(
-          extractErrorMessage(payload) ??
-            `Unable to create the appointment (status ${response.status}).`,
+          extractErrorMessage(responsePayload) ??
+            `Unable to ${isEditing ? 'save' : 'create'} the appointment (status ${response.status}).`,
         );
         return;
       }
 
-      onCreated();
+      onSaved();
       onClose();
     } catch {
       setFormError('Network error. Check your connection and try again.');
@@ -280,19 +361,19 @@ export default function NewAppointmentModal({
       <div
         role="dialog"
         aria-modal="true"
-        aria-labelledby="new-appointment-title"
+        aria-labelledby="appointment-modal-title"
         className="mx-auto my-4 w-full max-w-2xl rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl shadow-black/50 sm:my-10"
       >
         <div className="flex items-start justify-between gap-4 border-b border-slate-800 px-5 py-4 sm:px-6">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-400">
-              New booking
+              {isEditing ? 'Edit booking' : 'New booking'}
             </p>
             <h2
-              id="new-appointment-title"
+              id="appointment-modal-title"
               className="mt-1 text-xl font-bold tracking-tight text-slate-50"
             >
-              Create an appointment
+              {isEditing ? 'Edit appointment' : 'Create an appointment'}
             </h2>
           </div>
           <button
@@ -517,7 +598,13 @@ export default function NewAppointmentModal({
               disabled={submitting}
               className="rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-bold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-400 disabled:opacity-60"
             >
-              {submitting ? 'Creating…' : 'Create Appointment'}
+              {submitting
+                ? isEditing
+                  ? 'Saving…'
+                  : 'Creating…'
+                : isEditing
+                  ? 'Save Changes'
+                  : 'Create Appointment'}
             </button>
           </div>
         </form>

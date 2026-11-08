@@ -36,7 +36,7 @@ function SkeletonRows() {
     <>
       {Array.from({ length: 5 }).map((_, rowIndex) => (
         <tr key={rowIndex} className="animate-pulse">
-          {Array.from({ length: 6 }).map((__, cellIndex) => (
+          {Array.from({ length: 7 }).map((__, cellIndex) => (
             <td key={cellIndex} className="px-5 py-4">
               <span className="block h-3 rounded-full bg-slate-800" />
             </td>
@@ -51,14 +51,20 @@ interface AppointmentsTableProps {
   appointments: AppointmentDTO[] | null;
   loading: boolean;
   error: string | null;
+  deletingId: string | null;
   onRefresh: () => void;
+  onEdit: (appointment: AppointmentDTO) => void;
+  onDelete: (appointment: AppointmentDTO) => void;
 }
 
 export default function AppointmentsTable({
   appointments,
   loading,
   error,
+  deletingId,
   onRefresh,
+  onEdit,
+  onDelete,
 }: AppointmentsTableProps) {
   const count = appointments?.length ?? 0;
 
@@ -124,6 +130,9 @@ export default function AppointmentsTable({
               <th scope="col" className="px-5 py-3 text-right font-semibold">
                 Price
               </th>
+              <th scope="col" className="px-5 py-3 text-right font-semibold">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-800/80">
@@ -131,7 +140,7 @@ export default function AppointmentsTable({
 
             {!loading && appointments && appointments.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-5 py-16 text-center">
+                <td colSpan={7} className="px-5 py-16 text-center">
                   <p className="text-sm font-semibold text-slate-300">
                     No appointments yet
                   </p>
@@ -187,6 +196,76 @@ export default function AppointmentsTable({
 
                 <td className="whitespace-nowrap px-5 py-4 text-right font-medium tabular-nums text-slate-100">
                   {formatCurrency(appointment.price ?? appointment.basePrice)}
+                </td>
+
+                <td className="whitespace-nowrap px-5 py-4 text-right">
+                  <div className="inline-flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => onEdit(appointment)}
+                      aria-label={`Edit appointment for ${
+                        appointment.customer || 'this customer'
+                      }`}
+                      title="Edit"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/60 px-2 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-amber-500/40 hover:text-amber-300 md:px-3"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                        className="h-4 w-4"
+                      >
+                        <path
+                          d="M4 20h4L18 10a2.5 2.5 0 0 0-4-4L4 16v4Z"
+                          stroke="currentColor"
+                          strokeWidth="1.7"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="m13.5 6.5 4 4"
+                          stroke="currentColor"
+                          strokeWidth="1.7"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <span className="hidden md:inline">Edit</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => onDelete(appointment)}
+                      disabled={deletingId === appointment.id}
+                      aria-label={`Delete appointment for ${
+                        appointment.customer || 'this customer'
+                      }`}
+                      title="Delete"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/60 px-2 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-rose-500/40 hover:text-rose-300 disabled:opacity-50 md:px-3"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                        className="h-4 w-4"
+                      >
+                        <path
+                          d="M4 7h16M9 7V5h6v2M6.5 7l1 12h9l1-12"
+                          stroke="currentColor"
+                          strokeWidth="1.7"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M10 11v4M14 11v4"
+                          stroke="currentColor"
+                          strokeWidth="1.7"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <span className="hidden md:inline">
+                        {deletingId === appointment.id ? 'Deleting…' : 'Delete'}
+                      </span>
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
