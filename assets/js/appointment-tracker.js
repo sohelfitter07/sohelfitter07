@@ -1170,7 +1170,7 @@ document.getElementById("savePreviewBtn").onclick = async () => {
     // GoogleMaps 
    
     const baseAddress = "22 Canary Grass Blvd, Hamilton, Ontario, L0R 1P0";
-  const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+  const apiKey = "YOUR_NEW_GOMAPS_API_KEY";
 
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -1190,7 +1190,7 @@ document.getElementById("savePreviewBtn").onclick = async () => {
 
     debounceTimer = setTimeout(async () => {
       try {
-        const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c"; // your GoMaps API key
+        const apiKey = "YOUR_NEW_GOMAPS_API_KEY"; // your GoMaps API key
         const url = `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(query)}&components=country:ca|administrative_area:ON&key=${apiKey}`;
 
 
@@ -1251,7 +1251,7 @@ document.getElementById("savePreviewBtn").onclick = async () => {
 document.addEventListener("DOMContentLoaded", () => {
   const inputEl = document.getElementById("house-address-input");
   const suggestionsEl = document.getElementById("address-suggestions");
-  const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+  const apiKey = "YOUR_NEW_GOMAPS_API_KEY";
 
   inputEl.addEventListener("input", async () => {
     const query = inputEl.value.trim();
@@ -1344,7 +1344,7 @@ document.addEventListener("click", (e) => {
   async function validateAddress(address) {
   if (!address) return false;
 
-  const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+  const apiKey = "YOUR_NEW_GOMAPS_API_KEY";
   const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(address + ', Ontario, Canada')}&region=ca&key=${apiKey}`;
 
   try {
@@ -1363,7 +1363,7 @@ document.addEventListener("click", (e) => {
   }
 }
 async function formatAddress(rawAddress) {
-  const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+  const apiKey = "YOUR_NEW_GOMAPS_API_KEY";
   const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(rawAddress)}&key=${apiKey}`;
   
   const response = await fetch(url);
@@ -1376,7 +1376,7 @@ async function formatAddress(rawAddress) {
   return null; // no valid address found
 }
 async function getAddressSuggestions(query) {
-  const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+  const apiKey = "YOUR_NEW_GOMAPS_API_KEY";
   const url = `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(query)}&components=country:ca|administrative_area:ON&key=${apiKey}`;
   
   const response = await fetch(url);
@@ -1493,7 +1493,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", () => {
   const baseAddress = "22 Canary Grass Blvd, Hamilton, Ontario, L0R 1P0";
-  const apiKey = "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c";
+  const apiKey = "YOUR_NEW_GOMAPS_API_KEY";
 
   const inputEl = document.getElementById("house-address-input");
   const suggestionsEl = document.getElementById("address-suggestions");
@@ -3507,9 +3507,43 @@ async function saveAppointment() {
 
     showLoading(true);
     try {
+        // Appointments are linked to a customer by phone and/or email.
+        // Collect every matching appointment before deleting anything.
+        const appointmentsRef = collection(db, "appointments");
+        const matchedAppointments = new Map();
+
+        const addMatches = (snapshot) => {
+            snapshot.forEach(docSnap => {
+                matchedAppointments.set(docSnap.id, docSnap.ref);
+            });
+        };
+
+        if (customer.phone) {
+            addMatches(await getDocs(query(appointmentsRef, where("phone", "==", customer.phone))));
+        }
+        if (customer.email) {
+            addMatches(await getDocs(query(appointmentsRef, where("email", "==", customer.email))));
+        }
+
+        // Fallback for legacy records without usable contact details.
+        if (matchedAppointments.size === 0 && customer.name) {
+            addMatches(await getDocs(query(appointmentsRef, where("customer", "==", customer.name))));
+        }
+
+        // Delete the associated appointments first...
+        await Promise.all(
+            Array.from(matchedAppointments.values()).map(ref => deleteDoc(ref))
+        );
+
+        // ...then delete the customer record itself.
         await deleteDoc(doc(db, "customers", id));
-        showToast("Customer deleted successfully");
+
+        const count = matchedAppointments.size;
+        showToast(count > 0
+            ? `Customer deleted with ${count} appointment${count === 1 ? "" : "s"}`
+            : "Customer deleted successfully");
         fetchCustomers();
+        fetchAppointments();
     } catch (error) {
         showToast("Failed to delete customer", true);
         console.error(error);
@@ -4930,7 +4964,7 @@ document.querySelector('.prev-step').addEventListener('click', () => {
   if (typeof GoMaps !== "undefined") {
     GoMaps.init({
       widgetId: "gomaps-widget",
-      apiKey: "AlzaSyT7Sa-m79jL64rRoxfdkn7k6wlFRwiJX0c",
+      apiKey: "YOUR_NEW_GOMAPS_API_KEY",
       outputId: "house-address-input",
       distanceFrom: "22 Canary Grass Blvd, Hamilton, Ontario, L0R 1P0",
       mapHeight: "200px",
