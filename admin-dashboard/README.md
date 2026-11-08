@@ -33,6 +33,18 @@ session cookie verified on the server.
 
 Both list routes accept an optional `?limit=` query parameter.
 
+## What exists in Phase 2
+
+- Tailwind CSS v4 (via `@tailwindcss/postcss`) alongside the existing
+  hand-written dashboard styles.
+- A responsive admin shell with sidebar navigation for **Dashboard**,
+  **Appointments**, and **Customers**.
+- `/appointments` — read-only table with customer, phone, date/time, equipment,
+  status, and price. Loads from `GET /api/appointments`.
+- `/customers` — read-only directory table. Loads from `GET /api/customers`.
+- Loading skeletons, error states, empty states, and a manual refresh control.
+- Create/edit forms are intentionally out of scope until the next phase.
+
 ## Requirements
 
 - Node.js 20.9 or newer (Node 24 LTS is recommended).

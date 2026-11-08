@@ -1,3 +1,5 @@
+@import 'tailwindcss';
+
 :root {
   color-scheme: dark;
   --bg: #0b1120;
@@ -5,9 +7,9 @@
   --border: #334155;
   --text: #e5e7eb;
   --muted: #9ca3af;
-  --accent: #93c5fd;
-  --button: #1d4ed8;
-  --button-hover: #1e40af;
+  --accent: #fbbf24;
+  --button: #d97706;
+  --button-hover: #b45309;
   --danger: #fca5a5;
 }
 
@@ -30,19 +32,23 @@ body {
   line-height: 1.6;
 }
 
-h1,
-h2,
-p {
-  margin-top: 0;
-}
+@layer base {
+  h1,
+  h2,
+  p {
+    margin-top: 0;
+  }
 
-h1 {
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
-  line-height: 1.2;
-}
+  h1 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+  }
 
-h2 {
-  font-size: 1.25rem;
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
 }
 
 .eyebrow {
@@ -105,24 +111,26 @@ h2 {
   font-size: 0.9rem;
 }
 
-button {
-  padding: 12px 18px;
-  color: #fff;
-  background: var(--button);
-  border: 0;
-  border-radius: 8px;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
+@layer base {
+  button {
+    padding: 12px 18px;
+    color: #fff;
+    background: var(--button);
+    border: 0;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
 
-button:hover {
-  background: var(--button-hover);
-}
+  button:hover {
+    background: var(--button-hover);
+  }
 
-button:disabled {
-  cursor: wait;
-  opacity: 0.7;
+  button:disabled {
+    cursor: wait;
+    opacity: 0.7;
+  }
 }
 
 .auth-card button {
