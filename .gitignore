@@ -65,6 +65,10 @@ node_modules/
 # dotenv environment variables file
 .env
 
+# Google OAuth credentials (never commit)
+client_secret*.json
+credentials/
+
 # dataconnect generated files
 .dataconnect
 *.bak

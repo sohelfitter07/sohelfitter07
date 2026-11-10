@@ -1,23 +1,21 @@
-const nodemailer = require('nodemailer');
+const gmailService = require('./gmailService');
 
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 exports.sendEmail = async (recipient, subject, body) => {
   try {
-    await transporter.sendMail({
-      from: `"Canadian Fitness Repair" <${process.env.EMAIL_USER}>`,
+    await gmailService.sendEmail({
       to: recipient,
-      subject: subject,
+      subject,
       text: body,
-      html: `<p>${body}</p>`
+      html: `<p>${escapeHtml(body)}</p>`,
     });
     return true;
   } catch (error) {

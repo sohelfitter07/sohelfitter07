@@ -4,9 +4,28 @@ require("dotenv").config();
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 const express = require("express");
 const cors = require("cors");
-const nodemailer = require("nodemailer"); // ✅ ADDED
+const gmailService = require("./services/gmailService");
 const app = express();
 const port = process.env.PORT || 3001;
+const EMAIL_API_KEY =
+  process.env.API_KEY || process.env.EMAIL_API_KEY || "super-secret-key-123";
+
+function requireEmailApiKey(req, res, next) {
+  if (req.get("X-API-KEY") !== EMAIL_API_KEY) {
+    return res.status(401).json({ success: false, error: "Unauthorized" });
+  }
+
+  next();
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 // Enable CORS for your domain
 const allowedOrigins = [
@@ -15,7 +34,10 @@ const allowedOrigins = [
   "http://127.0.0.1:5500",
   "http://localhost:5500",
   "https://sohelfitter07.onrender.com",
-  "http://localhost:3000" // Add local development URL
+  "http://localhost:3000", // Add local development URL
+  "http://tauri.localhost",
+  "https://tauri.localhost",
+  "tauri://localhost"
 ];
 
 app.use(
@@ -32,17 +54,6 @@ app.use(
 
 // ✅ Enable JSON body parsing (needed for log requests)
 app.use(express.json());
-
-// ✅ Initialize email transporter
-const emailTransporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || "smtp.gmail.com",
-  port: process.env.EMAIL_PORT || 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
 
 // ✅ Canadian carrier email-to-SMS gateways
 const carrierGateways = {
@@ -85,16 +96,21 @@ app.post("/api/log", (req, res) => {
 });
 
 // ✅ Email notification endpoint
-app.post("/api/send-email", async (req, res) => {
-  const { recipient, subject, body } = req.body;
-  
+app.post("/api/send-email", requireEmailApiKey, async (req, res) => {
+  const { recipient, subject, body, html } = req.body || {};
+
+  if (!recipient) {
+    return res.status(400).json({ success: false, error: "Missing required field: recipient" });
+  }
+
   try {
-    await emailTransporter.sendMail({
-      from: `"Canadian Fitness Repair" <${process.env.EMAIL_USER}>`,
+    const text = body || "";
+
+    await gmailService.sendEmail({
       to: recipient,
-      subject: subject,
-      text: body,
-      html: `<div>${body}</div>`
+      subject: subject || "",
+      text,
+      html: html || `<div>${escapeHtml(text)}</div>`
     });
     
     console.log(`[📧 EMAIL SENT] To: ${recipient}, Subject: ${subject}`);
@@ -132,10 +148,9 @@ app.post("/api/send-sms", async (req, res) => {
     }
     
     // Send SMS via email-to-SMS gateway
-    await emailTransporter.sendMail({
-      from: `"Canadian Fitness Repair" <${process.env.EMAIL_USER}>`,
+    await gmailService.sendEmail({
       to: `${formattedPhone}@${gateway}`,
-      subject: '', // Empty subject for SMS
+      subject: '',
       text: message.substring(0, 160) // SMS length limit
     });
     
