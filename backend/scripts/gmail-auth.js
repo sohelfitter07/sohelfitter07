@@ -7,7 +7,8 @@
  *
  * Requires GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET in .env, or a credentials
  * file downloaded from Google Cloud Console ("installed" or "web" client).
- * Saves GOOGLE_REFRESH_TOKEN to the repo-root .env.
+ * Saves GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET and GOOGLE_REFRESH_TOKEN to the
+ * repo-root .env.
  */
 
 const crypto = require('crypto');
@@ -61,16 +62,27 @@ function loadClient() {
   fail('Usage: node backend/scripts/gmail-auth.js <client_secret.json> [--port=8080]');
 }
 
-function saveRefreshToken(token) {
-  let env = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf8') : '';
-  const line = `GOOGLE_REFRESH_TOKEN=${token}`;
+function upsertEnvLine(env, key, value) {
+  const line = `${key}=${value}`;
+  const pattern = new RegExp(`^${key}=.*$`, 'm');
 
-  if (/^GOOGLE_REFRESH_TOKEN=.*$/m.test(env)) {
-    env = env.replace(/^GOOGLE_REFRESH_TOKEN=.*$/m, line);
-  } else {
-    if (env && !env.endsWith('\n')) env += '\n';
-    env += `${line}\n`;
+  if (pattern.test(env)) {
+    return env.replace(pattern, line);
   }
+
+  if (env && !env.endsWith('\n')) {
+    env += '\n';
+  }
+
+  return `${env}${line}\n`;
+}
+
+function saveCredentials({ clientId, clientSecret, refreshToken }) {
+  let env = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf8') : '';
+
+  env = upsertEnvLine(env, 'GOOGLE_CLIENT_ID', clientId);
+  env = upsertEnvLine(env, 'GOOGLE_CLIENT_SECRET', clientSecret);
+  env = upsertEnvLine(env, 'GOOGLE_REFRESH_TOKEN', refreshToken);
 
   fs.writeFileSync(envPath, env, { mode: 0o600 });
 }
@@ -129,7 +141,11 @@ const server = http.createServer(async (req, res) => {
       throw new Error(reason);
     }
 
-    saveRefreshToken(data.refresh_token);
+    saveCredentials({
+      clientId,
+      clientSecret,
+      refreshToken: data.refresh_token,
+    });
 
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Gmail authorized. Refresh token saved to .env — you can close this tab.');
