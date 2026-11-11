@@ -20,7 +20,10 @@ require('dotenv').config({ path: envPath });
 
 const AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 const TOKEN_URL = 'https://oauth2.googleapis.com/token';
-const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
+const SCOPES = [
+  'https://www.googleapis.com/auth/gmail.send',
+  'https://www.googleapis.com/auth/gmail.readonly',
+];
 
 const args = process.argv.slice(2);
 const credentialsPath = args.find((arg) => !arg.startsWith('--'));
@@ -159,7 +162,9 @@ server.listen(port, '127.0.0.1', () => {
   });
 
   console.log(`\nListening for the OAuth callback on ${redirectUri}`);
-  console.log('Open this URL, sign in as the sending Gmail account, and approve "Send email":\n');
+  console.log(
+    'Open this URL, sign in as the sending Gmail account, and approve both "Send email" and "Read email":\n'
+  );
   console.log(`${AUTH_URL}?${params.toString()}\n`);
   console.log('If Google reports redirect_uri_mismatch, add this exact URI under');
   console.log('Google Cloud Console > APIs & Services > Credentials > your OAuth client > Authorized redirect URIs.\n');

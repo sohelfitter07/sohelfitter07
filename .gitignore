@@ -65,6 +65,9 @@ node_modules/
 # dotenv environment variables file
 .env
 
+# Extracted customer emails (contains PII, never commit)
+past-emails.txt
+
 # Google OAuth credentials (never commit)
 client_secret*.json
 credentials/
