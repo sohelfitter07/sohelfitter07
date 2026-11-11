@@ -4,6 +4,7 @@ require("dotenv").config();
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 const express = require("express");
 const cors = require("cors");
+const admin = require("firebase-admin");
 const gmailService = require("./services/gmailService");
 const app = express();
 const port = process.env.PORT || 3001;
@@ -16,6 +17,37 @@ function requireEmailApiKey(req, res, next) {
   }
 
   next();
+}
+
+let firestore = null;
+
+function getFirestore() {
+  if (firestore) return firestore;
+
+  if (!admin.apps.length) {
+    const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+
+    if (serviceAccountJson) {
+      admin.initializeApp({
+        credential: admin.credential.cert(JSON.parse(serviceAccountJson)),
+      });
+    } else if (process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY) {
+      admin.initializeApp({
+        credential: admin.credential.cert({
+          projectId: process.env.FIREBASE_PROJECT_ID || "cfr-tracker",
+          clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+          privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+        }),
+      });
+    } else {
+      admin.initializeApp({
+        credential: admin.credential.applicationDefault(),
+      });
+    }
+  }
+
+  firestore = admin.firestore();
+  return firestore;
 }
 
 function escapeHtml(value) {
@@ -121,6 +153,59 @@ app.post("/api/send-email", requireEmailApiKey, async (req, res) => {
   }
 });
 
+// ✅ Quote / contact form lead endpoint
+app.post("/api/quote-request", requireEmailApiKey, async (req, res) => {
+  const { name, phone, email, address, equipment, issue, message, formType } =
+    req.body || {};
+
+  if (!name || !phone || !email) {
+    return res.status(400).json({
+      success: false,
+      error: "Missing required fields: name, phone, email",
+    });
+  }
+
+  const isContact = formType === "contact";
+  const trimmed = (value) => (value ? String(value).trim() : "");
+
+  try {
+    const db = getFirestore();
+
+    const docRef = await db.collection("appointments").add({
+      customer: trimmed(name),
+      phone: trimmed(phone),
+      email: trimmed(email),
+      carrier: "",
+      equipment: trimmed(equipment),
+      houseAddress: trimmed(address),
+      distanceFromShopKm: 0,
+      date: new Date(),
+      basePrice: 0,
+      price: 0,
+      taxRate: 0.13,
+      issue: trimmed(issue || message),
+      status: isContact ? "New Lead" : "Quote Requested",
+      repair_notes: "",
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      createdBy: "website",
+      confirmationSent: false,
+      confirmationSentAt: null,
+      lastStatusSent: "",
+      lastAttemptStatus: "",
+      reminderEnabled: false,
+      needsResend: false,
+    });
+
+    console.log(
+      `[📥 ${isContact ? "CONTACT" : "QUOTE"} LEAD] ${trimmed(name)} (${trimmed(phone)}) -> appointments/${docRef.id}`
+    );
+    res.status(200).json({ success: true, id: docRef.id });
+  } catch (error) {
+    console.error("Quote request creation error:", error);
+    res.status(500).json({ success: false, error: "Failed to create lead" });
+  }
+});
+
 // ✅ SMS notification endpoint (using email-to-SMS)
 app.post("/api/send-sms", async (req, res) => {
   const { phoneNumber, carrier, message } = req.body;
@@ -169,5 +254,6 @@ app.listen(port, () => {
   console.log(`- GET  /api/firebase-config`);
   console.log(`- POST /api/log`);
   console.log(`- POST /api/send-email`);
+  console.log(`- POST /api/quote-request`);
   console.log(`- POST /api/send-sms`);
 });

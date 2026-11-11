@@ -2666,6 +2666,51 @@
           saveFormState();
         });
     
+        // ========== LEAD SYNC (silent, never blocks the EmailJS flow) ==========
+        async function sendLeadToBackend() {
+          try {
+            const name = [
+              document.getElementById("firstName").value.trim(),
+              document.getElementById("lastName").value.trim(),
+            ].filter(Boolean).join(" ");
+
+            const equipment = [
+              typeSelect.value,
+              brandSelect.value === "Other"
+                ? manualBrandInput.value.trim()
+                : brandSelect.value,
+              modelSelect.value === "Other" || modelSelect.style.display === "none"
+                ? manualModelInput.value.trim()
+                : modelSelect.value,
+            ].filter(Boolean).join(" ");
+
+            const address = [
+              document.getElementById("address").value.trim(),
+              document.getElementById("city").value,
+              document.getElementById("postal").value.trim(),
+            ].filter(Boolean).join(", ");
+
+            await fetch("https://cfr-backend-1.onrender.com/api/quote-request", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-API-KEY": "super-secret-key-123",
+              },
+              body: JSON.stringify({
+                name,
+                phone: document.getElementById("contactNumber").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                address,
+                equipment,
+                issue: document.getElementById("description").value.trim(),
+                formType: "quote",
+              }),
+            });
+          } catch (error) {
+            console.warn("Lead sync failed (EmailJS submission unaffected):", error);
+          }
+        }
+    
         // Form submission
         quoteForm.addEventListener("submit", function (e) {
           e.preventDefault();
@@ -2684,6 +2729,9 @@
           submitButton.innerHTML = '<div class="submit-spinner"></div> Processing...';
           submitButton.disabled = true;
           loadingOverlay.style.display = "flex";
+    
+          // Fire-and-forget lead sync; EmailJS below is unchanged.
+          sendLeadToBackend();
     
           emailjs
             .sendForm("service_15f1fcs", "template_pq3tpbe", quoteForm)

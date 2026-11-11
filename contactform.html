@@ -1279,6 +1279,33 @@
           }
         });
 
+        // === LEAD SYNC (silent, never blocks the EmailJS flow) ===
+        async function sendContactLeadToBackend() {
+          try {
+            const subject =
+              document.getElementById("subject")?.value.trim() || "";
+            const message =
+              document.getElementById("message")?.value.trim() || "";
+
+            await fetch("https://cfr-backend-1.onrender.com/api/quote-request", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-API-KEY": "super-secret-key-123",
+              },
+              body: JSON.stringify({
+                name: document.getElementById("name")?.value.trim() || "",
+                phone: document.getElementById("phone")?.value.trim() || "",
+                email: document.getElementById("email")?.value.trim() || "",
+                issue: subject ? `${subject}: ${message}` : message,
+                formType: "contact",
+              }),
+            });
+          } catch (error) {
+            console.warn("Lead sync failed (EmailJS submission unaffected):", error);
+          }
+        }
+
         // === CONTACT FORM ===
         const contactForm = document.getElementById("contactForm");
         contactForm?.addEventListener("submit", function (e) {
@@ -1290,6 +1317,9 @@
           submitBtn.disabled = true;
 
           const name = document.getElementById("name")?.value || "User";
+
+          // Fire-and-forget lead sync; EmailJS below is unchanged.
+          sendContactLeadToBackend();
 
           emailjs
             .sendForm("service_15f1fcs", "template_nuvc324", contactForm)
