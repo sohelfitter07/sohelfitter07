@@ -2,6 +2,7 @@ const path = require("path");
 require("dotenv").config();
 // Fallback so the server finds the repo-root .env when started from backend/.
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
+const crypto = require("crypto");
 const express = require("express");
 const cors = require("cors");
 const admin = require("firebase-admin");
@@ -59,6 +60,400 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+function safeEqual(left, right) {
+  const a = Buffer.from(String(left));
+  const b = Buffer.from(String(right));
+
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+
+function isWebhookAuthorized(req) {
+  const expected = process.env.GMAIL_WEBHOOK_TOKEN;
+  if (!expected) {
+    return true;
+  }
+
+  const provided = req.get("X-Webhook-Token") || req.query.token;
+  return typeof provided === "string" && safeEqual(provided, expected);
+}
+
+function decodeBase64Url(value) {
+  const normalized = String(value || "")
+    .replace(/-/g, "+")
+    .replace(/_/g, "/");
+
+  return Buffer.from(normalized, "base64").toString("utf8");
+}
+
+function decodeMimeWords(value) {
+  return String(value || "").replace(
+    /=\?([^?]+)\?([BbQq])\?([^?]*)\?=/g,
+    (match, charset, encoding, encoded) => {
+      try {
+        const charsetName = String(charset).toLowerCase();
+
+        if (String(encoding).toUpperCase() === "B") {
+          return Buffer.from(encoded, "base64").toString(
+            charsetName.includes("8859") || charsetName.includes("latin")
+              ? "latin1"
+              : "utf8"
+          );
+        }
+
+        const bytes = encoded
+          .replace(/_/g, " ")
+          .replace(/=([0-9A-Fa-f]{2})/g, (_, hex) =>
+            String.fromCharCode(parseInt(hex, 16))
+          );
+
+        return Buffer.from(bytes, "latin1").toString(
+          charsetName.includes("8859") || charsetName.includes("latin")
+            ? "latin1"
+            : "utf8"
+        );
+      } catch {
+        return match;
+      }
+    }
+  );
+}
+
+function headerValue(message, name) {
+  const target = String(name).toLowerCase();
+  const headers = message?.payload?.headers || [];
+  const header = headers.find(
+    (item) => String(item.name || "").toLowerCase() === target
+  );
+
+  return decodeMimeWords(header ? header.value : "");
+}
+
+function collectBodyParts(part, collected) {
+  if (!part) {
+    return;
+  }
+
+  const data = part.body?.data;
+  const mimeType = String(part.mimeType || "").toLowerCase();
+  const isAttachment = Boolean(part.filename);
+
+  if (!isAttachment && data) {
+    if (mimeType === "text/plain") {
+      collected.plain.push(decodeBase64Url(data));
+    } else if (mimeType === "text/html") {
+      collected.html.push(decodeBase64Url(data));
+    }
+  }
+
+  for (const child of part.parts || []) {
+    collectBodyParts(child, collected);
+  }
+}
+
+function htmlToText(html) {
+  return String(html)
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(p|div|li|tr|h[1-6])>/gi, "\n")
+    .replace(/<li[^>]*>/gi, "- ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/[ \t]+\n/g, "\n");
+}
+
+function addressOf(value) {
+  const text = String(value || "");
+  const angled = text.match(/<([^>]+)>/);
+  if (angled) {
+    return angled[1].trim().toLowerCase();
+  }
+
+  const bare = text.match(/[^\s<>@,;]+@[^\s<>@,;]+/);
+  return (bare ? bare[0] : text).trim().toLowerCase();
+}
+
+const QUOTED_REPLY_MARKERS = [
+  /^\s*On\b[^\n]*\bwrote:.*$/im,
+  /^\s*-{2,}\s*Original Message\s*-{2,}\s*$/im,
+  /^\s*From:\s*.+\r?\n\s*(?:Sent|Date):\s*.+\r?\n\s*To:\s*.+$/im,
+  /^\s*_{10,}\s*$/m,
+];
+
+function stripQuotedReply(value) {
+  let text = String(value || "").replace(/\r\n/g, "\n");
+  text = text.replace(/Email sent via EmailJS\.com/gi, "");
+
+  for (const marker of QUOTED_REPLY_MARKERS) {
+    const match = marker.exec(text);
+    if (match && match.index > 0) {
+      text = text.slice(0, match.index);
+    }
+  }
+
+  text = text
+    .split("\n")
+    .filter((line) => !/^\s*>/.test(line))
+    .join("\n");
+
+  return text.replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function parseInboundEmail(message) {
+  const collected = { plain: [], html: [] };
+  collectBodyParts(message?.payload, collected);
+
+  const plain = collected.plain.join("\n").trim();
+  const text = plain || htmlToText(collected.html.join("\n"));
+  const from = headerValue(message, "From");
+
+  return {
+    messageId: message?.id || "",
+    threadId: message?.threadId || "",
+    from,
+    fromAddress: addressOf(from),
+    subject: headerValue(message, "Subject"),
+    // Firestore documents cap at 1 MiB, so keep an unusually large body from
+    // breaking the appointment write.
+    body: stripQuotedReply(text).slice(0, 20000),
+  };
+}
+
+function parsePubSubPayload(body) {
+  if (!body || typeof body !== "object") {
+    return null;
+  }
+
+  // Accept a direct JSON body too, which keeps local testing simple.
+  if (typeof body.emailAddress === "string" && body.historyId != null) {
+    return {
+      emailAddress: body.emailAddress,
+      historyId: String(body.historyId),
+    };
+  }
+
+  const encoded = body.message?.data;
+  if (typeof encoded !== "string" || !encoded) {
+    return null;
+  }
+
+  let decoded;
+  try {
+    decoded = JSON.parse(decodeBase64Url(encoded));
+  } catch {
+    return null;
+  }
+
+  if (!decoded || typeof decoded !== "object") {
+    return null;
+  }
+
+  return {
+    emailAddress:
+      typeof decoded.emailAddress === "string" ? decoded.emailAddress : "",
+    historyId: decoded.historyId != null ? String(decoded.historyId) : "",
+  };
+}
+
+function normalizeEmail(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function toMillis(value) {
+  if (!value) {
+    return 0;
+  }
+
+  if (typeof value.toDate === "function") {
+    const date = value.toDate();
+    return date instanceof Date && !Number.isNaN(date.getTime())
+      ? date.getTime()
+      : 0;
+  }
+
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.getTime()) ? 0 : date.getTime();
+}
+
+function appointmentThreadIds(data) {
+  const ids = new Set();
+
+  if (typeof data?.gmailThreadId === "string") {
+    ids.add(data.gmailThreadId);
+  }
+
+  if (typeof data?.threadId === "string") {
+    ids.add(data.threadId);
+  }
+
+  const communications = Array.isArray(data?.communications)
+    ? data.communications
+    : [];
+
+  for (const entry of communications) {
+    if (entry && typeof entry.threadId === "string") {
+      ids.add(entry.threadId);
+    }
+  }
+
+  return ids;
+}
+
+function appointmentTimestamp(data) {
+  return Math.max(
+    toMillis(data?.date),
+    toMillis(data?.createdAt),
+    toMillis(data?.updatedAt)
+  );
+}
+
+async function findAppointmentForEmail({ fromAddress, threadId }) {
+  const appointments = getFirestore().collection("appointments");
+  const candidates = new Map();
+  const normalized = normalizeEmail(fromAddress);
+  const addDocs = (snapshot) =>
+    snapshot.docs.forEach((doc) => candidates.set(doc.id, doc));
+
+  if (normalized) {
+    const variants = [...new Set([String(fromAddress).trim(), normalized])].filter(
+      Boolean
+    );
+    const snapshot = await appointments
+      .where("email", "in", variants)
+      .limit(25)
+      .get();
+    addDocs(snapshot);
+  }
+
+  if (threadId) {
+    const threadSnapshot = await appointments
+      .where("gmailThreadId", "==", threadId)
+      .limit(5)
+      .get();
+    addDocs(threadSnapshot);
+
+    const threadArraySnapshot = await appointments
+      .where("gmailThreadIds", "array-contains", threadId)
+      .limit(5)
+      .get();
+    addDocs(threadArraySnapshot);
+  }
+
+  if (candidates.size === 0 && normalized) {
+    // Legacy records may use different casing than the incoming header, so
+    // compare normalized addresses across the most recent appointments.
+    const snapshot = await appointments
+      .orderBy("date", "desc")
+      .limit(500)
+      .get();
+
+    snapshot.docs.forEach((doc) => {
+      if (normalizeEmail(doc.data()?.email) === normalized) {
+        candidates.set(doc.id, doc);
+      }
+    });
+  }
+
+  if (candidates.size === 0) {
+    return null;
+  }
+
+  const ranked = [...candidates.values()].sort((a, b) => {
+    const aThread =
+      threadId && appointmentThreadIds(a.data()).has(threadId) ? 1 : 0;
+    const bThread =
+      threadId && appointmentThreadIds(b.data()).has(threadId) ? 1 : 0;
+
+    if (aThread !== bThread) {
+      return bThread - aThread;
+    }
+
+    return appointmentTimestamp(b.data()) - appointmentTimestamp(a.data());
+  });
+
+  return ranked[0] || null;
+}
+
+const CONFIRMATION_PATTERN =
+  /\b(yes|yep|yeah|confirm(?:ed|ing|s)?|sounds good|that works|works for me|approve(?:d)?)\b/i;
+const NEGATED_CONFIRMATION_PATTERN =
+  /\b(?:not|never|don'?t|do not|can'?t|cannot|won'?t|unable)\b[^.!?\n]{0,30}\b(?:confirm(?:ed|ing|s)?|approve(?:d)?|work|make it)\b/i;
+
+const CONFIRMATION_STATUS_TRANSITIONS = {
+  "Awaiting Confirmation (Quote sent)": "Scheduled (Confirmed)",
+  "Awaiting Confirmation": "Scheduled (Confirmed)",
+  "Awaiting Parts Confirmation": "Awaiting Install Confirmation",
+  "Awaiting Install Confirmation": "Scheduled (Confirmed)",
+};
+
+function nextConfirmationStatus(currentStatus, body) {
+  const text = String(body || "");
+
+  if (!text || NEGATED_CONFIRMATION_PATTERN.test(text)) {
+    return "";
+  }
+
+  if (!CONFIRMATION_PATTERN.test(text)) {
+    return "";
+  }
+
+  return (
+    CONFIRMATION_STATUS_TRANSITIONS[String(currentStatus || "").trim()] || ""
+  );
+}
+
+async function storeInboundCommunication(ref, entry) {
+  const db = getFirestore();
+  let duplicate = false;
+  let nextStatus = "";
+
+  await db.runTransaction(async (transaction) => {
+    const snapshot = await transaction.get(ref);
+    if (!snapshot.exists) {
+      return;
+    }
+
+    const data = snapshot.data() || {};
+    const communications = Array.isArray(data.communications)
+      ? data.communications
+      : [];
+
+    // Pub/Sub can deliver the same notification more than once.
+    if (
+      entry.messageId &&
+      communications.some((item) => item?.messageId === entry.messageId)
+    ) {
+      duplicate = true;
+      return;
+    }
+
+    nextStatus = nextConfirmationStatus(data.status, entry.body);
+
+    const update = {
+      communications: admin.firestore.FieldValue.arrayUnion(entry),
+      lastInboundEmailAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    };
+
+    if (nextStatus) {
+      update.status = nextStatus;
+    }
+
+    if (entry.threadId) {
+      update.gmailThreadIds = admin.firestore.FieldValue.arrayUnion(
+        entry.threadId
+      );
+    }
+
+    transaction.update(ref, update);
+  });
+
+  return { duplicate, nextStatus };
 }
 
 // Enable CORS for your domain
@@ -249,6 +644,91 @@ app.post("/api/send-sms", async (req, res) => {
   }
 });
 
+// ✅ Gmail Pub/Sub push receiver for customer replies
+app.post("/api/gmail-webhook", async (req, res) => {
+  if (!isWebhookAuthorized(req)) {
+    return res.status(401).json({ success: false, error: "Unauthorized" });
+  }
+
+  const notification = parsePubSubPayload(req.body);
+  if (!notification) {
+    console.warn("[📨 GMAIL WEBHOOK] Ignoring a payload without a Gmail notification");
+    return res.status(200).json({ success: true });
+  }
+
+  try {
+    const message = await gmailService.fetchLatestMessageForHistory(
+      notification.historyId
+    );
+
+    if (!message) {
+      console.log("[📨 GMAIL WEBHOOK] No new inbox message found");
+      return res.status(200).json({ success: true });
+    }
+
+    const labels = message.labelIds || [];
+    const parsed = parseInboundEmail(message);
+    const mailbox = normalizeEmail(notification.emailAddress);
+    const sender = normalizeEmail(parsed.fromAddress);
+
+    if (!sender || labels.includes("SENT") || (mailbox && sender === mailbox)) {
+      console.log(
+        `[📨 GMAIL WEBHOOK] Skipping outbound/self message ${parsed.messageId}`
+      );
+      return res.status(200).json({ success: true });
+    }
+
+    console.log(
+      `[📨 GMAIL WEBHOOK] ${parsed.fromAddress} | "${parsed.subject}" | thread ${parsed.threadId}`
+    );
+
+    const appointment = await findAppointmentForEmail({
+      fromAddress: parsed.fromAddress,
+      threadId: parsed.threadId,
+    });
+
+    if (!appointment) {
+      console.log(
+        `[📨 GMAIL WEBHOOK] No appointment matched ${parsed.fromAddress}`
+      );
+      return res.status(200).json({ success: true });
+    }
+
+    const entry = {
+      type: "email",
+      direction: "inbound",
+      dateSent: new Date(),
+      subject: parsed.subject,
+      body: parsed.body,
+      messageId: parsed.messageId,
+      threadId: parsed.threadId,
+    };
+
+    const { duplicate, nextStatus } = await storeInboundCommunication(
+      appointment.ref,
+      entry
+    );
+
+    if (duplicate) {
+      console.log(
+        `[📨 GMAIL WEBHOOK] Message ${parsed.messageId} already recorded on appointments/${appointment.id}`
+      );
+    } else {
+      console.log(
+        `[📨 INBOUND EMAIL] ${parsed.fromAddress} -> appointments/${appointment.id}` +
+          (nextStatus ? ` (status -> ${nextStatus})` : "")
+      );
+    }
+
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    console.error("[📨 GMAIL WEBHOOK] Failed to process notification:", error);
+    return res
+      .status(500)
+      .json({ success: false, error: "Failed to process notification" });
+  }
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
@@ -258,4 +738,5 @@ app.listen(port, () => {
   console.log(`- POST /api/send-email`);
   console.log(`- POST /api/quote-request`);
   console.log(`- POST /api/send-sms`);
+  console.log(`- POST /api/gmail-webhook`);
 });

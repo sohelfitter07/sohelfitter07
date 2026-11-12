@@ -1,5 +1,6 @@
 const TOKEN_URL = 'https://oauth2.googleapis.com/token';
-const GMAIL_SEND_URL = 'https://gmail.googleapis.com/gmail/v1/users/me/messages/send';
+const GMAIL_API_BASE = 'https://gmail.googleapis.com/gmail/v1/users/me';
+const GMAIL_SEND_URL = `${GMAIL_API_BASE}/messages/send`;
 
 let cachedAccessToken = null;
 let cachedAccessTokenExpiry = 0;
@@ -195,4 +196,135 @@ async function sendEmail({ to, subject = '', text = '', html }) {
   return data;
 }
 
-module.exports = { sendEmail };
+async function gmailGet(endpoint, params = {}) {
+  const accessToken = await getAccessToken();
+  const url = new URL(`${GMAIL_API_BASE}${endpoint}`);
+
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined && value !== null && value !== '') {
+      url.searchParams.set(key, String(value));
+    }
+  }
+
+  let response;
+  try {
+    response = await fetch(url, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  } catch (error) {
+    console.error(`[GMAIL] GET ${endpoint} network error:`, error);
+    throw error;
+  }
+
+  const { data, rawText } = await readResponseBody(response);
+
+  if (!response.ok) {
+    console.error(
+      `[GMAIL] GET ${endpoint} failed HTTP ${response.status}:`,
+      rawText || '(empty body)'
+    );
+    const reason = data.error?.message || `HTTP ${response.status}`;
+    const error = new Error(`Gmail API ${endpoint} failed: ${reason}`);
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
+}
+
+async function listHistoryMessageIds(historyId) {
+  const ids = [];
+  const seen = new Set();
+  let pageToken = '';
+
+  do {
+    const page = await gmailGet('/history', {
+      startHistoryId: historyId,
+      historyTypes: 'messageAdded',
+      labelId: 'INBOX',
+      maxResults: 100,
+      pageToken,
+    });
+
+    for (const record of page.history || []) {
+      for (const added of record.messagesAdded || []) {
+        const id = added.message?.id;
+        if (id && !seen.has(id)) {
+          seen.add(id);
+          ids.push(id);
+        }
+      }
+    }
+
+    pageToken = page.nextPageToken || '';
+  } while (pageToken && ids.length < 50);
+
+  return ids;
+}
+
+async function fetchNewestMessage(messageIds) {
+  if (!messageIds.length) {
+    return null;
+  }
+
+  // A single notification normally covers one message; cap the fan-out in
+  // case a burst of mail arrived in the same history window.
+  const messages = await Promise.all(
+    messageIds.slice(-10).map((id) => gmailGet(`/messages/${id}`, { format: 'full' }))
+  );
+
+  messages.sort(
+    (a, b) => Number(b.internalDate || 0) - Number(a.internalDate || 0)
+  );
+
+  return messages[0] || null;
+}
+
+/**
+ * Returns the newest INBOX message associated with a Pub/Sub historyId.
+ *
+ * Gmail's startHistoryId is exclusive, and the notification carries the new
+ * mailbox historyId, so the lookup starts one step below it to include the
+ * change that triggered the notification. If Gmail has already trimmed that
+ * history range, fall back to the newest inbox message; the webhook
+ * de-duplicates by message id.
+ */
+async function fetchLatestMessageForHistory(historyId) {
+  if (historyId) {
+    let startId = String(historyId);
+
+    try {
+      const previous = (BigInt(historyId) - 1n).toString();
+      if (!previous.startsWith('-')) {
+        startId = previous;
+      }
+    } catch {
+      // Non-numeric history ids are passed through unchanged.
+    }
+
+    try {
+      const ids = await listHistoryMessageIds(startId);
+      const message = await fetchNewestMessage(ids);
+      if (message) {
+        return message;
+      }
+    } catch (error) {
+      if (error.status !== 404) {
+        throw error;
+      }
+
+      console.warn(
+        `[GMAIL] History ${startId} is no longer available; falling back to the newest inbox message`
+      );
+    }
+  }
+
+  const latest = await gmailGet('/messages', {
+    maxResults: 5,
+    labelIds: 'INBOX',
+  });
+
+  return fetchNewestMessage((latest.messages || []).map((item) => item.id));
+}
+
+module.exports = { sendEmail, getAccessToken, fetchLatestMessageForHistory };
