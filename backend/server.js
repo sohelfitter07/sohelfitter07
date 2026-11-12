@@ -380,9 +380,9 @@ async function findAppointmentForEmail({ fromAddress, threadId }) {
 }
 
 const CONFIRMATION_PATTERN =
-  /\b(yes|yep|yeah|confirm(?:ed|ing|s)?|sounds good|that works|works for me|approve(?:d)?)\b/i;
+  /\b(yes|yep|yeah|yup|ok|okay|sure|confirm(?:ed|ing|s|ation)?|sounds good|go ahead|proceed|approve(?:d|s)?|accept(?:ed|s)?|that works|works for me)\b/i;
 const NEGATED_CONFIRMATION_PATTERN =
-  /\b(?:not|never|don'?t|do not|can'?t|cannot|won'?t|unable)\b[^.!?\n]{0,30}\b(?:confirm(?:ed|ing|s)?|approve(?:d)?|work|make it)\b/i;
+  /\b(?:not|never|don'?t|do not|can'?t|cannot|won'?t|unable)\b[^.!?\n]{0,30}\b(?:confirm(?:ed|ing|s)?|approve(?:d)?|accept(?:ed|s)?|proceed|work|make it)\b/i;
 
 const CONFIRMATION_STATUS_TRANSITIONS = {
   "Awaiting Confirmation (Quote sent)": "Scheduled (Confirmed)",
@@ -391,14 +391,18 @@ const CONFIRMATION_STATUS_TRANSITIONS = {
   "Awaiting Install Confirmation": "Scheduled (Confirmed)",
 };
 
-function nextConfirmationStatus(currentStatus, body) {
+function hasConfirmationKeyword(body) {
   const text = String(body || "");
 
   if (!text || NEGATED_CONFIRMATION_PATTERN.test(text)) {
-    return "";
+    return false;
   }
 
-  if (!CONFIRMATION_PATTERN.test(text)) {
+  return CONFIRMATION_PATTERN.test(text);
+}
+
+function nextConfirmationStatus(currentStatus, body) {
+  if (!hasConfirmationKeyword(body)) {
     return "";
   }
 
@@ -407,10 +411,12 @@ function nextConfirmationStatus(currentStatus, body) {
   );
 }
 
-async function storeInboundCommunication(ref, entry) {
+async function storeEmailCommunication(ref, entry) {
   const db = getFirestore();
+  const isInbound = entry.direction === "inbound";
   let duplicate = false;
-  let nextStatus = "";
+  let oldStatus = "";
+  let newStatus = "";
 
   await db.runTransaction(async (transaction) => {
     const snapshot = await transaction.get(ref);
@@ -432,16 +438,30 @@ async function storeInboundCommunication(ref, entry) {
       return;
     }
 
-    nextStatus = nextConfirmationStatus(data.status, entry.body);
+    oldStatus = data.status || "";
+
+    // Only a customer's reply may auto-confirm an appointment; our own
+    // outgoing messages must never change the status.
+    if (isInbound) {
+      console.log('🔑 Keyword check:', {
+        body: String(entry.body || '').slice(0, 100),
+        hasConfirmKeyword: hasConfirmationKeyword(entry.body),
+      });
+
+      newStatus = nextConfirmationStatus(data.status, entry.body);
+    }
 
     const update = {
       communications: admin.firestore.FieldValue.arrayUnion(entry),
-      lastInboundEmailAt: admin.firestore.FieldValue.serverTimestamp(),
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
-    if (nextStatus) {
-      update.status = nextStatus;
+    if (isInbound) {
+      update.lastInboundEmailAt = admin.firestore.FieldValue.serverTimestamp();
+    }
+
+    if (newStatus) {
+      update.status = newStatus;
     }
 
     if (entry.threadId) {
@@ -453,7 +473,11 @@ async function storeInboundCommunication(ref, entry) {
     transaction.update(ref, update);
   });
 
-  return { duplicate, nextStatus };
+  if (newStatus) {
+    console.log('🔄 Status changed from', oldStatus, 'to', newStatus);
+  }
+
+  return { duplicate, nextStatus: newStatus };
 }
 
 // Enable CORS for your domain
@@ -644,8 +668,10 @@ app.post("/api/send-sms", async (req, res) => {
   }
 });
 
-// ✅ Gmail Pub/Sub push receiver for customer replies
+// ✅ Gmail Pub/Sub push receiver for customer replies and our own outbound mail
 app.post("/api/gmail-webhook", async (req, res) => {
+  console.log('🔔 Webhook received:', JSON.stringify(req.body));
+
   if (!isWebhookAuthorized(req)) {
     return res.status(401).json({ success: false, error: "Unauthorized" });
   }
@@ -662,41 +688,65 @@ app.post("/api/gmail-webhook", async (req, res) => {
     );
 
     if (!message) {
-      console.log("[📨 GMAIL WEBHOOK] No new inbox message found");
+      console.log("[📨 GMAIL WEBHOOK] No new message found");
       return res.status(200).json({ success: true });
     }
 
-    const labels = message.labelIds || [];
     const parsed = parseInboundEmail(message);
-    const mailbox = normalizeEmail(notification.emailAddress);
+    const mailbox = normalizeEmail(
+      notification.emailAddress ||
+        process.env.GMAIL_SENDER ||
+        process.env.EMAIL_USER
+    );
     const sender = normalizeEmail(parsed.fromAddress);
+    const direction =
+      sender && mailbox && sender === mailbox ? "outbound" : "inbound";
 
-    if (!sender || labels.includes("SENT") || (mailbox && sender === mailbox)) {
+    console.log('📧 Parsed email:', {
+      from: parsed.fromAddress,
+      subject: parsed.subject,
+      direction,
+      threadId: parsed.threadId,
+      bodyPreview: parsed.body.slice(0, 200),
+    });
+
+    if (!sender) {
       console.log(
-        `[📨 GMAIL WEBHOOK] Skipping outbound/self message ${parsed.messageId}`
+        `[📨 GMAIL WEBHOOK] Skipping message ${parsed.messageId} without a sender`
       );
       return res.status(200).json({ success: true });
     }
 
     console.log(
-      `[📨 GMAIL WEBHOOK] ${parsed.fromAddress} | "${parsed.subject}" | thread ${parsed.threadId}`
+      `[📨 GMAIL WEBHOOK] ${parsed.fromAddress} | "${parsed.subject}" | thread ${parsed.threadId} | ${direction}`
     );
 
+    // Our own outgoing copy has the business address as sender, so it can only
+    // be matched to an appointment through the Gmail thread it belongs to.
+    const matchAddress = direction === "inbound" ? parsed.fromAddress : "";
+    console.log('🔍 Matching appointment for email:', parsed.fromAddress);
+
     const appointment = await findAppointmentForEmail({
-      fromAddress: parsed.fromAddress,
+      fromAddress: matchAddress,
       threadId: parsed.threadId,
     });
 
     if (!appointment) {
-      console.log(
-        `[📨 GMAIL WEBHOOK] No appointment matched ${parsed.fromAddress}`
-      );
+      console.log('❌ No matching appointment found for:', parsed.fromAddress);
       return res.status(200).json({ success: true });
     }
 
+    const currentStatus = appointment.data()?.status || "";
+    console.log(
+      '✅ Matched appointment:',
+      appointment.id,
+      'Current status:',
+      currentStatus
+    );
+
     const entry = {
       type: "email",
-      direction: "inbound",
+      direction,
       dateSent: new Date(),
       subject: parsed.subject,
       body: parsed.body,
@@ -704,7 +754,7 @@ app.post("/api/gmail-webhook", async (req, res) => {
       threadId: parsed.threadId,
     };
 
-    const { duplicate, nextStatus } = await storeInboundCommunication(
+    const { duplicate, nextStatus } = await storeEmailCommunication(
       appointment.ref,
       entry
     );
@@ -715,7 +765,7 @@ app.post("/api/gmail-webhook", async (req, res) => {
       );
     } else {
       console.log(
-        `[📨 INBOUND EMAIL] ${parsed.fromAddress} -> appointments/${appointment.id}` +
+        `[📨 ${direction.toUpperCase()} EMAIL] ${parsed.fromAddress} -> appointments/${appointment.id}` +
           (nextStatus ? ` (status -> ${nextStatus})` : "")
       );
     }

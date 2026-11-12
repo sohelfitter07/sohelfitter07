@@ -241,7 +241,6 @@ async function listHistoryMessageIds(historyId) {
     const page = await gmailGet('/history', {
       startHistoryId: historyId,
       historyTypes: 'messageAdded',
-      labelId: 'INBOX',
       maxResults: 100,
       pageToken,
     });
@@ -281,13 +280,14 @@ async function fetchNewestMessage(messageIds) {
 }
 
 /**
- * Returns the newest INBOX message associated with a Pub/Sub historyId.
+ * Returns the newest message (inbox or sent) associated with a Pub/Sub
+ * historyId.
  *
  * Gmail's startHistoryId is exclusive, and the notification carries the new
  * mailbox historyId, so the lookup starts one step below it to include the
  * change that triggered the notification. If Gmail has already trimmed that
- * history range, fall back to the newest inbox message; the webhook
- * de-duplicates by message id.
+ * history range, fall back to the newest message; the webhook de-duplicates
+ * by message id.
  */
 async function fetchLatestMessageForHistory(historyId) {
   if (historyId) {
@@ -314,15 +314,12 @@ async function fetchLatestMessageForHistory(historyId) {
       }
 
       console.warn(
-        `[GMAIL] History ${startId} is no longer available; falling back to the newest inbox message`
+        `[GMAIL] History ${startId} is no longer available; falling back to the newest message`
       );
     }
   }
 
-  const latest = await gmailGet('/messages', {
-    maxResults: 5,
-    labelIds: 'INBOX',
-  });
+  const latest = await gmailGet('/messages', { maxResults: 5 });
 
   return fetchNewestMessage((latest.messages || []).map((item) => item.id));
 }
