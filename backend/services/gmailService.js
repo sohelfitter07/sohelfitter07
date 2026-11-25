@@ -201,7 +201,11 @@ async function gmailGet(endpoint, params = {}) {
   const url = new URL(`${GMAIL_API_BASE}${endpoint}`);
 
   for (const [key, value] of Object.entries(params)) {
-    if (value !== undefined && value !== null && value !== '') {
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        url.searchParams.append(key, String(item));
+      }
+    } else if (value !== undefined && value !== null && value !== '') {
       url.searchParams.set(key, String(value));
     }
   }
@@ -324,4 +328,47 @@ async function fetchLatestMessageForHistory(historyId) {
   return fetchNewestMessage((latest.messages || []).map((item) => item.id));
 }
 
-module.exports = { sendEmail, getAccessToken, fetchLatestMessageForHistory };
+async function searchMessageIds(query, { maxResults = 100 } = {}) {
+  const ids = [];
+  const seen = new Set();
+  let pageToken = '';
+
+  do {
+    const page = await gmailGet('/messages', {
+      q: query,
+      maxResults,
+      pageToken,
+    });
+
+    for (const message of page.messages || []) {
+      if (message.id && !seen.has(message.id)) {
+        seen.add(message.id);
+        ids.push(message.id);
+      }
+    }
+
+    pageToken = page.nextPageToken || '';
+  } while (pageToken);
+
+  return ids;
+}
+
+async function fetchMessage(messageId) {
+  return gmailGet(`/messages/${messageId}`, { format: 'full' });
+}
+
+async function fetchMessageMetadata(messageId) {
+  return gmailGet(`/messages/${messageId}`, {
+    format: 'metadata',
+    metadataHeaders: ['Subject', 'From'],
+  });
+}
+
+module.exports = {
+  sendEmail,
+  getAccessToken,
+  fetchLatestMessageForHistory,
+  searchMessageIds,
+  fetchMessage,
+  fetchMessageMetadata,
+};

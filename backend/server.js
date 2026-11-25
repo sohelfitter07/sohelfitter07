@@ -7,6 +7,7 @@ const express = require("express");
 const cors = require("cors");
 const admin = require("firebase-admin");
 const gmailService = require("./services/gmailService");
+const { parseEmailLead } = require("./services/leadEmailParser");
 const app = express();
 const port = process.env.PORT || 3001;
 const EMAIL_API_KEY =
@@ -377,6 +378,93 @@ async function findAppointmentForEmail({ fromAddress, threadId }) {
   });
 
   return ranked[0] || null;
+}
+
+function digitsOnly(value) {
+  return String(value || "").replace(/\D/g, "");
+}
+
+function phoneKey(value) {
+  const digits = digitsOnly(value);
+  return digits.length > 10 ? digits.slice(-10) : digits;
+}
+
+function nameKey(value) {
+  return String(value || "").trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function isSameLead(data, lead) {
+  const targetName = nameKey(lead.name);
+  const existingName = nameKey(data?.customer || data?.name || "");
+
+  if (!targetName || existingName !== targetName) {
+    return false;
+  }
+
+  const targetEmail = normalizeEmail(lead.email);
+  const targetPhone = phoneKey(lead.phone);
+  const emailMatches =
+    Boolean(targetEmail) && normalizeEmail(data?.email) === targetEmail;
+  const phoneMatches =
+    Boolean(targetPhone) && phoneKey(data?.phone) === targetPhone;
+
+  return emailMatches || phoneMatches;
+}
+
+async function findExistingLead(lead, cache) {
+  const appointments = getFirestore().collection("appointments");
+  const email = normalizeEmail(lead.email);
+  const phone = phoneKey(lead.phone);
+  const candidates = new Map();
+  const addDocs = (snapshot) =>
+    snapshot.docs.forEach((doc) => candidates.set(doc.id, doc.data() || {}));
+
+  if (email) {
+    const variants = [...new Set([String(lead.email).trim(), email])].filter(
+      Boolean
+    );
+    addDocs(
+      await appointments
+        .where("email", "in", variants.slice(0, 10))
+        .limit(25)
+        .get()
+    );
+  }
+
+  if (phone) {
+    const variants = [
+      ...new Set([String(lead.phone).trim(), digitsOnly(lead.phone), phone]),
+    ].filter(Boolean);
+    addDocs(
+      await appointments
+        .where("phone", "in", variants.slice(0, 10))
+        .limit(25)
+        .get()
+    );
+  }
+
+  for (const [id, data] of candidates) {
+    if (isSameLead(data, lead)) {
+      return { id, data };
+    }
+  }
+
+  // Emails and phone numbers are stored in mixed formats/casing on older
+  // records, so fall back to comparing a recent window of appointments.
+  if (!cache.recentSnapshot) {
+    cache.recentSnapshot = await appointments
+      .orderBy("date", "desc")
+      .limit(500)
+      .get();
+  }
+
+  for (const doc of cache.recentSnapshot.docs) {
+    if (isSameLead(doc.data() || {}, lead)) {
+      return { id: doc.id, data: doc.data() || {} };
+    }
+  }
+
+  return null;
 }
 
 const CONFIRMATION_PATTERN =
@@ -779,6 +867,156 @@ app.post("/api/gmail-webhook", async (req, res) => {
   }
 });
 
+// ✅ Recover quote/contact requests whose Gmail watch notification was missed
+app.post("/api/sync-missed-emails", requireEmailApiKey, async (req, res) => {
+  const query =
+    'subject:("New Quote Request" OR "New Contact Request") newer_than:14d';
+
+  try {
+    const messageIds = await gmailService.searchMessageIds(query);
+    const cache = { recentSnapshot: null };
+    const results = [];
+    let found = 0;
+    let created = 0;
+    let skipped = 0;
+    let failed = 0;
+
+    for (const messageId of messageIds) {
+      let metadata;
+
+      try {
+        metadata = await gmailService.fetchMessageMetadata(messageId);
+      } catch (error) {
+        console.warn(
+          `[📥 MISSED EMAIL SYNC] Could not read metadata for ${messageId}:`,
+          error.message
+        );
+        continue;
+      }
+
+      const subject = headerValue(metadata, "Subject");
+
+      // The search also matches replies ("Re: New Quote Request: ..."), so
+      // only original notification messages are processed.
+      if (!/^\s*New\s+(?:Quote|Contact)\s+Request\s*:/i.test(subject)) {
+        continue;
+      }
+
+      found += 1;
+
+      try {
+        const message = await gmailService.fetchMessage(messageId);
+        const parsed = parseInboundEmail(message);
+        const lead = parseEmailLead({
+          subject: parsed.subject || subject,
+          body: parsed.body,
+        });
+
+        if (!lead || !lead.name || (!lead.email && !lead.phone)) {
+          failed += 1;
+          results.push({
+            messageId,
+            subject: parsed.subject || subject,
+            status: "failed",
+            reason: "Could not extract a name plus an email or phone",
+          });
+          continue;
+        }
+
+        const existing = await findExistingLead(lead, cache);
+        if (existing) {
+          skipped += 1;
+          results.push({
+            messageId,
+            subject: parsed.subject || subject,
+            status: "skipped",
+            appointmentId: existing.id,
+          });
+          continue;
+        }
+
+        const sentAt = Number(message.internalDate);
+        const receivedAt =
+          Number.isFinite(sentAt) && sentAt > 0 ? new Date(sentAt) : new Date();
+
+        const docRef = await getFirestore().collection("appointments").add({
+          customer: lead.name,
+          phone: lead.phone,
+          email: lead.email,
+          carrier: "",
+          equipment: lead.equipment,
+          houseAddress: lead.address,
+          distanceFromShopKm: 0,
+          date: receivedAt,
+          basePrice: 0,
+          price: 0,
+          taxRate: 0.13,
+          issue: lead.issue,
+          status: lead.status,
+          repair_notes: "",
+          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+          createdBy: "gmail-sync",
+          confirmationSent: false,
+          confirmationSentAt: null,
+          lastStatusSent: "",
+          lastAttemptStatus: "",
+          reminderEnabled: false,
+          needsResend: false,
+          gmailThreadId: parsed.threadId || "",
+          sourceEmailMessageId: parsed.messageId || messageId,
+        });
+
+        created += 1;
+        results.push({
+          messageId,
+          subject: parsed.subject || subject,
+          status: "created",
+          type: lead.type,
+          appointmentId: docRef.id,
+        });
+
+        console.log(
+          `[📥 MISSED EMAIL SYNC] ${lead.name} (${lead.phone || lead.email}) -> appointments/${docRef.id} (${lead.status})`
+        );
+      } catch (error) {
+        failed += 1;
+        results.push({
+          messageId,
+          subject,
+          status: "failed",
+          reason: error.message,
+        });
+        console.warn(
+          `[📥 MISSED EMAIL SYNC] Failed to process ${messageId}:`,
+          error
+        );
+      }
+    }
+
+    console.log(
+      `[📥 MISSED EMAIL SYNC] scanned=${messageIds.length} found=${found} created=${created} skipped=${skipped} failed=${failed}`
+    );
+
+    return res.status(200).json({
+      success: true,
+      query,
+      scanned: messageIds.length,
+      found,
+      created,
+      skipped,
+      failed,
+      results,
+    });
+  } catch (error) {
+    console.error("[📥 MISSED EMAIL SYNC] Failed:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Failed to sync missed emails",
+      detail: error.message,
+    });
+  }
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
@@ -789,4 +1027,5 @@ app.listen(port, () => {
   console.log(`- POST /api/quote-request`);
   console.log(`- POST /api/send-sms`);
   console.log(`- POST /api/gmail-webhook`);
+  console.log(`- POST /api/sync-missed-emails`);
 });
